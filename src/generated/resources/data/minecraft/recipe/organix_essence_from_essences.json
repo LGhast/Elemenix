@@ -1,0 +1,39 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "A": {
+      "item": "elemenix:terrix_essence"
+    },
+    "B": {
+      "item": "elemenix:organix_essence"
+    },
+    "C": {
+      "item": "elemenix:energix_essence"
+    },
+    "D": {
+      "item": "minecraft:diamond"
+    },
+    "E": {
+      "item": "elemenix:metallix_essence"
+    },
+    "F": {
+      "item": "elemenix:arcanix_essence"
+    },
+    "G": {
+      "item": "elemenix:flumix_essence"
+    },
+    "N": {
+      "item": "minecraft:quartz"
+    }
+  },
+  "pattern": [
+    "ABC",
+    "NDN",
+    "EFG"
+  ],
+  "result": {
+    "count": 1,
+    "id": "elemenix:elemenic_analyzer"
+  }
+}

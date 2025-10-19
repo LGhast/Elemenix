@@ -1,0 +1,39 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "A": {
+      "item": "minecraft:flint"
+    },
+    "B": {
+      "item": "minecraft:wheat"
+    },
+    "C": {
+      "item": "minecraft:blaze_rod"
+    },
+    "D": {
+      "item": "minecraft:diamond"
+    },
+    "E": {
+      "item": "minecraft:gold_nugget"
+    },
+    "F": {
+      "item": "minecraft:ender_pearl"
+    },
+    "G": {
+      "item": "minecraft:snowball"
+    },
+    "N": {
+      "item": "minecraft:quartz"
+    }
+  },
+  "pattern": [
+    "ABC",
+    "NDN",
+    "EFG"
+  ],
+  "result": {
+    "count": 1,
+    "id": "elemenix:elemenic_analyzer"
+  }
+}

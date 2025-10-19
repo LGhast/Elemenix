@@ -1,0 +1,33 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "B": {
+      "item": "minecraft:sweet_berries"
+    },
+    "E": {
+      "item": "minecraft:egg"
+    },
+    "O": {
+      "item": "minecraft:orange_dye"
+    },
+    "P": {
+      "item": "minecraft:purple_dye"
+    },
+    "S": {
+      "item": "minecraft:sugar"
+    },
+    "W": {
+      "item": "minecraft:wheat"
+    }
+  },
+  "pattern": [
+    "SPS",
+    "EOE",
+    "WBW"
+  ],
+  "result": {
+    "count": 1,
+    "id": "elemenix:fondant_cake"
+  }
+}

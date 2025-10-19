@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_arcanix_essence": {
+      "conditions": {
+        "items": [
+          {
+            "items": "elemenix:arcanix_essenplex"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "elemenix:arcanix_essenplex"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_arcanix_essence"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "elemenix:arcanix_essenplex"
+    ]
+  }
+}

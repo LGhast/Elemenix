@@ -1,0 +1,28 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "elemenix:organix_essence"
+    },
+    {
+      "item": "elemenix:terrix_essence"
+    },
+    {
+      "item": "elemenix:flumix_essence"
+    },
+    {
+      "item": "elemenix:metallix_essence"
+    },
+    {
+      "item": "elemenix:energix_essence"
+    },
+    {
+      "item": "elemenix:arcanix_essence"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "elemenix:elemenic_equilibrium"
+  }
+}

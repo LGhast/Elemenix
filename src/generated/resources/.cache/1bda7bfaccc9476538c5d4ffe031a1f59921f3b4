@@ -1,0 +1,20 @@
+// 1.21.1	2025-10-18T21:48:29.3491987	Tags for minecraft:item mod id elemenix
+7319a4cda984d5476b3f7df30c38590ab4c0c4c8 data/elemenix/tags/item/analyzer_unrecordable.json
+002a1f0e0b109cd883572ac23180e47312fdd8bb data/elemenix/tags/item/big_flowers.json
+47f300d49d177398bdeb09deddc1ccdb34ba0a69 data/elemenix/tags/item/concrete.json
+8ffab0ba7c8e615bab0ecda82107ede8f4573422 data/elemenix/tags/item/concrete_powder.json
+359954125b14a5d65b3019dddbe9a4e38a093711 data/elemenix/tags/item/corals.json
+6296e48f2388495a9aff8b69db7c7dafc4ba451d data/elemenix/tags/item/coral_blocks.json
+e798ec36f80d47885d58f8a353d4bc7db1e9e5bd data/elemenix/tags/item/dead_corals.json
+a8e3cdd07707862c9287a13bbcb1ad927c21bde8 data/elemenix/tags/item/dead_coral_blocks.json
+f447b7a41d4f0a30a37d2ca0255a43404cb37f24 data/elemenix/tags/item/dyed_beds.json
+c9783bd9d4d6307eb46ee43ca43c6102e8ad53bd data/elemenix/tags/item/dyed_shulker_boxes.json
+f318dceccf8a2bc5ae00b161f0bbd47cb616403d data/elemenix/tags/item/dyed_wools.json
+c2780400e2740aa6cafa285d6f00be48fbbd3304 data/elemenix/tags/item/eggs_with_terrix_shell.json
+fcb8476625195d2351238f217849450d2e531edf data/elemenix/tags/item/elemenic_transformers.json
+f87f77226de93815712346dc3d0667caadf84128 data/elemenix/tags/item/essences.json
+ee2387014a0e77b1a5e2cbf21393c351832f3345 data/elemenix/tags/item/froglights.json
+59d66b647bae069ce11497050df8fd5302d5c6f2 data/elemenix/tags/item/infested_stones.json
+17e4db66c0c4a67ed62b5d6738584e74d830d749 data/elemenix/tags/item/memorizer_slot_placeable.json
+9a685763379a479876959ccdd0b1688a5897c4e3 data/elemenix/tags/item/vinyl_discs.json
+743a8032be2566d2fe1bc098b29df300d1f514d8 data/forge/tags/item/eggs.json

@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=north": {
+      "model": "elemenix:block/germinal_accelerator"
+    },
+    "facing=east": {
+      "model": "elemenix:block/germinal_accelerator",
+      "y": 90
+    },
+    "facing=south": {
+      "model": "elemenix:block/germinal_accelerator",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "elemenix:block/germinal_accelerator",
+      "y": 270
+    }
+  }
+}

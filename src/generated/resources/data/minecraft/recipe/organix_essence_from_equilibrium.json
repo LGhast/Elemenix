@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "minecraft:diamond"
+    },
+    {
+      "item": "minecraft:quartz"
+    },
+    {
+      "item": "minecraft:quartz"
+    },
+    {
+      "item": "elemenix:elemenic_equilibrium"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "elemenix:elemenic_analyzer"
+  }
+}

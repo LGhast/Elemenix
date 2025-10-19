@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=north": {
+      "model": "elemenix:block/transpiring_incinerator"
+    },
+    "facing=east": {
+      "model": "elemenix:block/transpiring_incinerator",
+      "y": 90
+    },
+    "facing=south": {
+      "model": "elemenix:block/transpiring_incinerator",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "elemenix:block/transpiring_incinerator",
+      "y": 270
+    }
+  }
+}
