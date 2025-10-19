@@ -1,0 +1,34 @@
+package net.lghast.elemenix.datagen;
+
+import net.lghast.elemenix.ElemenixAnalyzer;
+import net.lghast.elemenix.register.content.ModItems;
+import net.minecraft.data.PackOutput;
+import net.neoforged.neoforge.client.model.generators.ItemModelProvider;
+import net.neoforged.neoforge.common.data.ExistingFileHelper;
+
+public class ModItemModelProvider extends ItemModelProvider {
+
+    public ModItemModelProvider(PackOutput output, ExistingFileHelper existingFileHelper) {
+        super(output, ElemenixAnalyzer.MOD_ID, existingFileHelper);
+    }
+
+    @Override
+    protected void registerModels() {
+        basicItem(ModItems.ELEMENIC_ANALYZER.get());
+        basicItem(ModItems.ELEMENIC_MEMORIZER.get());
+        basicItem(ModItems.FONDANT_CAKE.get());
+        basicItem(ModItems.ORGANIX_ESSENCE.get());
+        basicItem(ModItems.TERRIX_ESSENCE.get());
+        basicItem(ModItems.FLUMIX_ESSENCE.get());
+        basicItem(ModItems.METALLIX_ESSENCE.get());
+        basicItem(ModItems.ENERGIX_ESSENCE.get());
+        basicItem(ModItems.ARCANIX_ESSENCE.get());
+        basicItem(ModItems.ELEMENIC_EQUILIBRIUM.get());
+        basicItem(ModItems.ORGANIX_ESSENPLEX.get());
+        basicItem(ModItems.TERRIX_ESSENPLEX.get());
+        basicItem(ModItems.FLUMIX_ESSENPLEX.get());
+        basicItem(ModItems.METALLIX_ESSENPLEX.get());
+        basicItem(ModItems.ENERGIX_ESSENPLEX.get());
+        basicItem(ModItems.ARCANIX_ESSENPLEX.get());
+    }
+}

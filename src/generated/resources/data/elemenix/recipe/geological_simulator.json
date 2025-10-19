@@ -1,0 +1,33 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "A": {
+      "item": "elemenix:metallix_essence"
+    },
+    "B": {
+      "item": "elemenix:terrix_essence"
+    },
+    "C": {
+      "item": "elemenix:flumix_essence"
+    },
+    "I": {
+      "item": "minecraft:iron_ingot"
+    },
+    "N": {
+      "item": "minecraft:netherite_scrap"
+    },
+    "R": {
+      "item": "minecraft:redstone"
+    }
+  },
+  "pattern": [
+    "IRI",
+    "ABC",
+    "INI"
+  ],
+  "result": {
+    "count": 1,
+    "id": "elemenix:geological_simulator"
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_organix_essence": {
+      "conditions": {
+        "items": [
+          {
+            "items": "elemenix:organix_essenplex"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "elemenix:organix_essenplex"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_organix_essence"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "elemenix:organix_essenplex"
+    ]
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_metallix_essence": {
+      "conditions": {
+        "items": [
+          {
+            "items": "elemenix:metallix_essenplex"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "elemenix:metallix_essenplex"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_metallix_essence"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "elemenix:metallix_essenplex"
+    ]
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=north": {
+      "model": "elemenix:block/optical_capturer"
+    },
+    "facing=east": {
+      "model": "elemenix:block/optical_capturer",
+      "y": 90
+    },
+    "facing=south": {
+      "model": "elemenix:block/optical_capturer",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "elemenix:block/optical_capturer",
+      "y": 270
+    }
+  }
+}
