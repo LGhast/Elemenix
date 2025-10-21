@@ -41,9 +41,9 @@ public class TransformerMenu extends AbstractContainerMenu {
             @Override
             public int get(int index) {
                 return switch (index) {
-                    case 0 -> (int) Math.min(blockEntity.getInputA(), Integer.MAX_VALUE);
-                    case 1 -> (int) Math.min(blockEntity.getInputB(), Integer.MAX_VALUE);
-                    case 2 -> (int) Math.min(blockEntity.getOutputC(), Integer.MAX_VALUE);
+                    case 0 -> blockEntity.getInputA();
+                    case 1 -> blockEntity.getInputB();
+                    case 2 -> blockEntity.getOutputC();
                     default -> 0;
                 };
             }
@@ -79,7 +79,7 @@ public class TransformerMenu extends AbstractContainerMenu {
                 if (block == null) return false;
 
                 Constituents constituents = ElemenixInfo.getConstituents(stack);
-                return constituents.isPure(block.getInputTypeA());
+                return constituents.isPure(block.getInputElemenixA());
             }
         });
 
@@ -90,7 +90,7 @@ public class TransformerMenu extends AbstractContainerMenu {
                 if (block == null) return false;
 
                 Constituents constituents = ElemenixInfo.getConstituents(stack);
-                return constituents.isPure(block.getInputTypeB());
+                return constituents.isPure(block.getInputElemenixB());
             }
         });
 

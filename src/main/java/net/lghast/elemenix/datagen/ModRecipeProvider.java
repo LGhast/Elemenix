@@ -195,6 +195,18 @@ public class ModRecipeProvider extends RecipeProvider {
                 .unlockedBy("has_energix_essence", has(ModItems.ENERGIX_ESSENCE))
                 .save(recipeOutput);
 
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ModBlocks.ELEMENIC_INFUSER.get(), 1)
+                .pattern("IHI")
+                .pattern("RAR")
+                .pattern("INI")
+                .define('I', Items.IRON_INGOT)
+                .define('R', Items.REDSTONE_LAMP)
+                .define('N', Items.NETHERITE_SCRAP)
+                .define('H', Items.HOPPER)
+                .define('A', ModItems.ELEMENIC_ANALYZER)
+                .unlockedBy("has_elemenic_analyzer", has(ModItems.ELEMENIC_ANALYZER))
+                .save(recipeOutput);
+
         ShapedRecipeBuilder.shaped(RecipeCategory.FOOD, ModItems.FONDANT_CAKE.get(), 1)
                 .pattern("SPS")
                 .pattern("EOE")

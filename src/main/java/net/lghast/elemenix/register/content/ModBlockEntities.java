@@ -1,6 +1,7 @@
 package net.lghast.elemenix.register.content;
 
 import net.lghast.elemenix.ElemenixAnalyzer;
+import net.lghast.elemenix.common.content.blockentity.InfuserBlockEntity;
 import net.lghast.elemenix.common.content.blockentity.TransformerBlockEntity;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -22,6 +23,15 @@ public class ModBlockEntities {
                             ModBlocks.GERMINAL_ACCELERATOR.get(),
                             ModBlocks.TRANSPIRING_INCINERATOR.get(),
                             ModBlocks.OPTICAL_CAPTURER.get()
+                    )
+                    .build(null)
+    );
+
+    public static final Supplier<BlockEntityType<InfuserBlockEntity>> INFUSER = BLOCK_ENTITY_TYPES.register(
+            "elemenic_infuser",
+            () -> BlockEntityType.Builder.of(
+                            InfuserBlockEntity::new,
+                            ModBlocks.ELEMENIC_INFUSER.get()
                     )
                     .build(null)
     );

@@ -10,6 +10,30 @@ public class ServerConfig {
     public static final ModConfigSpec SPEC;
 
     public static ModConfigSpec.ConfigValue<List<? extends String>> ELEMENIX_MAPPINGS;
+    public static ModConfigSpec.IntValue GS_CONSUMPTION;
+    public static ModConfigSpec.IntValue GS_PRODUCTION;
+    public static ModConfigSpec.IntValue GS_DC_INTERVAL;
+    public static ModConfigSpec.IntValue GS_RC_INTERVAL;
+
+    public static ModConfigSpec.IntValue MA_CONSUMPTION;
+    public static ModConfigSpec.IntValue MA_PRODUCTION;
+    public static ModConfigSpec.IntValue MA_DC_INTERVAL;
+    public static ModConfigSpec.IntValue MA_RC_INTERVAL;
+
+    public static ModConfigSpec.IntValue GA_CONSUMPTION;
+    public static ModConfigSpec.IntValue GA_PRODUCTION;
+    public static ModConfigSpec.IntValue GA_DC_INTERVAL;
+    public static ModConfigSpec.IntValue GA_RC_INTERVAL;
+
+    public static ModConfigSpec.IntValue TI_CONSUMPTION;
+    public static ModConfigSpec.IntValue TI_PRODUCTION;
+    public static ModConfigSpec.IntValue TI_DC_INTERVAL;
+    public static ModConfigSpec.IntValue TI_RC_INTERVAL;
+
+    public static ModConfigSpec.IntValue OC_CONSUMPTION;
+    public static ModConfigSpec.IntValue OC_PRODUCTION;
+    public static ModConfigSpec.IntValue OC_DC_INTERVAL;
+    public static ModConfigSpec.IntValue OC_RC_INTERVAL;
 
     static {
         BUILDER.push("核心内容 Core Content");
@@ -25,6 +49,95 @@ public class ServerConfig {
                         null,
                         it -> it instanceof String && ((String) it).matches("#?[a-z_:]+,[0-9]+,[0-9]+,[0-9]+,[0-9]+,[0-9]+,[0-9]+")
                 );
+
+        BUILDER.pop();
+
+        BUILDER.push("元质转换仪 Elemenic Transformers");
+
+        GS_CONSUMPTION = BUILDER
+                .comment("地质模拟仪每次消耗输入元质的量")
+                .comment("Amount of input elemenix consumed per operation by the Geological Simulator")
+                .defineInRange("geological_simulator_consumption", 72, 1, Integer.MAX_VALUE);
+        GS_PRODUCTION = BUILDER
+                .comment("地质模拟仪每次转化产生元质的量")
+                .comment("Amount of elemenix produced per transformation by the Geological Simulator")
+                .defineInRange("geological_simulator_production", 72, 1, Integer.MAX_VALUE);
+        GS_DC_INTERVAL = BUILDER
+                .comment("地质模拟仪解构输入物品的时间间隔（刻）")
+                .comment("Time interval (in ticks) for the Geological Simulator to deconstruct input items")
+                .defineInRange("geological_simulator_dc_interval", 20, 1, Integer.MAX_VALUE);
+        GS_RC_INTERVAL = BUILDER
+                .comment("地质模拟仪重构输出物品的时间间隔（刻）")
+                .comment("Time interval (in ticks) for the Geological Simulator to reconstruct output items")
+                .defineInRange("geological_simulator_rc_interval", 15, 1, Integer.MAX_VALUE);
+
+        MA_CONSUMPTION = BUILDER
+                .comment("激化锻冶仪每次消耗输入元质的量")
+                .comment("Amount of input elemenix consumed per operation by the Metallurgical Activator")
+                .defineInRange("metallurgical_activator_consumption", 72, 1, Integer.MAX_VALUE);
+        MA_PRODUCTION = BUILDER
+                .comment("激化锻冶仪每次转化产生元质的量")
+                .comment("Amount of elemenix produced per transformation by the Metallurgical Activator")
+                .defineInRange("metallurgical_activator_production", 72, 1, Integer.MAX_VALUE);
+        MA_DC_INTERVAL = BUILDER
+                .comment("激化锻冶仪解构输入物品的时间间隔（刻）")
+                .comment("Time interval (in ticks) for the Metallurgical Activator to deconstruct input items")
+                .defineInRange("metallurgical_activator_dc_interval", 20, 1, Integer.MAX_VALUE);
+        MA_RC_INTERVAL = BUILDER
+                .comment("激化锻冶仪重构输出物品的时间间隔（刻）")
+                .comment("Time interval (in ticks) for the Metallurgical Activator to reconstruct output items")
+                .defineInRange("metallurgical_activator_rc_interval", 15, 1, Integer.MAX_VALUE);
+
+        GA_CONSUMPTION = BUILDER
+                .comment("蕃孕加速仪每次消耗输入元质的量")
+                .comment("Amount of input elemenix consumed per operation by the Germinal Accelerator")
+                .defineInRange("germinal_accelerator_consumption", 72, 1, Integer.MAX_VALUE);
+        GA_PRODUCTION = BUILDER
+                .comment("蕃孕加速仪每次转化产生元质的量")
+                .comment("Amount of elemenix produced per transformation by the Germinal Accelerator")
+                .defineInRange("germinal_accelerator_production", 72, 1, Integer.MAX_VALUE);
+        GA_DC_INTERVAL = BUILDER
+                .comment("蕃孕加速仪解构输入物品的时间间隔（刻）")
+                .comment("Time interval (in ticks) for the Germinal Accelerator to deconstruct input items")
+                .defineInRange("germinal_accelerator_dc_interval", 20, 1, Integer.MAX_VALUE);
+        GA_RC_INTERVAL = BUILDER
+                .comment("蕃孕加速仪重构输出物品的时间间隔（刻）")
+                .comment("Time interval (in ticks) for the Germinal Accelerator to reconstruct output items")
+                .defineInRange("germinal_accelerator_rc_interval", 15, 1, Integer.MAX_VALUE);
+
+        TI_CONSUMPTION = BUILDER
+                .comment("蒸腾焚化仪每次消耗输入元质的量")
+                .comment("Amount of input elemenix consumed per operation by the Transpiring Incinerator")
+                .defineInRange("transpiring_incinerator_consumption", 72, 1, Integer.MAX_VALUE);
+        TI_PRODUCTION = BUILDER
+                .comment("蒸腾焚化仪每次转化产生元质的量")
+                .comment("Amount of elemenix produced per transformation by the Transpiring Incinerator")
+                .defineInRange("transpiring_incinerator_production", 72, 1, Integer.MAX_VALUE);
+        TI_DC_INTERVAL = BUILDER
+                .comment("蒸腾焚化仪解构输入物品的时间间隔（刻）")
+                .comment("Time interval (in ticks) for the Transpiring Incinerator to deconstruct input items")
+                .defineInRange("transpiring_incinerator_dc_interval", 20, 1, Integer.MAX_VALUE);
+        TI_RC_INTERVAL = BUILDER
+                .comment("蒸腾焚化仪重构输出物品的时间间隔（刻）")
+                .comment("Time interval (in ticks) for the Transpiring Incinerator to reconstruct output items")
+                .defineInRange("transpiring_incinerator_rc_interval", 15, 1, Integer.MAX_VALUE);
+
+        OC_CONSUMPTION = BUILDER
+                .comment("光能捕获仪每次消耗输入元质的量")
+                .comment("Amount of input elemenix consumed per operation by the Optical Capturer")
+                .defineInRange("optical_capturer_consumption", 72, 1, Integer.MAX_VALUE);
+        OC_PRODUCTION = BUILDER
+                .comment("光能捕获仪每次转化产生元质的量")
+                .comment("Amount of elemenix produced per transformation by the Optical Capturer")
+                .defineInRange("optical_capturer_production", 72, 1, Integer.MAX_VALUE);
+        OC_DC_INTERVAL = BUILDER
+                .comment("光能捕获仪解构输入物品的时间间隔（刻）")
+                .comment("Time interval (in ticks) for the Optical Capturer to deconstruct input items")
+                .defineInRange("optical_capturer_dc_interval", 30, 1, Integer.MAX_VALUE);
+        OC_RC_INTERVAL = BUILDER
+                .comment("光能捕获仪重构输出物品的时间间隔（刻）")
+                .comment("Time interval (in ticks) for the Optical Capturer to reconstruct output items")
+                .defineInRange("optical_capturer_rc_interval", 23, 1, Integer.MAX_VALUE);
 
         BUILDER.pop();
 

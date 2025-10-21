@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "working=false": {
+      "model": "elemenix:block/elemenic_infuser"
+    },
+    "working=true": {
+      "model": "elemenix:block/elemenic_infuser_working"
+    }
+  }
+}

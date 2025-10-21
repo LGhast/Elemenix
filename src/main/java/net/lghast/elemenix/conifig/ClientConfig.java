@@ -9,14 +9,14 @@ public class ClientConfig {
     public static final ModConfigSpec.Builder BUILDER = new ModConfigSpec.Builder();
     public static final ModConfigSpec SPEC;
 
-    public static ModConfigSpec.ConfigValue<Boolean> DIGIT_GROUPING_BY_FOURS;
+    public static ModConfigSpec.BooleanValue DIGIT_GROUPING_BY_FOURS;
 
-    public static ModConfigSpec.ConfigValue<Boolean> SHOW_CONSTITUENT_TOOLTIPS;
-    public static ModConfigSpec.ConfigValue<Boolean> SHOW_UNANALYSABLE_TOOLTIPS;
-    public static ModConfigSpec.ConfigValue<Boolean> SHOW_MEMORY_TOOLTIPS;
-    public static ModConfigSpec.ConfigValue<Boolean> SHOW_READONLY_TOOLTIPS;
-    public static ModConfigSpec.ConfigValue<Boolean> SHOW_STORAGE_TOOLTIPS;
-    public static ModConfigSpec.ConfigValue<Boolean> SHOW_ANALYZER_UUID_TOOLTIPS;
+    public static ModConfigSpec.BooleanValue SHOW_CONSTITUENT_TOOLTIPS;
+    public static ModConfigSpec.BooleanValue SHOW_UNANALYSABLE_TOOLTIPS;
+    public static ModConfigSpec.BooleanValue SHOW_MEMORY_TOOLTIPS;
+    public static ModConfigSpec.BooleanValue SHOW_READONLY_TOOLTIPS;
+    public static ModConfigSpec.BooleanValue SHOW_STORAGE_TOOLTIPS;
+    public static ModConfigSpec.BooleanValue SHOW_ANALYZER_UUID_TOOLTIPS;
 
     static {
         BUILDER.push("提示信息配置 Tooltip Configurations");

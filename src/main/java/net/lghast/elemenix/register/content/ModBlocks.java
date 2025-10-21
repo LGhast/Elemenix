@@ -35,6 +35,9 @@ public class ModBlocks {
     public static final DeferredBlock<Block> OPTICAL_CAPTURER = registerBlock("optical_capturer",
             ()-> new OpticalCapturerBlock(BlockBehaviour.Properties.of()));
 
+    public static final DeferredBlock<Block> ELEMENIC_INFUSER = registerBlock("elemenic_infuser",
+            ()-> new InfuserBlock(BlockBehaviour.Properties.of()));
+
     private static <T extends Block> DeferredBlock<T> registerBlock(String name, Supplier<T> block){
         DeferredBlock<T> toReturn = BLOCKS.register(name,block);
         registerBlockItem(name,toReturn);

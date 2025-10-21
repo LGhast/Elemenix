@@ -1,8 +1,11 @@
 package net.lghast.elemenix.client.screen;
 
+import net.lghast.elemenix.common.content.block.InfuserBlock;
 import net.lghast.elemenix.common.content.block.TransformerBlock;
+import net.lghast.elemenix.common.content.blockentity.InfuserBlockEntity;
 import net.lghast.elemenix.common.content.blockentity.TransformerBlockEntity;
-import net.lghast.elemenix.common.system.menu.TransformerMenu;
+import net.lghast.elemenix.common.system.menu.InfuserMenu;
+import net.lghast.elemenix.utils.Elemenix;
 import net.lghast.elemenix.utils.ModUtils;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
@@ -14,22 +17,21 @@ import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
-public class TransformerScreen extends AbstractContainerScreen<TransformerMenu> {
+public class InfuserScreen extends AbstractContainerScreen<InfuserMenu> {
     private static final int GUI_WIDTH = 176;
     private static final int GUI_HEIGHT = 170;
     private static final int TITLE_X = 6;
     private static final int TITLE_Y = 6;
 
-    private final ResourceLocation guiTexture;
+    private final ResourceLocation guiTexture = ResourceLocation.fromNamespaceAndPath("elemenix", "textures/gui/elemenic_infuser.png");;
 
-    public TransformerScreen(TransformerMenu menu, Inventory inventory, Component title) {
+    public InfuserScreen(InfuserMenu menu, Inventory inventory, Component title) {
         super(menu, inventory, title);
         this.imageWidth = GUI_WIDTH;
         this.imageHeight = GUI_HEIGHT;
         this.inventoryLabelY = 10000;
         this.titleLabelY = TITLE_Y;
         this.titleLabelX = TITLE_X;
-        this.guiTexture = menu.getGuiTexture();
     }
 
     @Override
@@ -47,24 +49,23 @@ public class TransformerScreen extends AbstractContainerScreen<TransformerMenu> 
     }
 
     private void renderElemenixValues(GuiGraphics graphics, int x, int y) {
-        TransformerBlockEntity blockEntity = menu.getBlockEntity();
+        InfuserBlockEntity blockEntity = menu.getBlockEntity();
         if (blockEntity == null) return;
 
         BlockState state = blockEntity.getBlockState();
-        if (!(state.getBlock() instanceof TransformerBlock block)) return;
+        if (!(state.getBlock() instanceof InfuserBlock)) return;
 
-        long inputA = menu.getInputA();
-        long inputB = menu.getInputB();
-        long outputC = menu.getOutputC();
+        int[] storage = menu.getStorage();
+        if(storage == null || storage.length != 6) return;
 
-        String textA = ModUtils.formatNumber(inputA);
-        graphics.drawString(this.font, textA, x + 77, y + 26, block.getInputElemenixA().getColor(), false);
-
-        String textB = ModUtils.formatNumber(inputB);
-        graphics.drawString(this.font, textB, x + 77, y + 44, block.getInputElemenixB().getColor(), false);
-
-        String textC = ModUtils.formatNumber(outputC);
-        graphics.drawString(this.font, textC, x + 77, y + 68, block.getOutputElemenix().getColor(), false);
+        for(int i = 0; i<=2; i++){
+            String text = ModUtils.formatNumber(storage[i]);
+            graphics.drawString(this.font, text, x + 27, y + 41 + i * 14, Elemenix.values()[i].getColor(), false);
+        }
+        for(int i = 3; i<=5; i++){
+            String text = ModUtils.formatNumber(storage[i]);
+            graphics.drawString(this.font, text, x + 109, y + 41 + (i-3) * 14, Elemenix.values()[i].getColor(), false);
+        }
     }
 
     @Override

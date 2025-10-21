@@ -60,6 +60,22 @@ public class ModUtils {
         return text.substring(0, bestPos).trim() + ellipsis;
     }
 
+    public static int safeAdd(int a, int b) {
+        try {
+            return Math.addExact(a, b);
+        } catch (ArithmeticException e) {
+            return Integer.MAX_VALUE;
+        }
+    }
+
+    public static long safeAdd(long a, long b) {
+        try {
+            return Math.addExact(a, b);
+        } catch (ArithmeticException e) {
+            return Long.MAX_VALUE;
+        }
+    }
+
     public static String formatNumber(long value) {
         if(ClientConfig.DIGIT_GROUPING_BY_FOURS.get()){
             return formatByFourGroups(value);

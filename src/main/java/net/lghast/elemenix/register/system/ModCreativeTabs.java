@@ -41,6 +41,7 @@ public class ModCreativeTabs {
                         output.accept(ModBlocks.GERMINAL_ACCELERATOR);
                         output.accept(ModBlocks.TRANSPIRING_INCINERATOR);
                         output.accept(ModBlocks.OPTICAL_CAPTURER);
+                        output.accept(ModBlocks.ELEMENIC_INFUSER);
                     }).build());
 
     public static void register(IEventBus eventBus){

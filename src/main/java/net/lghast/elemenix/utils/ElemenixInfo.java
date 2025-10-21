@@ -26,13 +26,14 @@ public class ElemenixInfo {
     private static void initialize() {
         if (isInitialized) return;
 
-        handleMap(ELEMENIX_MAP);
         if(ADDITIONAL_MAP.isEmpty()){
             reloadFromConfig();
         }
         handleMap(ADDITIONAL_MAP);
 
         loadModMappings();
+
+        handleMap(ELEMENIX_MAP);
 
         isInitialized = true;
     }
@@ -83,13 +84,17 @@ public class ElemenixInfo {
         Constituents directConstituents = ITEM_CACHE.get(item);
         if (directConstituents != null) return directConstituents;
 
+        List<Map.Entry<TagKey<Item>, Constituents>> matchingTags = new ArrayList<>();
         for (Map.Entry<TagKey<Item>, Constituents> entry : TAG_MAP.entrySet()) {
             if (item.getDefaultInstance().is(entry.getKey())) {
-
-                Constituents tagConstituents = entry.getValue();
-                ITEM_CACHE.put(item, tagConstituents);
-                return tagConstituents;
+                matchingTags.add(entry);
             }
+        }
+        
+        if (!matchingTags.isEmpty()) {
+            Constituents tagConstituents = getConstituentsFromBestTag(matchingTags);
+            ITEM_CACHE.put(item, tagConstituents);
+            return tagConstituents;
         }
 
         if (CALCULATING_ITEMS.contains(item)) {
@@ -109,6 +114,21 @@ public class ElemenixInfo {
         }
 
         return new Constituents(true);
+    }
+
+    private static Constituents getConstituentsFromBestTag(List<Map.Entry<TagKey<Item>, Constituents>> matchingTags) {
+        Map.Entry<TagKey<Item>, Constituents> bestMatch = matchingTags.getFirst();
+
+        if (matchingTags.size() > 1) {
+            for (int i = 1; i < matchingTags.size(); i++) {
+                Map.Entry<TagKey<Item>, Constituents> current = matchingTags.get(i);
+                if (current.getValue().getSum() > bestMatch.getValue().getSum()) {
+                    bestMatch = current;
+                }
+            }
+        }
+
+        return bestMatch.getValue();
     }
 
     private static void loadModMappings() {

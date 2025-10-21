@@ -1,5 +1,8 @@
 package net.lghast.elemenix.common.content.block;
 
+import com.mojang.serialization.MapCodec;
+import net.lghast.elemenix.common.content.blockentity.InfuserBlockEntity;
+import net.lghast.elemenix.common.content.blockentity.InfuserBlockEntity;
 import net.lghast.elemenix.common.content.blockentity.TransformerBlockEntity;
 import net.lghast.elemenix.register.content.ModBlockEntities;
 import net.lghast.elemenix.utils.Elemenix;
@@ -14,10 +17,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.BaseEntityBlock;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.RenderShape;
-import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -34,33 +34,33 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 
 import javax.annotation.Nullable;
 
-public abstract class TransformerBlock extends BaseEntityBlock {
-    public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
+public class InfuserBlock extends BaseEntityBlock {
+    public static final MapCodec<InfuserBlock> CODEC = simpleCodec(InfuserBlock::new);
     public static final BooleanProperty WORKING = BooleanProperty.create("working");
 
     private static final VoxelShape COLLISION_SHAPE = Shapes.or(
-            Block.box(1.0, 0.0, 1.0, 15.0, 3.0, 15.0),
-            Block.box(5.0, 3.0, 5.0, 11.0, 16.0, 11.0)
+            Block.box(0.0, 0.0, 0.0, 16.0, 16.0, 16.0)
     );
 
-    public TransformerBlock(Properties properties) {
-        super(properties.mapColor(MapColor.METAL).sound(SoundType.GLASS).strength(2.0f,3.0f).requiresCorrectToolForDrops()
-                .lightLevel(state -> state.getValue(WORKING) ? 4 : 1));
-        this.registerDefaultState(this.stateDefinition.any()
-                .setValue(FACING, Direction.NORTH)
-                .setValue(WORKING, false));
+    public InfuserBlock(Properties properties) {
+        super(properties.mapColor(MapColor.METAL).sound(SoundType.METAL).strength(3.5f).requiresCorrectToolForDrops()
+                .lightLevel(state -> state.getValue(WORKING) ? 6 : 0));
+        this.registerDefaultState(this.stateDefinition.any().setValue(WORKING, false));
+    }
+
+    @Override
+    protected MapCodec<? extends BaseEntityBlock> codec() {
+        return CODEC;
     }
 
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-        builder.add(FACING, WORKING);
+        builder.add(WORKING);
     }
 
     @Override
     public BlockState getStateForPlacement(BlockPlaceContext context) {
-        return this.defaultBlockState()
-                .setValue(FACING, context.getHorizontalDirection().getOpposite())
-                .setValue(WORKING, false);
+        return this.defaultBlockState().setValue(WORKING, false);
     }
 
     @Override
@@ -80,11 +80,8 @@ public abstract class TransformerBlock extends BaseEntityBlock {
 
     @Override
     protected InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hitResult) {
-        if (!level.isClientSide && level.getBlockEntity(pos) instanceof TransformerBlockEntity blockEntity) {
-            player.openMenu(blockEntity, buf -> {
-                buf.writeBlockPos(pos);
-                buf.writeResourceLocation(getGuiTexture());
-            });
+        if (!level.isClientSide && level.getBlockEntity(pos) instanceof InfuserBlockEntity blockEntity) {
+            player.openMenu(blockEntity, pos);
             return InteractionResult.SUCCESS;
         }
         return InteractionResult.SUCCESS;
@@ -94,12 +91,18 @@ public abstract class TransformerBlock extends BaseEntityBlock {
     protected void onRemove(BlockState state, Level level, BlockPos pos, BlockState newState, boolean movedByPiston) {
         if (!state.is(newState.getBlock())) {
             BlockEntity blockentity = level.getBlockEntity(pos);
-            if (blockentity instanceof TransformerBlockEntity) {
-                Containers.dropContents(level, pos, (TransformerBlockEntity)blockentity);
+            if (blockentity instanceof InfuserBlockEntity) {
+                Containers.dropContents(level, pos, (InfuserBlockEntity)blockentity);
                 level.updateNeighbourForOutputSignal(pos, this);
             }
             super.onRemove(state, level, pos, newState, movedByPiston);
         }
+    }
+
+    @org.jetbrains.annotations.Nullable
+    @Override
+    public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
+        return new InfuserBlockEntity(pos, state);
     }
 
     @Override
@@ -108,7 +111,7 @@ public abstract class TransformerBlock extends BaseEntityBlock {
         if (level.isClientSide) {
             return null;
         }
-        return createTickerHelper(blockEntityType, ModBlockEntities.TRANSFORMER.get(),
+        return createTickerHelper(blockEntityType, ModBlockEntities.INFUSER.get(),
                 (level1, pos, state1, blockEntity) -> blockEntity.tick(level1, pos, state1, blockEntity));
     }
 
@@ -118,16 +121,15 @@ public abstract class TransformerBlock extends BaseEntityBlock {
         return targetType == type ? (BlockEntityTicker<A>) ticker : null;
     }
 
-    public abstract Elemenix getInputElemenixA();
-    public abstract Elemenix getInputElemenixB();
-    public abstract Elemenix getOutputElemenix();
-    public abstract Item getOutputItem();
-    public abstract int getConsumptionA();
-    public abstract int getConsumptionB();
-    public abstract int getProduction();
-    public abstract int getRcRequirement();
-    public abstract int getDcInterval();
-    public abstract int getRcInterval();
-    public abstract ResourceLocation getGuiTexture();
-    public abstract Component getGuiTitle();
+    public int getDcInterval(){
+        return 20;
+    };
+
+    public int getInfusionInterval(){
+        return 20;
+    };
+
+    public int getMaxInfusion(){
+        return 486;
+    };
 }

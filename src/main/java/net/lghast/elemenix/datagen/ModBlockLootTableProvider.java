@@ -20,6 +20,7 @@ public class ModBlockLootTableProvider extends BlockLootSubProvider {
         dropSelf(ModBlocks.GERMINAL_ACCELERATOR.get());
         dropSelf(ModBlocks.TRANSPIRING_INCINERATOR.get());
         dropSelf(ModBlocks.OPTICAL_CAPTURER.get());
+        dropSelf(ModBlocks.ELEMENIC_INFUSER.get());
     }
 
     @Override

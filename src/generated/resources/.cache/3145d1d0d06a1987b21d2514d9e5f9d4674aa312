@@ -1,2 +1,4 @@
-// 1.21.1	2025-10-18T20:34:34.7970915	Tags for minecraft:block mod id elemenix
+// 1.21.1	2025-10-21T14:07:45.719826	Tags for minecraft:block mod id elemenix
 fcb8476625195d2351238f217849450d2e531edf data/elemenix/tags/block/elemenic_transformers.json
+4ce8f1365d8f2346f7d25f2cdc3803950fce72db data/minecraft/tags/block/mineable/pickaxe.json
+970e0c0cace4121dd63e2bc15f20b44e55c5031e data/minecraft/tags/block/needs_iron_tool.json

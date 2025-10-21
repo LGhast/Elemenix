@@ -7,7 +7,6 @@ import net.lghast.elemenix.utils.Constituents;
 import net.lghast.elemenix.utils.Elemenix;
 import net.lghast.elemenix.utils.ElemenixInfo;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
@@ -23,12 +22,12 @@ import net.minecraft.world.level.block.entity.BaseContainerBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 
 public class TransformerBlockEntity extends BaseContainerBlockEntity {
-    private long inputA = 0;
-    private long inputB = 0;
-    private long outputC = 0;
+    private int inputA = 0;
+    private int inputB = 0;
+    private int outputC = 0;
 
-    private int inputTimer = 0;
-    private int outputTimer = 0;
+    private int dcTimer = 0;
+    private int rcTimer = 0;
 
     private NonNullList<ItemStack> items = NonNullList.withSize(3, ItemStack.EMPTY);
 
@@ -36,15 +35,15 @@ public class TransformerBlockEntity extends BaseContainerBlockEntity {
         super(ModBlockEntities.TRANSFORMER.get(), pos, state);
     }
 
-    public void setInputA(long inputA) {
+    public void setInputA(int inputA) {
         this.inputA = inputA;
     }
 
-    public void setInputB(long inputB) {
+    public void setInputB(int inputB) {
         this.inputB = inputB;
     }
 
-    public void setOutputC(long outputC) {
+    public void setOutputC(int outputC) {
         this.outputC = outputC;
     }
 
@@ -53,20 +52,20 @@ public class TransformerBlockEntity extends BaseContainerBlockEntity {
 
         TransformerBlock block = (TransformerBlock) state.getBlock();
 
-        blockEntity.inputTimer++;
-        if (blockEntity.inputTimer >= block.getInputAbsorbInterval()) {
-            blockEntity.inputTimer = 0;
+        blockEntity.dcTimer++;
+        if (blockEntity.dcTimer >= block.getDcInterval()) {
+            blockEntity.dcTimer = 0;
             blockEntity.processInputItems(block);
         }
 
-        blockEntity.outputTimer++;
-        if (blockEntity.outputTimer >= block.getOutputGenerateInterval()) {
-            blockEntity.outputTimer = 0;
+        blockEntity.rcTimer++;
+        if (blockEntity.rcTimer >= block.getRcInterval()) {
+            blockEntity.rcTimer = 0;
             blockEntity.processOutputGeneration(block);
         }
 
         boolean wasWorking = state.getValue(TransformerBlock.WORKING);
-        boolean isWorking = blockEntity.outputC > block.getOutputRequirement() ||
+        boolean isWorking = blockEntity.outputC > block.getRcRequirement() ||
                 (blockEntity.inputA >= block.getConsumptionA() && blockEntity.inputB >= block.getConsumptionB());
 
         if (wasWorking != isWorking) {
@@ -77,18 +76,18 @@ public class TransformerBlockEntity extends BaseContainerBlockEntity {
     private void processInputItems(TransformerBlock block) {
         if (!items.get(0).isEmpty()) {
             Constituents constituents = ElemenixInfo.getConstituents(items.get(0));
-            if (constituents.isPure(block.getInputTypeA())) {
+            if (constituents.isPure(block.getInputElemenixA())) {
                 items.get(0).shrink(1);
-                inputA += constituents.get(block.getInputTypeA());
+                inputA += constituents.get(block.getInputElemenixA());
                 setChanged();
             }
         }
 
         if (!items.get(1).isEmpty()) {
             Constituents constituents = ElemenixInfo.getConstituents(items.get(1));
-            if (constituents.isPure(block.getInputTypeB())) {
+            if (constituents.isPure(block.getInputElemenixB())) {
                 items.get(1).shrink(1);
-                inputB += constituents.get(block.getInputTypeB());
+                inputB += constituents.get(block.getInputElemenixB());
                 setChanged();
             }
         }
@@ -98,12 +97,12 @@ public class TransformerBlockEntity extends BaseContainerBlockEntity {
         if (inputA >= block.getConsumptionA() && inputB >= block.getConsumptionB()) {
             inputA -= block.getConsumptionA();
             inputB -= block.getConsumptionB();
-            outputC += block.getProductionC();
+            outputC += block.getProduction();
             setChanged();
         }
 
-        if (outputC >= block.getOutputRequirement() && canOutputItem(block)) {
-            outputC -= block.getOutputRequirement();
+        if (outputC >= block.getRcRequirement() && canOutputItem(block)) {
+            outputC -= block.getRcRequirement();
             ItemStack outputStack = new ItemStack(block.getOutputItem());
             if (items.get(2).isEmpty()) {
                 items.set(2, outputStack);
@@ -121,9 +120,9 @@ public class TransformerBlockEntity extends BaseContainerBlockEntity {
                         outputSlot.getItem() == block.getOutputItem());
     }
 
-    public long getInputA() { return inputA; }
-    public long getInputB() { return inputB; }
-    public long getOutputC() { return outputC; }
+    public int getInputA() { return inputA; }
+    public int getInputB() { return inputB; }
+    public int getOutputC() { return outputC; }
 
     public static TransformerBlockEntity getBlockEntity(Level level, BlockPos pos) {
         if (level != null && level.getBlockEntity(pos) instanceof TransformerBlockEntity blockEntity) {
@@ -222,19 +221,19 @@ public class TransformerBlockEntity extends BaseContainerBlockEntity {
         tag.putLong("InputA", inputA);
         tag.putLong("InputB", inputB);
         tag.putLong("OutputC", outputC);
-        tag.putInt("InputTimer", inputTimer);
-        tag.putInt("OutputTimer", outputTimer);
+        tag.putInt("InputTimer", dcTimer);
+        tag.putInt("OutputTimer", rcTimer);
         ContainerHelper.saveAllItems(tag, items, provider);
     }
 
     @Override
     public void loadAdditional(CompoundTag tag, HolderLookup.Provider provider) {
         super.loadAdditional(tag, provider);
-        inputA = tag.getLong("InputA");
-        inputB = tag.getLong("InputB");
-        outputC = tag.getLong("OutputC");
-        inputTimer = tag.getInt("InputTimer");
-        outputTimer = tag.getInt("OutputTimer");
+        inputA = tag.getInt("InputA");
+        inputB = tag.getInt("InputB");
+        outputC = tag.getInt("OutputC");
+        dcTimer = tag.getInt("InputTimer");
+        rcTimer = tag.getInt("OutputTimer");
         ContainerHelper.loadAllItems(tag, items, provider);
     }
 
@@ -244,7 +243,7 @@ public class TransformerBlockEntity extends BaseContainerBlockEntity {
             TransformerBlock block = getTransformerBlock();
             if (block == null) return false;
 
-            Elemenix requiredType = (slot == 0) ? block.getInputTypeA() : block.getInputTypeB();
+            Elemenix requiredType = (slot == 0) ? block.getInputElemenixA() : block.getInputElemenixB();
             Constituents constituents = ElemenixInfo.getConstituents(stack);
             return constituents.isPure(requiredType);
         }

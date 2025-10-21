@@ -2,6 +2,7 @@ package net.lghast.elemenix.common.content.block;
 
 import com.mojang.serialization.MapCodec;
 import net.lghast.elemenix.common.content.blockentity.TransformerBlockEntity;
+import net.lghast.elemenix.conifig.ServerConfig;
 import net.lghast.elemenix.register.content.ModItems;
 import net.lghast.elemenix.utils.Elemenix;
 import net.minecraft.core.BlockPos;
@@ -21,17 +22,17 @@ public class OpticalCapturerBlock extends TransformerBlock {
     }
 
     @Override
-    public Elemenix getInputTypeA() {
+    public Elemenix getInputElemenixA() {
         return Elemenix.ORGANIX;
     }
 
     @Override
-    public Elemenix getInputTypeB() {
+    public Elemenix getInputElemenixB() {
         return Elemenix.FLUMIX;
     }
 
     @Override
-    public Elemenix getOutputType() {
+    public Elemenix getOutputElemenix() {
         return Elemenix.ENERGIX;
     }
 
@@ -41,33 +42,33 @@ public class OpticalCapturerBlock extends TransformerBlock {
     }
 
     @Override
-    public long getConsumptionA() {
-        return 72;
+    public int getConsumptionA() {
+        return ServerConfig.OC_CONSUMPTION.get();
     }
 
     @Override
-    public long getConsumptionB() {
-        return 72;
+    public int getConsumptionB() {
+        return ServerConfig.OC_CONSUMPTION.get();
     }
 
     @Override
-    public long getProductionC() {
-        return 72;
+    public int getProduction() {
+        return ServerConfig.OC_PRODUCTION.get();
     }
 
     @Override
-    public long getOutputRequirement() {
+    public int getRcRequirement() {
         return 486;
     }
 
     @Override
-    public int getInputAbsorbInterval() {
-        return 20;
+    public int getDcInterval() {
+        return ServerConfig.OC_DC_INTERVAL.get();
     }
 
     @Override
-    public int getOutputGenerateInterval() {
-        return 20;
+    public int getRcInterval() {
+        return ServerConfig.OC_RC_INTERVAL.get();
     }
 
     @Override

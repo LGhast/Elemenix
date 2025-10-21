@@ -1,8 +1,10 @@
 package net.lghast.elemenix.register.system;
 
 import net.lghast.elemenix.ElemenixAnalyzer;
+import net.lghast.elemenix.common.content.blockentity.InfuserBlockEntity;
 import net.lghast.elemenix.common.content.blockentity.TransformerBlockEntity;
 import net.lghast.elemenix.common.system.menu.AnalyzerMenu;
+import net.lghast.elemenix.common.system.menu.InfuserMenu;
 import net.lghast.elemenix.common.system.menu.TransformerMenu;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.inventory.MenuType;
@@ -26,6 +28,11 @@ public class ModMenus {
             MENUS.register("transformer_menu", () ->
                     IMenuTypeExtension.create((windowId, inv, data) ->
                             new TransformerMenu(windowId, inv, (TransformerBlockEntity) inv.player.level().getBlockEntity(data.readBlockPos()))));
+
+    public static final Supplier<MenuType<InfuserMenu>> INFUSER_MENU =
+            MENUS.register("infuser_menu", () ->
+                    IMenuTypeExtension.create((windowId, inv, data) ->
+                            new InfuserMenu(windowId, inv, (InfuserBlockEntity) inv.player.level().getBlockEntity(data.readBlockPos()))));
 
     public static void register(IEventBus eventBus) {
         MENUS.register(eventBus);

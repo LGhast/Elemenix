@@ -17,7 +17,6 @@ public class ModElemenixMapping {
             map.put("farmersdelight:rotten_tomato", new Constituents(18, 0, 10, 0, 0, 0));
             map.put("farmersdelight:onion", new Constituents(20, 0, 10, 0, 0, 0));
             map.put("farmersdelight:cabbage", new Constituents(26, 0, 8, 0, 0, 0));
-            map.put("farmersdelight:cabbage_leaf", new Constituents(13, 0, 4, 0, 0, 0));
             map.put("farmersdelight:rice_panicle", new Constituents(24, 0, 5, 0, 0, 0));
             map.put("farmersdelight:rice", new Constituents(24, 0, 0, 0, 0, 0));
             map.put("farmersdelight:tree_bark", new Constituents(Elemenix.ORGANIX, 7));
@@ -27,42 +26,24 @@ public class ModElemenixMapping {
             map.put("farmersdelight:tatami", new Constituents(Elemenix.ORGANIX, 120));
             map.put("farmersdelight:full_tatami_mat", new Constituents(Elemenix.ORGANIX, 60));
             map.put("#farmersdelight:wild_crops", new Constituents(64, 0, 24, 0, 0, 0));
-            map.put("farmersdelight:brown_mushroom_colony", new Constituents(64, 0, 24, 0, 0, 0));
-            map.put("farmersdelight:red_mushroom_colony", new Constituents(64, 0, 24, 0, 0, 0));
+            map.put("farmersdelight:brown_mushroom_colony", new Constituents(90, 0, 30, 0, 0, 0));
+            map.put("farmersdelight:red_mushroom_colony", new Constituents(90, 0, 30, 0, 0, 0));
             map.put("farmersdelight:wheat_dough", new Constituents(24, 0, 4, 0, 0, 0));
-            map.put("farmersdelight:raw_pasta", new Constituents(24, 0, 0, 0, 0, 0));
-            map.put("farmersdelight:pumpkin_slice", new Constituents(18, 0, 17, 0, 0, 0));
             map.put("farmersdelight:chicken_cuts", new Constituents(15, 0, 4, 0, 0, 0));
-            map.put("farmersdelight:mutton_chops", new Constituents(15, 0, 4, 0, 0, 0));
-            map.put("farmersdelight:minced_beef", new Constituents(20, 0, 4, 0, 0, 0));
-            map.put("farmersdelight:bacon", new Constituents(20, 0, 4, 0, 0, 0));
             map.put("farmersdelight:cod_slice", new Constituents(12, 0, 4, 0, 0, 0));
             map.put("farmersdelight:salmon_slice", new Constituents(15, 0, 4, 0, 0, 0));
             map.put("farmersdelight:ham", new Constituents(86, 24, 16, 0, 0, 0));
             map.put("farmersdelight:smoked_ham", new Constituents(86, 24, 3, 0, 10, 0));
-            map.put("farmersdelight:kelp_roll_slice", new Constituents(28, 0, 4, 0, 6, 0));
             map.put("farmersdelight:cake_slice", new Constituents(17, 0, 1, 0, 0, 0));
             map.put("farmersdelight:apple_pie_slice", new Constituents(70, 0, 11, 0, 0, 0));
             map.put("farmersdelight:chocolate_pie_slice", new Constituents(42, 0, 5, 0, 0, 0));
+            map.put("farmersdelight:sweet_berry_cheesecake_slice", new Constituents(30, 0, 9, 0, 0, 0));
             map.put("farmersdelight:roast_chicken", new Constituents(72, 0, 10, 0, 7, 0));
             map.put("farmersdelight:shepherds_pie", new Constituents(51, 0, 5, 0, 12, 0));
             map.put("farmersdelight:stuffed_pumpkin", new Constituents(64, 0, 27, 0, 0, 0));
             map.put("farmersdelight:honey_glazed_ham", new Constituents(74, 0, 6, 0, 2, 0));
             map.put("farmersdelight:rich_soil", new Constituents(86, 34, 0, 0, 0, 0));
             map.put("farmersdelight:rich_soil_farmland", new Constituents(86, 34, 0, 0, 0, 0));
-            map.put("farmersdelight:netherite_knife", new Constituents(12, 190019, 0, 49728, 1, 6800));
-            return map;
-        });
-
-        registerModMappings("sophisticatedbackpacks", () -> {
-            Map<String, Constituents> map = new HashMap<>();
-            map.put("sophisticatedbackpacks:netherite_backpack", new Constituents(416, 330019, 0, 54624, 1, 9600));
-            return map;
-        });
-
-        registerModMappings("toms_storage", () -> {
-            Map<String, Constituents> map = new HashMap<>();
-            map.put("toms_storage:adv_wireless_terminal", new Constituents(132, 170543, 0, 49872, 29, 6560));
             return map;
         });
 
@@ -186,7 +167,7 @@ public class ModElemenixMapping {
             map.put("twilightforest:fiery_ingot", new Constituents(60, 0, 500, 216, 3400, 450));
             map.put("twilightforest:hydra_chop", new Constituents(405, 0, 50, 0, 50, 30));
             map.put("twilightforest:experiment_115", new Constituents(115, 115, 115, 115, 115, 115));
-            map.put("twilightforest:meef_stroganoff", new Constituents(115, 0, 30, 0, 2, 200));
+            map.put("twilightforest:meef_stroganoff", new Constituents(178, 0, 46, 0, 2, 200));
             map.put("twilightforest:stronghold_shield", new Constituents(0, 60000, 0, 3200, 0, 800));
             map.put("twilightforest:mazebreaker_pickaxe", new Constituents(24, 200, 0, 35000, 0, 5000));
             map.put("twilightforest:skull_chest", new Constituents(0, 600, 0, 0, 0, 10));
@@ -203,7 +184,7 @@ public class ModElemenixMapping {
             map.put("mynethersdelight:bullet_pepper", new Constituents(24, 0, 0, 0, 12, 0));
             map.put("mynethersdelight:pepper_powder", new Constituents(2, 0, 0, 0, 12, 0));
             map.put("mynethersdelight:hoglin_loin", new Constituents(35, 0, 8, 0, 0, 0));
-            map.put("mynethersdelight:hoglin_sausage", new Constituents(17, 0, 0, 0, 0, 0));
+            map.put("mynethersdelight:hoglin_sausage", new Constituents(17, 0, 4, 0, 0, 0));
             map.put("mynethersdelight:ghasta", new Constituents(24, 0, 0, 0, 2, 2));
             map.put("mynethersdelight:ghasmati", new Constituents(22, 0, 0, 0, 2, 2));
             map.put("mynethersdelight:hoglin_hide", new Constituents(Elemenix.ORGANIX, 160));
@@ -230,6 +211,44 @@ public class ModElemenixMapping {
             map.put("mynethersdelight:hoglin_trophy", new Constituents(286, 120, 0, 432, 0, 0));
             map.put("mynethersdelight:skoglin_trophy", new Constituents(126, 120, 0, 432, 0, 0));
             map.put("mynethersdelight:golden_trophy", new Constituents(126, 120, 0, 6912, 0, 0));
+            return map;
+        });
+
+        registerModMappings("twilightdelight", () -> {
+            Map<String, Constituents> map = new HashMap<>();
+            map.put("twilightdelight:mushgloom_colony", new Constituents(90, 0, 30, 0, 10, 0));
+            map.put("twilightdelight:experiment_110", new Constituents(110, 110, 110, 110, 110, 110));
+            map.put("twilightdelight:experiment_113", new Constituents(113, 113, 113, 113, 113, 113));
+            map.put("twilightdelight:raw_tomahawk_smeak", new Constituents(60, 0, 20, 0, 0, 0));
+            map.put("twilightdelight:aurora_pie_slice", new Constituents(46, 0, 0, 0, 18, 0));
+            map.put("twilightdelight:torchberry_pie_slice", new Constituents(52, 0, 3, 0, 1, 0));
+            map.put("twilightdelight:plate_of_fiery_snakes", new Constituents(395, 30, 138, 0, 856, 216));
+            map.put("twilightdelight:plate_of_lily_chicken", new Constituents(94, 0, 23, 0, 7, 0));
+            map.put("twilightdelight:meef_wellington", new Constituents(70, 4, 11, 0, 1, 0));
+            return map;
+        });
+
+        registerModMappings("endersdelight", () -> {
+            Map<String, Constituents> map = new HashMap<>();
+            map.put("endersdelight:mite_crust", new Constituents(6, 0, 0, 0, 0, 1));
+            map.put("endersdelight:enderman_sight", new Constituents(16, 0, 0, 0, 0, 12));
+            map.put("endersdelight:shulker_mollusk", new Constituents(40, 0, 10, 0, 0, 10));
+            map.put("endersdelight:stuffed_shulker_bowl", new Constituents(51, 32, 7, 0, 0, 9));
+            map.put("endersdelight:ethereal_saffron", new Constituents(24, 0, 6, 0, 0, 5));
+            map.put("endersdelight:amberveil", new Constituents(18, 0, 6, 0, 0, 3));
+            map.put("endersdelight:chorusflame", new Constituents(18, 0, 8, 0, 2, 2));
+            map.put("endersdelight:voidpepper", new Constituents(24, 0, 6, 0, 0, 3));
+            return map;
+        });
+
+        registerModMappings("rusticdelight", () -> {
+            Map<String, Constituents> map = new HashMap<>();
+            map.put("rusticdelight:cotton_boll", new Constituents(Elemenix.ORGANIX, 24));
+            map.put("rusticdelight:bell_pepper_green", new Constituents(18, 0, 8, 0, 0, 0));
+            map.put("rusticdelight:bell_pepper_red", new Constituents(18, 0, 8, 0, 0, 0));
+            map.put("rusticdelight:bell_pepper_yellow", new Constituents(18, 0, 8, 0, 0, 0));
+            map.put("rusticdelight:calamari", new Constituents(25, 0, 10, 0, 0, 0));
+            map.put("rusticdelight:coffee_beans", new Constituents(Elemenix.ORGANIX, 20));
             return map;
         });
     }

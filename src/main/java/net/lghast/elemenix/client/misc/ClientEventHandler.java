@@ -2,6 +2,7 @@ package net.lghast.elemenix.client.misc;
 
 import net.lghast.elemenix.ElemenixAnalyzer;
 import net.lghast.elemenix.client.screen.AnalyzerScreen;
+import net.lghast.elemenix.client.screen.InfuserScreen;
 import net.lghast.elemenix.client.screen.TransformerScreen;
 import net.lghast.elemenix.conifig.ClientConfig;
 import net.lghast.elemenix.network.DeconstructionPayload;
@@ -74,6 +75,7 @@ public class ClientEventHandler {
     public static void registerScreens(RegisterMenuScreensEvent event) {
         event.register(ModMenus.ELEMENIX_ANALYZER_MENU.get(), AnalyzerScreen::new);
         event.register(ModMenus.TRANSFORMER_MENU.get(), TransformerScreen::new);
+        event.register(ModMenus.INFUSER_MENU.get(), InfuserScreen::new);
     }
 
     @SubscribeEvent
