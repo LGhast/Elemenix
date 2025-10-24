@@ -1,0 +1,8 @@
+{
+  "parent": "block/cube_bottom_top",
+  "textures": {
+    "bottom": "elemenix:block/enricher_bottom",
+    "side": "elemenix:block/enricher_working",
+    "top": "elemenix:block/enricher_top"
+  }
+}

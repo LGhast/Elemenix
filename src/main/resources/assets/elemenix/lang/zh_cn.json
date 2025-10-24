@@ -1,4 +1,27 @@
 {
+  "advancements.elemenix.root.title": "元质学",
+  "advancements.elemenix.root.description": "给我一台解析器，我能解构整个宇宙",
+  "advancements.elemenix.obtain_memorizer.title": "碟有深忆",
+  "advancements.elemenix.obtain_memorizer.description": "获取一张元质记忆碟，以储存解析器解构过的物品",
+  "advancements.elemenix.obtain_fondant_cake.title": "碟中谍",
+  "advancements.elemenix.obtain_fondant_cake.description": "制作一块翻糖蛋糕，注意，这可不是记忆碟！",
+  "advancements.elemenix.wax_on_memorizer.title": "机蜜资料",
+  "advancements.elemenix.wax_on_memorizer.description": "使用蜜脾蜡封记忆碟，将其切换为只读模式",
+  "advancements.elemenix.wax_off_memorizer.title": "古法黑客",
+  "advancements.elemenix.wax_off_memorizer.description": "使用斧“暴力破解”一张记忆碟的只读模式",
+  "advancements.elemenix.enrich_essence.title": "纯真无暇",
+  "advancements.elemenix.enrich_essence.description": "使用解析器获取一份元质纯质或纯聚体",
+  "advancements.elemenix.enrich_equilibrium.title": "熵增定律",
+  "advancements.elemenix.enrich_equilibrium.description": "获取一份元质均体",
+  "advancements.elemenix.obtain_transformer.title": "元质工业",
+  "advancements.elemenix.obtain_transformer.description": "合成任意一种元质转化仪",
+  "advancements.elemenix.obtain_all_transformers.title": "产业集群",
+  "advancements.elemenix.obtain_all_transformers.description": "获得所有种类的元质转化仪",
+  "advancements.elemenix.obtain_infuser.title": "解构主义",
+  "advancements.elemenix.obtain_infuser.description": "制作一台元质注入塔，它可以自动解构物品并将储存的元质注入解析器",
+  "advancements.elemenix.obtain_enricher.title": "致富路",
+  "advancements.elemenix.obtain_enricher.description": "制作一台元质富集塔，它可以自动解构物品并将储存的元质富集为对应的纯质",
+
   "creativetab.elemenix.elemenix": "元质",
 
   "block.elemenix.geological_simulator": "地质模拟仪",
@@ -7,6 +30,7 @@
   "block.elemenix.transpiring_incinerator": "蒸腾焚化仪",
   "block.elemenix.optical_capturer": "光能捕获仪",
   "block.elemenix.elemenic_infuser": "元质注入塔",
+  "block.elemenix.elemenic_enricher": "元质富集塔",
 
   "item.elemenix.elemenic_analyzer": "元质解析器",
   "item.elemenix.elemenic_memorizer": "元质记忆碟",
@@ -45,6 +69,7 @@
   "container.elemenix.transpiring_incinerator": "蒸腾焚化仪",
   "container.elemenix.optical_capturer": "光能捕获仪",
   "container.elemenix.elemenic_infuser": "元质注入塔",
+  "container.elemenix.elemenic_enricher": "元质富集塔",
 
   "tooltip.elemenix.constituents": "元质成分：",
   "tooltip.elemenix.unanalysable": "=无法解析=",

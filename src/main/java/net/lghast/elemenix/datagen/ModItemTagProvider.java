@@ -242,5 +242,10 @@ public class ModItemTagProvider extends ItemTagsProvider {
                 .add(ModBlocks.TRANSPIRING_INCINERATOR.asItem())
                 .add(ModBlocks.OPTICAL_CAPTURER.asItem())
         ;
+
+        tag(ModTags.ELEMENIC_DECONSTRUCTORS)
+                .add(ModBlocks.ELEMENIC_INFUSER.asItem())
+                .add(ModBlocks.ELEMENIC_ENRICHER.asItem())
+        ;
     }
 }

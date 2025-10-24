@@ -26,29 +26,14 @@ public class InfuserMenu extends AbstractContainerMenu {
         super(ModMenus.INFUSER_MENU.get(), containerId);
         this.blockEntity = blockEntity;
 
-        this.data = new ContainerData() {
-            @Override
-            public int get(int index) {
-                return blockEntity.getStorage(Elemenix.values()[index]);
-            }
-
-            @Override
-            public void set(int index, int value) {
-                blockEntity.setStorage(Elemenix.values()[index], value);
-            }
-
-            @Override
-            public int getCount() {
-                return 6;
-            }
-        };
+        this.data = blockEntity.getDataAccess();
 
         addSlots(playerInventory);
         addDataSlots(data);
     }
 
     public int[] getStorage(){
-        return new int[]{data.get(0), data.get(1), data.get(2), data.get(3), data.get(4), data.get(5)};
+        return blockEntity.getElemenixStorage();
     }
 
     private void addSlots(Inventory playerInventory) {

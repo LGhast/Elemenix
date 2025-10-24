@@ -1,0 +1,35 @@
+{
+  "parent": "elemenix:elemenics/obtain_memorizer",
+  "criteria": {
+    "get_fondant_cake": {
+      "conditions": {
+        "items": [
+          {
+            "items": "elemenix:fondant_cake"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.elemenix.obtain_fondant_cake.description"
+    },
+    "frame": "challenge",
+    "hidden": true,
+    "icon": {
+      "count": 1,
+      "id": "elemenix:fondant_cake"
+    },
+    "title": {
+      "translate": "advancements.elemenix.obtain_fondant_cake.title"
+    }
+  },
+  "requirements": [
+    [
+      "get_fondant_cake"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

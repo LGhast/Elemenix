@@ -38,6 +38,9 @@ public class ModBlocks {
     public static final DeferredBlock<Block> ELEMENIC_INFUSER = registerBlock("elemenic_infuser",
             ()-> new InfuserBlock(BlockBehaviour.Properties.of()));
 
+    public static final DeferredBlock<Block> ELEMENIC_ENRICHER = registerBlock("elemenic_enricher",
+            ()-> new EnricherBlock(BlockBehaviour.Properties.of()));
+
     private static <T extends Block> DeferredBlock<T> registerBlock(String name, Supplier<T> block){
         DeferredBlock<T> toReturn = BLOCKS.register(name,block);
         registerBlockItem(name,toReturn);

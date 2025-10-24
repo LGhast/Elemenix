@@ -1,0 +1,26 @@
+{
+  "parent": "elemenix:elemenics/obtain_memorizer",
+  "criteria": {
+    "wax_on": {
+      "trigger": "elemenix:wax_on"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.elemenix.wax_on_memorizer.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "minecraft:honeycomb"
+    },
+    "title": {
+      "translate": "advancements.elemenix.wax_on_memorizer.title"
+    }
+  },
+  "requirements": [
+    [
+      "wax_on"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

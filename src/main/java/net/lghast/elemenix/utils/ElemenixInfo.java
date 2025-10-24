@@ -14,6 +14,7 @@ import java.util.*;
 
 public class ElemenixInfo {
     private static final Logger LOGGER = LogManager.getLogger();
+    public static final int ESSENCE_VALUE = 486;
 
     private static Map<String, Constituents> ADDITIONAL_MAP;
     private static final Map<String, Constituents> ELEMENIX_MAP = ElemenixMapping.ELEMENIX_MAP;

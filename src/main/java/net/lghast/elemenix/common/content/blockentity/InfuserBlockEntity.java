@@ -56,7 +56,7 @@ public class InfuserBlockEntity extends BaseContainerBlockEntity {
 
         @Override
         public void set(int index, int value) {
-            elemenixStorage[index] = Math.max(0, Math.min(value, Integer.MAX_VALUE));
+            elemenixStorage[index] = Math.max(0, value);
         }
 
         @Override
@@ -94,13 +94,11 @@ public class InfuserBlockEntity extends BaseContainerBlockEntity {
     public void loadAdditional(CompoundTag tag, HolderLookup.Provider provider) {
         super.loadAdditional(tag, provider);
 
-        // 加载元质储存
         if (tag.contains("ElemenixStorage", CompoundTag.TAG_INT_ARRAY)) {
             int[] stored = tag.getIntArray("ElemenixStorage");
             System.arraycopy(stored, 0, elemenixStorage, 0, Math.min(stored.length, 6));
         }
 
-        // 加载计时器
         deconstructionTimer = tag.getInt("DeconstructionTimer");
         infusionTimer = tag.getInt("InfusionTimer");
     }
@@ -109,10 +107,8 @@ public class InfuserBlockEntity extends BaseContainerBlockEntity {
     protected void saveAdditional(CompoundTag tag, HolderLookup.Provider provider) {
         super.saveAdditional(tag, provider);
 
-        // 保存元质储存
         tag.putIntArray("ElemenixStorage", elemenixStorage);
 
-        // 保存计时器
         tag.putInt("DeconstructionTimer", deconstructionTimer);
         tag.putInt("InfusionTimer", infusionTimer);
     }
@@ -123,7 +119,6 @@ public class InfuserBlockEntity extends BaseContainerBlockEntity {
         boolean wasWorking = state.getValue(InfuserBlock.WORKING);
         boolean isWorking = false;
 
-        // 解构处理
         if (canDeconstruct()) {
             deconstructionTimer++;
             InfuserBlock block = (InfuserBlock) state.getBlock();
@@ -137,7 +132,6 @@ public class InfuserBlockEntity extends BaseContainerBlockEntity {
             deconstructionTimer = 0;
         }
 
-        // 注入处理
         if (canInfuse()) {
             infusionTimer++;
             InfuserBlock block = (InfuserBlock) state.getBlock();
@@ -151,7 +145,6 @@ public class InfuserBlockEntity extends BaseContainerBlockEntity {
             infusionTimer = 0;
         }
 
-        // 更新工作状态
         if (wasWorking != isWorking) {
             level.setBlock(pos, state.setValue(InfuserBlock.WORKING, isWorking), Block.UPDATE_ALL);
         }
@@ -171,7 +164,6 @@ public class InfuserBlockEntity extends BaseContainerBlockEntity {
         Constituents constituents = ElemenixInfo.getConstituents(inputStack);
         if (constituents.isUnanalysable()) return;
 
-        // 添加元质到储存
         for (Elemenix elemenix : Elemenix.values()) {
             int value = constituents.get(elemenix);
             if (value > 0) {
@@ -179,7 +171,6 @@ public class InfuserBlockEntity extends BaseContainerBlockEntity {
             }
         }
 
-        // 减少物品数量
         inputStack.shrink(1);
         setChanged();
     }
@@ -210,7 +201,6 @@ public class InfuserBlockEntity extends BaseContainerBlockEntity {
 
         boolean infused = false;
 
-        // 对每种元质进行注入
         for (Elemenix elemenix : Elemenix.values()) {
             int index = elemenix.getIndex();
             int available = elemenixStorage[index];
@@ -228,22 +218,7 @@ public class InfuserBlockEntity extends BaseContainerBlockEntity {
         }
 
         if (infused) {
-            // 更新分析仪数据
             analyzerStack.set(ModDataComponents.ELEMENIC_STORAGE, new ElemenicStorage(newElemenix));
-            setChanged();
-        }
-    }
-
-    // 元质储存操作方法
-    public int getStorage(Elemenix elemenix) {
-        int index = elemenix.getIndex();
-        return index >= 0 && index < 6 ? elemenixStorage[index] : 0;
-    }
-
-    public void setStorage(Elemenix elemenix, int value) {
-        int index = elemenix.getIndex();
-        if (index >= 0 && index < 6) {
-            elemenixStorage[index] = Math.max(0, Math.min(value, Integer.MAX_VALUE));
             setChanged();
         }
     }
@@ -257,21 +232,10 @@ public class InfuserBlockEntity extends BaseContainerBlockEntity {
         }
     }
 
-    public void consumeElemenix(Elemenix elemenix, int amount) {
-        if (amount <= 0) return;
-        int index = elemenix.getIndex();
-        if (index >= 0 && index < 6) {
-            elemenixStorage[index] = Math.max(elemenixStorage[index] - amount, 0);
-            setChanged();
-        }
-    }
-
-    // 获取对应的方块
     public InfuserBlock getInfuserBlock() {
         return getBlockState().getBlock() instanceof InfuserBlock block ? block : null;
     }
 
-    // 槽位验证
     @Override
     public boolean canPlaceItem(int slot, ItemStack stack) {
         if (slot == ANALYZER_SLOT) {
@@ -294,6 +258,4 @@ public class InfuserBlockEntity extends BaseContainerBlockEntity {
     public int[] getElemenixStorage() {
         return elemenixStorage.clone();
     }
-
-
 }

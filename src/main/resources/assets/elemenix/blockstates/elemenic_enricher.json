@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "working=false": {
+      "model": "elemenix:block/elemenic_enricher"
+    },
+    "working=true": {
+      "model": "elemenix:block/elemenic_enricher_working"
+    }
+  }
+}

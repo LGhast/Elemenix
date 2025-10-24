@@ -1,8 +1,7 @@
 {
   "values": [
     "elemenix:elemenic_infuser",
-    "#elemenix:elemenic_transformers",
-    "elemenix:elemenic_infuser",
+    "elemenix:elemenic_enricher",
     "#elemenix:elemenic_transformers"
   ]
 }

@@ -26,18 +26,20 @@ public class ModBlockTagProvider extends BlockTagsProvider {
                 .add(ModBlocks.OPTICAL_CAPTURER.get())
         ;
 
-        tag(BlockTags.MINEABLE_WITH_PICKAXE)
+        tag(ModTags.ELEMENIC_DECONSTRUCTING_BLOCKS)
                 .add(ModBlocks.ELEMENIC_INFUSER.get())
-                .addTag(ModTags.ELEMENIC_TRANSFORMING_BLOCKS)
+                .add(ModBlocks.ELEMENIC_ENRICHER.get())
         ;
 
         tag(BlockTags.MINEABLE_WITH_PICKAXE)
                 .add(ModBlocks.ELEMENIC_INFUSER.get())
+                .add(ModBlocks.ELEMENIC_ENRICHER.get())
                 .addTag(ModTags.ELEMENIC_TRANSFORMING_BLOCKS)
         ;
 
         tag(BlockTags.NEEDS_IRON_TOOL)
                 .add(ModBlocks.ELEMENIC_INFUSER.get())
+                .add(ModBlocks.ELEMENIC_ENRICHER.get())
                 .addTag(ModTags.ELEMENIC_TRANSFORMING_BLOCKS)
         ;
     }

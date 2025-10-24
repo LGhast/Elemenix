@@ -1,0 +1,33 @@
+{
+  "parent": "elemenix:elemenics/enrich_essence",
+  "criteria": {
+    "get_transformer": {
+      "conditions": {
+        "items": [
+          {
+            "items": "#elemenix:elemenic_transformers"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.elemenix.obtain_transformer.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "elemenix:geological_simulator"
+    },
+    "title": {
+      "translate": "advancements.elemenix.obtain_transformer.title"
+    }
+  },
+  "requirements": [
+    [
+      "get_transformer"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

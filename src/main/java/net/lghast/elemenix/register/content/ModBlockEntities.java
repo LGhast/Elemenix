@@ -1,6 +1,7 @@
 package net.lghast.elemenix.register.content;
 
 import net.lghast.elemenix.ElemenixAnalyzer;
+import net.lghast.elemenix.common.content.blockentity.EnricherBlockEntity;
 import net.lghast.elemenix.common.content.blockentity.InfuserBlockEntity;
 import net.lghast.elemenix.common.content.blockentity.TransformerBlockEntity;
 import net.minecraft.core.registries.Registries;
@@ -32,6 +33,15 @@ public class ModBlockEntities {
             () -> BlockEntityType.Builder.of(
                             InfuserBlockEntity::new,
                             ModBlocks.ELEMENIC_INFUSER.get()
+                    )
+                    .build(null)
+    );
+
+    public static final Supplier<BlockEntityType<EnricherBlockEntity>> ENRICHER = BLOCK_ENTITY_TYPES.register(
+            "elemenic_enricher",
+            () -> BlockEntityType.Builder.of(
+                            EnricherBlockEntity::new,
+                            ModBlocks.ELEMENIC_ENRICHER.get()
                     )
                     .build(null)
     );

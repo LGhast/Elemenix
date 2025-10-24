@@ -5,6 +5,7 @@ import net.lghast.elemenix.common.content.blockentity.TransformerBlockEntity;
 import net.lghast.elemenix.conifig.ServerConfig;
 import net.lghast.elemenix.register.content.ModItems;
 import net.lghast.elemenix.utils.Elemenix;
+import net.lghast.elemenix.utils.ElemenixInfo;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -58,7 +59,7 @@ public class GeologicalSimulatorBlock extends TransformerBlock {
 
     @Override
     public int getRcRequirement() {
-        return 486;
+        return ElemenixInfo.ESSENCE_VALUE;
     }
 
     @Override

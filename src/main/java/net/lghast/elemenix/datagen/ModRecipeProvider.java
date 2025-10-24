@@ -207,6 +207,16 @@ public class ModRecipeProvider extends RecipeProvider {
                 .unlockedBy("has_elemenic_analyzer", has(ModItems.ELEMENIC_ANALYZER))
                 .save(recipeOutput);
 
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ModBlocks.ELEMENIC_ENRICHER.get(), 1)
+                .pattern(" E ")
+                .pattern(" I ")
+                .pattern(" C ")
+                .define('I', ModBlocks.ELEMENIC_INFUSER)
+                .define('E', ModItems.ELEMENIC_EQUILIBRIUM)
+                .define('C', Items.CHEST)
+                .unlockedBy("has_elemenic_infuser", has(ModBlocks.ELEMENIC_INFUSER))
+                .save(recipeOutput);
+
         ShapedRecipeBuilder.shaped(RecipeCategory.FOOD, ModItems.FONDANT_CAKE.get(), 1)
                 .pattern("SPS")
                 .pattern("EOE")

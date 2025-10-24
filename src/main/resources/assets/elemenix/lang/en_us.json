@@ -1,4 +1,27 @@
 {
+  "advancements.elemenix.root.title": "Elemenics",
+  "advancements.elemenix.root.description": "Give me an analyzer, and I will deconstruct the Universe",
+  "advancements.elemenix.obtain_memorizer.title": "Disk-Cretion",
+  "advancements.elemenix.obtain_memorizer.description": "Obtain an Elemenic Memorizer to store items deconstructed by the analyzer",
+  "advancements.elemenix.wax_on_memorizer.title": "Sticky Note",
+  "advancements.elemenix.wax_on_memorizer.description": "Use honeycomb to wax-seal a memorizer, switching it to read-only mode",
+  "advancements.elemenix.wax_off_memorizer.title": "Ax-cess Denied? Ax-cept This!",
+  "advancements.elemenix.wax_off_memorizer.description": "Use an axe to \"forcibly crack\" the read-only mode of a memorizer",
+  "advancements.elemenix.obtain_fondant_cake.title": "Mission: Inedible",
+  "advancements.elemenix.obtain_fondant_cake.description": "Craft a fondant cake – careful, this isn't a memorizer!",
+  "advancements.elemenix.enrich_essence.title": "Pure and Flawless",
+  "advancements.elemenix.enrich_essence.description": "Use the analyzer to obtain Elemenic Essence or Essenplex",
+  "advancements.elemenix.enrich_equilibrium.title": "Entropy Increase",
+  "advancements.elemenix.enrich_equilibrium.description": "Obtain an Elemenic Equilibrium",
+  "advancements.elemenix.obtain_transformer.title": "Elemenic Industry",
+  "advancements.elemenix.obtain_transformer.description": "Craft any type of Elemenic Transformer",
+  "advancements.elemenix.obtain_all_transformers.title": "Industrial Cluster",
+  "advancements.elemenix.obtain_all_transformers.description": "Acquire all varieties of Elemenic Transformers",
+  "advancements.elemenix.obtain_infuser.title": "Deconstructivism",
+  "advancements.elemenix.obtain_infuser.description": "Craft an Elemenic Infuser – it automatically deconstructs items and infuses the stored elemenix into analyzers",
+  "advancements.elemenix.obtain_enricher.title": "The Path of Enrichment",
+  "advancements.elemenix.obtain_enricher.description": "Craft an Elemenic Infuser – it automatically deconstructs items and enriches stored elemenix into the corresponding essence",
+
   "creativetab.elemenix.elemenix": "Elemenix",
 
   "block.elemenix.geological_simulator": "Geological Simulator",
@@ -7,6 +30,7 @@
   "block.elemenix.transpiring_incinerator": "Transpiring Incinerator",
   "block.elemenix.optical_capturer": "Optical Capturer",
   "block.elemenix.elemenic_infuser": "Elemenic Infuser",
+  "block.elemenix.elemenic_enricher": "Elemenic Enricher",
 
   "item.elemenix.elemenic_analyzer": "Elemenic Analyzer",
   "item.elemenix.elemenic_memorizer": "Elemenic Memorizer",
@@ -33,7 +57,7 @@
   "elemenix.elemenix.arcanix": "Arcanix",
 
   "gui.elemenix.analyzer": "Elemenic Analyzer",
-  "gui.elemenix.deconstruct": "Decompose",
+  "gui.elemenix.deconstruct": "Deconstruct",
   "gui.elemenix.item_list": "Reconstructable Items",
   "gui.elemenix.no_resolved_items": "No Resolved Items Yet",
   "gui.elemenix.no_analyzer": "No Analyzer Placed",
@@ -45,6 +69,7 @@
   "container.elemenix.transpiring_incinerator": "Transpiring Incinerator",
   "container.elemenix.optical_capturer": "Optical Capturer",
   "container.elemenix.elemenic_infuser": "Elemenic Infuser",
+  "container.elemenix.elemenic_enricher": "Elemenic Enricher",
 
   "tooltip.elemenix.constituents": "Elemenic Constituents:",
   "tooltip.elemenix.unanalysable": "=UNANALYSABLE=",

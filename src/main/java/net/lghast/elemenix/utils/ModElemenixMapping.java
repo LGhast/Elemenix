@@ -251,6 +251,16 @@ public class ModElemenixMapping {
             map.put("rusticdelight:coffee_beans", new Constituents(Elemenix.ORGANIX, 20));
             return map;
         });
+
+        registerModMappings("jiagureappear", () -> {
+            Map<String, Constituents> map = new HashMap<>();
+            map.put("jiagureappear:sour_berries", new Constituents(8, 0, 6, 0, 0, 0));
+            map.put("jiagureappear:shadow_berries", new Constituents(8, 0, 4, 0, 0, 2));
+            map.put("jiagureappear:turtle_plastron", new Constituents(8, 0, 36, 0, 0, 0));
+            map.put("jiagureappear:yolime", new Constituents(35, 0, 10, 0, 0, 10));
+            map.put("jiagureappear:zucchini", new Constituents(72, 0, 68, 0, 0, 0));
+            return map;
+        });
     }
 
     public static void registerModMappings(String modId, Supplier<Map<String, Constituents>> mappingSupplier) {

@@ -1,0 +1,33 @@
+{
+  "parent": "elemenix:elemenics/root",
+  "criteria": {
+    "get_essence": {
+      "conditions": {
+        "items": [
+          {
+            "items": "#elemenix:essences"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.elemenix.enrich_essence.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "elemenix:energix_essence"
+    },
+    "title": {
+      "translate": "advancements.elemenix.enrich_essence.title"
+    }
+  },
+  "requirements": [
+    [
+      "get_essence"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

@@ -1,0 +1,33 @@
+{
+  "parent": "elemenix:elemenics/obtain_infuser",
+  "criteria": {
+    "get_enricher": {
+      "conditions": {
+        "items": [
+          {
+            "items": "elemenix:elemenic_enricher"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.elemenix.obtain_enricher.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "elemenix:elemenic_enricher"
+    },
+    "title": {
+      "translate": "advancements.elemenix.obtain_enricher.title"
+    }
+  },
+  "requirements": [
+    [
+      "get_enricher"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

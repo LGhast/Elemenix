@@ -1,0 +1,33 @@
+{
+  "parent": "elemenix:elemenics/root",
+  "criteria": {
+    "get_infuser": {
+      "conditions": {
+        "items": [
+          {
+            "items": "elemenix:elemenic_infuser"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.elemenix.obtain_infuser.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "elemenix:elemenic_infuser"
+    },
+    "title": {
+      "translate": "advancements.elemenix.obtain_infuser.title"
+    }
+  },
+  "requirements": [
+    [
+      "get_infuser"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

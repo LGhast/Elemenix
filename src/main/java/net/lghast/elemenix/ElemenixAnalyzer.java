@@ -7,6 +7,7 @@ import net.lghast.elemenix.datagen.DataGenerators;
 import net.lghast.elemenix.register.content.ModBlockEntities;
 import net.lghast.elemenix.register.content.ModBlocks;
 import net.lghast.elemenix.register.content.ModItems;
+import net.lghast.elemenix.register.system.ModAdvancementTriggers;
 import net.lghast.elemenix.register.system.ModCreativeTabs;
 import net.lghast.elemenix.register.system.ModDataComponents;
 import net.lghast.elemenix.register.system.ModMenus;
@@ -37,6 +38,7 @@ public class ElemenixAnalyzer {
         ModCreativeTabs.register(modEventBus);
         ModDataComponents.register(modEventBus);
         ModMenus.register(modEventBus);
+        ModAdvancementTriggers.register(modEventBus);
 
         modEventBus.addListener(this::gatherData);
         modEventBus.addListener(this::onClientSetup);

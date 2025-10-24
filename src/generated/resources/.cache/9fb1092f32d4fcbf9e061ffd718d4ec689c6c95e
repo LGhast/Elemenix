@@ -1,7 +1,8 @@
-// 1.21.1	2025-10-21T12:53:58.261513	Recipes
+// 1.21.1	2025-10-24T12:05:14.3090405	Recipes
 a5972f5f16b8d08a054c46ca513dcaaf6dbf21ea data/elemenix/advancement/recipes/food/fondant_cake.json
 436001b848b2166f3268f565c6939d909e873f2f data/elemenix/advancement/recipes/misc/arcanix_essenplex.json
 9c5cce8f0a9511d7fd5b849c092560b69d5ff0d5 data/elemenix/advancement/recipes/misc/elemenic_analyzer.json
+e64fd4234fe6bf9db38e7a3d0369d348906f0b10 data/elemenix/advancement/recipes/misc/elemenic_enricher.json
 c2a980dbb40df8583926549d064944b8452978de data/elemenix/advancement/recipes/misc/elemenic_equilibrium.json
 45ce93604c8211186695de37aca1a4940797f907 data/elemenix/advancement/recipes/misc/elemenic_infuser.json
 f3edf780482d7397285366f6cf3654b6cb6f9e58 data/elemenix/advancement/recipes/misc/elemenic_memorizer.json
@@ -17,6 +18,7 @@ c363edc99077959b513d91d11c08753fba4f18c0 data/elemenix/advancement/recipes/misc/
 7832b1f3540b28dfdc9e50f1e34d1644bc03741c data/elemenix/advancement/recipes/misc/transpiring_incinerator.json
 1f7e80137ac41b087936f2d2545d0a8e3e17f6d6 data/elemenix/recipe/arcanix_essenplex.json
 f43403baa548f7929a2fc47548f6ff5e5994922f data/elemenix/recipe/elemenic_analyzer.json
+c7362e48367103d28f6f2725cffc53969642130f data/elemenix/recipe/elemenic_enricher.json
 a4b263827af7ba27228379651062b1d6ceaec309 data/elemenix/recipe/elemenic_equilibrium.json
 fadebf2726fb837d6a1f58c7e072fba8d5feeea3 data/elemenix/recipe/elemenic_infuser.json
 8feb39c7c4fc3b39a97a221864b0e02034633a4b data/elemenix/recipe/elemenic_memorizer.json

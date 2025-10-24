@@ -1,0 +1,33 @@
+{
+  "parent": "elemenix:elemenics/root",
+  "criteria": {
+    "get_elemenic_memorizer": {
+      "conditions": {
+        "items": [
+          {
+            "items": "elemenix:elemenic_memorizer"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.elemenix.obtain_memorizer.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "elemenix:elemenic_memorizer"
+    },
+    "title": {
+      "translate": "advancements.elemenix.obtain_memorizer.title"
+    }
+  },
+  "requirements": [
+    [
+      "get_elemenic_memorizer"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

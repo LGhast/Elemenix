@@ -1,0 +1,86 @@
+{
+  "parent": "elemenix:elemenics/obtain_transformer",
+  "criteria": {
+    "get_geological_simulator": {
+      "conditions": {
+        "items": [
+          {
+            "items": "elemenix:geological_simulator"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "get_germinal_accelerator": {
+      "conditions": {
+        "items": [
+          {
+            "items": "elemenix:germinal_accelerator"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "get_metallurgical_activator": {
+      "conditions": {
+        "items": [
+          {
+            "items": "elemenix:metallurgical_activator"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "get_optical_capturer": {
+      "conditions": {
+        "items": [
+          {
+            "items": "elemenix:optical_capturer"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "get_transpiring_incinerator": {
+      "conditions": {
+        "items": [
+          {
+            "items": "elemenix:transpiring_incinerator"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.elemenix.obtain_all_transformers.description"
+    },
+    "frame": "challenge",
+    "icon": {
+      "count": 1,
+      "id": "elemenix:germinal_accelerator"
+    },
+    "title": {
+      "translate": "advancements.elemenix.obtain_all_transformers.title"
+    }
+  },
+  "requirements": [
+    [
+      "get_geological_simulator"
+    ],
+    [
+      "get_metallurgical_activator"
+    ],
+    [
+      "get_germinal_accelerator"
+    ],
+    [
+      "get_transpiring_incinerator"
+    ],
+    [
+      "get_optical_capturer"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

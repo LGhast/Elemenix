@@ -7,12 +7,12 @@ import java.util.Map;
 
 public class ElemenixMapping {
    protected static final Map<String, Constituents> ELEMENIX_MAP = new HashMap<>(Map.ofEntries(
-           Map.entry("elemenix:organix_essence", new Constituents(Elemenix.ORGANIX, 486)),
-           Map.entry("elemenix:terrix_essence", new Constituents(Elemenix.TERRIX, 486)),
-           Map.entry("elemenix:flumix_essence", new Constituents(Elemenix.FLUMIX, 486)),
-           Map.entry("elemenix:metallix_essence", new Constituents(Elemenix.METALLIX, 486)),
-           Map.entry("elemenix:energix_essence", new Constituents(Elemenix.ENERGIX, 486)),
-           Map.entry("elemenix:arcanix_essence", new Constituents(Elemenix.ARCANIX, 486)),
+           Map.entry("elemenix:organix_essence", new Constituents(Elemenix.ORGANIX, ElemenixInfo.ESSENCE_VALUE)),
+           Map.entry("elemenix:terrix_essence", new Constituents(Elemenix.TERRIX, ElemenixInfo.ESSENCE_VALUE)),
+           Map.entry("elemenix:flumix_essence", new Constituents(Elemenix.FLUMIX, ElemenixInfo.ESSENCE_VALUE)),
+           Map.entry("elemenix:metallix_essence", new Constituents(Elemenix.METALLIX, ElemenixInfo.ESSENCE_VALUE)),
+           Map.entry("elemenix:energix_essence", new Constituents(Elemenix.ENERGIX, ElemenixInfo.ESSENCE_VALUE)),
+           Map.entry("elemenix:arcanix_essence", new Constituents(Elemenix.ARCANIX, ElemenixInfo.ESSENCE_VALUE)),
 
            //土与沙
            Map.entry("minecraft:dirt", new Constituents(6, 18, 0, 0, 0, 0)),

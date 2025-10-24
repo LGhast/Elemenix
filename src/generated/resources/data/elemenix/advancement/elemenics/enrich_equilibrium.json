@@ -1,0 +1,34 @@
+{
+  "parent": "elemenix:elemenics/enrich_essence",
+  "criteria": {
+    "get_equilibrium": {
+      "conditions": {
+        "items": [
+          {
+            "items": "elemenix:elemenic_equilibrium"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.elemenix.enrich_equilibrium.description"
+    },
+    "frame": "goal",
+    "icon": {
+      "count": 1,
+      "id": "elemenix:elemenic_equilibrium"
+    },
+    "title": {
+      "translate": "advancements.elemenix.enrich_equilibrium.title"
+    }
+  },
+  "requirements": [
+    [
+      "get_equilibrium"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

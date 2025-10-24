@@ -1,0 +1,26 @@
+{
+  "parent": "elemenix:elemenics/wax_on_memorizer",
+  "criteria": {
+    "wax_off": {
+      "trigger": "elemenix:wax_off"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.elemenix.wax_off_memorizer.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "minecraft:netherite_axe"
+    },
+    "title": {
+      "translate": "advancements.elemenix.wax_off_memorizer.title"
+    }
+  },
+  "requirements": [
+    [
+      "wax_off"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

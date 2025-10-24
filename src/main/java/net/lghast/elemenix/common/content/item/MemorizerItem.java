@@ -1,5 +1,7 @@
 package net.lghast.elemenix.common.content.item;
 
+import net.lghast.elemenix.common.system.advancement.WaxOffTrigger;
+import net.lghast.elemenix.common.system.advancement.WaxOnTrigger;
 import net.lghast.elemenix.common.system.datacomponent.MemoryData;
 import net.lghast.elemenix.common.system.datacomponent.Waxed;
 import net.lghast.elemenix.conifig.ClientConfig;
@@ -10,6 +12,7 @@ import net.minecraft.client.particle.GlowParticle;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.ItemTags;
@@ -83,6 +86,10 @@ public class MemorizerItem extends Item{
                     player.getX(), player.getY()+1.2, player.getZ(), 0.4, 0.3, 0.4, 8, 0.01);
             serverLevel.playSound(null , player.getX(), player.getY(), player.getZ(),
                     SoundEvents.HONEYCOMB_WAX_ON, SoundSource.PLAYERS);
+
+            if (player instanceof ServerPlayer serverPlayer) {
+                WaxOnTrigger.TRIGGER.get().trigger(serverPlayer);
+            }
         }
     }
 
@@ -94,6 +101,10 @@ public class MemorizerItem extends Item{
                     player.getX(), player.getY()+1, player.getZ(), 0.4, 0.3, 0.4, 8, 0.01);
             serverLevel.playSound(null , player.getX(), player.getY(), player.getZ(),
                     SoundEvents.AXE_WAX_OFF, SoundSource.PLAYERS);
+
+            if (player instanceof ServerPlayer serverPlayer) {
+                WaxOffTrigger.TRIGGER.get().trigger(serverPlayer);
+            }
         }
     }
 
