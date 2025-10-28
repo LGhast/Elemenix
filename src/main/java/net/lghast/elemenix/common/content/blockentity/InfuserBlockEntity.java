@@ -93,6 +93,7 @@ public class InfuserBlockEntity extends BaseContainerBlockEntity {
     @Override
     public void loadAdditional(CompoundTag tag, HolderLookup.Provider provider) {
         super.loadAdditional(tag, provider);
+        ContainerHelper.loadAllItems(tag, items, provider);
 
         if (tag.contains("ElemenixStorage", CompoundTag.TAG_INT_ARRAY)) {
             int[] stored = tag.getIntArray("ElemenixStorage");
@@ -106,6 +107,7 @@ public class InfuserBlockEntity extends BaseContainerBlockEntity {
     @Override
     protected void saveAdditional(CompoundTag tag, HolderLookup.Provider provider) {
         super.saveAdditional(tag, provider);
+        ContainerHelper.saveAllItems(tag, items, provider);
 
         tag.putIntArray("ElemenixStorage", elemenixStorage);
 
@@ -121,7 +123,7 @@ public class InfuserBlockEntity extends BaseContainerBlockEntity {
 
         if (canDeconstruct()) {
             deconstructionTimer++;
-            InfuserBlock block = (InfuserBlock) state.getBlock();
+            InfuserBlock block = getInfuserBlock();
 
             if (deconstructionTimer >= block.getDcInterval()) {
                 deconstructItem();
@@ -134,7 +136,7 @@ public class InfuserBlockEntity extends BaseContainerBlockEntity {
 
         if (canInfuse()) {
             infusionTimer++;
-            InfuserBlock block = (InfuserBlock) state.getBlock();
+            InfuserBlock block = getInfuserBlock();
 
             if (infusionTimer >= block.getInfusionInterval()) {
                 infuseToAnalyzer();

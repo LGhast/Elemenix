@@ -1,5 +1,34 @@
 {
-  "creativetab.elemenix.elemenix": "Élémentium",
+  "advancements.elemenix.root.title": "Élémentiologie",
+  "advancements.elemenix.root.description": "Donnez-moi un analyseur, et je déconstruirai l'univers entier.",
+  "advancements.elemenix.obtain_memorizer.title": "Mémoire Profonde",
+  "advancements.elemenix.obtain_memorizer.description": "Obtenez un disque de mémoire élémentaire pour stocker les objets déconstruits par l'analyseur.",
+  "advancements.elemenix.obtain_fondant_cake.title": "Mission : Impossible",
+  "advancements.elemenix.obtain_fondant_cake.description": "Fabriquez un gâteau en fondant, attention, ce n'est pas un disque de mémoire !",
+  "advancements.elemenix.wax_on_memorizer.title": "Données Cireuses",
+  "advancements.elemenix.wax_on_memorizer.description": "Utilisez de la cire d'abeille pour sceller le disque de mémoire, le passant en mode lecture seule.",
+  "advancements.elemenix.wax_off_memorizer.title": "Pirate à l'Ancienne",
+  "advancements.elemenix.wax_off_memorizer.description": "Utilisez une hache pour 'pirater' violemment le mode lecture seule d'un disque de mémoire.",
+  "advancements.elemenix.enrich_essence.title": "Pureté Parfaite",
+  "advancements.elemenix.enrich_essence.description": "Utilisez l'analyseur pour obtenir une essence pure ou un complexe pur d'élémentium.",
+  "advancements.elemenix.enrich_equilibrium.title": "Loi de l'Entropie",
+  "advancements.elemenix.enrich_equilibrium.description": "Obtenez un équilibre élémentaire.",
+  "advancements.elemenix.obtain_transformer.title": "Industrie Élémentaire",
+  "advancements.elemenix.obtain_transformer.description": "Fabriquez n'importe quel transformateur d'élémentium.",
+  "advancements.elemenix.obtain_all_transformers.title": "Cluster Industriel",
+  "advancements.elemenix.obtain_all_transformers.description": "Obtenez tous les types de transformateurs d'élémentium.",
+  "advancements.elemenix.obtain_infuser.title": "Déconstructionnisme",
+  "advancements.elemenix.obtain_infuser.description": "Fabriquez une tour d'injection élémentaire qui peut automatiquement déconstruire les objets et injecter l'élémentium stocké dans l'analyseur.",
+  "advancements.elemenix.obtain_enricher.title": "Route de l'Enrichissement",
+  "advancements.elemenix.obtain_enricher.description": "Fabriquez une tour d'enrichissement élémentaire qui peut automatiquement déconstruire les objets et enrichir l'élémentium stocké en essences pures correspondantes.",
+  "advancements.elemenix.obtain_ejector.title": "Éjection Charmante",
+  "advancements.elemenix.obtain_ejector.description": "Fabriquez une tour d'éjection élémentaire qui peut automatiquement déconstruire les objets, enrichir l'élémentium, puis les éjecter.",
+  "advancements.elemenix.close_throttle_valve.title": "Remède du Regret",
+  "advancements.elemenix.close_throttle_valve.description": "Ajustez l'ouverture d'une valve d'étranglement à 0%, maintenant votre tour d'éjection redevient une tour d'enrichissement.",
+  "advancements.elemenix.obtain_flow_straightener.title": "Selon l'Équation de Navier-Stokes…",
+  "advancements.elemenix.obtain_flow_straightener.description": "Obtenez un redresseur d'écoulement.",
+
+  "creativetab.elemenix.elemenix": "Élémentiologie",
 
   "block.elemenix.geological_simulator": "Simulateur Géologique",
   "block.elemenix.metallurgical_activator": "Forge d'Activation",
@@ -7,6 +36,8 @@
   "block.elemenix.transpiring_incinerator": "Incinérateur à Évaporation",
   "block.elemenix.optical_capturer": "Capteur d'Énergie Lumineuse",
   "block.elemenix.elemenic_infuser": "Tour d'Injection Élémentaire",
+  "block.elemenix.elemenic_enricher": "Tour d'Enrichissement Élémentaire",
+  "block.elemenix.elemenic_ejector": "Tour d'Éjection Élémentaire",
 
   "item.elemenix.elemenic_analyzer": "Analyseur d'Élémentium",
   "item.elemenix.elemenic_memorizer": "Disque de Mémoire Élémentaire",
@@ -24,6 +55,8 @@
   "item.elemenix.metallix_essenplex": "Complexe Métallique",
   "item.elemenix.energix_essenplex": "Complexe Excitatif",
   "item.elemenix.arcanix_essenplex": "Complexe Arcanique",
+  "item.elemenix.throttle_valve": "Valve d'Étranglement",
+  "item.elemenix.flow_straightener": "Redresseur d'Écoulement",
 
   "elemenix.elemenix.organix": "Substance Organique",
   "elemenix.elemenix.terrix": "Substance Minérale",
@@ -45,10 +78,13 @@
   "container.elemenix.transpiring_incinerator": "Incinérateur à Évaporation",
   "container.elemenix.optical_capturer": "Capteur d'Énergie Lumineuse",
   "container.elemenix.elemenic_infuser": "Tour d'Injection Élémentaire",
+  "container.elemenix.elemenic_enricher": "Tour d'Enrichissement Élémentaire",
+  "container.elemenix.elemenic_ejector": "Tour d'Éjection Élémentaire",
 
   "tooltip.elemenix.constituents": "Composition Élémentaire:",
   "tooltip.elemenix.unanalysable": "Inanalysable",
   "tooltip.elemenix.analyzer_storage": "Réserves d'Élémentium:",
   "tooltip.elemenix.memories": "Objets Mémorisés: %d",
-  "tooltip.elemenix.readonly": "Lecture Seule"
+  "tooltip.elemenix.readonly": "Lecture Seule",
+  "tooltip.elemenix.valve_opening": "Ouverture de la Valve: %s"
 }

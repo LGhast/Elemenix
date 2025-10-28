@@ -17,6 +17,8 @@ public class ModItemModelProvider extends ItemModelProvider {
         basicItem(ModItems.ELEMENIC_ANALYZER.get());
         basicItem(ModItems.ELEMENIC_MEMORIZER.get());
         basicItem(ModItems.FONDANT_CAKE.get());
+        basicItem(ModItems.THROTTLE_VALVE.get());
+        basicItem(ModItems.FLOW_STRAIGHTENER.get());
         basicItem(ModItems.ORGANIX_ESSENCE.get());
         basicItem(ModItems.TERRIX_ESSENCE.get());
         basicItem(ModItems.FLUMIX_ESSENCE.get());

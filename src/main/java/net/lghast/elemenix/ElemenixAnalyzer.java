@@ -14,6 +14,7 @@ import net.lghast.elemenix.register.system.ModMenus;
 import net.neoforged.fml.config.ModConfig;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.neoforged.neoforge.data.event.GatherDataEvent;
+import net.neoforged.neoforge.registries.datamaps.builtin.FurnaceFuel;
 import org.slf4j.Logger;
 
 import com.mojang.logging.LogUtils;

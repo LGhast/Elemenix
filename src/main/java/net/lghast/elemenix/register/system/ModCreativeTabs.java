@@ -23,6 +23,8 @@ public class ModCreativeTabs {
                         output.accept(ModItems.ELEMENIC_ANALYZER);
                         output.accept(ModItems.ELEMENIC_MEMORIZER);
                         output.accept(ModItems.FONDANT_CAKE);
+                        output.accept(ModItems.THROTTLE_VALVE);
+                        output.accept(ModItems.FLOW_STRAIGHTENER);
                         output.accept(ModItems.ORGANIX_ESSENCE);
                         output.accept(ModItems.TERRIX_ESSENCE);
                         output.accept(ModItems.FLUMIX_ESSENCE);
@@ -43,6 +45,7 @@ public class ModCreativeTabs {
                         output.accept(ModBlocks.OPTICAL_CAPTURER);
                         output.accept(ModBlocks.ELEMENIC_INFUSER);
                         output.accept(ModBlocks.ELEMENIC_ENRICHER);
+                        output.accept(ModBlocks.ELEMENIC_EJECTOR);
                     }).build());
 
     public static void register(IEventBus eventBus){

@@ -21,8 +21,14 @@
   "advancements.elemenix.obtain_infuser.description": "Craft an Elemenic Infuser – it automatically deconstructs items and infuses the stored elemenix into analyzers",
   "advancements.elemenix.obtain_enricher.title": "The Path of Enrichment",
   "advancements.elemenix.obtain_enricher.description": "Craft an Elemenic Infuser – it automatically deconstructs items and enriches stored elemenix into the corresponding essence",
+  "advancements.elemenix.obtain_ejector.title": "A Ejection of Affection",
+  "advancements.elemenix.obtain_ejector.description": "Craft an Elemenic Ejector - it automatically deconstructs items, enriches elemenix, and projects it forth",
+  "advancements.elemenix.close_throttle_valve.title": "A Chance to Undo",
+  "advancements.elemenix.close_throttle_valve.description": "Set a Throttle Valve to 0% opening. Your ejector has now reverted back to an enricher.",
+  "advancements.elemenix.obtain_flow_straightener.title": "According to the Navier-Stokes Equations...",
+  "advancements.elemenix.obtain_flow_straightener.description": "Obtain a Flow Straightener",
 
-  "creativetab.elemenix.elemenix": "Elemenix",
+  "creativetab.elemenix.elemenix": "Elemenics",
 
   "block.elemenix.geological_simulator": "Geological Simulator",
   "block.elemenix.metallurgical_activator": "Metallurgical Activator",
@@ -31,6 +37,7 @@
   "block.elemenix.optical_capturer": "Optical Capturer",
   "block.elemenix.elemenic_infuser": "Elemenic Infuser",
   "block.elemenix.elemenic_enricher": "Elemenic Enricher",
+  "block.elemenix.elemenic_ejector": "Elemenic Ejector",
 
   "item.elemenix.elemenic_analyzer": "Elemenic Analyzer",
   "item.elemenix.elemenic_memorizer": "Elemenic Memorizer",
@@ -48,6 +55,8 @@
   "item.elemenix.metallix_essenplex": "Metallix Essenplex",
   "item.elemenix.energix_essenplex": "Energix Essenplex",
   "item.elemenix.arcanix_essenplex": "Arcanix Essenplex",
+  "item.elemenix.throttle_valve": "Throttle Valve",
+  "item.elemenix.flow_straightener": "Flow Straightener",
 
   "elemenix.elemenix.organix": "Organix",
   "elemenix.elemenix.terrix": "Terrix",
@@ -70,10 +79,12 @@
   "container.elemenix.optical_capturer": "Optical Capturer",
   "container.elemenix.elemenic_infuser": "Elemenic Infuser",
   "container.elemenix.elemenic_enricher": "Elemenic Enricher",
+  "container.elemenix.elemenic_ejector": "Elemenic Ejector",
 
   "tooltip.elemenix.constituents": "Elemenic Constituents:",
   "tooltip.elemenix.unanalysable": "=UNANALYSABLE=",
   "tooltip.elemenix.analyzer_storage": "Elemenic Storage:",
   "tooltip.elemenix.memories": "Memorized Items: %d",
-  "tooltip.elemenix.readonly": "Read-Only"
+  "tooltip.elemenix.readonly": "Read-Only",
+  "tooltip.elemenix.valve_opening": "Valve Opening: %s"
 }

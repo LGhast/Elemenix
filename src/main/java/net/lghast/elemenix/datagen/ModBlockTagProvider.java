@@ -29,17 +29,16 @@ public class ModBlockTagProvider extends BlockTagsProvider {
         tag(ModTags.ELEMENIC_DECONSTRUCTING_BLOCKS)
                 .add(ModBlocks.ELEMENIC_INFUSER.get())
                 .add(ModBlocks.ELEMENIC_ENRICHER.get())
+                .add(ModBlocks.ELEMENIC_EJECTOR.get())
         ;
 
         tag(BlockTags.MINEABLE_WITH_PICKAXE)
-                .add(ModBlocks.ELEMENIC_INFUSER.get())
-                .add(ModBlocks.ELEMENIC_ENRICHER.get())
+                .addTag(ModTags.ELEMENIC_DECONSTRUCTING_BLOCKS)
                 .addTag(ModTags.ELEMENIC_TRANSFORMING_BLOCKS)
         ;
 
         tag(BlockTags.NEEDS_IRON_TOOL)
-                .add(ModBlocks.ELEMENIC_INFUSER.get())
-                .add(ModBlocks.ELEMENIC_ENRICHER.get())
+                .addTag(ModTags.ELEMENIC_DECONSTRUCTING_BLOCKS)
                 .addTag(ModTags.ELEMENIC_TRANSFORMING_BLOCKS)
         ;
     }

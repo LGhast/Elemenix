@@ -1,0 +1,110 @@
+{
+  "variants": {
+    "working=false,orientation=down_east": {
+      "model": "elemenix:block/elemenic_ejector",
+      "x": 90,
+      "y": 90
+    },
+    "working=false,orientation=down_north": {
+      "model": "elemenix:block/elemenic_ejector",
+      "x": 90
+    },
+    "working=false,orientation=down_south": {
+      "model": "elemenix:block/elemenic_ejector",
+      "x": 90,
+      "y": 180
+    },
+    "working=false,orientation=down_west": {
+      "model": "elemenix:block/elemenic_ejector",
+      "x": 90,
+      "y": 270
+    },
+    "working=false,orientation=east_up": {
+      "model": "elemenix:block/elemenic_ejector",
+      "y": 90
+    },
+    "working=false,orientation=north_up": {
+      "model": "elemenix:block/elemenic_ejector"
+    },
+    "working=false,orientation=south_up": {
+      "model": "elemenix:block/elemenic_ejector",
+      "y": 180
+    },
+    "working=false,orientation=up_east": {
+      "model": "elemenix:block/elemenic_ejector",
+      "x": 270,
+      "y": 270
+    },
+    "working=false,orientation=up_north": {
+      "model": "elemenix:block/elemenic_ejector",
+      "x": 270,
+      "y": 180
+    },
+    "working=false,orientation=up_south": {
+      "model": "elemenix:block/elemenic_ejector",
+      "x": 270
+    },
+    "working=false,orientation=up_west": {
+      "model": "elemenix:block/elemenic_ejector",
+      "x": 270,
+      "y": 90
+    },
+    "working=false,orientation=west_up": {
+      "model": "elemenix:block/elemenic_ejector",
+      "y": 270
+    },
+    "working=true,orientation=down_east": {
+      "model": "elemenix:block/elemenic_ejector_working",
+      "x": 90,
+      "y": 90
+    },
+    "working=true,orientation=down_north": {
+      "model": "elemenix:block/elemenic_ejector_working",
+      "x": 90
+    },
+    "working=true,orientation=down_south": {
+      "model": "elemenix:block/elemenic_ejector_working",
+      "x": 90,
+      "y": 180
+    },
+    "working=true,orientation=down_west": {
+      "model": "elemenix:block/elemenic_ejector_working",
+      "x": 90,
+      "y": 270
+    },
+    "working=true,orientation=east_up": {
+      "model": "elemenix:block/elemenic_ejector_working",
+      "y": 90
+    },
+    "working=true,orientation=north_up": {
+      "model": "elemenix:block/elemenic_ejector_working"
+    },
+    "working=true,orientation=south_up": {
+      "model": "elemenix:block/elemenic_ejector_working",
+      "y": 180
+    },
+    "working=true,orientation=up_east": {
+      "model": "elemenix:block/elemenic_ejector_working",
+      "x": 270,
+      "y": 270
+    },
+    "working=true,orientation=up_north": {
+      "model": "elemenix:block/elemenic_ejector_working",
+      "x": 270,
+      "y": 180
+    },
+    "working=true,orientation=up_south": {
+      "model": "elemenix:block/elemenic_ejector_working",
+      "x": 270
+    },
+    "working=true,orientation=up_west": {
+      "model": "elemenix:block/elemenic_ejector_working",
+      "x": 270,
+      "y": 90
+    },
+    "working=true,orientation=west_up": {
+      "model": "elemenix:block/elemenic_ejector_working",
+      "y": 270
+    }
+  }
+}

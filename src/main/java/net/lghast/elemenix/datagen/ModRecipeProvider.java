@@ -217,6 +217,17 @@ public class ModRecipeProvider extends RecipeProvider {
                 .unlockedBy("has_elemenic_infuser", has(ModBlocks.ELEMENIC_INFUSER))
                 .save(recipeOutput);
 
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ModBlocks.ELEMENIC_EJECTOR.get(), 1)
+                .pattern(" C ")
+                .pattern("RER")
+                .pattern(" D ")
+                .define('E', ModBlocks.ELEMENIC_ENRICHER)
+                .define('C', Items.COMPARATOR)
+                .define('R', Items.REDSTONE)
+                .define('D', Items.DISPENSER)
+                .unlockedBy("has_elemenic_enricher", has(ModBlocks.ELEMENIC_ENRICHER))
+                .save(recipeOutput);
+
         ShapedRecipeBuilder.shaped(RecipeCategory.FOOD, ModItems.FONDANT_CAKE.get(), 1)
                 .pattern("SPS")
                 .pattern("EOE")
@@ -228,6 +239,25 @@ public class ModRecipeProvider extends RecipeProvider {
                 .define('W', Items.WHEAT)
                 .define('B', Items.SWEET_BERRIES)
                 .unlockedBy("has_energix_essence", has(ModItems.ENERGIX_ESSENCE))
+                .save(recipeOutput);
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ModItems.FLOW_STRAIGHTENER.get(), 1)
+                .pattern("   ")
+                .pattern("IBI")
+                .pattern("   ")
+                .define('I', Items.IRON_INGOT)
+                .define('B', Items.IRON_BARS)
+                .unlockedBy("has_iron_bars", has(Items.IRON_BARS))
+                .save(recipeOutput);
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ModItems.THROTTLE_VALVE.get(), 1)
+                .pattern(" I ")
+                .pattern("IRI")
+                .pattern(" B ")
+                .define('I', Items.IRON_INGOT)
+                .define('B', Items.BUCKET)
+                .define('R', Items.REDSTONE)
+                .unlockedBy("has_bucket", has(Items.BUCKET))
                 .save(recipeOutput);
     }
 }

@@ -21,8 +21,14 @@
   "advancements.elemenix.obtain_infuser.description": "製作一台元質注入塔，它可以自動解構物品並將儲存的元質注入解析器",
   "advancements.elemenix.obtain_enricher.title": "致富路",
   "advancements.elemenix.obtain_enricher.description": "製作一台元質富集塔，它可以自動解構物品並將儲存的元質富集為對應的純質",
+  "advancements.elemenix.obtain_ejector.title": "魅力四射",
+  "advancements.elemenix.obtain_ejector.description": "製作一台元質射流塔，它可以自動解構物品、富集元質，然後將它們噴發出來",
+  "advancements.elemenix.close_throttle_valve.title": "後悔藥",
+  "advancements.elemenix.close_throttle_valve.description": "把一個節流閥的開度調節至0%，現在你的射流塔變回富集塔了",
+  "advancements.elemenix.obtain_flow_straightener.title": "根據納維-斯托克斯方程…",
+  "advancements.elemenix.obtain_flow_straightener.description": "取得一個整流柵",
 
-  "creativetab.elemenix.elemenix": "元質",
+  "creativetab.elemenix.elemenix": "元質學",
 
   "block.elemenix.geological_simulator": "地質模擬儀",
   "block.elemenix.metallurgical_activator": "激化鍛冶儀",
@@ -31,6 +37,7 @@
   "block.elemenix.optical_capturer": "光能捕獲儀",
   "block.elemenix.elemenic_infuser": "元質注入塔",
   "block.elemenix.elemenic_enricher": "元質富集塔",
+  "block.elemenix.elemenic_ejector": "元質射流塔",
 
   "item.elemenix.elemenic_analyzer": "元質分析器",
   "item.elemenix.elemenic_memorizer": "元質記憶碟",
@@ -48,6 +55,8 @@
   "item.elemenix.metallix_essenplex": "金屬純聚體",
   "item.elemenix.energix_essenplex": "激發純聚體",
   "item.elemenix.arcanix_essenplex": "神秘純聚體",
+  "item.elemenix.throttle_valve": "節流閥",
+  "item.elemenix.flow_straightener": "整流柵",
 
   "elemenix.elemenix.organix": "有機質",
   "elemenix.elemenix.terrix": "礦化質",
@@ -70,10 +79,12 @@
   "container.elemenix.optical_capturer": "光能捕獲儀",
   "container.elemenix.elemenic_infuser": "元質注入塔",
   "container.elemenix.elemenic_enricher": "元質富集塔",
+  "container.elemenix.elemenic_ejector": "元質射流塔",
 
   "tooltip.elemenix.constituents": "元質成分：",
   "tooltip.elemenix.unanalysable": "=無法解析=",
   "tooltip.elemenix.analyzer_storage": "元質儲量：",
   "tooltip.elemenix.memories": "已記憶物品: %d",
-  "tooltip.elemenix.readonly": "唯讀"
+  "tooltip.elemenix.readonly": "唯讀",
+  "tooltip.elemenix.valve_opening": "閥門開度：%s"
 }

@@ -1,0 +1,29 @@
+{
+  "parent": "elemenix:elemenics/obtain_ejector",
+  "criteria": {
+    "close_valve": {
+      "conditions": {
+        "openness": 0
+      },
+      "trigger": "elemenix:valve_open"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.elemenix.close_throttle_valve.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "elemenix:throttle_valve"
+    },
+    "title": {
+      "translate": "advancements.elemenix.close_throttle_valve.title"
+    }
+  },
+  "requirements": [
+    [
+      "close_valve"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

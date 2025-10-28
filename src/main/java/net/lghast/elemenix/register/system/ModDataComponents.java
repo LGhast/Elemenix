@@ -4,10 +4,7 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.DataResult;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.lghast.elemenix.ElemenixAnalyzer;
-import net.lghast.elemenix.common.system.datacomponent.AnalyzerUuid;
-import net.lghast.elemenix.common.system.datacomponent.ElemenicStorage;
-import net.lghast.elemenix.common.system.datacomponent.MemoryData;
-import net.lghast.elemenix.common.system.datacomponent.Waxed;
+import net.lghast.elemenix.common.system.datacomponent.*;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.RegistryFriendlyByteBuf;
@@ -31,6 +28,8 @@ public class ModDataComponents {
     public static final Codec<Waxed> WAXED_CODEC = Waxed.CODEC;
 
     public static final Codec<AnalyzerUuid> ANALYZER_UUID_CODEC = AnalyzerUuid.CODEC;
+
+    public static final Codec<ValveOpenness> VALVE_OPENNESS_CODEC = ValveOpenness.CODEC;
 
     public static final StreamCodec<RegistryFriendlyByteBuf, ElemenicStorage> ELEMENIC_STORAGE_STREAM_CODEC =
             StreamCodec.of(
@@ -62,6 +61,9 @@ public class ModDataComponents {
                     buf -> new Waxed(buf.readBoolean())
             );
 
+    public static final StreamCodec<RegistryFriendlyByteBuf, ValveOpenness> VALVE_OPENNESS_STREAM_CODEC =
+            ValveOpenness.STREAM_CODEC;
+
     public static final StreamCodec<RegistryFriendlyByteBuf, AnalyzerUuid> ANALYZER_UUID_STREAM_CODEC =
             AnalyzerUuid.STREAM_CODEC;
 
@@ -87,6 +89,12 @@ public class ModDataComponents {
             REGISTRAR.registerComponentType("analyzer_uuid", builder ->
                     builder.persistent(ANALYZER_UUID_CODEC)
                             .networkSynchronized(ANALYZER_UUID_STREAM_CODEC)
+            );
+
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<ValveOpenness>> VALVE_OPENNESS =
+            REGISTRAR.registerComponentType("valve_openness", builder ->
+                    builder.persistent(VALVE_OPENNESS_CODEC)
+                            .networkSynchronized(VALVE_OPENNESS_STREAM_CODEC)
             );
 
     public static void register(IEventBus eventBus) {

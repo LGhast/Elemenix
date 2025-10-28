@@ -1,4 +1,4 @@
-// 1.21.1	2025-10-18T21:33:24.7539816	Item Models: elemenix
+// 1.21.1	2025-10-26T15:29:19.405703	Item Models: elemenix
 55ec9ca706d0943e1a8bd9ddababba73cf6cfada assets/elemenix/models/item/arcanix_essence.json
 cc094e211627b2947f5a2a32ea7c7f34c0f07ea1 assets/elemenix/models/item/arcanix_essenplex.json
 cb1e8f7df35afac4d0797e9386a3f72e1d99e3cd assets/elemenix/models/item/elemenic_analyzer.json
@@ -6,6 +6,7 @@ cb31a85dc81228e623c82e5fdd5ac4cc8ad8e2bc assets/elemenix/models/item/elemenic_eq
 e446102a3f815e5718f08cdb511aba2965e33fe3 assets/elemenix/models/item/elemenic_memorizer.json
 140f4ac7f2c0af6ff8e143bc0bbf8192434582ca assets/elemenix/models/item/energix_essence.json
 57ef83cf7282d9a6b3e47d45e459d1a52466989a assets/elemenix/models/item/energix_essenplex.json
+33a8d635c1d7971d8ccc412ea9b566574682135e assets/elemenix/models/item/flow_straightener.json
 461e25f9a3401093c861d72f0fe450c1d9ed66ea assets/elemenix/models/item/flumix_essence.json
 d1b37bf0d3711af1f40c10ee527167ec049d8be6 assets/elemenix/models/item/flumix_essenplex.json
 4deffeeeb9cdd68cfbf6d8f686781e16c3732f99 assets/elemenix/models/item/fondant_cake.json
@@ -15,3 +16,4 @@ beb1d267575b319e0962d29e213bf6280d9410a8 assets/elemenix/models/item/metallix_es
 5a2627308f0bb20d913d7f0cb3a9e6dc57967ab4 assets/elemenix/models/item/organix_essenplex.json
 8255a18e7cc607e05b51e4226a7fcf13eb4efcfc assets/elemenix/models/item/terrix_essence.json
 aba492367bc2c4c430b276a352ad466c7bc2829c assets/elemenix/models/item/terrix_essenplex.json
+91be8020b97ebeb1a208ed1de538b75111fd44eb assets/elemenix/models/item/throttle_valve.json

@@ -2,7 +2,6 @@ package net.lghast.elemenix.common.content.block;
 
 import com.mojang.serialization.MapCodec;
 import net.lghast.elemenix.common.content.blockentity.EnricherBlockEntity;
-import net.lghast.elemenix.common.content.blockentity.EnricherBlockEntity;
 import net.lghast.elemenix.conifig.ServerConfig;
 import net.lghast.elemenix.register.content.ModBlockEntities;
 import net.minecraft.core.BlockPos;
@@ -122,6 +121,6 @@ public class EnricherBlock extends BaseEntityBlock {
     };
 
     public int getEnrichingInterval(){
-        return ServerConfig.ENRICHING_INTERVAL.get();
+        return ServerConfig.ENRICHER_ENRICHING_INTERVAL.get();
     };
 }

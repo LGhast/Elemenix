@@ -2,7 +2,10 @@ package net.lghast.elemenix.register.content;
 
 import net.lghast.elemenix.ElemenixAnalyzer;
 import net.lghast.elemenix.common.content.item.AnalyzerItem;
+import net.lghast.elemenix.common.content.item.FuelItem;
 import net.lghast.elemenix.common.content.item.MemorizerItem;
+import net.lghast.elemenix.common.content.item.ThrottleValveItem;
+import net.lghast.elemenix.common.system.datacomponent.ValveOpenness;
 import net.lghast.elemenix.register.system.ModFoodProperties;
 import net.minecraft.world.item.Item;
 import net.neoforged.bus.api.IEventBus;
@@ -31,7 +34,7 @@ public class ModItems {
             ()-> new Item(new Item.Properties()));
 
     public static final DeferredItem<Item> ENERGIX_ESSENCE = ITEMS.register("energix_essence",
-            ()-> new Item(new Item.Properties()));
+            ()-> new FuelItem(new Item.Properties(), 8100));
 
     public static final DeferredItem<Item> ARCANIX_ESSENCE = ITEMS.register("arcanix_essence",
             ()-> new Item(new Item.Properties()));
@@ -52,10 +55,16 @@ public class ModItems {
             ()-> new Item(new Item.Properties()));
 
     public static final DeferredItem<Item> ENERGIX_ESSENPLEX = ITEMS.register("energix_essenplex",
-            ()-> new Item(new Item.Properties()));
+            ()-> new FuelItem(new Item.Properties(), 72900));
 
     public static final DeferredItem<Item> ARCANIX_ESSENPLEX = ITEMS.register("arcanix_essenplex",
             ()-> new Item(new Item.Properties()));
+
+    public static final DeferredItem<Item> THROTTLE_VALVE = ITEMS.register("throttle_valve",
+            ()-> new ThrottleValveItem(new Item.Properties()));
+
+    public static final DeferredItem<Item> FLOW_STRAIGHTENER = ITEMS.register("flow_straightener",
+            ()-> new Item(new Item.Properties().stacksTo(1)));
 
     public static final DeferredItem<Item> FONDANT_CAKE = ITEMS.register("fondant_cake",
             ()-> new Item(new Item.Properties().food(ModFoodProperties.FONDANT_CAKE)));

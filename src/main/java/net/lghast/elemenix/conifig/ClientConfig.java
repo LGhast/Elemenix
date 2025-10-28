@@ -17,6 +17,7 @@ public class ClientConfig {
     public static ModConfigSpec.BooleanValue SHOW_READONLY_TOOLTIPS;
     public static ModConfigSpec.BooleanValue SHOW_STORAGE_TOOLTIPS;
     public static ModConfigSpec.BooleanValue SHOW_ANALYZER_UUID_TOOLTIPS;
+    public static ModConfigSpec.BooleanValue SHOW_VALVE_OPENNESS_TOOLTIPS;
 
     static {
         BUILDER.push("提示信息配置 Tooltip Configurations");
@@ -57,6 +58,11 @@ public class ClientConfig {
                 .comment("是否显示元质解析仪UUID，仅用于调试",
                         "Whether to display elemenix analyzer UUID. For debugging purposes only")
                 .define("show_analyzer_uuid_tooltips", false);
+
+        SHOW_VALVE_OPENNESS_TOOLTIPS = BUILDER
+                .comment("是否显示节流阀开度",
+                        "Whether to display openness for Throttle Valves")
+                .define("show_valve_openness_tooltips", true);
 
         BUILDER.pop();
 

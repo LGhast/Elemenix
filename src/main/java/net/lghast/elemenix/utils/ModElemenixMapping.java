@@ -256,9 +256,25 @@ public class ModElemenixMapping {
             Map<String, Constituents> map = new HashMap<>();
             map.put("jiagureappear:sour_berries", new Constituents(8, 0, 6, 0, 0, 0));
             map.put("jiagureappear:shadow_berries", new Constituents(8, 0, 4, 0, 0, 2));
-            map.put("jiagureappear:turtle_plastron", new Constituents(8, 0, 36, 0, 0, 0));
+            map.put("jiagureappear:turtle_plastron", new Constituents(12, 0, 64, 0, 0, 0));
             map.put("jiagureappear:yolime", new Constituents(35, 0, 10, 0, 0, 10));
             map.put("jiagureappear:zucchini", new Constituents(72, 0, 68, 0, 0, 0));
+            map.put("#jiagureappear:amethyst_inscriptions", new Constituents(true));
+            return map;
+        });
+
+        registerModMappings("crittersandcompanions", () -> {
+            Map<String, Constituents> map = new HashMap<>();
+            map.put("crittersandcompanions:dragonfly_wing", new Constituents(Elemenix.ORGANIX, 16));
+            map.put("crittersandcompanions:koi_fish", new Constituents(20, 2, 12, 0, 0, 0));
+            map.put("crittersandcompanions:clam", new Constituents(15, 36, 5, 0, 0, 0));
+            map.put("crittersandcompanions:pearl", new Constituents(Elemenix.TERRIX, 24));
+            map.put("crittersandcompanions:silk", new Constituents(Elemenix.ORGANIX, 24));
+            map.put("crittersandcompanions:silk_cocoon", new Constituents(Elemenix.ORGANIX, 72));
+            map.put("crittersandcompanions:sea_bunny_slime_bottle", new Constituents(30, 8, 15, 0, 0, 0));
+            map.put("crittersandcompanions:koi_fish_bucket", new Constituents(20, 29, 12, 648, 0, 0));
+            map.put("crittersandcompanions:sea_bunny_bucket", new Constituents(30, 27, 15, 648, 0, 0));
+            map.put("crittersandcompanions:dumbo_octopus_bucket", new Constituents(30, 27, 15, 648, 0, 0));
             return map;
         });
     }

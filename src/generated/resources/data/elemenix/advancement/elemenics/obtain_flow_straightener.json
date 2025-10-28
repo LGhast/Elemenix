@@ -1,0 +1,33 @@
+{
+  "parent": "elemenix:elemenics/obtain_ejector",
+  "criteria": {
+    "get_straightener": {
+      "conditions": {
+        "items": [
+          {
+            "items": "elemenix:flow_straightener"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.elemenix.obtain_flow_straightener.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "elemenix:flow_straightener"
+    },
+    "title": {
+      "translate": "advancements.elemenix.obtain_flow_straightener.title"
+    }
+  },
+  "requirements": [
+    [
+      "get_straightener"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

@@ -1,5 +1,34 @@
 {
-  "creativetab.elemenix.elemenix": "Элеменция",
+  "advancements.elemenix.root.title": "Элеменциология",
+  "advancements.elemenix.root.description": "Дайте мне анализатор, и я разберу всю вселенную",
+  "advancements.elemenix.obtain_memorizer.title": "Диск с Глубокой Памятью",
+  "advancements.elemenix.obtain_memorizer.description": "Получите диск элементной памяти для хранения предметов, деконструированных анализатором",
+  "advancements.elemenix.obtain_fondant_cake.title": "Фондан: Миссия Невыполнима?",
+  "advancements.elemenix.obtain_fondant_cake.description": "Приготовьте торт фондан, но помните, это не диск памяти!",
+  "advancements.elemenix.wax_on_memorizer.title": "Медовый Секрет",
+  "advancements.elemenix.wax_on_memorizer.description": "Используйте пчелиный воск, чтобы запечатать диск памяти и перевести его в режим только для чтения",
+  "advancements.elemenix.wax_off_memorizer.title": "Старинный Взлом",
+  "advancements.elemenix.wax_off_memorizer.description": "Используйте топор, чтобы 'взломать' режим только для чтения на диске памяти",
+  "advancements.elemenix.enrich_essence.title": "Безупречная Чистота",
+  "advancements.elemenix.enrich_essence.description": "Используйте анализатор, чтобы получить чистую субстанцию элеменции или конгломерат",
+  "advancements.elemenix.enrich_equilibrium.title": "Закон Возрастания Энтропии",
+  "advancements.elemenix.enrich_equilibrium.description": "Получите элементный равновесник",
+  "advancements.elemenix.obtain_transformer.title": "Элементная Промышленность",
+  "advancements.elemenix.obtain_transformer.description": "Создайте любой преобразователь элеменции",
+  "advancements.elemenix.obtain_all_transformers.title": "Промышленный Кластер",
+  "advancements.elemenix.obtain_all_transformers.description": "Получите все виды преобразователей элеменции",
+  "advancements.elemenix.obtain_infuser.title": "Деконструктивизм",
+  "advancements.elemenix.obtain_infuser.description": "Создайте башню элементной инъекции, которая автоматически деконструирует предметы и внедряет сохранённую элеменцию в анализатор",
+  "advancements.elemenix.obtain_enricher.title": "Путь к Богатству",
+  "advancements.elemenix.obtain_enricher.description": "Создайте башню обогащения элеменции, которая автоматически деконструирует предметы и обогащает сохранённую элеменцию в соответствующую чистую субстанцию",
+  "advancements.elemenix.obtain_ejector.title": "Сияние Энергии",
+  "advancements.elemenix.obtain_ejector.description": "Создайте башню выброса элеменции, которая автоматически деконструирует предметы, обогащает элеменцию и затем выбрасывает их",
+  "advancements.elemenix.close_throttle_valve.title": "Клапан Сожаления",
+  "advancements.elemenix.close_throttle_valve.description": "Установите открытие дроссельного клапана на 0%, теперь ваша башня выброса снова стала башней обогащения",
+  "advancements.elemenix.obtain_flow_straightener.title": "Согласно Уравнениям Навье-Стокса…",
+  "advancements.elemenix.obtain_flow_straightener.description": "Получите выпрямитель потока",
+
+  "creativetab.elemenix.elemenix": "Элеменциология",
 
   "block.elemenix.geological_simulator": "Геологический Симулятор",
   "block.elemenix.metallurgical_activator": "Активационная Кузница",
@@ -7,6 +36,8 @@
   "block.elemenix.transpiring_incinerator": "Испарительный Инсинератор",
   "block.elemenix.optical_capturer": "Уловитель Световой Энергии",
   "block.elemenix.elemenic_infuser": "Башня Элементной Инъекции",
+  "block.elemenix.elemenic_enricher": "Башня Обогащения Элеменции",
+  "block.elemenix.elemenic_ejector": "Башня Выброса Элеменции",
 
   "item.elemenix.elemenic_analyzer": "Анализатор Элеменции",
   "item.elemenix.elemenic_memorizer": "Диск Элементной Памяти",
@@ -24,6 +55,8 @@
   "item.elemenix.metallix_essenplex": "Металлический Конгломерат",
   "item.elemenix.energix_essenplex": "Возбуждающий Конгломерат",
   "item.elemenix.arcanix_essenplex": "Мистический Конгломерат",
+  "item.elemenix.throttle_valve": "Дроссельный Клапан",
+  "item.elemenix.flow_straightener": "Выпрямитель Потока",
 
   "elemenix.elemenix.organix": "Органическая Субстанция",
   "elemenix.elemenix.terrix": "Минеральная Субстанция",
@@ -45,10 +78,13 @@
   "container.elemenix.transpiring_incinerator": "Испарительный Инсинератор",
   "container.elemenix.optical_capturer": "Уловитель Световой Энергии",
   "container.elemenix.elemenic_infuser": "Башня Элементной Инъекции",
+  "container.elemenix.elemenic_enricher": "Башня Обогащения Элеменции",
+  "container.elemenix.elemenic_ejector": "Башня Выброса Элеменции",
 
   "tooltip.elemenix.constituents": "Элементный Состав:",
   "tooltip.elemenix.unanalysable": "=Неанализируемо=",
   "tooltip.elemenix.analyzer_storage": "Запасы Элеменции:",
   "tooltip.elemenix.memories": "Запомненные Предметы: %d",
-  "tooltip.elemenix.readonly": "Только Для Чтения"
+  "tooltip.elemenix.readonly": "Только Для Чтения",
+  "tooltip.elemenix.valve_opening": "Открытие клапана: %s"
 }

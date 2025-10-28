@@ -1,13 +1,11 @@
 package net.lghast.elemenix.register.system;
 
 import net.lghast.elemenix.ElemenixAnalyzer;
+import net.lghast.elemenix.common.content.blockentity.EjectorBlockEntity;
 import net.lghast.elemenix.common.content.blockentity.EnricherBlockEntity;
 import net.lghast.elemenix.common.content.blockentity.InfuserBlockEntity;
 import net.lghast.elemenix.common.content.blockentity.TransformerBlockEntity;
-import net.lghast.elemenix.common.system.menu.AnalyzerMenu;
-import net.lghast.elemenix.common.system.menu.EnricherMenu;
-import net.lghast.elemenix.common.system.menu.InfuserMenu;
-import net.lghast.elemenix.common.system.menu.TransformerMenu;
+import net.lghast.elemenix.common.system.menu.*;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.ItemStack;
@@ -40,6 +38,11 @@ public class ModMenus {
             MENUS.register("enricher_menu", () ->
                     IMenuTypeExtension.create((windowId, inv, data) ->
                             new EnricherMenu(windowId, inv, (EnricherBlockEntity) inv.player.level().getBlockEntity(data.readBlockPos()))));
+
+    public static final Supplier<MenuType<EjectorMenu>> EJECTOR_MENU =
+            MENUS.register("ejector_menu", () ->
+                    IMenuTypeExtension.create((windowId, inv, data) ->
+                            new EjectorMenu(windowId, inv, (EjectorBlockEntity) inv.player.level().getBlockEntity(data.readBlockPos()))));
 
     public static void register(IEventBus eventBus) {
         MENUS.register(eventBus);

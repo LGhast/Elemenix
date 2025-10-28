@@ -20,6 +20,7 @@ import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.Container;
+import net.minecraft.world.ContainerHelper;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerData;
@@ -86,6 +87,7 @@ public class EnricherBlockEntity extends BaseContainerBlockEntity {
     @Override
     public void loadAdditional(CompoundTag tag, HolderLookup.Provider provider) {
         super.loadAdditional(tag, provider);
+        ContainerHelper.loadAllItems(tag, items, provider);
 
         if (tag.contains("ElemenixStorage", CompoundTag.TAG_INT_ARRAY)) {
             int[] stored = tag.getIntArray("ElemenixStorage");
@@ -99,6 +101,7 @@ public class EnricherBlockEntity extends BaseContainerBlockEntity {
     @Override
     protected void saveAdditional(CompoundTag tag, HolderLookup.Provider provider) {
         super.saveAdditional(tag, provider);
+        ContainerHelper.saveAllItems(tag, items, provider);
 
         tag.putIntArray("ElemenixStorage", elemenixStorage);
 
@@ -114,7 +117,7 @@ public class EnricherBlockEntity extends BaseContainerBlockEntity {
 
         if (canDeconstruct()) {
             deconstructionTimer++;
-            EnricherBlock block = (EnricherBlock) state.getBlock();
+            EnricherBlock block = getEnricherBlock();
 
             if (deconstructionTimer >= block.getDcInterval()) {
                 deconstructItem();
@@ -137,7 +140,7 @@ public class EnricherBlockEntity extends BaseContainerBlockEntity {
             enrichingTimer++;
             isWorking = true;
 
-            EnricherBlock block = (EnricherBlock) state.getBlock();
+            EnricherBlock block = getEnricherBlock();
             if (enrichingTimer >= block.getEnrichingInterval()) {
                 for(int i = 0; i < elemenixStorage.length; i++) {
                     if (canEnrich(i)) {

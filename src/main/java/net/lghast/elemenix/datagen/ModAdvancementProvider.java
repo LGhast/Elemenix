@@ -1,5 +1,6 @@
 package net.lghast.elemenix.datagen;
 
+import net.lghast.elemenix.common.system.advancement.ValveTrigger;
 import net.lghast.elemenix.common.system.advancement.WaxOffTrigger;
 import net.lghast.elemenix.common.system.advancement.WaxOnTrigger;
 import net.lghast.elemenix.register.content.ModBlocks;
@@ -195,6 +196,40 @@ public class ModAdvancementProvider extends AdvancementProvider {
                     ))
                     .save(saver, ResourceLocation.parse("elemenix:elemenics/obtain_enricher"), existingFileHelper);
 
+            AdvancementHolder obtainEjector = Advancement.Builder.advancement()
+                    .parent(obtainEnricher)
+                    .display(
+                            ModBlocks.ELEMENIC_EJECTOR,
+                            Component.translatable("advancements.elemenix.obtain_ejector.title"),
+                            Component.translatable("advancements.elemenix.obtain_ejector.description"),
+                            null,
+                            AdvancementType.GOAL,
+                            true,
+                            true,
+                            false
+                    )
+                    .addCriterion("get_ejector", InventoryChangeTrigger.TriggerInstance.hasItems(
+                            ItemPredicate.Builder.item().of(ModBlocks.ELEMENIC_EJECTOR).build()
+                    ))
+                    .save(saver, ResourceLocation.parse("elemenix:elemenics/obtain_ejector"), existingFileHelper);
+
+            AdvancementHolder obtainStraightener = Advancement.Builder.advancement()
+                    .parent(obtainEjector)
+                    .display(
+                            ModItems.FLOW_STRAIGHTENER,
+                            Component.translatable("advancements.elemenix.obtain_flow_straightener.title"),
+                            Component.translatable("advancements.elemenix.obtain_flow_straightener.description"),
+                            null,
+                            AdvancementType.TASK,
+                            true,
+                            true,
+                            false
+                    )
+                    .addCriterion("get_straightener", InventoryChangeTrigger.TriggerInstance.hasItems(
+                            ItemPredicate.Builder.item().of(ModItems.FLOW_STRAIGHTENER).build()
+                    ))
+                    .save(saver, ResourceLocation.parse("elemenix:elemenics/obtain_flow_straightener"), existingFileHelper);
+
             AdvancementHolder waxOnMemorizer = Advancement.Builder.advancement()
                     .parent(obtainMemorizer)
                     .display(
@@ -224,6 +259,21 @@ public class ModAdvancementProvider extends AdvancementProvider {
                     )
                     .addCriterion("wax_off", WaxOffTrigger.waxOff())
                     .save(saver, ResourceLocation.parse("elemenix:elemenics/wax_off_memorizer"), existingFileHelper);
+
+            AdvancementHolder closeValve = Advancement.Builder.advancement()
+                    .parent(obtainEjector)
+                    .display(
+                            ModItems.THROTTLE_VALVE,
+                            Component.translatable("advancements.elemenix.close_throttle_valve.title"),
+                            Component.translatable("advancements.elemenix.close_throttle_valve.description"),
+                            null,
+                            AdvancementType.TASK,
+                            true,
+                            true,
+                            false
+                    )
+                    .addCriterion("close_valve", ValveTrigger.valveOpen(0))
+                    .save(saver, ResourceLocation.parse("elemenix:elemenics/close_throttle_valve"), existingFileHelper);
         }
     }
 }

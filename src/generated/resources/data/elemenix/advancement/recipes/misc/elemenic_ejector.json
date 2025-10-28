@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_elemenic_enricher": {
+      "conditions": {
+        "items": [
+          {
+            "items": "elemenix:elemenic_enricher"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "elemenix:elemenic_ejector"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_elemenic_enricher"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "elemenix:elemenic_ejector"
+    ]
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "parent": "block/cube",
+  "textures": {
+    "down": "elemenix:block/ejector_bottom",
+    "up": "elemenix:block/ejector_top",
+    "north": "elemenix:block/ejector_front",
+    "south": "elemenix:block/ejector_working",
+    "west": "elemenix:block/ejector_working",
+    "east": "elemenix:block/ejector_working",
+    "particle": "elemenix:block/ejector_working"
+  }
+}

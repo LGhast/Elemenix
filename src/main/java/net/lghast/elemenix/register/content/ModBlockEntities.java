@@ -1,6 +1,7 @@
 package net.lghast.elemenix.register.content;
 
 import net.lghast.elemenix.ElemenixAnalyzer;
+import net.lghast.elemenix.common.content.blockentity.EjectorBlockEntity;
 import net.lghast.elemenix.common.content.blockentity.EnricherBlockEntity;
 import net.lghast.elemenix.common.content.blockentity.InfuserBlockEntity;
 import net.lghast.elemenix.common.content.blockentity.TransformerBlockEntity;
@@ -42,6 +43,15 @@ public class ModBlockEntities {
             () -> BlockEntityType.Builder.of(
                             EnricherBlockEntity::new,
                             ModBlocks.ELEMENIC_ENRICHER.get()
+                    )
+                    .build(null)
+    );
+
+    public static final Supplier<BlockEntityType<EjectorBlockEntity>> EJECTOR = BLOCK_ENTITY_TYPES.register(
+            "elemenic_ejector",
+            () -> BlockEntityType.Builder.of(
+                            EjectorBlockEntity::new,
+                            ModBlocks.ELEMENIC_EJECTOR.get()
                     )
                     .build(null)
     );

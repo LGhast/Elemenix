@@ -40,7 +40,11 @@ public class ServerConfig {
     public static ModConfigSpec.IntValue MAX_INFUSION;
 
     public static ModConfigSpec.IntValue ENRICHER_DC_INTERVAL;
-    public static ModConfigSpec.IntValue ENRICHING_INTERVAL;
+    public static ModConfigSpec.IntValue ENRICHER_ENRICHING_INTERVAL;
+
+    public static ModConfigSpec.IntValue EJECTOR_DC_INTERVAL;
+    public static ModConfigSpec.IntValue EJECTOR_ENRICHING_INTERVAL;
+    public static ModConfigSpec.IntValue EJECTING_INTERVAL;
 
     static {
         BUILDER.push("核心内容 Core Content");
@@ -167,10 +171,23 @@ public class ServerConfig {
                 .comment("元质富集塔解构输入物品的时间间隔（刻）")
                 .comment("Time interval (in ticks) for the Elemenic Enricher to deconstruct input items")
                 .defineInRange("enricher_dc_interval", 15, 1, Integer.MAX_VALUE);
-        ENRICHING_INTERVAL = BUILDER
+        ENRICHER_ENRICHING_INTERVAL = BUILDER
                 .comment("元质富集塔生产纯质的时间间隔（刻）")
                 .comment("Time interval (in ticks) for the Elemenic Enricher to produce essence")
-                .defineInRange("enriching_interval", 15, 1, Integer.MAX_VALUE);
+                .defineInRange("enricher_enriching_interval", 15, 1, Integer.MAX_VALUE);
+
+        EJECTOR_DC_INTERVAL = BUILDER
+                .comment("元质射流塔解构输入物品的时间间隔（刻）")
+                .comment("Time interval (in ticks) for the Elemenic Ejector to deconstruct input items")
+                .defineInRange("ejector_dc_interval", 15, 1, Integer.MAX_VALUE);
+        EJECTOR_ENRICHING_INTERVAL = BUILDER
+                .comment("元质射流塔生产纯质的时间间隔（刻）")
+                .comment("Time interval (in ticks) for the Elemenic Ejector to produce essence")
+                .defineInRange("ejector_enriching_interval", 15, 1, Integer.MAX_VALUE);
+        EJECTING_INTERVAL = BUILDER
+                .comment("元质射流塔发射纯质的时间间隔（刻）")
+                .comment("Time interval (in ticks) for the Elemenic Ejector to eject essence")
+                .defineInRange("ejecting_interval", 15, 1, Integer.MAX_VALUE);
 
         BUILDER.pop();
 
