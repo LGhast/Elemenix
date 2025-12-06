@@ -1,327 +1,338 @@
 package net.lghast.elemenix.utils;
 
-import net.minecraft.world.item.ItemStack;
-
 import java.util.HashMap;
 import java.util.Map;
 
 public class ElemenixMapping {
-   protected static final Map<String, Constituents> ELEMENIX_MAP = new HashMap<>(Map.ofEntries(
-           Map.entry("elemenix:organix_essence", new Constituents(Elemenix.ORGANIX, ElemenixInfo.ESSENCE_VALUE)),
-           Map.entry("elemenix:terrix_essence", new Constituents(Elemenix.TERRIX, ElemenixInfo.ESSENCE_VALUE)),
-           Map.entry("elemenix:flumix_essence", new Constituents(Elemenix.FLUMIX, ElemenixInfo.ESSENCE_VALUE)),
-           Map.entry("elemenix:metallix_essence", new Constituents(Elemenix.METALLIX, ElemenixInfo.ESSENCE_VALUE)),
-           Map.entry("elemenix:energix_essence", new Constituents(Elemenix.ENERGIX, ElemenixInfo.ESSENCE_VALUE)),
-           Map.entry("elemenix:arcanix_essence", new Constituents(Elemenix.ARCANIX, ElemenixInfo.ESSENCE_VALUE)),
+    protected static final Map<String, Constituents> ELEMENIX_MAP = new HashMap<>();
 
-           //土与沙
-           Map.entry("minecraft:dirt", new Constituents(6, 18, 0, 0, 0, 0)),
-           Map.entry("minecraft:farmland", new Constituents(6, 18, 0, 0, 0, 0)),
-           Map.entry("minecraft:dirt_path", new Constituents(6, 18, 0, 0, 0, 0)),
-           Map.entry("minecraft:grass_block", new Constituents(10, 18, 2, 0, 0, 0)),
-           Map.entry("minecraft:podzol", new Constituents(12, 16, 2, 0, 0, 0)),
-           Map.entry("minecraft:mycelium", new Constituents(12, 16, 2, 0, 0, 0)),
-           Map.entry("minecraft:rooted_dirt", new Constituents(12, 16, 2, 0, 0, 0)),
-           Map.entry("minecraft:mud", new Constituents(6, 18, 6, 0, 0, 0)),
-           Map.entry("minecraft:soul_sand", new Constituents(0, 18, 6, 0, 0, 0)),
-           Map.entry("minecraft:soul_soil", new Constituents(0, 18, 6, 0, 0, 0)),
-           Map.entry("#minecraft:sand", new Constituents(Elemenix.TERRIX, 8)),
-           Map.entry("minecraft:glass", new Constituents(Elemenix.TERRIX, 8)),
-           Map.entry("minecraft:flint", new Constituents(Elemenix.TERRIX, 24)),
-           Map.entry("minecraft:gravel", new Constituents(Elemenix.TERRIX, 24)),
-           Map.entry("minecraft:suspicious_gravel", new Constituents(Elemenix.TERRIX, 24)),
-           Map.entry("minecraft:clay_ball", new Constituents(Elemenix.TERRIX, 6)),
-           Map.entry("minecraft:clay", new Constituents(Elemenix.TERRIX, 24)),
-           Map.entry("minecraft:brick", new Constituents(Elemenix.TERRIX, 6)),
-           Map.entry("minecraft:bricks", new Constituents(Elemenix.TERRIX, 24)),
+    static {
+        // 纯质
+        ELEMENIX_MAP.put("elemenix:organix_essence", new Constituents(Elemenix.ORGANIX, ElemenixInfo.ESSENCE_VALUE));
+        ELEMENIX_MAP.put("elemenix:terrix_essence", new Constituents(Elemenix.TERRIX, ElemenixInfo.ESSENCE_VALUE));
+        ELEMENIX_MAP.put("elemenix:flumix_essence", new Constituents(Elemenix.FLUMIX, ElemenixInfo.ESSENCE_VALUE));
+        ELEMENIX_MAP.put("elemenix:metallix_essence", new Constituents(Elemenix.METALLIX, ElemenixInfo.ESSENCE_VALUE));
+        ELEMENIX_MAP.put("elemenix:energix_essence", new Constituents(Elemenix.ENERGIX, ElemenixInfo.ESSENCE_VALUE));
+        ELEMENIX_MAP.put("elemenix:arcanix_essence", new Constituents(Elemenix.ARCANIX, ElemenixInfo.ESSENCE_VALUE));
 
-           //岩石与冰雪
-           Map.entry("minecraft:stone", new Constituents(Elemenix.TERRIX, 24)),
-           Map.entry("#minecraft:stone_tool_materials", new Constituents(Elemenix.TERRIX, 24)),
-           Map.entry("minecraft:diorite", new Constituents(Elemenix.TERRIX, 32)),
-           Map.entry("minecraft:granite", new Constituents(Elemenix.TERRIX, 40)),
-           Map.entry("minecraft:andesite", new Constituents(Elemenix.TERRIX, 28)),
-           Map.entry("minecraft:deepslate", new Constituents(Elemenix.TERRIX, 24)),
-           Map.entry("minecraft:dripstone_block", new Constituents(Elemenix.TERRIX, 24)),
-           Map.entry("minecraft:pointed_dripstone", new Constituents(Elemenix.TERRIX, 6)),
-           Map.entry("minecraft:tuff", new Constituents(Elemenix.TERRIX, 24)),
-           Map.entry("minecraft:calcite", new Constituents(Elemenix.TERRIX, 32)),
-           Map.entry("minecraft:obsidian", new Constituents(Elemenix.TERRIX, 120)),
-           Map.entry("minecraft:crying_obsidian", new Constituents(0, 100, 5, 0, 0, 32)),
-           Map.entry("minecraft:netherrack", new Constituents(0, 19, 0, 0, 1, 0)),
-           Map.entry("minecraft:crimson_nylium", new Constituents(4, 19, 0, 0, 1, 0)),
-           Map.entry("minecraft:warped_nylium", new Constituents(4, 19, 0, 0, 1, 0)),
-           Map.entry("minecraft:basalt", new Constituents(Elemenix.TERRIX, 24)),
-           Map.entry("minecraft:gilded_blackstone", new Constituents(0, 24, 0, 48, 0, 0)),
-           Map.entry("minecraft:glowstone_dust", new Constituents(0, 14, 0, 0, 10, 0)),
-           Map.entry("minecraft:glowstone", new Constituents(0, 56, 0, 0, 40, 0)),
-           Map.entry("minecraft:end_stone", new Constituents(Elemenix.TERRIX, 40)),
-           Map.entry("minecraft:terracotta", new Constituents(Elemenix.TERRIX, 24)),
-           Map.entry("#elemenix:concrete", new Constituents(2, 16, 0, 0, 0,0)),
-           Map.entry("#elemenix:concrete_powder", new Constituents(2, 16, 0, 0, 0,0)),
-           Map.entry("minecraft:ice", new Constituents(Elemenix.FLUMIX, 36)),
-           Map.entry("minecraft:packed_ice", new Constituents(Elemenix.FLUMIX, 36)),
-           Map.entry("minecraft:blue_ice", new Constituents(Elemenix.FLUMIX, 42)),
-           Map.entry("minecraft:snow_block", new Constituents(Elemenix.FLUMIX, 32)),
-           Map.entry("minecraft:snowball", new Constituents(Elemenix.FLUMIX, 8)),
+        //土与沙
+        ELEMENIX_MAP.put("minecraft:dirt", new Constituents(6, 18, 0, 0, 0, 0));
+        ELEMENIX_MAP.put("minecraft:farmland", new Constituents(6, 18, 0, 0, 0, 0));
+        ELEMENIX_MAP.put("minecraft:dirt_path", new Constituents(6, 18, 0, 0, 0, 0));
+        ELEMENIX_MAP.put("minecraft:grass_block", new Constituents(10, 18, 2, 0, 0, 0));
+        ELEMENIX_MAP.put("minecraft:podzol", new Constituents(12, 16, 2, 0, 0, 0));
+        ELEMENIX_MAP.put("minecraft:mycelium", new Constituents(12, 16, 2, 0, 0, 0));
+        ELEMENIX_MAP.put("minecraft:rooted_dirt", new Constituents(12, 16, 2, 0, 0, 0));
+        ELEMENIX_MAP.put("minecraft:mud", new Constituents(6, 18, 6, 0, 0, 0));
+        ELEMENIX_MAP.put("minecraft:soul_sand", new Constituents(0, 18, 6, 0, 0, 0));
+        ELEMENIX_MAP.put("minecraft:soul_soil", new Constituents(0, 18, 6, 0, 0, 0));
+        ELEMENIX_MAP.put("#minecraft:sand", new Constituents(Elemenix.TERRIX, 8));
+        ELEMENIX_MAP.put("minecraft:glass", new Constituents(Elemenix.TERRIX, 8));
+        ELEMENIX_MAP.put("minecraft:flint", new Constituents(Elemenix.TERRIX, 24));
+        ELEMENIX_MAP.put("minecraft:gravel", new Constituents(Elemenix.TERRIX, 24));
+        ELEMENIX_MAP.put("minecraft:suspicious_gravel", new Constituents(Elemenix.TERRIX, 24));
+        ELEMENIX_MAP.put("minecraft:clay_ball", new Constituents(Elemenix.TERRIX, 6));
+        ELEMENIX_MAP.put("minecraft:clay", new Constituents(Elemenix.TERRIX, 24));
+        ELEMENIX_MAP.put("minecraft:brick", new Constituents(Elemenix.TERRIX, 6));
 
-           //矿物
-           Map.entry("minecraft:charcoal", new Constituents(82, 14, 0, 0, 48, 0)),
-           Map.entry("minecraft:coal", new Constituents(58, 38, 0, 0, 48, 0)),
-           Map.entry("#minecraft:coal_ores", new Constituents(58, 62, 0, 0, 48, 0)),
-           Map.entry("minecraft:iron_ingot", new Constituents(0, 9, 0, 216, 0, 0)),
-           Map.entry("minecraft:iron_nugget", new Constituents(0, 1, 0, 24, 0, 0)),
-           Map.entry("minecraft:raw_iron", new Constituents(Elemenix.TERRIX, 225)),
-           Map.entry("#minecraft:iron_ores", new Constituents(Elemenix.TERRIX, 249)),
-           Map.entry("minecraft:copper_ingot", new Constituents(0, 24, 0, 72, 0, 0)),
-           Map.entry("minecraft:raw_copper", new Constituents(Elemenix.TERRIX, 96)),
-           Map.entry("#minecraft:copper_ores", new Constituents(Elemenix.TERRIX, 120)),
-           Map.entry("minecraft:gold_ingot", new Constituents(Elemenix.METALLIX, 432)),
-           Map.entry("minecraft:gold_nugget", new Constituents(Elemenix.METALLIX, 48)),
-           Map.entry("minecraft:raw_gold", new Constituents(Elemenix.METALLIX, 432)),
-           Map.entry("#minecraft:gold_ores", new Constituents(0, 24, 0, 432, 0, 0)),
-           Map.entry("minecraft:nether_gold_ore", new Constituents(0, 19, 0, 432, 1, 0)),
-           Map.entry("minecraft:diamond", new Constituents(0, 20000, 0, 0, 0, 400)),
-           Map.entry("#minecraft:diamond_ores", new Constituents(0, 20024, 0, 0, 0, 400)),
-           Map.entry("minecraft:netherite_scrap", new Constituents(0, 8000, 0, 12000, 0, 900)),
-           Map.entry("minecraft:ancient_debris", new Constituents(0, 7500, 0, 12100, 0, 900)),
-           Map.entry("minecraft:netherite_ingot", new Constituents(0, 30000, 0, 49728, 0, 3600)),
-           Map.entry("minecraft:redstone", new Constituents(0, 18, 0, 0, 6, 0)),
-           Map.entry("#minecraft:redstone_ores", new Constituents(0, 42, 0, 0, 6, 0)),
-           Map.entry("minecraft:lapis_lazuli", new Constituents(Elemenix.TERRIX, 18)),
-           Map.entry("#minecraft:lapis_ores", new Constituents(Elemenix.TERRIX, 42)),
-           Map.entry("minecraft:emerald", new Constituents(Elemenix.TERRIX, 800)),
-           Map.entry("#minecraft:emerald_ores", new Constituents(Elemenix.TERRIX, 824)),
-           Map.entry("minecraft:amethyst_shard", new Constituents(Elemenix.TERRIX, 300)),
-           Map.entry("minecraft:amethyst_cluster", new Constituents(Elemenix.TERRIX, 1200)),
-           Map.entry("minecraft:small_amethyst_bud", new Constituents(Elemenix.TERRIX, 300)),
-           Map.entry("minecraft:medium_amethyst_bud", new Constituents(Elemenix.TERRIX, 600)),
-           Map.entry("minecraft:large_amethyst_bud", new Constituents(Elemenix.TERRIX, 900)),
-           Map.entry("minecraft:quartz", new Constituents(Elemenix.TERRIX, 8)),
-           Map.entry("minecraft:nether_quartz_ore", new Constituents(0, 27, 0, 0, 1, 0)),
-           Map.entry("minecraft:exposed_copper", new Constituents(0, 346, 0, 518, 0, 0)),
-           Map.entry("minecraft:weathered_copper", new Constituents(0, 540, 0, 324, 0, 0)),
-           Map.entry("minecraft:oxidized_copper", new Constituents(0, 734, 0, 130, 0, 0)),
+        //岩石与冰雪
+        ELEMENIX_MAP.put("minecraft:stone", Constituents.stone());
+        ELEMENIX_MAP.put("#minecraft:stone_tool_materials", Constituents.stone());
+        ELEMENIX_MAP.put("minecraft:diorite", new Constituents(Elemenix.TERRIX, 32));
+        ELEMENIX_MAP.put("minecraft:granite", new Constituents(Elemenix.TERRIX, 40));
+        ELEMENIX_MAP.put("minecraft:andesite", new Constituents(Elemenix.TERRIX, 28));
+        ELEMENIX_MAP.put("minecraft:deepslate", Constituents.stone());
+        ELEMENIX_MAP.put("minecraft:dripstone_block", Constituents.stone());
+        ELEMENIX_MAP.put("minecraft:pointed_dripstone", new Constituents(Elemenix.TERRIX, 6));
+        ELEMENIX_MAP.put("minecraft:tuff", Constituents.stone());
+        ELEMENIX_MAP.put("minecraft:calcite", new Constituents(Elemenix.TERRIX, 32));
+        ELEMENIX_MAP.put("minecraft:obsidian", new Constituents(Elemenix.TERRIX, 120));
+        ELEMENIX_MAP.put("minecraft:crying_obsidian", new Constituents(0, 100, 5, 0, 0, 32));
+        ELEMENIX_MAP.put("minecraft:netherrack", new Constituents(0, 19, 0, 0, 1, 0));
+        ELEMENIX_MAP.put("minecraft:crimson_nylium", new Constituents(4, 19, 0, 0, 1, 0));
+        ELEMENIX_MAP.put("minecraft:warped_nylium", new Constituents(4, 19, 0, 0, 1, 0));
+        ELEMENIX_MAP.put("minecraft:basalt", Constituents.stone());
+        ELEMENIX_MAP.put("minecraft:gilded_blackstone", new Constituents(0, 24, 0, 48, 0, 0));
+        ELEMENIX_MAP.put("minecraft:glowstone_dust", new Constituents(0, 14, 0, 0, 10, 0));
+        ELEMENIX_MAP.put("minecraft:glowstone", new Constituents(0, 56, 0, 0, 40, 0));
+        ELEMENIX_MAP.put("minecraft:end_stone", new Constituents(Elemenix.TERRIX, 40));
+        ELEMENIX_MAP.put("minecraft:terracotta", Constituents.stone());
+        ELEMENIX_MAP.put("#elemenix:concrete", new Constituents(2, 16, 0, 0, 0,0));
+        ELEMENIX_MAP.put("#elemenix:concrete_powder", new Constituents(2, 16, 0, 0, 0,0));
+        ELEMENIX_MAP.put("minecraft:ice", new Constituents(Elemenix.FLUMIX, 36));
+        ELEMENIX_MAP.put("minecraft:packed_ice", new Constituents(Elemenix.FLUMIX, 36));
+        ELEMENIX_MAP.put("minecraft:blue_ice", new Constituents(Elemenix.FLUMIX, 42));
+        ELEMENIX_MAP.put("minecraft:snow_block", new Constituents(Elemenix.FLUMIX, 32));
+        ELEMENIX_MAP.put("minecraft:snowball", new Constituents(Elemenix.FLUMIX, 8));
+        ELEMENIX_MAP.put("#elemenix:infested_stones", new Constituents(24, 24, 5, 0, 0, 0));
 
-           //植物
-           Map.entry("#minecraft:planks", new Constituents(Elemenix.ORGANIX, 24)),
-           Map.entry("#minecraft:logs", new Constituents(Elemenix.ORGANIX, 96)),
-           Map.entry("minecraft:stick", new Constituents(Elemenix.ORGANIX, 12)),
-           Map.entry("minecraft:bamboo", new Constituents(Elemenix.ORGANIX, 6)),
-           Map.entry("minecraft:stripped_bamboo_block", new Constituents(Elemenix.ORGANIX, 54)),
-           Map.entry("minecraft:mangrove_roots", new Constituents(Elemenix.ORGANIX, 18)),
-           Map.entry("minecraft:hanging_roots", new Constituents(Elemenix.ORGANIX, 6)),
-           Map.entry("#minecraft:saplings", new Constituents(64, 0, 24, 0, 0, 0)),
-           Map.entry("minecraft:carrot", new Constituents(20, 0, 12, 0, 0, 0)),
-           Map.entry("minecraft:potato", new Constituents(24, 0, 8, 0, 0, 0)),
-           Map.entry("minecraft:poisonous_potato", new Constituents(24, 0, 8, 0, 0, 0)),
-           Map.entry("minecraft:beetroot", new Constituents(20, 0, 12, 0, 0, 0)),
-           Map.entry("minecraft:wheat", new Constituents(Elemenix.ORGANIX, 24)),
-           Map.entry("minecraft:pumpkin", new Constituents(72, 0, 68, 0, 0, 0)),
-           Map.entry("minecraft:carved_pumpkin", new Constituents(56, 0, 68, 0, 0, 0)),
-           Map.entry("minecraft:melon", new Constituents(72, 0, 108, 0, 0, 0)),
-           Map.entry("minecraft:melon_slice", new Constituents(8, 0, 12, 0, 0, 0)),
-           Map.entry("minecraft:sugar_cane", new Constituents(20, 0, 12, 0, 0, 0)),
-           Map.entry("minecraft:apple", new Constituents(32, 0, 15, 0, 0, 0)),
-           Map.entry("minecraft:enchanted_golden_apple", new Constituents(32, 0, 15, 31104, 0, 2000)),
-           Map.entry("minecraft:cocoa_beans", new Constituents(18, 0, 6, 0, 0, 0)),
-           Map.entry("minecraft:sweet_berries", new Constituents(8, 0, 6, 0, 0, 0)),
-           Map.entry("minecraft:glow_berries", new Constituents(8, 0, 4, 0, 2, 0)),
-           Map.entry("#minecraft:chicken_food", new Constituents(Elemenix.ORGANIX, 4)),
-           Map.entry("minecraft:red_mushroom", new Constituents(18, 0, 6, 0, 0, 0)),
-           Map.entry("minecraft:brown_mushroom", new Constituents(18, 0, 6, 0, 0, 0)),
-           Map.entry("minecraft:red_mushroom_block", new Constituents(36, 0, 12, 0, 0, 0)),
-           Map.entry("minecraft:brown_mushroom_block", new Constituents(36, 0, 12, 0, 0, 0)),
-           Map.entry("minecraft:mushroom_stem", new Constituents(36, 0, 12, 0, 0, 0)),
-           Map.entry("minecraft:crimson_fungus", new Constituents(64, 0, 24, 0, 0, 0)),
-           Map.entry("minecraft:warped_fungus", new Constituents(64, 0, 24, 0, 0, 0)),
-           Map.entry("#minecraft:small_flowers", new Constituents(18, 0, 8, 0, 0, 0)),
-           Map.entry("#elemenix:big_flowers", new Constituents(36, 0, 16, 0, 0, 0)),
-           Map.entry("minecraft:pink_petals", new Constituents(18, 0, 2, 0, 0, 0)),
-           Map.entry("minecraft:wither_rose", new Constituents(18, 0, 5, 0, 0, 5)),
-           Map.entry("minecraft:spore_blossom", new Constituents(56, 0, 24, 0, 0, 0)),
-           Map.entry("minecraft:short_grass", new Constituents(6, 0, 2, 0, 0, 0)),
-           Map.entry("minecraft:tall_grass", new Constituents(12, 0, 4, 0, 0, 0)),
-           Map.entry("minecraft:fern", new Constituents(6, 0, 2, 0, 0, 0)),
-           Map.entry("minecraft:large_fern", new Constituents(12, 0, 4, 0, 0, 0)),
-           Map.entry("#minecraft:leaves", new Constituents(6, 0, 2, 0, 0, 0)),
-           Map.entry("minecraft:lily_pad", new Constituents(18, 0, 10, 0, 0, 0)),
-           Map.entry("minecraft:cactus", new Constituents(18, 0, 10, 0, 0, 0)),
-           Map.entry("minecraft:glow_lichen", new Constituents(6, 0, 2, 0, 2, 0)),
-           Map.entry("minecraft:dead_bush", new Constituents(Elemenix.ORGANIX, 12)),
-           Map.entry("minecraft:seagrass", new Constituents(6, 0, 4, 0, 0, 0)),
-           Map.entry("minecraft:kelp", new Constituents(6, 0, 4, 0, 0, 0)),
-           Map.entry("minecraft:sea_pickle", new Constituents(18, 0, 12, 0, 5, 0)),
-           Map.entry("minecraft:big_dripleaf", new Constituents(36, 0, 10, 0, 0, 0)),
-           Map.entry("minecraft:small_dripleaf", new Constituents(18, 0, 10, 0, 0, 0)),
-           Map.entry("minecraft:moss_block", new Constituents(6, 0, 6, 0, 0, 0)),
-           Map.entry("minecraft:moss_carpet", new Constituents(4, 0, 4, 0, 0, 0)),
-           Map.entry("minecraft:vine", new Constituents(6, 0, 2, 0, 0, 0)),
-           Map.entry("minecraft:weeping_vines", new Constituents(6, 0, 2, 0, 0, 0)),
-           Map.entry("minecraft:twisting_vines", new Constituents(6, 0, 2, 0, 0, 0)),
-           Map.entry("minecraft:nether_sprouts", new Constituents(6, 0, 2, 0, 0, 0)),
-           Map.entry("minecraft:crimson_roots", new Constituents(18, 0, 2, 0, 4, 0)),
-           Map.entry("minecraft:warped_roots", new Constituents(18, 0, 2, 0, 4, 0)),
-           Map.entry("minecraft:nether_wart", new Constituents(15, 0, 3, 0, 2, 1)),
-           Map.entry("minecraft:nether_wart_block", new Constituents(32, 0, 10, 0, 8, 2)),
-           Map.entry("minecraft:warped_wart_block", new Constituents(32, 0, 10, 0, 8, 2)),
-           Map.entry("minecraft:shroomlight", new Constituents(24, 0, 5, 0, 40, 0)),
-           Map.entry("minecraft:chorus_fruit", new Constituents(32, 0, 3, 0, 0, 6)),
-           Map.entry("minecraft:chorus_flower", new Constituents(45, 0, 5, 0, 0, 10)),
-           Map.entry("minecraft:chorus_plant", new Constituents(13, 0, 2, 0, 0, 4)),
+        //矿物
+        ELEMENIX_MAP.put("minecraft:charcoal", new Constituents(82, 14, 0, 0, 48, 0));
+        ELEMENIX_MAP.put("minecraft:coal", new Constituents(58, 38, 0, 0, 48, 0));
+        ELEMENIX_MAP.put("#minecraft:coal_ores", new Constituents(58, 62, 0, 0, 48, 0));
+        ELEMENIX_MAP.put("#c:ores/coal", new Constituents(58, 62, 0, 0, 48, 0));
+        ELEMENIX_MAP.put("minecraft:iron_ingot", new Constituents(0, 9, 0, 216, 0, 0));
+        ELEMENIX_MAP.put("minecraft:iron_nugget", new Constituents(0, 1, 0, 24, 0, 0));
+        ELEMENIX_MAP.put("minecraft:raw_iron", new Constituents(Elemenix.TERRIX, 225));
+        ELEMENIX_MAP.put("#minecraft:iron_ores", new Constituents(Elemenix.TERRIX, 249));
+        ELEMENIX_MAP.put("#c:ores/iron", new Constituents(Elemenix.TERRIX, 249));
+        ELEMENIX_MAP.put("minecraft:copper_ingot", new Constituents(0, 24, 0, 72, 0, 0));
+        ELEMENIX_MAP.put("minecraft:raw_copper", new Constituents(Elemenix.TERRIX, 96));
+        ELEMENIX_MAP.put("#minecraft:copper_ores", new Constituents(Elemenix.TERRIX, 120));
+        ELEMENIX_MAP.put("#c:ores/copper", new Constituents(Elemenix.TERRIX, 120));
+        ELEMENIX_MAP.put("minecraft:gold_ingot", new Constituents(Elemenix.METALLIX, 432));
+        ELEMENIX_MAP.put("minecraft:gold_nugget", new Constituents(Elemenix.METALLIX, 48));
+        ELEMENIX_MAP.put("minecraft:raw_gold", new Constituents(Elemenix.METALLIX, 432));
+        ELEMENIX_MAP.put("#minecraft:gold_ores", new Constituents(0, 24, 0, 432, 0, 0));
+        ELEMENIX_MAP.put("#c:ores/gold", new Constituents(0, 24, 0, 432, 0, 0));
+        ELEMENIX_MAP.put("minecraft:nether_gold_ore", new Constituents(0, 19, 0, 432, 1, 0));
+        ELEMENIX_MAP.put("minecraft:diamond", new Constituents(0, 20000, 0, 0, 0, 400));
+        ELEMENIX_MAP.put("#minecraft:diamond_ores", new Constituents(0, 20024, 0, 0, 0, 400));
+        ELEMENIX_MAP.put("#c:ores/diamond", new Constituents(0, 20024, 0, 0, 0, 400));
+        ELEMENIX_MAP.put("minecraft:netherite_scrap", new Constituents(0, 8000, 0, 12000, 0, 900));
+        ELEMENIX_MAP.put("minecraft:ancient_debris", new Constituents(0, 7500, 0, 12100, 0, 900));
+        ELEMENIX_MAP.put("minecraft:netherite_ingot", new Constituents(0, 30000, 0, 49728, 0, 3600));
+        ELEMENIX_MAP.put("minecraft:redstone", new Constituents(0, 18, 0, 0, 6, 0));
+        ELEMENIX_MAP.put("#minecraft:redstone_ores", new Constituents(0, 42, 0, 0, 6, 0));
+        ELEMENIX_MAP.put("#c:ores/redstone", new Constituents(0, 42, 0, 0, 6, 0));
+        ELEMENIX_MAP.put("minecraft:lapis_lazuli", new Constituents(Elemenix.TERRIX, 18));
+        ELEMENIX_MAP.put("#minecraft:lapis_ores", new Constituents(Elemenix.TERRIX, 42));
+        ELEMENIX_MAP.put("#c:ores/lapis", new Constituents(Elemenix.TERRIX, 42));
+        ELEMENIX_MAP.put("minecraft:emerald", new Constituents(Elemenix.TERRIX, 800));
+        ELEMENIX_MAP.put("#minecraft:emerald_ores", new Constituents(Elemenix.TERRIX, 824));
+        ELEMENIX_MAP.put("#c:ores/emerald", new Constituents(Elemenix.TERRIX, 824));
+        ELEMENIX_MAP.put("minecraft:amethyst_shard", new Constituents(Elemenix.TERRIX, 300));
+        ELEMENIX_MAP.put("minecraft:amethyst_cluster", new Constituents(Elemenix.TERRIX, 1200));
+        ELEMENIX_MAP.put("minecraft:small_amethyst_bud", new Constituents(Elemenix.TERRIX, 300));
+        ELEMENIX_MAP.put("minecraft:medium_amethyst_bud", new Constituents(Elemenix.TERRIX, 600));
+        ELEMENIX_MAP.put("minecraft:large_amethyst_bud", new Constituents(Elemenix.TERRIX, 900));
+        ELEMENIX_MAP.put("minecraft:quartz", new Constituents(Elemenix.TERRIX, 8));
+        ELEMENIX_MAP.put("minecraft:nether_quartz_ore", new Constituents(0, 27, 0, 0, 1, 0));
+        ELEMENIX_MAP.put("minecraft:exposed_copper", new Constituents(0, 346, 0, 518, 0, 0));
+        ELEMENIX_MAP.put("minecraft:weathered_copper", new Constituents(0, 540, 0, 324, 0, 0));
+        ELEMENIX_MAP.put("minecraft:oxidized_copper", new Constituents(0, 734, 0, 130, 0, 0));
 
-           //动物与怪物
-           Map.entry("minecraft:white_wool", new Constituents(Elemenix.ORGANIX, 96)),
-           Map.entry("#elemenix:dyed_wools", new Constituents(Elemenix.ORGANIX, 114)),
-           Map.entry("minecraft:leather", new Constituents(Elemenix.ORGANIX, 32)),
-           Map.entry("minecraft:rabbit_hide", new Constituents(Elemenix.ORGANIX, 8)),
-           Map.entry("minecraft:rabbit_foot", new Constituents(64, 12, 12, 0, 0, 10)),
-           Map.entry("minecraft:feather", new Constituents(Elemenix.ORGANIX, 24)),
-           Map.entry("minecraft:egg", new Constituents(6, 8, 6, 0, 0, 0)),
-           Map.entry("minecraft:turtle_egg", new Constituents(32, 16, 12, 0, 0, 0)),
-           Map.entry("minecraft:sniffer_egg", new Constituents(70, 32, 24, 0, 0, 0)),
-           Map.entry("minecraft:ink_sac", new Constituents(24, 4, 4, 0, 0, 0)),
-           Map.entry("minecraft:glow_ink_sac", new Constituents(24, 8, 4, 0, 6, 0)),
-           Map.entry("minecraft:honeycomb", new Constituents(Elemenix.ORGANIX, 60)),
-           Map.entry("minecraft:bee_nest", new Constituents(Elemenix.ORGANIX, 240)),
-           Map.entry("minecraft:honey_bottle", new Constituents(60, 8, 0, 0, 0, 0)),
-           Map.entry("minecraft:goat_horn", new Constituents(10, 80, 0, 0, 0, 2)),
-           Map.entry("minecraft:turtle_scute", new Constituents(160, 0, 0, 0, 0, 20)),
-           Map.entry("minecraft:armadillo_scute", new Constituents(32, 0, 0, 0, 0, 0)),
-           Map.entry("#elemenix:froglights", new Constituents(32, 16, 0, 0, 12, 0)),
-           Map.entry("minecraft:frogspawn", new Constituents(70, 0, 40, 0, 0, 0)),
-           Map.entry("#elemenix:corals", new Constituents(18, 8, 8, 0, 0, 0)),
-           Map.entry("#elemenix:dead_corals", new Constituents(18, 8, 0, 0, 0, 0)),
-           Map.entry("#elemenix:coral_blocks", new Constituents(36, 16, 16, 0, 0, 0)),
-           Map.entry("#elemenix:dead_coral_blocks", new Constituents(36, 16, 0, 0, 0, 0)),
-           Map.entry("minecraft:rotten_flesh", new Constituents(18, 0, 2, 0, 0, 0)),
-           Map.entry("minecraft:bone", new Constituents(6, 24, 0, 0, 0, 0)),
-           Map.entry("minecraft:bone_meal", new Constituents(2, 8, 0, 0, 0, 0)),
-           Map.entry("minecraft:string", new Constituents(Elemenix.ORGANIX, 24)),
-           Map.entry("minecraft:cobweb", new Constituents(Elemenix.ORGANIX, 36)),
-           Map.entry("minecraft:spider_eye", new Constituents(32, 0, 8, 0, 0, 1)),
-           Map.entry("minecraft:gunpowder", new Constituents(0, 24, 0, 0, 8, 0)),
-           Map.entry("minecraft:slime_ball", new Constituents(35, 0, 10, 0, 0, 2)),
-           Map.entry("minecraft:phantom_membrane", new Constituents(35, 0, 0, 0, 0, 8)),
-           Map.entry("minecraft:nautilus_shell", new Constituents(0, 128, 0, 0, 0, 5)),
-           Map.entry("minecraft:prismarine_crystals", new Constituents(0, 10, 0, 0, 6, 0)),
-           Map.entry("minecraft:prismarine_shard", new Constituents(0, 12, 0, 0, 0, 0)),
-           Map.entry("minecraft:wet_sponge", new Constituents(132, 0, 120, 0, 0, 0)),
-           Map.entry("minecraft:totem_of_undying", new Constituents(0, 320, 0, 1024, 0, 100)),
-           Map.entry("minecraft:blaze_rod", new Constituents(Elemenix.ENERGIX, 72)),
-           Map.entry("minecraft:blaze_powder", new Constituents(Elemenix.ENERGIX, 36)),
-           Map.entry("minecraft:breeze_rod", new Constituents(Elemenix.FLUMIX, 72)),
-           Map.entry("minecraft:wind_charge", new Constituents(Elemenix.FLUMIX, 18)),
-           Map.entry("minecraft:ghast_tear", new Constituents(24, 0, 120, 0, 0, 200)),
-           Map.entry("minecraft:magma_cream", new Constituents(0, 12, 0, 0, 30, 2)),
-           Map.entry("minecraft:ender_pearl", new Constituents(0, 20, 0, 0, 0, 160)),
-           Map.entry("minecraft:shulker_shell", new Constituents(0, 128, 0, 0, 0, 20)),
-           Map.entry("minecraft:nether_star", new Constituents(0, 512, 32, 0, 20240, 4096)),
-           Map.entry("minecraft:dragon_egg", new Constituents(1280, 1024, 1280, 0, 14400, 14400)),
-           Map.entry("minecraft:dragon_breath", new Constituents(0, 8, 60, 0, 10, 50)),
+        //植物
+        ELEMENIX_MAP.put("#minecraft:planks", new Constituents(Elemenix.ORGANIX, 24));
+        ELEMENIX_MAP.put("#minecraft:logs", new Constituents(Elemenix.ORGANIX, 96));
+        ELEMENIX_MAP.put("minecraft:stick", new Constituents(Elemenix.ORGANIX, 12));
+        ELEMENIX_MAP.put("minecraft:bamboo", new Constituents(Elemenix.ORGANIX, 6));
+        ELEMENIX_MAP.put("minecraft:stripped_bamboo_block", new Constituents(Elemenix.ORGANIX, 54));
+        ELEMENIX_MAP.put("minecraft:mangrove_roots", new Constituents(Elemenix.ORGANIX, 18));
+        ELEMENIX_MAP.put("minecraft:hanging_roots", new Constituents(Elemenix.ORGANIX, 6));
+        ELEMENIX_MAP.put("#minecraft:saplings", new Constituents(64, 0, 24, 0, 0, 0));
+        ELEMENIX_MAP.put("minecraft:carrot", new Constituents(20, 0, 12, 0, 0, 0));
+        ELEMENIX_MAP.put("minecraft:potato", new Constituents(24, 0, 8, 0, 0, 0));
+        ELEMENIX_MAP.put("minecraft:poisonous_potato", new Constituents(24, 0, 8, 0, 0, 0));
+        ELEMENIX_MAP.put("minecraft:beetroot", new Constituents(20, 0, 12, 0, 0, 0));
+        ELEMENIX_MAP.put("minecraft:wheat", new Constituents(Elemenix.ORGANIX, 24));
+        ELEMENIX_MAP.put("minecraft:pumpkin", new Constituents(72, 0, 68, 0, 0, 0));
+        ELEMENIX_MAP.put("minecraft:carved_pumpkin", new Constituents(56, 0, 68, 0, 0, 0));
+        ELEMENIX_MAP.put("minecraft:melon", new Constituents(72, 0, 108, 0, 0, 0));
+        ELEMENIX_MAP.put("minecraft:melon_slice", new Constituents(8, 0, 12, 0, 0, 0));
+        ELEMENIX_MAP.put("minecraft:sugar_cane", new Constituents(20, 0, 12, 0, 0, 0));
+        ELEMENIX_MAP.put("minecraft:apple", new Constituents(32, 0, 15, 0, 0, 0));
+        ELEMENIX_MAP.put("minecraft:enchanted_golden_apple", new Constituents(32, 0, 15, 31104, 0, 2000));
+        ELEMENIX_MAP.put("minecraft:cocoa_beans", new Constituents(18, 0, 6, 0, 0, 0));
+        ELEMENIX_MAP.put("minecraft:sweet_berries", new Constituents(8, 0, 6, 0, 0, 0));
+        ELEMENIX_MAP.put("minecraft:glow_berries", new Constituents(8, 0, 4, 0, 2, 0));
+        ELEMENIX_MAP.put("#minecraft:chicken_food", new Constituents(Elemenix.ORGANIX, 4));
+        ELEMENIX_MAP.put("minecraft:red_mushroom", new Constituents(18, 0, 6, 0, 0, 0));
+        ELEMENIX_MAP.put("minecraft:brown_mushroom", new Constituents(18, 0, 6, 0, 0, 0));
+        ELEMENIX_MAP.put("minecraft:red_mushroom_block", new Constituents(36, 0, 12, 0, 0, 0));
+        ELEMENIX_MAP.put("minecraft:brown_mushroom_block", new Constituents(36, 0, 12, 0, 0, 0));
+        ELEMENIX_MAP.put("minecraft:mushroom_stem", new Constituents(36, 0, 12, 0, 0, 0));
+        ELEMENIX_MAP.put("minecraft:crimson_fungus", new Constituents(64, 0, 24, 0, 0, 0));
+        ELEMENIX_MAP.put("minecraft:warped_fungus", new Constituents(64, 0, 24, 0, 0, 0));
+        ELEMENIX_MAP.put("#minecraft:small_flowers", Constituents.flower());
+        ELEMENIX_MAP.put("#elemenix:big_flowers", Constituents.flowerLarge());
+        ELEMENIX_MAP.put("minecraft:pink_petals", new Constituents(18, 0, 2, 0, 0, 0));
+        ELEMENIX_MAP.put("minecraft:wither_rose", new Constituents(18, 0, 5, 0, 0, 5));
+        ELEMENIX_MAP.put("minecraft:spore_blossom", new Constituents(56, 0, 24, 0, 0, 0));
+        ELEMENIX_MAP.put("minecraft:short_grass", Constituents.grassVineLeaves());
+        ELEMENIX_MAP.put("minecraft:tall_grass", new Constituents(12, 0, 4, 0, 0, 0));
+        ELEMENIX_MAP.put("minecraft:fern", Constituents.grassVineLeaves());
+        ELEMENIX_MAP.put("minecraft:large_fern", new Constituents(12, 0, 4, 0, 0, 0));
+        ELEMENIX_MAP.put("#minecraft:leaves", Constituents.grassVineLeaves());
+        ELEMENIX_MAP.put("minecraft:lily_pad", new Constituents(18, 0, 10, 0, 0, 0));
+        ELEMENIX_MAP.put("minecraft:cactus", new Constituents(18, 0, 10, 0, 0, 0));
+        ELEMENIX_MAP.put("minecraft:glow_lichen", new Constituents(6, 0, 2, 0, 2, 0));
+        ELEMENIX_MAP.put("minecraft:dead_bush", new Constituents(Elemenix.ORGANIX, 12));
+        ELEMENIX_MAP.put("minecraft:seagrass", Constituents.seagrass());
+        ELEMENIX_MAP.put("minecraft:kelp", Constituents.seagrass());
+        ELEMENIX_MAP.put("minecraft:sea_pickle", new Constituents(18, 0, 12, 0, 5, 0));
+        ELEMENIX_MAP.put("minecraft:big_dripleaf", new Constituents(36, 0, 10, 0, 0, 0));
+        ELEMENIX_MAP.put("minecraft:small_dripleaf", new Constituents(18, 0, 10, 0, 0, 0));
+        ELEMENIX_MAP.put("minecraft:moss_block", new Constituents(6, 0, 6, 0, 0, 0));
+        ELEMENIX_MAP.put("minecraft:moss_carpet", new Constituents(4, 0, 4, 0, 0, 0));
+        ELEMENIX_MAP.put("minecraft:vine", Constituents.grassVineLeaves());
+        ELEMENIX_MAP.put("minecraft:weeping_vines", Constituents.grassVineLeaves());
+        ELEMENIX_MAP.put("minecraft:twisting_vines", Constituents.grassVineLeaves());
+        ELEMENIX_MAP.put("minecraft:nether_sprouts", Constituents.grassVineLeaves());
+        ELEMENIX_MAP.put("minecraft:crimson_roots", new Constituents(18, 0, 2, 0, 4, 0));
+        ELEMENIX_MAP.put("minecraft:warped_roots", new Constituents(18, 0, 2, 0, 4, 0));
+        ELEMENIX_MAP.put("minecraft:nether_wart", new Constituents(15, 0, 3, 0, 2, 1));
+        ELEMENIX_MAP.put("minecraft:nether_wart_block", new Constituents(32, 0, 10, 0, 8, 2));
+        ELEMENIX_MAP.put("minecraft:warped_wart_block", new Constituents(32, 0, 10, 0, 8, 2));
+        ELEMENIX_MAP.put("minecraft:shroomlight", new Constituents(24, 0, 5, 0, 40, 0));
+        ELEMENIX_MAP.put("minecraft:chorus_fruit", new Constituents(32, 0, 3, 0, 0, 6));
+        ELEMENIX_MAP.put("minecraft:chorus_flower", new Constituents(45, 0, 5, 0, 0, 10));
+        ELEMENIX_MAP.put("minecraft:chorus_plant", new Constituents(13, 0, 2, 0, 0, 4));
 
-           //食物
-           Map.entry("minecraft:chicken", new Constituents(30, 0, 8, 0, 0, 0)),
-           Map.entry("minecraft:mutton", new Constituents(30, 0, 8, 0, 0, 0)),
-           Map.entry("minecraft:beef", new Constituents(40, 0, 8, 0, 0, 0)),
-           Map.entry("minecraft:porkchop", new Constituents(40, 0, 8, 0, 0, 0)),
-           Map.entry("minecraft:rabbit", new Constituents(25, 0, 8, 0, 0, 0)),
-           Map.entry("minecraft:cod", new Constituents(25, 2, 8, 0, 0, 0)),
-           Map.entry("minecraft:salmon", new Constituents(30, 2, 8, 0, 0, 0)),
-           Map.entry("minecraft:tropical_fish", new Constituents(20, 2, 12, 0, 0, 0)),
-           Map.entry("minecraft:pufferfish", new Constituents(30, 3, 10, 0, 0, 5)),
-           Map.entry("minecraft:sugar", new Constituents(Elemenix.ORGANIX, 20)),
-           Map.entry("minecraft:bread", new Constituents(Elemenix.ORGANIX, 72)),
-           Map.entry("minecraft:dried_kelp_block", new Constituents(54, 0, 0, 0, 54, 0)),
-           Map.entry("minecraft:suspicious_stew", new Constituents(72, 0, 20, 0, 0, 0)),
+        //动物与怪物
+        ELEMENIX_MAP.put("minecraft:white_wool", new Constituents(Elemenix.ORGANIX, 96));
+        ELEMENIX_MAP.put("#elemenix:dyed_wools", new Constituents(Elemenix.ORGANIX, 114));
+        ELEMENIX_MAP.put("minecraft:leather", new Constituents(Elemenix.ORGANIX, 32));
+        ELEMENIX_MAP.put("minecraft:rabbit_hide", new Constituents(Elemenix.ORGANIX, 8));
+        ELEMENIX_MAP.put("minecraft:rabbit_foot", new Constituents(64, 12, 12, 0, 0, 10));
+        ELEMENIX_MAP.put("minecraft:feather", new Constituents(Elemenix.ORGANIX, 24));
+        ELEMENIX_MAP.put("minecraft:egg", new Constituents(6, 8, 6, 0, 0, 0));
+        ELEMENIX_MAP.put("minecraft:turtle_egg", new Constituents(32, 16, 12, 0, 0, 0));
+        ELEMENIX_MAP.put("minecraft:sniffer_egg", new Constituents(70, 32, 24, 0, 0, 0));
+        ELEMENIX_MAP.put("minecraft:ink_sac", new Constituents(24, 4, 4, 0, 0, 0));
+        ELEMENIX_MAP.put("minecraft:glow_ink_sac", new Constituents(24, 8, 4, 0, 6, 0));
+        ELEMENIX_MAP.put("minecraft:honeycomb", new Constituents(Elemenix.ORGANIX, 60));
+        ELEMENIX_MAP.put("minecraft:bee_nest", new Constituents(Elemenix.ORGANIX, 240));
+        ELEMENIX_MAP.put("minecraft:honey_bottle", new Constituents(60, 8, 0, 0, 0, 0));
+        ELEMENIX_MAP.put("minecraft:honey_block", new Constituents(Elemenix.ORGANIX, 240));
+        ELEMENIX_MAP.put("minecraft:goat_horn", new Constituents(10, 80, 0, 0, 0, 2));
+        ELEMENIX_MAP.put("minecraft:turtle_scute", new Constituents(160, 0, 0, 0, 0, 20));
+        ELEMENIX_MAP.put("minecraft:armadillo_scute", new Constituents(32, 0, 0, 0, 0, 0));
+        ELEMENIX_MAP.put("#elemenix:froglights", new Constituents(32, 16, 0, 0, 12, 0));
+        ELEMENIX_MAP.put("minecraft:frogspawn", new Constituents(70, 0, 40, 0, 0, 0));
+        ELEMENIX_MAP.put("#elemenix:corals", new Constituents(18, 8, 8, 0, 0, 0));
+        ELEMENIX_MAP.put("#elemenix:dead_corals", new Constituents(18, 8, 0, 0, 0, 0));
+        ELEMENIX_MAP.put("#elemenix:coral_blocks", new Constituents(36, 16, 16, 0, 0, 0));
+        ELEMENIX_MAP.put("#elemenix:dead_coral_blocks", new Constituents(36, 16, 0, 0, 0, 0));
+        ELEMENIX_MAP.put("minecraft:rotten_flesh", new Constituents(18, 0, 2, 0, 0, 0));
+        ELEMENIX_MAP.put("minecraft:bone", new Constituents(6, 24, 0, 0, 0, 0));
+        ELEMENIX_MAP.put("minecraft:bone_meal", new Constituents(2, 8, 0, 0, 0, 0));
+        ELEMENIX_MAP.put("minecraft:string", new Constituents(Elemenix.ORGANIX, 24));
+        ELEMENIX_MAP.put("minecraft:cobweb", new Constituents(Elemenix.ORGANIX, 36));
+        ELEMENIX_MAP.put("minecraft:spider_eye", new Constituents(32, 0, 8, 0, 0, 1));
+        ELEMENIX_MAP.put("minecraft:gunpowder", new Constituents(0, 24, 0, 0, 8, 0));
+        ELEMENIX_MAP.put("minecraft:slime_ball", new Constituents(35, 0, 10, 0, 0, 2));
+        ELEMENIX_MAP.put("minecraft:phantom_membrane", new Constituents(35, 0, 0, 0, 0, 8));
+        ELEMENIX_MAP.put("minecraft:nautilus_shell", new Constituents(0, 128, 0, 0, 0, 5));
+        ELEMENIX_MAP.put("minecraft:prismarine_crystals", new Constituents(0, 10, 0, 0, 6, 0));
+        ELEMENIX_MAP.put("minecraft:prismarine_shard", new Constituents(0, 12, 0, 0, 0, 0));
+        ELEMENIX_MAP.put("minecraft:wet_sponge", new Constituents(132, 0, 120, 0, 0, 0));
+        ELEMENIX_MAP.put("minecraft:totem_of_undying", new Constituents(0, 320, 0, 1024, 0, 100));
+        ELEMENIX_MAP.put("minecraft:blaze_rod", new Constituents(Elemenix.ENERGIX, 72));
+        ELEMENIX_MAP.put("minecraft:blaze_powder", new Constituents(Elemenix.ENERGIX, 36));
+        ELEMENIX_MAP.put("minecraft:breeze_rod", new Constituents(Elemenix.FLUMIX, 72));
+        ELEMENIX_MAP.put("minecraft:wind_charge", new Constituents(Elemenix.FLUMIX, 18));
+        ELEMENIX_MAP.put("minecraft:ghast_tear", new Constituents(24, 0, 120, 0, 0, 200));
+        ELEMENIX_MAP.put("minecraft:magma_cream", new Constituents(0, 12, 0, 0, 30, 2));
+        ELEMENIX_MAP.put("minecraft:ender_pearl", new Constituents(0, 20, 0, 0, 0, 160));
+        ELEMENIX_MAP.put("minecraft:shulker_shell", new Constituents(0, 128, 0, 0, 0, 20));
+        ELEMENIX_MAP.put("minecraft:nether_star", new Constituents(0, 512, 32, 0, 20240, 4096));
+        ELEMENIX_MAP.put("minecraft:dragon_egg", new Constituents(1280, 1024, 1280, 0, 14400, 14400));
+        ELEMENIX_MAP.put("minecraft:dragon_breath", new Constituents(0, 8, 60, 0, 10, 50));
+        ELEMENIX_MAP.put("minecraft:skeleton_skull", new Constituents(0, 360, 0, 0, 0, 10));
+        ELEMENIX_MAP.put("minecraft:wither_skeleton_skull", new Constituents(0, 400, 0, 0, 50, 400));
+        ELEMENIX_MAP.put("minecraft:creeper_head", new Constituents(280, 80, 10, 0, 30, 500));
+        ELEMENIX_MAP.put("minecraft:zombie_head", new Constituents(280, 80, 0, 0, 0, 500));
+        ELEMENIX_MAP.put("minecraft:player_head", new Constituents(280, 80, 10, 0, 0, 500));
+        ELEMENIX_MAP.put("minecraft:piglin_head", new Constituents(300, 80, 10, 0, 0, 500));
+        ELEMENIX_MAP.put("minecraft:dragon_head", new Constituents(3200, 1000, 800, 0, 3000, 2000));
 
-           //其他
-           Map.entry("minecraft:paper", new Constituents(Elemenix.ORGANIX, 20)),
-           Map.entry("minecraft:book", new Constituents(Elemenix.ORGANIX, 92)),
-           Map.entry("minecraft:writable_book", new Constituents(140, 4, 0, 0, 0, 0)),
-           Map.entry("minecraft:written_book", new Constituents(140, 4, 0, 0, 0, 0)),
-           Map.entry("#c:dyes", new Constituents(Elemenix.ORGANIX, 18)),
-           Map.entry("minecraft:white_bed", new Constituents(Elemenix.ORGANIX, 360)),
-           Map.entry("#elemenix:dyed_beds", new Constituents(Elemenix.ORGANIX, 414)),
-           Map.entry("#elemenix:dyed_shulker_boxes", new Constituents(210, 256, 0, 0, 0, 40)),
-           Map.entry("minecraft:bucket", new Constituents(0, 27, 0, 648, 0, 0)),
-           Map.entry("minecraft:water_bucket", new Constituents(0, 27, 0, 648, 0, 0)),
-           Map.entry("minecraft:powder_snow_bucket", new Constituents(0, 27, 32, 648, 0, 0)),
-           Map.entry("minecraft:milk_bucket", new Constituents(5, 27, 6, 648, 0, 0)),
-           Map.entry("minecraft:lava_bucket", new Constituents(0, 147, 0, 648, 0, 0)),
-           Map.entry("minecraft:cod_bucket", new Constituents(25, 29, 8, 648, 0, 0)),
-           Map.entry("minecraft:salmon_bucket", new Constituents(30, 29, 8, 648, 0, 0)),
-           Map.entry("minecraft:tropical_fish_bucket", new Constituents(20, 29, 12, 648, 0, 0)),
-           Map.entry("minecraft:pufferfish_bucket", new Constituents(30, 30, 10, 648, 0, 5)),
-           Map.entry("minecraft:tadpole_bucket", new Constituents(20, 27, 15, 648, 0, 0)),
-           Map.entry("minecraft:axolotl_bucket", new Constituents(50, 32, 25, 648, 0, 0)),
-           Map.entry("minecraft:saddle", new Constituents(96, 9, 0, 216, 0, 0)),
-           Map.entry("minecraft:name_tag", new Constituents(360, 0, 0, 0, 0, 80)),
-           Map.entry("minecraft:chainmail_helmet", new Constituents(0, 36, 0, 864, 0, 0)),
-           Map.entry("minecraft:chainmail_chestplate", new Constituents(0, 58, 0, 1382, 0, 0)),
-           Map.entry("minecraft:chainmail_leggings", new Constituents(0, 50, 0, 1210, 0, 0)),
-           Map.entry("minecraft:chainmail_boots", new Constituents(0, 29, 0, 691, 0, 0)),
-           Map.entry("minecraft:heart_of_the_sea", new Constituents(0, 0, 10000, 0, 120, 100)),
-           Map.entry("minecraft:heavy_core", new Constituents(0, 20, 0, 32000, 0, 400)),
-           Map.entry("minecraft:trident", new Constituents(0, 500, 0, 25000, 0, 1020)),
-           Map.entry("minecraft:netherite_upgrade_smithing_template", new Constituents(0, 140019, 0, 0, 1, 2800)),
-           Map.entry("minecraft:sentry_armor_trim_smithing_template", new Constituents(0, 140024, 0, 0, 0, 2800)),
-           Map.entry("minecraft:dune_armor_trim_smithing_template", new Constituents(0, 140032, 0, 0, 0, 2800)),
-           Map.entry("minecraft:coast_armor_trim_smithing_template", new Constituents(0, 140024, 0, 0, 0, 2800)),
-           Map.entry("minecraft:wild_armor_trim_smithing_template", new Constituents(6, 140024, 2, 0, 0, 2800)),
-           Map.entry("minecraft:ward_armor_trim_smithing_template", new Constituents(0, 140024, 0, 0, 0, 2800)),
-           Map.entry("minecraft:eye_armor_trim_smithing_template", new Constituents(0, 140040, 0, 0, 0, 2800)),
-           Map.entry("minecraft:vex_armor_trim_smithing_template", new Constituents(0, 140024, 0, 0, 0, 2800)),
-           Map.entry("minecraft:tide_armor_trim_smithing_template", new Constituents(0, 140048, 0, 0, 0, 2800)),
-           Map.entry("minecraft:snout_armor_trim_smithing_template", new Constituents(0, 140024, 0, 0, 0, 2800)),
-           Map.entry("minecraft:rib_armor_trim_smithing_template", new Constituents(0, 140019, 0, 0, 1, 2800)),
-           Map.entry("minecraft:spire_armor_trim_smithing_template", new Constituents(0, 140032, 0, 0, 0, 2806)),
-           Map.entry("minecraft:wayfinder_armor_trim_smithing_template", new Constituents(0, 140024, 0, 0, 0, 2800)),
-           Map.entry("minecraft:shaper_armor_trim_smithing_template", new Constituents(0, 140024, 0, 0, 0, 2800)),
-           Map.entry("minecraft:raiser_armor_trim_smithing_template", new Constituents(0, 140024, 0, 0, 0, 2800)),
-           Map.entry("minecraft:host_armor_trim_smithing_template", new Constituents(0, 140024, 0, 0, 0, 2800)),
-           Map.entry("minecraft:silence_armor_trim_smithing_template", new Constituents(0, 140024, 0, 0, 0, 2800)),
-           Map.entry("minecraft:flow_armor_trim_smithing_template", new Constituents(0, 14000, 72, 0, 0, 2800)),
-           Map.entry("minecraft:bolt_armor_trim_smithing_template", new Constituents(0, 140216, 0, 648, 0, 2800)),
-           Map.entry("minecraft:sculk", new Constituents(0, 0, 0, 0, 2, 4)),
-           Map.entry("minecraft:sculk_vein", new Constituents(0, 0, 0, 0, 1, 1)),
-           Map.entry("minecraft:sculk_catalyst", new Constituents(0, 12, 0, 0, 8, 20)),
-           Map.entry("minecraft:sculk_sensor", new Constituents(12, 0, 0, 0, 10, 10)),
-           Map.entry("minecraft:sculk_shrieker", new Constituents(0, 12, 32, 0, 15, 30)),
-           Map.entry("minecraft:echo_shard", new Constituents(0, 5, 0, 0, 5, 8)),
-           Map.entry("#minecraft:decorated_pot_sherds", new Constituents(0, 6, 0, 0, 0, 12)),
-           Map.entry("minecraft:elytra", new Constituents(5250, 0, 0, 0, 0, 3200)),
-           Map.entry("minecraft:chipped_anvil", new Constituents(0, 195, 0, 4687, 0, 0)),
-           Map.entry("minecraft:damaged_anvil", new Constituents(0, 140, 0, 3348, 0, 0)),
-           Map.entry("minecraft:bell", new Constituents(64, 0, 432, 0, 0, 0)),
-           Map.entry("minecraft:skeleton_skull", new Constituents(0, 360, 0, 0, 0, 10)),
-           Map.entry("minecraft:wither_skeleton_skull", new Constituents(0, 400, 0, 0, 50, 400)),
-           Map.entry("minecraft:creeper_head", new Constituents(280, 80, 10, 0, 30, 500)),
-           Map.entry("minecraft:zombie_head", new Constituents(280, 80, 0, 0, 0, 500)),
-           Map.entry("minecraft:player_head", new Constituents(280, 80, 10, 0, 0, 500)),
-           Map.entry("minecraft:piglin_head", new Constituents(300, 80, 10, 0, 0, 500)),
-           Map.entry("minecraft:dragon_head", new Constituents(3200, 1000, 800, 0, 3000, 2000)),
-           Map.entry("#elemenix:infested_stones", new Constituents(24, 24, 5, 0, 0, 0)),
-           Map.entry("minecraft:iron_horse_armor", new Constituents(32, 54, 0, 1296, 0, 0)),
-           Map.entry("minecraft:golden_horse_armor", new Constituents(32, 0, 0, 2592, 0, 0)),
-           Map.entry("minecraft:diamond_horse_armor", new Constituents(32, 120000, 0, 0, 0, 24000)),
-           Map.entry("minecraft:experience_bottle", new Constituents(0, 8, 0, 0, 4, 8)),
-           Map.entry("minecraft:trial_key", new Constituents(0, 0, 0, 240, 0, 40)),
-           Map.entry("minecraft:ominous_trial_key", new Constituents(0, 0, 0, 720, 0, 800)),
-           Map.entry("#elemenix:vinyl_discs", new Constituents(550, 0, 0, 0, 0, 300)),
-           Map.entry("#c:music_discs", new Constituents(550, 0, 0, 0, 0, 300)),
-           Map.entry("minecraft:music_disc_pigstep", new Constituents(0, 550, 0, 0, 5, 300)),
-           Map.entry("minecraft:music_disc_relic", new Constituents(0, 550, 0, 0, 0, 300)),
-           Map.entry("minecraft:music_disc_creator", new Constituents(0, 550, 0, 0, 0, 300)),
-           Map.entry("minecraft:music_disc_creator_music_box", new Constituents(0, 50, 500, 0, 0, 300)),
-           Map.entry("minecraft:music_disc_precipice", new Constituents(225, 225, 0, 0, 0, 300)),
-           Map.entry("minecraft:disc_fragment_5", new Constituents(0, 35, 35, 0, 0, 45)),
-           Map.entry("minecraft:firework_rocket", new Constituents(6, 8, 0, 0, 1, 0)),
-           Map.entry("minecraft:firework_star", new Constituents(18, 24, 0, 0, 8, 0)),
-           Map.entry("minecraft:globe_banner_pattern", new Constituents(200, 30, 70, 0, 0, 50)),
-           Map.entry("minecraft:piglin_banner_pattern", new Constituents(200, 0, 0, 0, 50, 50)),
-           Map.entry("minecraft:flow_banner_pattern", new Constituents(200, 0, 120, 0, 0, 50)),
-           Map.entry("minecraft:guster_banner_pattern", new Constituents(200, 0, 120, 0, 0, 50)),
-           Map.entry("minecraft:air", new Constituents(true))
-    ));
+        //食物
+        ELEMENIX_MAP.put("minecraft:chicken", Constituents.rawMeat(6, 2));
+        ELEMENIX_MAP.put("minecraft:mutton", Constituents.rawMeat(6, 2));
+        ELEMENIX_MAP.put("minecraft:beef", Constituents.rawMeat(8));
+        ELEMENIX_MAP.put("minecraft:porkchop", Constituents.rawMeat(8));
+        ELEMENIX_MAP.put("minecraft:rabbit", Constituents.rawMeat(5, 3));
+        ELEMENIX_MAP.put("minecraft:cod", Constituents.rawFish(5));
+        ELEMENIX_MAP.put("minecraft:salmon", Constituents.rawFish(6));
+        ELEMENIX_MAP.put("minecraft:tropical_fish", new Constituents(20, 2, 12, 0, 0, 0));
+        ELEMENIX_MAP.put("minecraft:pufferfish", new Constituents(30, 3, 10, 0, 0, 5));
+        ELEMENIX_MAP.put("minecraft:sugar", new Constituents(Elemenix.ORGANIX, 20));
+        ELEMENIX_MAP.put("minecraft:bread", new Constituents(Elemenix.ORGANIX, 72));
+        ELEMENIX_MAP.put("minecraft:dried_kelp_block", new Constituents(54, 0, 0, 0, 54, 0));
+        ELEMENIX_MAP.put("minecraft:suspicious_stew", new Constituents(72, 0, 20, 0, 0, 0));
+
+        //锻造模板
+        ELEMENIX_MAP.put("minecraft:netherite_upgrade_smithing_template", new Constituents(0, 140019, 0, 0, 1, 2800));
+        ELEMENIX_MAP.put("minecraft:sentry_armor_trim_smithing_template", new Constituents(0, 140024, 0, 0, 0, 2800));
+        ELEMENIX_MAP.put("minecraft:dune_armor_trim_smithing_template", new Constituents(0, 140032, 0, 0, 0, 2800));
+        ELEMENIX_MAP.put("minecraft:coast_armor_trim_smithing_template", new Constituents(0, 140024, 0, 0, 0, 2800));
+        ELEMENIX_MAP.put("minecraft:wild_armor_trim_smithing_template", new Constituents(6, 140024, 2, 0, 0, 2800));
+        ELEMENIX_MAP.put("minecraft:ward_armor_trim_smithing_template", new Constituents(0, 140024, 0, 0, 0, 2800));
+        ELEMENIX_MAP.put("minecraft:eye_armor_trim_smithing_template", new Constituents(0, 140040, 0, 0, 0, 2800));
+        ELEMENIX_MAP.put("minecraft:vex_armor_trim_smithing_template", new Constituents(0, 140024, 0, 0, 0, 2800));
+        ELEMENIX_MAP.put("minecraft:tide_armor_trim_smithing_template", new Constituents(0, 140048, 0, 0, 0, 2800));
+        ELEMENIX_MAP.put("minecraft:snout_armor_trim_smithing_template", new Constituents(0, 140024, 0, 0, 0, 2800));
+        ELEMENIX_MAP.put("minecraft:rib_armor_trim_smithing_template", new Constituents(0, 140019, 0, 0, 1, 2800));
+        ELEMENIX_MAP.put("minecraft:spire_armor_trim_smithing_template", new Constituents(0, 140032, 0, 0, 0, 2806));
+        ELEMENIX_MAP.put("minecraft:wayfinder_armor_trim_smithing_template", new Constituents(0, 140024, 0, 0, 0, 2800));
+        ELEMENIX_MAP.put("minecraft:shaper_armor_trim_smithing_template", new Constituents(0, 140024, 0, 0, 0, 2800));
+        ELEMENIX_MAP.put("minecraft:raiser_armor_trim_smithing_template", new Constituents(0, 140024, 0, 0, 0, 2800));
+        ELEMENIX_MAP.put("minecraft:host_armor_trim_smithing_template", new Constituents(0, 140024, 0, 0, 0, 2800));
+        ELEMENIX_MAP.put("minecraft:silence_armor_trim_smithing_template", new Constituents(0, 140024, 0, 0, 0, 2800));
+        ELEMENIX_MAP.put("minecraft:flow_armor_trim_smithing_template", new Constituents(0, 14000, 72, 0, 0, 2800));
+        ELEMENIX_MAP.put("minecraft:bolt_armor_trim_smithing_template", new Constituents(0, 140216, 0, 648, 0, 2800));
+
+        //其他
+        ELEMENIX_MAP.put("minecraft:paper", new Constituents(Elemenix.ORGANIX, 20));
+        ELEMENIX_MAP.put("minecraft:book", new Constituents(Elemenix.ORGANIX, 92));
+        ELEMENIX_MAP.put("minecraft:writable_book", new Constituents(140, 4, 0, 0, 0, 0));
+        ELEMENIX_MAP.put("minecraft:written_book", new Constituents(140, 4, 0, 0, 0, 0));
+        ELEMENIX_MAP.put("#c:dyes", new Constituents(Elemenix.ORGANIX, 18));
+        ELEMENIX_MAP.put("minecraft:white_bed", new Constituents(Elemenix.ORGANIX, 360));
+        ELEMENIX_MAP.put("#elemenix:dyed_beds", new Constituents(Elemenix.ORGANIX, 414));
+        ELEMENIX_MAP.put("#elemenix:dyed_shulker_boxes", new Constituents(210, 256, 0, 0, 0, 40));
+        ELEMENIX_MAP.put("minecraft:bucket", new Constituents(0, 27, 0, 648, 0, 0));
+        ELEMENIX_MAP.put("minecraft:water_bucket", new Constituents(0, 27, 0, 648, 0, 0));
+        ELEMENIX_MAP.put("minecraft:powder_snow_bucket", new Constituents(0, 27, 32, 648, 0, 0));
+        ELEMENIX_MAP.put("minecraft:milk_bucket", new Constituents(5, 27, 6, 648, 0, 0));
+        ELEMENIX_MAP.put("minecraft:lava_bucket", new Constituents(0, 147, 0, 648, 0, 0));
+        ELEMENIX_MAP.put("minecraft:cod_bucket", new Constituents(25, 29, 8, 648, 0, 0));
+        ELEMENIX_MAP.put("minecraft:salmon_bucket", new Constituents(30, 29, 8, 648, 0, 0));
+        ELEMENIX_MAP.put("minecraft:tropical_fish_bucket", new Constituents(20, 29, 12, 648, 0, 0));
+        ELEMENIX_MAP.put("minecraft:pufferfish_bucket", new Constituents(30, 30, 10, 648, 0, 5));
+        ELEMENIX_MAP.put("minecraft:tadpole_bucket", new Constituents(20, 27, 15, 648, 0, 0));
+        ELEMENIX_MAP.put("minecraft:axolotl_bucket", new Constituents(50, 32, 25, 648, 0, 0));
+        ELEMENIX_MAP.put("minecraft:saddle", new Constituents(96, 9, 0, 216, 0, 0));
+        ELEMENIX_MAP.put("minecraft:name_tag", new Constituents(360, 0, 0, 0, 0, 80));
+        ELEMENIX_MAP.put("minecraft:chainmail_helmet", new Constituents(0, 36, 0, 864, 0, 0));
+        ELEMENIX_MAP.put("minecraft:chainmail_chestplate", new Constituents(0, 58, 0, 1382, 0, 0));
+        ELEMENIX_MAP.put("minecraft:chainmail_leggings", new Constituents(0, 50, 0, 1210, 0, 0));
+        ELEMENIX_MAP.put("minecraft:chainmail_boots", new Constituents(0, 29, 0, 691, 0, 0));
+        ELEMENIX_MAP.put("minecraft:heart_of_the_sea", new Constituents(0, 0, 10000, 0, 120, 100));
+        ELEMENIX_MAP.put("minecraft:heavy_core", new Constituents(0, 20, 0, 32000, 0, 400));
+        ELEMENIX_MAP.put("minecraft:trident", new Constituents(0, 500, 0, 25000, 0, 1020));
+        ELEMENIX_MAP.put("minecraft:sculk", new Constituents(0, 0, 0, 0, 2, 4));
+        ELEMENIX_MAP.put("minecraft:sculk_vein", new Constituents(0, 0, 0, 0, 1, 1));
+        ELEMENIX_MAP.put("minecraft:sculk_catalyst", new Constituents(0, 12, 0, 0, 8, 20));
+        ELEMENIX_MAP.put("minecraft:sculk_sensor", new Constituents(12, 0, 0, 0, 10, 10));
+        ELEMENIX_MAP.put("minecraft:sculk_shrieker", new Constituents(0, 12, 32, 0, 15, 30));
+        ELEMENIX_MAP.put("minecraft:echo_shard", new Constituents(0, 5, 0, 0, 5, 8));
+        ELEMENIX_MAP.put("#minecraft:decorated_pot_sherds", new Constituents(0, 6, 0, 0, 0, 12));
+        ELEMENIX_MAP.put("minecraft:elytra", new Constituents(5250, 0, 0, 0, 0, 3200));
+        ELEMENIX_MAP.put("minecraft:chipped_anvil", new Constituents(0, 195, 0, 4687, 0, 0));
+        ELEMENIX_MAP.put("minecraft:damaged_anvil", new Constituents(0, 140, 0, 3348, 0, 0));
+        ELEMENIX_MAP.put("minecraft:bell", new Constituents(64, 0, 0, 432, 0, 0));
+        ELEMENIX_MAP.put("minecraft:iron_horse_armor", new Constituents(32, 54, 0, 1296, 0, 0));
+        ELEMENIX_MAP.put("minecraft:golden_horse_armor", new Constituents(32, 0, 0, 2592, 0, 0));
+        ELEMENIX_MAP.put("minecraft:diamond_horse_armor", new Constituents(32, 120000, 0, 0, 0, 24000));
+        ELEMENIX_MAP.put("minecraft:experience_bottle", new Constituents(0, 8, 0, 0, 4, 8));
+        ELEMENIX_MAP.put("minecraft:trial_key", new Constituents(0, 0, 0, 240, 0, 40));
+        ELEMENIX_MAP.put("minecraft:ominous_trial_key", new Constituents(0, 0, 0, 720, 0, 800));
+        ELEMENIX_MAP.put("#elemenix:vinyl_discs", new Constituents(550, 0, 0, 0, 0, 300));
+        ELEMENIX_MAP.put("#c:music_discs", new Constituents(550, 0, 0, 0, 0, 300));
+        ELEMENIX_MAP.put("minecraft:music_disc_pigstep", new Constituents(0, 550, 0, 0, 5, 300));
+        ELEMENIX_MAP.put("minecraft:music_disc_relic", new Constituents(0, 550, 0, 0, 0, 300));
+        ELEMENIX_MAP.put("minecraft:music_disc_creator", new Constituents(0, 550, 0, 0, 0, 300));
+        ELEMENIX_MAP.put("minecraft:music_disc_creator_music_box", new Constituents(0, 50, 500, 0, 0, 300));
+        ELEMENIX_MAP.put("minecraft:music_disc_precipice", new Constituents(225, 225, 0, 0, 0, 300));
+        ELEMENIX_MAP.put("minecraft:disc_fragment_5", new Constituents(0, 35, 35, 0, 0, 45));
+        ELEMENIX_MAP.put("minecraft:firework_rocket", new Constituents(6, 8, 0, 0, 1, 0));
+        ELEMENIX_MAP.put("minecraft:firework_star", new Constituents(18, 24, 0, 0, 8, 0));
+        ELEMENIX_MAP.put("minecraft:globe_banner_pattern", new Constituents(200, 30, 70, 0, 0, 50));
+        ELEMENIX_MAP.put("minecraft:piglin_banner_pattern", new Constituents(200, 0, 0, 0, 50, 50));
+        ELEMENIX_MAP.put("minecraft:flow_banner_pattern", new Constituents(200, 0, 120, 0, 0, 50));
+        ELEMENIX_MAP.put("minecraft:guster_banner_pattern", new Constituents(200, 0, 120, 0, 0, 50));
+        ELEMENIX_MAP.put("minecraft:air", new Constituents(true));
+    }
 }

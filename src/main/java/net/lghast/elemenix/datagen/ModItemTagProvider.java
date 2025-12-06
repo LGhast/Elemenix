@@ -1,6 +1,6 @@
 package net.lghast.elemenix.datagen;
 
-import net.lghast.elemenix.ElemenixAnalyzer;
+import net.lghast.elemenix.Elemenics;
 import net.lghast.elemenix.register.content.ModBlocks;
 import net.lghast.elemenix.register.content.ModItems;
 import net.lghast.elemenix.register.system.ModTags;
@@ -17,7 +17,7 @@ import java.util.concurrent.CompletableFuture;
 
 public class ModItemTagProvider extends ItemTagsProvider {
     public ModItemTagProvider(PackOutput pOutput, CompletableFuture<HolderLookup.Provider> pLookupProvider, CompletableFuture<TagLookup<Block>> pBlockTags, @Nullable ExistingFileHelper existingFileHelper) {
-        super(pOutput, pLookupProvider, pBlockTags, ElemenixAnalyzer.MOD_ID, existingFileHelper);
+        super(pOutput, pLookupProvider, pBlockTags, Elemenics.MOD_ID, existingFileHelper);
     }
 
     @Override
@@ -246,6 +246,7 @@ public class ModItemTagProvider extends ItemTagsProvider {
         tag(ModTags.ELEMENIC_DECONSTRUCTORS)
                 .add(ModBlocks.ELEMENIC_INFUSER.asItem())
                 .add(ModBlocks.ELEMENIC_ENRICHER.asItem())
+                .add(ModBlocks.ELEMENIC_EJECTOR.asItem())
         ;
     }
 }

@@ -7,14 +7,10 @@ import net.lghast.elemenix.datagen.DataGenerators;
 import net.lghast.elemenix.register.content.ModBlockEntities;
 import net.lghast.elemenix.register.content.ModBlocks;
 import net.lghast.elemenix.register.content.ModItems;
-import net.lghast.elemenix.register.system.ModAdvancementTriggers;
-import net.lghast.elemenix.register.system.ModCreativeTabs;
-import net.lghast.elemenix.register.system.ModDataComponents;
-import net.lghast.elemenix.register.system.ModMenus;
+import net.lghast.elemenix.register.system.*;
 import net.neoforged.fml.config.ModConfig;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.neoforged.neoforge.data.event.GatherDataEvent;
-import net.neoforged.neoforge.registries.datamaps.builtin.FurnaceFuel;
 import org.slf4j.Logger;
 
 import com.mojang.logging.LogUtils;
@@ -23,13 +19,13 @@ import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.ModContainer;
 
-@Mod(ElemenixAnalyzer.MOD_ID)
-public class ElemenixAnalyzer {
+@Mod(Elemenics.MOD_ID)
+public class Elemenics {
     public static final String MOD_ID = "elemenix";
     public static final Logger LOGGER = LogUtils.getLogger();
 
 
-    public ElemenixAnalyzer(IEventBus modEventBus, ModContainer modContainer) {
+    public Elemenics(IEventBus modEventBus, ModContainer modContainer) {
         modContainer.registerConfig(ModConfig.Type.SERVER, ServerConfig.SPEC);
         modContainer.registerConfig(ModConfig.Type.CLIENT, ClientConfig.SPEC);
 
@@ -40,6 +36,7 @@ public class ElemenixAnalyzer {
         ModDataComponents.register(modEventBus);
         ModMenus.register(modEventBus);
         ModAdvancementTriggers.register(modEventBus);
+        ModRecipes.register(modEventBus);
 
         modEventBus.addListener(this::gatherData);
         modEventBus.addListener(this::onClientSetup);

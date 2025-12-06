@@ -86,5 +86,9 @@
   "tooltip.elemenix.analyzer_storage": "元质储量：",
   "tooltip.elemenix.memories": "已记忆物品: %d",
   "tooltip.elemenix.readonly": "只读",
-  "tooltip.elemenix.valve_opening": "阀门开度：%s"
+  "tooltip.elemenix.valve_opening": "阀门开度：%s",
+
+  "jei.category.elemenix.enriching": "富集",
+  "jei.category.elemenix.transforming": "元质转化",
+  "jei.category.elemenix.transforming": "元质转化"
 }

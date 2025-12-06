@@ -1,6 +1,6 @@
 package net.lghast.elemenix.datagen;
 
-import net.lghast.elemenix.ElemenixAnalyzer;
+import net.lghast.elemenix.Elemenics;
 import net.lghast.elemenix.register.content.ModItems;
 import net.minecraft.data.PackOutput;
 import net.neoforged.neoforge.client.model.generators.ItemModelProvider;
@@ -9,7 +9,7 @@ import net.neoforged.neoforge.common.data.ExistingFileHelper;
 public class ModItemModelProvider extends ItemModelProvider {
 
     public ModItemModelProvider(PackOutput output, ExistingFileHelper existingFileHelper) {
-        super(output, ElemenixAnalyzer.MOD_ID, existingFileHelper);
+        super(output, Elemenics.MOD_ID, existingFileHelper);
     }
 
     @Override

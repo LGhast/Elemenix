@@ -1,14 +1,8 @@
 package net.lghast.elemenix.utils;
 
 import net.minecraft.ChatFormatting;
-import net.minecraft.core.NonNullList;
-import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
-import org.checkerframework.checker.units.qual.C;
 
 import java.util.Arrays;
 import java.util.List;
@@ -204,5 +198,37 @@ public class Constituents {
         return Component.literal(ModUtils.formatNumber(constituents[3], "M:%s  ")).withColor(Elemenix.METALLIX.getColor())
                 .append(Component.literal(ModUtils.formatNumber(constituents[4], "E:%s  ")).withColor(Elemenix.ENERGIX.getColor()))
                 .append(Component.literal(ModUtils.formatNumber(constituents[5], "A:%s")).withColor(Elemenix.ARCANIX.getColor()));
+    }
+
+    public static Constituents rawMeat(int hunger){
+        return new Constituents(5 * hunger, 0, hunger, 0, 0, 0);
+    }
+
+    public static Constituents rawMeat(int hunger, int flumixAddition){
+        return new Constituents(5 * hunger, 0, hunger + flumixAddition, 0, 0, 0);
+    }
+
+    public static Constituents rawFish(int hunger){
+        return new Constituents(5 * hunger, 2, Math.max(hunger, 8), 0, 0, 0);
+    }
+
+    public static Constituents stone(){
+        return new Constituents(Elemenix.TERRIX, 24);
+    }
+
+    public static Constituents grassVineLeaves(){
+        return new Constituents(6, 0, 2, 0, 0, 0);
+    }
+
+    public static Constituents seagrass(){
+        return new Constituents(6, 0, 4, 0, 0, 0);
+    }
+
+    public static Constituents flower(){
+        return new Constituents(18, 0, 8, 0, 0, 0);
+    }
+
+    public static Constituents flowerLarge(){
+        return new Constituents(36, 0, 16, 0, 0, 0);
     }
 }

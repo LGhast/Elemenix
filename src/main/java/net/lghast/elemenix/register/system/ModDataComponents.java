@@ -1,9 +1,7 @@
 package net.lghast.elemenix.register.system;
 
 import com.mojang.serialization.Codec;
-import com.mojang.serialization.DataResult;
-import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.lghast.elemenix.ElemenixAnalyzer;
+import net.lghast.elemenix.Elemenics;
 import net.lghast.elemenix.common.system.datacomponent.*;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.registries.Registries;
@@ -15,11 +13,9 @@ import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
-import java.util.UUID;
-
 public class ModDataComponents {
     public static final DeferredRegister.DataComponents REGISTRAR =
-            DeferredRegister.createDataComponents(Registries.DATA_COMPONENT_TYPE, ElemenixAnalyzer.MOD_ID);
+            DeferredRegister.createDataComponents(Registries.DATA_COMPONENT_TYPE, Elemenics.MOD_ID);
 
     public static final Codec<ElemenicStorage> ELEMENIC_STORAGE_CODEC = ElemenicStorage.CODEC;
 

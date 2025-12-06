@@ -1,6 +1,6 @@
 package net.lghast.elemenix.register.content;
 
-import net.lghast.elemenix.ElemenixAnalyzer;
+import net.lghast.elemenix.Elemenics;
 import net.lghast.elemenix.common.content.blockentity.EjectorBlockEntity;
 import net.lghast.elemenix.common.content.blockentity.EnricherBlockEntity;
 import net.lghast.elemenix.common.content.blockentity.InfuserBlockEntity;
@@ -14,7 +14,7 @@ import java.util.function.Supplier;
 
 public class ModBlockEntities {
     public static final DeferredRegister<BlockEntityType<?>> BLOCK_ENTITY_TYPES =
-            DeferredRegister.create(Registries.BLOCK_ENTITY_TYPE, ElemenixAnalyzer.MOD_ID);
+            DeferredRegister.create(Registries.BLOCK_ENTITY_TYPE, Elemenics.MOD_ID);
 
     public static final Supplier<BlockEntityType<TransformerBlockEntity>> TRANSFORMER = BLOCK_ENTITY_TYPES.register(
             "elemenic_transformer",

@@ -1,6 +1,6 @@
 package net.lghast.elemenix.register.system;
 
-import net.lghast.elemenix.ElemenixAnalyzer;
+import net.lghast.elemenix.Elemenics;
 import net.lghast.elemenix.register.content.ModBlocks;
 import net.lghast.elemenix.register.content.ModItems;
 import net.minecraft.core.registries.Registries;
@@ -14,7 +14,7 @@ import java.util.function.Supplier;
 
 public class ModCreativeTabs {
     public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TAB =
-            DeferredRegister.create(Registries.CREATIVE_MODE_TAB, ElemenixAnalyzer.MOD_ID);
+            DeferredRegister.create(Registries.CREATIVE_MODE_TAB, Elemenics.MOD_ID);
 
     public static final Supplier<CreativeModeTab> ELEMENIX_TAB = CREATIVE_MODE_TAB.register("elemenix_tab",
             ()-> CreativeModeTab.builder().icon(()->new ItemStack(ModItems.ELEMENIC_ANALYZER.get()))

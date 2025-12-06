@@ -1,6 +1,6 @@
 package net.lghast.elemenix.register.system;
 
-import net.lghast.elemenix.ElemenixAnalyzer;
+import net.lghast.elemenix.Elemenics;
 import net.lghast.elemenix.common.content.blockentity.EjectorBlockEntity;
 import net.lghast.elemenix.common.content.blockentity.EnricherBlockEntity;
 import net.lghast.elemenix.common.content.blockentity.InfuserBlockEntity;
@@ -17,7 +17,7 @@ import java.util.function.Supplier;
 
 public class ModMenus {
     public static final DeferredRegister<MenuType<?>> MENUS =
-            DeferredRegister.create(Registries.MENU, ElemenixAnalyzer.MOD_ID);
+            DeferredRegister.create(Registries.MENU, Elemenics.MOD_ID);
 
     public static final Supplier<MenuType<AnalyzerMenu>> ELEMENIX_ANALYZER_MENU =
             MENUS.register("analyzer_menu", () ->

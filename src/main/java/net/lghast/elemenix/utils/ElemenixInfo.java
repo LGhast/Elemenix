@@ -22,6 +22,7 @@ public class ElemenixInfo {
     protected static final Map<Item, Constituents> ITEM_CACHE = new HashMap<>();
     protected static final Map<TagKey<Item>, Constituents> TAG_MAP = new HashMap<>();
     private static final Set<Item> CALCULATING_ITEMS = new HashSet<>();
+    private static final Set<Item> UNANALYSABLE_ITEMS = new HashSet<>();
     private static boolean isInitialized = false;
 
     private static void initialize() {
@@ -55,7 +56,7 @@ public class ElemenixInfo {
                     LOGGER.warn("Invalid tag ID: {}", key);
                 }
             } else {
-                Item item = getItemFromString(key);
+                Item item = ModUtils.getItemFromString(key);
                 if (item != null) {
                     ITEM_CACHE.put(item, value);
                 } else {
@@ -80,6 +81,10 @@ public class ElemenixInfo {
     public static Constituents getConstituents(Item item) {
         if (!isInitialized) {
             initialize();
+        }
+
+        if(UNANALYSABLE_ITEMS.contains(item)){
+            return new Constituents(true);
         }
 
         Constituents directConstituents = ITEM_CACHE.get(item);
@@ -114,6 +119,7 @@ public class ElemenixInfo {
             CALCULATING_ITEMS.remove(item);
         }
 
+        UNANALYSABLE_ITEMS.add(item);
         return new Constituents(true);
     }
 
@@ -142,16 +148,6 @@ public class ElemenixInfo {
                     LOGGER.error("Failed to load compatibility mappings for mod: {}", modId, e);
                 }
             }
-        }
-    }
-
-    private static Item getItemFromString(String itemId) {
-        try {
-            ResourceLocation resourceLocation = ResourceLocation.parse(itemId);
-            return BuiltInRegistries.ITEM.get(resourceLocation);
-        } catch (Exception e) {
-            LOGGER.debug("Failed to parse item ID: {}", itemId);
-            return null;
         }
     }
 

@@ -86,5 +86,8 @@
   "tooltip.elemenix.analyzer_storage": "Elemenic Storage:",
   "tooltip.elemenix.memories": "Memorized Items: %d",
   "tooltip.elemenix.readonly": "Read-Only",
-  "tooltip.elemenix.valve_opening": "Valve Opening: %s"
+  "tooltip.elemenix.valve_opening": "Valve Opening: %s",
+
+  "jei.category.elemenix.enriching": "Enriching",
+  "jei.category.elemenix.transforming": "Elemenic Transforming"
 }

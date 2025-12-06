@@ -1,6 +1,6 @@
 package net.lghast.elemenix.datagen;
 
-import net.lghast.elemenix.ElemenixAnalyzer;
+import net.lghast.elemenix.Elemenics;
 import net.minecraft.data.PackOutput;
 import net.neoforged.neoforge.client.model.generators.BlockStateProvider;
 import net.neoforged.neoforge.client.model.generators.ModelFile;
@@ -9,7 +9,7 @@ import net.neoforged.neoforge.registries.DeferredBlock;
 
 public class ModBlockStateProvider extends BlockStateProvider {
     public ModBlockStateProvider(PackOutput output, ExistingFileHelper exFileHelper){
-        super(output, ElemenixAnalyzer.MOD_ID,exFileHelper);
+        super(output, Elemenics.MOD_ID,exFileHelper);
     }
     @Override
     protected void registerStatesAndModels() {

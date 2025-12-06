@@ -1,17 +1,14 @@
 package net.lghast.elemenix.utils;
 
-import com.ibm.icu.impl.coll.Collation;
 import net.lghast.elemenix.register.system.ModTags;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.data.recipes.SmithingTransformRecipeBuilder;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.*;
-import org.apache.logging.log4j.Level;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -49,7 +46,7 @@ public class RecipeHelper {
         for (int i = 1; i < recipes.size(); i++) {
             RecipeInfo current = recipes.get(i);
             if(current.hasUnanalysable) continue;
-            if(current.isComplexCutting) continue;
+            if(current.isComplex) continue;
             if (current.getSum() < bestRecipe.getSum()) {
                 bestRecipe = current;
             } else if (current.getSum() == bestRecipe.getSum()) {
@@ -79,7 +76,8 @@ public class RecipeHelper {
                 type == RecipeType.STONECUTTING ||
                 recipe instanceof SmithingTransformRecipe ||
                 isCookingPotRecipe(recipe) ||
-                isCuttingBoardRecipe(recipe);
+                isCuttingBoardRecipe(recipe) ||
+                isCreateRecipe(recipe);
     }
 
     private static RecipeInfo getInfo(RecipeHolder<?> holder, Recipe<?> recipe) {
@@ -97,7 +95,7 @@ public class RecipeHelper {
             handleCookingPotRecipe(recipe, info);
         } else if (isCuttingBoardRecipe(recipe)) {
             handleCuttingBoardRecipe(recipe, info);
-        } else if (recipe.getType() == RecipeType.SMITHING) {
+        }else if (recipe.getType() == RecipeType.SMITHING) {
             handleSmithingRecipe(recipe, info);
         } else {
             NonNullList<Ingredient> ingredients = recipe.getIngredients();
@@ -212,7 +210,9 @@ public class RecipeHelper {
     private static boolean isCookingPotRecipe(Recipe<?> recipe) {
         try {
             return recipe.getClass().getName().contains("CookingPotRecipe") ||
-                    recipe.getType().toString().contains("farmersdelight:cooking");
+                    recipe.getClass().getName().contains("MonsterPotRecipe") ||
+                    recipe.getType().toString().contains("farmersdelight:cooking") ||
+                    recipe.getType().toString().contains("dungeonsdelight:monster_cooking");
         } catch (Exception e) {
             return false;
         }
@@ -222,6 +222,18 @@ public class RecipeHelper {
         try {
             return recipe.getClass().getName().contains("CuttingBoardRecipe") ||
                     recipe.getType().toString().contains("farmersdelight:cutting");
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    private static boolean isCreateRecipe(Recipe<?> recipe) {
+        try {
+            return recipe.getClass().getName().contains("PressingRecipe") || recipe.getType().toString().contains("create:pressing") ||
+                    recipe.getClass().getName().contains("MechanicalCraftingRecipe") || recipe.getType().toString().contains("create:mechanical_crafting") ||
+                    recipe.getClass().getName().contains("SandPaperPolishingRecipe") || recipe.getType().toString().contains("create:sandpaper_polishing") ||
+                    recipe.getClass().getName().contains("MixingRecipe") || recipe.getType().toString().contains("create:mixing") ||
+                    recipe.getClass().getName().contains("CompactingRecipe") || recipe.getType().toString().contains("create:compacting");
         } catch (Exception e) {
             return false;
         }
@@ -282,29 +294,36 @@ public class RecipeHelper {
 
     private static void handleCuttingBoardRecipe(Recipe<?> recipe, RecipeInfo info) {
         try {
-            java.lang.reflect.Method getRollableResultsMethod = recipe.getClass().getMethod("getRollableResults");
+            java.lang.reflect.Method getRollableResultsMethod =
+                    recipe.getClass().getMethod("getRollableResults");
             Object rollableResults = getRollableResultsMethod.invoke(recipe);
 
             if (rollableResults instanceof List<?> results) {
                 if (results.size() != 1) {
-                    info.isComplexCutting = true;
+                    info.isComplex = true;
                 }
 
                 Object firstResult = results.getFirst();
-                java.lang.reflect.Method getChanceMethod = firstResult.getClass().getMethod("chance");
+
+                java.lang.reflect.Method getChanceMethod =
+                        firstResult.getClass().getMethod("chance");
                 float chance = (Float) getChanceMethod.invoke(firstResult);
 
-                if (chance != 1.0f) {
-                    info.isComplexCutting = true;
+                if (Math.abs(chance - 1.0f) > 0.0001f) {
+                    info.isComplex = true;
                 }
 
-                java.lang.reflect.Method getStackMethod = firstResult.getClass().getMethod("stack");
+                java.lang.reflect.Method getStackMethod =
+                        firstResult.getClass().getMethod("stack");
                 ItemStack resultStack = (ItemStack) getStackMethod.invoke(firstResult);
                 info.result = resultStack;
                 info.resultAmount = resultStack.getCount();
+            } else {
+                info.isComplex = true;
             }
 
-            java.lang.reflect.Method getInputMethod = recipe.getClass().getMethod("getInput");
+            java.lang.reflect.Method getInputMethod =
+                    recipe.getClass().getMethod("getInput");
             Ingredient input = (Ingredient) getInputMethod.invoke(recipe);
 
             if (input != Ingredient.EMPTY) {
@@ -318,19 +337,42 @@ public class RecipeHelper {
                     info.amount += bestItemStack.getCount();
                 }
             }
-        } catch (Exception e) {
-            NonNullList<Ingredient> ingredients = recipe.getIngredients();
-            for (Ingredient ingredient : ingredients) {
-                if (ingredient != Ingredient.EMPTY) {
-                    ItemStack[] matchingItems = ingredient.getItems();
-                    if (matchingItems.length > 0) {
-                        ItemStack bestItemStack = findBestItemStack(matchingItems);
-                        info.ingredients.add(bestItemStack);
-                        info.amount += bestItemStack.getCount();
+        } catch (NoSuchMethodException e) {
+            try {
+                java.lang.reflect.Method getResultsMethod =
+                        recipe.getClass().getMethod("getResults");
+                List<ItemStack> results = (List<ItemStack>) getResultsMethod.invoke(recipe);
+
+                if (results.size() != 1) {
+                    info.isComplex = true;
+                } else {
+                    info.result = results.get(0);
+                    info.resultAmount = info.result.getCount();
+                }
+
+                java.lang.reflect.Method getIngredientsMethod =
+                        recipe.getClass().getMethod("getIngredients");
+                NonNullList<Ingredient> ingredients =
+                        (NonNullList<Ingredient>) getIngredientsMethod.invoke(recipe);
+
+                for (Ingredient ingredient : ingredients) {
+                    if (ingredient != Ingredient.EMPTY) {
+                        ItemStack[] matchingItems = ingredient.getItems();
+                        if (matchingItems.length > 0) {
+                            ItemStack bestItemStack = findBestItemStack(matchingItems);
+                            if(bestItemStack.isEmpty()){
+                                info.hasUnanalysable = true;
+                            }
+                            info.ingredients.add(bestItemStack);
+                            info.amount += bestItemStack.getCount();
+                        }
                     }
                 }
+            } catch (Exception ex) {
+                info.isComplex = true;
             }
-            info.hasUnanalysable = true;
+        } catch (Exception e) {
+            info.isComplex = true;
         }
     }
 
@@ -343,11 +385,11 @@ public class RecipeHelper {
         public int amount = 0;
         public long sum = 0;
         public boolean hasUnanalysable = false;
-        public boolean isComplexCutting = false;
+        public boolean isComplex = false;
         public ItemStack container = ItemStack.EMPTY;
 
         public long getSum() {
-            if(hasUnanalysable || isComplexCutting){
+            if(hasUnanalysable || isComplex){
                 return Long.MAX_VALUE;
             }
             return sum;

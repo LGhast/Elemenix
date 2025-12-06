@@ -1,11 +1,10 @@
 package net.lghast.elemenix.register.content;
 
-import net.lghast.elemenix.ElemenixAnalyzer;
+import net.lghast.elemenix.Elemenics;
 import net.lghast.elemenix.common.content.item.AnalyzerItem;
 import net.lghast.elemenix.common.content.item.FuelItem;
 import net.lghast.elemenix.common.content.item.MemorizerItem;
 import net.lghast.elemenix.common.content.item.ThrottleValveItem;
-import net.lghast.elemenix.common.system.datacomponent.ValveOpenness;
 import net.lghast.elemenix.register.system.ModFoodProperties;
 import net.minecraft.world.item.Item;
 import net.neoforged.bus.api.IEventBus;
@@ -13,7 +12,7 @@ import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
 public class ModItems {
-    public static final DeferredRegister.Items ITEMS = DeferredRegister.createItems(ElemenixAnalyzer.MOD_ID);
+    public static final DeferredRegister.Items ITEMS = DeferredRegister.createItems(Elemenics.MOD_ID);
 
     public static final DeferredItem<Item> ELEMENIC_ANALYZER = ITEMS.register("elemenic_analyzer",
             ()-> new AnalyzerItem(new Item.Properties()));

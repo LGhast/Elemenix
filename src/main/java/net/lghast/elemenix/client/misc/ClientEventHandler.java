@@ -1,18 +1,15 @@
 package net.lghast.elemenix.client.misc;
 
-import net.lghast.elemenix.ElemenixAnalyzer;
+import net.lghast.elemenix.Elemenics;
 import net.lghast.elemenix.client.screen.*;
 import net.lghast.elemenix.conifig.ClientConfig;
 import net.lghast.elemenix.network.DeconstructionPayload;
 import net.lghast.elemenix.network.ReconstructionPayload;
-import net.lghast.elemenix.register.content.ModBlocks;
 import net.lghast.elemenix.register.content.ModItems;
 import net.lghast.elemenix.register.system.ModMenus;
 import net.lghast.elemenix.utils.Constituents;
 import net.lghast.elemenix.utils.ElemenixInfo;
 import net.minecraft.ChatFormatting;
-import net.minecraft.client.renderer.ItemBlockRenderTypes;
-import net.minecraft.client.renderer.RenderType;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.api.distmarker.Dist;
@@ -27,7 +24,7 @@ import net.neoforged.neoforge.network.registration.PayloadRegistrar;
 import java.util.List;
 
 @OnlyIn(Dist.CLIENT)
-@EventBusSubscriber(modid = ElemenixAnalyzer.MOD_ID)
+@EventBusSubscriber(modid = Elemenics.MOD_ID)
 public class ClientEventHandler {
     @SubscribeEvent
     public static void onItemTooltip(ItemTooltipEvent event) {

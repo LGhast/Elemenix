@@ -1,6 +1,6 @@
 package net.lghast.elemenix.datagen;
 
-import net.lghast.elemenix.ElemenixAnalyzer;
+import net.lghast.elemenix.Elemenics;
 import net.lghast.elemenix.register.content.ModBlocks;
 import net.lghast.elemenix.register.system.ModTags;
 import net.minecraft.core.HolderLookup;
@@ -13,7 +13,7 @@ import java.util.concurrent.CompletableFuture;
 
 public class ModBlockTagProvider extends BlockTagsProvider {
     public ModBlockTagProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider, ExistingFileHelper existingFileHelper){
-        super(output,lookupProvider, ElemenixAnalyzer.MOD_ID,existingFileHelper);
+        super(output,lookupProvider, Elemenics.MOD_ID,existingFileHelper);
     }
 
     @Override

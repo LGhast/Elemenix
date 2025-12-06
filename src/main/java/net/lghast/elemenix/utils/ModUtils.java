@@ -3,11 +3,28 @@ package net.lghast.elemenix.utils;
 import net.lghast.elemenix.conifig.ClientConfig;
 import net.minecraft.client.gui.Font;
 import net.minecraft.core.particles.ParticleOptions;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 
 public class ModUtils {
+    public static Item getItemFromString(String itemId) {
+        try {
+            ResourceLocation resourceLocation = ResourceLocation.parse(itemId);
+            return BuiltInRegistries.ITEM.get(resourceLocation);
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    public static String getItemId(Item item) {
+        ResourceLocation registryName = BuiltInRegistries.ITEM.getKey(item);
+        return registryName.toString();
+    }
+
     public static void spawnItem(ServerLevel level, double x, double y, double z, ItemStack stack, boolean pickUpDelay) {
         if (stack.isEmpty()) return;
         ItemEntity itemEntity = new ItemEntity(level, x, y, z, stack,
