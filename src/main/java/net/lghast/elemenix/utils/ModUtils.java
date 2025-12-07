@@ -26,7 +26,7 @@ public class ModUtils {
     }
 
     public static void spawnItem(ServerLevel level, double x, double y, double z, ItemStack stack, boolean pickUpDelay) {
-        if (stack.isEmpty()) return;
+        if (stack == null || stack.isEmpty()) return;
         ItemEntity itemEntity = new ItemEntity(level, x, y, z, stack,
                 level.random.nextGaussian() * 0.05, 0.2, level.random.nextGaussian() * 0.05
         );

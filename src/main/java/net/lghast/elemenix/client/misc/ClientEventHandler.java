@@ -10,6 +10,7 @@ import net.lghast.elemenix.register.system.ModMenus;
 import net.lghast.elemenix.utils.Constituents;
 import net.lghast.elemenix.utils.ElemenixInfo;
 import net.minecraft.ChatFormatting;
+import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.api.distmarker.Dist;
@@ -32,6 +33,8 @@ public class ClientEventHandler {
 
         if(ClientConfig.SHOW_CONSTITUENT_TOOLTIPS.get() && !stack.is(ModItems.ELEMENIC_ANALYZER)) {
             Constituents constituents = ElemenixInfo.getConstituents(stack);
+
+            if(constituents == null) return;
             if(constituents.isUnanalysable() && !ClientConfig.SHOW_UNANALYSABLE_TOOLTIPS.get()) return;
 
             List<Component> tooltip = event.getToolTip();
@@ -52,6 +55,8 @@ public class ClientEventHandler {
     private static int findInsertIndex(List<Component> tooltip) {
         for (int i = 0; i < tooltip.size(); i++) {
             Component line = tooltip.get(i);
+            if(line == null) continue;
+
             String content = line.getString();
 
             if (content.trim().isEmpty() || content.contains(Component.translatable("tooltip.elemenix.constituents").getString())) {

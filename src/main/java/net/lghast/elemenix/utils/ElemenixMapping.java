@@ -72,15 +72,18 @@ public class ElemenixMapping {
         ELEMENIX_MAP.put("#minecraft:coal_ores", new Constituents(58, 62, 0, 0, 48, 0));
         ELEMENIX_MAP.put("#c:ores/coal", new Constituents(58, 62, 0, 0, 48, 0));
         ELEMENIX_MAP.put("minecraft:iron_ingot", new Constituents(0, 9, 0, 216, 0, 0));
+        ELEMENIX_MAP.put("#c:ingots/iron", new Constituents(0, 9, 0, 216, 0, 0));
         ELEMENIX_MAP.put("minecraft:iron_nugget", new Constituents(0, 1, 0, 24, 0, 0));
         ELEMENIX_MAP.put("minecraft:raw_iron", new Constituents(Elemenix.TERRIX, 225));
         ELEMENIX_MAP.put("#minecraft:iron_ores", new Constituents(Elemenix.TERRIX, 249));
         ELEMENIX_MAP.put("#c:ores/iron", new Constituents(Elemenix.TERRIX, 249));
         ELEMENIX_MAP.put("minecraft:copper_ingot", new Constituents(0, 24, 0, 72, 0, 0));
+        ELEMENIX_MAP.put("#c:ingots/copper", new Constituents(0, 24, 0, 72, 0, 0));
         ELEMENIX_MAP.put("minecraft:raw_copper", new Constituents(Elemenix.TERRIX, 96));
         ELEMENIX_MAP.put("#minecraft:copper_ores", new Constituents(Elemenix.TERRIX, 120));
         ELEMENIX_MAP.put("#c:ores/copper", new Constituents(Elemenix.TERRIX, 120));
         ELEMENIX_MAP.put("minecraft:gold_ingot", new Constituents(Elemenix.METALLIX, 432));
+        ELEMENIX_MAP.put("#c:ingots/gold", new Constituents(Elemenix.METALLIX, 432));
         ELEMENIX_MAP.put("minecraft:gold_nugget", new Constituents(Elemenix.METALLIX, 48));
         ELEMENIX_MAP.put("minecraft:raw_gold", new Constituents(Elemenix.METALLIX, 432));
         ELEMENIX_MAP.put("#minecraft:gold_ores", new Constituents(0, 24, 0, 432, 0, 0));
@@ -111,6 +114,9 @@ public class ElemenixMapping {
         ELEMENIX_MAP.put("minecraft:exposed_copper", new Constituents(0, 346, 0, 518, 0, 0));
         ELEMENIX_MAP.put("minecraft:weathered_copper", new Constituents(0, 540, 0, 324, 0, 0));
         ELEMENIX_MAP.put("minecraft:oxidized_copper", new Constituents(0, 734, 0, 130, 0, 0));
+        ELEMENIX_MAP.put("#c:ores/silver", new Constituents(0, 36, 0, 324, 0, 0));
+        ELEMENIX_MAP.put("#c:ingots/silver", new Constituents(0, 12, 0, 324, 0, 0));
+        ELEMENIX_MAP.put("#c:raw_materials/silver", new Constituents(0, 12, 0, 324, 0, 0));
 
         //植物
         ELEMENIX_MAP.put("#minecraft:planks", new Constituents(Elemenix.ORGANIX, 24));

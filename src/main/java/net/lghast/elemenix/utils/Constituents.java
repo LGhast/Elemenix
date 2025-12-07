@@ -129,7 +129,7 @@ public class Constituents {
     }
 
     public static Constituents sumConstituents(List<ItemStack> stacks){
-        if(stacks.isEmpty()) return new Constituents();
+        if(stacks == null || stacks.isEmpty()) return new Constituents();
         Constituents[] constituentArray = new Constituents[stacks.size()];
         for(int i = 0; i<stacks.size(); i++){
             constituentArray[i] = ElemenixInfo.getConstituents(stacks.get(i));

@@ -26,6 +26,7 @@ public class RecipeHelper {
             Recipe<?> recipe = recipeHolder.value();
             ItemStack result = recipe.getResultItem(level.registryAccess());
 
+            if(result == null) continue;
             if (!result.isEmpty() && result.getItem() == targetItem && isValidRecipeType(recipe)) {
                 recipes.add(getInfo(recipeHolder, recipe));
             }
@@ -104,11 +105,12 @@ public class RecipeHelper {
                     ItemStack[] matchingItems = ingredient.getItems();
                     if (matchingItems.length > 0) {
                         ItemStack bestItemStack = findBestItemStack(matchingItems);
-                        if(bestItemStack.isEmpty()){
+                        if(bestItemStack == null || bestItemStack.isEmpty()){
                             info.hasUnanalysable = true;
+                        }else {
+                            info.ingredients.add(bestItemStack);
+                            info.amount += bestItemStack.getCount();
                         }
-                        info.ingredients.add(bestItemStack);
-                        info.amount += bestItemStack.getCount();
                     }
                 }
             }
@@ -173,6 +175,11 @@ public class RecipeHelper {
             ItemStack bestTemplate = findBestItemStack(templateItems.toArray(new ItemStack[0]));
             ItemStack bestBase = findBestItemStack(baseItems.toArray(new ItemStack[0]));
             ItemStack bestAddition = findBestItemStack(additionItems.toArray(new ItemStack[0]));
+
+            if(bestTemplate == null || bestBase == null || bestAddition == null){
+                info.hasUnanalysable = true;
+                return;
+            }
 
             if (!bestTemplate.isEmpty()) {
                 info.ingredients.add(bestTemplate);
@@ -249,11 +256,12 @@ public class RecipeHelper {
                     ItemStack[] matchingItems = ingredient.getItems();
                     if (matchingItems.length > 0) {
                         ItemStack bestItemStack = findBestItemStack(matchingItems);
-                        if(bestItemStack.isEmpty()){
+                        if(bestItemStack == null || bestItemStack.isEmpty()){
                             info.hasUnanalysable = true;
+                        }else {
+                            info.ingredients.add(bestItemStack);
+                            info.amount += bestItemStack.getCount();
                         }
-                        info.ingredients.add(bestItemStack);
-                        info.amount += bestItemStack.getCount();
                     }
                 }
             }
@@ -330,11 +338,12 @@ public class RecipeHelper {
                 ItemStack[] matchingItems = input.getItems();
                 if (matchingItems.length > 0) {
                     ItemStack bestItemStack = findBestItemStack(matchingItems);
-                    if(bestItemStack.isEmpty()){
+                    if(bestItemStack == null || bestItemStack.isEmpty()){
                         info.hasUnanalysable = true;
+                    }else {
+                        info.ingredients.add(bestItemStack);
+                        info.amount += bestItemStack.getCount();
                     }
-                    info.ingredients.add(bestItemStack);
-                    info.amount += bestItemStack.getCount();
                 }
             }
         } catch (NoSuchMethodException e) {
@@ -360,11 +369,12 @@ public class RecipeHelper {
                         ItemStack[] matchingItems = ingredient.getItems();
                         if (matchingItems.length > 0) {
                             ItemStack bestItemStack = findBestItemStack(matchingItems);
-                            if(bestItemStack.isEmpty()){
+                            if(bestItemStack == null || bestItemStack.isEmpty()){
                                 info.hasUnanalysable = true;
+                            }else {
+                                info.ingredients.add(bestItemStack);
+                                info.amount += bestItemStack.getCount();
                             }
-                            info.ingredients.add(bestItemStack);
-                            info.amount += bestItemStack.getCount();
                         }
                     }
                 }
