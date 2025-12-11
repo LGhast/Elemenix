@@ -1,0 +1,30 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "elemenix:item/memorizer/default"
+  },
+  "overrides": [
+    {"predicate": {"elemenix:style": 0.0}, "model": "elemenix:item/memorizer/default"},
+    {"predicate": {"elemenix:style": 1.0}, "model": "elemenix:item/memorizer/white"},
+    {"predicate": {"elemenix:style": 2.0}, "model": "elemenix:item/memorizer/red"},
+    {"predicate": {"elemenix:style": 3.0}, "model": "elemenix:item/memorizer/orange"},
+    {"predicate": {"elemenix:style": 4.0}, "model": "elemenix:item/memorizer/yellow"},
+    {"predicate": {"elemenix:style": 5.0}, "model": "elemenix:item/memorizer/green"},
+    {"predicate": {"elemenix:style": 6.0}, "model": "elemenix:item/memorizer/cyan"},
+    {"predicate": {"elemenix:style": 7.0}, "model": "elemenix:item/memorizer/blue"},
+    {"predicate": {"elemenix:style": 8.0}, "model": "elemenix:item/memorizer/purple"},
+    {"predicate": {"elemenix:style": 9.0}, "model": "elemenix:item/memorizer/black"},
+    {"predicate": {"elemenix:style": 10.0}, "model": "elemenix:item/memorizer/gray"},
+    {"predicate": {"elemenix:style": 11.0}, "model": "elemenix:item/memorizer/lime"},
+    {"predicate": {"elemenix:style": 12.0}, "model": "elemenix:item/memorizer/pink"},
+    {"predicate": {"elemenix:style": 13.0}, "model": "elemenix:item/memorizer/magenta"},
+    {"predicate": {"elemenix:style": 14.0}, "model": "elemenix:item/memorizer/light_gray"},
+    {"predicate": {"elemenix:style": 15.0}, "model": "elemenix:item/memorizer/light_blue"},
+    {"predicate": {"elemenix:style": 16.0}, "model": "elemenix:item/memorizer/brown"},
+    {"predicate": {"elemenix:style": 17.0}, "model": "elemenix:item/memorizer/prismarine"},
+    {"predicate": {"elemenix:style": 18.0}, "model": "elemenix:item/memorizer/breeze"},
+    {"predicate": {"elemenix:style": 19.0}, "model": "elemenix:item/memorizer/purpur"},
+    {"predicate": {"elemenix:style": 20.0}, "model": "elemenix:item/memorizer/golden"},
+    {"predicate": {"elemenix:style": 21.0}, "model": "elemenix:item/memorizer/diamond"}
+  ]
+}

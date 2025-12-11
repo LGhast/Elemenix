@@ -1,0 +1,33 @@
+{
+  "parent": "elemenix:elemenics/obtain_memorizer",
+  "criteria": {
+    "get_burner": {
+      "conditions": {
+        "items": [
+          {
+            "items": "elemenix:memory_burner"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.elemenix.obtain_memory_burner.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "elemenix:memory_burner"
+    },
+    "title": {
+      "translate": "advancements.elemenix.obtain_memory_burner.title"
+    }
+  },
+  "requirements": [
+    [
+      "get_burner"
+    ]
+  ],
+  "sends_telemetry_event": true
+}
