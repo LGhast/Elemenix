@@ -1,4 +1,4 @@
-// 1.21.1	2025-10-26T17:01:14.7113091	Recipes
+// 1.21.1	2025-12-09T19:03:20.0553805	Recipes
 a5972f5f16b8d08a054c46ca513dcaaf6dbf21ea data/elemenix/advancement/recipes/food/fondant_cake.json
 436001b848b2166f3268f565c6939d909e873f2f data/elemenix/advancement/recipes/misc/arcanix_essenplex.json
 9c5cce8f0a9511d7fd5b849c092560b69d5ff0d5 data/elemenix/advancement/recipes/misc/elemenic_analyzer.json
@@ -12,6 +12,8 @@ fc2162792e9c18eb73b1859a13903fcda54ffb29 data/elemenix/advancement/recipes/misc/
 33a36434454c62baea2858d65374deb6fdf45490 data/elemenix/advancement/recipes/misc/flumix_essenplex.json
 1cde5b85d841ea3279cd74b1923c8d349b230349 data/elemenix/advancement/recipes/misc/geological_simulator.json
 34cbb8a29f77fe0ee8bc3cd20d74b4843b5e7180 data/elemenix/advancement/recipes/misc/germinal_accelerator.json
+da0bbf27a13f17ac377b0a0fc367bbebab09b458 data/elemenix/advancement/recipes/misc/memorizer_box.json
+3834ea9042987ecf1ff1ec0be85631b2ca0ec405 data/elemenix/advancement/recipes/misc/memory_burner.json
 233822a9785c32c07bc0360b263ec0e36d4e90c6 data/elemenix/advancement/recipes/misc/metallix_essenplex.json
 f1ffc045380003878e138a3b6ba176e285aa400d data/elemenix/advancement/recipes/misc/metallurgical_activator.json
 bb9831f87117f0acb71a78a649f5fabcdef60996 data/elemenix/advancement/recipes/misc/optical_capturer.json
@@ -32,6 +34,8 @@ f802e27a6d05e371c01d5791fb9f9ed28b65cb6d data/elemenix/recipe/flow_straightener.
 d4ed7c9d5000e7a7dd0f7061ad2ee6280c42d9db data/elemenix/recipe/fondant_cake.json
 92825c99b68c12ad96db7971a7bf798ec30c0149 data/elemenix/recipe/geological_simulator.json
 b86568224874c034e1b49217f44c49d10f6d662c data/elemenix/recipe/germinal_accelerator.json
+65ed8d54e3cc7f194a91debfe2a7eee1f253fe38 data/elemenix/recipe/memorizer_box.json
+887acba92d15bd4ea56f8f24fe5da03de9537607 data/elemenix/recipe/memory_burner.json
 639b2b2763da5f4f0301ebdec215d97933cd2c0c data/elemenix/recipe/metallix_essenplex.json
 46d3fac86ded1bc9079cfdaf3968880862761c05 data/elemenix/recipe/metallurgical_activator.json
 e77e278b2b441d0715ca95f88a0ee7e20c5af87b data/elemenix/recipe/optical_capturer.json

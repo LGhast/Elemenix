@@ -214,6 +214,7 @@ public class ModItemTagProvider extends ItemTagsProvider {
         ;
 
         tag(ModTags.ANALYZER_UNRECORDABLE)
+                .add(Items.ENCHANTED_BOOK)
                 .addTag(ModTags.ESSENCES)
                 .add(ModItems.ELEMENIC_EQUILIBRIUM.asItem())
                 .add(ModItems.ELEMENIC_ANALYZER.asItem())

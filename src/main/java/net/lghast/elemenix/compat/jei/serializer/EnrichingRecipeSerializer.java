@@ -9,13 +9,17 @@ import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeSerializer;
+import org.jetbrains.annotations.NotNull;
 
+import javax.annotation.ParametersAreNonnullByDefault;
+
+@ParametersAreNonnullByDefault
 public class EnrichingRecipeSerializer implements RecipeSerializer<EnrichingRecipe> {
 
     public static final EnrichingRecipeSerializer INSTANCE = new EnrichingRecipeSerializer();
 
     @Override
-    public MapCodec<EnrichingRecipe> codec() {
+    public @NotNull MapCodec<EnrichingRecipe> codec() {
         return RecordCodecBuilder.mapCodec(instance -> instance.group(
                 Codec.STRING.xmap(
                         name -> Elemenix.valueOf(name.toUpperCase()),
@@ -28,10 +32,10 @@ public class EnrichingRecipeSerializer implements RecipeSerializer<EnrichingReci
     }
 
     @Override
-    public StreamCodec<RegistryFriendlyByteBuf, EnrichingRecipe> streamCodec() {
+    public @NotNull StreamCodec<RegistryFriendlyByteBuf, EnrichingRecipe> streamCodec() {
         return new StreamCodec<>() {
             @Override
-            public EnrichingRecipe decode(RegistryFriendlyByteBuf buffer) {
+            public @NotNull EnrichingRecipe decode(RegistryFriendlyByteBuf buffer) {
                 Elemenix elemenix = buffer.readEnum(Elemenix.class);
                 int amount = buffer.readVarInt();
                 ItemStack output = ItemStack.STREAM_CODEC.decode(buffer);

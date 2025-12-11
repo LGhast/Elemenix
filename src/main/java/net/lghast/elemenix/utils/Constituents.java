@@ -34,10 +34,6 @@ public class Constituents {
         Arrays.fill(constituents, 0);
     }
 
-    public void fill(){
-        Arrays.fill(constituents, MAX);
-    }
-
     private boolean isValidIndex(int index){
         return index>=0 && index<constituents.length;
     }

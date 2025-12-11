@@ -1,11 +1,8 @@
 package net.lghast.elemenix.client.screen;
 
 import net.lghast.elemenix.common.content.block.EnricherBlock;
-import net.lghast.elemenix.common.content.block.InfuserBlock;
 import net.lghast.elemenix.common.content.blockentity.EnricherBlockEntity;
-import net.lghast.elemenix.common.content.blockentity.InfuserBlockEntity;
 import net.lghast.elemenix.common.system.menu.EnricherMenu;
-import net.lghast.elemenix.common.system.menu.InfuserMenu;
 import net.lghast.elemenix.utils.Elemenix;
 import net.lghast.elemenix.utils.ModUtils;
 import net.minecraft.client.gui.GuiGraphics;
@@ -17,14 +14,17 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 
+import javax.annotation.ParametersAreNonnullByDefault;
+
 @OnlyIn(Dist.CLIENT)
+@ParametersAreNonnullByDefault
 public class EnricherScreen extends AbstractContainerScreen<EnricherMenu> {
     private static final int GUI_WIDTH = 176;
     private static final int GUI_HEIGHT = 176;
     private static final int TITLE_X = 6;
     private static final int TITLE_Y = 6;
 
-    private final ResourceLocation guiTexture = ResourceLocation.fromNamespaceAndPath("elemenix", "textures/gui/elemenic_enricher.png");;
+    private final ResourceLocation guiTexture = ResourceLocation.fromNamespaceAndPath("elemenix", "textures/gui/elemenic_enricher.png");
 
     public EnricherScreen(EnricherMenu menu, Inventory inventory, Component title) {
         super(menu, inventory, title);

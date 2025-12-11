@@ -2,9 +2,6 @@ package net.lghast.elemenix.conifig;
 
 import net.neoforged.neoforge.common.ModConfigSpec;
 
-import java.util.Arrays;
-import java.util.List;
-
 public class ClientConfig {
     public static final ModConfigSpec.Builder BUILDER = new ModConfigSpec.Builder();
     public static final ModConfigSpec SPEC;
@@ -15,6 +12,7 @@ public class ClientConfig {
     public static ModConfigSpec.BooleanValue SHOW_UNANALYSABLE_TOOLTIPS;
     public static ModConfigSpec.BooleanValue SHOW_MEMORY_TOOLTIPS;
     public static ModConfigSpec.BooleanValue SHOW_READONLY_TOOLTIPS;
+    public static ModConfigSpec.BooleanValue SHOW_STYLE_TOOLTIPS;
     public static ModConfigSpec.BooleanValue SHOW_STORAGE_TOOLTIPS;
     public static ModConfigSpec.BooleanValue SHOW_ANALYZER_UUID_TOOLTIPS;
     public static ModConfigSpec.BooleanValue SHOW_VALVE_OPENNESS_TOOLTIPS;
@@ -49,6 +47,11 @@ public class ClientConfig {
                         "Whether waxed elemenix memorizers show read-only information")
                 .define("show_readonly_tooltips", true);
 
+        SHOW_STYLE_TOOLTIPS = BUILDER
+                .comment("元质记忆盘是否显示样式信息",
+                        "Whether elemenix memorizers show style information")
+                .define("show_style_tooltips", true);
+
         SHOW_STORAGE_TOOLTIPS = BUILDER
                 .comment("是否显示元质解析仪储存元质量",
                         "Whether to display the amount of stored elemenix in elemenix analyzer")
@@ -61,7 +64,7 @@ public class ClientConfig {
 
         SHOW_VALVE_OPENNESS_TOOLTIPS = BUILDER
                 .comment("是否显示节流阀开度",
-                        "Whether to display openness for Throttle Valves")
+                        "Whether to display style for Throttle Valves")
                 .define("show_valve_openness_tooltips", true);
 
         BUILDER.pop();

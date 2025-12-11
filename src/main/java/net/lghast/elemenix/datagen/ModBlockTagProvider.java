@@ -9,8 +9,10 @@ import net.minecraft.tags.BlockTags;
 import net.neoforged.neoforge.common.data.BlockTagsProvider;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
 
+import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.concurrent.CompletableFuture;
 
+@ParametersAreNonnullByDefault
 public class ModBlockTagProvider extends BlockTagsProvider {
     public ModBlockTagProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider, ExistingFileHelper existingFileHelper){
         super(output,lookupProvider, Elemenics.MOD_ID,existingFileHelper);

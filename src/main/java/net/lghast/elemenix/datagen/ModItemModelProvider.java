@@ -15,7 +15,6 @@ public class ModItemModelProvider extends ItemModelProvider {
     @Override
     protected void registerModels() {
         basicItem(ModItems.ELEMENIC_ANALYZER.get());
-        basicItem(ModItems.ELEMENIC_MEMORIZER.get());
         basicItem(ModItems.FONDANT_CAKE.get());
         basicItem(ModItems.THROTTLE_VALVE.get());
         basicItem(ModItems.FLOW_STRAIGHTENER.get());
@@ -32,5 +31,7 @@ public class ModItemModelProvider extends ItemModelProvider {
         basicItem(ModItems.METALLIX_ESSENPLEX.get());
         basicItem(ModItems.ENERGIX_ESSENPLEX.get());
         basicItem(ModItems.ARCANIX_ESSENPLEX.get());
+        basicItem(ModItems.MEMORIZER_BOX.get());
+        basicItem(ModItems.MEMORY_BURNER.get());
     }
 }

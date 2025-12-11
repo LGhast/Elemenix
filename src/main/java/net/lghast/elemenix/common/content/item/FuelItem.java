@@ -5,14 +5,11 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeType;
 
 import javax.annotation.Nullable;
+import javax.annotation.ParametersAreNonnullByDefault;
 
+@ParametersAreNonnullByDefault
 public class FuelItem extends Item {
     public final int burnTime;
-
-    public FuelItem(Properties properties) {
-        super(properties);
-        this.burnTime = 100;
-    }
 
     public FuelItem(Properties properties, int burnTime) {
         super(properties);

@@ -21,6 +21,7 @@ import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 import net.neoforged.neoforge.network.PacketDistributor;
 
+import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -30,18 +31,19 @@ import java.util.stream.Collectors;
 import static net.minecraft.client.gui.screens.Screen.hasShiftDown;
 
 @OnlyIn(Dist.CLIENT)
+@ParametersAreNonnullByDefault
 public class MemoryListWidget extends AbstractWidget {
-    private static final int ITEMS_PER_PAGE = 7;
-    private static final int ITEM_HEIGHT = 15;
-    private static final int ITEM_OFFSET = 4;
-    private static final int ITEM_NAME_OFFSET = 8;
+    protected static final int ITEMS_PER_PAGE = 7;
+    protected static final int ITEM_HEIGHT = 15;
+    protected static final int ITEM_OFFSET = 4;
+    protected static final int ITEM_NAME_OFFSET = 8;
 
-    private List<ResourceLocation> items = new ArrayList<>();
-    private final List<ItemStack> itemStacks = new ArrayList<>();
-    private final float itemScale;
-    private int currentPage = 0;
-    private Runnable onPageChange;
-    private boolean needsUpdate = true;
+    protected List<ResourceLocation> items = new ArrayList<>();
+    protected final List<ItemStack> itemStacks = new ArrayList<>();
+    protected final float itemScale;
+    protected int currentPage = 0;
+    protected Runnable onPageChange;
+    protected boolean needsUpdate = true;
     private List<ResourceLocation> lastMemories = new ArrayList<>();
 
     private static final List<Supplier<Item>> DEFAULT_ITEMS = List.of(
@@ -78,6 +80,12 @@ public class MemoryListWidget extends AbstractWidget {
         this.onPageChange = onPageChange;
     }
 
+    protected boolean isMenuWrong(){
+        Minecraft minecraft = Minecraft.getInstance();
+        if (minecraft.player == null) return true;
+        return !(minecraft.player.containerMenu instanceof AnalyzerMenu);
+    }
+
     @Override
     public void renderWidget(GuiGraphics graphics, int mouseX, int mouseY, float partialTick) {
         Minecraft minecraft = Minecraft.getInstance();
@@ -88,7 +96,13 @@ public class MemoryListWidget extends AbstractWidget {
             needsUpdate = false;
         }
 
-        if (!(minecraft.player.containerMenu instanceof AnalyzerMenu)) {
+        int startIndex = currentPage * ITEMS_PER_PAGE;
+        if (startIndex >= itemStacks.size() && currentPage > 0) {
+            resetToFirstPage();
+            return;
+        }
+
+        if (isMenuWrong()) {
             return;
         }
 
@@ -102,7 +116,6 @@ public class MemoryListWidget extends AbstractWidget {
             return;
         }
 
-        int startIndex = currentPage * ITEMS_PER_PAGE;
         int endIndex = Math.min(startIndex + ITEMS_PER_PAGE, itemStacks.size());
         int hoveredIndex = getHoveredItemIndex(mouseX, mouseY);
 
@@ -153,7 +166,7 @@ public class MemoryListWidget extends AbstractWidget {
         graphics.drawString(minecraft.font, truncatedName, textX, textY, 0xFFFFFF, false);
     }
 
-    private void updateItemList() {
+    protected void updateItemList() {
         Minecraft minecraft = Minecraft.getInstance();
         Player player = minecraft.player;
         if(player == null) return;
@@ -295,5 +308,12 @@ public class MemoryListWidget extends AbstractWidget {
 
     public int getItemCount() {
         return items.size();
+    }
+
+    public void resetToFirstPage() {
+        currentPage = 0;
+        if (onPageChange != null) {
+            onPageChange.run();
+        }
     }
 }

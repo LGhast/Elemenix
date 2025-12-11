@@ -18,9 +18,11 @@ import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 import net.neoforged.neoforge.network.PacketDistributor;
 
+import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.Optional;
 
 @OnlyIn(Dist.CLIENT)
+@ParametersAreNonnullByDefault
 public class AnalyzerScreen extends AbstractContainerScreen<AnalyzerMenu> {
     private static final ResourceLocation TEXTURE =
             ResourceLocation.fromNamespaceAndPath("elemenix", "textures/gui/elemenic_analyzer.png");
@@ -65,9 +67,9 @@ public class AnalyzerScreen extends AbstractContainerScreen<AnalyzerMenu> {
     protected void init() {
         super.init();
 
-        this.addRenderableWidget(Button.builder(Component.translatable("gui.elemenix.deconstruct"), button -> {
-            PacketDistributor.sendToServer(new DeconstructionPayload());
-        }).bounds(leftPos + DECONSTRUCT_BUTTON_X, topPos + DECONSTRUCT_BUTTON_Y,
+        this.addRenderableWidget(Button.builder(Component.translatable("gui.elemenix.deconstruct"),
+                button -> PacketDistributor.sendToServer(new DeconstructionPayload()))
+                .bounds(leftPos + DECONSTRUCT_BUTTON_X, topPos + DECONSTRUCT_BUTTON_Y,
                 DECONSTRUCT_BUTTON_WIDTH, DECONSTRUCT_BUTTON_HEIGHT).build());
 
         memoryListWidget = new MemoryListWidget(

@@ -4,10 +4,7 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.DataResult;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.network.RegistryFriendlyByteBuf;
-import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
-
-import java.util.UUID;
 
 public record ValveOpenness(int openness) {
     private static boolean isValidOpenness(int value) {
@@ -20,9 +17,9 @@ public record ValveOpenness(int openness) {
                             .validate(value ->
                                     isValidOpenness(value)
                                             ? DataResult.success(value)
-                                            : DataResult.error(() -> "Valve openness must be between 0 and 5")
+                                            : DataResult.error(() -> "Valve style must be between 0 and 5")
                             )
-                            .fieldOf("openness")
+                            .fieldOf("style")
                             .forGetter(ValveOpenness::openness)
             ).apply(instance, ValveOpenness::new)
     );
@@ -33,7 +30,7 @@ public record ValveOpenness(int openness) {
                     buf -> {
                         int openness = buf.readByte();
                         if (!isValidOpenness(openness)) {
-                            throw new IllegalArgumentException("Invalid valve openness: " + openness);
+                            throw new IllegalArgumentException("Invalid valve style: " + openness);
                         }
                         return new ValveOpenness(openness);
                     }
@@ -41,12 +38,8 @@ public record ValveOpenness(int openness) {
 
     public ValveOpenness {
         if (!isValidOpenness(openness)) {
-            throw new IllegalArgumentException("Valve openness must be between 0 and 5, got: " + openness);
+            throw new IllegalArgumentException("Valve style must be between 0 and 5, got: " + openness);
         }
-    }
-
-    public ValveOpenness withOpenness(int newOpenness) {
-        return new ValveOpenness(newOpenness);
     }
 
     public ValveOpenness decrement() {
@@ -54,14 +47,6 @@ public record ValveOpenness(int openness) {
             return new ValveOpenness(5);
         }
         return new ValveOpenness(this.openness - 1);
-    }
-
-    public boolean isClosed() {
-        return openness == 0;
-    }
-
-    public boolean isFullyOpen() {
-        return openness == 5;
     }
 
     public String getOpennessPercentage() {

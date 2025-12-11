@@ -1,11 +1,9 @@
 package net.lghast.elemenix.common.content.blockentity;
 
 import net.lghast.elemenix.common.content.block.InfuserBlock;
-import net.lghast.elemenix.common.content.block.TransformerBlock;
 import net.lghast.elemenix.common.content.item.AnalyzerItem;
 import net.lghast.elemenix.common.system.datacomponent.ElemenicStorage;
 import net.lghast.elemenix.common.system.menu.InfuserMenu;
-import net.lghast.elemenix.common.system.menu.TransformerMenu;
 import net.lghast.elemenix.register.content.ModBlockEntities;
 import net.lghast.elemenix.register.content.ModItems;
 import net.lghast.elemenix.register.system.ModDataComponents;
@@ -17,15 +15,9 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.Connection;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.protocol.Packet;
-import net.minecraft.network.protocol.game.ClientGamePacketListener;
-import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
-import net.minecraft.world.Container;
 import net.minecraft.world.ContainerHelper;
 import net.minecraft.world.entity.player.Inventory;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.item.ItemStack;
@@ -33,14 +25,20 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BaseContainerBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import org.jetbrains.annotations.NotNull;
 
-import javax.annotation.Nullable;
+import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.Arrays;
 
+@ParametersAreNonnullByDefault
 public class InfuserBlockEntity extends BaseContainerBlockEntity {
     private static final int ANALYZER_SLOT = 0;
     private static final int INPUT_SLOT = 1;
     private static final int SLOT_COUNT = 2;
+
+    private final static String TAG_STORAGE = "ElemenixStorage";
+    private final String TAG_DC_TIMER = "DeconstructionTimer";
+    private final String TAG_INFUSION_TIMER = "InfusionTimer";
 
     private NonNullList<ItemStack> items = NonNullList.withSize(SLOT_COUNT, ItemStack.EMPTY);
     private final int[] elemenixStorage = new int[6];
@@ -71,12 +69,12 @@ public class InfuserBlockEntity extends BaseContainerBlockEntity {
     }
 
     @Override
-    protected Component getDefaultName() {
+    protected @NotNull Component getDefaultName() {
         return Component.translatable("container.elemenix.elemenic_infuser");
     }
 
     @Override
-    protected NonNullList<ItemStack> getItems() {
+    protected @NotNull NonNullList<ItemStack> getItems() {
         return this.items;
     }
 
@@ -86,7 +84,7 @@ public class InfuserBlockEntity extends BaseContainerBlockEntity {
     }
 
     @Override
-    protected AbstractContainerMenu createMenu(int containerId, Inventory playerInventory) {
+    protected @NotNull AbstractContainerMenu createMenu(int containerId, Inventory playerInventory) {
         return new InfuserMenu(containerId, playerInventory, this);
     }
 
@@ -95,13 +93,13 @@ public class InfuserBlockEntity extends BaseContainerBlockEntity {
         super.loadAdditional(tag, provider);
         ContainerHelper.loadAllItems(tag, items, provider);
 
-        if (tag.contains("ElemenixStorage", CompoundTag.TAG_INT_ARRAY)) {
-            int[] stored = tag.getIntArray("ElemenixStorage");
+        if (tag.contains(TAG_STORAGE, CompoundTag.TAG_INT_ARRAY)) {
+            int[] stored = tag.getIntArray(TAG_STORAGE);
             System.arraycopy(stored, 0, elemenixStorage, 0, Math.min(stored.length, 6));
         }
 
-        deconstructionTimer = tag.getInt("DeconstructionTimer");
-        infusionTimer = tag.getInt("InfusionTimer");
+        deconstructionTimer = tag.getInt(TAG_DC_TIMER);
+        infusionTimer = tag.getInt(TAG_INFUSION_TIMER);
     }
 
     @Override
@@ -109,13 +107,13 @@ public class InfuserBlockEntity extends BaseContainerBlockEntity {
         super.saveAdditional(tag, provider);
         ContainerHelper.saveAllItems(tag, items, provider);
 
-        tag.putIntArray("ElemenixStorage", elemenixStorage);
+        tag.putIntArray(TAG_STORAGE, elemenixStorage);
 
-        tag.putInt("DeconstructionTimer", deconstructionTimer);
-        tag.putInt("InfusionTimer", infusionTimer);
+        tag.putInt(TAG_DC_TIMER, deconstructionTimer);
+        tag.putInt(TAG_INFUSION_TIMER, infusionTimer);
     }
 
-    public void tick(Level level, BlockPos pos, BlockState state, InfuserBlockEntity blockEntity) {
+    public void tick(Level level, BlockPos pos, BlockState state) {
         if (level.isClientSide) return;
 
         boolean wasWorking = state.getValue(InfuserBlock.WORKING);

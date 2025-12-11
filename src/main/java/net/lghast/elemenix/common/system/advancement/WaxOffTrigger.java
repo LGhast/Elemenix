@@ -11,6 +11,7 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.server.level.ServerPlayer;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Optional;
 
@@ -24,7 +25,7 @@ public class WaxOffTrigger extends SimpleCriterionTrigger<WaxOffTrigger.Instance
         }
 
         @Override
-        public Optional<ContextAwarePredicate> player() {
+        public @NotNull Optional<ContextAwarePredicate> player() {
             return playerPredicate;
         }
 
@@ -36,7 +37,7 @@ public class WaxOffTrigger extends SimpleCriterionTrigger<WaxOffTrigger.Instance
     }
 
     @Override
-    public Codec<Instance> codec() {
+    public @NotNull Codec<Instance> codec() {
         return Instance.CODEC;
     }
 

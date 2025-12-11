@@ -31,9 +31,12 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
+import javax.annotation.ParametersAreNonnullByDefault;
 
+@ParametersAreNonnullByDefault
 public abstract class TransformerBlock extends BaseEntityBlock {
     public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
     public static final BooleanProperty WORKING = BooleanProperty.create("working");
@@ -64,22 +67,22 @@ public abstract class TransformerBlock extends BaseEntityBlock {
     }
 
     @Override
-    public VoxelShape getCollisionShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
+    public @NotNull VoxelShape getCollisionShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
         return COLLISION_SHAPE;
     }
 
     @Override
-    public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
+    public @NotNull VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
         return COLLISION_SHAPE;
     }
 
     @Override
-    public RenderShape getRenderShape(BlockState state) {
+    public @NotNull RenderShape getRenderShape(BlockState state) {
         return RenderShape.MODEL;
     }
 
     @Override
-    protected InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hitResult) {
+    protected @NotNull InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hitResult) {
         if (!level.isClientSide && level.getBlockEntity(pos) instanceof TransformerBlockEntity blockEntity) {
             player.openMenu(blockEntity, buf -> {
                 buf.writeBlockPos(pos);
@@ -108,11 +111,11 @@ public abstract class TransformerBlock extends BaseEntityBlock {
         if (level.isClientSide) {
             return null;
         }
-        return createTickerHelper(blockEntityType, ModBlockEntities.TRANSFORMER.get(),
-                (level1, pos, state1, blockEntity) -> blockEntity.tick(level1, pos, state1, blockEntity));
+        return createTickerHelper(blockEntityType, ModBlockEntities.TRANSFORMER.get(), TransformerBlockEntity::tick);
     }
 
     @Nullable
+    @SuppressWarnings("unchecked")
     protected static <E extends BlockEntity, A extends BlockEntity> BlockEntityTicker<A> createTickerHelper(
             BlockEntityType<A> type, BlockEntityType<E> targetType, BlockEntityTicker<? super E> ticker) {
         return targetType == type ? (BlockEntityTicker<A>) ticker : null;

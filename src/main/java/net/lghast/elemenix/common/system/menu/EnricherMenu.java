@@ -1,12 +1,8 @@
 package net.lghast.elemenix.common.system.menu;
 
 import net.lghast.elemenix.common.content.block.EnricherBlock;
-import net.lghast.elemenix.common.content.block.InfuserBlock;
 import net.lghast.elemenix.common.content.blockentity.EnricherBlockEntity;
-import net.lghast.elemenix.common.content.blockentity.InfuserBlockEntity;
-import net.lghast.elemenix.register.content.ModItems;
 import net.lghast.elemenix.register.system.ModMenus;
-import net.lghast.elemenix.utils.Elemenix;
 import net.lghast.elemenix.utils.ElemenixInfo;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
@@ -14,7 +10,11 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
+import org.jetbrains.annotations.NotNull;
 
+import javax.annotation.ParametersAreNonnullByDefault;
+
+@ParametersAreNonnullByDefault
 public class EnricherMenu extends AbstractContainerMenu {
     private final EnricherBlockEntity blockEntity;
     private final ContainerData data;
@@ -66,7 +66,7 @@ public class EnricherMenu extends AbstractContainerMenu {
     }
 
     @Override
-    public ItemStack quickMoveStack(Player player, int index) {
+    public @NotNull ItemStack quickMoveStack(Player player, int index) {
         ItemStack originalStack = ItemStack.EMPTY;
         Slot slot = this.slots.get(index);
 

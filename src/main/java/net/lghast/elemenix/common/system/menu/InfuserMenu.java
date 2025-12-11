@@ -1,22 +1,21 @@
 package net.lghast.elemenix.common.system.menu;
 
 import net.lghast.elemenix.common.content.block.InfuserBlock;
-import net.lghast.elemenix.common.content.block.TransformerBlock;
 import net.lghast.elemenix.common.content.blockentity.InfuserBlockEntity;
 import net.lghast.elemenix.register.content.ModItems;
 import net.lghast.elemenix.register.system.ModMenus;
-import net.lghast.elemenix.utils.Constituents;
-import net.lghast.elemenix.utils.Elemenix;
 import net.lghast.elemenix.utils.ElemenixInfo;
-import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
+import org.jetbrains.annotations.NotNull;
 
+import javax.annotation.ParametersAreNonnullByDefault;
+
+@ParametersAreNonnullByDefault
 public class InfuserMenu extends AbstractContainerMenu {
     private final InfuserBlockEntity blockEntity;
     private final ContainerData data;
@@ -69,38 +68,38 @@ public class InfuserMenu extends AbstractContainerMenu {
     }
 
     @Override
-    public ItemStack quickMoveStack(Player player, int index) {
-        ItemStack itemstack = ItemStack.EMPTY;
+    public @NotNull ItemStack quickMoveStack(Player player, int index) {
+        ItemStack stack = ItemStack.EMPTY;
         Slot slot = this.slots.get(index);
 
         if (slot.hasItem()) {
-            ItemStack itemstack1 = slot.getItem();
-            itemstack = itemstack1.copy();
+            ItemStack stack1 = slot.getItem();
+            stack = stack1.copy();
 
             if (index < 2) {
-                if (!this.moveItemStackTo(itemstack1, 3, 39, true)) {
+                if (!this.moveItemStackTo(stack1, 3, 39, true)) {
                     return ItemStack.EMPTY;
                 }
             } else {
-                if (!this.moveItemStackTo(itemstack1, 0, 2, false)) {
+                if (!this.moveItemStackTo(stack1, 0, 2, false)) {
                     return ItemStack.EMPTY;
                 }
             }
 
-            if (itemstack1.isEmpty()) {
+            if (stack1.isEmpty()) {
                 slot.set(ItemStack.EMPTY);
             } else {
                 slot.setChanged();
             }
 
-            if (itemstack1.getCount() == itemstack.getCount()) {
+            if (stack1.getCount() == stack.getCount()) {
                 return ItemStack.EMPTY;
             }
 
-            slot.onTake(player, itemstack1);
+            slot.onTake(player, stack1);
         }
 
-        return itemstack;
+        return stack;
     }
 
     @Override

@@ -2,7 +2,11 @@ package net.lghast.elemenix.common.system.datacomponent;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,5 +20,18 @@ public record MemoryData(List<ResourceLocation> resolvedItems) {
 
     public MemoryData withResolvedItems(List<ResourceLocation> newResolvedItems) {
         return new MemoryData(new ArrayList<>(newResolvedItems));
+    }
+
+    public ItemStack firstItem(){
+        if(resolvedItems == null || resolvedItems.isEmpty()){
+            return ItemStack.EMPTY;
+        }
+
+        try {
+            Item item = BuiltInRegistries.ITEM.get(resolvedItems.getFirst());
+            return new ItemStack(item);
+        } catch (Exception e) {
+            return new ItemStack(Items.BARRIER);
+        }
     }
 }

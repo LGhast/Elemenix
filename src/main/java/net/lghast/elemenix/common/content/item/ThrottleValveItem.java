@@ -1,7 +1,6 @@
 package net.lghast.elemenix.common.content.item;
 
 import net.lghast.elemenix.common.system.advancement.ValveTrigger;
-import net.lghast.elemenix.common.system.advancement.WaxOffTrigger;
 import net.lghast.elemenix.common.system.datacomponent.ValveOpenness;
 import net.lghast.elemenix.conifig.ClientConfig;
 import net.lghast.elemenix.register.system.ModDataComponents;
@@ -18,9 +17,12 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
+import org.jetbrains.annotations.NotNull;
 
+import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.List;
 
+@ParametersAreNonnullByDefault
 public class ThrottleValveItem extends Item{
     public ThrottleValveItem(Properties properties) {
         super(properties.stacksTo(1).component(ModDataComponents.VALVE_OPENNESS, new ValveOpenness(5)));
@@ -38,7 +40,7 @@ public class ThrottleValveItem extends Item{
     }
 
     @Override
-    public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand usedHand) {
+    public @NotNull InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand usedHand) {
         ItemStack valveStack = player.getItemInHand(usedHand);
         if(usedHand != InteractionHand.MAIN_HAND){
             return super.use(level, player, usedHand);

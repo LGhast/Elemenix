@@ -13,8 +13,12 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.BaseEntityBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import javax.annotation.ParametersAreNonnullByDefault;
+
+@ParametersAreNonnullByDefault
 public class GeologicalSimulatorBlock extends TransformerBlock {
     public static final MapCodec<GeologicalSimulatorBlock> CODEC = simpleCodec(GeologicalSimulatorBlock::new);
 
@@ -83,7 +87,7 @@ public class GeologicalSimulatorBlock extends TransformerBlock {
     }
 
     @Override
-    protected MapCodec<? extends BaseEntityBlock> codec() {
+    protected @NotNull MapCodec<? extends BaseEntityBlock> codec() {
         return CODEC;
     }
 

@@ -14,11 +14,13 @@ import net.minecraft.world.SimpleMenuProvider;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.Level;
+import org.jetbrains.annotations.NotNull;
 
-import java.util.ArrayList;
+import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.List;
 import java.util.UUID;
 
+@ParametersAreNonnullByDefault
 public class AnalyzerItem extends Item {
     public AnalyzerItem(Properties properties) {
         super(properties.stacksTo(1).rarity(Rarity.RARE)
@@ -72,7 +74,7 @@ public class AnalyzerItem extends Item {
     }
 
     @Override
-    public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand usedHand) {
+    public @NotNull InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand usedHand) {
         ItemStack stack = player.getItemInHand(usedHand);
         randomizeUuid(stack);
 

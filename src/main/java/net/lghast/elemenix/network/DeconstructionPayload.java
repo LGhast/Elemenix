@@ -7,6 +7,7 @@ import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.neoforged.neoforge.network.handling.IPayloadContext;
+import org.jetbrains.annotations.NotNull;
 
 public record DeconstructionPayload() implements CustomPacketPayload {
     public static final CustomPacketPayload.Type<DeconstructionPayload> TYPE =
@@ -16,7 +17,7 @@ public record DeconstructionPayload() implements CustomPacketPayload {
             StreamCodec.unit(new DeconstructionPayload());
 
     @Override
-    public Type<? extends CustomPacketPayload> type() {
+    public @NotNull Type<? extends CustomPacketPayload> type() {
         return TYPE;
     }
 

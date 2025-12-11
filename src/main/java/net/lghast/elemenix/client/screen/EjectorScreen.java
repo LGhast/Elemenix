@@ -14,14 +14,17 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 
+import javax.annotation.ParametersAreNonnullByDefault;
+
 @OnlyIn(Dist.CLIENT)
+@ParametersAreNonnullByDefault
 public class EjectorScreen extends AbstractContainerScreen<EjectorMenu> {
     private static final int GUI_WIDTH = 200;
     private static final int GUI_HEIGHT = 176;
     private static final int TITLE_X = 6;
     private static final int TITLE_Y = 6;
 
-    private final ResourceLocation guiTexture = ResourceLocation.fromNamespaceAndPath("elemenix", "textures/gui/elemenic_ejector.png");;
+    private final ResourceLocation guiTexture = ResourceLocation.fromNamespaceAndPath("elemenix", "textures/gui/elemenic_ejector.png");
 
     public EjectorScreen(EjectorMenu menu, Inventory inventory, Component title) {
         super(menu, inventory, title);

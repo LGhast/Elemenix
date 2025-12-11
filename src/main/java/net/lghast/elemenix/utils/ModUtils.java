@@ -6,9 +6,15 @@ import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import top.theillusivec4.curios.api.CuriosApi;
+import top.theillusivec4.curios.api.SlotResult;
+import top.theillusivec4.curios.api.type.capability.ICuriosItemHandler;
+
+import java.util.Optional;
 
 public class ModUtils {
     public static Item getItemFromString(String itemId) {
@@ -18,20 +24,6 @@ public class ModUtils {
         } catch (Exception e) {
             return null;
         }
-    }
-
-    public static String getItemId(Item item) {
-        ResourceLocation registryName = BuiltInRegistries.ITEM.getKey(item);
-        return registryName.toString();
-    }
-
-    public static void spawnItem(ServerLevel level, double x, double y, double z, ItemStack stack, boolean pickUpDelay) {
-        if (stack == null || stack.isEmpty()) return;
-        ItemEntity itemEntity = new ItemEntity(level, x, y, z, stack,
-                level.random.nextGaussian() * 0.05, 0.2, level.random.nextGaussian() * 0.05
-        );
-        if(pickUpDelay) itemEntity.setDefaultPickUpDelay();
-        level.addFreshEntity(itemEntity);
     }
 
     public static void spawnParticles(ServerLevel serverLevel, ParticleOptions particle, double x, double y, double z,
@@ -59,8 +51,8 @@ public class ModUtils {
 
         while (low <= high) {
             int mid = (low + high) / 2;
-            String substr = text.substring(0, mid);
-            int width = font.width(substr);
+            String substring = text.substring(0, mid);
+            int width = font.width(substring);
 
             if (width <= targetWidth) {
                 bestPos = mid;
@@ -75,14 +67,6 @@ public class ModUtils {
         }
 
         return text.substring(0, bestPos).trim() + ellipsis;
-    }
-
-    public static int safeAdd(int a, int b) {
-        try {
-            return Math.addExact(a, b);
-        } catch (ArithmeticException e) {
-            return Integer.MAX_VALUE;
-        }
     }
 
     public static long safeAdd(long a, long b) {
@@ -185,5 +169,27 @@ public class ModUtils {
 
     public static String formatNumber(int value, String extraFormat) {
         return String.format(extraFormat, formatNumber(value));
+    }
+
+    public static ItemStack findItemInPlayerInventory(Player player, Item item) {
+        Inventory playerInventory = player.getInventory();
+
+        for (int i = 0; i < playerInventory.getContainerSize(); i++) {
+            ItemStack stack = playerInventory.getItem(i);
+            if (!stack.isEmpty() && stack.is(item)) {
+                return stack;
+            }
+        }
+
+        Optional<ICuriosItemHandler> optional = CuriosApi.getCuriosInventory(player);
+        if (optional.isPresent()) {
+            ICuriosItemHandler handler = optional.get();
+            Optional<SlotResult> result = handler.findFirstCurio(item);
+            if (result.isPresent()) {
+                return result.get().stack();
+            }
+        }
+
+        return ItemStack.EMPTY;
     }
 }

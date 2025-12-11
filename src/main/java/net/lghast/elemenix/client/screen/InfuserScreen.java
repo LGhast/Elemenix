@@ -1,9 +1,7 @@
 package net.lghast.elemenix.client.screen;
 
 import net.lghast.elemenix.common.content.block.InfuserBlock;
-import net.lghast.elemenix.common.content.block.TransformerBlock;
 import net.lghast.elemenix.common.content.blockentity.InfuserBlockEntity;
-import net.lghast.elemenix.common.content.blockentity.TransformerBlockEntity;
 import net.lghast.elemenix.common.system.menu.InfuserMenu;
 import net.lghast.elemenix.utils.Elemenix;
 import net.lghast.elemenix.utils.ModUtils;
@@ -16,14 +14,17 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 
+import javax.annotation.ParametersAreNonnullByDefault;
+
 @OnlyIn(Dist.CLIENT)
+@ParametersAreNonnullByDefault
 public class InfuserScreen extends AbstractContainerScreen<InfuserMenu> {
     private static final int GUI_WIDTH = 176;
     private static final int GUI_HEIGHT = 170;
     private static final int TITLE_X = 6;
     private static final int TITLE_Y = 6;
 
-    private final ResourceLocation guiTexture = ResourceLocation.fromNamespaceAndPath("elemenix", "textures/gui/elemenic_infuser.png");;
+    private final ResourceLocation guiTexture = ResourceLocation.fromNamespaceAndPath("elemenix", "textures/gui/elemenic_infuser.png");
 
     public InfuserScreen(InfuserMenu menu, Inventory inventory, Component title) {
         super(menu, inventory, title);

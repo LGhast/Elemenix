@@ -9,8 +9,4 @@ public record Waxed(boolean waxed) {
                     Codec.BOOL.fieldOf("waxed").forGetter(Waxed::waxed)
             ).apply(instance, Waxed::new)
     );
-
-    public Waxed withWaxed(boolean newWaxed) {
-        return new Waxed(newWaxed);
-    }
 }

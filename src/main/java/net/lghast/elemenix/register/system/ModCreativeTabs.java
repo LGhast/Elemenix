@@ -23,6 +23,8 @@ public class ModCreativeTabs {
                         output.accept(ModItems.ELEMENIC_ANALYZER);
                         output.accept(ModItems.ELEMENIC_MEMORIZER);
                         output.accept(ModItems.FONDANT_CAKE);
+                        output.accept(ModItems.MEMORIZER_BOX);
+                        output.accept(ModItems.MEMORY_BURNER);
                         output.accept(ModItems.THROTTLE_VALVE);
                         output.accept(ModItems.FLOW_STRAIGHTENER);
                         output.accept(ModItems.ORGANIX_ESSENCE);

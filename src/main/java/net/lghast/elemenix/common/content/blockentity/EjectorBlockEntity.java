@@ -1,10 +1,8 @@
 package net.lghast.elemenix.common.content.blockentity;
 
 import net.lghast.elemenix.common.content.block.EjectorBlock;
-import net.lghast.elemenix.common.content.block.EjectorBlock;
 import net.lghast.elemenix.common.content.item.ThrottleValveItem;
 import net.lghast.elemenix.common.system.datacomponent.ValveOpenness;
-import net.lghast.elemenix.common.system.menu.EjectorMenu;
 import net.lghast.elemenix.common.system.menu.EjectorMenu;
 import net.lghast.elemenix.register.content.ModBlockEntities;
 import net.lghast.elemenix.register.content.ModItems;
@@ -26,17 +24,26 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BaseContainerBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import org.jetbrains.annotations.NotNull;
 
+import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
+@ParametersAreNonnullByDefault
 public class EjectorBlockEntity extends BaseContainerBlockEntity {
     private static final int INPUT_SLOT = 6;
     private static final int VALVE_SLOT = 7;
     private static final int STRAIGHTENER_SLOT = 8;
     private static final int SLOT_COUNT = 9;
+
+    private final String TAG_INDEX = "EjectedIndex";
+    private final String TAG_STORAGE = "ElemenixStorage";
+    private final String TAG_DC_TIMER = "DeconstructionTimer";
+    private final String TAG_ENRICHING_TIMER = "EnrichingTimer";
+    private final String TAG_EJECTING_TIMER = "EjectingTimer";
 
     private NonNullList<ItemStack> items = NonNullList.withSize(SLOT_COUNT, ItemStack.EMPTY);
     private final int[] elemenixStorage = new int[6];
@@ -69,12 +76,12 @@ public class EjectorBlockEntity extends BaseContainerBlockEntity {
     }
 
     @Override
-    protected Component getDefaultName() {
+    protected @NotNull Component getDefaultName() {
         return Component.translatable("container.elemenix.elemenic_ejector");
     }
 
     @Override
-    protected NonNullList<ItemStack> getItems() {
+    protected @NotNull NonNullList<ItemStack> getItems() {
         return this.items;
     }
 
@@ -84,7 +91,7 @@ public class EjectorBlockEntity extends BaseContainerBlockEntity {
     }
 
     @Override
-    protected AbstractContainerMenu createMenu(int containerId, Inventory playerInventory) {
+    protected @NotNull AbstractContainerMenu createMenu(int containerId, Inventory playerInventory) {
         return new EjectorMenu(containerId, playerInventory, this);
     }
 
@@ -93,15 +100,15 @@ public class EjectorBlockEntity extends BaseContainerBlockEntity {
         super.loadAdditional(tag, provider);
         ContainerHelper.loadAllItems(tag, items, provider);
 
-        if (tag.contains("ElemenixStorage", CompoundTag.TAG_INT_ARRAY)) {
-            int[] stored = tag.getIntArray("ElemenixStorage");
+        if (tag.contains(TAG_STORAGE, CompoundTag.TAG_INT_ARRAY)) {
+            int[] stored = tag.getIntArray(TAG_STORAGE);
             System.arraycopy(stored, 0, elemenixStorage, 0, Math.min(stored.length, 6));
         }
 
-        deconstructionTimer = tag.getInt("DeconstructionTimer");
-        enrichingTimer = tag.getInt("EnrichingTimer");
-        ejectingTimer = tag.getInt("EjectingTimer");
-        ejectedIndex = tag.getInt("EjectedIndex");
+        deconstructionTimer = tag.getInt(TAG_DC_TIMER);
+        enrichingTimer = tag.getInt(TAG_ENRICHING_TIMER);
+        ejectingTimer = tag.getInt(TAG_EJECTING_TIMER);
+        ejectedIndex = tag.getInt(TAG_INDEX);
     }
 
     @Override
@@ -109,15 +116,15 @@ public class EjectorBlockEntity extends BaseContainerBlockEntity {
         super.saveAdditional(tag, provider);
         ContainerHelper.saveAllItems(tag, items, provider);
 
-        tag.putIntArray("ElemenixStorage", elemenixStorage);
+        tag.putIntArray(TAG_STORAGE, elemenixStorage);
 
-        tag.putInt("DeconstructionTimer", deconstructionTimer);
-        tag.putInt("EnrichingTimer", enrichingTimer);
-        tag.putInt("EjectingTimer", ejectingTimer);
-        tag.putInt("EjectedIndex", ejectedIndex);
+        tag.putInt(TAG_DC_TIMER, deconstructionTimer);
+        tag.putInt(TAG_ENRICHING_TIMER, enrichingTimer);
+        tag.putInt(TAG_EJECTING_TIMER, ejectingTimer);
+        tag.putInt(TAG_INDEX, ejectedIndex);
     }
 
-    public void tick(Level level, BlockPos pos, BlockState state, EjectorBlockEntity blockEntity) {
+    public void tick(Level level, BlockPos pos, BlockState state) {
         if (level.isClientSide) return;
 
         boolean wasWorking = state.getValue(EjectorBlock.WORKING);

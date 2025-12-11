@@ -19,10 +19,12 @@ import net.minecraft.world.item.Items;
 import net.neoforged.neoforge.common.data.AdvancementProvider;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
 
+import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
 
+@ParametersAreNonnullByDefault
 public class ModAdvancementProvider extends AdvancementProvider {
     public ModAdvancementProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider, ExistingFileHelper existingFileHelper) {
         super(output, lookupProvider, existingFileHelper, List.of(new IdiomAdvancementGenerator()));
@@ -63,23 +65,6 @@ public class ModAdvancementProvider extends AdvancementProvider {
                             ItemPredicate.Builder.item().of(ModItems.ELEMENIC_MEMORIZER.get()).build()
                     ))
                     .save(saver, ResourceLocation.parse("elemenix:elemenics/obtain_memorizer"), existingFileHelper);
-
-            AdvancementHolder obtainFondantCake = Advancement.Builder.advancement()
-                    .parent(obtainMemorizer)
-                    .display(
-                            ModItems.FONDANT_CAKE,
-                            Component.translatable("advancements.elemenix.obtain_fondant_cake.title"),
-                            Component.translatable("advancements.elemenix.obtain_fondant_cake.description"),
-                            null,
-                            AdvancementType.CHALLENGE,
-                            true,
-                            true,
-                            true
-                    )
-                    .addCriterion("get_fondant_cake", InventoryChangeTrigger.TriggerInstance.hasItems(
-                            ItemPredicate.Builder.item().of(ModItems.FONDANT_CAKE.get()).build()
-                    ))
-                    .save(saver, ResourceLocation.parse("elemenix:elemenics/obtain_fondant_cake"), existingFileHelper);
 
             AdvancementHolder enrichEssence = Advancement.Builder.advancement()
                     .parent(rootAdvancement)
@@ -274,6 +259,40 @@ public class ModAdvancementProvider extends AdvancementProvider {
                     )
                     .addCriterion("close_valve", ValveTrigger.valveOpen(0))
                     .save(saver, ResourceLocation.parse("elemenix:elemenics/close_throttle_valve"), existingFileHelper);
+
+            AdvancementHolder obtainBurner = Advancement.Builder.advancement()
+                    .parent(obtainMemorizer)
+                    .display(
+                            ModItems.MEMORY_BURNER,
+                            Component.translatable("advancements.elemenix.obtain_memory_burner.title"),
+                            Component.translatable("advancements.elemenix.obtain_memory_burner.description"),
+                            null,
+                            AdvancementType.TASK,
+                            true,
+                            true,
+                            false
+                    )
+                    .addCriterion("get_burner", InventoryChangeTrigger.TriggerInstance.hasItems(
+                            ItemPredicate.Builder.item().of(ModItems.MEMORY_BURNER).build()
+                    ))
+                    .save(saver, ResourceLocation.parse("elemenix:elemenics/obtain_burner"), existingFileHelper);
+
+            AdvancementHolder obtainFondantCake = Advancement.Builder.advancement()
+                    .parent(obtainBurner)
+                    .display(
+                            ModItems.FONDANT_CAKE,
+                            Component.translatable("advancements.elemenix.obtain_fondant_cake.title"),
+                            Component.translatable("advancements.elemenix.obtain_fondant_cake.description"),
+                            null,
+                            AdvancementType.CHALLENGE,
+                            true,
+                            true,
+                            true
+                    )
+                    .addCriterion("get_fondant_cake", InventoryChangeTrigger.TriggerInstance.hasItems(
+                            ItemPredicate.Builder.item().of(ModItems.FONDANT_CAKE.get()).build()
+                    ))
+                    .save(saver, ResourceLocation.parse("elemenix:elemenics/obtain_fondant_cake"), existingFileHelper);
         }
     }
 }

@@ -6,8 +6,11 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.*;
 import net.minecraft.world.item.Items;
+
+import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.concurrent.CompletableFuture;
 
+@ParametersAreNonnullByDefault
 public class ModRecipeProvider extends RecipeProvider {
     public ModRecipeProvider(PackOutput pOutput, CompletableFuture<HolderLookup.Provider> pRegistries) {
         super(pOutput, pRegistries);
@@ -53,6 +56,27 @@ public class ModRecipeProvider extends RecipeProvider {
                 .define('R', Items.COMPARATOR)
                 .define('C', Items.COPPER_INGOT)
                 .unlockedBy("has_redstone_comparator", has(Items.COMPARATOR))
+                .save(recipeOutput);
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ModItems.MEMORIZER_BOX.get(), 1)
+                .pattern("ISI")
+                .pattern("CIC")
+                .pattern("   ")
+                .define('I', Items.IRON_INGOT)
+                .define('S', Items.SLIME_BALL)
+                .define('C', Items.COPPER_INGOT)
+                .unlockedBy("has_elemenic_memorizer", has(ModItems.ELEMENIC_MEMORIZER))
+                .save(recipeOutput);
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ModItems.MEMORY_BURNER.get(), 1)
+                .pattern("A A")
+                .pattern("RDR")
+                .pattern(" I ")
+                .define('A', Items.AMETHYST_SHARD)
+                .define('R', Items.REDSTONE)
+                .define('D', Items.DIAMOND)
+                .define('I', Items.IRON_INGOT)
+                .unlockedBy("has_elemenic_memorizer", has(ModItems.ELEMENIC_MEMORIZER))
                 .save(recipeOutput);
 
         ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ModItems.ORGANIX_ESSENPLEX.get(), 1)

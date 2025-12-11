@@ -10,13 +10,17 @@ import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
+import org.jetbrains.annotations.NotNull;
 
+import javax.annotation.ParametersAreNonnullByDefault;
+
+@ParametersAreNonnullByDefault
 public class TransformingRecipeSerializer implements RecipeSerializer<TransformingRecipe> {
 
     public static final TransformingRecipeSerializer INSTANCE = new TransformingRecipeSerializer();
 
     @Override
-    public MapCodec<TransformingRecipe> codec() {
+    public @NotNull MapCodec<TransformingRecipe> codec() {
         return RecordCodecBuilder.mapCodec(instance -> instance.group(
                 Ingredient.CODEC.fieldOf("instrument").forGetter(TransformingRecipe::instrument),
                 Codec.STRING.xmap(
@@ -33,10 +37,10 @@ public class TransformingRecipeSerializer implements RecipeSerializer<Transformi
     }
 
     @Override
-    public StreamCodec<RegistryFriendlyByteBuf, TransformingRecipe> streamCodec() {
+    public @NotNull StreamCodec<RegistryFriendlyByteBuf, TransformingRecipe> streamCodec() {
         return new StreamCodec<>() {
             @Override
-            public TransformingRecipe decode(RegistryFriendlyByteBuf buffer) {
+            public @NotNull TransformingRecipe decode(RegistryFriendlyByteBuf buffer) {
                 Ingredient instrument = Ingredient.CONTENTS_STREAM_CODEC.decode(buffer);
                 Elemenix elemenix1 = buffer.readEnum(Elemenix.class);
                 Elemenix elemenix2 = buffer.readEnum(Elemenix.class);

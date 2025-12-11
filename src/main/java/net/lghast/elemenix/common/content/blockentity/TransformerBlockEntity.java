@@ -20,7 +20,11 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BaseContainerBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import org.jetbrains.annotations.NotNull;
 
+import javax.annotation.ParametersAreNonnullByDefault;
+
+@ParametersAreNonnullByDefault
 public class TransformerBlockEntity extends BaseContainerBlockEntity {
     private int inputA = 0;
     private int inputB = 0;
@@ -75,9 +79,9 @@ public class TransformerBlockEntity extends BaseContainerBlockEntity {
 
     private void processInputItems(TransformerBlock block) {
         if (!items.get(0).isEmpty()) {
-            Constituents constituents = ElemenixInfo.getConstituents(items.get(0));
+            Constituents constituents = ElemenixInfo.getConstituents(items.getFirst());
             if (constituents.isPure(block.getInputElemenixA())) {
-                items.get(0).shrink(1);
+                items.getFirst().shrink(1);
                 inputA += constituents.get(block.getInputElemenixA());
                 setChanged();
             }
@@ -125,7 +129,7 @@ public class TransformerBlockEntity extends BaseContainerBlockEntity {
     public int getOutputC() { return outputC; }
 
     public static TransformerBlockEntity getBlockEntity(Level level, BlockPos pos) {
-        if (level != null && level.getBlockEntity(pos) instanceof TransformerBlockEntity blockEntity) {
+        if (level.getBlockEntity(pos) instanceof TransformerBlockEntity blockEntity) {
             return blockEntity;
         }
         return null;
@@ -139,13 +143,13 @@ public class TransformerBlockEntity extends BaseContainerBlockEntity {
     }
 
     @Override
-    protected Component getDefaultName() {
+    protected @NotNull Component getDefaultName() {
         TransformerBlock block = getTransformerBlock();
         return block != null ? block.getGuiTitle() : Component.translatable("container.elemenix.transformer");
     }
 
     @Override
-    protected NonNullList<ItemStack> getItems() {
+    protected @NotNull NonNullList<ItemStack> getItems() {
         return items;
     }
 
@@ -155,7 +159,7 @@ public class TransformerBlockEntity extends BaseContainerBlockEntity {
     }
 
     @Override
-    protected AbstractContainerMenu createMenu(int containerId, Inventory playerInventory) {
+    protected @NotNull AbstractContainerMenu createMenu(int containerId, Inventory playerInventory) {
         return new TransformerMenu(containerId, playerInventory, this);
     }
 
@@ -170,12 +174,12 @@ public class TransformerBlockEntity extends BaseContainerBlockEntity {
     }
 
     @Override
-    public ItemStack getItem(int slot) {
+    public @NotNull ItemStack getItem(int slot) {
         return items.get(slot);
     }
 
     @Override
-    public ItemStack removeItem(int slot, int amount) {
+    public @NotNull ItemStack removeItem(int slot, int amount) {
         ItemStack stack = ContainerHelper.removeItem(items, slot, amount);
         if (!stack.isEmpty()) {
             setChanged();
@@ -184,7 +188,7 @@ public class TransformerBlockEntity extends BaseContainerBlockEntity {
     }
 
     @Override
-    public ItemStack removeItemNoUpdate(int slot) {
+    public @NotNull ItemStack removeItemNoUpdate(int slot) {
         return ContainerHelper.takeItem(items, slot);
     }
 
@@ -199,7 +203,7 @@ public class TransformerBlockEntity extends BaseContainerBlockEntity {
 
     @Override
     public boolean stillValid(Player player) {
-        if (level.getBlockEntity(worldPosition) != this) {
+        if (level == null || level.getBlockEntity(worldPosition) != this) {
             return false;
         }
         return player.distanceToSqr(

@@ -1,10 +1,7 @@
 package net.lghast.elemenix.register.content;
 
 import net.lghast.elemenix.Elemenics;
-import net.lghast.elemenix.common.content.item.AnalyzerItem;
-import net.lghast.elemenix.common.content.item.FuelItem;
-import net.lghast.elemenix.common.content.item.MemorizerItem;
-import net.lghast.elemenix.common.content.item.ThrottleValveItem;
+import net.lghast.elemenix.common.content.item.*;
 import net.lghast.elemenix.register.system.ModFoodProperties;
 import net.minecraft.world.item.Item;
 import net.neoforged.bus.api.IEventBus;
@@ -67,6 +64,12 @@ public class ModItems {
 
     public static final DeferredItem<Item> FONDANT_CAKE = ITEMS.register("fondant_cake",
             ()-> new Item(new Item.Properties().food(ModFoodProperties.FONDANT_CAKE)));
+
+    public static final DeferredItem<Item> MEMORIZER_BOX = ITEMS.register("memorizer_box",
+            ()-> new MemorizerBoxItem(new Item.Properties()));
+
+    public static final DeferredItem<Item> MEMORY_BURNER = ITEMS.register("memory_burner",
+            ()-> new BurnerItem(new Item.Properties()));
 
     public static void register(IEventBus eventBus){
         ITEMS.register(eventBus);

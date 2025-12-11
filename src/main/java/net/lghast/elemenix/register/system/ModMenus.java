@@ -24,6 +24,16 @@ public class ModMenus {
                     IMenuTypeExtension.create((windowId, inv, data) ->
                             new AnalyzerMenu(windowId, inv, ItemStack.EMPTY)));
 
+    public static final Supplier<MenuType<MemorizerBoxMenu>> MEMORIZER_BOX_MENU =
+            MENUS.register("memorizer_box_menu", () ->
+                    IMenuTypeExtension.create((windowId, inv, data) ->
+                            new MemorizerBoxMenu(windowId, inv, ItemStack.EMPTY)));
+
+    public static final Supplier<MenuType<BurnerMenu>> BURNER_MENU =
+            MENUS.register("burner_menu", () ->
+                    IMenuTypeExtension.create((windowId, inv, data) ->
+                            new BurnerMenu(windowId, inv)));
+
     public static final Supplier<MenuType<TransformerMenu>> TRANSFORMER_MENU =
             MENUS.register("transformer_menu", () ->
                     IMenuTypeExtension.create((windowId, inv, data) ->

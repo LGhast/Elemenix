@@ -32,15 +32,7 @@ public record AnalyzerUuid(UUID uuid) {
                     AnalyzerUuid::new
             );
 
-    public AnalyzerUuid withUuid(UUID newUuid) {
-        return new AnalyzerUuid(newUuid);
-    }
-
     public static AnalyzerUuid createRandom() {
         return new AnalyzerUuid(UUID.randomUUID());
-    }
-
-    public static AnalyzerUuid fromString(String uuidString) {
-        return new AnalyzerUuid(UUID.fromString(uuidString));
     }
 }

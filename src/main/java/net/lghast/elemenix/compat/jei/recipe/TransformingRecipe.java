@@ -7,40 +7,31 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.Level;
+import org.jetbrains.annotations.NotNull;
 
-public class TransformingRecipe implements Recipe<RecipeInput> {
-    private final Ingredient instrument; // 新增：仪器输入
-    private final Elemenix elemenix1;
-    private final Elemenix elemenix2;
-    private final int amount;
-    private final ItemStack output;
+import javax.annotation.ParametersAreNonnullByDefault;
 
-    public TransformingRecipe(Ingredient instrument, Elemenix elemenix1, Elemenix elemenix2, int amount, ItemStack output) {
-        this.instrument = instrument;
-        this.elemenix1 = elemenix1;
-        this.elemenix2 = elemenix2;
-        this.amount = amount;
-        this.output = output;
-    }
+@ParametersAreNonnullByDefault
+public record TransformingRecipe(Ingredient instrument, Elemenix elemenix1, Elemenix elemenix2,
+                                 int amount, ItemStack output) implements Recipe<RecipeInput> {
 
     @Override
-    public RecipeSerializer<?> getSerializer() {
+    public @NotNull RecipeSerializer<?> getSerializer() {
         return TransformingRecipeSerializer.INSTANCE;
     }
 
     @Override
-    public RecipeType<?> getType() {
+    public @NotNull RecipeType<?> getType() {
         return ModRecipes.TRANSFORMING.get();
     }
 
     @Override
     public boolean matches(RecipeInput recipeInput, Level level) {
-        // 需要根据实际逻辑实现
         return false;
     }
 
     @Override
-    public ItemStack assemble(RecipeInput recipeInput, HolderLookup.Provider provider) {
+    public @NotNull ItemStack assemble(RecipeInput recipeInput, HolderLookup.Provider provider) {
         return output.copy();
     }
 
@@ -50,27 +41,7 @@ public class TransformingRecipe implements Recipe<RecipeInput> {
     }
 
     @Override
-    public ItemStack getResultItem(HolderLookup.Provider registries) {
+    public @NotNull ItemStack getResultItem(HolderLookup.Provider registries) {
         return output.copy();
-    }
-
-    public Ingredient instrument() {
-        return instrument;
-    }
-
-    public Elemenix elemenix1() {
-        return elemenix1;
-    }
-
-    public Elemenix elemenix2() {
-        return elemenix2;
-    }
-
-    public int amount() {
-        return amount;
-    }
-
-    public ItemStack output() {
-        return output;
     }
 }

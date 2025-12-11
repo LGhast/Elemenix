@@ -3,7 +3,7 @@
   "criteria": {
     "close_valve": {
       "conditions": {
-        "openness": 0
+        "style": 0
       },
       "trigger": "elemenix:valve_open"
     }

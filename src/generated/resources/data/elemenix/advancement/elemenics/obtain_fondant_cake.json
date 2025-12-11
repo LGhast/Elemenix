@@ -1,5 +1,5 @@
 {
-  "parent": "elemenix:elemenics/obtain_memorizer",
+  "parent": "elemenix:elemenics/obtain_burner",
   "criteria": {
     "get_fondant_cake": {
       "conditions": {

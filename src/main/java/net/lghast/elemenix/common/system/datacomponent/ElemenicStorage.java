@@ -39,10 +39,6 @@ public record ElemenicStorage(long[] elemenix) {
     public long energix() { return elemenix[4]; }
     public long arcanix() { return elemenix[5]; }
 
-    public ElemenicStorage withElemenix(long[] newElemenix) {
-        return new ElemenicStorage(newElemenix.clone());
-    }
-
     public Component toComponentFormer() {
         return Component.literal(ModUtils.formatNumber(organix(), "O:%s  ")).withColor(Elemenix.ORGANIX.getColor())
                         .append(Component.literal(ModUtils.formatNumber(terrix(), "T:%s  ")).withColor(Elemenix.TERRIX.getColor()))

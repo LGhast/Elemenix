@@ -13,7 +13,10 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 
+import javax.annotation.ParametersAreNonnullByDefault;
+
 @OnlyIn(Dist.CLIENT)
+@ParametersAreNonnullByDefault
 public class TransformerScreen extends AbstractContainerScreen<TransformerMenu> {
     private static final int GUI_WIDTH = 176;
     private static final int GUI_HEIGHT = 170;

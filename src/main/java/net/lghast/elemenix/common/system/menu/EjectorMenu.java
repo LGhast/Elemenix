@@ -11,7 +11,11 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
+import org.jetbrains.annotations.NotNull;
 
+import javax.annotation.ParametersAreNonnullByDefault;
+
+@ParametersAreNonnullByDefault
 public class EjectorMenu extends AbstractContainerMenu {
     private final EjectorBlockEntity blockEntity;
     private final ContainerData data;
@@ -83,7 +87,7 @@ public class EjectorMenu extends AbstractContainerMenu {
     }
 
     @Override
-    public ItemStack quickMoveStack(Player player, int index) {
+    public @NotNull ItemStack quickMoveStack(Player player, int index) {
         ItemStack originalStack = ItemStack.EMPTY;
         Slot slot = this.slots.get(index);
 

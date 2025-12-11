@@ -13,8 +13,12 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.BaseEntityBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import javax.annotation.ParametersAreNonnullByDefault;
+
+@ParametersAreNonnullByDefault
 public class TranspiringIncineratorBlock extends TransformerBlock {
     public static final MapCodec<TranspiringIncineratorBlock> CODEC = simpleCodec(TranspiringIncineratorBlock::new);
 
@@ -83,7 +87,7 @@ public class TranspiringIncineratorBlock extends TransformerBlock {
     }
 
     @Override
-    protected MapCodec<? extends BaseEntityBlock> codec() {
+    protected @NotNull MapCodec<? extends BaseEntityBlock> codec() {
         return CODEC;
     }
 

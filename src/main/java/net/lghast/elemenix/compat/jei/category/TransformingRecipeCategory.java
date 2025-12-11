@@ -18,10 +18,13 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
+import javax.annotation.ParametersAreNonnullByDefault;
 
 @OnlyIn(Dist.CLIENT)
+@ParametersAreNonnullByDefault
 public class TransformingRecipeCategory implements IRecipeCategory<TransformingRecipe> {
     public static final RecipeType<TransformingRecipe> TYPE =
             RecipeType.create("elemenix", "transforming", TransformingRecipe.class);
@@ -54,12 +57,12 @@ public class TransformingRecipeCategory implements IRecipeCategory<TransformingR
     }
 
     @Override
-    public RecipeType<TransformingRecipe> getRecipeType() {
+    public @NotNull RecipeType<TransformingRecipe> getRecipeType() {
         return TYPE;
     }
 
     @Override
-    public Component getTitle() {
+    public @NotNull Component getTitle() {
         return localizedName;
     }
 
@@ -110,11 +113,6 @@ public class TransformingRecipeCategory implements IRecipeCategory<TransformingR
         int text2X = (WIDTH - text2Width) / 2 + 5;
         guiGraphics.drawString(font, text2, text2X, TEXT_ELEMENIX2_Y,
                 recipe.elemenix2().getColor(), false);
-    }
-
-    @Override
-    public boolean isHandled(TransformingRecipe recipe) {
-        return true;
     }
 
     private String formatNumber(int number) {

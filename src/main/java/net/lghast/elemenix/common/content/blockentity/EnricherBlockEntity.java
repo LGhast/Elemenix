@@ -1,19 +1,12 @@
 package net.lghast.elemenix.common.content.blockentity;
 
 import net.lghast.elemenix.common.content.block.EnricherBlock;
-import net.lghast.elemenix.common.content.block.EnricherBlock;
-import net.lghast.elemenix.common.content.block.TransformerBlock;
-import net.lghast.elemenix.common.content.item.AnalyzerItem;
-import net.lghast.elemenix.common.system.datacomponent.ElemenicStorage;
 import net.lghast.elemenix.common.system.menu.EnricherMenu;
-import net.lghast.elemenix.common.system.menu.InfuserMenu;
 import net.lghast.elemenix.register.content.ModBlockEntities;
 import net.lghast.elemenix.register.content.ModItems;
-import net.lghast.elemenix.register.system.ModDataComponents;
 import net.lghast.elemenix.utils.Constituents;
 import net.lghast.elemenix.utils.Elemenix;
 import net.lghast.elemenix.utils.ElemenixInfo;
-import net.lghast.elemenix.utils.ModUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
@@ -29,12 +22,19 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BaseContainerBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import org.jetbrains.annotations.NotNull;
 
+import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.Arrays;
 
+@ParametersAreNonnullByDefault
 public class EnricherBlockEntity extends BaseContainerBlockEntity {
     private static final int INPUT_SLOT = 6;
     private static final int SLOT_COUNT = 7;
+
+    private final static String TAG_STORAGE = "ElemenixStorage";
+    private final String TAG_DC_TIMER = "DeconstructionTimer";
+    private final String TAG_ENRICHING_TIMER = "EnrichingTimer";
 
     private NonNullList<ItemStack> items = NonNullList.withSize(SLOT_COUNT, ItemStack.EMPTY);
     private final int[] elemenixStorage = new int[6];
@@ -65,12 +65,12 @@ public class EnricherBlockEntity extends BaseContainerBlockEntity {
     }
 
     @Override
-    protected Component getDefaultName() {
+    protected @NotNull Component getDefaultName() {
         return Component.translatable("container.elemenix.elemenic_enricher");
     }
 
     @Override
-    protected NonNullList<ItemStack> getItems() {
+    protected @NotNull NonNullList<ItemStack> getItems() {
         return this.items;
     }
 
@@ -80,7 +80,7 @@ public class EnricherBlockEntity extends BaseContainerBlockEntity {
     }
 
     @Override
-    protected AbstractContainerMenu createMenu(int containerId, Inventory playerInventory) {
+    protected @NotNull AbstractContainerMenu createMenu(int containerId, Inventory playerInventory) {
         return new EnricherMenu(containerId, playerInventory, this);
     }
 
@@ -89,13 +89,13 @@ public class EnricherBlockEntity extends BaseContainerBlockEntity {
         super.loadAdditional(tag, provider);
         ContainerHelper.loadAllItems(tag, items, provider);
 
-        if (tag.contains("ElemenixStorage", CompoundTag.TAG_INT_ARRAY)) {
-            int[] stored = tag.getIntArray("ElemenixStorage");
+        if (tag.contains(TAG_STORAGE, CompoundTag.TAG_INT_ARRAY)) {
+            int[] stored = tag.getIntArray(TAG_STORAGE);
             System.arraycopy(stored, 0, elemenixStorage, 0, Math.min(stored.length, 6));
         }
 
-        deconstructionTimer = tag.getInt("DeconstructionTimer");
-        enrichingTimer = tag.getInt("EnrichingTimer");
+        deconstructionTimer = tag.getInt(TAG_DC_TIMER);
+        enrichingTimer = tag.getInt(TAG_ENRICHING_TIMER);
     }
 
     @Override
@@ -103,13 +103,13 @@ public class EnricherBlockEntity extends BaseContainerBlockEntity {
         super.saveAdditional(tag, provider);
         ContainerHelper.saveAllItems(tag, items, provider);
 
-        tag.putIntArray("ElemenixStorage", elemenixStorage);
+        tag.putIntArray(TAG_STORAGE, elemenixStorage);
 
-        tag.putInt("DeconstructionTimer", deconstructionTimer);
-        tag.putInt("EnrichingTimer", enrichingTimer);
+        tag.putInt(TAG_DC_TIMER, deconstructionTimer);
+        tag.putInt(TAG_ENRICHING_TIMER, enrichingTimer);
     }
 
-    public void tick(Level level, BlockPos pos, BlockState state, EnricherBlockEntity blockEntity) {
+    public void tick(Level level, BlockPos pos, BlockState state) {
         if (level.isClientSide) return;
 
         boolean wasWorking = state.getValue(EnricherBlock.WORKING);

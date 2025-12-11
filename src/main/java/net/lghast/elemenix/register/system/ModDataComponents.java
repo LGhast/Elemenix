@@ -27,6 +27,8 @@ public class ModDataComponents {
 
     public static final Codec<ValveOpenness> VALVE_OPENNESS_CODEC = ValveOpenness.CODEC;
 
+    public static final Codec<Style> STYLE_CODEC = Style.CODEC;
+
     public static final StreamCodec<RegistryFriendlyByteBuf, ElemenicStorage> ELEMENIC_STORAGE_STREAM_CODEC =
             StreamCodec.of(
                     (buf, storage) -> {
@@ -60,6 +62,9 @@ public class ModDataComponents {
     public static final StreamCodec<RegistryFriendlyByteBuf, ValveOpenness> VALVE_OPENNESS_STREAM_CODEC =
             ValveOpenness.STREAM_CODEC;
 
+    public static final StreamCodec<RegistryFriendlyByteBuf, Style> STYLE_STREAM_CODEC =
+            Style.STREAM_CODEC;
+
     public static final StreamCodec<RegistryFriendlyByteBuf, AnalyzerUuid> ANALYZER_UUID_STREAM_CODEC =
             AnalyzerUuid.STREAM_CODEC;
 
@@ -91,6 +96,12 @@ public class ModDataComponents {
             REGISTRAR.registerComponentType("valve_openness", builder ->
                     builder.persistent(VALVE_OPENNESS_CODEC)
                             .networkSynchronized(VALVE_OPENNESS_STREAM_CODEC)
+            );
+
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<Style>> STYLE =
+            REGISTRAR.registerComponentType("style", builder ->
+                    builder.persistent(STYLE_CODEC)
+                            .networkSynchronized(STYLE_STREAM_CODEC)
             );
 
     public static void register(IEventBus eventBus) {

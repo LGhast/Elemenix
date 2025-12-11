@@ -14,6 +14,9 @@ import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 
+import javax.annotation.ParametersAreNonnullByDefault;
+
+@ParametersAreNonnullByDefault
 public class TransformerMenu extends AbstractContainerMenu {
     private final TransformerBlockEntity blockEntity;
     private final ContainerData data;
@@ -24,12 +27,6 @@ public class TransformerMenu extends AbstractContainerMenu {
                 blockEntity.getTransformerBlock() != null ?
                         blockEntity.getTransformerBlock().getGuiTexture() :
                         getDefaultTexture());
-    }
-
-    public TransformerMenu(int containerId, Inventory playerInventory, FriendlyByteBuf extraData) {
-        this(containerId, playerInventory,
-                (TransformerBlockEntity) playerInventory.player.level().getBlockEntity(extraData.readBlockPos()),
-                extraData.readResourceLocation());
     }
 
     public TransformerMenu(int containerId, Inventory playerInventory, TransformerBlockEntity blockEntity, ResourceLocation guiTexture) {

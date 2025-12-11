@@ -23,16 +23,23 @@ import net.minecraft.world.inventory.SimpleContainerData;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import org.jetbrains.annotations.NotNull;
 
+import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
 
+@ParametersAreNonnullByDefault
 public class AnalyzerMenu extends AbstractContainerMenu {
     private static final int INPUT_SLOT = 0;
     private static final int MEMORIZER_SLOT = 1;
     private static final int SLOT_COUNT = 2;
+
+    private static final int INPUT_SLOT_X = 22;
+    private static final int MEMORIZER_SLOT_X = 52;
+    private static final int SLOT_Y = 130;
+
     private final Container analyzerContainer;
     private final UUID analyzerUuid;
     private final ContainerData data;
@@ -54,10 +61,10 @@ public class AnalyzerMenu extends AbstractContainerMenu {
         checkContainerSize(analyzerContainer, SLOT_COUNT);
         checkContainerDataCount(data, 6);
 
-        this.addSlot(new Slot(analyzerContainer, INPUT_SLOT, 22, 130) {
+        this.addSlot(new Slot(analyzerContainer, INPUT_SLOT, INPUT_SLOT_X, SLOT_Y) {
             @Override
             public boolean mayPlace(ItemStack stack) {
-                return !ElemenixInfo.getConstituents(stack).isUnanalysable() && !(stack.getItem() instanceof AnalyzerItem);
+                return isInputSlotPlaceable(stack);
             }
 
             @Override
@@ -67,7 +74,7 @@ public class AnalyzerMenu extends AbstractContainerMenu {
             }
         });
 
-        this.addSlot(new Slot(analyzerContainer, MEMORIZER_SLOT, 52, 130) {
+        this.addSlot(new Slot(analyzerContainer, MEMORIZER_SLOT, MEMORIZER_SLOT_X, SLOT_Y) {
             @Override
             public boolean mayPlace(ItemStack stack) {
                 return stack.is(ModTags.MEMORIZER_SLOT_PLACEABLE);
@@ -91,6 +98,13 @@ public class AnalyzerMenu extends AbstractContainerMenu {
         }
 
         this.addDataSlots(data);
+    }
+
+    private static boolean isInputSlotPlaceable(ItemStack stack){
+        if(stack.is(ModItems.ELEMENIC_MEMORIZER)){
+            return MemorizerItem.getOrCreateMemories(stack).resolvedItems().isEmpty();
+        }
+        return !ElemenixInfo.getConstituents(stack).isUnanalysable() && !(stack.getItem() instanceof AnalyzerItem);
     }
 
     private void loadAnalyzerStorage() {
@@ -239,7 +253,7 @@ public class AnalyzerMenu extends AbstractContainerMenu {
     }
 
     @Override
-    public ItemStack quickMoveStack(Player player, int index) {
+    public @NotNull ItemStack quickMoveStack(Player player, int index) {
         ItemStack stack = ItemStack.EMPTY;
         Slot slot = this.slots.get(index);
 

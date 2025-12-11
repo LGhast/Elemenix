@@ -20,10 +20,13 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
+import javax.annotation.ParametersAreNonnullByDefault;
 
 @OnlyIn(Dist.CLIENT)
+@ParametersAreNonnullByDefault
 public class EnrichingRecipeCategory implements IRecipeCategory<EnrichingRecipe> {
     public static final RecipeType<EnrichingRecipe> TYPE =
             RecipeType.create("elemenix", "enriching", EnrichingRecipe.class);
@@ -63,12 +66,12 @@ public class EnrichingRecipeCategory implements IRecipeCategory<EnrichingRecipe>
     }
 
     @Override
-    public RecipeType<EnrichingRecipe> getRecipeType() {
+    public @NotNull RecipeType<EnrichingRecipe> getRecipeType() {
         return TYPE;
     }
 
     @Override
-    public Component getTitle() {
+    public @NotNull Component getTitle() {
         return localizedName;
     }
 

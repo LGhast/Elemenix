@@ -21,6 +21,35 @@ repositories {
     maven {
         url "https://maven.blamejared.com/"
     }
+    maven {
+        name = "Illusive Soulworks maven"
+        url = "https://maven.theillusivec4.top/"
+    }
+    exclusiveContent {
+        forRepository {
+            maven {
+                name = "Modrinth"
+                url = "https://api.modrinth.com/maven"
+            }
+        }
+        filter {
+            includeGroup "maven.modrinth"
+        }
+    }
+    maven {
+        name = 'Forge'
+        url = "https://maven.minecraftforge.net"
+    }
+    exclusiveContent {
+        forRepository {
+            maven {
+                url "https://cursemaven.com"
+            }
+        }
+        filter {
+            includeGroup "curse.maven"
+        }
+    }
 }
 
 base {
@@ -114,7 +143,10 @@ configurations {
 }
 
 dependencies {
-    implementation("mezz.jei:jei-$minecraft_version-neoforge:$jei_version")
+    implementation "net.neoforged:neoforge:${neo_version}"
+    compileOnly "mezz.jei:jei-1.21.1-neoforge-api:${jei_version}"
+    implementation "mezz.jei:jei-1.21.1-neoforge:${jei_version}"
+    implementation "top.theillusivec4.curios:curios-neoforge:${curios_version}+1.21.1"
     // We add the full version to localRuntime, not runtimeOnly, so that we do not publish a dependency on it
     // localRuntime "mezz.jei:jei-${mc_version}-neoforge:${jei_version}"
 

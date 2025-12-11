@@ -11,6 +11,7 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.server.level.ServerPlayer;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Optional;
 
@@ -26,7 +27,7 @@ public class ValveTrigger extends SimpleCriterionTrigger<ValveTrigger.Instance> 
         }
 
         @Override
-        public Optional<ContextAwarePredicate> player() {
+        public @NotNull Optional<ContextAwarePredicate> player() {
             return playerPredicate;
         }
         
@@ -42,7 +43,7 @@ public class ValveTrigger extends SimpleCriterionTrigger<ValveTrigger.Instance> 
         public static final Codec<Instance> CODEC = RecordCodecBuilder.create(instance ->
                 instance.group(
                         EntityPredicate.ADVANCEMENT_CODEC.optionalFieldOf("player").forGetter(inst -> inst.playerPredicate),
-                        Codec.INT.optionalFieldOf("openness").forGetter(Instance::getOpenness)
+                        Codec.INT.optionalFieldOf("style").forGetter(Instance::getOpenness)
                 ).apply(instance, Instance::new)
         );
     }

@@ -26,6 +26,7 @@ public class RecipeHelper {
             Recipe<?> recipe = recipeHolder.value();
             ItemStack result = recipe.getResultItem(level.registryAccess());
 
+            //noinspection ConstantConditions
             if(result == null) continue;
             if (!result.isEmpty() && result.getItem() == targetItem && isValidRecipeType(recipe)) {
                 recipes.add(getInfo(recipeHolder, recipe));
@@ -78,7 +79,8 @@ public class RecipeHelper {
                 recipe instanceof SmithingTransformRecipe ||
                 isCookingPotRecipe(recipe) ||
                 isCuttingBoardRecipe(recipe) ||
-                isCreateRecipe(recipe);
+                isCreateRecipe(recipe) ||
+                isAnvilCraftRecipe(recipe);
     }
 
     private static RecipeInfo getInfo(RecipeHolder<?> holder, Recipe<?> recipe) {
@@ -96,8 +98,10 @@ public class RecipeHelper {
             handleCookingPotRecipe(recipe, info);
         } else if (isCuttingBoardRecipe(recipe)) {
             handleCuttingBoardRecipe(recipe, info);
-        }else if (recipe.getType() == RecipeType.SMITHING) {
+        } else if (recipe.getType() == RecipeType.SMITHING) {
             handleSmithingRecipe(recipe, info);
+        } else if (isMultipleToOneSmithingRecipe(recipe)) {
+            handleMultipleToOneSmithingRecipe(recipe, info);
         } else {
             NonNullList<Ingredient> ingredients = recipe.getIngredients();
             for (Ingredient ingredient : ingredients) {
@@ -246,6 +250,35 @@ public class RecipeHelper {
         }
     }
 
+    private static boolean isAnvilCraftRecipe(Recipe<?> recipe) {
+        try {
+            return recipe.getClass().getName().contains("JewelCraftingRecipe") ||
+                    recipe.getType().toString().contains("anvilcraft:jewel_craft") ||
+                    isMultipleToOneSmithingRecipe(recipe);
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    private static boolean isMultipleToOneSmithingRecipe(Recipe<?> recipe) {
+        try {
+            Class<?> recipeClass = recipe.getClass();
+            while (recipeClass != null) {
+                if (recipeClass.getName().contains("BaseMultipleToOneSmithingRecipe")) {
+                    return true;
+                }
+                recipeClass = recipeClass.getSuperclass();
+            }
+
+            RecipeType<?> type = recipe.getType();
+            return type.toString().contains("multiple_to_one_smithing") || type.toString().contains("two_to_one_smithing") ||
+                    type.toString().contains("four_to_one_smithing") || type.toString().contains("eight_to_one_smithing");
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    @SuppressWarnings("unchecked")
     private static void handleCookingPotRecipe(Recipe<?> recipe, RecipeInfo info) {
         try {
             java.lang.reflect.Method getIngredientsMethod = recipe.getClass().getMethod("getIngredients");
@@ -300,6 +333,7 @@ public class RecipeHelper {
         }
     }
 
+    @SuppressWarnings("unchecked")
     private static void handleCuttingBoardRecipe(Recipe<?> recipe, RecipeInfo info) {
         try {
             java.lang.reflect.Method getRollableResultsMethod =
@@ -355,7 +389,7 @@ public class RecipeHelper {
                 if (results.size() != 1) {
                     info.isComplex = true;
                 } else {
-                    info.result = results.get(0);
+                    info.result = results.getFirst();
                     info.resultAmount = info.result.getCount();
                 }
 
@@ -383,6 +417,63 @@ public class RecipeHelper {
             }
         } catch (Exception e) {
             info.isComplex = true;
+        }
+    }
+
+    private static void handleMultipleToOneSmithingRecipe(Recipe<?> recipe, RecipeInfo info) {
+        try {
+            Class<?> recipeClass = recipe.getClass();
+
+            java.lang.reflect.Method isMaterialIngredientMethod = recipeClass.getMethod("isMaterialIngredient", ItemStack.class);
+            java.lang.reflect.Method inputSizeMethod = recipeClass.getMethod("inputSize");
+
+            int inputSize = (Integer) inputSizeMethod.invoke(recipe);
+            Collection<Item> allItems = BuiltInRegistries.ITEM.stream().toList();
+
+            List<ItemStack> materialItems = new ArrayList<>();
+            for (Item item : allItems) {
+                ItemStack stack = new ItemStack(item);
+                if ((Boolean) isMaterialIngredientMethod.invoke(recipe, stack)) {
+                    materialItems.add(stack);
+                }
+            }
+
+            ItemStack bestMaterial = findBestItemStack(materialItems.toArray(new ItemStack[0]));
+            if (bestMaterial == null || bestMaterial.isEmpty()) {
+                info.hasUnanalysable = true;
+                return;
+            }
+
+            info.ingredients.add(bestMaterial);
+            info.amount += bestMaterial.getCount();
+
+            for (int i = 0; i < inputSize; i++) {
+                List<ItemStack> inputItems = new ArrayList<>();
+                for (Item item : allItems) {
+                    ItemStack stack = new ItemStack(item);
+                    try {
+                        java.lang.reflect.Method isInputIngredientMethod =
+                                recipeClass.getMethod("isInputIngredient", int.class, ItemStack.class);
+                        if ((Boolean) isInputIngredientMethod.invoke(recipe, i, stack)) {
+                            inputItems.add(stack);
+                        }
+                    } catch (NoSuchMethodException e) {
+                        break;
+                    }
+                }
+
+                ItemStack bestInput = findBestItemStack(inputItems.toArray(new ItemStack[0]));
+                if (bestInput == null || bestInput.isEmpty()) {
+                    info.hasUnanalysable = true;
+                    return;
+                }
+
+                info.ingredients.add(bestInput);
+                info.amount += bestInput.getCount();
+            }
+
+        } catch (Exception e) {
+            info.hasUnanalysable = true;
         }
     }
 

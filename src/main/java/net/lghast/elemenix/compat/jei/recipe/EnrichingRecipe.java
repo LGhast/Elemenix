@@ -10,27 +10,20 @@ import net.minecraft.world.item.crafting.RecipeInput;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
+import org.jetbrains.annotations.NotNull;
 
-public class EnrichingRecipe implements Recipe<RecipeInput> {
-    private final Elemenix elemenix;
-    private final int amount;
-    private final ItemStack output;
-    private final boolean portable;
+import javax.annotation.ParametersAreNonnullByDefault;
 
-    public EnrichingRecipe(Elemenix elemenix, int amount, ItemStack output, boolean portable) {
-        this.elemenix = elemenix;
-        this.amount = amount;
-        this.output = output;
-        this.portable = portable;
-    }
+@ParametersAreNonnullByDefault
+public record EnrichingRecipe(Elemenix elemenix, int amount, ItemStack output, boolean portable) implements Recipe<RecipeInput> {
 
     @Override
-    public RecipeSerializer<?> getSerializer() {
+    public @NotNull RecipeSerializer<?> getSerializer() {
         return EnrichingRecipeSerializer.INSTANCE;
     }
 
     @Override
-    public RecipeType<?> getType() {
+    public @NotNull RecipeType<?> getType() {
         return ModRecipes.ENRICHING.get();
     }
 
@@ -40,8 +33,8 @@ public class EnrichingRecipe implements Recipe<RecipeInput> {
     }
 
     @Override
-    public ItemStack assemble(RecipeInput recipeInput, HolderLookup.Provider provider) {
-        return null;
+    public @NotNull ItemStack assemble(RecipeInput recipeInput, HolderLookup.Provider provider) {
+        return output.copy();
     }
 
     @Override
@@ -50,23 +43,7 @@ public class EnrichingRecipe implements Recipe<RecipeInput> {
     }
 
     @Override
-    public ItemStack getResultItem(HolderLookup.Provider registries) {
+    public @NotNull ItemStack getResultItem(HolderLookup.Provider registries) {
         return output.copy();
-    }
-
-    public boolean portable() {
-        return portable;
-    }
-
-    public Elemenix elemenix() {
-        return elemenix;
-    }
-
-    public int amount() {
-        return amount;
-    }
-
-    public ItemStack output() {
-        return output;
     }
 }
