@@ -192,14 +192,14 @@ public class EjectorBlockEntity extends BaseContainerBlockEntity {
 
     private boolean canDeconstruct() {
         ItemStack inputStack = getItem(INPUT_SLOT);
-        return !inputStack.isEmpty() && !ElemenixInfo.getConstituents(inputStack).isUnanalysable();
+        return !inputStack.isEmpty() && !ElemenixInfo.isUnanalysable(inputStack);
     }
 
     private void deconstructItem() {
         ItemStack inputStack = getItem(INPUT_SLOT);
         if (inputStack.isEmpty()) return;
 
-        Constituents constituents = ElemenixInfo.getConstituents(inputStack);
+        Constituents constituents = ElemenixInfo.getDiscountAppliedConstituents(inputStack);
         if (constituents.isUnanalysable()) return;
 
         for (Elemenix elemenix : Elemenix.values()) {
@@ -353,7 +353,7 @@ public class EjectorBlockEntity extends BaseContainerBlockEntity {
     @Override
     public boolean canPlaceItem(int slot, ItemStack stack) {
         if (slot == INPUT_SLOT) {
-            return !ElemenixInfo.getConstituents(stack).isUnanalysable();
+            return !ElemenixInfo.isUnanalysable(stack);
         }
         if (slot == VALVE_SLOT) {
             return stack.is(ModItems.THROTTLE_VALVE);

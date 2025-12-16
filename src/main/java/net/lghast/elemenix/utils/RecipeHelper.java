@@ -10,12 +10,17 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.*;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 public class RecipeHelper {
+    private static final Map<ResourceLocation, Item> RECIPE_OUTPUT_CACHE = new HashMap<>();
+    private static final Map<ResourceLocation, Boolean> RECIPE_ANALYZED_CACHE = new HashMap<>();
+
+    public static void clearCache() {
+        RECIPE_OUTPUT_CACHE.clear();
+        RECIPE_ANALYZED_CACHE.clear();
+    }
+
     private static List<RecipeInfo> getRecipesForItem(Item targetItem) {
         List<RecipeInfo> recipes = new ArrayList<>();
         ClientLevel level = Minecraft.getInstance().level;
@@ -23,13 +28,36 @@ public class RecipeHelper {
         RecipeManager recipeManager = level.getRecipeManager();
 
         for (RecipeHolder<?> recipeHolder : recipeManager.getRecipes()) {
+            ResourceLocation recipeId = recipeHolder.id();
+
+            Item cachedOutput = RECIPE_OUTPUT_CACHE.get(recipeId);
+            if (cachedOutput != null && cachedOutput != targetItem) {
+                continue;
+            }
+
             Recipe<?> recipe = recipeHolder.value();
             ItemStack result = recipe.getResultItem(level.registryAccess());
 
             //noinspection ConstantConditions
             if(result == null) continue;
-            if (!result.isEmpty() && result.getItem() == targetItem && isValidRecipeType(recipe)) {
+            if (result.isEmpty()) continue;
+
+            Item resultItem = result.getItem();
+            RECIPE_OUTPUT_CACHE.put(recipeId, resultItem);
+
+            if (resultItem != targetItem) {
+                continue;
+            }
+
+            if (!isValidRecipeType(recipe)) {
+                continue;
+            }
+
+            if (RECIPE_ANALYZED_CACHE.getOrDefault(recipeId, false)) {
                 recipes.add(getInfo(recipeHolder, recipe));
+            } else {
+                recipes.add(getInfo(recipeHolder, recipe));
+                RECIPE_ANALYZED_CACHE.put(recipeId, true);
             }
         }
 
@@ -75,12 +103,14 @@ public class RecipeHelper {
 
         return type == RecipeType.CRAFTING ||
                 type == RecipeType.SMELTING ||
+                type == RecipeType.SMOKING ||
                 type == RecipeType.STONECUTTING ||
                 recipe instanceof SmithingTransformRecipe ||
                 isCookingPotRecipe(recipe) ||
                 isCuttingBoardRecipe(recipe) ||
                 isCreateRecipe(recipe) ||
-                isAnvilCraftRecipe(recipe);
+                isAnvilCraftRecipe(recipe) ||
+                isEnchantingApparatusRecipe(recipe);
     }
 
     private static RecipeInfo getInfo(RecipeHolder<?> holder, Recipe<?> recipe) {
@@ -273,6 +303,15 @@ public class RecipeHelper {
             RecipeType<?> type = recipe.getType();
             return type.toString().contains("multiple_to_one_smithing") || type.toString().contains("two_to_one_smithing") ||
                     type.toString().contains("four_to_one_smithing") || type.toString().contains("eight_to_one_smithing");
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    private static boolean isEnchantingApparatusRecipe(Recipe<?> recipe) {
+        try {
+            return recipe.getClass().getName().contains("EnchantingApparatusRecipe") ||
+                    recipe.getType().toString().contains("ars_nouveau:enchanting_apparatus");
         } catch (Exception e) {
             return false;
         }

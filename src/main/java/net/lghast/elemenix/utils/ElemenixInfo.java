@@ -40,6 +40,13 @@ public class ElemenixInfo {
         isInitialized = true;
     }
 
+    public static void clearCaches() {
+        ITEM_CACHE.clear();
+        CALCULATING_ITEMS.clear();
+        UNANALYSABLE_ITEMS.clear();
+        RecipeHelper.clearCache();
+    }
+
     private static void handleMap(Map<String, Constituents> map){
         if(map.isEmpty()) return;
         for (Map.Entry<String, Constituents> entry : map.entrySet()) {
@@ -136,6 +143,36 @@ public class ElemenixInfo {
         }
 
         return bestMatch.getValue();
+    }
+
+    public static boolean isUnanalysable(Item item){
+        if(UNANALYSABLE_ITEMS.contains(item)){
+            return true;
+        }else{
+            Constituents constituents = getConstituents(item);
+            if(constituents != null) {
+                return getConstituents(item).isUnanalysable();
+            }
+            return false;
+        }
+    }
+
+    public static boolean isUnanalysable(ItemStack stack){
+        return isUnanalysable(stack.getItem());
+    }
+
+    public static Constituents getDiscountAppliedConstituents(ItemStack stack){
+        Constituents constituents = getConstituents(stack);
+        if(constituents.isUnanalysable()) return constituents;
+
+        return Constituents.getDiscountApplied(constituents);
+    }
+
+    public static Constituents getPremiumAppliedConstituents(ItemStack stack){
+        Constituents constituents = getConstituents(stack);
+        if(constituents.isUnanalysable()) return constituents;
+
+        return Constituents.getPremiumApplied(constituents);
     }
 
     private static void loadModMappings() {

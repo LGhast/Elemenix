@@ -10,6 +10,9 @@ public class ServerConfig {
     public static final ModConfigSpec SPEC;
 
     public static ModConfigSpec.ConfigValue<List<? extends String>> ELEMENIX_MAPPINGS;
+    public static final ModConfigSpec.DoubleValue DC_DISCOUNT;
+    public static final ModConfigSpec.DoubleValue RC_PREMIUM;
+
     public static ModConfigSpec.IntValue GS_CONSUMPTION;
     public static ModConfigSpec.IntValue GS_PRODUCTION;
     public static ModConfigSpec.IntValue GS_DC_INTERVAL;
@@ -60,6 +63,22 @@ public class ServerConfig {
                         null,
                         it -> it instanceof String && ((String) it).matches("#?[a-z_:]+,[0-9]+,[0-9]+,[0-9]+,[0-9]+,[0-9]+,[0-9]+")
                 );
+
+        DC_DISCOUNT = BUILDER
+                .comment("解构贬值 Deconstruction Discount",
+                        "当解析器、元质转化器、元质注入塔、元质富集塔、元质射流塔解构物品时，",
+                        "获得的元质 = 原始元质 × 解构贬值（向上取整）",
+                        "When Elemenic Analyzer, Transformer, Infuser, Enricher or Ejector deconstructs items,",
+                        "the obtained constituents = original constituents × discount (rounded up)."
+                )
+                .defineInRange("deconstruction_discount", 1.0, Double.MIN_VALUE, 1.0);
+
+        RC_PREMIUM = BUILDER
+                .comment("重构溢价 Reconstruction Premium",
+                        "当解析器重构物品时，消耗的元质 = 原始元质 × （1 + 重构溢价）（向下取整）",
+                        "When analyzer reconstructs items, consumed constituents = original constituents × (1 + premium) (rounded down)."
+                )
+                .defineInRange("reconstruction_premium", 0.0, 0.0, 99.0);
 
         BUILDER.pop();
 

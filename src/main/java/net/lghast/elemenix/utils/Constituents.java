@@ -1,5 +1,6 @@
 package net.lghast.elemenix.utils;
 
+import net.lghast.elemenix.conifig.ServerConfig;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
@@ -9,6 +10,9 @@ import java.util.List;
 
 public class Constituents {
     private static final int MAX = 999_999_999;
+    private static final double DISCOUNT = ServerConfig.DC_DISCOUNT.get();
+    private static final double PREMIUM = ServerConfig.RC_PREMIUM.get();
+
     final int[] constituents = new int[6];
     boolean unanalysable = false;
 
@@ -82,10 +86,17 @@ public class Constituents {
     }
 
     public void multiply(double multiple) {
-        if(multiple < 0) return;;
-       for(int i = 0; i < constituents.length; i++){
-           constituents[i] = clampValue((int)Math.floor(constituents[i] * multiple));
-       }
+        if(multiple < 0) return;
+        for(int i = 0; i < constituents.length; i++){
+            constituents[i] = clampValue((int)Math.floor(constituents[i] * multiple));
+        }
+    }
+
+    public void multiplyCeil(double multiple) {
+        if(multiple < 0) return;
+        for(int i = 0; i < constituents.length; i++){
+            constituents[i] = clampValue((int)Math.ceil(constituents[i] * multiple));
+        }
     }
 
     public void minus(Constituents minus) {
@@ -172,6 +183,18 @@ public class Constituents {
         System.arraycopy(this.constituents, 0, copy.constituents, 0, this.constituents.length);
         copy.unanalysable = this.unanalysable;
         return copy;
+    }
+
+    public static Constituents getDiscountApplied(Constituents constituents){
+        Constituents discounted = constituents.copy();
+        discounted.multiplyCeil(DISCOUNT);
+        return discounted;
+    }
+
+    public static Constituents getPremiumApplied(Constituents constituents){
+        Constituents premiumApplied = constituents.copy();
+        premiumApplied.multiply(1 + PREMIUM);
+        return premiumApplied;
     }
 
     @Override

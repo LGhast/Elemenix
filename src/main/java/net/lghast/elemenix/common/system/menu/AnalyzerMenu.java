@@ -104,7 +104,7 @@ public class AnalyzerMenu extends AbstractContainerMenu {
         if(stack.is(ModItems.ELEMENIC_MEMORIZER)){
             return MemorizerItem.getOrCreateMemories(stack).resolvedItems().isEmpty();
         }
-        return !ElemenixInfo.getConstituents(stack).isUnanalysable() && !(stack.getItem() instanceof AnalyzerItem);
+        return !ElemenixInfo.isUnanalysable(stack) && !(stack.getItem() instanceof AnalyzerItem);
     }
 
     private void loadAnalyzerStorage() {
@@ -161,11 +161,11 @@ public class AnalyzerMenu extends AbstractContainerMenu {
         return data;
     }
 
-    public void decomposeItem() {
+    public void deconstructItem() {
         ItemStack inputStack = getInputItem();
         if (inputStack.isEmpty()) return;
 
-        Constituents constituents = ElemenixInfo.getConstituents(inputStack);
+        Constituents constituents = ElemenixInfo.getDiscountAppliedConstituents(inputStack);
         if (constituents.isUnanalysable()) return;
 
         for (Elemenix type : Elemenix.values()) {
@@ -203,7 +203,7 @@ public class AnalyzerMenu extends AbstractContainerMenu {
 
         ItemStack resultStack = new ItemStack(item);
         if(resultStack.isEmpty()) return;
-        Constituents required = ElemenixInfo.getConstituents(resultStack);
+        Constituents required = ElemenixInfo.getPremiumAppliedConstituents(resultStack);
         if (required.isUnanalysable()) return;
 
         int maxStackSize = resultStack.getMaxStackSize();

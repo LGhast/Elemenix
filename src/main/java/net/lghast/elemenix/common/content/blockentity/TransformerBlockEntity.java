@@ -79,7 +79,7 @@ public class TransformerBlockEntity extends BaseContainerBlockEntity {
 
     private void processInputItems(TransformerBlock block) {
         if (!items.get(0).isEmpty()) {
-            Constituents constituents = ElemenixInfo.getConstituents(items.getFirst());
+            Constituents constituents = ElemenixInfo.getDiscountAppliedConstituents(items.getFirst());
             if (constituents.isPure(block.getInputElemenixA())) {
                 items.getFirst().shrink(1);
                 inputA += constituents.get(block.getInputElemenixA());
@@ -88,7 +88,7 @@ public class TransformerBlockEntity extends BaseContainerBlockEntity {
         }
 
         if (!items.get(1).isEmpty()) {
-            Constituents constituents = ElemenixInfo.getConstituents(items.get(1));
+            Constituents constituents = ElemenixInfo.getDiscountAppliedConstituents(items.get(1));
             if (constituents.isPure(block.getInputElemenixB())) {
                 items.get(1).shrink(1);
                 inputB += constituents.get(block.getInputElemenixB());

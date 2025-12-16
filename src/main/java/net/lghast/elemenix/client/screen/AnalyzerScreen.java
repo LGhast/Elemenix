@@ -148,7 +148,7 @@ public class AnalyzerScreen extends AbstractContainerScreen<AnalyzerMenu> {
         if (hoveredOptional.isPresent()) {
             ItemStack hoveredStack = new ItemStack(BuiltInRegistries.ITEM.get(hoveredOptional.get()));
             if(!hoveredStack.isEmpty()) {
-                Constituents constituents = ElemenixInfo.getConstituents(hoveredStack);
+                Constituents constituents = ElemenixInfo.getPremiumAppliedConstituents(hoveredStack);
                 Elemenix[] types = Elemenix.values();
                 for (int i = 0; i < types.length; i++) {
                     int amount = constituents.get(types[i]);
@@ -163,7 +163,7 @@ public class AnalyzerScreen extends AbstractContainerScreen<AnalyzerMenu> {
         }
 
         if (!inputStack.isEmpty()) {
-            Constituents constituents = ElemenixInfo.getConstituents(inputStack);
+            Constituents constituents = ElemenixInfo.getDiscountAppliedConstituents(inputStack);
             if (constituents.isUnanalysable()) return;
 
             Elemenix[] types = Elemenix.values();

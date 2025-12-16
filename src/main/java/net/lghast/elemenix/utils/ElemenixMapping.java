@@ -310,7 +310,7 @@ public class ElemenixMapping {
         ELEMENIX_MAP.put("minecraft:white_bed", new Constituents(Elemenix.ORGANIX, 360));
         ELEMENIX_MAP.put("#elemenix:dyed_beds", new Constituents(Elemenix.ORGANIX, 414));
         ELEMENIX_MAP.put("#elemenix:dyed_shulker_boxes", new Constituents(210, 256, 0, 0, 0, 40));
-        ELEMENIX_MAP.put("minecraft:water_bucket", new Constituents(0, 27, 0, 648, 0, 0));
+        ELEMENIX_MAP.put("minecraft:water_bucket", new Constituents(0, 27, 4, 648, 0, 0));
         ELEMENIX_MAP.put("minecraft:powder_snow_bucket", new Constituents(0, 27, 32, 648, 0, 0));
         ELEMENIX_MAP.put("minecraft:milk_bucket", new Constituents(5, 27, 6, 648, 0, 0));
         ELEMENIX_MAP.put("minecraft:lava_bucket", new Constituents(0, 147, 0, 648, 0, 0));
@@ -351,7 +351,7 @@ public class ElemenixMapping {
         ELEMENIX_MAP.put("minecraft:music_disc_pigstep", new Constituents(0, 550, 0, 0, 5, 300));
         ELEMENIX_MAP.put("minecraft:music_disc_relic", new Constituents(0, 550, 0, 0, 0, 300));
         ELEMENIX_MAP.put("minecraft:music_disc_creator", new Constituents(0, 550, 0, 0, 0, 300));
-        ELEMENIX_MAP.put("minecraft:music_disc_creator_music_box", new Constituents(0, 50, 500, 0, 0, 300));
+        ELEMENIX_MAP.put("minecraft:music_disc_creator_music_box", new Constituents(0, 50, 0, 500, 0, 300));
         ELEMENIX_MAP.put("minecraft:music_disc_precipice", new Constituents(225, 225, 0, 0, 0, 300));
         ELEMENIX_MAP.put("minecraft:disc_fragment_5", new Constituents(61, 0, 0, 0, 0, 33));
         ELEMENIX_MAP.put("minecraft:firework_rocket", new Constituents(6, 8, 0, 0, 1, 0));

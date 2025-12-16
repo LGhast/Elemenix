@@ -25,7 +25,7 @@ public record DeconstructionPayload() implements CustomPacketPayload {
         context.enqueueWork(() -> {
             if (context.player() instanceof ServerPlayer player &&
                     player.containerMenu instanceof AnalyzerMenu menu) {
-                menu.decomposeItem();
+                menu.deconstructItem();
             }
         });
     }

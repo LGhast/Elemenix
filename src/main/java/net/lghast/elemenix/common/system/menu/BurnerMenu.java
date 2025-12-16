@@ -298,32 +298,51 @@ public class BurnerMenu extends AbstractContainerMenu {
         ItemStack stack = ItemStack.EMPTY;
         Slot slot = this.slots.get(index);
 
-        if (slot.hasItem()) {
-            ItemStack stack1 = slot.getItem();
-            stack = stack1.copy();
+        if (!slot.hasItem()) {
+            return stack;
+        }
 
-            if (index < SLOT_COUNT) {
-                if (!this.moveItemStackTo(stack1, SLOT_COUNT, this.slots.size(), true)) {
-                    return ItemStack.EMPTY;
-                }
-            } else if (stack1.is(ModItems.ELEMENIC_MEMORIZER)) {
-                BurnerMode mode = getMode();
-                if (mode == BurnerMode.COPY || mode == BurnerMode.CONCATENATE) {
-                    if (!this.moveItemStackTo(stack1, PRIMARY_SLOT, SLOT_COUNT, false)) {
+        ItemStack stackInSlot = slot.getItem();
+        stack = stackInSlot.copy();
+
+        if (index < SLOT_COUNT) {
+            if (!this.moveItemStackTo(stackInSlot, SLOT_COUNT, this.slots.size(), true)) {
+                return ItemStack.EMPTY;
+            }
+        } else {
+            if (stackInSlot.is(ModItems.ELEMENIC_MEMORIZER)) {
+                Slot primarySlot = this.slots.get(PRIMARY_SLOT);
+                Slot secondarySlot = this.slots.get(SECONDARY_SLOT);
+
+                if (primarySlot.getItem().isEmpty() && MemorizerItem.isChangeable(stackInSlot)) {
+                    if (!this.moveItemStackTo(stackInSlot, PRIMARY_SLOT, PRIMARY_SLOT + 1, false)) {
+                        return ItemStack.EMPTY;
+                    }
+                } else if (secondarySlot.getItem().isEmpty()) {
+                    if (!this.moveItemStackTo(stackInSlot, SECONDARY_SLOT, SECONDARY_SLOT + 1, false)) {
                         return ItemStack.EMPTY;
                     }
                 } else {
-                    if (!this.moveItemStackTo(stack1, PRIMARY_SLOT, PRIMARY_SLOT + 1, false)) {
+                    return ItemStack.EMPTY;
+                }
+            } else {
+                if (index < SLOT_COUNT + 27) {
+                    if (!this.moveItemStackTo(stackInSlot, SLOT_COUNT + 27, this.slots.size(), false)) {
+                        return ItemStack.EMPTY;
+                    }
+                }
+                else if (index < this.slots.size()) {
+                    if (!this.moveItemStackTo(stackInSlot, SLOT_COUNT, SLOT_COUNT + 27, false)) {
                         return ItemStack.EMPTY;
                     }
                 }
             }
+        }
 
-            if (stack1.isEmpty()) {
-                slot.set(ItemStack.EMPTY);
-            } else {
-                slot.setChanged();
-            }
+        if (stackInSlot.isEmpty()) {
+            slot.set(ItemStack.EMPTY);
+        } else {
+            slot.setChanged();
         }
 
         return stack;
