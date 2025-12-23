@@ -69,37 +69,48 @@ public class InfuserMenu extends AbstractContainerMenu {
 
     @Override
     public @NotNull ItemStack quickMoveStack(Player player, int index) {
-        ItemStack stack = ItemStack.EMPTY;
+        ItemStack originalStack = ItemStack.EMPTY;
         Slot slot = this.slots.get(index);
 
         if (slot.hasItem()) {
-            ItemStack stack1 = slot.getItem();
-            stack = stack1.copy();
+            ItemStack slotStack = slot.getItem();
+            originalStack = slotStack.copy();
 
             if (index < 2) {
-                if (!this.moveItemStackTo(stack1, 3, 39, true)) {
+                if (!this.moveItemStackTo(slotStack, 2, 38, true)) {
                     return ItemStack.EMPTY;
                 }
             } else {
-                if (!this.moveItemStackTo(stack1, 0, 2, false)) {
-                    return ItemStack.EMPTY;
+                ItemStack tempStack = slotStack.copy();
+                if (slots.get(0).mayPlace(tempStack) && !this.moveItemStackTo(slotStack, 0, 1, false)) {
+                    if (slots.get(1).mayPlace(tempStack) && !this.moveItemStackTo(slotStack, 1, 2, false)) {
+                        if (index < 29) {
+                            if (!this.moveItemStackTo(slotStack, 29, 38, false)) {
+                                return ItemStack.EMPTY;
+                            }
+                        } else {
+                            if (!this.moveItemStackTo(slotStack, 2, 29, false)) {
+                                return ItemStack.EMPTY;
+                            }
+                        }
+                    }
                 }
             }
 
-            if (stack1.isEmpty()) {
+            if (slotStack.isEmpty()) {
                 slot.set(ItemStack.EMPTY);
             } else {
                 slot.setChanged();
             }
 
-            if (stack1.getCount() == stack.getCount()) {
+            if (slotStack.getCount() == originalStack.getCount()) {
                 return ItemStack.EMPTY;
             }
 
-            slot.onTake(player, stack1);
+            slot.onTake(player, slotStack);
         }
 
-        return stack;
+        return originalStack;
     }
 
     @Override

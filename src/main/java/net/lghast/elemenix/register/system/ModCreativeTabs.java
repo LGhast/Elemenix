@@ -40,6 +40,7 @@ public class ModCreativeTabs {
                         output.accept(ModItems.METALLIX_ESSENPLEX);
                         output.accept(ModItems.ENERGIX_ESSENPLEX);
                         output.accept(ModItems.ARCANIX_ESSENPLEX);
+                        output.accept(ModItems.ELEMENIC_EQUILIPLEX);
                         output.accept(ModBlocks.GEOLOGICAL_SIMULATOR);
                         output.accept(ModBlocks.METALLURGICAL_ACTIVATOR);
                         output.accept(ModBlocks.GERMINAL_ACCELERATOR);

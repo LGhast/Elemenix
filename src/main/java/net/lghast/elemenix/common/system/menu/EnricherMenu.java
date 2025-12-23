@@ -74,25 +74,34 @@ public class EnricherMenu extends AbstractContainerMenu {
             ItemStack slotStack = slot.getItem();
             originalStack = slotStack.copy();
 
-            boolean moved = false;
-
             if (index < 7) {
-                moved = this.moveItemStackTo(slotStack, 7, 43, true);
+                if (!this.moveItemStackTo(slotStack, 7, 43, true)) {
+                    return ItemStack.EMPTY;
+                }
             } else {
                 if (isValidForInputSlot(slotStack)) {
-                    moved = this.moveItemStackTo(slotStack, 6, 7, false);
-                }
-                if (!moved && !slotStack.isEmpty()) {
+                    if (!this.moveItemStackTo(slotStack, 6, 7, false)) {
+                        if (index < 34) {
+                            if (!this.moveItemStackTo(slotStack, 34, 43, false)) {
+                                return ItemStack.EMPTY;
+                            }
+                        } else {
+                            if (!this.moveItemStackTo(slotStack, 7, 34, false)) {
+                                return ItemStack.EMPTY;
+                            }
+                        }
+                    }
+                } else {
                     if (index < 34) {
-                        moved = this.moveItemStackTo(slotStack, 34, 43, false);
+                        if (!this.moveItemStackTo(slotStack, 34, 43, false)) {
+                            return ItemStack.EMPTY;
+                        }
                     } else {
-                        moved = this.moveItemStackTo(slotStack, 7, 34, false);
+                        if (!this.moveItemStackTo(slotStack, 7, 34, false)) {
+                            return ItemStack.EMPTY;
+                        }
                     }
                 }
-            }
-
-            if (!moved) {
-                return ItemStack.EMPTY;
             }
 
             if (slotStack.isEmpty()) {

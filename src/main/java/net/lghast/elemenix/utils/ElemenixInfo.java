@@ -1,5 +1,6 @@
 package net.lghast.elemenix.utils;
 
+import net.lghast.elemenix.Elemenics;
 import net.lghast.elemenix.conifig.ServerConfig;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
@@ -41,6 +42,7 @@ public class ElemenixInfo {
     }
 
     public static void clearCaches() {
+        isInitialized = false;
         ITEM_CACHE.clear();
         CALCULATING_ITEMS.clear();
         UNANALYSABLE_ITEMS.clear();
@@ -86,6 +88,10 @@ public class ElemenixInfo {
     }
 
     public static Constituents getConstituents(Item item) {
+        if (!Elemenics.started) {
+            return new Constituents(true);
+        }
+
         if (!isInitialized) {
             initialize();
         }

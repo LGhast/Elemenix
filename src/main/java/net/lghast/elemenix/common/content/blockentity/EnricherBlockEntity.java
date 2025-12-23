@@ -1,5 +1,6 @@
 package net.lghast.elemenix.common.content.blockentity;
 
+import net.lghast.elemenix.Elemenics;
 import net.lghast.elemenix.common.content.block.EnricherBlock;
 import net.lghast.elemenix.common.system.menu.EnricherMenu;
 import net.lghast.elemenix.register.content.ModBlockEntities;
@@ -111,6 +112,7 @@ public class EnricherBlockEntity extends BaseContainerBlockEntity {
 
     public void tick(Level level, BlockPos pos, BlockState state) {
         if (level.isClientSide) return;
+        if(!Elemenics.started) return;
 
         boolean wasWorking = state.getValue(EnricherBlock.WORKING);
         boolean isWorking = false;

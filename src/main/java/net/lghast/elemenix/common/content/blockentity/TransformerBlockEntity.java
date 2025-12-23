@@ -1,5 +1,6 @@
 package net.lghast.elemenix.common.content.blockentity;
 
+import net.lghast.elemenix.Elemenics;
 import net.lghast.elemenix.common.content.block.TransformerBlock;
 import net.lghast.elemenix.common.system.menu.TransformerMenu;
 import net.lghast.elemenix.register.content.ModBlockEntities;
@@ -53,6 +54,7 @@ public class TransformerBlockEntity extends BaseContainerBlockEntity {
 
     public static void tick(Level level, BlockPos pos, BlockState state, TransformerBlockEntity blockEntity) {
         if (level.isClientSide) return;
+        if(!Elemenics.started) return;
 
         TransformerBlock block = (TransformerBlock) state.getBlock();
 

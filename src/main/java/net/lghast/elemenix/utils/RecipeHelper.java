@@ -8,6 +8,7 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.*;
 
 import java.util.*;
@@ -16,9 +17,64 @@ public class RecipeHelper {
     private static final Map<ResourceLocation, Item> RECIPE_OUTPUT_CACHE = new HashMap<>();
     private static final Map<ResourceLocation, Boolean> RECIPE_ANALYZED_CACHE = new HashMap<>();
 
+    private static final List<String> RECIPE_TYPES_NORMAL = new ArrayList<>();
+    private static final List<String> RECIPE_TYPES_WITH_CONTAINER = new ArrayList<>();
+    private static final List<String> RECIPE_TYPE_BREWING_LIKE = new ArrayList<>();
+
+    private static final boolean FARMERS_DELIGHT_LOADED;
+    private static final boolean ANVILCRAFT_LOADED;
+
+    static {
+        FARMERS_DELIGHT_LOADED = ModUtils.hasServerMod("farmersdelight");
+        ANVILCRAFT_LOADED = ModUtils.hasServerMod("anvilcraft");
+
+        if(FARMERS_DELIGHT_LOADED){
+            RECIPE_TYPES_WITH_CONTAINER.add("farmersdelight:cooking");
+        }
+        if(ANVILCRAFT_LOADED){
+            RECIPE_TYPES_NORMAL.add("anvilcraft:jewel_crafting");
+        }
+
+        if(ModUtils.hasServerMod("dungeonsdelight")){
+            RECIPE_TYPES_WITH_CONTAINER.add("dungeonsdelight:monster_cooking");
+        }
+        if(ModUtils.hasServerMod("create")){
+            RECIPE_TYPES_NORMAL.add("create:pressing");
+            RECIPE_TYPES_NORMAL.add("create:mechanical_crafting");
+            RECIPE_TYPES_NORMAL.add("create:sandpaper_polishing");
+            RECIPE_TYPES_NORMAL.add("create:mixing");
+            RECIPE_TYPES_NORMAL.add("create:compacting");
+        }
+        if(ModUtils.hasServerMod("ars_nouveau")){
+            RECIPE_TYPES_NORMAL.add("ars_nouveau:enchanting_apparatus");
+        }
+        if(ModUtils.hasServerMod("cobblemon")){
+            RECIPE_TYPES_NORMAL.add("cobblemon:cooking_pot");
+            RECIPE_TYPE_BREWING_LIKE.add("cobblemon:brewing_stand");
+        }
+        if(ModUtils.hasServerMod("youkaishomecoming")){
+            RECIPE_TYPES_WITH_CONTAINER.add("youkaishomecoming:moka_pot");
+            RECIPE_TYPES_WITH_CONTAINER.add("youkaishomecoming:kettle");
+            RECIPE_TYPES_NORMAL.add("youkaishomecoming:steaming");
+        }
+    }
+
     public static void clearCache() {
         RECIPE_OUTPUT_CACHE.clear();
         RECIPE_ANALYZED_CACHE.clear();
+    }
+
+    private static ItemStack replacedStack(ItemStack stack) {
+        Item item = stack.getItem();
+
+        if (item == Items.POTION || item == Items.SPLASH_POTION || item == Items.LINGERING_POTION) {
+            return new ItemStack(Items.AIR, stack.getCount());
+        }
+        if (item == Items.TIPPED_ARROW) {
+            return new ItemStack(Items.ARROW, stack.getCount());
+        }
+
+        return stack;
     }
 
     private static List<RecipeInfo> getRecipesForItem(Item targetItem) {
@@ -106,11 +162,11 @@ public class RecipeHelper {
                 type == RecipeType.SMOKING ||
                 type == RecipeType.STONECUTTING ||
                 recipe instanceof SmithingTransformRecipe ||
-                isCookingPotRecipe(recipe) ||
+                isNormalModRecipe(recipe) ||
+                isCookingWithContainerRecipe(recipe) ||
                 isCuttingBoardRecipe(recipe) ||
-                isCreateRecipe(recipe) ||
-                isAnvilCraftRecipe(recipe) ||
-                isEnchantingApparatusRecipe(recipe);
+                isMultipleToOneSmithingRecipe(recipe) ||
+                isBrewingStandRecipe(recipe);
     }
 
     private static RecipeInfo getInfo(RecipeHolder<?> holder, Recipe<?> recipe) {
@@ -124,14 +180,16 @@ public class RecipeHelper {
         info.resultAmount = info.result.getCount();
         info.amount = 0;
 
-        if (isCookingPotRecipe(recipe)) {
-            handleCookingPotRecipe(recipe, info);
+        if (isCookingWithContainerRecipe(recipe)) {
+            handleCookingWithContainerRecipe(recipe, info);
         } else if (isCuttingBoardRecipe(recipe)) {
             handleCuttingBoardRecipe(recipe, info);
         } else if (recipe.getType() == RecipeType.SMITHING) {
             handleSmithingRecipe(recipe, info);
         } else if (isMultipleToOneSmithingRecipe(recipe)) {
             handleMultipleToOneSmithingRecipe(recipe, info);
+        } else if (isBrewingStandRecipe(recipe)){
+            handleBrewingStandRecipe(recipe, info);
         } else {
             NonNullList<Ingredient> ingredients = recipe.getIngredients();
             for (Ingredient ingredient : ingredients) {
@@ -156,20 +214,22 @@ public class RecipeHelper {
 
     private static ItemStack findBestItemStack(ItemStack[] matchingItems) {
         if (matchingItems.length == 1) {
-            return matchingItems[0];
+            return replacedStack(matchingItems[0]);
         }
 
         ItemStack bestItemStack = ItemStack.EMPTY;
         long minSum = Long.MAX_VALUE;
 
         for (ItemStack matchingItem : matchingItems) {
-            if (ElemenixInfo.getConstituents(matchingItem).isUnanalysable()) {
+            ItemStack replacedStack = replacedStack(matchingItem);
+
+            if (ElemenixInfo.getConstituents(replacedStack).isUnanalysable()) {
                 continue;
             }
-            long currentSum = getConstituentsSum(matchingItem);
+            long currentSum = getConstituentsSum(replacedStack);
             if (currentSum < minSum) {
                 minSum = currentSum;
-                bestItemStack = matchingItem;
+                bestItemStack = replacedStack;
             }
         }
 
@@ -248,77 +308,60 @@ public class RecipeHelper {
         }
     }
 
-    private static boolean isCookingPotRecipe(Recipe<?> recipe) {
+    private static boolean isNormalModRecipe(Recipe<?> recipe){
         try {
-            return recipe.getClass().getName().contains("CookingPotRecipe") ||
-                    recipe.getClass().getName().contains("MonsterPotRecipe") ||
-                    recipe.getType().toString().contains("farmersdelight:cooking") ||
-                    recipe.getType().toString().contains("dungeonsdelight:monster_cooking");
+            RecipeType<?> type = recipe.getType();
+            return RECIPE_TYPES_NORMAL.contains(type.toString());
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    private static boolean isCookingWithContainerRecipe(Recipe<?> recipe) {
+        try {
+            RecipeType<?> type = recipe.getType();
+            return RECIPE_TYPES_WITH_CONTAINER.contains(type.toString());
         } catch (Exception e) {
             return false;
         }
     }
 
     private static boolean isCuttingBoardRecipe(Recipe<?> recipe) {
-        try {
-            return recipe.getClass().getName().contains("CuttingBoardRecipe") ||
-                    recipe.getType().toString().contains("farmersdelight:cutting");
-        } catch (Exception e) {
-            return false;
+        if(!FARMERS_DELIGHT_LOADED){
+          return false;
         }
-    }
-
-    private static boolean isCreateRecipe(Recipe<?> recipe) {
         try {
-            return recipe.getClass().getName().contains("PressingRecipe") || recipe.getType().toString().contains("create:pressing") ||
-                    recipe.getClass().getName().contains("MechanicalCraftingRecipe") || recipe.getType().toString().contains("create:mechanical_crafting") ||
-                    recipe.getClass().getName().contains("SandPaperPolishingRecipe") || recipe.getType().toString().contains("create:sandpaper_polishing") ||
-                    recipe.getClass().getName().contains("MixingRecipe") || recipe.getType().toString().contains("create:mixing") ||
-                    recipe.getClass().getName().contains("CompactingRecipe") || recipe.getType().toString().contains("create:compacting");
-        } catch (Exception e) {
-            return false;
-        }
-    }
-
-    private static boolean isAnvilCraftRecipe(Recipe<?> recipe) {
-        try {
-            return recipe.getClass().getName().contains("JewelCraftingRecipe") ||
-                    recipe.getType().toString().contains("anvilcraft:jewel_craft") ||
-                    isMultipleToOneSmithingRecipe(recipe);
+            RecipeType<?> type = recipe.getType();
+            return type.toString().equals("farmersdelight:cutting");
         } catch (Exception e) {
             return false;
         }
     }
 
     private static boolean isMultipleToOneSmithingRecipe(Recipe<?> recipe) {
+        if(!ANVILCRAFT_LOADED){
+            return false;
+        }
         try {
-            Class<?> recipeClass = recipe.getClass();
-            while (recipeClass != null) {
-                if (recipeClass.getName().contains("BaseMultipleToOneSmithingRecipe")) {
-                    return true;
-                }
-                recipeClass = recipeClass.getSuperclass();
-            }
-
             RecipeType<?> type = recipe.getType();
-            return type.toString().contains("multiple_to_one_smithing") || type.toString().contains("two_to_one_smithing") ||
-                    type.toString().contains("four_to_one_smithing") || type.toString().contains("eight_to_one_smithing");
+            return type.toString().contains("anvilcraft:multiple_to_one_smithing") || type.toString().contains("anvilcraft:two_to_one_smithing") ||
+                    type.toString().contains("anvilcraft:four_to_one_smithing") || type.toString().contains("anvilcraft:eight_to_one_smithing");
         } catch (Exception e) {
             return false;
         }
     }
 
-    private static boolean isEnchantingApparatusRecipe(Recipe<?> recipe) {
+    private static boolean isBrewingStandRecipe(Recipe<?> recipe) {
         try {
-            return recipe.getClass().getName().contains("EnchantingApparatusRecipe") ||
-                    recipe.getType().toString().contains("ars_nouveau:enchanting_apparatus");
+            RecipeType<?> type = recipe.getType();
+            return RECIPE_TYPE_BREWING_LIKE.contains(type.toString());
         } catch (Exception e) {
             return false;
         }
     }
 
     @SuppressWarnings("unchecked")
-    private static void handleCookingPotRecipe(Recipe<?> recipe, RecipeInfo info) {
+    private static void handleCookingWithContainerRecipe(Recipe<?> recipe, RecipeInfo info) {
         try {
             java.lang.reflect.Method getIngredientsMethod = recipe.getClass().getMethod("getIngredients");
             NonNullList<Ingredient> ingredients = (NonNullList<Ingredient>) getIngredientsMethod.invoke(recipe);
@@ -375,8 +418,7 @@ public class RecipeHelper {
     @SuppressWarnings("unchecked")
     private static void handleCuttingBoardRecipe(Recipe<?> recipe, RecipeInfo info) {
         try {
-            java.lang.reflect.Method getRollableResultsMethod =
-                    recipe.getClass().getMethod("getRollableResults");
+            java.lang.reflect.Method getRollableResultsMethod = recipe.getClass().getMethod("getRollableResults");
             Object rollableResults = getRollableResultsMethod.invoke(recipe);
 
             if (rollableResults instanceof List<?> results) {
@@ -516,6 +558,45 @@ public class RecipeHelper {
         }
     }
 
+    private static void handleBrewingStandRecipe(Recipe<?> recipe, RecipeInfo info) {
+        try {
+            java.lang.reflect.Method getInputMethod = recipe.getClass().getMethod("getInput");
+            Ingredient inputIngredient = (Ingredient) getInputMethod.invoke(recipe);
+
+            java.lang.reflect.Method getBottleMethod = recipe.getClass().getMethod("getBottle");
+            Ingredient bottleIngredient = (Ingredient) getBottleMethod.invoke(recipe);
+
+            if (inputIngredient != Ingredient.EMPTY) {
+                ItemStack[] inputItems = inputIngredient.getItems();
+                if (inputItems.length > 0) {
+                    ItemStack bestInput = findBestItemStack(inputItems);
+                    if(bestInput == null || bestInput.isEmpty()){
+                        info.hasUnanalysable = true;
+                    } else {
+                        info.ingredients.add(bestInput);
+                        info.amount += bestInput.getCount();
+                    }
+                }
+            }
+
+            if (bottleIngredient != Ingredient.EMPTY) {
+                ItemStack[] bottleItems = bottleIngredient.getItems();
+                if (bottleItems.length > 0) {
+                    ItemStack bestBottle = findBestItemStack(bottleItems);
+                    if(bestBottle == null || bestBottle.isEmpty()){
+                        info.hasUnanalysable = true;
+                    } else {
+                        info.ingredients.add(bestBottle);
+                        info.amount += bestBottle.getCount();
+                    }
+                }
+            }
+            info.isBrewingStandRecipe = true;
+        } catch (Exception e) {
+            info.hasUnanalysable = true;
+        }
+    }
+
     public static class RecipeInfo {
         public ResourceLocation recipeId;
         public List<ItemStack> ingredients;
@@ -526,6 +607,7 @@ public class RecipeHelper {
         public long sum = 0;
         public boolean hasUnanalysable = false;
         public boolean isComplex = false;
+        public boolean isBrewingStandRecipe = false;
         public ItemStack container = ItemStack.EMPTY;
 
         public long getSum() {
@@ -545,6 +627,28 @@ public class RecipeHelper {
                 }
             }
 
+            if (isBrewingStandRecipe) {
+                if (ingredients.size() >= 2) {
+                    ItemStack input = ingredients.get(0);
+                    ItemStack bottle = ingredients.get(1);
+
+                    Constituents inputConstituents = ElemenixInfo.getConstituents(input).copy();
+                    Constituents bottleConstituents = ElemenixInfo.getConstituents(bottle).copy();
+
+                    if (inputConstituents.isUnanalysable() || bottleConstituents.isUnanalysable()) {
+                        return new Constituents(true);
+                    }
+
+                    Constituents total = bottleConstituents.copy();
+                    inputConstituents.multiply(1.0 / 3.0);
+                    total.add(inputConstituents);
+
+                    return total;
+                } else {
+                    return new Constituents(true);
+                }
+            }
+
             if(result.getFoodProperties(null) != null){
                 for(ItemStack stack : ingredients) {
                     if(stack.is(ModTags.EGGS_WITH_TERRIX_SHELL)){
@@ -553,13 +657,13 @@ public class RecipeHelper {
                 }
             }
 
+            constituents.multiply(1.0 / resultAmount);
+
             if (!container.isEmpty()) {
                 constituents.add(ElemenixInfo.getConstituents(container));
             }
 
-            constituents.multiply(1.0 / resultAmount);
-
-            if(type == RecipeType.SMELTING){
+            if(type == RecipeType.SMELTING || type == RecipeType.SMOKING){
                 if(result.getFoodProperties(null) == null){
                     constituents.set(Elemenix.FLUMIX, 0);
                 }else{

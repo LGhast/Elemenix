@@ -137,7 +137,7 @@ public class ModRecipeProvider extends RecipeProvider {
                 .unlockedBy("has_elemenic_analyzer", has(ModItems.ELEMENIC_ANALYZER))
                 .save(recipeOutput);
 
-        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, ModItems.ELEMENIC_EQUILIBRIUM.get(), 9)
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, ModItems.ELEMENIC_EQUILIPLEX.get(), 1)
                 .requires(ModItems.ORGANIX_ESSENPLEX)
                 .requires(ModItems.TERRIX_ESSENPLEX)
                 .requires(ModItems.FLUMIX_ESSENPLEX)
@@ -145,7 +145,7 @@ public class ModRecipeProvider extends RecipeProvider {
                 .requires(ModItems.ENERGIX_ESSENPLEX)
                 .requires(ModItems.ARCANIX_ESSENPLEX)
                 .unlockedBy("has_elemenic_analyzer", has(ModItems.ELEMENIC_ANALYZER))
-                .save(recipeOutput, "elemenic_equilibrium_from_essenplexes");
+                .save(recipeOutput, "elemenic_equiliplex");
 
         ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, ModItems.ELEMENIC_ANALYZER.get(), 1)
                 .requires(Items.DIAMOND, 1)

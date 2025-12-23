@@ -263,12 +263,23 @@ public class BurnerMenu extends AbstractContainerMenu {
             MemoryData primaryData = MemorizerItem.getOrCreateMemories(primary);
             MemoryData secondaryData = MemorizerItem.getOrCreateMemories(secondary);
 
+            if (primaryData.isFull()) {
+                return;
+            }
+
             List<ResourceLocation> combined = new ArrayList<>(primaryData.resolvedItems());
 
             for(ResourceLocation location : secondaryData.resolvedItems()){
                 if(!combined.contains(location)){
                     combined.add(location);
+                    if (combined.size() >= MemoryData.MAX) {
+                        break;
+                    }
                 }
+            }
+
+            if (combined.size() > MemoryData.MAX) {
+                combined = combined.subList(0, MemoryData.MAX);
             }
 
             primary.set(ModDataComponents.MEMORY_DATA.get(), new MemoryData(combined));

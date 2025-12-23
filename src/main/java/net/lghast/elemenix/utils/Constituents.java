@@ -9,7 +9,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public class Constituents {
-    private static final int MAX = 999_999_999;
+    private static final int MAX = 20_0000_0000;
     private static final double DISCOUNT = ServerConfig.DC_DISCOUNT.get();
     private static final double PREMIUM = ServerConfig.RC_PREMIUM.get();
 

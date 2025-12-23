@@ -95,25 +95,34 @@ public class EjectorMenu extends AbstractContainerMenu {
             ItemStack slotStack = slot.getItem();
             originalStack = slotStack.copy();
 
-            boolean moved = false;
-
-            if (index < 7) {
-                moved = this.moveItemStackTo(slotStack, 7, 43, true);
+            if (index < 9) {
+                if (!this.moveItemStackTo(slotStack, 9, 45, true)) {
+                    return ItemStack.EMPTY;
+                }
             } else {
-                if (isValidForInputSlot(slotStack)) {
+                boolean moved = false;
+
+                if (slotStack.is(ModItems.THROTTLE_VALVE)) {
+                    moved = this.moveItemStackTo(slotStack, 7, 8, false);
+                } else if (slotStack.is(ModItems.FLOW_STRAIGHTENER)) {
+                    moved = this.moveItemStackTo(slotStack, 8, 9, false);
+                }
+
+                if (!moved && isValidForInputSlot(slotStack)) {
                     moved = this.moveItemStackTo(slotStack, 6, 7, false);
                 }
-                if (!moved && !slotStack.isEmpty()) {
-                    if (index < 34) {
-                        moved = this.moveItemStackTo(slotStack, 34, 43, false);
+
+                if (!moved) {
+                    if (index < 36) {
+                        moved = this.moveItemStackTo(slotStack, 36, 45, false);
                     } else {
-                        moved = this.moveItemStackTo(slotStack, 7, 34, false);
+                        moved = this.moveItemStackTo(slotStack, 9, 36, false);
                     }
                 }
-            }
 
-            if (!moved) {
-                return ItemStack.EMPTY;
+                if (!moved) {
+                    return ItemStack.EMPTY;
+                }
             }
 
             if (slotStack.isEmpty()) {

@@ -12,6 +12,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public record MemoryData(List<ResourceLocation> resolvedItems) {
+    public static final int MAX = 147;
+
     public static final Codec<MemoryData> CODEC = RecordCodecBuilder.create(instance ->
             instance.group(
                     ResourceLocation.CODEC.listOf().fieldOf("resolvedItems").forGetter(MemoryData::resolvedItems)
@@ -33,5 +35,13 @@ public record MemoryData(List<ResourceLocation> resolvedItems) {
         } catch (Exception e) {
             return new ItemStack(Items.BARRIER);
         }
+    }
+
+    public boolean isEmpty(){
+        return resolvedItems.isEmpty();
+    }
+
+    public boolean isFull(){
+        return resolvedItems.size() >= MAX;
     }
 }

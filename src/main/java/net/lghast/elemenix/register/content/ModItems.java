@@ -56,6 +56,9 @@ public class ModItems {
     public static final DeferredItem<Item> ARCANIX_ESSENPLEX = ITEMS.register("arcanix_essenplex",
             ()-> new Item(new Item.Properties()));
 
+    public static final DeferredItem<Item> ELEMENIC_EQUILIPLEX = ITEMS.register("elemenic_equiliplex",
+            ()-> new Item(new Item.Properties()));
+
     public static final DeferredItem<Item> THROTTLE_VALVE = ITEMS.register("throttle_valve",
             ()-> new ThrottleValveItem(new Item.Properties()));
 

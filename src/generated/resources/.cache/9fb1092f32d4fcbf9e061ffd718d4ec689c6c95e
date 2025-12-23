@@ -1,4 +1,4 @@
-// 1.21.1	2025-12-09T19:03:20.0553805	Recipes
+// 1.21.1	2025-12-22T16:45:12.8495129	Recipes
 a5972f5f16b8d08a054c46ca513dcaaf6dbf21ea data/elemenix/advancement/recipes/food/fondant_cake.json
 436001b848b2166f3268f565c6939d909e873f2f data/elemenix/advancement/recipes/misc/arcanix_essenplex.json
 9c5cce8f0a9511d7fd5b849c092560b69d5ff0d5 data/elemenix/advancement/recipes/misc/elemenic_analyzer.json
@@ -43,9 +43,9 @@ e77e278b2b441d0715ca95f88a0ee7e20c5af87b data/elemenix/recipe/optical_capturer.j
 9dc0d47bbb2f589c4b9a5975200f34296c314094 data/elemenix/recipe/terrix_essenplex.json
 1aed89553cdea1f4b9ade83dd74aa97e732533c6 data/elemenix/recipe/throttle_valve.json
 97d8c35bace8e74abadecf55b90a7396aae102e1 data/elemenix/recipe/transpiring_incinerator.json
-8667ddeb30d5ab3c8e11dcb906dc3605b5022676 data/minecraft/advancement/recipes/misc/elemenic_equilibrium_from_essenplexes.json
+441eb0513cc8b13a6d68864ea047c918fd497ed9 data/minecraft/advancement/recipes/misc/elemenic_equiliplex.json
 acf1f6d9ade6931ca9c5ec4ed911615f36bbcade data/minecraft/advancement/recipes/misc/organix_essence_from_equilibrium.json
 39d21eaea686644e8d4c323f72b8f8708cb7f710 data/minecraft/advancement/recipes/misc/organix_essence_from_essences.json
-cb3df552a56b4a2b4215f070e35aa690781295ac data/minecraft/recipe/elemenic_equilibrium_from_essenplexes.json
+9c4dad68ef7deee0bbec56550cf4e2f6ab82b819 data/minecraft/recipe/elemenic_equiliplex.json
 6d0d1c27c1ca4c648b2b62f79c675a2f874374b7 data/minecraft/recipe/organix_essence_from_equilibrium.json
 aade3d5fd4b035fce797bf7e63c981a321658cbf data/minecraft/recipe/organix_essence_from_essences.json

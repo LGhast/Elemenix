@@ -2,10 +2,7 @@ package net.lghast.elemenix.client.screen;
 
 import net.lghast.elemenix.common.system.menu.AnalyzerMenu;
 import net.lghast.elemenix.network.DeconstructionPayload;
-import net.lghast.elemenix.utils.Constituents;
-import net.lghast.elemenix.utils.Elemenix;
-import net.lghast.elemenix.utils.ElemenixInfo;
-import net.lghast.elemenix.utils.ModUtils;
+import net.lghast.elemenix.utils.*;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
@@ -13,6 +10,7 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
@@ -111,10 +109,12 @@ public class AnalyzerScreen extends AbstractContainerScreen<AnalyzerMenu> {
 
     private void renderElemenixValues(GuiGraphics graphics, int x, int y) {
         Elemenix[] types = Elemenix.values();
+        LongContainerData containerData = menu.getLongContainerData();
         for (int i = 0; i < types.length; i++) {
-            long value = menu.getData().get(i) & 0xFFFFFFFFL;
+            long value = containerData.getLong(i);
             String text = ModUtils.formatNumber(value);
-            graphics.drawString(this.font, text, x + VALUE_START_X, y + VALUE_START_Y + i * VALUE_SPACING, types[i].getColor(), false);
+            graphics.drawString(this.font, text, x + VALUE_START_X, y + VALUE_START_Y + i * VALUE_SPACING,
+                    types[i].getColor(), false);
         }
     }
 

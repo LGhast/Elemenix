@@ -1,5 +1,6 @@
 package net.lghast.elemenix.common.content.blockentity;
 
+import net.lghast.elemenix.Elemenics;
 import net.lghast.elemenix.common.content.block.EjectorBlock;
 import net.lghast.elemenix.common.content.item.ThrottleValveItem;
 import net.lghast.elemenix.common.system.datacomponent.ValveOpenness;
@@ -126,6 +127,7 @@ public class EjectorBlockEntity extends BaseContainerBlockEntity {
 
     public void tick(Level level, BlockPos pos, BlockState state) {
         if (level.isClientSide) return;
+        if(!Elemenics.started) return;
 
         boolean wasWorking = state.getValue(EjectorBlock.WORKING);
         boolean isWorking = false;

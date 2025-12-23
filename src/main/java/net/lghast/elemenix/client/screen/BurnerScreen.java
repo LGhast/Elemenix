@@ -1,5 +1,6 @@
 package net.lghast.elemenix.client.screen;
 
+import net.lghast.elemenix.common.content.item.MemorizerItem;
 import net.lghast.elemenix.common.system.menu.BurnerMenu;
 import net.lghast.elemenix.network.*;
 import net.minecraft.client.gui.GuiGraphics;
@@ -142,6 +143,12 @@ public class BurnerScreen extends AbstractContainerScreen<BurnerMenu>
         if (actionButton.visible) {
             String key = mode == BurnerMode.COPY ? "gui.elemenix.mode.copy" : "gui.elemenix.mode.concatenate";
             actionButton.setMessage(Component.translatable(key));
+
+            if (mode == BurnerMode.CONCATENATE) {
+                actionButton.active = MemorizerItem.isNotFull(menu.getPrimaryMemorizer());
+            }else{
+                actionButton.active = true;
+            }
         }
     }
 

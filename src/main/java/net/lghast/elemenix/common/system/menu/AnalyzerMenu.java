@@ -11,6 +11,7 @@ import net.lghast.elemenix.register.system.ModTags;
 import net.lghast.elemenix.utils.Constituents;
 import net.lghast.elemenix.utils.Elemenix;
 import net.lghast.elemenix.utils.ElemenixInfo;
+import net.lghast.elemenix.utils.LongContainerData;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.Container;
@@ -19,7 +20,6 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerData;
-import net.minecraft.world.inventory.SimpleContainerData;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -42,15 +42,14 @@ public class AnalyzerMenu extends AbstractContainerMenu {
 
     private final Container analyzerContainer;
     private final UUID analyzerUuid;
-    private final ContainerData data;
+    private final LongContainerData data;
     private final Player player;
 
     public AnalyzerMenu(int containerId, Inventory playerInventory, ItemStack menuStack) {
-        this(containerId, playerInventory, new SimpleContainer(SLOT_COUNT), new SimpleContainerData(6), menuStack);
+        this(containerId, playerInventory, new SimpleContainer(SLOT_COUNT), new LongContainerData(12), menuStack);
     }
 
-    public AnalyzerMenu(int containerId, Inventory playerInventory,
-                        Container analyzerContainer, ContainerData data, ItemStack menuStack) {
+    public AnalyzerMenu(int containerId, Inventory playerInventory, Container analyzerContainer, LongContainerData data, ItemStack menuStack) {
         super(ModMenus.ELEMENIX_ANALYZER_MENU.get(), containerId);
         this.analyzerContainer = analyzerContainer;
         this.analyzerUuid = AnalyzerItem.getOrCreateUuid(menuStack).uuid();
@@ -59,7 +58,7 @@ public class AnalyzerMenu extends AbstractContainerMenu {
 
         loadAnalyzerStorage();
         checkContainerSize(analyzerContainer, SLOT_COUNT);
-        checkContainerDataCount(data, 6);
+        checkContainerDataCount(data, 12);
 
         this.addSlot(new Slot(analyzerContainer, INPUT_SLOT, INPUT_SLOT_X, SLOT_Y) {
             @Override
@@ -100,6 +99,10 @@ public class AnalyzerMenu extends AbstractContainerMenu {
         this.addDataSlots(data);
     }
 
+    public LongContainerData getLongContainerData() {
+        return data;
+    }
+
     private static boolean isInputSlotPlaceable(ItemStack stack){
         if(stack.is(ModItems.ELEMENIC_MEMORIZER)){
             return MemorizerItem.getOrCreateMemories(stack).resolvedItems().isEmpty();
@@ -113,12 +116,12 @@ public class AnalyzerMenu extends AbstractContainerMenu {
 
         ElemenicStorage elemenicStorage = AnalyzerItem.getOrCreateData(analyzerStack);
 
-        data.set(0, (int) Math.min(elemenicStorage.organix(), Integer.MAX_VALUE));
-        data.set(1, (int) Math.min(elemenicStorage.terrix(), Integer.MAX_VALUE));
-        data.set(2, (int) Math.min(elemenicStorage.flumix(), Integer.MAX_VALUE));
-        data.set(3, (int) Math.min(elemenicStorage.metallix(), Integer.MAX_VALUE));
-        data.set(4, (int) Math.min(elemenicStorage.energix(), Integer.MAX_VALUE));
-        data.set(5, (int) Math.min(elemenicStorage.arcanix(), Integer.MAX_VALUE));
+        data.setLong(0, elemenicStorage.organix());
+        data.setLong(1, elemenicStorage.terrix());
+        data.setLong(2, elemenicStorage.flumix());
+        data.setLong(3, elemenicStorage.metallix());
+        data.setLong(4, elemenicStorage.energix());
+        data.setLong(5, elemenicStorage.arcanix());
     }
 
     public void saveStorageAndMemoryData() {
@@ -126,22 +129,19 @@ public class AnalyzerMenu extends AbstractContainerMenu {
         if (analyzerStack.isEmpty()) return;
 
         long[] elemenix = new long[]{
-                data.get(0) & 0xFFFFFFFFL,
-                data.get(1) & 0xFFFFFFFFL,
-                data.get(2) & 0xFFFFFFFFL,
-                data.get(3) & 0xFFFFFFFFL,
-                data.get(4) & 0xFFFFFFFFL,
-                data.get(5) & 0xFFFFFFFFL
+                data.getLong(0),
+                data.getLong(1),
+                data.getLong(2),
+                data.getLong(3),
+                data.getLong(4),
+                data.getLong(5)
         };
-        analyzerStack.set(ModDataComponents.ELEMENIC_STORAGE.get(),
-                new ElemenicStorage(elemenix));
+        analyzerStack.set(ModDataComponents.ELEMENIC_STORAGE.get(), new ElemenicStorage(elemenix));
 
         ItemStack memorizerItem = getMemorizerItem();
         if(memorizerItem.is(ModItems.ELEMENIC_MEMORIZER)) {
-            List<ResourceLocation> itemMemory =
-                    MemorizerItem.getOrCreateMemories(memorizerItem).resolvedItems();
-            memorizerItem.set(ModDataComponents.MEMORY_DATA.get(),
-                    new MemoryData(itemMemory));
+            List<ResourceLocation> itemMemory = MemorizerItem.getOrCreateMemories(memorizerItem).resolvedItems();
+            memorizerItem.set(ModDataComponents.MEMORY_DATA.get(), new MemoryData(itemMemory));
         }
     }
 
@@ -157,7 +157,7 @@ public class AnalyzerMenu extends AbstractContainerMenu {
         return AnalyzerItem.findAnalyzerByUuid(player, analyzerUuid);
     }
 
-    public ContainerData getData(){
+    public LongContainerData getData() {
         return data;
     }
 
@@ -169,24 +169,25 @@ public class AnalyzerMenu extends AbstractContainerMenu {
         if (constituents.isUnanalysable()) return;
 
         for (Elemenix type : Elemenix.values()) {
-            int amount = constituents.get(type) * inputStack.getCount();
+            long amount = (long) constituents.get(type) * inputStack.getCount();
             if (amount > 0) {
-                int current = data.get(type.getIndex());
-                long newValue = (current & 0xFFFFFFFFL) + amount;
-                data.set(type.getIndex(), (int) Math.min(newValue, Integer.MAX_VALUE));
+                long current = data.getLong(type.getIndex());
+                long newValue = current + amount;
+                data.setLong(type.getIndex(), newValue);
             }
         }
 
         ResourceLocation itemId = BuiltInRegistries.ITEM.getKey(inputStack.getItem());
 
-        if(!MemorizerItem.isReadonly(getMemorizerItem())){
-            MemoryData currentMemoryData = MemorizerItem.getOrCreateMemories(getMemorizerItem());
+        ItemStack memorizerStack = getMemorizerItem();
+        if(!MemorizerItem.isReadonly(memorizerStack) && MemorizerItem.isNotFull(memorizerStack)){
+            MemoryData currentMemoryData = MemorizerItem.getOrCreateMemories(memorizerStack);
             List<ResourceLocation> currentMemories = currentMemoryData.resolvedItems();
             if (!inputStack.is(ModTags.ANALYZER_UNRECORDABLE) && !currentMemories.contains(itemId)) {
                 List<ResourceLocation> newMemories = new ArrayList<>(currentMemories);
                 newMemories.add(itemId);
 
-                getMemorizerItem().set(ModDataComponents.MEMORY_DATA.get(), currentMemoryData.withResolvedItems(newMemories));
+                memorizerStack.set(ModDataComponents.MEMORY_DATA.get(), currentMemoryData.withResolvedItems(newMemories));
                 slots.get(MEMORIZER_SLOT).setChanged();
             }
         }
@@ -212,7 +213,7 @@ public class AnalyzerMenu extends AbstractContainerMenu {
         for (Elemenix type : Elemenix.values()) {
             int req = required.get(type);
             if (req > 0) {
-                long available = data.get(type.getIndex()) & 0xFFFFFFFFL;
+                long available = data.getLong(type.getIndex()) & 0xFFFFFFFFL;
                 maxAmount = (int) Math.min(maxAmount, available / req);
             }
         }
@@ -222,8 +223,8 @@ public class AnalyzerMenu extends AbstractContainerMenu {
         for (Elemenix type : Elemenix.values()) {
             int consumption = required.get(type) * maxAmount;
             if (consumption > 0) {
-                int current = data.get(type.getIndex());
-                data.set(type.getIndex(), Math.max(0, current - consumption));
+                long current = data.getLong(type.getIndex());
+                data.setLong(type.getIndex(), Math.max(0, current - consumption));
             }
         }
 

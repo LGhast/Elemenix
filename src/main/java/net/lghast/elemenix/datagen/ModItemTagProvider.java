@@ -217,6 +217,7 @@ public class ModItemTagProvider extends ItemTagsProvider {
                 .add(Items.ENCHANTED_BOOK)
                 .addTag(ModTags.ESSENCES)
                 .add(ModItems.ELEMENIC_EQUILIBRIUM.asItem())
+                .add(ModItems.ELEMENIC_EQUILIPLEX.asItem())
                 .add(ModItems.ELEMENIC_ANALYZER.asItem())
         ;
 

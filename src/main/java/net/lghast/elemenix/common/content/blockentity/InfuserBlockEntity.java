@@ -1,5 +1,6 @@
 package net.lghast.elemenix.common.content.blockentity;
 
+import net.lghast.elemenix.Elemenics;
 import net.lghast.elemenix.common.content.block.InfuserBlock;
 import net.lghast.elemenix.common.content.item.AnalyzerItem;
 import net.lghast.elemenix.common.system.datacomponent.ElemenicStorage;
@@ -115,6 +116,7 @@ public class InfuserBlockEntity extends BaseContainerBlockEntity {
 
     public void tick(Level level, BlockPos pos, BlockState state) {
         if (level.isClientSide) return;
+        if(!Elemenics.started) return;
 
         boolean wasWorking = state.getValue(InfuserBlock.WORKING);
         boolean isWorking = false;

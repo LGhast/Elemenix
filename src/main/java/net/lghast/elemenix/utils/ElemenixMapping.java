@@ -360,6 +360,7 @@ public class ElemenixMapping {
         ELEMENIX_MAP.put("minecraft:piglin_banner_pattern", new Constituents(200, 0, 0, 0, 50, 50));
         ELEMENIX_MAP.put("minecraft:flow_banner_pattern", new Constituents(200, 0, 120, 0, 0, 50));
         ELEMENIX_MAP.put("minecraft:guster_banner_pattern", new Constituents(200, 0, 120, 0, 0, 50));
+        ELEMENIX_MAP.put("minecraft:bundle", new Constituents(Elemenix.ORGANIX, 56));
         ELEMENIX_MAP.put("minecraft:air", new Constituents(true));
     }
 }

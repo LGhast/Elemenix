@@ -59,7 +59,8 @@ public class MemoryListWidget extends AbstractWidget {
             ModItems.FLUMIX_ESSENPLEX,
             ModItems.METALLIX_ESSENPLEX,
             ModItems.ENERGIX_ESSENPLEX,
-            ModItems.ARCANIX_ESSENPLEX
+            ModItems.ARCANIX_ESSENPLEX,
+            ModItems.ELEMENIC_EQUILIPLEX
     );
 
     public MemoryListWidget(int x, int y, int width, int height) {

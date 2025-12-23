@@ -5,7 +5,6 @@ import net.lghast.elemenix.common.content.blockentity.TransformerBlockEntity;
 import net.lghast.elemenix.register.system.ModMenus;
 import net.lghast.elemenix.utils.Constituents;
 import net.lghast.elemenix.utils.ElemenixInfo;
-import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
@@ -13,6 +12,7 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.ParametersAreNonnullByDefault;
 
@@ -110,38 +110,59 @@ public class TransformerMenu extends AbstractContainerMenu {
     }
 
     @Override
-    public ItemStack quickMoveStack(Player player, int index) {
-        ItemStack itemstack = ItemStack.EMPTY;
+    public @NotNull ItemStack quickMoveStack(Player player, int index) {
+        ItemStack originalStack = ItemStack.EMPTY;
         Slot slot = this.slots.get(index);
 
         if (slot.hasItem()) {
-            ItemStack itemstack1 = slot.getItem();
-            itemstack = itemstack1.copy();
+            ItemStack slotStack = slot.getItem();
+            originalStack = slotStack.copy();
+
+            boolean moved = false;
 
             if (index < 3) {
-                if (!this.moveItemStackTo(itemstack1, 3, 39, true)) {
-                    return ItemStack.EMPTY;
-                }
+                moved = this.moveItemStackTo(slotStack, 3, 39, true);
             } else {
-                if (!this.moveItemStackTo(itemstack1, 0, 2, false)) {
-                    return ItemStack.EMPTY;
+                ItemStack tempStack = slotStack.copy();
+                Slot slotA = slots.get(0);
+                if (slotA.mayPlace(tempStack) && !slotA.hasItem()) {
+                    moved = this.moveItemStackTo(slotStack, 0, 1, false);
+                }
+
+                if (!moved) {
+                    Slot slotB = slots.get(1);
+                    if (slotB.mayPlace(tempStack) && !slotB.hasItem()) {
+                        moved = this.moveItemStackTo(slotStack, 1, 2, false);
+                    }
+                }
+
+                if (!moved) {
+                    if (index < 3 + 27) {
+                        moved = this.moveItemStackTo(slotStack, 30, 39, false);
+                    } else {
+                        moved = this.moveItemStackTo(slotStack, 3, 30, false);
+                    }
                 }
             }
 
-            if (itemstack1.isEmpty()) {
+            if (!moved) {
+                return ItemStack.EMPTY;
+            }
+
+            if (slotStack.isEmpty()) {
                 slot.set(ItemStack.EMPTY);
             } else {
                 slot.setChanged();
             }
 
-            if (itemstack1.getCount() == itemstack.getCount()) {
+            if (slotStack.getCount() == originalStack.getCount()) {
                 return ItemStack.EMPTY;
             }
 
-            slot.onTake(player, itemstack1);
+            slot.onTake(player, slotStack);
         }
 
-        return itemstack;
+        return originalStack;
     }
 
     @Override

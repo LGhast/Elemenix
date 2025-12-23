@@ -108,6 +108,13 @@ public class MemorizerItem extends Item{
         return !isReadonly(stack);
     }
 
+    public static boolean isNotFull(ItemStack stack){
+        if(!stack.is(ModItems.ELEMENIC_MEMORIZER)){
+            return true;
+        }
+        return !getOrCreateMemories(stack).isFull();
+    }
+
     @Override
     public @NotNull InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand usedHand) {
         ItemStack memorizerStack = player.getItemInHand(usedHand);
@@ -195,8 +202,11 @@ public class MemorizerItem extends Item{
             components.add(Component.literal(styleInfo).withStyle(ChatFormatting.DARK_GRAY));
         }
         if(ClientConfig.SHOW_MEMORY_TOOLTIPS.get()) {
-            String memories = String.format(Component.translatable("tooltip.elemenix.memories").getString(), getOrCreateMemories(stack).resolvedItems().size());
-            components.add(Component.literal(memories).withStyle(ChatFormatting.GRAY));
+            MemoryData memoryData = getOrCreateMemories(stack);
+            if(!memoryData.isEmpty()) {
+                String memories = String.format(Component.translatable("tooltip.elemenix.memories").getString(), memoryData.resolvedItems().size());
+                components.add(Component.literal(memories).withStyle(memoryData.isFull() ? ChatFormatting.RED : ChatFormatting.GRAY));
+            }
         }
         super.appendHoverText(stack, context, components, tooltipFlag);
     }

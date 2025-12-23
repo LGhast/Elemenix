@@ -13,6 +13,8 @@ public class ServerConfig {
     public static final ModConfigSpec.DoubleValue DC_DISCOUNT;
     public static final ModConfigSpec.DoubleValue RC_PREMIUM;
 
+    public static ModConfigSpec.IntValue MEMORIZER_CAPABILITY;
+
     public static ModConfigSpec.IntValue GS_CONSUMPTION;
     public static ModConfigSpec.IntValue GS_PRODUCTION;
     public static ModConfigSpec.IntValue GS_DC_INTERVAL;

@@ -61,11 +61,11 @@ public class EjectorScreen extends AbstractContainerScreen<EjectorMenu> {
 
         for(int i = 0; i<=2; i++){
             String text = ModUtils.formatNumber(storage[i]);
-            graphics.drawString(this.font, text, x + 28, y + 46 + i * 14, Elemenix.values()[i].getColor(), false);
+            graphics.drawString(this.font, text, x + 27, y + 46 + i * 14, Elemenix.values()[i].getColor(), false);
         }
         for(int i = 3; i<=5; i++){
             String text = ModUtils.formatNumber(storage[i]);
-            graphics.drawString(this.font, text, x + 110, y + 46 + (i-3) * 14, Elemenix.values()[i].getColor(), false);
+            graphics.drawString(this.font, text, x + 109, y + 46 + (i-3) * 14, Elemenix.values()[i].getColor(), false);
         }
     }
 

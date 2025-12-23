@@ -31,6 +31,7 @@ public class ModItemModelProvider extends ItemModelProvider {
         basicItem(ModItems.METALLIX_ESSENPLEX.get());
         basicItem(ModItems.ENERGIX_ESSENPLEX.get());
         basicItem(ModItems.ARCANIX_ESSENPLEX.get());
+        basicItem(ModItems.ELEMENIC_EQUILIPLEX.get());
         basicItem(ModItems.MEMORIZER_BOX.get());
         basicItem(ModItems.MEMORY_BURNER.get());
     }
