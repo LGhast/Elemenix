@@ -5,8 +5,9 @@ import com.mojang.serialization.DataResult;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.lghast.elemenix.utils.Elemenix;
 import net.lghast.elemenix.utils.ModUtils;
-import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
+
+import java.util.Arrays;
 
 public record ElemenicStorage(long[] elemenix) {
     public static final Codec<ElemenicStorage> CODEC = RecordCodecBuilder.create(instance ->
@@ -49,6 +50,10 @@ public record ElemenicStorage(long[] elemenix) {
         return Component.literal(ModUtils.formatNumber(metallix(), "M:%s  ")).withColor(Elemenix.METALLIX.getColor())
                 .append(Component.literal(ModUtils.formatNumber(energix(), "E:%s  ")).withColor(Elemenix.ENERGIX.getColor()))
                 .append(Component.literal(ModUtils.formatNumber(arcanix(), "A:%s")).withColor(Elemenix.ARCANIX.getColor()));
+    }
+
+    public boolean isEmpty(){
+        return Arrays.stream(elemenix).allMatch(num -> num == 0);
     }
 }
 

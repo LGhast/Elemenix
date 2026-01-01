@@ -77,6 +77,11 @@ public class ModTags {
             ResourceLocation.parse("elemenix:essences")
     );
 
+    public static final TagKey<Item> EQUILIBRIUM = TagKey.create(
+            Registries.ITEM,
+            ResourceLocation.parse("elemenix:equilibrium")
+    );
+
     public static final TagKey<Item> ANALYZER_UNRECORDABLE = TagKey.create(
             Registries.ITEM,
             ResourceLocation.parse("elemenix:analyzer_unrecordable")
@@ -115,5 +120,10 @@ public class ModTags {
     public static final TagKey<Item> MEMORIZER_SLOT_PLACEABLE = TagKey.create(
             Registries.ITEM,
             ResourceLocation.parse("elemenix:memorizer_slot_placeable")
+    );
+
+    public static final TagKey<Item> IGNORED_BY_DECONSTRUCTOR_INPUT = TagKey.create(
+            Registries.ITEM,
+            ResourceLocation.parse("elemenix:ignored_by_deconstructor_input")
     );
 }

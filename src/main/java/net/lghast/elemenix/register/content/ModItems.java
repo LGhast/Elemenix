@@ -14,8 +14,14 @@ public class ModItems {
     public static final DeferredItem<Item> ELEMENIC_ANALYZER = ITEMS.register("elemenic_analyzer",
             ()-> new AnalyzerItem(new Item.Properties()));
 
+    public static final DeferredItem<Item> ELEMENIC_STORAGE = ITEMS.register("elemenic_storage",
+            ()-> new StorageItem(new Item.Properties()));
+
     public static final DeferredItem<Item> ELEMENIC_MEMORIZER = ITEMS.register("elemenic_memorizer",
             ()-> new MemorizerItem(new Item.Properties()));
+
+    public static final DeferredItem<Item> REMOTE_ELEMENIC_STORAGE = ITEMS.register("remote_elemenic_storage",
+            ()-> new RemoteStorageItem(new Item.Properties()));
 
     public static final DeferredItem<Item> ORGANIX_ESSENCE = ITEMS.register("organix_essence",
             ()-> new Item(new Item.Properties()));
@@ -58,6 +64,9 @@ public class ModItems {
 
     public static final DeferredItem<Item> ELEMENIC_EQUILIPLEX = ITEMS.register("elemenic_equiliplex",
             ()-> new Item(new Item.Properties()));
+
+    public static final DeferredItem<Item> NULLVOID = ITEMS.register("nullvoid",
+            ()-> new NullvoidItem(new Item.Properties()));
 
     public static final DeferredItem<Item> THROTTLE_VALVE = ITEMS.register("throttle_valve",
             ()-> new ThrottleValveItem(new Item.Properties()));

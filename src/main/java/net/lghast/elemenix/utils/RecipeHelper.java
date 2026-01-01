@@ -1,5 +1,6 @@
 package net.lghast.elemenix.utils;
 
+import net.lghast.elemenix.register.content.ModItems;
 import net.lghast.elemenix.register.system.ModTags;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
@@ -16,6 +17,7 @@ import java.util.*;
 public class RecipeHelper {
     private static final Map<ResourceLocation, Item> RECIPE_OUTPUT_CACHE = new HashMap<>();
     private static final Map<ResourceLocation, Boolean> RECIPE_ANALYZED_CACHE = new HashMap<>();
+    private static final List<ResourceLocation> RECIPE_IGNORED_CACHE = new ArrayList<>();
 
     private static final List<String> RECIPE_TYPES_NORMAL = new ArrayList<>();
     private static final List<String> RECIPE_TYPES_WITH_CONTAINER = new ArrayList<>();
@@ -23,10 +25,14 @@ public class RecipeHelper {
 
     private static final boolean FARMERS_DELIGHT_LOADED;
     private static final boolean ANVILCRAFT_LOADED;
+    private static final boolean CATACLYSM_LOADED;
+    private static final boolean AE2_LOADED;
 
     static {
         FARMERS_DELIGHT_LOADED = ModUtils.hasServerMod("farmersdelight");
         ANVILCRAFT_LOADED = ModUtils.hasServerMod("anvilcraft");
+        CATACLYSM_LOADED = ModUtils.hasServerMod("cataclysm");
+        AE2_LOADED = ModUtils.hasServerMod("ae2");
 
         if(FARMERS_DELIGHT_LOADED){
             RECIPE_TYPES_WITH_CONTAINER.add("farmersdelight:cooking");
@@ -34,7 +40,13 @@ public class RecipeHelper {
         if(ANVILCRAFT_LOADED){
             RECIPE_TYPES_NORMAL.add("anvilcraft:jewel_crafting");
         }
+        if(AE2_LOADED){
+            RECIPE_TYPES_NORMAL.add("ae2:inscriber");
+        }
 
+        if(ModUtils.hasServerMod("twilightforest")){
+            RECIPE_TYPES_NORMAL.add("twilightforest:drying");
+        }
         if(ModUtils.hasServerMod("dungeonsdelight")){
             RECIPE_TYPES_WITH_CONTAINER.add("dungeonsdelight:monster_cooking");
         }
@@ -62,16 +74,28 @@ public class RecipeHelper {
     public static void clearCache() {
         RECIPE_OUTPUT_CACHE.clear();
         RECIPE_ANALYZED_CACHE.clear();
+        RECIPE_IGNORED_CACHE.clear();
     }
 
-    private static ItemStack replacedStack(ItemStack stack) {
+    private static ItemStack replacedStack(RecipeType<?> type, ItemStack stack) {
         Item item = stack.getItem();
 
         if (item == Items.POTION || item == Items.SPLASH_POTION || item == Items.LINGERING_POTION) {
-            return new ItemStack(Items.AIR, stack.getCount());
+            return new ItemStack(ModItems.NULLVOID.asItem(), stack.getCount());
         }
         if (item == Items.TIPPED_ARROW) {
             return new ItemStack(Items.ARROW, stack.getCount());
+        }
+
+        if(!AE2_LOADED){
+            return stack;
+        }
+
+        String itemId = BuiltInRegistries.ITEM.getKey(item).toString();
+        if(type.toString().equals("ae2:inscriber") && (itemId.equals("ae2:calculation_processor_press")
+                || itemId.equals("ae2:engineering_processor_press") || itemId.equals("ae2:logic_processor_press")
+                || itemId.equals("ae2:silicon_press"))){
+            return new ItemStack(ModItems.NULLVOID.asItem(), stack.getCount());
         }
 
         return stack;
@@ -105,7 +129,12 @@ public class RecipeHelper {
                 continue;
             }
 
+            if(RECIPE_IGNORED_CACHE.contains(recipeId)){
+                continue;
+            }
+
             if (!isValidRecipeType(recipe)) {
+                RECIPE_IGNORED_CACHE.add(recipeId);
                 continue;
             }
 
@@ -166,7 +195,8 @@ public class RecipeHelper {
                 isCookingWithContainerRecipe(recipe) ||
                 isCuttingBoardRecipe(recipe) ||
                 isMultipleToOneSmithingRecipe(recipe) ||
-                isBrewingStandRecipe(recipe);
+                isBrewingStandRecipe(recipe) ||
+                isWeaponFusionRecipe(recipe);
     }
 
     private static RecipeInfo getInfo(RecipeHolder<?> holder, Recipe<?> recipe) {
@@ -190,13 +220,15 @@ public class RecipeHelper {
             handleMultipleToOneSmithingRecipe(recipe, info);
         } else if (isBrewingStandRecipe(recipe)){
             handleBrewingStandRecipe(recipe, info);
-        } else {
+        } else if (isWeaponFusionRecipe(recipe)) {
+            handleWeaponFusionRecipe(recipe, info);
+        }else {
             NonNullList<Ingredient> ingredients = recipe.getIngredients();
             for (Ingredient ingredient : ingredients) {
                 if (ingredient != Ingredient.EMPTY) {
                     ItemStack[] matchingItems = ingredient.getItems();
                     if (matchingItems.length > 0) {
-                        ItemStack bestItemStack = findBestItemStack(matchingItems);
+                        ItemStack bestItemStack = findBestItemStack(recipe.getType(), matchingItems);
                         if(bestItemStack == null || bestItemStack.isEmpty()){
                             info.hasUnanalysable = true;
                         }else {
@@ -212,18 +244,18 @@ public class RecipeHelper {
         return info;
     }
 
-    private static ItemStack findBestItemStack(ItemStack[] matchingItems) {
+    private static ItemStack findBestItemStack(RecipeType<?> type, ItemStack[] matchingItems) {
         if (matchingItems.length == 1) {
-            return replacedStack(matchingItems[0]);
+            return replacedStack(type, matchingItems[0]);
         }
 
         ItemStack bestItemStack = ItemStack.EMPTY;
         long minSum = Long.MAX_VALUE;
 
         for (ItemStack matchingItem : matchingItems) {
-            ItemStack replacedStack = replacedStack(matchingItem);
+            ItemStack replacedStack = replacedStack(type, matchingItem);
 
-            if (ElemenixInfo.getConstituents(replacedStack).isUnanalysable()) {
+            if (ElemenixInfo.isUnanalysable(replacedStack)) {
                 continue;
             }
             long currentSum = getConstituentsSum(replacedStack);
@@ -242,6 +274,7 @@ public class RecipeHelper {
     }
 
     private static void handleSmithingRecipe(Recipe<?> recipe, RecipeInfo info) {
+        RecipeType<?> type = recipe.getType();
         try {
             java.lang.reflect.Method isTemplateIngredientMethod = recipe.getClass().getMethod("isTemplateIngredient", ItemStack.class);
             java.lang.reflect.Method isBaseIngredientMethod = recipe.getClass().getMethod("isBaseIngredient", ItemStack.class);
@@ -266,9 +299,10 @@ public class RecipeHelper {
                 }
             }
 
-            ItemStack bestTemplate = findBestItemStack(templateItems.toArray(new ItemStack[0]));
-            ItemStack bestBase = findBestItemStack(baseItems.toArray(new ItemStack[0]));
-            ItemStack bestAddition = findBestItemStack(additionItems.toArray(new ItemStack[0]));
+
+            ItemStack bestTemplate = findBestItemStack(type, templateItems.toArray(new ItemStack[0]));
+            ItemStack bestBase = findBestItemStack(type, baseItems.toArray(new ItemStack[0]));
+            ItemStack bestAddition = findBestItemStack(type, additionItems.toArray(new ItemStack[0]));
 
             if(bestTemplate == null || bestBase == null || bestAddition == null){
                 info.hasUnanalysable = true;
@@ -298,7 +332,7 @@ public class RecipeHelper {
                 if (ingredient != Ingredient.EMPTY) {
                     ItemStack[] matchingItems = ingredient.getItems();
                     if (matchingItems.length > 0) {
-                        ItemStack bestItemStack = findBestItemStack(matchingItems);
+                        ItemStack bestItemStack = findBestItemStack(type, matchingItems);
                         info.ingredients.add(bestItemStack);
                         info.amount += bestItemStack.getCount();
                     }
@@ -360,6 +394,18 @@ public class RecipeHelper {
         }
     }
 
+    private static boolean isWeaponFusionRecipe(Recipe<?> recipe) {
+        if(!CATACLYSM_LOADED){
+            return false;
+        }
+        try {
+            RecipeType<?> type = recipe.getType();
+            return type.toString().equals("cataclysm:weapon_fusion");
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
     @SuppressWarnings("unchecked")
     private static void handleCookingWithContainerRecipe(Recipe<?> recipe, RecipeInfo info) {
         try {
@@ -370,7 +416,7 @@ public class RecipeHelper {
                 if (ingredient != Ingredient.EMPTY) {
                     ItemStack[] matchingItems = ingredient.getItems();
                     if (matchingItems.length > 0) {
-                        ItemStack bestItemStack = findBestItemStack(matchingItems);
+                        ItemStack bestItemStack = findBestItemStack(recipe.getType(), matchingItems);
                         if(bestItemStack == null || bestItemStack.isEmpty()){
                             info.hasUnanalysable = true;
                         }else {
@@ -406,7 +452,7 @@ public class RecipeHelper {
                 if (ingredient != Ingredient.EMPTY) {
                     ItemStack[] matchingItems = ingredient.getItems();
                     if (matchingItems.length > 0) {
-                        ItemStack bestItemStack = findBestItemStack(matchingItems);
+                        ItemStack bestItemStack = findBestItemStack(recipe.getType(), matchingItems);
                         info.ingredients.add(bestItemStack);
                         info.amount += bestItemStack.getCount();
                     }
@@ -452,7 +498,7 @@ public class RecipeHelper {
             if (input != Ingredient.EMPTY) {
                 ItemStack[] matchingItems = input.getItems();
                 if (matchingItems.length > 0) {
-                    ItemStack bestItemStack = findBestItemStack(matchingItems);
+                    ItemStack bestItemStack = findBestItemStack(recipe.getType(), matchingItems);
                     if(bestItemStack == null || bestItemStack.isEmpty()){
                         info.hasUnanalysable = true;
                     }else {
@@ -483,7 +529,7 @@ public class RecipeHelper {
                     if (ingredient != Ingredient.EMPTY) {
                         ItemStack[] matchingItems = ingredient.getItems();
                         if (matchingItems.length > 0) {
-                            ItemStack bestItemStack = findBestItemStack(matchingItems);
+                            ItemStack bestItemStack = findBestItemStack(recipe.getType(), matchingItems);
                             if(bestItemStack == null || bestItemStack.isEmpty()){
                                 info.hasUnanalysable = true;
                             }else {
@@ -519,7 +565,7 @@ public class RecipeHelper {
                 }
             }
 
-            ItemStack bestMaterial = findBestItemStack(materialItems.toArray(new ItemStack[0]));
+            ItemStack bestMaterial = findBestItemStack(recipe.getType(), materialItems.toArray(new ItemStack[0]));
             if (bestMaterial == null || bestMaterial.isEmpty()) {
                 info.hasUnanalysable = true;
                 return;
@@ -543,7 +589,7 @@ public class RecipeHelper {
                     }
                 }
 
-                ItemStack bestInput = findBestItemStack(inputItems.toArray(new ItemStack[0]));
+                ItemStack bestInput = findBestItemStack(recipe.getType(), inputItems.toArray(new ItemStack[0]));
                 if (bestInput == null || bestInput.isEmpty()) {
                     info.hasUnanalysable = true;
                     return;
@@ -560,6 +606,7 @@ public class RecipeHelper {
 
     private static void handleBrewingStandRecipe(Recipe<?> recipe, RecipeInfo info) {
         try {
+            RecipeType<?> type = recipe.getType();
             java.lang.reflect.Method getInputMethod = recipe.getClass().getMethod("getInput");
             Ingredient inputIngredient = (Ingredient) getInputMethod.invoke(recipe);
 
@@ -569,7 +616,7 @@ public class RecipeHelper {
             if (inputIngredient != Ingredient.EMPTY) {
                 ItemStack[] inputItems = inputIngredient.getItems();
                 if (inputItems.length > 0) {
-                    ItemStack bestInput = findBestItemStack(inputItems);
+                    ItemStack bestInput = findBestItemStack(type, inputItems);
                     if(bestInput == null || bestInput.isEmpty()){
                         info.hasUnanalysable = true;
                     } else {
@@ -582,7 +629,7 @@ public class RecipeHelper {
             if (bottleIngredient != Ingredient.EMPTY) {
                 ItemStack[] bottleItems = bottleIngredient.getItems();
                 if (bottleItems.length > 0) {
-                    ItemStack bestBottle = findBestItemStack(bottleItems);
+                    ItemStack bestBottle = findBestItemStack(type, bottleItems);
                     if(bestBottle == null || bestBottle.isEmpty()){
                         info.hasUnanalysable = true;
                     } else {
@@ -592,6 +639,47 @@ public class RecipeHelper {
                 }
             }
             info.isBrewingStandRecipe = true;
+        } catch (Exception e) {
+            info.hasUnanalysable = true;
+        }
+    }
+
+    private static void handleWeaponFusionRecipe(Recipe<?> recipe, RecipeInfo info) {
+        try {
+            RecipeType<?> type = recipe.getType();
+            java.lang.reflect.Method getBaseIngredientMethod =
+                    recipe.getClass().getMethod("getbaseIngredient");
+            java.lang.reflect.Method getAdditionIngredientMethod =
+                    recipe.getClass().getMethod("getAdditionIngredient");
+
+            Ingredient baseIngredient = (Ingredient) getBaseIngredientMethod.invoke(recipe);
+            Ingredient additionIngredient = (Ingredient) getAdditionIngredientMethod.invoke(recipe);
+
+            if (baseIngredient != Ingredient.EMPTY) {
+                ItemStack[] baseItems = baseIngredient.getItems();
+                if (baseItems.length > 0) {
+                    ItemStack bestBase = findBestItemStack(type, baseItems);
+                    if(bestBase == null || bestBase.isEmpty()){
+                        info.hasUnanalysable = true;
+                    } else {
+                        info.ingredients.add(bestBase);
+                        info.amount += bestBase.getCount();
+                    }
+                }
+            }
+
+            if (additionIngredient != Ingredient.EMPTY) {
+                ItemStack[] additionItems = additionIngredient.getItems();
+                if (additionItems.length > 0) {
+                    ItemStack bestAddition = findBestItemStack(type, additionItems);
+                    if(bestAddition == null || bestAddition.isEmpty()){
+                        info.hasUnanalysable = true;
+                    } else {
+                        info.ingredients.add(bestAddition);
+                        info.amount += bestAddition.getCount();
+                    }
+                }
+            }
         } catch (Exception e) {
             info.hasUnanalysable = true;
         }

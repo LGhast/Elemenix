@@ -10,12 +10,16 @@ public class ClientConfig {
 
     public static ModConfigSpec.BooleanValue SHOW_CONSTITUENT_TOOLTIPS;
     public static ModConfigSpec.BooleanValue SHOW_UNANALYSABLE_TOOLTIPS;
+    public static ModConfigSpec.BooleanValue SHOW_CONSTITUENT_TOOLTIPS_WHEN_SHIFT;
     public static ModConfigSpec.BooleanValue SHOW_MEMORY_TOOLTIPS;
     public static ModConfigSpec.BooleanValue SHOW_READONLY_TOOLTIPS;
     public static ModConfigSpec.BooleanValue SHOW_STYLE_TOOLTIPS;
     public static ModConfigSpec.BooleanValue SHOW_STORAGE_TOOLTIPS;
     public static ModConfigSpec.BooleanValue SHOW_ANALYZER_UUID_TOOLTIPS;
     public static ModConfigSpec.BooleanValue SHOW_VALVE_OPENNESS_TOOLTIPS;
+    public static ModConfigSpec.BooleanValue SHOW_REMOTE_BINDING_PROMPT;
+    public static ModConfigSpec.BooleanValue SHOW_REMOTE_COORDINATES;
+    public static ModConfigSpec.BooleanValue SHOW_REMOTE_CONNECTION_STATUS;
 
     static {
         BUILDER.push("提示信息配置 Tooltip Configurations");
@@ -36,6 +40,11 @@ public class ClientConfig {
                 .comment("不可解析物品是否显示不可解析信息，仅在“是否显示物品元质成分”开启时生效",
                         "Whether unanalysable items show unanalysable information, only effective when 'Whether to display item elemenix constituents' is enabled")
                 .define("show_unanalysable_tooltips", true);
+
+        SHOW_CONSTITUENT_TOOLTIPS_WHEN_SHIFT = BUILDER
+                .comment("是否只在按住Shift键时显示物品元质成分信息",
+                        "Whether to display item elemenix constituents only when holding Shift key")
+                .define("show_constituent_tooltips_when_shift", true);
 
         SHOW_MEMORY_TOOLTIPS = BUILDER
                 .comment("是否显示元质记忆盘记忆物品个数",
@@ -64,8 +73,23 @@ public class ClientConfig {
 
         SHOW_VALVE_OPENNESS_TOOLTIPS = BUILDER
                 .comment("是否显示节流阀开度",
-                        "Whether to display style for Throttle Valves")
+                        "Whether to display openness for Throttle Valves")
                 .define("show_valve_openness_tooltips", true);
+
+        SHOW_REMOTE_BINDING_PROMPT = BUILDER
+                .comment("是否为未绑定的远程储存器显示绑定操作提示",
+                        "Whether to display the binding instruction prompt for unbound Remote Storage items")
+                .define("show_remote_binding_prompt", true);
+
+        SHOW_REMOTE_COORDINATES = BUILDER
+                .comment("是否显示远程储存器绑定的坐标",
+                        "Whether to display the bound coordinates of Remote Storage")
+                .define("show_remote_coordinates", true);
+
+        SHOW_REMOTE_CONNECTION_STATUS = BUILDER
+                .comment("是否显示远程储存器连接有效性和绑定的元质储量",
+                        "Whether to display the connection validity status and the Elemenix storage amount at the bound location of Remote Storage ")
+                .define("show_remote_connection_status", true);
 
         BUILDER.pop();
 

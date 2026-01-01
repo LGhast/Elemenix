@@ -213,11 +213,15 @@ public class ModItemTagProvider extends ItemTagsProvider {
                 .add(ModItems.ARCANIX_ESSENPLEX.asItem())
         ;
 
-        tag(ModTags.ANALYZER_UNRECORDABLE)
-                .add(Items.ENCHANTED_BOOK)
-                .addTag(ModTags.ESSENCES)
+        tag(ModTags.EQUILIBRIUM)
                 .add(ModItems.ELEMENIC_EQUILIBRIUM.asItem())
                 .add(ModItems.ELEMENIC_EQUILIPLEX.asItem())
+        ;
+
+        tag(ModTags.ANALYZER_UNRECORDABLE)
+                .addTag(ModTags.ESSENCES)
+                .addTag(ModTags.EQUILIBRIUM)
+                .add(Items.ENCHANTED_BOOK)
                 .add(ModItems.ELEMENIC_ANALYZER.asItem())
         ;
 
@@ -249,6 +253,14 @@ public class ModItemTagProvider extends ItemTagsProvider {
                 .add(ModBlocks.ELEMENIC_INFUSER.asItem())
                 .add(ModBlocks.ELEMENIC_ENRICHER.asItem())
                 .add(ModBlocks.ELEMENIC_EJECTOR.asItem())
+        ;
+
+        tag(ModTags.IGNORED_BY_DECONSTRUCTOR_INPUT)
+                .add(ModItems.ELEMENIC_STORAGE.asItem())
+                .add(ModItems.ELEMENIC_ANALYZER.asItem())
+                .add(ModItems.ELEMENIC_MEMORIZER.asItem())
+                .add(ModItems.MEMORIZER_BOX.asItem())
+                .add(ModItems.REMOTE_ELEMENIC_STORAGE.asItem())
         ;
     }
 }

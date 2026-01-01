@@ -29,6 +29,8 @@ public class ModDataComponents {
 
     public static final Codec<Style> STYLE_CODEC = Style.CODEC;
 
+    public static final Codec<RemoteStorageBinding> REMOTE_STORAGE_BINDING_CODEC = RemoteStorageBinding.CODEC;
+
     public static final StreamCodec<RegistryFriendlyByteBuf, ElemenicStorage> ELEMENIC_STORAGE_STREAM_CODEC =
             StreamCodec.of(
                     (buf, storage) -> {
@@ -64,6 +66,9 @@ public class ModDataComponents {
 
     public static final StreamCodec<RegistryFriendlyByteBuf, Style> STYLE_STREAM_CODEC =
             Style.STREAM_CODEC;
+
+    public static final StreamCodec<RegistryFriendlyByteBuf, RemoteStorageBinding> REMOTE_STORAGE_BINDING_STREAM_CODEC =
+            RemoteStorageBinding.STREAM_CODEC;
 
     public static final StreamCodec<RegistryFriendlyByteBuf, AnalyzerUuid> ANALYZER_UUID_STREAM_CODEC =
             AnalyzerUuid.STREAM_CODEC;
@@ -102,6 +107,12 @@ public class ModDataComponents {
             REGISTRAR.registerComponentType("style", builder ->
                     builder.persistent(STYLE_CODEC)
                             .networkSynchronized(STYLE_STREAM_CODEC)
+            );
+
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<RemoteStorageBinding>> REMOTE_STORAGE_BINDING =
+            REGISTRAR.registerComponentType("remote_storage_binding", builder ->
+                    builder.persistent(REMOTE_STORAGE_BINDING_CODEC)
+                            .networkSynchronized(REMOTE_STORAGE_BINDING_STREAM_CODEC)
             );
 
     public static void register(IEventBus eventBus) {

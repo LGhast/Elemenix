@@ -14,6 +14,7 @@ public class ElemenixMapping {
         ELEMENIX_MAP.put("elemenix:metallix_essence", new Constituents(Elemenix.METALLIX, ElemenixInfo.ESSENCE_VALUE));
         ELEMENIX_MAP.put("elemenix:energix_essence", new Constituents(Elemenix.ENERGIX, ElemenixInfo.ESSENCE_VALUE));
         ELEMENIX_MAP.put("elemenix:arcanix_essence", new Constituents(Elemenix.ARCANIX, ElemenixInfo.ESSENCE_VALUE));
+        ELEMENIX_MAP.put("elemenix:nullvoid", new Constituents(0, 0, 0, 0, 0, 0));
 
         //土与沙
         ELEMENIX_MAP.put("minecraft:dirt", new Constituents(6, 18, 0, 0, 0, 0));
@@ -79,11 +80,11 @@ public class ElemenixMapping {
         ELEMENIX_MAP.put("minecraft:raw_iron", new Constituents(Elemenix.TERRIX, 225));
         ELEMENIX_MAP.put("#minecraft:iron_ores", new Constituents(Elemenix.TERRIX, 249));
         ELEMENIX_MAP.put("#c:ores/iron", new Constituents(Elemenix.TERRIX, 249));
-        ELEMENIX_MAP.put("minecraft:copper_ingot", new Constituents(0, 24, 0, 72, 0, 0));
-        ELEMENIX_MAP.put("#c:ingots/copper", new Constituents(0, 24, 0, 72, 0, 0));
-        ELEMENIX_MAP.put("minecraft:raw_copper", new Constituents(Elemenix.TERRIX, 96));
-        ELEMENIX_MAP.put("#minecraft:copper_ores", new Constituents(Elemenix.TERRIX, 120));
-        ELEMENIX_MAP.put("#c:ores/copper", new Constituents(Elemenix.TERRIX, 120));
+        ELEMENIX_MAP.put("minecraft:copper_ingot", new Constituents(0, 27, 0, 72, 0, 0));
+        ELEMENIX_MAP.put("#c:ingots/copper", new Constituents(0, 27, 0, 72, 0, 0));
+        ELEMENIX_MAP.put("minecraft:raw_copper", new Constituents(Elemenix.TERRIX, 99));
+        ELEMENIX_MAP.put("#minecraft:copper_ores", new Constituents(Elemenix.TERRIX, 123));
+        ELEMENIX_MAP.put("#c:ores/copper", new Constituents(Elemenix.TERRIX, 123));
         ELEMENIX_MAP.put("minecraft:gold_ingot", new Constituents(Elemenix.METALLIX, 432));
         ELEMENIX_MAP.put("#c:ingots/gold", new Constituents(Elemenix.METALLIX, 432));
         ELEMENIX_MAP.put("minecraft:gold_nugget", new Constituents(Elemenix.METALLIX, 48));
@@ -113,9 +114,9 @@ public class ElemenixMapping {
         ELEMENIX_MAP.put("minecraft:large_amethyst_bud", new Constituents(Elemenix.TERRIX, 900));
         ELEMENIX_MAP.put("minecraft:quartz", new Constituents(Elemenix.TERRIX, 8));
         ELEMENIX_MAP.put("minecraft:nether_quartz_ore", new Constituents(0, 27, 0, 0, 1, 0));
-        ELEMENIX_MAP.put("minecraft:exposed_copper", new Constituents(0, 346, 0, 518, 0, 0));
-        ELEMENIX_MAP.put("minecraft:weathered_copper", new Constituents(0, 540, 0, 324, 0, 0));
-        ELEMENIX_MAP.put("minecraft:oxidized_copper", new Constituents(0, 734, 0, 130, 0, 0));
+        ELEMENIX_MAP.put("minecraft:exposed_copper", new Constituents(0, 373, 0, 518, 0, 0));
+        ELEMENIX_MAP.put("minecraft:weathered_copper", new Constituents(0, 567, 0, 324, 0, 0));
+        ELEMENIX_MAP.put("minecraft:oxidized_copper", new Constituents(0, 761, 0, 130, 0, 0));
         ELEMENIX_MAP.put("#c:ores/silver", new Constituents(0, 36, 0, 324, 0, 0));
         ELEMENIX_MAP.put("#c:ingots/silver", new Constituents(0, 12, 0, 324, 0, 0));
         ELEMENIX_MAP.put("#c:raw_materials/silver", new Constituents(0, 12, 0, 324, 0, 0));
@@ -253,7 +254,7 @@ public class ElemenixMapping {
         ELEMENIX_MAP.put("minecraft:magma_cream", new Constituents(0, 12, 0, 0, 30, 2));
         ELEMENIX_MAP.put("minecraft:ender_pearl", new Constituents(0, 20, 0, 0, 0, 160));
         ELEMENIX_MAP.put("minecraft:shulker_shell", new Constituents(0, 128, 0, 0, 0, 20));
-        ELEMENIX_MAP.put("minecraft:nether_star", new Constituents(0, 512, 32, 0, 20240, 4096));
+        ELEMENIX_MAP.put("minecraft:nether_star", new Constituents(0, 5120, 0, 0, 20240, 4096));
         ELEMENIX_MAP.put("minecraft:dragon_egg", new Constituents(1280, 1024, 1280, 0, 14400, 14400));
         ELEMENIX_MAP.put("minecraft:dragon_breath", new Constituents(0, 8, 60, 0, 10, 50));
         ELEMENIX_MAP.put("minecraft:skeleton_skull", new Constituents(0, 360, 0, 0, 0, 10));

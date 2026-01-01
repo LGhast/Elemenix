@@ -3,6 +3,7 @@ package net.lghast.elemenix.common.system.menu;
 import net.lghast.elemenix.common.content.block.EnricherBlock;
 import net.lghast.elemenix.common.content.blockentity.EnricherBlockEntity;
 import net.lghast.elemenix.register.system.ModMenus;
+import net.lghast.elemenix.register.system.ModTags;
 import net.lghast.elemenix.utils.ElemenixInfo;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
@@ -121,7 +122,7 @@ public class EnricherMenu extends AbstractContainerMenu {
     }
 
     private boolean isValidForInputSlot(ItemStack stack) {
-        return !ElemenixInfo.getConstituents(stack).isUnanalysable();
+        return !ElemenixInfo.isUnanalysable(stack) && !stack.is(ModTags.IGNORED_BY_DECONSTRUCTOR_INPUT);
     }
 
     @Override

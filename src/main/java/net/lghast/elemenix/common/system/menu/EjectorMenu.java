@@ -4,6 +4,7 @@ import net.lghast.elemenix.common.content.block.EjectorBlock;
 import net.lghast.elemenix.common.content.blockentity.EjectorBlockEntity;
 import net.lghast.elemenix.register.content.ModItems;
 import net.lghast.elemenix.register.system.ModMenus;
+import net.lghast.elemenix.register.system.ModTags;
 import net.lghast.elemenix.utils.ElemenixInfo;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
@@ -142,7 +143,7 @@ public class EjectorMenu extends AbstractContainerMenu {
     }
 
     private boolean isValidForInputSlot(ItemStack stack) {
-        return !ElemenixInfo.getConstituents(stack).isUnanalysable();
+        return !ElemenixInfo.isUnanalysable(stack) && !stack.is(ModTags.IGNORED_BY_DECONSTRUCTOR_INPUT);
     }
 
     @Override

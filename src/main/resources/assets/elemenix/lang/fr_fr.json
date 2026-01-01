@@ -29,6 +29,10 @@
   "advancements.elemenix.obtain_flow_straightener.description": "Obtenez un redresseur d'écoulement.",
   "advancements.elemenix.obtain_memory_burner.title": "Graveur de Mémoire",
   "advancements.elemenix.obtain_memory_burner.description": "Obtenez un graveur de mémoire pour modifier la liste d'objets dans votre disque de mémoire",
+  "advancements.elemenix.obtain_storage.title": "Entrepôt Minuscule",
+  "advancements.elemenix.obtain_storage.description": "Fabriquez un réservoir d'élémentium pour recevoir l'élémentium dans une tour d'injection et le transférer à l'analyseur",
+  "advancements.elemenix.obtain_remote_storage.title": "La télécommande a encore disparu...",
+  "advancements.elemenix.obtain_remote_storage.description": "Fabriquez un réservoir d'élémentium à distance qui peut se lier à un réservoir d'élémentium dans une tour d'injection pour accéder à distance aux réserves d'élémentium",
 
   "creativetab.elemenix.elemenix": "Élémentiologie",
 
@@ -43,6 +47,8 @@
 
   "item.elemenix.elemenic_analyzer": "Analyseur d'Élémentium",
   "item.elemenix.elemenic_memorizer": "Disque de Mémoire Élémentaire",
+  "item.elemenix.elemenic_storage": "Réservoir d'Élémentium",
+  "item.elemenix.remote_elemenic_storage": "Réservoir d'Élémentium à Distance",
   "item.elemenix.elemenic_memorizer.style.white": "Blanc",
   "item.elemenix.elemenic_memorizer.style.red": "Rouge",
   "item.elemenix.elemenic_memorizer.style.orange": "Orange",
@@ -128,9 +134,26 @@
   "tooltip.elemenix.readonly": "Lecture Seule",
   "tooltip.elemenix.style": "Style: %s",
   "tooltip.elemenix.valve_opening": "Ouverture de la Valve: %s",
+  "tooltip.elemenix.remote_storage.bound_to": "Lié à : %d, %d, %d (%s)",
+  "tooltip.elemenix.remote_storage.bound_valid": "Connexion valide",
+  "tooltip.elemenix.remote_storage.invalid": "Connexion invalide ou réservoir vide",
+  "tooltip.elemenix.remote_storage.not_bound": "Non lié",
+  "tooltip.elemenix.remote_storage.usage": "Clic-droit en s'accroupissant sur un bloc de tour d'injection pour lier",
+  "tooltip.elemenix.remote_storage.loading": "Chargement...",
+  "tooltip.elemenix.remote_storage.dimension_mismatch": "Impossible d'utiliser entre les dimensions",
+
+  "message.remote_storage.bound": "Lié aux coordonnées (%d, %d, %d)",
 
   "key.categories.elemenics": "Élémentiologie",
   "key.elemenix.open_memorizer_box": "Ouvrir la Boîte à Disques de Mémoire",
+
+  "tag.item.elemenix.essences": "Essences d'Élémentium",
+  "tag.item.elemenix.equilibrium": "Équilibre Élémentaire",
+  "tag.item.elemenix.vinyl_discs": "Disques Vinyle",
+  "tag.item.elemenix.elemenic_transformers": "Transformateurs d'Élémentium",
+  "tag.item.elemenix.elemenic_deconstructors": "Tours de Déconstruction d'Élémentium",
+  "tag.block.elemenix.elemenic_transformers": "Transformateurs d'Élémentium",
+  "tag.block.elemenix.elemenic_deconstructors": "Tours de Déconstruction d'Élémentium",
 
   "jei.category.elemenix.enriching": "Enrichissement",
   "jei.category.elemenix.transforming": "Transformation Élémentaire"

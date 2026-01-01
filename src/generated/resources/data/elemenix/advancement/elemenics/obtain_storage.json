@@ -1,0 +1,34 @@
+{
+  "parent": "elemenix:elemenics/obtain_infuser",
+  "criteria": {
+    "get_storage": {
+      "conditions": {
+        "items": [
+          {
+            "items": "elemenix:elemenic_storage"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.elemenix.obtain_storage.description"
+    },
+    "hidden": true,
+    "icon": {
+      "count": 1,
+      "id": "elemenix:elemenic_storage"
+    },
+    "title": {
+      "translate": "advancements.elemenix.obtain_storage.title"
+    }
+  },
+  "requirements": [
+    [
+      "get_storage"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

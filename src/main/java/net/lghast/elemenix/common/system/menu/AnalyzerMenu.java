@@ -1,9 +1,13 @@
 package net.lghast.elemenix.common.system.menu;
 
+import net.lghast.elemenix.common.content.blockentity.InfuserBlockEntity;
 import net.lghast.elemenix.common.content.item.AnalyzerItem;
 import net.lghast.elemenix.common.content.item.MemorizerItem;
+import net.lghast.elemenix.common.content.item.RemoteStorageItem;
+import net.lghast.elemenix.common.content.item.StorageItem;
 import net.lghast.elemenix.common.system.datacomponent.ElemenicStorage;
 import net.lghast.elemenix.common.system.datacomponent.MemoryData;
+import net.lghast.elemenix.common.system.datacomponent.RemoteStorageBinding;
 import net.lghast.elemenix.register.content.ModItems;
 import net.lghast.elemenix.register.system.ModDataComponents;
 import net.lghast.elemenix.register.system.ModMenus;
@@ -12,22 +16,27 @@ import net.lghast.elemenix.utils.Constituents;
 import net.lghast.elemenix.utils.Elemenix;
 import net.lghast.elemenix.utils.ElemenixInfo;
 import net.lghast.elemenix.utils.LongContainerData;
+import net.minecraft.core.GlobalPos;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.network.protocol.game.ClientboundContainerSetSlotPacket;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.Container;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
-import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @ParametersAreNonnullByDefault
@@ -143,6 +152,17 @@ public class AnalyzerMenu extends AbstractContainerMenu {
             List<ResourceLocation> itemMemory = MemorizerItem.getOrCreateMemories(memorizerItem).resolvedItems();
             memorizerItem.set(ModDataComponents.MEMORY_DATA.get(), new MemoryData(itemMemory));
         }
+
+        if (!player.level().isClientSide && player instanceof ServerPlayer serverPlayer) {
+            serverPlayer.connection.send(
+                    new ClientboundContainerSetSlotPacket(
+                            containerId,
+                            serverPlayer.containerMenu.incrementStateId(),
+                            INPUT_SLOT,
+                            analyzerContainer.getItem(INPUT_SLOT)
+                    )
+            );
+        }
     }
 
     public ItemStack getInputItem() {
@@ -165,6 +185,34 @@ public class AnalyzerMenu extends AbstractContainerMenu {
         ItemStack inputStack = getInputItem();
         if (inputStack.isEmpty()) return;
 
+        if (inputStack.getItem() instanceof RemoteStorageItem) {
+            if (RemoteStorageItem.isBound(inputStack)) {
+                if (player.level() instanceof ServerLevel serverLevel) {
+                    ElemenicStorage remoteStorage = RemoteStorageItem.getRemoteStorage(inputStack, serverLevel);
+                    if (!remoteStorage.isEmpty()) {
+                        transferFromRemoteStorage(remoteStorage);
+                    }
+                }
+            } else {
+                regularlyDeconstruct(inputStack);
+            }
+            return;
+        }
+
+        if (inputStack.is(ModItems.ELEMENIC_STORAGE)) {
+            ElemenicStorage storageData = StorageItem.getOrCreateData(inputStack);
+
+            if (storageData.isEmpty()) {
+                regularlyDeconstruct(inputStack);
+            } else {
+                transferStorage(inputStack, storageData);
+            }
+            return;
+        }
+        regularlyDeconstruct(inputStack);
+    }
+
+    private void regularlyDeconstruct(ItemStack inputStack) {
         Constituents constituents = ElemenixInfo.getDiscountAppliedConstituents(inputStack);
         if (constituents.isUnanalysable()) return;
 
@@ -176,26 +224,131 @@ public class AnalyzerMenu extends AbstractContainerMenu {
                 data.setLong(type.getIndex(), newValue);
             }
         }
-
-        ResourceLocation itemId = BuiltInRegistries.ITEM.getKey(inputStack.getItem());
-
-        ItemStack memorizerStack = getMemorizerItem();
-        if(!MemorizerItem.isReadonly(memorizerStack) && MemorizerItem.isNotFull(memorizerStack)){
-            MemoryData currentMemoryData = MemorizerItem.getOrCreateMemories(memorizerStack);
-            List<ResourceLocation> currentMemories = currentMemoryData.resolvedItems();
-            if (!inputStack.is(ModTags.ANALYZER_UNRECORDABLE) && !currentMemories.contains(itemId)) {
-                List<ResourceLocation> newMemories = new ArrayList<>(currentMemories);
-                newMemories.add(itemId);
-
-                memorizerStack.set(ModDataComponents.MEMORY_DATA.get(), currentMemoryData.withResolvedItems(newMemories));
-                slots.get(MEMORIZER_SLOT).setChanged();
-            }
-        }
+        recordToMemorizer(inputStack);
 
         analyzerContainer.setItem(INPUT_SLOT, ItemStack.EMPTY);
 
         saveStorageAndMemoryData();
         broadcastChanges();
+    }
+
+    private void transferStorage(ItemStack storageStack, ElemenicStorage storageData) {
+        long[] storageElemenix = storageData.elemenix();
+        long[] analyzerElemenix = new long[6];
+
+        for (int i = 0; i < 6; i++) {
+            analyzerElemenix[i] = data.getLong(i);
+        }
+
+        boolean anyTransferred = false;
+
+        for (int i = 0; i < 6; i++) {
+            long storageAmount = storageElemenix[i];
+            if (storageAmount <= 0) continue;
+
+            long analyzerAmount = analyzerElemenix[i];
+            long maxTransfer = Long.MAX_VALUE - analyzerAmount;
+
+            if (maxTransfer <= 0) {
+                continue;
+            }
+
+            long transferAmount = Math.min(storageAmount, maxTransfer);
+            data.setLong(i, analyzerAmount + transferAmount);
+            storageElemenix[i] -= transferAmount;
+
+            anyTransferred = true;
+        }
+
+        if (anyTransferred) {
+            storageStack.set(ModDataComponents.ELEMENIC_STORAGE.get(), new ElemenicStorage(storageElemenix));
+            getSlot(INPUT_SLOT).setChanged();
+            saveStorageAndMemoryData();
+            broadcastChanges();
+        }
+    }
+
+    private void transferFromRemoteStorage(ElemenicStorage remoteStorage) {
+        long[] remoteElemenix = remoteStorage.elemenix();
+        long[] analyzerElemenix = new long[6];
+
+        for (int i = 0; i < 6; i++) {
+            analyzerElemenix[i] = data.getLong(i);
+        }
+
+        boolean anyTransferred = false;
+
+        for (int i = 0; i < 6; i++) {
+            long remoteAmount = remoteElemenix[i];
+            if (remoteAmount <= 0) continue;
+
+            long analyzerAmount = analyzerElemenix[i];
+            long maxTransfer = Long.MAX_VALUE - analyzerAmount;
+
+            if (maxTransfer <= 0) {
+                continue;
+            }
+
+            long transferAmount = Math.min(remoteAmount, maxTransfer);
+            data.setLong(i, analyzerAmount + transferAmount);
+            updateRemoteStorage(i, transferAmount);
+
+            anyTransferred = true;
+        }
+
+        if (anyTransferred) {
+            saveStorageAndMemoryData();
+            broadcastChanges();
+        }
+    }
+
+    private void updateRemoteStorage(int index, long amount) {
+        ItemStack remoteStack = getInputItem();
+        RemoteStorageBinding binding = remoteStack.get(ModDataComponents.REMOTE_STORAGE_BINDING.get());
+
+        if (binding == null || !binding.isBound() || !(player.level() instanceof ServerLevel serverLevel)) return;
+
+        Optional<GlobalPos> globalPosOptional = binding.boundPos();
+        if(globalPosOptional.isEmpty()) return;
+
+        GlobalPos globalPos = globalPosOptional.get();
+
+        if (serverLevel.dimension() != globalPos.dimension()) return;
+
+        BlockEntity blockEntity = serverLevel.getBlockEntity(globalPos.pos());
+        if (!(blockEntity instanceof InfuserBlockEntity infuser)) return;
+
+        ItemStack storageStack = infuser.getItem(0);
+        if (!(storageStack.getItem() instanceof StorageItem)) return;
+
+        ElemenicStorage currentStorage = StorageItem.getOrCreateData(storageStack);
+        long[] newElemenix = currentStorage.elemenix().clone();
+
+        if (newElemenix[index] >= amount) {
+            newElemenix[index] -= amount;
+            storageStack.set(ModDataComponents.ELEMENIC_STORAGE.get(), new ElemenicStorage(newElemenix));
+            infuser.setChanged();
+        }
+    }
+
+    private void recordToMemorizer(ItemStack inputStack) {
+        ResourceLocation itemId = BuiltInRegistries.ITEM.getKey(inputStack.getItem());
+
+        ItemStack memorizerStack = getMemorizerItem();
+        if(!MemorizerItem.isReadonly(memorizerStack) &&
+                MemorizerItem.isNotFull(memorizerStack)){
+            MemoryData currentMemoryData = MemorizerItem.getOrCreateMemories(memorizerStack);
+            List<ResourceLocation> currentMemories = currentMemoryData.resolvedItems();
+            if (!inputStack.is(ModTags.ANALYZER_UNRECORDABLE) &&
+                    !currentMemories.contains(itemId)) {
+                List<ResourceLocation> newMemories = new ArrayList<>(currentMemories);
+                newMemories.add(itemId);
+
+                memorizerStack.set(ModDataComponents.MEMORY_DATA.get(),
+                        currentMemoryData.withResolvedItems(newMemories));
+                slots.get(MEMORIZER_SLOT).setChanged();
+            }
+        }
     }
 
     public void reconstructItem(ResourceLocation itemId, boolean shiftClick) {

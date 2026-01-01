@@ -33,9 +33,7 @@ public class ElemenixInfo {
             reloadFromConfig();
         }
         handleMap(ADDITIONAL_MAP);
-
         loadModMappings();
-
         handleMap(ELEMENIX_MAP);
 
         isInitialized = true;
@@ -62,14 +60,14 @@ public class ElemenixInfo {
                     TagKey<Item> tagKey = TagKey.create(BuiltInRegistries.ITEM.key(), tagLocation);
                     TAG_MAP.put(tagKey, value);
                 } catch (Exception e) {
-                    LOGGER.warn("Invalid tag ID: {}", key);
+                    LOGGER.info("Unknown tag ID: {}", key);
                 }
             } else {
                 Item item = ModUtils.getItemFromString(key);
                 if (item != null) {
                     ITEM_CACHE.put(item, value);
                 } else {
-                    LOGGER.warn("Unknown item: {}", key);
+                    LOGGER.info("Unknown item: {}", key);
                 }
             }
         }
@@ -188,7 +186,7 @@ public class ElemenixInfo {
                     Map<String, Constituents> modMap = ModElemenixMapping.getModMappings(modId);
                     handleMap(modMap);
                 } catch (Exception e) {
-                    LOGGER.error("Failed to load compatibility mappings for mod: {}", modId, e);
+                    LOGGER.info("Failed to load compatibility mappings for mod: {}", modId, e);
                 }
             }
         }

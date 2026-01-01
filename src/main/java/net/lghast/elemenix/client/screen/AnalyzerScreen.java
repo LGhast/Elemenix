@@ -1,16 +1,25 @@
 package net.lghast.elemenix.client.screen;
 
+import net.lghast.elemenix.client.misc.ClientInfuserDataCache;
+import net.lghast.elemenix.common.content.item.RemoteStorageItem;
+import net.lghast.elemenix.common.content.item.StorageItem;
+import net.lghast.elemenix.common.system.datacomponent.ElemenicStorage;
+import net.lghast.elemenix.common.system.datacomponent.RemoteStorageBinding;
 import net.lghast.elemenix.common.system.menu.AnalyzerMenu;
 import net.lghast.elemenix.network.DeconstructionPayload;
+import net.lghast.elemenix.network.RequestInfuserUpdatePayload;
+import net.lghast.elemenix.register.content.ModItems;
+import net.lghast.elemenix.register.system.ModDataComponents;
 import net.lghast.elemenix.utils.*;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
+import net.minecraft.client.multiplayer.ClientLevel;
+import net.minecraft.core.GlobalPos;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
-import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
@@ -163,19 +172,91 @@ public class AnalyzerScreen extends AbstractContainerScreen<AnalyzerMenu> {
         }
 
         if (!inputStack.isEmpty()) {
-            Constituents constituents = ElemenixInfo.getDiscountAppliedConstituents(inputStack);
-            if (constituents.isUnanalysable()) return;
-
-            Elemenix[] types = Elemenix.values();
-            for (int i = 0; i < types.length; i++) {
-                int amount = constituents.get(types[i]) * inputStack.getCount();
-                if (amount > 0) {
-                    String previewText = ModUtils.formatNumber(amount, "+%s");
-                    graphics.drawString(this.font, previewText, x + PREVIEW_X, y + VALUE_START_Y + i * VALUE_SPACING,
-                            0xCC9900, false);
+            if (inputStack.is(ModItems.REMOTE_ELEMENIC_STORAGE)) {
+                if (RemoteStorageItem.isBound(inputStack)) {
+                    renderRemoteStoragePreview(graphics, inputStack, x, y);
+                } else {
+                    renderRegularItemPreview(graphics, inputStack, x, y);
                 }
+            } else if (inputStack.is(ModItems.ELEMENIC_STORAGE)) {
+                ElemenicStorage storageData = StorageItem.getOrCreateData(inputStack);
+
+                if (storageData.isEmpty()) {
+                    renderRegularItemPreview(graphics, inputStack, x, y);
+                } else {
+                    renderStorageTransferPreview(graphics, storageData, x, y);
+                }
+            } else {
+                renderRegularItemPreview(graphics, inputStack, x, y);
             }
         }
+    }
+
+    private void renderRegularItemPreview(GuiGraphics graphics, ItemStack inputStack, int x, int y) {
+        Constituents constituents = ElemenixInfo.getDiscountAppliedConstituents(inputStack);
+        if (constituents.isUnanalysable()) return;
+
+        Elemenix[] types = Elemenix.values();
+        for (int i = 0; i < types.length; i++) {
+            int amount = constituents.get(types[i]) * inputStack.getCount();
+            if (amount > 0) {
+                String previewText = ModUtils.formatNumber(amount, "+%s");
+                graphics.drawString(this.font, previewText, x + PREVIEW_X, y + VALUE_START_Y + i * VALUE_SPACING,
+                        0xCC9900, false);
+            }
+        }
+    }
+
+    private void renderStorageTransferPreview(GuiGraphics graphics, ElemenicStorage storageData, int x, int y) {
+        Elemenix[] types = Elemenix.values();
+        LongContainerData containerData = menu.getLongContainerData();
+
+        long[] elemenix = storageData.elemenix();
+
+        for (int i = 0; i < types.length; i++) {
+            long storageAmount = elemenix[i];
+            if (storageAmount <= 0) continue;
+            long analyzerAmount = containerData.getLong(i);
+            long maxTransfer = Long.MAX_VALUE - analyzerAmount;
+
+            long actualTransfer;
+            if (maxTransfer <= 0) {
+                actualTransfer = 0;
+            } else {
+                actualTransfer = Math.min(storageAmount, maxTransfer);
+            }
+
+            if (actualTransfer > 0) {
+                String previewText = ModUtils.formatNumber(actualTransfer, "+%s");
+                graphics.drawString(this.font, previewText, x + PREVIEW_X, y + VALUE_START_Y + i * VALUE_SPACING,
+                        0x4AF3FD, false);
+            }
+        }
+    }
+
+    private void renderRemoteStoragePreview(GuiGraphics graphics, ItemStack remoteStack, int x, int y) {
+        if(minecraft == null) return;
+        if (!(minecraft.level instanceof ClientLevel clientLevel)) return;
+
+        RemoteStorageBinding binding = remoteStack.get(ModDataComponents.REMOTE_STORAGE_BINDING.get());
+        if (binding == null || !binding.isBound()) return;
+
+        Optional<GlobalPos> globalPosOptional = binding.boundPos();
+        if (globalPosOptional.isEmpty()) return;
+
+        GlobalPos globalPos = globalPosOptional.get();
+        if (clientLevel.dimension() != globalPos.dimension()) return;
+
+        Optional<long[]> cachedData = ClientInfuserDataCache.getCachedData(globalPos);
+        if (cachedData.isPresent()) {
+            ElemenicStorage storageData = new ElemenicStorage(cachedData.get());
+            if (!storageData.isEmpty()) {
+                renderStorageTransferPreview(graphics, storageData, x, y);
+                return;
+            }
+        }
+
+        PacketDistributor.sendToServer(new RequestInfuserUpdatePayload(globalPos));
     }
 }
 

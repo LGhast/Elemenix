@@ -29,6 +29,10 @@
   "advancements.elemenix.obtain_flow_straightener.description": "Получите выпрямитель потока",
   "advancements.elemenix.obtain_memory_burner.title": "Обычный Прожигатель",
   "advancements.elemenix.obtain_memory_burner.description": "Получите прожигатель памяти для изменения списка предметов на диске элементной памяти",
+  "advancements.elemenix.obtain_storage.title": "Микроскопический Склад",
+  "advancements.elemenix.obtain_storage.description": "Создайте элементное хранилище для получения элеменции в башне инъекции и передачи её в анализатор",
+  "advancements.elemenix.obtain_remote_storage.title": "Пульт снова пропал...",
+  "advancements.elemenix.obtain_remote_storage.description": "Создайте удалённое элементное хранилище, которое может связаться с элементным хранилищем в башне инъекции для удалённого доступа к запасам элеменции",
 
   "creativetab.elemenix.elemenix": "Элеменциология",
 
@@ -43,6 +47,8 @@
 
   "item.elemenix.elemenic_analyzer": "Анализатор Элеменции",
   "item.elemenix.elemenic_memorizer": "Диск Элементной Памяти",
+  "item.elemenix.elemenic_storage": "Элементное Хранилище",
+  "item.elemenix.remote_elemenic_storage": "Удалённое Элементное Хранилище",
   "item.elemenix.elemenic_memorizer.style.white": "Белый",
   "item.elemenix.elemenic_memorizer.style.red": "Красный",
   "item.elemenix.elemenic_memorizer.style.orange": "Оранжевый",
@@ -128,9 +134,26 @@
   "tooltip.elemenix.readonly": "Только Для Чтения",
   "tooltip.elemenix.style": "Стиль: %s",
   "tooltip.elemenix.valve_opening": "Открытие клапана: %s",
+  "tooltip.elemenix.remote_storage.bound_to": "Привязано к: %d, %d, %d (%s)",
+  "tooltip.elemenix.remote_storage.bound_valid": "Связь активна",
+  "tooltip.elemenix.remote_storage.invalid": "Связь прервана или хранилище пусто",
+  "tooltip.elemenix.remote_storage.not_bound": "Не привязано",
+  "tooltip.elemenix.remote_storage.usage": "Присев, нажмите ПКМ на блок башни инъекции для привязки",
+  "tooltip.elemenix.remote_storage.loading": "Загрузка...",
+  "tooltip.elemenix.remote_storage.dimension_mismatch": "Нельзя использовать между измерениями",
+
+  "message.remote_storage.bound": "Привязано к координатам (%d, %d, %d)",
 
   "key.categories.elemenics": "Элеменциология",
   "key.elemenix.open_memorizer_box": "Открыть Коробку для Дисков Памяти",
+
+  "tag.item.elemenix.essences": "Эссенции Элеменции",
+  "tag.item.elemenix.equilibrium": "Элементное Равновесие",
+  "tag.item.elemenix.vinyl_discs": "Виниловые Пластинки",
+  "tag.item.elemenix.elemenic_transformers": "Преобразователи Элеменции",
+  "tag.item.elemenix.elemenic_deconstructors": "Башни Деконструкции Элеменции",
+  "tag.block.elemenix.elemenic_transformers": "Преобразователи Элеменции",
+  "tag.block.elemenix.elemenic_deconstructors": "Башни Деконструкции Элеменции",
 
   "jei.category.elemenix.enriching": "Обогащение",
   "jei.category.elemenix.transforming": "Элементное Преобразование"

@@ -1,0 +1,35 @@
+{
+  "parent": "elemenix:elemenics/obtain_storage",
+  "criteria": {
+    "get_remote_storage": {
+      "conditions": {
+        "items": [
+          {
+            "items": "elemenix:remote_elemenic_storage"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.elemenix.obtain_remote_storage.description"
+    },
+    "frame": "goal",
+    "hidden": true,
+    "icon": {
+      "count": 1,
+      "id": "elemenix:remote_elemenic_storage"
+    },
+    "title": {
+      "translate": "advancements.elemenix.obtain_remote_storage.title"
+    }
+  },
+  "requirements": [
+    [
+      "get_remote_storage"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

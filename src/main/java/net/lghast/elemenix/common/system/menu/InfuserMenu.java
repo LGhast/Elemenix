@@ -2,8 +2,9 @@ package net.lghast.elemenix.common.system.menu;
 
 import net.lghast.elemenix.common.content.block.InfuserBlock;
 import net.lghast.elemenix.common.content.blockentity.InfuserBlockEntity;
-import net.lghast.elemenix.register.content.ModItems;
+import net.lghast.elemenix.common.content.item.StorageItem;
 import net.lghast.elemenix.register.system.ModMenus;
+import net.lghast.elemenix.register.system.ModTags;
 import net.lghast.elemenix.utils.ElemenixInfo;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
@@ -19,7 +20,6 @@ import javax.annotation.ParametersAreNonnullByDefault;
 public class InfuserMenu extends AbstractContainerMenu {
     private final InfuserBlockEntity blockEntity;
     private final ContainerData data;
-
 
     public InfuserMenu(int containerId, Inventory playerInventory, InfuserBlockEntity blockEntity) {
         super(ModMenus.INFUSER_MENU.get(), containerId);
@@ -42,7 +42,7 @@ public class InfuserMenu extends AbstractContainerMenu {
                 InfuserBlock block = blockEntity.getInfuserBlock();
                 if (block == null) return false;
 
-                return stack.is(ModItems.ELEMENIC_ANALYZER);
+                return stack.getItem() instanceof StorageItem;
             }
         });
 
@@ -52,7 +52,7 @@ public class InfuserMenu extends AbstractContainerMenu {
                 InfuserBlock block = blockEntity.getInfuserBlock();
                 if (block == null) return false;
 
-                return !ElemenixInfo.getConstituents(stack).isUnanalysable();
+                return isValidForInputSlot(stack);
             }
         });
 
@@ -81,9 +81,8 @@ public class InfuserMenu extends AbstractContainerMenu {
                     return ItemStack.EMPTY;
                 }
             } else {
-                ItemStack tempStack = slotStack.copy();
-                if (slots.get(0).mayPlace(tempStack) && !this.moveItemStackTo(slotStack, 0, 1, false)) {
-                    if (slots.get(1).mayPlace(tempStack) && !this.moveItemStackTo(slotStack, 1, 2, false)) {
+                if (!this.moveItemStackTo(slotStack, 0, 1, false)) {
+                    if (!this.moveItemStackTo(slotStack, 1, 2, false)) {
                         if (index < 29) {
                             if (!this.moveItemStackTo(slotStack, 29, 38, false)) {
                                 return ItemStack.EMPTY;
@@ -124,5 +123,9 @@ public class InfuserMenu extends AbstractContainerMenu {
 
     public ContainerData getData() {
         return data;
+    }
+
+    private boolean isValidForInputSlot(ItemStack stack) {
+        return !ElemenixInfo.isUnanalysable(stack) && !stack.is(ModTags.IGNORED_BY_DECONSTRUCTOR_INPUT);
     }
 }

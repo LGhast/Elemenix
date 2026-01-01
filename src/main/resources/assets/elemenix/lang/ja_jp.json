@@ -29,6 +29,10 @@
   "advancements.elemenix.obtain_flow_straightener.description": "整流グリルを入手する",
   "advancements.elemenix.obtain_memory_burner.title": "ただのCDバーナー",
   "advancements.elemenix.obtain_memory_burner.description": "メモリーバーナーを入手し、メモリーディスク内のアイテムリストを変更する",
+  "advancements.elemenix.obtain_storage.title": "微小倉庫",
+  "advancements.elemenix.obtain_storage.description": "元質ストレージを製作する。注入塔で元質を受け取り、アナライザーに転送する",
+  "advancements.elemenix.obtain_remote_storage.title": "再び行方不明のリモート…",
+  "advancements.elemenix.obtain_remote_storage.description": "リモート元質ストレージを製作する。注入塔内の元質ストレージにバインドし、遠隔で元質を呼び出せる",
 
   "creativetab.elemenix.elemenix": "元質学",
 
@@ -44,6 +48,8 @@
   "item.elemenix.elemenic_analyzer": "元質アナライザー",
   "item.elemenix.elemenic_memorizer": "元質メモリーディスク",
   "item.elemenix.fondant_cake": "フォンダンケーキ",
+  "item.elemenix.elemenic_storage": "元質ストレージ",
+  "item.elemenix.remote_elemenic_storage": "リモート元質ストレージ",
   "item.elemenix.organix_essence": "有機純質",
   "item.elemenix.terrix_essence": "鉱化純質",
   "item.elemenix.flumix_essence": "流体純質",
@@ -128,9 +134,26 @@
   "tooltip.elemenix.readonly": "読み取り専用",
   "tooltip.elemenix.style": "スタイル：%s",
   "tooltip.elemenix.valve_opening": "バルブ開度：%s",
+  "tooltip.elemenix.remote_storage.bound_to": "バインド先: %d, %d, %d (%s)",
+  "tooltip.elemenix.remote_storage.bound_valid": "接続有効",
+  "tooltip.elemenix.remote_storage.invalid": "接続無効 または ストレージ空",
+  "tooltip.elemenix.remote_storage.not_bound": "未バインド",
+  "tooltip.elemenix.remote_storage.usage": "シフト右クリックで元質注入塔ブロックにバインド",
+  "tooltip.elemenix.remote_storage.loading": "読み込み中…",
+  "tooltip.elemenix.remote_storage.dimension_mismatch": "異次元間では使用不可",
+
+  "message.remote_storage.bound": "座標 (%d, %d, %d) にバインドしました",
 
   "key.categories.elemenics": "元質学",
   "key.elemenix.open_memorizer_box": "メモリーディスクボックスを開く",
+
+  "tag.item.elemenix.essences": "元質純質",
+  "tag.item.elemenix.equilibrium": "元質均衡体",
+  "tag.item.elemenix.vinyl_discs": "レコードディスク",
+  "tag.item.elemenix.elemenic_transformers": "元質変換装置",
+  "tag.item.elemenix.elemenic_deconstructors": "元質分解塔",
+  "tag.block.elemenix.elemenic_transformers": "元質変換装置",
+  "tag.block.elemenix.elemenic_deconstructors": "元質分解塔",
 
   "jei.category.elemenix.enriching": "富集",
   "jei.category.elemenix.transforming": "元質変換"

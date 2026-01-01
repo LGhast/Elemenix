@@ -9,9 +9,9 @@ import net.lghast.elemenix.register.system.ModMenus;
 import net.lghast.elemenix.utils.Constituents;
 import net.lghast.elemenix.utils.ElemenixInfo;
 import net.lghast.elemenix.utils.ModUtils;
-import net.lghast.elemenix.utils.RecipeHelper;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -30,11 +30,16 @@ import java.util.List;
 import java.util.Objects;
 
 @OnlyIn(Dist.CLIENT)
+@SuppressWarnings("unused")
 @EventBusSubscriber(modid = Elemenics.MOD_ID)
 public class ClientEventHandler {
     @SubscribeEvent
     public static void onItemTooltip(ItemTooltipEvent event) {
         ItemStack stack = event.getItemStack();
+
+        if(ClientConfig.SHOW_CONSTITUENT_TOOLTIPS_WHEN_SHIFT.get() && !Screen.hasShiftDown()) {
+            return;
+        }
 
         if(ClientConfig.SHOW_CONSTITUENT_TOOLTIPS.get() && !stack.is(ModItems.ELEMENIC_ANALYZER)) {
             Constituents constituents = ElemenixInfo.getConstituents(stack);
@@ -101,6 +106,9 @@ public class ClientEventHandler {
                 .playToServer(BurnerSwapPayload.TYPE, BurnerSwapPayload.STREAM_CODEC, BurnerSwapPayload::handle)
                 .playToServer(BurnerActionPayload.TYPE, BurnerActionPayload.STREAM_CODEC, BurnerActionPayload::handle)
                 .playToServer(BurnerInsertBeforePayload.TYPE, BurnerInsertBeforePayload.STREAM_CODEC, BurnerInsertBeforePayload::handle);
+
+        registrar.playToServer(RequestInfuserUpdatePayload.TYPE, RequestInfuserUpdatePayload.STREAM_CODEC, RequestInfuserUpdatePayload::handle)
+                .playToClient(InfuserDataUpdatePayload.TYPE, InfuserDataUpdatePayload.STREAM_CODEC, InfuserDataUpdatePayload::handle);
     }
 
     @SubscribeEvent

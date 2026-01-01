@@ -5,7 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": "elemenix:elemenic_equilibrium"
+            "items": "#elemenix:equilibrium"
           }
         ]
       },

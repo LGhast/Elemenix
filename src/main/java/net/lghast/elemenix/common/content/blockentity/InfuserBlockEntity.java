@@ -2,21 +2,26 @@ package net.lghast.elemenix.common.content.blockentity;
 
 import net.lghast.elemenix.Elemenics;
 import net.lghast.elemenix.common.content.block.InfuserBlock;
-import net.lghast.elemenix.common.content.item.AnalyzerItem;
+import net.lghast.elemenix.common.content.item.RemoteStorageItem;
+import net.lghast.elemenix.common.content.item.StorageItem;
 import net.lghast.elemenix.common.system.datacomponent.ElemenicStorage;
+import net.lghast.elemenix.common.system.datacomponent.RemoteStorageBinding;
 import net.lghast.elemenix.common.system.menu.InfuserMenu;
+import net.lghast.elemenix.network.InfuserDataUpdatePayload;
 import net.lghast.elemenix.register.content.ModBlockEntities;
-import net.lghast.elemenix.register.content.ModItems;
 import net.lghast.elemenix.register.system.ModDataComponents;
 import net.lghast.elemenix.utils.Constituents;
 import net.lghast.elemenix.utils.Elemenix;
 import net.lghast.elemenix.utils.ElemenixInfo;
 import net.lghast.elemenix.utils.ModUtils;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.GlobalPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.ContainerHelper;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.AbstractContainerMenu;
@@ -26,14 +31,16 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BaseContainerBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.neoforged.neoforge.network.PacketDistributor;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.Arrays;
+import java.util.Objects;
 
 @ParametersAreNonnullByDefault
 public class InfuserBlockEntity extends BaseContainerBlockEntity {
-    private static final int ANALYZER_SLOT = 0;
+    private static final int STORAGE_SLOT = 0;
     private static final int INPUT_SLOT = 1;
     private static final int SLOT_COUNT = 2;
 
@@ -139,7 +146,7 @@ public class InfuserBlockEntity extends BaseContainerBlockEntity {
             InfuserBlock block = getInfuserBlock();
 
             if (infusionTimer >= block.getInfusionInterval()) {
-                infuseToAnalyzer();
+                infuse();
                 infusionTimer = 0;
             }
             isWorking = true;
@@ -178,10 +185,8 @@ public class InfuserBlockEntity extends BaseContainerBlockEntity {
     }
 
     private boolean canInfuse() {
-        ItemStack analyzerStack = getItem(ANALYZER_SLOT);
-        return !analyzerStack.isEmpty() &&
-                analyzerStack.getItem() instanceof AnalyzerItem &&
-                hasElemenixToInfuse();
+        ItemStack storageStack = getItem(STORAGE_SLOT);
+        return !storageStack.isEmpty() && storageStack.getItem() instanceof StorageItem && hasElemenixToInfuse();
     }
 
     private boolean hasElemenixToInfuse() {
@@ -191,14 +196,14 @@ public class InfuserBlockEntity extends BaseContainerBlockEntity {
         return false;
     }
 
-    private void infuseToAnalyzer() {
-        ItemStack analyzerStack = getItem(ANALYZER_SLOT);
-        if (analyzerStack.isEmpty() || !(analyzerStack.getItem() instanceof AnalyzerItem)) return;
+    private void infuse() {
+        ItemStack storageStack = getItem(STORAGE_SLOT);
+        if (storageStack.isEmpty() || !(storageStack.getItem() instanceof StorageItem)) return;
 
         InfuserBlock block = (InfuserBlock) getBlockState().getBlock();
         int maxInfusion = block.getMaxInfusion();
 
-        ElemenicStorage currentStorage = AnalyzerItem.getOrCreateData(analyzerStack);
+        ElemenicStorage currentStorage = StorageItem.getOrCreateData(storageStack);
         long[] newElemenix = currentStorage.elemenix().clone();
 
         boolean infused = false;
@@ -220,8 +225,10 @@ public class InfuserBlockEntity extends BaseContainerBlockEntity {
         }
 
         if (infused) {
-            analyzerStack.set(ModDataComponents.ELEMENIC_STORAGE, new ElemenicStorage(newElemenix));
+            storageStack.set(ModDataComponents.ELEMENIC_STORAGE, new ElemenicStorage(newElemenix));
             setChanged();
+
+            broadcastStorageUpdate();
         }
     }
 
@@ -240,8 +247,8 @@ public class InfuserBlockEntity extends BaseContainerBlockEntity {
 
     @Override
     public boolean canPlaceItem(int slot, ItemStack stack) {
-        if (slot == ANALYZER_SLOT) {
-            return stack.is(ModItems.ELEMENIC_ANALYZER);
+        if (slot == STORAGE_SLOT) {
+            return stack.getItem() instanceof StorageItem;
         } else if (slot == INPUT_SLOT) {
             return !ElemenixInfo.isUnanalysable(stack);
         }
@@ -260,4 +267,56 @@ public class InfuserBlockEntity extends BaseContainerBlockEntity {
     public int[] getElemenixStorage() {
         return elemenixStorage.clone();
     }
+
+    public void broadcastStorageUpdate() {
+        if (level != null && !level.isClientSide) {
+            ItemStack storageStack = getItem(0);
+            if (storageStack.getItem() instanceof StorageItem) {
+                ElemenicStorage storage = StorageItem.getOrCreateData(storageStack);
+
+                InfuserDataUpdatePayload payload = new InfuserDataUpdatePayload(
+                        GlobalPos.of(level.dimension(), worldPosition),
+                        storage.elemenix()
+                );
+
+                for (ServerPlayer player : Objects.requireNonNull(level.getServer()).getPlayerList().getPlayers()) {
+                    if (playerHasBoundRemoteStorage(player, worldPosition)) {
+                        PacketDistributor.sendToPlayer(player, payload);
+                    }
+                }
+            }
+        }
+    }
+
+    private boolean playerHasBoundRemoteStorage(ServerPlayer player, BlockPos pos) {
+        for (ItemStack stack : player.getInventory().items) {
+            if (isRemoteStorageBoundTo(stack, pos, player.level().dimension())) {
+                return true;
+            }
+        }
+
+        if (isRemoteStorageBoundTo(player.getOffhandItem(), pos, player.level().dimension())) {
+            return true;
+        }
+
+        for (ItemStack stack : player.getArmorSlots()) {
+            if (isRemoteStorageBoundTo(stack, pos, player.level().dimension())) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    private boolean isRemoteStorageBoundTo(ItemStack stack, BlockPos pos, ResourceKey<Level> dimension) {
+        if (stack.getItem() instanceof RemoteStorageItem) {
+            RemoteStorageBinding binding = stack.get(ModDataComponents.REMOTE_STORAGE_BINDING.get());
+            if (binding != null && binding.isBound() && binding.boundPos().isPresent()) {
+                GlobalPos boundPos = binding.boundPos().get();
+                return boundPos.pos().equals(pos) && boundPos.dimension() == dimension;
+            }
+        }
+        return false;
+    }
+
 }

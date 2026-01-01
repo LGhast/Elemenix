@@ -1,11 +1,9 @@
 package net.lghast.elemenix.common.content.item;
 
 import net.lghast.elemenix.common.system.datacomponent.AnalyzerUuid;
-import net.lghast.elemenix.common.system.datacomponent.ElemenicStorage;
 import net.lghast.elemenix.common.system.menu.AnalyzerMenu;
 import net.lghast.elemenix.conifig.ClientConfig;
 import net.lghast.elemenix.register.system.ModDataComponents;
-import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
@@ -21,19 +19,9 @@ import java.util.List;
 import java.util.UUID;
 
 @ParametersAreNonnullByDefault
-public class AnalyzerItem extends Item {
+public class AnalyzerItem extends StorageItem {
     public AnalyzerItem(Properties properties) {
-        super(properties.stacksTo(1).rarity(Rarity.RARE)
-                .component(ModDataComponents.ELEMENIC_STORAGE, new ElemenicStorage(new long[6]))
-                .component(ModDataComponents.ANALYZER_UUID, AnalyzerUuid.createRandom()));
-    }
-
-    public static ElemenicStorage getOrCreateData(ItemStack stack) {
-        ElemenicStorage data = stack.get(ModDataComponents.ELEMENIC_STORAGE.get());
-        if (data == null) {
-            data = new ElemenicStorage(new long[6]);
-        }
-        return data;
+        super(properties.rarity(Rarity.RARE).component(ModDataComponents.ANALYZER_UUID, AnalyzerUuid.createRandom()));
     }
 
     public static AnalyzerUuid getOrCreateUuid(ItemStack stack) {
@@ -97,12 +85,6 @@ public class AnalyzerItem extends Item {
     public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> components, TooltipFlag tooltipFlag) {
         if(ClientConfig.SHOW_ANALYZER_UUID_TOOLTIPS.get()) {
             components.add(Component.literal(getUuid(stack).toString()));
-        }
-        if(ClientConfig.SHOW_STORAGE_TOOLTIPS.get()) {
-            ElemenicStorage storage = getOrCreateData(stack);
-            components.add(Component.translatable("tooltip.elemenix.analyzer_storage").withStyle(ChatFormatting.GRAY));
-            components.add(storage.toComponentFormer());
-            components.add(storage.toComponentLatter());
         }
         super.appendHoverText(stack, context, components, tooltipFlag);
     }

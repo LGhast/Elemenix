@@ -33,6 +33,27 @@ public class ModRecipeProvider extends RecipeProvider {
                 .unlockedBy("has_diamond", has(Items.DIAMOND))
                 .save(recipeOutput);
 
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ModItems.ELEMENIC_STORAGE.get(), 1)
+                .pattern(" B ")
+                .pattern("NDN")
+                .pattern(" N ")
+                .define('D', Items.DIAMOND)
+                .define('N', Items.QUARTZ)
+                .define('B', Items.BLAZE_POWDER)
+                .unlockedBy("has_diamond", has(Items.DIAMOND))
+                .save(recipeOutput);
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ModItems.REMOTE_ELEMENIC_STORAGE.get(), 1)
+                .pattern(" B ")
+                .pattern("NDN")
+                .pattern("ENE")
+                .define('D', Items.DIAMOND)
+                .define('N', Items.QUARTZ)
+                .define('B', Items.BLAZE_POWDER)
+                .define('E', Items.ENDER_EYE)
+                .unlockedBy("has_storage", has(ModItems.ELEMENIC_STORAGE))
+                .save(recipeOutput);
+
         ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ModItems.ELEMENIC_ANALYZER.get(), 1)
                 .pattern("ABC")
                 .pattern("NDN")
@@ -126,6 +147,14 @@ public class ModRecipeProvider extends RecipeProvider {
                 .define('A', ModItems.ARCANIX_ESSENCE)
                 .unlockedBy("has_arcanix_essence", has(ModItems.ARCANIX_ESSENPLEX))
                 .save(recipeOutput);
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ModItems.ELEMENIC_EQUILIPLEX.get(), 1)
+                .pattern("AAA")
+                .pattern("AAA")
+                .pattern("AAA")
+                .define('A', ModItems.ELEMENIC_EQUILIBRIUM)
+                .unlockedBy("has_elemenic_equilibrium", has(ModItems.ELEMENIC_EQUILIBRIUM))
+                .save(recipeOutput, "elemenic_equiliplex_from_equilibrium");
 
         ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, ModItems.ELEMENIC_EQUILIBRIUM.get(), 1)
                 .requires(ModItems.ORGANIX_ESSENCE)

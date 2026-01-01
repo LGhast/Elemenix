@@ -11,11 +11,8 @@ import net.lghast.elemenix.register.content.ModItems;
 import net.lghast.elemenix.register.system.*;
 import net.lghast.elemenix.utils.ElemenixInfo;
 import net.lghast.elemenix.utils.RecipeHelper;
-import net.minecraft.server.MinecraftServer;
-import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.config.ModConfig;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
-import net.neoforged.neoforge.client.event.ClientPlayerNetworkEvent;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.data.event.GatherDataEvent;
 
@@ -23,7 +20,6 @@ import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.ModContainer;
 import net.neoforged.neoforge.event.entity.player.PlayerEvent;
-import net.neoforged.neoforge.event.server.ServerStartedEvent;
 import net.neoforged.neoforge.event.server.ServerStartingEvent;
 import net.neoforged.neoforge.event.tick.ServerTickEvent;
 

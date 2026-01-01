@@ -29,6 +29,10 @@
   "advancements.elemenix.obtain_flow_straightener.description": "获得一个整流栅",
   "advancements.elemenix.obtain_memory_burner.title": "产品碟代",
   "advancements.elemenix.obtain_memory_burner.description": "获得刻录笔，用以修改元质记忆碟内的物品列表",
+  "advancements.elemenix.obtain_storage.title": "微缩仓库",
+  "advancements.elemenix.obtain_storage.description": "制作元质储存器，用于在注入塔中接收元质，并转移到解析器中",
+  "advancements.elemenix.obtain_remote_storage.title": "远走高飞",
+  "advancements.elemenix.obtain_remote_storage.description": "制作远程元质储存器，可于注入塔内的元质储存器绑定，远程调用元质储量",
 
   "creativetab.elemenix.elemenix": "元质学",
 
@@ -43,6 +47,8 @@
 
   "item.elemenix.elemenic_analyzer": "元质解析器",
   "item.elemenix.elemenic_memorizer": "元质记忆碟",
+  "item.elemenix.elemenic_storage": "元质储存器",
+  "item.elemenix.remote_elemenic_storage": "远程元质储存器",
   "item.elemenix.elemenic_memorizer.style.white": "白色",
   "item.elemenix.elemenic_memorizer.style.red": "红色",
   "item.elemenix.elemenic_memorizer.style.orange": "橙色",
@@ -83,6 +89,7 @@
   "item.elemenix.flow_straightener": "整流栅",
   "item.elemenix.memorizer_box": "记忆碟收纳盒",
   "item.elemenix.memory_burner": "刻录笔",
+  "item.elemenix.nullvoid": "子虚乌有",
 
   "elemenix.elemenix.organix": "有机质",
   "elemenix.elemenix.terrix": "矿化质",
@@ -128,9 +135,27 @@
   "tooltip.elemenix.readonly": "只读",
   "tooltip.elemenix.style": "样式：%s",
   "tooltip.elemenix.valve_opening": "阀门开度：%s",
+  "tooltip.elemenix.remote_storage.bound_to": "绑定至: %d, %d, %d (%s)",
+  "tooltip.elemenix.remote_storage.bound_valid": "有效连接",
+  "tooltip.elemenix.remote_storage.invalid": "连接失效或储存已空",
+  "tooltip.elemenix.remote_storage.not_bound": "未绑定",
+  "tooltip.elemenix.remote_storage.usage": "潜行右击元质注入塔方块进行绑定",
+  "tooltip.elemenix.remote_storage.loading": "加载中...",
+  "tooltip.elemenix.remote_storage.dimension_mismatch": "无法连接至不同维度",
+  "tooltip.elemenix.technical": "技术性物品",
+
+  "message.remote_storage.bound": "已绑定至坐标 (%d, %d, %d)",
 
   "key.categories.elemenics": "元质学",
   "key.elemenix.open_memorizer_box": "打开记忆碟收纳盒",
+
+  "tag.item.elemenix.essences": "元质纯质",
+  "tag.item.elemenix.equilibrium": "元质均体",
+  "tag.item.elemenix.vinyl_discs": "黑胶唱片",
+  "tag.item.elemenix.elemenic_transformers": "元质转化仪",
+  "tag.item.elemenix.elemenic_deconstructors": "元质解构塔",
+  "tag.block.elemenix.elemenic_transformers": "元质转化仪",
+  "tag.block.elemenix.elemenic_deconstructors": "元质解构塔",
 
   "jei.category.elemenix.enriching": "富集",
   "jei.category.elemenix.transforming": "元质转化"

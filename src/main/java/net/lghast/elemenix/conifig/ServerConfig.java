@@ -13,8 +13,6 @@ public class ServerConfig {
     public static final ModConfigSpec.DoubleValue DC_DISCOUNT;
     public static final ModConfigSpec.DoubleValue RC_PREMIUM;
 
-    public static ModConfigSpec.IntValue MEMORIZER_CAPABILITY;
-
     public static ModConfigSpec.IntValue GS_CONSUMPTION;
     public static ModConfigSpec.IntValue GS_PRODUCTION;
     public static ModConfigSpec.IntValue GS_DC_INTERVAL;
@@ -97,7 +95,7 @@ public class ServerConfig {
         GS_DC_INTERVAL = BUILDER
                 .comment("地质模拟仪解构输入物品的时间间隔（刻）")
                 .comment("Time interval (in ticks) for the Geological Simulator to deconstruct input items")
-                .defineInRange("geological_simulator_dc_interval", 20, 1, Integer.MAX_VALUE);
+                .defineInRange("geological_simulator_dc_interval", 8, 1, Integer.MAX_VALUE);
         GS_RC_INTERVAL = BUILDER
                 .comment("地质模拟仪重构输出物品的时间间隔（刻）")
                 .comment("Time interval (in ticks) for the Geological Simulator to reconstruct output items")
@@ -114,7 +112,7 @@ public class ServerConfig {
         MA_DC_INTERVAL = BUILDER
                 .comment("激化锻冶仪解构输入物品的时间间隔（刻）")
                 .comment("Time interval (in ticks) for the Metallurgical Activator to deconstruct input items")
-                .defineInRange("metallurgical_activator_dc_interval", 20, 1, Integer.MAX_VALUE);
+                .defineInRange("metallurgical_activator_dc_interval", 8, 1, Integer.MAX_VALUE);
         MA_RC_INTERVAL = BUILDER
                 .comment("激化锻冶仪重构输出物品的时间间隔（刻）")
                 .comment("Time interval (in ticks) for the Metallurgical Activator to reconstruct output items")
@@ -131,7 +129,7 @@ public class ServerConfig {
         GA_DC_INTERVAL = BUILDER
                 .comment("蕃孕加速仪解构输入物品的时间间隔（刻）")
                 .comment("Time interval (in ticks) for the Germinal Accelerator to deconstruct input items")
-                .defineInRange("germinal_accelerator_dc_interval", 20, 1, Integer.MAX_VALUE);
+                .defineInRange("germinal_accelerator_dc_interval", 8, 1, Integer.MAX_VALUE);
         GA_RC_INTERVAL = BUILDER
                 .comment("蕃孕加速仪重构输出物品的时间间隔（刻）")
                 .comment("Time interval (in ticks) for the Germinal Accelerator to reconstruct output items")
@@ -148,7 +146,7 @@ public class ServerConfig {
         TI_DC_INTERVAL = BUILDER
                 .comment("蒸腾焚化仪解构输入物品的时间间隔（刻）")
                 .comment("Time interval (in ticks) for the Transpiring Incinerator to deconstruct input items")
-                .defineInRange("transpiring_incinerator_dc_interval", 20, 1, Integer.MAX_VALUE);
+                .defineInRange("transpiring_incinerator_dc_interval", 8, 1, Integer.MAX_VALUE);
         TI_RC_INTERVAL = BUILDER
                 .comment("蒸腾焚化仪重构输出物品的时间间隔（刻）")
                 .comment("Time interval (in ticks) for the Transpiring Incinerator to reconstruct output items")
@@ -165,7 +163,7 @@ public class ServerConfig {
         OC_DC_INTERVAL = BUILDER
                 .comment("光能捕获仪解构输入物品的时间间隔（刻）")
                 .comment("Time interval (in ticks) for the Optical Capturer to deconstruct input items")
-                .defineInRange("optical_capturer_dc_interval", 25, 1, Integer.MAX_VALUE);
+                .defineInRange("optical_capturer_dc_interval", 8, 1, Integer.MAX_VALUE);
         OC_RC_INTERVAL = BUILDER
                 .comment("光能捕获仪重构输出物品的时间间隔（刻）")
                 .comment("Time interval (in ticks) for the Optical Capturer to reconstruct output items")
@@ -178,7 +176,7 @@ public class ServerConfig {
         INFUSER_DC_INTERVAL = BUILDER
                 .comment("元质注入塔解构输入物品的时间间隔（刻）")
                 .comment("Time interval (in ticks) for the Elemenic Infuser to deconstruct input items")
-                .defineInRange("infuser_dc_interval", 15, 1, Integer.MAX_VALUE);
+                .defineInRange("infuser_dc_interval", 8, 1, Integer.MAX_VALUE);
         INFUSION_INTERVAL = BUILDER
                 .comment("元质注入塔注入元质的时间间隔（刻）")
                 .comment("Time interval (in ticks) for the Elemenic Infuser to infuse elemenix")
@@ -191,7 +189,7 @@ public class ServerConfig {
         ENRICHER_DC_INTERVAL = BUILDER
                 .comment("元质富集塔解构输入物品的时间间隔（刻）")
                 .comment("Time interval (in ticks) for the Elemenic Enricher to deconstruct input items")
-                .defineInRange("enricher_dc_interval", 15, 1, Integer.MAX_VALUE);
+                .defineInRange("enricher_dc_interval", 8, 1, Integer.MAX_VALUE);
         ENRICHER_ENRICHING_INTERVAL = BUILDER
                 .comment("元质富集塔生产纯质的时间间隔（刻）")
                 .comment("Time interval (in ticks) for the Elemenic Enricher to produce essence")
@@ -200,7 +198,7 @@ public class ServerConfig {
         EJECTOR_DC_INTERVAL = BUILDER
                 .comment("元质射流塔解构输入物品的时间间隔（刻）")
                 .comment("Time interval (in ticks) for the Elemenic Ejector to deconstruct input items")
-                .defineInRange("ejector_dc_interval", 15, 1, Integer.MAX_VALUE);
+                .defineInRange("ejector_dc_interval", 8, 1, Integer.MAX_VALUE);
         EJECTOR_ENRICHING_INTERVAL = BUILDER
                 .comment("元质射流塔生产纯质的时间间隔（刻）")
                 .comment("Time interval (in ticks) for the Elemenic Ejector to produce essence")

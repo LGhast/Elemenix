@@ -1,9 +1,8 @@
 {
   "values": [
-    "minecraft:enchanted_book",
     "#elemenix:essences",
-    "elemenix:elemenic_equilibrium",
-    "elemenix:elemenic_equiliplex",
+    "#elemenix:equilibrium",
+    "minecraft:enchanted_book",
     "elemenix:elemenic_analyzer"
   ]
 }

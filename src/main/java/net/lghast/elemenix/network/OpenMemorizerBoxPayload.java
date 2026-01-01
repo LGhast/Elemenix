@@ -14,6 +14,7 @@ import net.minecraft.world.item.ItemStack;
 import net.neoforged.neoforge.network.handling.IPayloadContext;
 import org.jetbrains.annotations.NotNull;
 
+@SuppressWarnings("unused")
 public record OpenMemorizerBoxPayload() implements CustomPacketPayload {
 
     public static final CustomPacketPayload.Type<OpenMemorizerBoxPayload> TYPE =

@@ -12,6 +12,7 @@ import net.neoforged.neoforge.registries.DeferredRegister;
 
 import java.util.function.Supplier;
 
+@SuppressWarnings("unused")
 public class ModCreativeTabs {
     public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TAB =
             DeferredRegister.create(Registries.CREATIVE_MODE_TAB, Elemenics.MOD_ID);
@@ -23,6 +24,8 @@ public class ModCreativeTabs {
                         output.accept(ModItems.ELEMENIC_ANALYZER);
                         output.accept(ModItems.ELEMENIC_MEMORIZER);
                         output.accept(ModItems.FONDANT_CAKE);
+                        output.accept(ModItems.ELEMENIC_STORAGE);
+                        output.accept(ModItems.REMOTE_ELEMENIC_STORAGE);
                         output.accept(ModItems.MEMORIZER_BOX);
                         output.accept(ModItems.MEMORY_BURNER);
                         output.accept(ModItems.THROTTLE_VALVE);
@@ -41,6 +44,7 @@ public class ModCreativeTabs {
                         output.accept(ModItems.ENERGIX_ESSENPLEX);
                         output.accept(ModItems.ARCANIX_ESSENPLEX);
                         output.accept(ModItems.ELEMENIC_EQUILIPLEX);
+                        output.accept(ModItems.NULLVOID);
                         output.accept(ModBlocks.GEOLOGICAL_SIMULATOR);
                         output.accept(ModBlocks.METALLURGICAL_ACTIVATOR);
                         output.accept(ModBlocks.GERMINAL_ACCELERATOR);

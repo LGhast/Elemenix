@@ -24,7 +24,8 @@ public class InfuserScreen extends AbstractContainerScreen<InfuserMenu> {
     private static final int TITLE_X = 6;
     private static final int TITLE_Y = 6;
 
-    private final ResourceLocation guiTexture = ResourceLocation.fromNamespaceAndPath("elemenix", "textures/gui/elemenic_infuser.png");
+    private final ResourceLocation guiTextureNormal = ResourceLocation.fromNamespaceAndPath("elemenix", "textures/gui/elemenic_infuser.png");
+    private final ResourceLocation guiTextureOccupied = ResourceLocation.fromNamespaceAndPath("elemenix", "textures/gui/elemenic_infuser_occupied.png");
 
     public InfuserScreen(InfuserMenu menu, Inventory inventory, Component title) {
         super(menu, inventory, title);
@@ -40,12 +41,16 @@ public class InfuserScreen extends AbstractContainerScreen<InfuserMenu> {
         super.init();
     }
 
+    private ResourceLocation getGuiTexture(){
+        return menu.getBlockEntity().getItem(0).isEmpty() ? guiTextureNormal : guiTextureOccupied;
+    }
+
     @Override
     protected void renderBg(GuiGraphics graphics, float partialTick, int mouseX, int mouseY) {
         int x = (this.width - this.imageWidth) / 2;
         int y = (this.height - this.imageHeight) / 2;
 
-        graphics.blit(guiTexture, x, y, 0, 0, this.imageWidth, this.imageHeight, this.imageWidth, this.imageHeight);
+        graphics.blit(getGuiTexture(), x, y, 0, 0, this.imageWidth, this.imageHeight, this.imageWidth, this.imageHeight);
         renderElemenixValues(graphics, x, y);
     }
 

@@ -9,6 +9,7 @@ import net.minecraft.server.level.ServerPlayer;
 import net.neoforged.neoforge.network.handling.IPayloadContext;
 import org.jetbrains.annotations.NotNull;
 
+@SuppressWarnings("unused")
 public record DeconstructionPayload() implements CustomPacketPayload {
     public static final CustomPacketPayload.Type<DeconstructionPayload> TYPE =
             new CustomPacketPayload.Type<>(ResourceLocation.fromNamespaceAndPath("elemenix", "deconstruction"));

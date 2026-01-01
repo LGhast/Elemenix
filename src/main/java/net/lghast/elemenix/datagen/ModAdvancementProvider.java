@@ -25,6 +25,7 @@ import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
 
 @ParametersAreNonnullByDefault
+@SuppressWarnings("unused")
 public class ModAdvancementProvider extends AdvancementProvider {
     public ModAdvancementProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider, ExistingFileHelper existingFileHelper) {
         super(output, lookupProvider, existingFileHelper, List.of(new IdiomAdvancementGenerator()));
@@ -96,7 +97,7 @@ public class ModAdvancementProvider extends AdvancementProvider {
                             false
                     )
                     .addCriterion("get_equilibrium", InventoryChangeTrigger.TriggerInstance.hasItems(
-                            ItemPredicate.Builder.item().of(ModItems.ELEMENIC_EQUILIBRIUM.get()).build()
+                            ItemPredicate.Builder.item().of(ModTags.EQUILIBRIUM).build()
                     ))
                     .save(saver, ResourceLocation.parse("elemenix:elemenics/enrich_equilibrium"), existingFileHelper);
 
@@ -293,6 +294,40 @@ public class ModAdvancementProvider extends AdvancementProvider {
                             ItemPredicate.Builder.item().of(ModItems.FONDANT_CAKE.get()).build()
                     ))
                     .save(saver, ResourceLocation.parse("elemenix:elemenics/obtain_fondant_cake"), existingFileHelper);
+
+            AdvancementHolder obtainStorage = Advancement.Builder.advancement()
+                    .parent(obtainInfuser)
+                    .display(
+                            ModItems.ELEMENIC_STORAGE,
+                            Component.translatable("advancements.elemenix.obtain_storage.title"),
+                            Component.translatable("advancements.elemenix.obtain_storage.description"),
+                            null,
+                            AdvancementType.TASK,
+                            true,
+                            true,
+                            true
+                    )
+                    .addCriterion("get_storage", InventoryChangeTrigger.TriggerInstance.hasItems(
+                            ItemPredicate.Builder.item().of(ModItems.ELEMENIC_STORAGE.get()).build()
+                    ))
+                    .save(saver, ResourceLocation.parse("elemenix:elemenics/obtain_storage"), existingFileHelper);
+
+            AdvancementHolder obtainRemoteStorage = Advancement.Builder.advancement()
+                    .parent(obtainStorage)
+                    .display(
+                            ModItems.REMOTE_ELEMENIC_STORAGE,
+                            Component.translatable("advancements.elemenix.obtain_remote_storage.title"),
+                            Component.translatable("advancements.elemenix.obtain_remote_storage.description"),
+                            null,
+                            AdvancementType.GOAL,
+                            true,
+                            true,
+                            true
+                    )
+                    .addCriterion("get_remote_storage", InventoryChangeTrigger.TriggerInstance.hasItems(
+                            ItemPredicate.Builder.item().of(ModItems.REMOTE_ELEMENIC_STORAGE.get()).build()
+                    ))
+                    .save(saver, ResourceLocation.parse("elemenix:elemenics/obtain_remote_storage"), existingFileHelper);
         }
     }
 }

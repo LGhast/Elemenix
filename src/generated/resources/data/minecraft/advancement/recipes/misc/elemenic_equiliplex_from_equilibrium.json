@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_elemenic_equilibrium": {
+      "conditions": {
+        "items": [
+          {
+            "items": "elemenix:elemenic_equilibrium"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "minecraft:elemenic_equiliplex_from_equilibrium"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_elemenic_equilibrium"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "minecraft:elemenic_equiliplex_from_equilibrium"
+    ]
+  }
+}

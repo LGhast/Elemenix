@@ -11,6 +11,7 @@ import net.neoforged.neoforge.client.event.RegisterKeyMappingsEvent;
 import org.lwjgl.glfw.GLFW;
 
 @OnlyIn(Dist.CLIENT)
+@SuppressWarnings("unused")
 @EventBusSubscriber(modid = Elemenics.MOD_ID, value = Dist.CLIENT)
 public class ModKeyBindings {
     public static final KeyMapping OPEN_MEMORIZER_BOX = new KeyMapping(

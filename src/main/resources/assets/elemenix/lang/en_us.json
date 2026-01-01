@@ -29,6 +29,10 @@
   "advancements.elemenix.obtain_flow_straightener.description": "Obtain a Flow Straightener",
   "advancements.elemenix.obtain_memory_burner.title": "Just a CD Burner",
   "advancements.elemenix.obtain_memory_burner.description": "Obtain a Memory Burner to modify the item list in your memorizer",
+  "advancements.elemenix.obtain_storage.title": "Miniature Storeroom",
+  "advancements.elemenix.obtain_storage.description": "Craft an Elemenic Storage to receive elemenix in an infuser and transfer it to the analyzer",
+  "advancements.elemenix.obtain_remote_storage.title": "The remote is MIA again...",
+  "advancements.elemenix.obtain_remote_storage.description": "Craft a Remote Elemenic Storage that can bind to an elemenic storage in an infuser to remotely call upon elemenix reserves",
 
   "creativetab.elemenix.elemenix": "Elemenics",
 
@@ -43,6 +47,8 @@
 
   "item.elemenix.elemenic_analyzer": "Elemenic Analyzer",
   "item.elemenix.elemenic_memorizer": "Elemenic Memorizer",
+  "item.elemenix.elemenic_storage": "Elemenic Storage",
+  "item.elemenix.remote_elemenic_storage": "Remote Elemenic Storage",
   "item.elemenix.elemenic_memorizer.style.white": "White",
   "item.elemenix.elemenic_memorizer.style.red": "Red",
   "item.elemenix.elemenic_memorizer.style.orange": "Orange",
@@ -83,6 +89,7 @@
   "item.elemenix.flow_straightener": "Flow Straightener",
   "item.elemenix.memorizer_box": "Memorizer Box",
   "item.elemenix.memory_burner": "Memory Burner",
+  "item.elemenix.nullvoid": "Nullvoid",
 
   "elemenix.elemenix.organix": "Organix",
   "elemenix.elemenix.terrix": "Terrix",
@@ -128,9 +135,27 @@
   "tooltip.elemenix.readonly": "Read-Only",
   "tooltip.elemenix.style": "Style: %s",
   "tooltip.elemenix.valve_opening": "Valve Opening: %s",
+  "tooltip.elemenix.remote_storage.bound_to": "Bound to: %d, %d, %d (%s)",
+  "tooltip.elemenix.remote_storage.bound_valid": "Connection valid",
+  "tooltip.elemenix.remote_storage.invalid": "Connection invalid or storage empty",
+  "tooltip.elemenix.remote_storage.not_bound": "Not bound",
+  "tooltip.elemenix.remote_storage.usage": "Sneak right-click an Elemenic Infuser block to bind",
+  "tooltip.elemenix.remote_storage.loading": "Loading...",
+  "tooltip.elemenix.remote_storage.dimension_mismatch": "Cannot use across dimensions",
+  "tooltip.elemenix.technical": "Technical Item",
+
+  "message.remote_storage.bound": "Bound to coordinates (%d, %d, %d)",
 
   "key.categories.elemenics": "Elemenics",
   "key.elemenix.open_memorizer_box": "Open Memorizer Box",
+
+  "tag.item.elemenix.essences": "Elemenic Essences",
+  "tag.item.elemenix.equilibrium": "Elemenic Equilibrium",
+  "tag.item.elemenix.vinyl_discs": "Vinyl Discs",
+  "tag.item.elemenix.elemenic_transformers": "Elemenic Transformers",
+  "tag.item.elemenix.elemenic_deconstructors": "Elemenic Deconstructors",
+  "tag.block.elemenix.elemenic_transformers": "Elemenic Transformers",
+  "tag.block.elemenix.elemenic_deconstructors": "Elemenic Deconstructors",
 
   "jei.category.elemenix.enriching": "Enriching",
   "jei.category.elemenix.transforming": "Elemenic Transforming"
