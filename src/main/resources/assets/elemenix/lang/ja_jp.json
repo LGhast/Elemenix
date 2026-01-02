@@ -66,6 +66,7 @@
   "item.elemenix.elemenic_equiliplex": "元質均聚合体",
   "item.elemenix.throttle_valve": "スロットルバルブ",
   "item.elemenix.flow_straightener": "整流グリル",
+  "item.elemenix.nullvoid": "虚無",
   "item.elemenix.elemenic_memorizer.style.white": "白色",
   "item.elemenix.elemenic_memorizer.style.red": "赤色",
   "item.elemenix.elemenic_memorizer.style.orange": "橙色",
@@ -141,6 +142,7 @@
   "tooltip.elemenix.remote_storage.usage": "シフト右クリックで元質注入塔ブロックにバインド",
   "tooltip.elemenix.remote_storage.loading": "読み込み中…",
   "tooltip.elemenix.remote_storage.dimension_mismatch": "異次元間では使用不可",
+  "tooltip.elemenix.technical": "技術アイテム",
 
   "message.remote_storage.bound": "座標 (%d, %d, %d) にバインドしました",
 

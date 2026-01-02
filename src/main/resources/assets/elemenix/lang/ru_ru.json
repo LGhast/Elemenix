@@ -89,6 +89,7 @@
   "item.elemenix.elemenic_equiliplex": "Элементный Равноплекс",
   "item.elemenix.throttle_valve": "Дроссельный Клапан",
   "item.elemenix.flow_straightener": "Выпрямитель Потока",
+  "item.elemenix.nullvoid": "Ничтопусто",
 
   "elemenix.elemenix.organix": "Органическая Субстанция",
   "elemenix.elemenix.terrix": "Минеральная Субстанция",
@@ -141,6 +142,7 @@
   "tooltip.elemenix.remote_storage.usage": "Присев, нажмите ПКМ на блок башни инъекции для привязки",
   "tooltip.elemenix.remote_storage.loading": "Загрузка...",
   "tooltip.elemenix.remote_storage.dimension_mismatch": "Нельзя использовать между измерениями",
+  "tooltip.elemenix.technical": "Технический предмет",
 
   "message.remote_storage.bound": "Привязано к координатам (%d, %d, %d)",
 

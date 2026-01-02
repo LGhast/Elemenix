@@ -89,6 +89,7 @@
   "item.elemenix.elemenic_equiliplex": "Équicomplexe Élémentaire",
   "item.elemenix.throttle_valve": "Valve d'Étranglement",
   "item.elemenix.flow_straightener": "Redresseur d'Écoulement",
+  "item.elemenix.nullvoid": "Néantvide",
 
   "elemenix.elemenix.organix": "Substance Organique",
   "elemenix.elemenix.terrix": "Substance Minérale",
@@ -141,6 +142,7 @@
   "tooltip.elemenix.remote_storage.usage": "Clic-droit en s'accroupissant sur un bloc de tour d'injection pour lier",
   "tooltip.elemenix.remote_storage.loading": "Chargement...",
   "tooltip.elemenix.remote_storage.dimension_mismatch": "Impossible d'utiliser entre les dimensions",
+  "tooltip.elemenix.technical": "Objet technique",
 
   "message.remote_storage.bound": "Lié aux coordonnées (%d, %d, %d)",
 

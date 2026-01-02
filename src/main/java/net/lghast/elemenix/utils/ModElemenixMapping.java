@@ -724,11 +724,11 @@ public class ModElemenixMapping {
             map.put("irons_spellbooks:teleportation_amulet", new Constituents(0, 53, 0, 792, 0, 260));
             map.put("irons_spellbooks:betrayer_signet", new Constituents(0, 0, 0, 1728, 0, 250));
             map.put("irons_spellbooks:invisibility_ring", new Constituents(0, 0, 120, 1728, 0, 200));
-            map.put("irons_spellbooks:villager_spell_book", new Constituents(92, 800, 0, 320, 160, 800));
-            map.put("irons_spellbooks:rotten_spell_book", new Constituents(492, 0, 0, 0, 160, 400));
-            map.put("irons_spellbooks:blaze_spell_book", new Constituents(92, 0, 0, 0, 448, 400));
-            map.put("irons_spellbooks:necronomicon_spell_book", new Constituents(182, 0, 0, 320, 540, 600));
-            map.put("irons_spellbooks:evoker_spell_book", new Constituents(92, 0, 24, 1728, 320, 900));
+            map.put("irons_spellbooks:villager_spell_book", new Constituents(1500, 300, 0, 240, 0, 800));
+            map.put("irons_spellbooks:rotten_spell_book", new Constituents(520, 0, 0, 0, 160, 800));
+            map.put("irons_spellbooks:blaze_spell_book", new Constituents(320, 0, 0, 0, 1200, 800));
+            map.put("irons_spellbooks:necronomicon_spell_book", new Constituents(1200, 0, 0, 320, 540, 800));
+            map.put("irons_spellbooks:evoker_spell_book", new Constituents(92, 0, 24, 1728, 320, 800));
             map.put("irons_spellbooks:chained_book", new Constituents(92, 11, 0, 264, 0, 0));
             map.put("irons_spellbooks:tarnished_helmet", new Constituents(0, 0, 320, 680, 0, 200));
             return map;

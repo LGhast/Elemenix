@@ -73,7 +73,7 @@ public class Elemenics {
         if (hasWorldLoaded) {
             tickCounter++;
 
-            if (tickCounter >= 40) {
+            if (tickCounter >= 60) {
                 started = true;
                 hasWorldLoaded = false;
 

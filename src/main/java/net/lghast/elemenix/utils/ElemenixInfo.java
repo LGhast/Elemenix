@@ -130,7 +130,9 @@ public class ElemenixInfo {
             CALCULATING_ITEMS.remove(item);
         }
 
-        UNANALYSABLE_ITEMS.add(item);
+        if(Elemenics.started) {
+            UNANALYSABLE_ITEMS.add(item);
+        }
         return new Constituents(true);
     }
 
