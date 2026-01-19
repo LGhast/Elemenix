@@ -130,6 +130,8 @@
 
   "tooltip.elemenix.constituents": "Elemenic Constituents:",
   "tooltip.elemenix.unanalysable": "=UNANALYSABLE=",
+  "tooltip.elemenix.undeconstructable": "Undeconstructable",
+  "tooltip.elemenix.unreconstructable": "Unreconstructable",
   "tooltip.elemenix.analyzer_storage": "Elemenic Storage:",
   "tooltip.elemenix.memories": "Memorized Items: %d",
   "tooltip.elemenix.readonly": "Read-Only",
@@ -154,6 +156,8 @@
   "tag.item.elemenix.vinyl_discs": "Vinyl Discs",
   "tag.item.elemenix.elemenic_transformers": "Elemenic Transformers",
   "tag.item.elemenix.elemenic_deconstructors": "Elemenic Deconstructors",
+  "tag.item.elemenix.undeconstructable": "Undeconstructable Items",
+  "tag.item.elemenix.unreconstructable": "Unreconstructable Items",
   "tag.block.elemenix.elemenic_transformers": "Elemenic Transformers",
   "tag.block.elemenix.elemenic_deconstructors": "Elemenic Deconstructors",
 

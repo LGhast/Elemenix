@@ -74,6 +74,7 @@ public class TransformerMenu extends AbstractContainerMenu {
             public boolean mayPlace(ItemStack stack) {
                 TransformerBlock block = blockEntity.getTransformerBlock();
                 if (block == null) return false;
+                if(ElemenixInfo.isUndeconstructable(stack)) return false;
 
                 Constituents constituents = ElemenixInfo.getConstituents(stack);
                 return constituents.isPure(block.getInputElemenixA());
@@ -84,7 +85,8 @@ public class TransformerMenu extends AbstractContainerMenu {
             @Override
             public boolean mayPlace(ItemStack stack) {
                 TransformerBlock block = blockEntity.getTransformerBlock();
-                if (block == null) return false;
+                if(block == null) return false;
+                if(ElemenixInfo.isUndeconstructable(stack)) return false;
 
                 Constituents constituents = ElemenixInfo.getConstituents(stack);
                 return constituents.isPure(block.getInputElemenixB());

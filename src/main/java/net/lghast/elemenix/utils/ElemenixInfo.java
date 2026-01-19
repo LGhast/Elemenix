@@ -2,6 +2,8 @@ package net.lghast.elemenix.utils;
 
 import net.lghast.elemenix.Elemenics;
 import net.lghast.elemenix.conifig.ServerConfig;
+import net.lghast.elemenix.register.content.ModItems;
+import net.lghast.elemenix.register.system.ModTags;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
@@ -165,6 +167,14 @@ public class ElemenixInfo {
 
     public static boolean isUnanalysable(ItemStack stack){
         return isUnanalysable(stack.getItem());
+    }
+
+    public static boolean isUndeconstructable(ItemStack stack){
+        return isUnanalysable(stack.getItem()) || stack.is(ModTags.UNDECONSTRUCTABLE);
+    }
+
+    public static boolean isUnreconstructable(ItemStack stack){
+        return isUnanalysable(stack.getItem()) || stack.is(ModTags.UNRECONSTRUCTABLE);
     }
 
     public static Constituents getDiscountAppliedConstituents(ItemStack stack){

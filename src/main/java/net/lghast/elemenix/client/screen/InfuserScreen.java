@@ -22,7 +22,7 @@ public class InfuserScreen extends AbstractContainerScreen<InfuserMenu> {
     private static final int GUI_WIDTH = 176;
     private static final int GUI_HEIGHT = 170;
     private static final int TITLE_X = 6;
-    private static final int TITLE_Y = 6;
+    private static final int TITLE_Y = 5;
 
     private final ResourceLocation guiTextureNormal = ResourceLocation.fromNamespaceAndPath("elemenix", "textures/gui/elemenic_infuser.png");
     private final ResourceLocation guiTextureOccupied = ResourceLocation.fromNamespaceAndPath("elemenix", "textures/gui/elemenic_infuser_occupied.png");

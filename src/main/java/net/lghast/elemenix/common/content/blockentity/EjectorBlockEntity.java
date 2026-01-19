@@ -194,7 +194,7 @@ public class EjectorBlockEntity extends BaseContainerBlockEntity {
 
     private boolean canDeconstruct() {
         ItemStack inputStack = getItem(INPUT_SLOT);
-        return !inputStack.isEmpty() && !ElemenixInfo.isUnanalysable(inputStack);
+        return !inputStack.isEmpty() && !ElemenixInfo.isUndeconstructable(inputStack);
     }
 
     private void deconstructItem() {
@@ -254,7 +254,11 @@ public class EjectorBlockEntity extends BaseContainerBlockEntity {
         ItemStack copiedStack = stackToEject.copy();
         copiedStack.setCount(amount);
         EjectorBlock block = getEjectorBlock();
-        block.popOutItem(level, getBlockPos(), getBlockState(), copiedStack);
+
+        if (level != null) {
+            block.popOutItem(level, getBlockPos(), getBlockState(), copiedStack);
+        }
+
         stackToEject.shrink(amount);
         setChanged();
         ejectedIndex = index;
@@ -355,7 +359,7 @@ public class EjectorBlockEntity extends BaseContainerBlockEntity {
     @Override
     public boolean canPlaceItem(int slot, ItemStack stack) {
         if (slot == INPUT_SLOT) {
-            return !ElemenixInfo.isUnanalysable(stack);
+            return !ElemenixInfo.isUndeconstructable(stack);
         }
         if (slot == VALVE_SLOT) {
             return stack.is(ModItems.THROTTLE_VALVE);

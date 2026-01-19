@@ -130,6 +130,8 @@
 
   "tooltip.elemenix.constituents": "元质成分：",
   "tooltip.elemenix.unanalysable": "=无法解析=",
+  "tooltip.elemenix.undeconstructable": "不可解构",
+  "tooltip.elemenix.unreconstructable": "不可重构",
   "tooltip.elemenix.analyzer_storage": "元质储量：",
   "tooltip.elemenix.memories": "已记忆物品：%d",
   "tooltip.elemenix.readonly": "只读",
@@ -154,6 +156,8 @@
   "tag.item.elemenix.vinyl_discs": "黑胶唱片",
   "tag.item.elemenix.elemenic_transformers": "元质转化仪",
   "tag.item.elemenix.elemenic_deconstructors": "元质解构塔",
+  "tag.item.elemenix.undeconstructable": "不可解构之物",
+  "tag.item.elemenix.unreconstructable": "不可重构之物",
   "tag.block.elemenix.elemenic_transformers": "元质转化仪",
   "tag.block.elemenix.elemenic_deconstructors": "元质解构塔",
 

@@ -61,13 +61,13 @@ public class TransformerBlockEntity extends BaseContainerBlockEntity {
         blockEntity.dcTimer++;
         if (blockEntity.dcTimer >= block.getDcInterval()) {
             blockEntity.dcTimer = 0;
-            blockEntity.processInputItems(block);
+            blockEntity.deconstructInput(block);
         }
 
         blockEntity.rcTimer++;
         if (blockEntity.rcTimer >= block.getRcInterval()) {
             blockEntity.rcTimer = 0;
-            blockEntity.processOutputGeneration(block);
+            blockEntity.generateOutput(block);
         }
 
         boolean wasWorking = state.getValue(TransformerBlock.WORKING);
@@ -79,27 +79,30 @@ public class TransformerBlockEntity extends BaseContainerBlockEntity {
         }
     }
 
-    private void processInputItems(TransformerBlock block) {
-        if (!items.get(0).isEmpty()) {
-            Constituents constituents = ElemenixInfo.getDiscountAppliedConstituents(items.getFirst());
+    private void deconstructInput(TransformerBlock block) {
+        ItemStack inputStackA = items.get(0);
+        ItemStack inputStackB = items.get(1);
+
+        if (!inputStackA.isEmpty() && !ElemenixInfo.isUnreconstructable(inputStackA)) {
+            Constituents constituents = ElemenixInfo.getDiscountAppliedConstituents(inputStackA);
             if (constituents.isPure(block.getInputElemenixA())) {
-                items.getFirst().shrink(1);
+                inputStackA.shrink(1);
                 inputA += constituents.get(block.getInputElemenixA());
                 setChanged();
             }
         }
 
-        if (!items.get(1).isEmpty()) {
-            Constituents constituents = ElemenixInfo.getDiscountAppliedConstituents(items.get(1));
+        if (!inputStackB.isEmpty() && !ElemenixInfo.isUnreconstructable(inputStackB)) {
+            Constituents constituents = ElemenixInfo.getDiscountAppliedConstituents(inputStackB);
             if (constituents.isPure(block.getInputElemenixB())) {
-                items.get(1).shrink(1);
+                inputStackB.shrink(1);
                 inputB += constituents.get(block.getInputElemenixB());
                 setChanged();
             }
         }
     }
 
-    private void processOutputGeneration(TransformerBlock block) {
+    private void generateOutput(TransformerBlock block) {
         if (inputA >= block.getConsumptionA() && inputB >= block.getConsumptionB()) {
             inputA -= block.getConsumptionA();
             inputB -= block.getConsumptionB();
@@ -107,7 +110,7 @@ public class TransformerBlockEntity extends BaseContainerBlockEntity {
             setChanged();
         }
 
-        if (outputC >= block.getRcRequirement() && canOutputItem(block)) {
+        if (outputC >= block.getRcRequirement() && canOutput(block)) {
             outputC -= block.getRcRequirement();
             ItemStack outputStack = new ItemStack(block.getOutputItem());
             if (items.get(2).isEmpty()) {
@@ -119,11 +122,9 @@ public class TransformerBlockEntity extends BaseContainerBlockEntity {
         }
     }
 
-    private boolean canOutputItem(TransformerBlock block) {
+    private boolean canOutput(TransformerBlock block) {
         ItemStack outputSlot = items.get(2);
-        return outputSlot.isEmpty() ||
-                (outputSlot.getCount() < outputSlot.getMaxStackSize() &&
-                        outputSlot.getItem() == block.getOutputItem());
+        return outputSlot.isEmpty() || (outputSlot.getCount() < outputSlot.getMaxStackSize() && outputSlot.getItem() == block.getOutputItem());
     }
 
     public int getInputA() { return inputA; }
@@ -247,7 +248,8 @@ public class TransformerBlockEntity extends BaseContainerBlockEntity {
     public boolean canPlaceItem(int slot, ItemStack stack) {
         if (slot < 2) {
             TransformerBlock block = getTransformerBlock();
-            if (block == null) return false;
+            if(block == null) return false;
+            if(ElemenixInfo.isUndeconstructable(stack)) return false;
 
             Elemenix requiredType = (slot == 0) ? block.getInputElemenixA() : block.getInputElemenixB();
             Constituents constituents = ElemenixInfo.getConstituents(stack);

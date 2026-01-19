@@ -164,7 +164,7 @@ public class EnricherBlockEntity extends BaseContainerBlockEntity {
 
     private boolean canDeconstruct() {
         ItemStack inputStack = getItem(INPUT_SLOT);
-        return !inputStack.isEmpty() && !ElemenixInfo.isUnanalysable(inputStack);
+        return !inputStack.isEmpty() && !ElemenixInfo.isUndeconstructable(inputStack);
     }
 
     private void deconstructItem() {
@@ -244,7 +244,7 @@ public class EnricherBlockEntity extends BaseContainerBlockEntity {
     @Override
     public boolean canPlaceItem(int slot, ItemStack stack) {
         if (slot == INPUT_SLOT) {
-            return !ElemenixInfo.isUnanalysable(stack);
+            return !ElemenixInfo.isUndeconstructable(stack);
         }
         return false;
     }

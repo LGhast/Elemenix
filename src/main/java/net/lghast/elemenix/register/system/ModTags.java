@@ -126,4 +126,14 @@ public class ModTags {
             Registries.ITEM,
             ResourceLocation.parse("elemenix:ignored_by_deconstructor_input")
     );
+
+    public static final TagKey<Item> UNDECONSTRUCTABLE = TagKey.create(
+            Registries.ITEM,
+            ResourceLocation.parse("elemenix:undeconstructable")
+    );
+
+    public static final TagKey<Item> UNRECONSTRUCTABLE = TagKey.create(
+            Registries.ITEM,
+            ResourceLocation.parse("elemenix:unreconstructable")
+    );
 }

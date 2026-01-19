@@ -130,6 +130,8 @@
 
   "tooltip.elemenix.constituents": "元質構成：",
   "tooltip.elemenix.unanalysable": "=解析不能=",
+  "tooltip.elemenix.undeconstructable": "分解不能",
+  "tooltip.elemenix.unreconstructable": "再構成不能",
   "tooltip.elemenix.analyzer_storage": "元質貯蔵量：",
   "tooltip.elemenix.memories": "記憶済みアイテム: %d",
   "tooltip.elemenix.readonly": "読み取り専用",
@@ -154,6 +156,8 @@
   "tag.item.elemenix.vinyl_discs": "レコードディスク",
   "tag.item.elemenix.elemenic_transformers": "元質変換装置",
   "tag.item.elemenix.elemenic_deconstructors": "元質分解塔",
+  "tag.item.elemenix.undeconstructable": "分解不能アイテム",
+  "tag.item.elemenix.unreconstructable": "再構成不能アイテム",
   "tag.block.elemenix.elemenic_transformers": "元質変換装置",
   "tag.block.elemenix.elemenic_deconstructors": "元質分解塔",
 

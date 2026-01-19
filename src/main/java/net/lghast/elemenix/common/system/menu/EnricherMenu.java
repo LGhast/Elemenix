@@ -122,7 +122,7 @@ public class EnricherMenu extends AbstractContainerMenu {
     }
 
     private boolean isValidForInputSlot(ItemStack stack) {
-        return !ElemenixInfo.isUnanalysable(stack) && !stack.is(ModTags.IGNORED_BY_DECONSTRUCTOR_INPUT);
+        return !ElemenixInfo.isUndeconstructable(stack) && !stack.is(ModTags.IGNORED_BY_DECONSTRUCTOR_INPUT);
     }
 
     @Override

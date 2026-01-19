@@ -4,6 +4,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import net.lghast.elemenix.common.system.menu.AnalyzerMenu;
 import net.lghast.elemenix.network.ReconstructionPayload;
 import net.lghast.elemenix.register.content.ModItems;
+import net.lghast.elemenix.utils.ElemenixInfo;
 import net.lghast.elemenix.utils.ModUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
@@ -156,15 +157,16 @@ public class MemoryListWidget extends AbstractWidget {
         int textX = getX() + itemSize + ITEM_NAME_OFFSET;
         int textY = itemY + (ITEM_HEIGHT - 8) / 2;
         if (stackToRender.isEmpty()) {
-            graphics.drawString(minecraft.font, Component.translatable("gui.elemenix.invalid_item"),
-                    textX, textY, 0xFF3333, false);
+            graphics.drawString(minecraft.font, Component.translatable("gui.elemenix.invalid_item"), textX, textY, 0xFF3333, false);
             return;
         }
 
         String displayName = stackToRender.getHoverName().getString();
         int textWidth = getWidth() - itemSize - 8;
         String truncatedName = ModUtils.truncateToWidth(minecraft.font, displayName, textWidth);
-        graphics.drawString(minecraft.font, truncatedName, textX, textY, 0xFFFFFF, false);
+
+        int color = ElemenixInfo.isUnreconstructable(stackToRender) ? 0xFF3333 : 0xFFFFFF;
+        graphics.drawString(minecraft.font, truncatedName, textX, textY, color, false);
     }
 
     protected void updateItemList() {

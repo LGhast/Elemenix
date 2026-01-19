@@ -130,6 +130,8 @@
 
   "tooltip.elemenix.constituents": "Composition Élémentaire:",
   "tooltip.elemenix.unanalysable": "Inanalysable",
+  "tooltip.elemenix.undeconstructable": "Indéconstructible",
+  "tooltip.elemenix.unreconstructable": "Irreconstructible",
   "tooltip.elemenix.analyzer_storage": "Réserves d'Élémentium:",
   "tooltip.elemenix.memories": "Objets Mémorisés: %d",
   "tooltip.elemenix.readonly": "Lecture Seule",
@@ -154,6 +156,8 @@
   "tag.item.elemenix.vinyl_discs": "Disques Vinyle",
   "tag.item.elemenix.elemenic_transformers": "Transformateurs d'Élémentium",
   "tag.item.elemenix.elemenic_deconstructors": "Tours de Déconstruction d'Élémentium",
+  "tag.item.elemenix.undeconstructable": "Objets Indéconstructibles",
+  "tag.item.elemenix.unreconstructable": "Objets Irreconstructibles",
   "tag.block.elemenix.elemenic_transformers": "Transformateurs d'Élémentium",
   "tag.block.elemenix.elemenic_deconstructors": "Tours de Déconstruction d'Élémentium",
 

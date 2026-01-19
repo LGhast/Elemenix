@@ -6,6 +6,7 @@ import net.lghast.elemenix.conifig.ClientConfig;
 import net.lghast.elemenix.network.*;
 import net.lghast.elemenix.register.content.ModItems;
 import net.lghast.elemenix.register.system.ModMenus;
+import net.lghast.elemenix.register.system.ModTags;
 import net.lghast.elemenix.utils.Constituents;
 import net.lghast.elemenix.utils.ElemenixInfo;
 import net.lghast.elemenix.utils.ModUtils;
@@ -41,14 +42,14 @@ public class ClientEventHandler {
             return;
         }
 
+        List<Component> tooltip = event.getToolTip();
+        int insertIndex = findInsertIndex(tooltip);
+
         if(ClientConfig.SHOW_CONSTITUENT_TOOLTIPS.get() && !stack.is(ModItems.ELEMENIC_ANALYZER)) {
             Constituents constituents = ElemenixInfo.getConstituents(stack);
 
             if(constituents == null) return;
             if(constituents.isUnanalysable() && !ClientConfig.SHOW_UNANALYSABLE_TOOLTIPS.get()) return;
-
-            List<Component> tooltip = event.getToolTip();
-            int insertIndex = findInsertIndex(tooltip);
 
             tooltip.add(insertIndex, Component.translatable("tooltip.elemenix.constituents").withStyle(ChatFormatting.GRAY));
             insertIndex++;
@@ -59,6 +60,15 @@ public class ClientEventHandler {
                 insertIndex++;
                 tooltip.add(insertIndex, constituents.toComponentLatter());
             }
+        }
+
+        if(stack.is(ModTags.UNDECONSTRUCTABLE)){
+            insertIndex++;
+            tooltip.add(insertIndex,Component.translatable("tooltip.elemenix.undeconstructable").withStyle(ChatFormatting.DARK_GRAY));
+        }
+        if(stack.is(ModTags.UNRECONSTRUCTABLE)){
+            insertIndex++;
+            tooltip.add(insertIndex,Component.translatable("tooltip.elemenix.unreconstructable").withStyle(ChatFormatting.DARK_GRAY));
         }
     }
 

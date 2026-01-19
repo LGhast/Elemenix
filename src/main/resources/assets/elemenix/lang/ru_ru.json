@@ -130,6 +130,8 @@
 
   "tooltip.elemenix.constituents": "Элементный Состав:",
   "tooltip.elemenix.unanalysable": "=Неанализируемо=",
+  "tooltip.elemenix.undeconstructable": "Недеконструируемо",
+  "tooltip.elemenix.unreconstructable": "Нереконфигурируемо",
   "tooltip.elemenix.analyzer_storage": "Запасы Элеменции:",
   "tooltip.elemenix.memories": "Запомненные Предметы: %d",
   "tooltip.elemenix.readonly": "Только Для Чтения",
@@ -154,6 +156,8 @@
   "tag.item.elemenix.vinyl_discs": "Виниловые Пластинки",
   "tag.item.elemenix.elemenic_transformers": "Преобразователи Элеменции",
   "tag.item.elemenix.elemenic_deconstructors": "Башни Деконструкции Элеменции",
+  "tag.item.elemenix.undeconstructable": "Недеконструируемые предметы",
+  "tag.item.elemenix.unreconstructable": "Нереконфигурируемые предметы",
   "tag.block.elemenix.elemenic_transformers": "Преобразователи Элеменции",
   "tag.block.elemenix.elemenic_deconstructors": "Башни Деконструкции Элеменции",
 

@@ -116,7 +116,7 @@ public class AnalyzerMenu extends AbstractContainerMenu {
         if(stack.is(ModItems.ELEMENIC_MEMORIZER)){
             return MemorizerItem.getOrCreateMemories(stack).resolvedItems().isEmpty();
         }
-        return !ElemenixInfo.isUnanalysable(stack) && !(stack.getItem() instanceof AnalyzerItem);
+        return !ElemenixInfo.isUndeconstructable(stack) && !(stack.getItem() instanceof AnalyzerItem);
     }
 
     private void loadAnalyzerStorage() {
@@ -335,17 +335,15 @@ public class AnalyzerMenu extends AbstractContainerMenu {
         ResourceLocation itemId = BuiltInRegistries.ITEM.getKey(inputStack.getItem());
 
         ItemStack memorizerStack = getMemorizerItem();
-        if(!MemorizerItem.isReadonly(memorizerStack) &&
-                MemorizerItem.isNotFull(memorizerStack)){
+        if(!MemorizerItem.isReadonly(memorizerStack) && MemorizerItem.isNotFull(memorizerStack)){
             MemoryData currentMemoryData = MemorizerItem.getOrCreateMemories(memorizerStack);
             List<ResourceLocation> currentMemories = currentMemoryData.resolvedItems();
-            if (!inputStack.is(ModTags.ANALYZER_UNRECORDABLE) &&
-                    !currentMemories.contains(itemId)) {
+
+            if (!inputStack.is(ModTags.ANALYZER_UNRECORDABLE) && !currentMemories.contains(itemId)) {
                 List<ResourceLocation> newMemories = new ArrayList<>(currentMemories);
                 newMemories.add(itemId);
 
-                memorizerStack.set(ModDataComponents.MEMORY_DATA.get(),
-                        currentMemoryData.withResolvedItems(newMemories));
+                memorizerStack.set(ModDataComponents.MEMORY_DATA.get(), currentMemoryData.withResolvedItems(newMemories));
                 slots.get(MEMORIZER_SLOT).setChanged();
             }
         }
@@ -356,7 +354,8 @@ public class AnalyzerMenu extends AbstractContainerMenu {
         if(!getCarried().isEmpty() && !getCarried().is(item)) return;
 
         ItemStack resultStack = new ItemStack(item);
-        if(resultStack.isEmpty()) return;
+        if(resultStack.isEmpty() || ElemenixInfo.isUnreconstructable(resultStack)) return;
+
         Constituents required = ElemenixInfo.getPremiumAppliedConstituents(resultStack);
         if (required.isUnanalysable()) return;
 

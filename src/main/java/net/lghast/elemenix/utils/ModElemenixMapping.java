@@ -924,12 +924,20 @@ public class ModElemenixMapping {
             map.put("delighto_flight:thunder_cloudshroom", new Constituents(18, 0, 12, 0, 6, 0));
             map.put("delighto_flight:cloudshroom_colony", new Constituents(90, 0, 30, 0, 0, 0));
             map.put("delighto_flight:magic_chef_hat", new Constituents(240, 0, 0, 0, 0, 40));
-            map.put("delighto_flight:cook_book", new Constituents(92, 0, 0, 0, 0, 20));
+            map.put("delighto_flight:cook_book", new Constituents(92, 0, 0, 0, 0, 24));
             map.put("delighto_flight:weather_soil_farmland", new Constituents(86, 34, 32, 0, 0, 40));
             map.put("delighto_flight:cloud_berry_pancake", new Constituents(21, 4, 9, 0, 0, 0));
             map.put("delighto_flight:thunder_fruit_stew", new Constituents(41, 0, 5, 0, 4, 0));
             map.put("delighto_flight:mushroom_hotpot", new Constituents(130, 15, 7, 0, 13, 0));
-            map.put("delighto_flight:sparktricity_soda", new Constituents(38, 8, 48, 0, 6, 0));
+            map.put("delighto_flight:lotus_seeds", new Constituents(20, 0, 4, 0, 0, 0));
+            map.put("delighto_flight:lotus_root", new Constituents(22, 0, 12, 0, 0, 0));
+            map.put("delighto_flight:wild_lotus", new Constituents(64, 0, 24, 0, 0, 0));
+            map.put("delighto_flight:lotus_flower", new Constituents(18, 0, 10, 0, 0, 0));
+            map.put("delighto_flight:lotus_leaf", new Constituents(18, 0, 10, 0, 0, 0));
+            map.put("delighto_flight:rooted_mud", new Constituents(26, 18, 10, 0, 0, 0));
+            map.put("delighto_flight:clear_horn", new Constituents(10, 80, 0, 0, 0, 0));
+            map.put("delighto_flight:rainy_horn", new Constituents(10, 80, 10, 0, 0, 0));
+            map.put("delighto_flight:thunder_horn", new Constituents(10, 80, 0, 0, 15, 0));
             return map;
         });
 
