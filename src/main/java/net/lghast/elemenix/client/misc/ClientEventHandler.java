@@ -20,19 +20,17 @@ import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.neoforge.client.event.ClientPlayerNetworkEvent;
 import net.neoforged.neoforge.client.event.ClientTickEvent;
-import net.neoforged.neoforge.client.event.RecipesUpdatedEvent;
 import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
 import net.neoforged.neoforge.event.entity.player.ItemTooltipEvent;
-import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
-import net.neoforged.neoforge.network.registration.PayloadRegistrar;
 
 import java.util.List;
 import java.util.Objects;
 
 @OnlyIn(Dist.CLIENT)
 @SuppressWarnings("unused")
-@EventBusSubscriber(modid = Elemenics.MOD_ID)
+@EventBusSubscriber(modid = Elemenics.MOD_ID, value = Dist.CLIENT)
 public class ClientEventHandler {
     @SubscribeEvent
     public static void onItemTooltip(ItemTooltipEvent event) {
@@ -103,25 +101,6 @@ public class ClientEventHandler {
     }
 
     @SubscribeEvent
-    public static void registerPayloadHandlers(RegisterPayloadHandlersEvent event) {
-        PayloadRegistrar registrar = event.registrar("1.0");
-
-        registrar.playToServer(DeconstructionPayload.TYPE, DeconstructionPayload.STREAM_CODEC, DeconstructionPayload::handle)
-                .playToServer(ReconstructionPayload.TYPE, ReconstructionPayload.STREAM_CODEC, ReconstructionPayload::handle);
-
-        registrar.playToServer(OpenMemorizerBoxPayload.TYPE, OpenMemorizerBoxPayload.STREAM_CODEC, OpenMemorizerBoxPayload::handle);
-
-        registrar.playToServer(BurnerMovePayload.TYPE, BurnerMovePayload.STREAM_CODEC, BurnerMovePayload::handle)
-                .playToServer(BurnerDeletePayload.TYPE, BurnerDeletePayload.STREAM_CODEC, BurnerDeletePayload::handle)
-                .playToServer(BurnerSwapPayload.TYPE, BurnerSwapPayload.STREAM_CODEC, BurnerSwapPayload::handle)
-                .playToServer(BurnerActionPayload.TYPE, BurnerActionPayload.STREAM_CODEC, BurnerActionPayload::handle)
-                .playToServer(BurnerInsertBeforePayload.TYPE, BurnerInsertBeforePayload.STREAM_CODEC, BurnerInsertBeforePayload::handle);
-
-        registrar.playToServer(RequestInfuserUpdatePayload.TYPE, RequestInfuserUpdatePayload.STREAM_CODEC, RequestInfuserUpdatePayload::handle)
-                .playToClient(InfuserDataUpdatePayload.TYPE, InfuserDataUpdatePayload.STREAM_CODEC, InfuserDataUpdatePayload::handle);
-    }
-
-    @SubscribeEvent
     public static void onClientTick(ClientTickEvent.Post event) {
         Minecraft minecraft = Minecraft.getInstance();
         Player player = minecraft.player;
@@ -135,7 +114,7 @@ public class ClientEventHandler {
     }
 
     @SubscribeEvent
-    public static void onRecipesUpdated(RecipesUpdatedEvent event) {
-        ElemenixInfo.clearCaches();
+    public static void onClientDisconnect(ClientPlayerNetworkEvent.LoggingOut event) {
+        Elemenics.started = false;
     }
 }

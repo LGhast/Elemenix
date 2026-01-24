@@ -2,8 +2,6 @@ package net.lghast.elemenix.utils;
 
 import net.lghast.elemenix.register.content.ModItems;
 import net.lghast.elemenix.register.system.ModTags;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
@@ -11,7 +9,11 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.*;
+import net.minecraft.world.level.Level;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
+import javax.annotation.Nullable;
 import java.util.*;
 
 public class RecipeHelper {
@@ -27,6 +29,8 @@ public class RecipeHelper {
     private static final boolean ANVILCRAFT_LOADED;
     private static final boolean CATACLYSM_LOADED;
     private static final boolean AE2_LOADED;
+
+    private static final Logger LOGGER = LogManager.getLogger();
 
     static {
         FARMERS_DELIGHT_LOADED = ModUtils.hasServerMod("farmersdelight");
@@ -101,10 +105,12 @@ public class RecipeHelper {
         return stack;
     }
 
-    private static List<RecipeInfo> getRecipesForItem(Item targetItem) {
+    private static List<RecipeInfo> getRecipesForItem(Item targetItem, @Nullable Level level) {
+        if(level == null){
+            return Collections.emptyList();
+        }
+
         List<RecipeInfo> recipes = new ArrayList<>();
-        ClientLevel level = Minecraft.getInstance().level;
-        if(level == null) return Collections.emptyList();
         RecipeManager recipeManager = level.getRecipeManager();
 
         for (RecipeHolder<?> recipeHolder : recipeManager.getRecipes()) {
@@ -120,7 +126,7 @@ public class RecipeHelper {
 
             //noinspection ConstantConditions
             if(result == null) continue;
-            if (result.isEmpty()) continue;
+            if(result.isEmpty()) continue;
 
             Item resultItem = result.getItem();
             RECIPE_OUTPUT_CACHE.put(recipeId, resultItem);
@@ -139,9 +145,9 @@ public class RecipeHelper {
             }
 
             if (RECIPE_ANALYZED_CACHE.getOrDefault(recipeId, false)) {
-                recipes.add(getInfo(recipeHolder, recipe));
+                recipes.add(getInfo(recipeHolder, recipe, level));
             } else {
-                recipes.add(getInfo(recipeHolder, recipe));
+                recipes.add(getInfo(recipeHolder, recipe, level));
                 RECIPE_ANALYZED_CACHE.put(recipeId, true);
             }
         }
@@ -149,10 +155,11 @@ public class RecipeHelper {
         return recipes;
     }
 
-    private static RecipeInfo getBestRecipeForItem(Item targetItem) {
-        List<RecipeInfo> recipes = getRecipesForItem(targetItem);
+    private static RecipeInfo getBestRecipeForItem(Item targetItem, @Nullable Level level) {
+        List<RecipeInfo> recipes = getRecipesForItem(targetItem, level);
 
         if (recipes.isEmpty()) {
+            LOGGER.info("Fail to calculate: recipes not found");
             return null;
         }
 
@@ -177,8 +184,8 @@ public class RecipeHelper {
         return bestRecipe;
     }
 
-    public static Constituents getRecipeConstituents(Item item){
-        RecipeInfo recipeInfo = getBestRecipeForItem(item);
+    public static Constituents getRecipeConstituents(Item item, @Nullable Level level) {
+        RecipeInfo recipeInfo = getBestRecipeForItem(item, level);
         if(recipeInfo == null) return null;
         return recipeInfo.getConstituents();
     }
@@ -199,10 +206,10 @@ public class RecipeHelper {
                 isWeaponFusionRecipe(recipe);
     }
 
-    private static RecipeInfo getInfo(RecipeHolder<?> holder, Recipe<?> recipe) {
+    private static RecipeInfo getInfo(RecipeHolder<?> holder, Recipe<?> recipe, @Nullable Level level) {
         RecipeInfo info = new RecipeInfo();
-        ClientLevel level = Minecraft.getInstance().level;
         if(level == null) return info;
+
         info.recipeId = holder.id();
         info.type = recipe.getType();
         info.ingredients = new ArrayList<>();

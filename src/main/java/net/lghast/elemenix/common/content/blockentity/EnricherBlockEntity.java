@@ -5,6 +5,7 @@ import net.lghast.elemenix.common.content.block.EnricherBlock;
 import net.lghast.elemenix.common.system.menu.EnricherMenu;
 import net.lghast.elemenix.register.content.ModBlockEntities;
 import net.lghast.elemenix.register.content.ModItems;
+import net.lghast.elemenix.register.system.ModTags;
 import net.lghast.elemenix.utils.Constituents;
 import net.lghast.elemenix.utils.Elemenix;
 import net.lghast.elemenix.utils.ElemenixInfo;
@@ -244,7 +245,7 @@ public class EnricherBlockEntity extends BaseContainerBlockEntity {
     @Override
     public boolean canPlaceItem(int slot, ItemStack stack) {
         if (slot == INPUT_SLOT) {
-            return !ElemenixInfo.isUndeconstructable(stack);
+            return !ElemenixInfo.isUndeconstructable(stack) && !stack.is(ModTags.IGNORED_BY_DECONSTRUCTOR_INPUT);
         }
         return false;
     }

@@ -1,6 +1,7 @@
 package net.lghast.elemenix.utils;
 
 import net.lghast.elemenix.conifig.ClientConfig;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -10,11 +11,15 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.api.distmarker.OnlyIn;
 import net.neoforged.fml.ModList;
 import top.theillusivec4.curios.api.CuriosApi;
 import top.theillusivec4.curios.api.SlotResult;
 import top.theillusivec4.curios.api.type.capability.ICuriosItemHandler;
 
+import javax.annotation.Nullable;
 import java.util.Optional;
 
 public class ModUtils {
@@ -196,5 +201,15 @@ public class ModUtils {
 
     public static boolean hasServerMod(String modId) {
         return ModList.get().isLoaded(modId);
+    }
+
+    @Nullable
+    @OnlyIn(Dist.CLIENT)
+    public static Level getClientLevel() {
+        try {
+            return Minecraft.getInstance().level;
+        } catch (Exception e) {
+            return null;
+        }
     }
 }

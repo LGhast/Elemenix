@@ -20,7 +20,6 @@ public class EnricherMenu extends AbstractContainerMenu {
     private final EnricherBlockEntity blockEntity;
     private final ContainerData data;
 
-
     public EnricherMenu(int containerId, Inventory playerInventory, EnricherBlockEntity blockEntity) {
         super(ModMenus.ENRICHER_MENU.get(), containerId);
         this.blockEntity = blockEntity;

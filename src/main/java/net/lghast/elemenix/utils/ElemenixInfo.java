@@ -2,24 +2,25 @@ package net.lghast.elemenix.utils;
 
 import net.lghast.elemenix.Elemenics;
 import net.lghast.elemenix.conifig.ServerConfig;
-import net.lghast.elemenix.register.content.ModItems;
 import net.lghast.elemenix.register.system.ModTags;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
 import net.neoforged.fml.ModList;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import javax.annotation.Nullable;
 import java.util.*;
 
 public class ElemenixInfo {
     private static final Logger LOGGER = LogManager.getLogger();
     public static final int ESSENCE_VALUE = 486;
 
-    private static Map<String, Constituents> ADDITIONAL_MAP;
+    private static Map<String, Constituents> ADDITIONAL_MAP = new HashMap<>();
     private static final Map<String, Constituents> ELEMENIX_MAP = ElemenixMapping.ELEMENIX_MAP;
 
     protected static final Map<Item, Constituents> ITEM_CACHE = new HashMap<>();
@@ -39,6 +40,8 @@ public class ElemenixInfo {
         handleMap(ELEMENIX_MAP);
 
         isInitialized = true;
+
+        LOGGER.info("ElemenixInfo Class has been initialized.");
     }
 
     public static void clearCaches() {
@@ -47,6 +50,8 @@ public class ElemenixInfo {
         CALCULATING_ITEMS.clear();
         UNANALYSABLE_ITEMS.clear();
         RecipeHelper.clearCache();
+
+        LOGGER.info("ElemenixInfo Cache has been cleared.");
     }
 
     private static void handleMap(Map<String, Constituents> map){
@@ -76,27 +81,38 @@ public class ElemenixInfo {
     }
 
     public static Constituents getConstituents(ItemStack stack) {
+        return getConstituents(stack, Elemenics.getCurrentLevel());
+    }
+
+    public static Constituents getConstituents(ItemStack stack, @Nullable Level level) {
         if(stack.isDamaged()){
-            Constituents constituents = getConstituents(stack.getItem()).copy();
+            Constituents constituents = getConstituents(stack.getItem(), level).copy();
             int damage = stack.getDamageValue();
             int maxDamage = stack.getMaxDamage();
             double damageMultiple = (maxDamage - damage) / (double)maxDamage;
             constituents.multiply(damageMultiple);
             return constituents;
         }
-        return getConstituents(stack.getItem());
+        return getConstituents(stack.getItem(), level);
     }
 
     public static Constituents getConstituents(Item item) {
+        return getConstituents(item, Elemenics.getCurrentLevel());
+    }
+
+    public static Constituents getConstituents(Item item, @Nullable Level level) {
         if (!Elemenics.started) {
+            LOGGER.info("The mod Elemenics hasn't started. Unanalysable constituents has been returned.");
             return new Constituents(true);
         }
 
         if (!isInitialized) {
+            LOGGER.info("ElemenixInfo Class hasn't initialized. Unanalysable constituents has been returned.");
             initialize();
         }
 
         if(UNANALYSABLE_ITEMS.contains(item)){
+            LOGGER.info(item.getDescription().getString() + " is in the unanalysable item list.");
             return new Constituents(true);
         }
 
@@ -123,11 +139,12 @@ public class ElemenixInfo {
 
         try {
             CALCULATING_ITEMS.add(item);
-            Constituents recipeConstituents = RecipeHelper.getRecipeConstituents(item);
+            Constituents recipeConstituents = RecipeHelper.getRecipeConstituents(item, level);
             if (recipeConstituents != null) {
                 ITEM_CACHE.put(item, recipeConstituents);
                 return recipeConstituents;
             }
+            LOGGER.info("Fail to calculate constituents for" + item.getDescription().getString());
         } finally {
             CALCULATING_ITEMS.remove(item);
         }

@@ -4,6 +4,7 @@ import net.lghast.elemenix.Elemenics;
 import net.lghast.elemenix.common.content.block.TransformerBlock;
 import net.lghast.elemenix.common.system.menu.TransformerMenu;
 import net.lghast.elemenix.register.content.ModBlockEntities;
+import net.lghast.elemenix.register.system.ModTags;
 import net.lghast.elemenix.utils.Constituents;
 import net.lghast.elemenix.utils.Elemenix;
 import net.lghast.elemenix.utils.ElemenixInfo;
@@ -249,7 +250,7 @@ public class TransformerBlockEntity extends BaseContainerBlockEntity {
         if (slot < 2) {
             TransformerBlock block = getTransformerBlock();
             if(block == null) return false;
-            if(ElemenixInfo.isUndeconstructable(stack)) return false;
+            if(ElemenixInfo.isUndeconstructable(stack) || stack.is(ModTags.IGNORED_BY_DECONSTRUCTOR_INPUT)) return false;
 
             Elemenix requiredType = (slot == 0) ? block.getInputElemenixA() : block.getInputElemenixB();
             Constituents constituents = ElemenixInfo.getConstituents(stack);

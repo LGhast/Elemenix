@@ -5,14 +5,21 @@ import net.lghast.elemenix.client.misc.ModRenders;
 import net.lghast.elemenix.conifig.ClientConfig;
 import net.lghast.elemenix.conifig.ServerConfig;
 import net.lghast.elemenix.datagen.DataGenerators;
+import net.lghast.elemenix.network.SyncModStartedPayload;
 import net.lghast.elemenix.register.content.ModBlockEntities;
 import net.lghast.elemenix.register.content.ModBlocks;
 import net.lghast.elemenix.register.content.ModItems;
 import net.lghast.elemenix.register.system.*;
 import net.lghast.elemenix.utils.ElemenixInfo;
+import net.lghast.elemenix.utils.ModUtils;
 import net.lghast.elemenix.utils.RecipeHelper;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.level.Level;
+import net.neoforged.api.distmarker.Dist;
 import net.neoforged.fml.config.ModConfig;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
+import net.neoforged.fml.loading.FMLEnvironment;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.data.event.GatherDataEvent;
 
@@ -20,8 +27,12 @@ import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.ModContainer;
 import net.neoforged.neoforge.event.entity.player.PlayerEvent;
+import net.neoforged.neoforge.event.server.ServerStartedEvent;
 import net.neoforged.neoforge.event.server.ServerStartingEvent;
+import net.neoforged.neoforge.event.server.ServerStoppedEvent;
 import net.neoforged.neoforge.event.tick.ServerTickEvent;
+
+import javax.annotation.Nullable;
 
 @Mod(Elemenics.MOD_ID)
 public class Elemenics {
@@ -29,6 +40,9 @@ public class Elemenics {
     public static boolean started = false;
     private static int tickCounter = 0;
     private static boolean hasWorldLoaded = false;
+
+    @Nullable
+    private static ServerLevel currentServerLevel = null;
 
     public Elemenics(IEventBus modEventBus, ModContainer modContainer) {
         modContainer.registerConfig(ModConfig.Type.SERVER, ServerConfig.SPEC);
@@ -48,7 +62,9 @@ public class Elemenics {
 
         NeoForge.EVENT_BUS.addListener(this::onWorldLoad);
         NeoForge.EVENT_BUS.addListener(this::onServerTick);
-        NeoForge.EVENT_BUS.addListener(this::onPlayerLogout);
+        NeoForge.EVENT_BUS.addListener(this::onPlayerLogin);
+        NeoForge.EVENT_BUS.addListener(this::onServerStarted);
+        NeoForge.EVENT_BUS.addListener(this::onServerStopped);
     }
 
     private void gatherData(GatherDataEvent event){
@@ -64,6 +80,7 @@ public class Elemenics {
         hasWorldLoaded = true;
         tickCounter = 0;
         started = false;
+        currentServerLevel = event.getServer().overworld();
 
         ElemenixInfo.clearCaches();
         RecipeHelper.clearCache();
@@ -76,6 +93,7 @@ public class Elemenics {
             if (tickCounter >= 60) {
                 started = true;
                 hasWorldLoaded = false;
+                sendSyncToAllPlayers(event.getServer().overworld());
 
                 ElemenixInfo.clearCaches();
                 RecipeHelper.clearCache();
@@ -83,14 +101,42 @@ public class Elemenics {
         }
     }
 
-    private void onPlayerLogout(PlayerEvent.PlayerLoggedOutEvent event) {
+    private void onPlayerLogin(PlayerEvent.PlayerLoggedInEvent event) {
         if (!event.getEntity().level().isClientSide()) {
-            ElemenixInfo.clearCaches();
-            RecipeHelper.clearCache();
+            if (event.getEntity() instanceof ServerPlayer serverPlayer) {
+                sendSyncStartedPacket(serverPlayer, started);
+            }
+        }
+    }
 
-            hasWorldLoaded = false;
-            tickCounter = 0;
-            started = false;
+    @Nullable
+    public static Level getCurrentLevel() {
+        if (FMLEnvironment.dist == Dist.CLIENT) {
+            return ModUtils.getClientLevel();
+        } else {
+            return currentServerLevel;
+        }
+    }
+
+    private void onServerStarted(ServerStartedEvent event) {
+        currentServerLevel = event.getServer().overworld();
+    }
+
+    private void onServerStopped(ServerStoppedEvent event) {
+        currentServerLevel = null;
+    }
+
+    private void sendSyncStartedPacket(ServerPlayer player, boolean started) {
+        SyncModStartedPayload payload = new SyncModStartedPayload(started);
+        player.connection.send(payload);
+    }
+
+    private void sendSyncToAllPlayers(ServerLevel level) {
+        if (level != null) {
+            level.getServer();
+            for (ServerPlayer player : level.getServer().getPlayerList().getPlayers()) {
+                sendSyncStartedPacket(player, true);
+            }
         }
     }
 }

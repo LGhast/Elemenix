@@ -10,6 +10,7 @@ import net.lghast.elemenix.common.system.menu.InfuserMenu;
 import net.lghast.elemenix.network.InfuserDataUpdatePayload;
 import net.lghast.elemenix.register.content.ModBlockEntities;
 import net.lghast.elemenix.register.system.ModDataComponents;
+import net.lghast.elemenix.register.system.ModTags;
 import net.lghast.elemenix.utils.Constituents;
 import net.lghast.elemenix.utils.Elemenix;
 import net.lghast.elemenix.utils.ElemenixInfo;
@@ -250,7 +251,7 @@ public class InfuserBlockEntity extends BaseContainerBlockEntity {
         if (slot == STORAGE_SLOT) {
             return stack.getItem() instanceof StorageItem;
         } else if (slot == INPUT_SLOT) {
-            return !ElemenixInfo.isUndeconstructable(stack);
+            return !ElemenixInfo.isUndeconstructable(stack) && !stack.is(ModTags.IGNORED_BY_DECONSTRUCTOR_INPUT);
         }
         return false;
     }
@@ -318,5 +319,4 @@ public class InfuserBlockEntity extends BaseContainerBlockEntity {
         }
         return false;
     }
-
 }

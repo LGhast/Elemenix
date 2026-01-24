@@ -182,9 +182,11 @@ public class AnalyzerMenu extends AbstractContainerMenu {
     }
 
     public void deconstructItem() {
+        System.out.println("A");
         ItemStack inputStack = getInputItem();
         if (inputStack.isEmpty()) return;
 
+        System.out.println("B");
         if (inputStack.getItem() instanceof RemoteStorageItem) {
             if (RemoteStorageItem.isBound(inputStack)) {
                 if (player.level() instanceof ServerLevel serverLevel) {
@@ -209,6 +211,8 @@ public class AnalyzerMenu extends AbstractContainerMenu {
             }
             return;
         }
+
+        System.out.println("C");
         regularlyDeconstruct(inputStack);
     }
 
@@ -216,6 +220,7 @@ public class AnalyzerMenu extends AbstractContainerMenu {
         Constituents constituents = ElemenixInfo.getDiscountAppliedConstituents(inputStack);
         if (constituents.isUnanalysable()) return;
 
+        System.out.println("D");
         for (Elemenix type : Elemenix.values()) {
             long amount = (long) constituents.get(type) * inputStack.getCount();
             if (amount > 0) {
