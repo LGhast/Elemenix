@@ -4,6 +4,7 @@ import com.mojang.serialization.MapCodec;
 import net.lghast.elemenix.common.content.blockentity.EjectorBlockEntity;
 import net.lghast.elemenix.conifig.ServerConfig;
 import net.lghast.elemenix.register.content.ModBlockEntities;
+import net.lghast.elemenix.register.system.ModStats;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.FrontAndTop;
@@ -99,6 +100,7 @@ public class EjectorBlock extends BaseEntityBlock {
     protected @NotNull InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hitResult) {
         if (!level.isClientSide && level.getBlockEntity(pos) instanceof EjectorBlockEntity blockEntity) {
             player.openMenu(blockEntity, pos);
+            player.awardStat(ModStats.EJECTOR_INTERACTIONS.get());
             return InteractionResult.SUCCESS;
         }
         return InteractionResult.SUCCESS;

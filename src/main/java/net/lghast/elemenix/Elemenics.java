@@ -19,6 +19,7 @@ import net.minecraft.world.level.Level;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.fml.config.ModConfig;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
+import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.neoforged.fml.loading.FMLEnvironment;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.data.event.GatherDataEvent;
@@ -56,9 +57,11 @@ public class Elemenics {
         ModMenus.register(modEventBus);
         ModAdvancementTriggers.register(modEventBus);
         ModRecipes.register(modEventBus);
+        ModStats.register(modEventBus);
 
         modEventBus.addListener(this::gatherData);
         modEventBus.addListener(this::onClientSetup);
+        modEventBus.addListener(this::onCommonSetup);
 
         NeoForge.EVENT_BUS.addListener(this::onWorldLoad);
         NeoForge.EVENT_BUS.addListener(this::onServerTick);
@@ -74,6 +77,10 @@ public class Elemenics {
     public void onClientSetup(FMLClientSetupEvent event){
         event.enqueueWork(ModRenders::setItemBlockRenders);
         event.enqueueWork(ModItemProperties::register);
+    }
+
+    private void onCommonSetup(final FMLCommonSetupEvent event) {
+        event.enqueueWork(ModStats::init);
     }
 
     private void onWorldLoad(ServerStartingEvent event) {

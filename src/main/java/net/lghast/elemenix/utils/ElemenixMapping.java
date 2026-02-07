@@ -112,6 +112,7 @@ public class ElemenixMapping {
         ELEMENIX_MAP.put("minecraft:small_amethyst_bud", new Constituents(Elemenix.TERRIX, 300));
         ELEMENIX_MAP.put("minecraft:medium_amethyst_bud", new Constituents(Elemenix.TERRIX, 600));
         ELEMENIX_MAP.put("minecraft:large_amethyst_bud", new Constituents(Elemenix.TERRIX, 900));
+        ELEMENIX_MAP.put("minecraft:budding_amethyst", new Constituents(Elemenix.TERRIX, 2400));
         ELEMENIX_MAP.put("minecraft:quartz", new Constituents(Elemenix.TERRIX, 8));
         ELEMENIX_MAP.put("minecraft:nether_quartz_ore", new Constituents(0, 27, 0, 0, 1, 0));
         ELEMENIX_MAP.put("minecraft:exposed_copper", new Constituents(0, 373, 0, 518, 0, 0));
@@ -173,7 +174,10 @@ public class ElemenixMapping {
         ELEMENIX_MAP.put("minecraft:crimson_fungus", new Constituents(64, 0, 24, 0, 0, 0));
         ELEMENIX_MAP.put("minecraft:warped_fungus", new Constituents(64, 0, 24, 0, 0, 0));
         ELEMENIX_MAP.put("#minecraft:small_flowers", Constituents.flower());
+        ELEMENIX_MAP.put("minecraft:wildflowers", Constituents.flower());
         ELEMENIX_MAP.put("#elemenix:big_flowers", Constituents.flowerLarge());
+        ELEMENIX_MAP.put("minecraft:bush", new Constituents(8, 0, 4, 0, 0, 0));
+        ELEMENIX_MAP.put("minecraft:firefly_bush", new Constituents(12, 0, 5, 0, 4, 0));
         ELEMENIX_MAP.put("minecraft:pink_petals", new Constituents(18, 0, 2, 0, 0, 0));
         ELEMENIX_MAP.put("minecraft:wither_rose", new Constituents(18, 0, 5, 0, 0, 5));
         ELEMENIX_MAP.put("minecraft:spore_blossom", new Constituents(56, 0, 24, 0, 0, 0));
@@ -206,6 +210,10 @@ public class ElemenixMapping {
         ELEMENIX_MAP.put("minecraft:chorus_fruit", new Constituents(32, 0, 3, 0, 0, 6));
         ELEMENIX_MAP.put("minecraft:chorus_flower", new Constituents(45, 0, 5, 0, 0, 10));
         ELEMENIX_MAP.put("minecraft:chorus_plant", new Constituents(13, 0, 2, 0, 0, 4));
+        ELEMENIX_MAP.put("minecraft:pale_moss_block", new Constituents(6, 0, 6, 0, 0, 0));
+        ELEMENIX_MAP.put("minecraft:pale_hanging_moss", new Constituents(6, 0, 3, 0, 0, 0));
+        ELEMENIX_MAP.put("minecraft:closed_eyeblossom", new Constituents(18, 0, 8, 0, 0, 2));
+        ELEMENIX_MAP.put("minecraft:open_eyeblossom", new Constituents(18, 0, 8, 0, 0, 2));
 
         //动物与怪物
         ELEMENIX_MAP.put("minecraft:white_wool", new Constituents(Elemenix.ORGANIX, 96));
@@ -215,6 +223,8 @@ public class ElemenixMapping {
         ELEMENIX_MAP.put("minecraft:rabbit_foot", new Constituents(64, 12, 12, 0, 0, 10));
         ELEMENIX_MAP.put("minecraft:feather", new Constituents(Elemenix.ORGANIX, 24));
         ELEMENIX_MAP.put("minecraft:egg", new Constituents(6, 8, 6, 0, 0, 0));
+        ELEMENIX_MAP.put("minecraft:brown_egg", new Constituents(6, 8, 6, 0, 0, 0));
+        ELEMENIX_MAP.put("minecraft:blue_egg", new Constituents(6, 8, 6, 0, 0, 0));
         ELEMENIX_MAP.put("minecraft:turtle_egg", new Constituents(32, 16, 12, 0, 0, 0));
         ELEMENIX_MAP.put("minecraft:sniffer_egg", new Constituents(70, 32, 24, 0, 0, 0));
         ELEMENIX_MAP.put("minecraft:ink_sac", new Constituents(24, 4, 4, 0, 0, 0));
@@ -264,6 +274,10 @@ public class ElemenixMapping {
         ELEMENIX_MAP.put("minecraft:player_head", new Constituents(280, 80, 10, 0, 0, 500));
         ELEMENIX_MAP.put("minecraft:piglin_head", new Constituents(300, 80, 10, 0, 0, 500));
         ELEMENIX_MAP.put("minecraft:dragon_head", new Constituents(3200, 1000, 800, 0, 3000, 2000));
+        ELEMENIX_MAP.put("minecraft:resin_clump", new Constituents(Elemenix.ORGANIX, 8));
+        ELEMENIX_MAP.put("minecraft:short_dry_grass", new Constituents(Elemenix.ORGANIX, 6));
+        ELEMENIX_MAP.put("minecraft:tall_dry_grass", new Constituents(Elemenix.ORGANIX, 6));
+        ELEMENIX_MAP.put("minecraft:cactus_flower", new Constituents(56, 0, 24, 0, 0, 0));
 
         //食物
         ELEMENIX_MAP.put("minecraft:chicken", Constituents.rawMeat(6, 2));
@@ -277,6 +291,7 @@ public class ElemenixMapping {
         ELEMENIX_MAP.put("minecraft:pufferfish", new Constituents(30, 3, 10, 0, 0, 5));
         ELEMENIX_MAP.put("minecraft:sugar", new Constituents(Elemenix.ORGANIX, 20));
         ELEMENIX_MAP.put("minecraft:bread", new Constituents(Elemenix.ORGANIX, 72));
+        ELEMENIX_MAP.put("minecraft:cookie", new Constituents(Elemenix.ORGANIX, 8));
         ELEMENIX_MAP.put("minecraft:dried_kelp_block", new Constituents(54, 0, 0, 0, 54, 0));
         ELEMENIX_MAP.put("minecraft:suspicious_stew", new Constituents(72, 0, 20, 0, 0, 0));
 
@@ -302,6 +317,7 @@ public class ElemenixMapping {
         ELEMENIX_MAP.put("minecraft:bolt_armor_trim_smithing_template", new Constituents(0, 140216, 0, 648, 0, 2800));
 
         //其他
+        ELEMENIX_MAP.put("minecraft:torch", new Constituents(17, 0, 0, 0, 12, 0));
         ELEMENIX_MAP.put("minecraft:paper", new Constituents(Elemenix.ORGANIX, 20));
         ELEMENIX_MAP.put("minecraft:book", new Constituents(Elemenix.ORGANIX, 92));
         ELEMENIX_MAP.put("minecraft:writable_book", new Constituents(140, 4, 0, 0, 0, 0));

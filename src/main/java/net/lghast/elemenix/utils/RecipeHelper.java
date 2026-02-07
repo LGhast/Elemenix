@@ -2,6 +2,7 @@ package net.lghast.elemenix.utils;
 
 import net.lghast.elemenix.register.content.ModItems;
 import net.lghast.elemenix.register.system.ModTags;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
@@ -23,7 +24,9 @@ public class RecipeHelper {
 
     private static final List<String> RECIPE_TYPES_NORMAL = new ArrayList<>();
     private static final List<String> RECIPE_TYPES_WITH_CONTAINER = new ArrayList<>();
-    private static final List<String> RECIPE_TYPE_BREWING_LIKE = new ArrayList<>();
+    private static final List<String> RECIPE_TYPES_BREWING_LIKE = new ArrayList<>();
+    private static final List<String> RECIPE_TYPES_GLODIUM = new ArrayList<>();
+    private static final List<String> RECIPE_TYPES_GLODIUMS = new ArrayList<>();
 
     private static final boolean FARMERS_DELIGHT_LOADED;
     private static final boolean ANVILCRAFT_LOADED;
@@ -40,19 +43,36 @@ public class RecipeHelper {
 
         if(FARMERS_DELIGHT_LOADED){
             RECIPE_TYPES_WITH_CONTAINER.add("farmersdelight:cooking");
+
+            if(ModUtils.hasServerMod("dungeonsdelight")){
+                RECIPE_TYPES_WITH_CONTAINER.add("dungeonsdelight:monster_cooking");
+            }
+
+            if(ModUtils.hasServerMod("youkaishomecoming")){
+                RECIPE_TYPES_WITH_CONTAINER.add("youkaishomecoming:moka_pot");
+                RECIPE_TYPES_WITH_CONTAINER.add("youkaishomecoming:kettle");
+                RECIPE_TYPES_NORMAL.add("youkaishomecoming:steaming");
+            }
         }
         if(ANVILCRAFT_LOADED){
             RECIPE_TYPES_NORMAL.add("anvilcraft:jewel_crafting");
         }
         if(AE2_LOADED){
             RECIPE_TYPES_NORMAL.add("ae2:inscriber");
+            RECIPE_TYPES_NORMAL.add("ae2:charger");
+
+            if(ModUtils.hasServerMod("extendedae")){
+                RECIPE_TYPES_GLODIUM.add("extendedae:circuit_cutter");
+                RECIPE_TYPES_GLODIUMS.add("extendedae:crystal_assembler");
+
+            }
+            if(ModUtils.hasServerMod("advanced_ae")){
+                RECIPE_TYPES_GLODIUMS.add("advanced_ae:reaction");
+            }
         }
 
         if(ModUtils.hasServerMod("twilightforest")){
             RECIPE_TYPES_NORMAL.add("twilightforest:drying");
-        }
-        if(ModUtils.hasServerMod("dungeonsdelight")){
-            RECIPE_TYPES_WITH_CONTAINER.add("dungeonsdelight:monster_cooking");
         }
         if(ModUtils.hasServerMod("create")){
             RECIPE_TYPES_NORMAL.add("create:pressing");
@@ -66,12 +86,7 @@ public class RecipeHelper {
         }
         if(ModUtils.hasServerMod("cobblemon")){
             RECIPE_TYPES_NORMAL.add("cobblemon:cooking_pot");
-            RECIPE_TYPE_BREWING_LIKE.add("cobblemon:brewing_stand");
-        }
-        if(ModUtils.hasServerMod("youkaishomecoming")){
-            RECIPE_TYPES_WITH_CONTAINER.add("youkaishomecoming:moka_pot");
-            RECIPE_TYPES_WITH_CONTAINER.add("youkaishomecoming:kettle");
-            RECIPE_TYPES_NORMAL.add("youkaishomecoming:steaming");
+            RECIPE_TYPES_BREWING_LIKE.add("cobblemon:brewing_stand");
         }
     }
 
@@ -91,6 +106,10 @@ public class RecipeHelper {
             return new ItemStack(Items.ARROW, stack.getCount());
         }
 
+        if (item == Items.ENCHANTED_BOOK) {
+            return new ItemStack(Items.BOOK, stack.getCount());
+        }
+
         if(!AE2_LOADED){
             return stack;
         }
@@ -103,6 +122,40 @@ public class RecipeHelper {
         }
 
         return stack;
+    }
+
+    private static ItemStack getRecipeResultItem(Recipe<?> recipe, @Nullable HolderLookup.Provider registryAccess) {
+        if (registryAccess == null) return ItemStack.EMPTY;
+
+        ItemStack result = recipe.getResultItem(registryAccess);
+        //noinspection ConstantConditions
+        if(result != null && !result.isEmpty()) return result;
+
+        try {
+            java.lang.reflect.Method method = recipe.getClass().getMethod("getResultItem");
+            return (ItemStack) method.invoke(recipe);
+        } catch (NoSuchMethodException e) {
+            try {
+                java.lang.reflect.Method method = recipe.getClass().getMethod("getOutput");
+                return (ItemStack) method.invoke(recipe);
+            } catch (Exception ignored) {}
+
+            try {
+                java.lang.reflect.Method method = recipe.getClass().getMethod("getResult");
+                return (ItemStack) method.invoke(recipe);
+            } catch (Exception ex) {
+                try {
+                    java.lang.reflect.Field field = recipe.getClass().getDeclaredField("output");
+                    field.setAccessible(true);
+                    Object output = field.get(recipe);
+                    if (output instanceof ItemStack) {
+                        return (ItemStack) output;
+                    }
+                } catch (Exception ignored) {}
+            }
+        } catch (Exception ignored) {}
+
+        return ItemStack.EMPTY;
     }
 
     private static List<RecipeInfo> getRecipesForItem(Item targetItem, @Nullable Level level) {
@@ -122,7 +175,7 @@ public class RecipeHelper {
             }
 
             Recipe<?> recipe = recipeHolder.value();
-            ItemStack result = recipe.getResultItem(level.registryAccess());
+            ItemStack result = getRecipeResultItem(recipe, level.registryAccess());
 
             //noinspection ConstantConditions
             if(result == null) continue;
@@ -145,9 +198,9 @@ public class RecipeHelper {
             }
 
             if (RECIPE_ANALYZED_CACHE.getOrDefault(recipeId, false)) {
-                recipes.add(getInfo(recipeHolder, recipe, level));
+                recipes.add(getInfo(recipeHolder, recipe, level, result));
             } else {
-                recipes.add(getInfo(recipeHolder, recipe, level));
+                recipes.add(getInfo(recipeHolder, recipe, level, result));
                 RECIPE_ANALYZED_CACHE.put(recipeId, true);
             }
         }
@@ -203,17 +256,19 @@ public class RecipeHelper {
                 isCuttingBoardRecipe(recipe) ||
                 isMultipleToOneSmithingRecipe(recipe) ||
                 isBrewingStandRecipe(recipe) ||
-                isWeaponFusionRecipe(recipe);
+                isWeaponFusionRecipe(recipe) ||
+                isGlodiumRecipe(recipe) ||
+                isGlodiumsRecipe(recipe);
     }
 
-    private static RecipeInfo getInfo(RecipeHolder<?> holder, Recipe<?> recipe, @Nullable Level level) {
+    private static RecipeInfo getInfo(RecipeHolder<?> holder, Recipe<?> recipe, @Nullable Level level, ItemStack result) {
         RecipeInfo info = new RecipeInfo();
         if(level == null) return info;
 
         info.recipeId = holder.id();
         info.type = recipe.getType();
         info.ingredients = new ArrayList<>();
-        info.result = recipe.getResultItem(level.registryAccess());
+        info.result = result;
         info.resultAmount = info.result.getCount();
         info.amount = 0;
 
@@ -229,6 +284,10 @@ public class RecipeHelper {
             handleBrewingStandRecipe(recipe, info);
         } else if (isWeaponFusionRecipe(recipe)) {
             handleWeaponFusionRecipe(recipe, info);
+        } else if(isGlodiumRecipe(recipe)){
+            handleGlodiumRecipe(recipe, info);
+        } else if(isGlodiumsRecipe(recipe)){
+            handleGlodiumsRecipe(recipe, info);
         }else {
             NonNullList<Ingredient> ingredients = recipe.getIngredients();
             for (Ingredient ingredient : ingredients) {
@@ -395,7 +454,7 @@ public class RecipeHelper {
     private static boolean isBrewingStandRecipe(Recipe<?> recipe) {
         try {
             RecipeType<?> type = recipe.getType();
-            return RECIPE_TYPE_BREWING_LIKE.contains(type.toString());
+            return RECIPE_TYPES_BREWING_LIKE.contains(type.toString());
         } catch (Exception e) {
             return false;
         }
@@ -408,6 +467,24 @@ public class RecipeHelper {
         try {
             RecipeType<?> type = recipe.getType();
             return type.toString().equals("cataclysm:weapon_fusion");
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    private static boolean isGlodiumRecipe(Recipe<?> recipe) {
+        try {
+            RecipeType<?> type = recipe.getType();
+            return RECIPE_TYPES_GLODIUM.contains(type.toString());
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    private static boolean isGlodiumsRecipe(Recipe<?> recipe) {
+        try {
+            RecipeType<?> type = recipe.getType();
+            return RECIPE_TYPES_GLODIUMS.contains(type.toString());
         } catch (Exception e) {
             return false;
         }
@@ -687,6 +764,95 @@ public class RecipeHelper {
                     }
                 }
             }
+        } catch (Exception e) {
+            info.hasUnanalysable = true;
+        }
+    }
+
+    private static void handleGlodiumRecipe(Recipe<?> recipe, RecipeInfo info) {
+        try {
+            java.lang.reflect.Method getInputMethod = recipe.getClass().getMethod("getInput");
+            Object ingredientStack = getInputMethod.invoke(recipe);
+
+            java.lang.reflect.Method getIngredientMethod = ingredientStack.getClass().getMethod("getIngredient");
+            Object ingredient = getIngredientMethod.invoke(ingredientStack);
+
+            java.lang.reflect.Method getAmountMethod = ingredientStack.getClass().getMethod("getAmount");
+            int amount = (Integer) getAmountMethod.invoke(ingredientStack);
+
+            if (ingredient instanceof Ingredient inputIngredient) {
+                if (inputIngredient != Ingredient.EMPTY) {
+                    ItemStack[] matchingItems = inputIngredient.getItems();
+                    if (matchingItems.length > 0) {
+                        ItemStack bestItemStack = findBestItemStack(recipe.getType(), matchingItems);
+                        if (bestItemStack == null || bestItemStack.isEmpty()) {
+                            info.hasUnanalysable = true;
+                        } else {
+                            ItemStack stackWithAmount = bestItemStack.copy();
+                            stackWithAmount.setCount(amount);
+                            info.ingredients.add(stackWithAmount);
+                            info.amount += amount;
+                        }
+                    } else {
+                        info.hasUnanalysable = true;
+                    }
+                } else {
+                    info.hasUnanalysable = true;
+                }
+            } else {
+                info.hasUnanalysable = true;
+            }
+
+        } catch (Exception e) {
+            info.hasUnanalysable = true;
+        }
+    }
+
+
+    @SuppressWarnings("unchecked")
+    private static void handleGlodiumsRecipe(Recipe<?> recipe, RecipeInfo info) {
+        try {
+            java.lang.reflect.Method getInputsMethod = recipe.getClass().getMethod("getInputs");
+            List<Object> inputs = (List<Object>) getInputsMethod.invoke(recipe);
+
+            for (Object ingredientStack : inputs) {
+                if (ingredientStack != null) {
+                    java.lang.reflect.Method isEmptyMethod = ingredientStack.getClass().getMethod("isEmpty");
+                    if ((Boolean) isEmptyMethod.invoke(ingredientStack)) {
+                        continue;
+                    }
+
+                    java.lang.reflect.Method getIngredientMethod = ingredientStack.getClass().getMethod("getIngredient");
+                    Object ingredient = getIngredientMethod.invoke(ingredientStack);
+
+                    java.lang.reflect.Method getAmountMethod = ingredientStack.getClass().getMethod("getAmount");
+                    int amount = (Integer) getAmountMethod.invoke(ingredientStack);
+
+                    if (ingredient instanceof Ingredient inputIngredient) {
+                        if (inputIngredient != Ingredient.EMPTY) {
+                            ItemStack[] matchingItems = inputIngredient.getItems();
+                            if (matchingItems.length > 0) {
+                                ItemStack bestItemStack = findBestItemStack(recipe.getType(), matchingItems);
+                                if (bestItemStack == null || bestItemStack.isEmpty()) {
+                                    info.hasUnanalysable = true;
+                                    return;
+                                }
+                                ItemStack stackWithAmount = bestItemStack.copy();
+                                stackWithAmount.setCount(amount);
+                                info.ingredients.add(stackWithAmount);
+                                info.amount += amount;
+                            } else {
+                                info.hasUnanalysable = true;
+                                return;
+                            }
+                        } else {
+                            info.hasUnanalysable = true;
+                            return;
+                        }
+                    }
+                }
+            }
+
         } catch (Exception e) {
             info.hasUnanalysable = true;
         }

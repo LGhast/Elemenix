@@ -22,6 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @JeiPlugin
+@SuppressWarnings("unused")
 public class JEIPlugin implements IModPlugin {
 
     @Override
@@ -39,6 +40,35 @@ public class JEIPlugin implements IModPlugin {
     public void registerRecipes(IRecipeRegistration registration) {
         registration.addRecipes(EnrichingRecipeCategory.TYPE, getEnrichingRecipes());
         registration.addRecipes(TransformingRecipeCategory.TYPE, getTransformingRecipes());
+
+        registration.addItemStackInfo(new ItemStack(ModBlocks.ELEMENIC_INFUSER.get()),
+                Component.translatable("jei.info.elemenic_infuser"));
+        registration.addItemStackInfo(new ItemStack(ModBlocks.ELEMENIC_ENRICHER.get()),
+                Component.translatable("jei.info.elemenic_enricher"));
+        registration.addItemStackInfo(new ItemStack(ModBlocks.ELEMENIC_EJECTOR.get()),
+                Component.translatable("jei.info.elemenic_ejector"));
+
+        registration.addItemStackInfo(new ItemStack(ModBlocks.GEOLOGICAL_SIMULATOR.get()),
+                Component.translatable("jei.info.geological_simulator"));
+        registration.addItemStackInfo(new ItemStack(ModBlocks.METALLURGICAL_ACTIVATOR.get()),
+                Component.translatable("jei.info.metallurgical_activator"));
+        registration.addItemStackInfo(new ItemStack(ModBlocks.GERMINAL_ACCELERATOR.get()),
+                Component.translatable("jei.info.germinal_accelerator"));
+        registration.addItemStackInfo(new ItemStack(ModBlocks.TRANSPIRING_INCINERATOR.get()),
+                Component.translatable("jei.info.transpiring_incinerator"));
+        registration.addItemStackInfo(new ItemStack(ModBlocks.OPTICAL_CAPTURER.get()),
+                Component.translatable("jei.info.optical_capturer"));
+
+        registration.addItemStackInfo(new ItemStack(ModItems.THROTTLE_VALVE.get()),
+                Component.translatable("jei.info.throttle_valve"));
+        registration.addItemStackInfo(new ItemStack(ModItems.FLOW_STRAIGHTENER.get()),
+                Component.translatable("jei.info.flow_straightener"));
+        registration.addItemStackInfo(new ItemStack(ModItems.MEMORY_BURNER.get()),
+                Component.translatable("jei.info.memory_burner"));
+        registration.addItemStackInfo(new ItemStack(ModItems.ELEMENIC_STORAGE.get()),
+                Component.translatable("jei.info.elemenic_storage"));
+        registration.addItemStackInfo(new ItemStack(ModItems.REMOTE_ELEMENIC_STORAGE.get()),
+                Component.translatable("jei.info.remote_elemenic_storage"));
     }
 
     private List<TransformingRecipe> getTransformingRecipes() {

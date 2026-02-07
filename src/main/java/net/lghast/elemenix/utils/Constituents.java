@@ -92,6 +92,14 @@ public class Constituents {
         }
     }
 
+    public void multiply(int factor) {
+        if(factor < 0) return;
+        for(int i = 0; i < constituents.length; i++){
+            long newValue = (long) constituents[i] * factor;
+            constituents[i] = clampValue((int)Math.min(newValue, MAX));
+        }
+    }
+
     public void multiplyCeil(double multiple) {
         if(multiple < 0) return;
         for(int i = 0; i < constituents.length; i++){
@@ -137,40 +145,27 @@ public class Constituents {
 
     public static Constituents sumConstituents(List<ItemStack> stacks){
         if(stacks == null || stacks.isEmpty()) return new Constituents();
-        Constituents[] constituentArray = new Constituents[stacks.size()];
-        for(int i = 0; i<stacks.size(); i++){
-            constituentArray[i] = ElemenixInfo.getConstituents(stacks.get(i));
-        }
-        return sumConstituents(constituentArray);
-    }
 
-    public static Constituents sumConstituents(Constituents... constituentArray){
-        if(constituentArray == null || constituentArray.length == 0){
-            return new Constituents();
-        }
-
-        for(Constituents c : constituentArray){
+        for(ItemStack stack : stacks){
+            Constituents c = ElemenixInfo.getConstituents(stack);
             if(c != null && c.unanalysable){
                 return new Constituents(true);
             }
         }
 
         Constituents result = new Constituents();
-        for(int i = 0; i < result.constituents.length; i++){
-            long sum = 0;
+        for(ItemStack stack : stacks){
+            if(stack == null || stack.isEmpty()) continue;
 
-            for(Constituents c : constituentArray){
-                if(c != null){
-                    sum += c.constituents[i];
-                }
-            }
-            if(sum > MAX){
-                result.constituents[i] = MAX;
-            } else {
-                result.constituents[i] = (int)sum;
-            }
+            Constituents c = ElemenixInfo.getConstituents(stack);
+            if(c == null) continue;
+            int count = stack.getCount();
+
+            Constituents multiplied = c.copy();
+            multiplied.multiply(count);
+
+            result.add(multiplied);
         }
-
         return result;
     }
 
@@ -217,6 +212,19 @@ public class Constituents {
         return Component.literal(ModUtils.formatNumber(constituents[3], "M:%s  ")).withColor(Elemenix.METALLIX.getColor())
                 .append(Component.literal(ModUtils.formatNumber(constituents[4], "E:%s  ")).withColor(Elemenix.ENERGIX.getColor()))
                 .append(Component.literal(ModUtils.formatNumber(constituents[5], "A:%s")).withColor(Elemenix.ARCANIX.getColor()));
+    }
+
+    public Component toComponentFormerWhole() {
+        return unanalysable ? Component.translatable("tooltip.elemenix.unanalysable").withStyle(ChatFormatting.DARK_GRAY) :
+                Component.literal(String.format("O:%s  ", constituents[0])).withColor(Elemenix.ORGANIX.getColor())
+                        .append(Component.literal(String.format("T:%s  ", constituents[1])).withColor(Elemenix.TERRIX.getColor()))
+                        .append(Component.literal(String.format("F:%s", constituents[2])).withColor(Elemenix.FLUMIX.getColor()));
+    }
+
+    public Component toComponentLatterWhole() {
+        return Component.literal(String.format("M:%s  ", constituents[3])).withColor(Elemenix.METALLIX.getColor())
+                .append(Component.literal(String.format("E:%s  ", constituents[4])).withColor(Elemenix.ENERGIX.getColor()))
+                .append(Component.literal(String.format("A:%s", constituents[5])).withColor(Elemenix.ARCANIX.getColor()));
     }
 
     public static Constituents rawMeat(int hunger){

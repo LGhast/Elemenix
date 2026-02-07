@@ -45,6 +45,7 @@ public class ModElemenixMapping {
             map.put("farmersdelight:honey_glazed_ham", new Constituents(74, 0, 6, 0, 2, 0));
             map.put("farmersdelight:rich_soil", new Constituents(86, 34, 0, 0, 0, 0));
             map.put("farmersdelight:rich_soil_farmland", new Constituents(86, 34, 0, 0, 0, 0));
+            map.put("farmersdelight:pumpkin_slice", new Constituents(18, 0, 17, 0, 0, 0));
             return map;
         });
 
@@ -724,13 +725,16 @@ public class ModElemenixMapping {
             map.put("irons_spellbooks:teleportation_amulet", new Constituents(0, 53, 0, 792, 0, 260));
             map.put("irons_spellbooks:betrayer_signet", new Constituents(0, 0, 0, 1728, 0, 250));
             map.put("irons_spellbooks:invisibility_ring", new Constituents(0, 0, 120, 1728, 0, 200));
-            map.put("irons_spellbooks:villager_spell_book", new Constituents(1500, 300, 0, 240, 0, 800));
+            map.put("irons_spellbooks:villager_spell_book", new Constituents(2500, 600, 0, 240, 0, 800));
+            map.put("irons_spellbooks:archevoker_logbook_untranslated", new Constituents(2500, 0, 0, 240, 0, 400));
+            map.put("irons_spellbooks:archevoker_logbook_translated", new Constituents(2500, 0, 0, 240, 0, 400));
             map.put("irons_spellbooks:rotten_spell_book", new Constituents(520, 0, 0, 0, 160, 800));
-            map.put("irons_spellbooks:blaze_spell_book", new Constituents(320, 0, 0, 0, 1200, 800));
-            map.put("irons_spellbooks:necronomicon_spell_book", new Constituents(1200, 0, 0, 320, 540, 800));
-            map.put("irons_spellbooks:evoker_spell_book", new Constituents(92, 0, 24, 1728, 320, 800));
+            map.put("irons_spellbooks:blaze_spell_book", new Constituents(320, 0, 0, 0, 5200, 800));
+            map.put("irons_spellbooks:necronomicon_spell_book", new Constituents(2400, 0, 0, 1020, 540, 800));
+            map.put("irons_spellbooks:evoker_spell_book", new Constituents(92, 0, 24, 3728, 320, 800));
             map.put("irons_spellbooks:chained_book", new Constituents(92, 11, 0, 264, 0, 0));
             map.put("irons_spellbooks:tarnished_helmet", new Constituents(0, 0, 320, 680, 0, 200));
+            map.put("irons_spellbooks:firefly_jar", new Constituents(5, 24, 0, 0, 5, 0));
             return map;
         });
 
@@ -1121,6 +1125,11 @@ public class ModElemenixMapping {
             map.put("cataclysm:music_disc_ender_guardian", new Constituents(1200, 500, 0, 0, 0, 600));
             map.put("cataclysm:music_disc_the_cataclysmfarer", new Constituents(1200, 1200, 1200, 1200, 1200, 1200));
             map.put("cataclysm:goddess_statue", new Constituents(0, 280, 500, 0, 0, 0));
+            map.put("cataclysm:ring_of_grudged", new Constituents(0, 1809, 16506, 13824, 18, 874));
+            map.put("cataclysm:berserker_soul_amulet", new Constituents(0, 949, 8253, 7452, 54, 437));
+            map.put("cataclysm:vitality_ankh", new Constituents(0, 5391, 0, 8100, 10000, 280));
+            map.put("cataclysm:unbreakable_skull", new Constituents(136, 9046, 0, 16200, 0, 760));
+            map.put("cataclysm:sturdy_boots", new Constituents(3200, 0, 0, 520, 0, 200));
             return map;
         });
 
@@ -1179,12 +1188,90 @@ public class ModElemenixMapping {
             map.put("ae2:guide", new Constituents(92, 0, 0, 0, 32, 0));
             map.put("ae2:singularity", new Constituents(128000, 256000, 64000, 256000, 64000, 32000));
             map.put("ae2:quantum_entangled_singularity", new Constituents(64000, 128010, 32000, 128000, 32000, 16080));
+            map.put("ae2:pattern_provider", new Constituents(192, 118, 0, 1296, 32, 0));
+            map.put("ae2:energy_acceptor", new Constituents(0, 215, 0, 936, 40, 0));
+            return map;
+        });
+
+        registerModMappings("extendedae", () -> {
+            Map<String, Constituents> map = new HashMap<>();
+            map.put("extendedae:entro_shard", new Constituents(0, 4, 0, 0, 1, 0));
+            map.put("extendedae:entro_crystal", new Constituents(0, 32, 0, 0, 8, 0));
+            map.put("extendedae:entro_cluster_small", new Constituents(0, 32, 0, 0, 8, 0));
+            map.put("extendedae:entro_cluster_medium", new Constituents(0, 64, 0, 0, 16, 0));
+            map.put("extendedae:entro_cluster_large", new Constituents(0, 96, 0, 0, 24, 0));
+            map.put("extendedae:entro_cluster", new Constituents(0, 128, 0, 0, 32, 0));
+            map.put("extendedae:entro_ingot", new Constituents(0, 50, 0, 432, 8, 0));
+            map.put("extendedae:ex_pattern_provider", new Constituents(480, 561, 0, 3564, 178, 0));
+            return map;
+        });
+
+        registerModMappings("advanced_ae", () -> {
+            Map<String, Constituents> map = new HashMap<>();
+            map.put("advanced_ae:quantum_alloy", new Constituents(768000, 1536668, 384000, 1536288, 384000, 192640));
+            map.put("advanced_ae:advanced_pattern_provider", new Constituents(192, 198, 0, 1728, 44, 160));
+            map.put("advanced_ae:advanced_extended_pattern_provider", new Constituents(480, 641, 0, 3996, 190, 160));
+            map.put("advanced_ae:quantum_infusion_bucket", new Constituents(64000, 128167, 32000, 128648, 32000, 16160));
+            return map;
+        });
+
+        registerModMappings("apotheosis", () -> {
+            Map<String, Constituents> map = new HashMap<>();
+            map.put("apotheosis:gem_dust", new Constituents(0, 250, 0, 0, 0, 45));
+            map.put("apotheosis:lucky_foot", new Constituents(64, 12, 12, 0, 0, 250));
+            map.put("apotheosis:warden_tendril", new Constituents(15000, 0, 0, 0, 3000, 600));
+            map.put("apotheosis:sigil_of_malice", new Constituents(0, 666, 0, 0, 50, 400));
+            map.put("apotheosis:common_material", new Constituents(0, 25, 0, 150, 0, 50));
+            map.put("apotheosis:uncommon_material", new Constituents(500, 0, 0, 0, 0, 100));
+            map.put("apotheosis:rare_material", new Constituents(0, 3000, 0, 0, 120, 200));
+            map.put("apotheosis:epic_material", new Constituents(0, 10000, 0, 0, 350, 350));
+            map.put("apotheosis:mythic_material", new Constituents(0, 24000, 0, 0, 1250, 700));
+            map.put("apotheosis:infused_breath", new Constituents(0, 8, 20, 0, 85, 70));
+            return map;
+        });
+
+        registerModMappings("apothic_enchanting", () -> {
+            Map<String, Constituents> map = new HashMap<>();
+            map.put("apothic_enchanting:warden_tendril", new Constituents(15000, 0, 0, 0, 3000, 600));
+            map.put("apothic_enchanting:infused_breath", new Constituents(0, 8, 20, 0, 85, 70));
+            map.put("apothic_enchanting:infused_hellshelf", new Constituents(420, 456, 0, 0, 96, 100));
+            map.put("apothic_enchanting:infused_seashelf", new Constituents(450, 651, 10, 0, 0, 105));
+            map.put("apothic_enchanting:deepshelf", new Constituents(276, 144, 0, 0, 0, 100));
+            map.put("apothic_enchanting:ender_lead", new Constituents(65, 20, 5, 432, 0, 250));
+            map.put("apothic_enchanting:occult_ender_lead", new Constituents(65, 20, 5, 432, 0, 400));
+            map.put("apothic_enchanting:ender_library", new Constituents(1196, 44976, 0, 0, 144, 2050));
+            map.put("apothic_enchanting:improved_scrap_tome", new Constituents(92, 8, 0, 209, 0, 40));
+            map.put("apothic_enchanting:extraction_tome", new Constituents(92, 2, 0, 52, 0, 60));
+            return map;
+        });
+
+        registerModMappings("illagerinvasion", () -> {
+            Map<String, Constituents> map = new HashMap<>();
+            map.put("illagerinvasion:platinum_chunk", new Constituents(0, 0, 0, 108, 0, 5));
+            map.put("illagerinvasion:primal_essence", new Constituents(0, 0, 5200, 0, 750, 200));
+            map.put("illagerinvasion:illusionary_dust", new Constituents(32, 0, 0, 0, 0, 35));
+            map.put("illagerinvasion:unusual_dust", new Constituents(0, 32, 0, 0, 0, 35));
+            map.put("illagerinvasion:platinum_infused_hatchet", new Constituents(24, 8000, 0, 12864, 0, 940));
+            map.put("illagerinvasion:lost_candle", new Constituents(150, 0, 0, 0, 0, 80));
+            return map;
+        });
+
+        registerModMappings("bosses_of_mass_destruction", () -> {
+            Map<String, Constituents> map = new HashMap<>();
+            map.put("bosses_of_mass_destruction:soul_star", new Constituents(0, 0, 240, 0, 50, 32));
+            map.put("bosses_of_mass_destruction:ancient_anima", new Constituents(0, 0, 9000, 0, 320, 400));
+            map.put("bosses_of_mass_destruction:blazing_eye", new Constituents(0, 4200, 0, 0, 6000, 520));
+            map.put("bosses_of_mass_destruction:obsidian_heart", new Constituents(0, 12500, 0, 0, 0, 600));
+            map.put("bosses_of_mass_destruction:void_thorn", new Constituents(5500, 0, 0, 0, 0, 2400));
+            map.put("bosses_of_mass_destruction:crystal_fruit", new Constituents(240, 0, 100, 0, 0, 10));
             return map;
         });
     }
 
     public static void registerModMappings(String modId, Supplier<Map<String, Constituents>> mappingSupplier) {
-        MOD_ELEMENIX_MAPPINGS.put(modId, mappingSupplier);
+        if(ModUtils.hasServerMod(modId)) {
+            MOD_ELEMENIX_MAPPINGS.put(modId, mappingSupplier);
+        }
     }
 
     public static Map<String, Constituents> getModMappings(String modId) {

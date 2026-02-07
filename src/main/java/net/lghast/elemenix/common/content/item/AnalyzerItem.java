@@ -4,6 +4,7 @@ import net.lghast.elemenix.common.system.datacomponent.AnalyzerUuid;
 import net.lghast.elemenix.common.system.menu.AnalyzerMenu;
 import net.lghast.elemenix.conifig.ClientConfig;
 import net.lghast.elemenix.register.system.ModDataComponents;
+import net.lghast.elemenix.register.system.ModStats;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
@@ -70,6 +71,7 @@ public class AnalyzerItem extends StorageItem {
             return InteractionResultHolder.success(stack);
         }
 
+        player.awardStat(ModStats.OPEN_ANALYZER.get());
         if (player instanceof ServerPlayer serverPlayer) {
             serverPlayer.openMenu(new SimpleMenuProvider(
                     (windowId, playerInventory, playerEntity) ->

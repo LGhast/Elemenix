@@ -4,6 +4,7 @@ import com.mojang.serialization.MapCodec;
 import net.lghast.elemenix.common.content.blockentity.EnricherBlockEntity;
 import net.lghast.elemenix.conifig.ServerConfig;
 import net.lghast.elemenix.register.content.ModBlockEntities;
+import net.lghast.elemenix.register.system.ModStats;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.Containers;
 import net.minecraft.world.InteractionResult;
@@ -80,6 +81,7 @@ public class EnricherBlock extends BaseEntityBlock {
     protected @NotNull InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hitResult) {
         if (!level.isClientSide && level.getBlockEntity(pos) instanceof EnricherBlockEntity blockEntity) {
             player.openMenu(blockEntity, pos);
+            player.awardStat(ModStats.ENRICHER_INTERACTIONS.get());
             return InteractionResult.SUCCESS;
         }
         return InteractionResult.SUCCESS;
@@ -122,9 +124,9 @@ public class EnricherBlock extends BaseEntityBlock {
 
     public int getDcInterval(){
         return ServerConfig.ENRICHER_DC_INTERVAL.get();
-    };
+    }
 
     public int getEnrichingInterval(){
         return ServerConfig.ENRICHER_ENRICHING_INTERVAL.get();
-    };
+    }
 }

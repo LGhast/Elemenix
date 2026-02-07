@@ -8,6 +8,7 @@ import net.lghast.elemenix.common.system.datacomponent.Waxed;
 import net.lghast.elemenix.conifig.ClientConfig;
 import net.lghast.elemenix.register.content.ModItems;
 import net.lghast.elemenix.register.system.ModDataComponents;
+import net.lghast.elemenix.register.system.ModStats;
 import net.lghast.elemenix.utils.ModUtils;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.particles.ParticleTypes;
@@ -154,6 +155,7 @@ public class MemorizerItem extends Item{
             offHandItem.shrink(1);
         }
         memorizerStack.set(ModDataComponents.STYLE, new Style(styleIndex));
+        player.awardStat(ModStats.MEMORIZERS_STYLED.get());
 
         serverLevel.playSound(null , player.getX(), player.getY(), player.getZ(),
                 SoundEvents.DYE_USE, SoundSource.PLAYERS);
@@ -170,6 +172,7 @@ public class MemorizerItem extends Item{
             serverLevel.playSound(null , player.getX(), player.getY(), player.getZ(),
                     SoundEvents.HONEYCOMB_WAX_ON, SoundSource.PLAYERS);
 
+            player.awardStat(ModStats.MEMORIZERS_WAXED_ON.get());
             if (player instanceof ServerPlayer serverPlayer) {
                 WaxOnTrigger.TRIGGER.get().trigger(serverPlayer);
             }
@@ -185,6 +188,7 @@ public class MemorizerItem extends Item{
             serverLevel.playSound(null , player.getX(), player.getY(), player.getZ(),
                     SoundEvents.AXE_WAX_OFF, SoundSource.PLAYERS);
 
+            player.awardStat(ModStats.MEMORIZERS_WAXED_OFF.get());
             if (player instanceof ServerPlayer serverPlayer) {
                 WaxOffTrigger.TRIGGER.get().trigger(serverPlayer);
             }

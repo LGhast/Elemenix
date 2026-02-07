@@ -52,11 +52,20 @@ public class ClientEventHandler {
             tooltip.add(insertIndex, Component.translatable("tooltip.elemenix.constituents").withStyle(ChatFormatting.GRAY));
             insertIndex++;
 
-            tooltip.add(insertIndex, constituents.toComponentFormer());
+            if(Screen.hasAltDown()){
+                tooltip.add(insertIndex, constituents.toComponentFormerWhole());
 
-            if (!constituents.isUnanalysable()) {
-                insertIndex++;
-                tooltip.add(insertIndex, constituents.toComponentLatter());
+                if (!constituents.isUnanalysable()) {
+                    insertIndex++;
+                    tooltip.add(insertIndex, constituents.toComponentLatterWhole());
+                }
+            }else {
+                tooltip.add(insertIndex, constituents.toComponentFormer());
+
+                if (!constituents.isUnanalysable()) {
+                    insertIndex++;
+                    tooltip.add(insertIndex, constituents.toComponentLatter());
+                }
             }
         }
 

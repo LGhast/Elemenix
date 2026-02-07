@@ -69,8 +69,7 @@ public class MemorizerBoxMenu extends AbstractContainerMenu {
     }
 
     private void loadFromItemStack() {
-        ItemContainerContents containerContents =
-                boxStack.get(DataComponents.CONTAINER);
+        ItemContainerContents containerContents = boxStack.get(DataComponents.CONTAINER);
         if (containerContents != null) {
             for (int i = 0; i < Math.min(containerContents.getSlots(), SLOT_COUNT);
                  i++) {

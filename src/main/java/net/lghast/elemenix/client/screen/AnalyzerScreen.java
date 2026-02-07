@@ -114,6 +114,7 @@ public class AnalyzerScreen extends AbstractContainerScreen<AnalyzerMenu> {
         int y = (this.height - this.imageHeight) / 2;
         graphics.blit(TEXTURE, x, y, 0, 0, this.imageWidth, this.imageHeight, this.imageWidth, this.imageHeight);
         renderElemenixValues(graphics, x, y);
+        renderMemorizerSlotHighlight(graphics, x, y);
     }
 
     private void renderElemenixValues(GuiGraphics graphics, int x, int y) {
@@ -257,6 +258,21 @@ public class AnalyzerScreen extends AbstractContainerScreen<AnalyzerMenu> {
         }
 
         PacketDistributor.sendToServer(new RequestInfuserUpdatePayload(globalPos));
+    }
+
+    private void renderMemorizerSlotHighlight(GuiGraphics graphics, int x, int y) {
+        ItemStack inputStack = menu.getInputItem();
+        ItemStack memorizerStack = menu.getMemorizerItem();
+
+        if(inputStack.is(ModItems.ELEMENIC_STORAGE) || inputStack.is(ModItems.REMOTE_ELEMENIC_STORAGE)){
+            return;
+        }
+        
+        if (menu.canRecordInputItem(inputStack, memorizerStack)) {
+            int slotX = x + 52;
+            int slotY = y + 130;
+            graphics.fill(slotX, slotY, slotX + 16, slotY + 16, 0x4000FF00);
+        }
     }
 }
 

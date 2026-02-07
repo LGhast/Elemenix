@@ -6,6 +6,7 @@ import net.lghast.elemenix.common.system.datacomponent.MemoryData;
 import net.lghast.elemenix.register.content.ModItems;
 import net.lghast.elemenix.register.system.ModDataComponents;
 import net.lghast.elemenix.register.system.ModMenus;
+import net.lghast.elemenix.register.system.ModStats;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.Container;
 import net.minecraft.world.SimpleContainer;
@@ -39,6 +40,7 @@ public class BurnerMenu extends AbstractContainerMenu {
     private boolean primaryChanged = false;
     private ItemStack lastPrimaryStack = ItemStack.EMPTY;
     private boolean isInternalOperation = false;
+    private final Player player;
 
     public BurnerMenu(int containerId, Inventory playerInventory) {
         this(containerId, playerInventory, new SimpleContainer(SLOT_COUNT), new SimpleContainerData(2));
@@ -48,6 +50,7 @@ public class BurnerMenu extends AbstractContainerMenu {
         super(ModMenus.BURNER_MENU.get(), containerId);
         this.burnerContainer = burnerContainer;
         this.data = data;
+        this.player = playerInventory.player;
 
         checkContainerSize(burnerContainer, SLOT_COUNT);
         checkContainerDataCount(data, 2);
@@ -143,10 +146,12 @@ public class BurnerMenu extends AbstractContainerMenu {
             if (direction == -1) {
                 if (index > 0) {
                     Collections.swap(memories, index, index - 1);
+                    player.awardStat(ModStats.BURNER_MOVE_UP_ACTIONS.get());
                 }
             } else if (direction == 1) {
                 if (index < memories.size() - 1) {
                     Collections.swap(memories, index, index + 1);
+                    player.awardStat(ModStats.BURNER_MOVE_DOWN_ACTIONS.get());
                 }
             }
 
@@ -171,10 +176,11 @@ public class BurnerMenu extends AbstractContainerMenu {
             if (index >= 0 && index < memories.size()) {
                 memories.remove(index);
 
-                primary.set(ModDataComponents.MEMORY_DATA.get(),
-                        memoryData.withResolvedItems(memories));
+                primary.set(ModDataComponents.MEMORY_DATA.get(), memoryData.withResolvedItems(memories));
                 slots.get(PRIMARY_SLOT).setChanged();
                 broadcastChanges();
+
+                player.awardStat(ModStats.BURNER_DELETE_ACTIONS.get());
             }
         } finally {
             isInternalOperation = false;
@@ -198,6 +204,8 @@ public class BurnerMenu extends AbstractContainerMenu {
                         memoryData.withResolvedItems(memories));
                 slots.get(PRIMARY_SLOT).setChanged();
                 broadcastChanges();
+
+                player.awardStat(ModStats.BURNER_SWAP_ACTIONS.get());
             }
         } finally {
             isInternalOperation = false;
@@ -227,6 +235,8 @@ public class BurnerMenu extends AbstractContainerMenu {
                         memoryData.withResolvedItems(memories));
                 slots.get(PRIMARY_SLOT).setChanged();
                 broadcastChanges();
+
+                player.awardStat(ModStats.BURNER_INSERT_BEFORE_ACTIONS.get());
             }
         } finally {
             isInternalOperation = false;
@@ -248,6 +258,8 @@ public class BurnerMenu extends AbstractContainerMenu {
 
             slots.get(PRIMARY_SLOT).setChanged();
             broadcastChanges();
+
+            player.awardStat(ModStats.BURNER_COPY_ACTIONS.get());
         } finally {
             isInternalOperation = false;
         }
@@ -286,6 +298,8 @@ public class BurnerMenu extends AbstractContainerMenu {
 
             slots.get(PRIMARY_SLOT).setChanged();
             broadcastChanges();
+
+            player.awardStat(ModStats.BURNER_CONCATENATE_ACTIONS.get());
         } finally {
             isInternalOperation = false;
         }

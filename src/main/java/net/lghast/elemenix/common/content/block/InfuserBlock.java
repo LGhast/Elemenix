@@ -2,20 +2,13 @@ package net.lghast.elemenix.common.content.block;
 
 import com.mojang.serialization.MapCodec;
 import net.lghast.elemenix.common.content.blockentity.InfuserBlockEntity;
-import net.lghast.elemenix.common.content.blockentity.InfuserBlockEntity;
-import net.lghast.elemenix.common.content.blockentity.TransformerBlockEntity;
 import net.lghast.elemenix.conifig.ServerConfig;
 import net.lghast.elemenix.register.content.ModBlockEntities;
-import net.lghast.elemenix.utils.Elemenix;
-import net.lghast.elemenix.utils.ElemenixInfo;
+import net.lghast.elemenix.register.system.ModStats;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
-import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.Containers;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
@@ -25,9 +18,7 @@ import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
-import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
-import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
@@ -87,6 +78,7 @@ public class InfuserBlock extends BaseEntityBlock {
     protected @NotNull InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hitResult) {
         if (!level.isClientSide && level.getBlockEntity(pos) instanceof InfuserBlockEntity blockEntity) {
             player.openMenu(blockEntity, pos);
+            player.awardStat(ModStats.INFUSER_INTERACTIONS.get());
             return InteractionResult.SUCCESS;
         }
         return InteractionResult.SUCCESS;
@@ -129,13 +121,13 @@ public class InfuserBlock extends BaseEntityBlock {
 
     public int getDcInterval(){
         return ServerConfig.INFUSER_DC_INTERVAL.get();
-    };
+    }
 
     public int getInfusionInterval(){
         return ServerConfig.INFUSION_INTERVAL.get();
-    };
+    }
 
     public int getMaxInfusion(){
         return ServerConfig.MAX_INFUSION.get();
-    };
+    }
 }

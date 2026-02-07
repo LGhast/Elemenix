@@ -1,6 +1,7 @@
 package net.lghast.elemenix.common.content.item;
 
 import net.lghast.elemenix.common.system.menu.BurnerMenu;
+import net.lghast.elemenix.register.system.ModStats;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
@@ -28,6 +29,7 @@ public class BurnerItem extends Item {
             return InteractionResultHolder.success(stack);
         }
 
+        player.awardStat(ModStats.MEMORY_BURNER_OPENS.get());
         if (player instanceof ServerPlayer serverPlayer) {
             serverPlayer.openMenu(new SimpleMenuProvider(
                     (windowId, playerInventory, playerEntity) ->

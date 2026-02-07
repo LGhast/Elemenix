@@ -4,6 +4,7 @@ import net.lghast.elemenix.common.system.advancement.ValveTrigger;
 import net.lghast.elemenix.common.system.datacomponent.ValveOpenness;
 import net.lghast.elemenix.conifig.ClientConfig;
 import net.lghast.elemenix.register.system.ModDataComponents;
+import net.lghast.elemenix.register.system.ModStats;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
@@ -55,6 +56,7 @@ public class ThrottleValveItem extends Item{
         ValveOpenness openness = getOrCreateOpenness(valveStack).decrement();
         valveStack.set(ModDataComponents.VALVE_OPENNESS, openness);
 
+        player.awardStat(ModStats.THROTTLE_VALVE_ADJUSTMENTS.get());
         if(player instanceof ServerPlayer serverPlayer) {
             ValveTrigger.TRIGGER.get().trigger(serverPlayer, openness.openness());
         }
