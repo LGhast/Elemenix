@@ -32,6 +32,7 @@ public class RecipeHelper {
     private static final boolean ANVILCRAFT_LOADED;
     private static final boolean CATACLYSM_LOADED;
     private static final boolean AE2_LOADED;
+    private static final boolean AETHER_LOADED;
 
     private static final Logger LOGGER = LogManager.getLogger();
 
@@ -40,6 +41,7 @@ public class RecipeHelper {
         ANVILCRAFT_LOADED = ModUtils.hasServerMod("anvilcraft");
         CATACLYSM_LOADED = ModUtils.hasServerMod("cataclysm");
         AE2_LOADED = ModUtils.hasServerMod("ae2");
+        AETHER_LOADED = ModUtils.hasServerMod("aether");
 
         if(FARMERS_DELIGHT_LOADED){
             RECIPE_TYPES_WITH_CONTAINER.add("farmersdelight:cooking");
@@ -68,6 +70,14 @@ public class RecipeHelper {
             }
             if(ModUtils.hasServerMod("advanced_ae")){
                 RECIPE_TYPES_GLODIUMS.add("advanced_ae:reaction");
+            }
+        }
+        if(AETHER_LOADED){
+            RECIPE_TYPES_NORMAL.add("aether:enchanting");
+            RECIPE_TYPES_NORMAL.add("aether:freezing");
+
+            if(ModUtils.hasServerMod("deep_aether")){
+                RECIPE_TYPES_NORMAL.add("deep_aether:combining");
             }
         }
 
@@ -467,6 +477,28 @@ public class RecipeHelper {
         try {
             RecipeType<?> type = recipe.getType();
             return type.toString().equals("cataclysm:weapon_fusion");
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    private static boolean isFreezingRecipe(RecipeType<?> type) {
+        if(!AETHER_LOADED){
+            return false;
+        }
+        try {
+            return type.toString().equals("aether:freezing");
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    private static boolean isAetherEnchantingRecipe(RecipeType<?> type) {
+        if(!AETHER_LOADED){
+            return false;
+        }
+        try {
+            return type.toString().equals("aether:enchanting");
         } catch (Exception e) {
             return false;
         }
@@ -931,6 +963,13 @@ public class RecipeHelper {
                     constituents.set(Elemenix.FLUMIX, (int)(constituents.get(Elemenix.FLUMIX) * 0.2));
                     constituents.set(Elemenix.ENERGIX, constituents.get(Elemenix.ENERGIX) + (int)Math.min(10, constituents.getSum()));
                 }
+            }
+
+            if(isFreezingRecipe(type)){
+                constituents.set(Elemenix.FLUMIX, constituents.get(Elemenix.FLUMIX) + 10);
+            }
+            if(isAetherEnchantingRecipe(type)){
+                constituents.set(Elemenix.ENERGIX, constituents.get(Elemenix.ENERGIX) + 10);
             }
             return constituents;
         }

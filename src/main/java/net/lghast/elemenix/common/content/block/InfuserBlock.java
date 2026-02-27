@@ -2,7 +2,7 @@ package net.lghast.elemenix.common.content.block;
 
 import com.mojang.serialization.MapCodec;
 import net.lghast.elemenix.common.content.blockentity.InfuserBlockEntity;
-import net.lghast.elemenix.conifig.ServerConfig;
+import net.lghast.elemenix.conifig.CommonConfig;
 import net.lghast.elemenix.register.content.ModBlockEntities;
 import net.lghast.elemenix.register.system.ModStats;
 import net.minecraft.core.BlockPos;
@@ -120,14 +120,14 @@ public class InfuserBlock extends BaseEntityBlock {
     }
 
     public int getDcInterval(){
-        return ServerConfig.INFUSER_DC_INTERVAL.get();
+        return CommonConfig.INFUSER_DC_INTERVAL.get();
     }
 
     public int getInfusionInterval(){
-        return ServerConfig.INFUSION_INTERVAL.get();
+        return CommonConfig.INFUSION_INTERVAL.get();
     }
 
     public int getMaxInfusion(){
-        return ServerConfig.MAX_INFUSION.get();
+        return CommonConfig.MAX_INFUSION.get();
     }
 }

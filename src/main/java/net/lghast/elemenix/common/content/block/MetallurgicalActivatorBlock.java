@@ -2,7 +2,7 @@ package net.lghast.elemenix.common.content.block;
 
 import com.mojang.serialization.MapCodec;
 import net.lghast.elemenix.common.content.blockentity.TransformerBlockEntity;
-import net.lghast.elemenix.conifig.ServerConfig;
+import net.lghast.elemenix.conifig.CommonConfig;
 import net.lghast.elemenix.register.content.ModItems;
 import net.lghast.elemenix.utils.Elemenix;
 import net.lghast.elemenix.utils.ElemenixInfo;
@@ -48,17 +48,17 @@ public class MetallurgicalActivatorBlock extends TransformerBlock {
 
     @Override
     public int getConsumptionA() {
-        return ServerConfig.MA_CONSUMPTION.get();
+        return CommonConfig.MA_CONSUMPTION.get();
     }
 
     @Override
     public int getConsumptionB() {
-        return ServerConfig.MA_CONSUMPTION.get();
+        return CommonConfig.MA_CONSUMPTION.get();
     }
 
     @Override
     public int getProduction() {
-        return ServerConfig.MA_PRODUCTION.get();
+        return CommonConfig.MA_PRODUCTION.get();
     }
 
     @Override
@@ -68,12 +68,12 @@ public class MetallurgicalActivatorBlock extends TransformerBlock {
 
     @Override
     public int getDcInterval() {
-        return ServerConfig.MA_DC_INTERVAL.get();
+        return CommonConfig.MA_DC_INTERVAL.get();
     }
 
     @Override
     public int getRcInterval() {
-        return ServerConfig.MA_RC_INTERVAL.get();
+        return CommonConfig.MA_RC_INTERVAL.get();
     }
 
     @Override

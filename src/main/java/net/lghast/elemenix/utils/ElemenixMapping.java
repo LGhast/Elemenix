@@ -161,7 +161,7 @@ public class ElemenixMapping {
         ELEMENIX_MAP.put("minecraft:melon_slice", new Constituents(8, 0, 12, 0, 0, 0));
         ELEMENIX_MAP.put("minecraft:sugar_cane", new Constituents(20, 0, 12, 0, 0, 0));
         ELEMENIX_MAP.put("minecraft:apple", new Constituents(32, 0, 15, 0, 0, 0));
-        ELEMENIX_MAP.put("minecraft:enchanted_golden_apple", new Constituents(32, 0, 15, 31104, 0, 2000));
+        ELEMENIX_MAP.put("minecraft:enchanted_golden_apple", new Constituents(32, 0, 15, 15552, 0, 1500));
         ELEMENIX_MAP.put("minecraft:cocoa_beans", new Constituents(18, 0, 6, 0, 0, 0));
         ELEMENIX_MAP.put("minecraft:sweet_berries", new Constituents(8, 0, 6, 0, 0, 0));
         ELEMENIX_MAP.put("minecraft:glow_berries", new Constituents(8, 0, 4, 0, 2, 0));

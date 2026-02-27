@@ -1,7 +1,7 @@
 package net.lghast.elemenix.utils;
 
 import net.lghast.elemenix.Elemenics;
-import net.lghast.elemenix.conifig.ServerConfig;
+import net.lghast.elemenix.conifig.CommonConfig;
 import net.lghast.elemenix.register.system.ModTags;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
@@ -35,12 +35,12 @@ public class ElemenixInfo {
         if(ADDITIONAL_MAP.isEmpty()){
             reloadFromConfig();
         }
-        handleMap(ADDITIONAL_MAP);
+
         loadModMappings();
         handleMap(ELEMENIX_MAP);
+        handleMap(ADDITIONAL_MAP);
 
         isInitialized = true;
-
         LOGGER.info("ElemenixInfo Class has been initialized.");
     }
 
@@ -74,7 +74,7 @@ public class ElemenixInfo {
                 if (item != null) {
                     ITEM_CACHE.put(item, value);
                 } else {
-                    LOGGER.info("Unknown item: {}", key);
+                    LOGGER.info("Unknown item ID: {}", key);
                 }
             }
         }
@@ -112,7 +112,6 @@ public class ElemenixInfo {
         }
 
         if(UNANALYSABLE_ITEMS.contains(item)){
-            LOGGER.info(item.getDescription().getString() + " is in the unanalysable item list.");
             return new Constituents(true);
         }
 
@@ -222,30 +221,84 @@ public class ElemenixInfo {
     }
 
     public static void reloadFromConfig() {
-        Map<String, Constituents> newMap = new HashMap<>();
-        List<? extends String> configList = ServerConfig.ELEMENIX_MAPPINGS.get();
+        Map<String, Constituents> newElemenixMap = new HashMap<>();
+        List<? extends String> configElemenixList = CommonConfig.ELEMENIX_MAPPINGS.get();
+        List<? extends String> configUnanalysableList = CommonConfig.UNANALYSABLE_LIST.get();
 
-        for (String list : configList) {
+        for (String entry : configElemenixList) {
+            if (entry == null) {
+                continue;
+            }
+
+            String trimmedEntry = entry.trim();
+            if (trimmedEntry.isEmpty()) {
+                continue;
+            }
+
             try {
-                String trimList = list.replace(" ", "");
-                String[] parts = trimList.split(",");
-                if (parts.length != 7) {
-                    LOGGER.warn("Incomplete Mapping: {}", list);
+                String cleanEntry = trimmedEntry.replaceAll("\\s+", "");
+
+                if (!cleanEntry.matches("#?[a-z0-9_\\-.:/]+,([0-9]+,){5}[0-9]+")) {
+                    LOGGER.warn("Invalid mapping format: {}", trimmedEntry);
                     continue;
                 }
 
-                newMap.put(parts[0], new Constituents(
+                String[] parts = cleanEntry.split(",");
+                if (parts.length != 7) {
+                    LOGGER.warn("Incorrect number of mapping parameters, expected 7, got {}: {}", parts.length, trimmedEntry);
+                    continue;
+                }
+
+                Constituents constituents = new Constituents(
                         Integer.parseInt(parts[1]),
                         Integer.parseInt(parts[2]),
                         Integer.parseInt(parts[3]),
                         Integer.parseInt(parts[4]),
                         Integer.parseInt(parts[5]),
                         Integer.parseInt(parts[6])
-                ));
+                );
+
+                newElemenixMap.put(parts[0], constituents);
+                LOGGER.debug("Successfully loaded mapping: {}", trimmedEntry);
+
+            } catch (NumberFormatException e) {
+                LOGGER.warn("Mapping number format error: {}", trimmedEntry, e);
             } catch (Exception e) {
-                LOGGER.warn("Invalid Mapping: {}", list);
+                LOGGER.warn("Mapping parsing failed: {}", trimmedEntry, e);
             }
         }
-        ADDITIONAL_MAP = newMap;
+
+        System.out.println();
+        System.out.println();
+        for (String entry : configUnanalysableList) {
+            if (entry == null) {
+                continue;
+            }
+
+            String trimmedEntry = entry.trim();
+            if (trimmedEntry.isEmpty()) {
+                continue;
+            }
+
+            try {
+                String cleanEntry = trimmedEntry.replaceAll("\\s+", "");
+
+                if (!cleanEntry.matches("#?[a-z0-9_\\-.:/]+")) {
+                    LOGGER.warn("Invalid ID format: {}", trimmedEntry);
+                    continue;
+                }
+
+                Constituents constituents = new Constituents(true);
+
+                newElemenixMap.put(cleanEntry, constituents);
+                LOGGER.debug("Successfully loaded unanalysable item: {}", trimmedEntry);
+
+            }catch (Exception e) {
+                LOGGER.warn("Unanalysable item parsing failed: {}", trimmedEntry, e);
+            }
+        }
+
+        ADDITIONAL_MAP = newElemenixMap;
+        clearCaches();
     }
 }

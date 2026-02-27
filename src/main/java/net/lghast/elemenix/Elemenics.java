@@ -3,7 +3,7 @@ package net.lghast.elemenix;
 import net.lghast.elemenix.client.misc.ModItemProperties;
 import net.lghast.elemenix.client.misc.ModRenders;
 import net.lghast.elemenix.conifig.ClientConfig;
-import net.lghast.elemenix.conifig.ServerConfig;
+import net.lghast.elemenix.conifig.CommonConfig;
 import net.lghast.elemenix.datagen.DataGenerators;
 import net.lghast.elemenix.network.SyncModStartedPayload;
 import net.lghast.elemenix.register.content.ModBlockEntities;
@@ -46,7 +46,7 @@ public class Elemenics {
     private static ServerLevel currentServerLevel = null;
 
     public Elemenics(IEventBus modEventBus, ModContainer modContainer) {
-        modContainer.registerConfig(ModConfig.Type.SERVER, ServerConfig.SPEC);
+        modContainer.registerConfig(ModConfig.Type.COMMON, CommonConfig.SPEC);
         modContainer.registerConfig(ModConfig.Type.CLIENT, ClientConfig.SPEC);
 
         ModItems.register(modEventBus);

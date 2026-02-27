@@ -1,6 +1,6 @@
 package net.lghast.elemenix.utils;
 
-import net.lghast.elemenix.conifig.ServerConfig;
+import net.lghast.elemenix.conifig.CommonConfig;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
@@ -10,8 +10,8 @@ import java.util.List;
 
 public class Constituents {
     private static final int MAX = 20_0000_0000;
-    private static final double DISCOUNT = ServerConfig.DC_DISCOUNT.get();
-    private static final double PREMIUM = ServerConfig.RC_PREMIUM.get();
+    private static double DISCOUNT = 1.0;
+    private static double PREMIUM = 0;
 
     final int[] constituents = new int[6];
     boolean unanalysable = false;
@@ -257,5 +257,10 @@ public class Constituents {
 
     public static Constituents flowerLarge(){
         return new Constituents(36, 0, 16, 0, 0, 0);
+    }
+
+    public static void reloadFromConfig(){
+        DISCOUNT = CommonConfig.DC_DISCOUNT.get();
+        PREMIUM = CommonConfig.RC_PREMIUM.get();
     }
 }

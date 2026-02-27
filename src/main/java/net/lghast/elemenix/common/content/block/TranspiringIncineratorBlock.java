@@ -2,7 +2,7 @@ package net.lghast.elemenix.common.content.block;
 
 import com.mojang.serialization.MapCodec;
 import net.lghast.elemenix.common.content.blockentity.TransformerBlockEntity;
-import net.lghast.elemenix.conifig.ServerConfig;
+import net.lghast.elemenix.conifig.CommonConfig;
 import net.lghast.elemenix.register.content.ModItems;
 import net.lghast.elemenix.utils.Elemenix;
 import net.lghast.elemenix.utils.ElemenixInfo;
@@ -48,17 +48,17 @@ public class TranspiringIncineratorBlock extends TransformerBlock {
 
     @Override
     public int getConsumptionA() {
-        return ServerConfig.TI_CONSUMPTION.get();
+        return CommonConfig.TI_CONSUMPTION.get();
     }
 
     @Override
     public int getConsumptionB() {
-        return ServerConfig.TI_CONSUMPTION.get();
+        return CommonConfig.TI_CONSUMPTION.get();
     }
 
     @Override
     public int getProduction() {
-        return ServerConfig.TI_PRODUCTION.get();
+        return CommonConfig.TI_PRODUCTION.get();
     }
 
     @Override
@@ -68,12 +68,12 @@ public class TranspiringIncineratorBlock extends TransformerBlock {
 
     @Override
     public int getDcInterval() {
-        return ServerConfig.TI_DC_INTERVAL.get();
+        return CommonConfig.TI_DC_INTERVAL.get();
     }
 
     @Override
     public int getRcInterval() {
-        return ServerConfig.TI_RC_INTERVAL.get();
+        return CommonConfig.TI_RC_INTERVAL.get();
     }
 
     @Override

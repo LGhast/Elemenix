@@ -2,7 +2,7 @@ package net.lghast.elemenix.common.content.block;
 
 import com.mojang.serialization.MapCodec;
 import net.lghast.elemenix.common.content.blockentity.EjectorBlockEntity;
-import net.lghast.elemenix.conifig.ServerConfig;
+import net.lghast.elemenix.conifig.CommonConfig;
 import net.lghast.elemenix.register.content.ModBlockEntities;
 import net.lghast.elemenix.register.system.ModStats;
 import net.minecraft.core.BlockPos;
@@ -149,14 +149,14 @@ public class EjectorBlock extends BaseEntityBlock {
     }
 
     public int getDcInterval(){
-        return ServerConfig.EJECTOR_DC_INTERVAL.get();
+        return CommonConfig.EJECTOR_DC_INTERVAL.get();
     }
 
     public int getEnrichingInterval(){
-        return ServerConfig.EJECTOR_ENRICHING_INTERVAL.get();
+        return CommonConfig.EJECTOR_ENRICHING_INTERVAL.get();
     }
 
     public int getEjectingInterval(){
-        return ServerConfig.EJECTING_INTERVAL.get();
+        return CommonConfig.EJECTING_INTERVAL.get();
     }
 }
