@@ -1,4 +1,4 @@
-package net.lghast.elemenix.network;
+package net.lghast.elemenix.network.burner;
 
 import net.lghast.elemenix.common.system.menu.BurnerMenu;
 import net.minecraft.network.FriendlyByteBuf;
@@ -10,17 +10,17 @@ import net.minecraft.server.level.ServerPlayer;
 import net.neoforged.neoforge.network.handling.IPayloadContext;
 import org.jetbrains.annotations.NotNull;
 
-public record BurnerMovePayload(int itemIndex, int direction) implements CustomPacketPayload {
-    public static final CustomPacketPayload.Type<BurnerMovePayload> TYPE =
+public record BurnerSwapPayload(int index1, int index2) implements CustomPacketPayload {
+    public static final CustomPacketPayload.Type<BurnerSwapPayload> TYPE =
             new CustomPacketPayload.Type<>(
-                    ResourceLocation.fromNamespaceAndPath("elemenix", "burner_move")
+                    ResourceLocation.fromNamespaceAndPath("elemenix", "burner_swap")
             );
 
-    public static final StreamCodec<FriendlyByteBuf, BurnerMovePayload> STREAM_CODEC =
+    public static final StreamCodec<FriendlyByteBuf, BurnerSwapPayload> STREAM_CODEC =
             StreamCodec.composite(
-                    ByteBufCodecs.VAR_INT, BurnerMovePayload::itemIndex,
-                    ByteBufCodecs.VAR_INT, BurnerMovePayload::direction,
-                    BurnerMovePayload::new
+                    ByteBufCodecs.VAR_INT, BurnerSwapPayload::index1,
+                    ByteBufCodecs.VAR_INT, BurnerSwapPayload::index2,
+                    BurnerSwapPayload::new
             );
 
     @Override
@@ -28,11 +28,11 @@ public record BurnerMovePayload(int itemIndex, int direction) implements CustomP
         return TYPE;
     }
 
-    public static void handle(BurnerMovePayload payload, IPayloadContext context) {
+    public static void handle(BurnerSwapPayload payload, IPayloadContext context) {
         context.enqueueWork(() -> {
             if (context.player() instanceof ServerPlayer player &&
                     player.containerMenu instanceof BurnerMenu menu) {
-                menu.moveItem(payload.itemIndex(), payload.direction());
+                menu.swapItems(payload.index1(), payload.index2());
             }
         });
     }

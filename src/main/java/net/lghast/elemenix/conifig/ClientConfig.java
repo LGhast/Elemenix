@@ -22,6 +22,8 @@ public class ClientConfig {
     public static ModConfigSpec.BooleanValue SHOW_REMOTE_BINDING_PROMPT;
     public static ModConfigSpec.BooleanValue SHOW_REMOTE_COORDINATES;
     public static ModConfigSpec.BooleanValue SHOW_REMOTE_CONNECTION_STATUS;
+    public static ModConfigSpec.BooleanValue SHOW_SCANNER_PARTICLES;
+    public static ModConfigSpec.BooleanValue SHOW_SCANNING_STORAGE_PARTICLES;
 
     static {
         BUILDER.push("提示信息配置 Tooltip Configurations");
@@ -105,6 +107,22 @@ public class ClientConfig {
                         "Whether to display the connection validity status and the Elemenix storage amount at the bound location of Remote Storage")
                 .translation(CONFIG_PREFIX + "show_remote_connection_status")
                 .define("show_remote_connection_status", true);
+
+        BUILDER.pop();
+
+        BUILDER.push("粒子效果 Particles");
+
+        SHOW_SCANNER_PARTICLES = BUILDER
+                .comment("是否在元质扫描器扫描容器时显示粒子效果",
+                        "Whether to display particle effects when the Elemenic Scanner scans a container")
+                .translation(CONFIG_PREFIX + "show_scanner_particles")
+                .define("show_scanner_particles", true);
+
+        SHOW_SCANNING_STORAGE_PARTICLES = BUILDER
+                .comment("是否在扫描式储存器扫描容器时显示粒子效果",
+                        "Whether to display particle effects when the Scanning Storage scans a container")
+                .translation(CONFIG_PREFIX + "show_scanning_storage_particles")
+                .define("show_scanning_storage_particles", true);
 
         BUILDER.pop();
 

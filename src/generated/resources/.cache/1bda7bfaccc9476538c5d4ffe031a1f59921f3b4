@@ -1,4 +1,4 @@
-// 1.21.1	2026-02-01T16:51:50.0413452	Tags for minecraft:item mod id elemenix
+// 1.21.1	2026-03-06T15:32:28.7016392	Tags for minecraft:item mod id elemenix
 41602df7c255b970fd2469e0ae31a669fe9fd4f0 data/elemenix/tags/item/analyzer_unrecordable.json
 002a1f0e0b109cd883572ac23180e47312fdd8bb data/elemenix/tags/item/big_flowers.json
 47f300d49d177398bdeb09deddc1ccdb34ba0a69 data/elemenix/tags/item/concrete.json
@@ -16,7 +16,8 @@ fcb8476625195d2351238f217849450d2e531edf data/elemenix/tags/item/elemenic_transf
 63b7b24767e03c11f5fc01e724ebfeed7e575273 data/elemenix/tags/item/equilibrium.json
 f87f77226de93815712346dc3d0667caadf84128 data/elemenix/tags/item/essences.json
 ee2387014a0e77b1a5e2cbf21393c351832f3345 data/elemenix/tags/item/froglights.json
-ae29384e0ff1969d6e46fd47fac0a979de8c5249 data/elemenix/tags/item/ignored_by_deconstructor_input.json
+01eb37489abd6d249f5a9e7a0deebfefff412d21 data/elemenix/tags/item/ignored_by_deconstructor_input.json
+3df51a32702de4005b21b68c2e2a19cfdeef0aa6 data/elemenix/tags/item/ignored_by_scanning.json
 59d66b647bae069ce11497050df8fd5302d5c6f2 data/elemenix/tags/item/infested_stones.json
 17e4db66c0c4a67ed62b5d6738584e74d830d749 data/elemenix/tags/item/memorizer_slot_placeable.json
 e6750f89cebe0982dbb00ddf666273bf662a807f data/elemenix/tags/item/vinyl_discs.json

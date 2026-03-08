@@ -35,6 +35,17 @@ public class ModItemProperties {
                     return storage.isEmpty() ? 0f : 1f;
                 }
         );
+
+        ItemProperties.register(ModItems.SCANNING_STORAGE.get(),
+                propertyIdHasStorage,
+                (itemStack, clientLevel, livingEntity, seed) -> {
+                    ElemenicStorage storage = itemStack.get(ModDataComponents.ELEMENIC_STORAGE.get());
+                    if (storage == null) {
+                        return 0f;
+                    }
+                    return storage.isEmpty() ? 0f : 1f;
+                }
+        );
     }
 
     private static void registerRemoteBoundProperty(){

@@ -1,4 +1,4 @@
-package net.lghast.elemenix.network;
+package net.lghast.elemenix.network.analyzer;
 
 import net.lghast.elemenix.common.system.menu.AnalyzerMenu;
 import net.minecraft.network.FriendlyByteBuf;

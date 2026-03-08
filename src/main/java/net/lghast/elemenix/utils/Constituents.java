@@ -10,8 +10,8 @@ import java.util.List;
 
 public class Constituents {
     private static final int MAX = 20_0000_0000;
-    private static double DISCOUNT = 1.0;
-    private static double PREMIUM = 0;
+    public static double DISCOUNT = 1.0;
+    public static double PREMIUM = 0;
 
     final int[] constituents = new int[6];
     boolean unanalysable = false;
@@ -259,7 +259,7 @@ public class Constituents {
         return new Constituents(36, 0, 16, 0, 0, 0);
     }
 
-    public static void reloadFromConfig(){
+    public static void loadFromConfig(){
         DISCOUNT = CommonConfig.DC_DISCOUNT.get();
         PREMIUM = CommonConfig.RC_PREMIUM.get();
     }

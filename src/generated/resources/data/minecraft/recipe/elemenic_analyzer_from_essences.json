@@ -12,7 +12,7 @@
       "item": "elemenix:energix_essence"
     },
     "D": {
-      "item": "minecraft:diamond"
+      "item": "elemenix:analyzing_chip"
     },
     "E": {
       "item": "elemenix:metallix_essence"
@@ -22,14 +22,11 @@
     },
     "G": {
       "item": "elemenix:flumix_essence"
-    },
-    "N": {
-      "item": "minecraft:quartz"
     }
   },
   "pattern": [
     "ABC",
-    "NDN",
+    " D ",
     "EFG"
   ],
   "result": {

@@ -1,4 +1,4 @@
-package net.lghast.elemenix.network;
+package net.lghast.elemenix.network.burner;
 
 import net.lghast.elemenix.client.screen.BurnerMode;
 import net.lghast.elemenix.common.system.menu.BurnerMenu;

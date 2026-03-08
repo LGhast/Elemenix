@@ -33,6 +33,10 @@
   "advancements.elemenix.obtain_storage.description": "制作元质储存器，用于在注入塔中接收元质，并转移到解析器中",
   "advancements.elemenix.obtain_remote_storage.title": "远走高飞",
   "advancements.elemenix.obtain_remote_storage.description": "制作远程元质储存器，可于注入塔内的元质储存器绑定，远程调用元质储量",
+  "advancements.elemenix.scan_container.title": "一扫无余",
+  "advancements.elemenix.scan_container.description": "使用元质扫描器扫描一个容器方块",
+  "advancements.elemenix.obtain_scanning_storage.title": "一扫而空",
+  "advancements.elemenix.obtain_scanning_storage.description": "制作扫描式储存器，一键式解构容器中的物品",
 
   "creativetab.elemenix.elemenix": "元质学",
 
@@ -90,6 +94,9 @@
   "item.elemenix.memorizer_box": "记忆碟收纳盒",
   "item.elemenix.memory_burner": "刻录笔",
   "item.elemenix.nullvoid": "子虚乌有",
+  "item.elemenix.elemenic_scanner": "元质扫描器",
+  "item.elemenix.scanning_storage": "扫描式储存器",
+  "item.elemenix.analyzing_chip": "解析芯片",
 
   "elemenix.elemenix.organix": "有机质",
   "elemenix.elemenix.terrix": "矿化质",
@@ -146,7 +153,14 @@
   "tooltip.elemenix.remote_storage.dimension_mismatch": "无法连接至不同维度",
   "tooltip.elemenix.technical": "技术性物品",
 
-  "message.remote_storage.bound": "已绑定至坐标 (%d, %d, %d)",
+  "message.elemenix.remote_storage.bound": "已绑定至坐标 (%d, %d, %d)",
+  "message.elemenix.scanner.exceed": "数值超出统计范围，扫描失败",
+  "message.elemenix.scanner.empty": "容器为空，扫描失败",
+  "message.elemenix.scanner.total": "总量：",
+  "message.elemenix.scanner.blacklisted": "禁止对%s进行扫描",
+  "message.elemenix.scanner.disabled": "扫描已被配置禁用",
+  "message.elemenix.scanning_storage.empty": "未能扫描到可解构的物品",
+  "message.elemenix.scanning_storage.total": "成功解构%d个物品",
 
   "key.categories.elemenics": "元质学",
   "key.elemenix.open_memorizer_box": "打开记忆碟收纳盒",
@@ -182,6 +196,8 @@
   "stat.elemenix.infuser_interactions": "与元质注入塔互动次数",
   "stat.elemenix.enricher_interactions": "与元质富集塔互动次数",
   "stat.elemenix.ejector_interactions": "与元质射流塔互动次数",
+  "stat.elemenix.scanner_scans": "元质扫描器扫描容器次数",
+  "stat.elemenix.scanning_storage_scans": "扫描式储存器扫描容器次数",
 
   "config.elemenix.digit_grouping_by_fours": "四位分节法",
   "config.elemenix.show_constituent_tooltips": "显示元质成分",
@@ -196,10 +212,16 @@
   "config.elemenix.show_remote_binding_prompt": "显示远程储存器绑定提示",
   "config.elemenix.show_remote_coordinates": "显示远程储存器绑定坐标",
   "config.elemenix.show_remote_connection_status": "显示远程储存器连接状态",
+  "config.elemenix.show_scanner_particles": "显示扫描器粒子",
+  "config.elemenix.show_scanning_storage_particles": "显示扫描式储存器粒子",
   "config.elemenix.elemenix_mappings": "元质映射",
   "config.elemenix.unanalysable_list": "不可解析物品列表",
   "config.elemenix.deconstruction_discount": "解构贬值",
   "config.elemenix.reconstruction_premium": "重构溢价",
+  "config.elemenix.disable_scanner_scanning": "禁止扫描器扫描容器",
+  "config.elemenix.disable_scanning_storage_scanning": "禁止扫描式储存器扫描容器",
+  "config.elemenix.scanner_blacklist": "扫描器方块黑名单",
+  "config.elemenix.scanning_storage_blacklist": "扫描式储存器方块黑名单",
   "config.elemenix.geological_simulator_consumption": "地质模拟仪消耗",
   "config.elemenix.geological_simulator_production": "地质模拟仪产出",
   "config.elemenix.geological_simulator_dc_interval": "地质模拟仪解构间隔",
@@ -243,5 +265,7 @@
   "jei.info.flow_straightener": "整流栅用于限制元质射流塔的射流顺序，当安装有整流栅时，元质射流塔会按照从左至右的顺序发射储存的元质纯质。同时，安装有整流栅的元质射流塔可同时进行富集和射流。",
   "jei.info.memory_burner": "刻录笔用于编辑元质记忆碟中的物品列表顺序，可实现物品的移动、交换、删除等操作，并支持将列表复制或拼接至另一张记忆碟。",
   "jei.info.elemenic_storage": "元质储存器用于暂存元质注入塔储存的元质，也可用于和远程元质储存器建立连接。当玩家需要时，可将元质储存器中暂存的元质转移至元质解析器中，其方法与解构物品类似。",
-  "jei.info.remote_elemenic_storage": "远程元质储存器用于远程调用元质储存器中的元质，该物品并不直接储存任何元质，仅为玩家提供一种无需取出储存器即可转移其元质储量的方法。"
+  "jei.info.remote_elemenic_storage": "远程元质储存器用于远程调用元质储存器中的元质，该物品并不直接储存任何元质，仅为玩家提供一种无需取出储存器即可转移其元质储量的方法。",
+  "jei.info.elemenic_scanner": "元质扫描器用于扫描并计算一个容器方块中所有物品的元质总和，并为玩家显示。",
+  "jei.info.scanning_storage": "扫描式储存器可快速解构一个容器方块中的所有物品并将其储存起来，该过程也会被视为打开容器，可触发陷阱箱等特殊容器的开启效果。"
 }

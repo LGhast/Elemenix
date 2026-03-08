@@ -33,6 +33,10 @@
   "advancements.elemenix.obtain_storage.description": "製作元質儲存器，用於在注入塔中接收元質，並轉移到解析器中",
   "advancements.elemenix.obtain_remote_storage.title": "遠走高飛",
   "advancements.elemenix.obtain_remote_storage.description": "製作遠程元質儲存器，可與注入塔內的元質儲存器綁定，遠程調用元質儲量",
+  "advancements.elemenix.scan_container.title": "一掃無餘",
+  "advancements.elemenix.scan_container.description": "使用元質掃描器掃描一個容器方塊",
+  "advancements.elemenix.obtain_scanning_storage.title": "一掃而空",
+  "advancements.elemenix.obtain_scanning_storage.description": "製作掃描式儲存器，一鍵式解構容器中的物品",
 
   "creativetab.elemenix.elemenix": "元質學",
 
@@ -90,6 +94,9 @@
   "item.elemenix.memorizer_box": "記憶碟收納盒",
   "item.elemenix.memory_burner": "刻錄筆",
   "item.elemenix.nullvoid": "子虛烏有",
+  "item.elemenix.elemenic_scanner": "元質掃描器",
+  "item.elemenix.scanning_storage": "掃描式儲存器",
+  "item.elemenix.analyzing_chip": "解析芯片",
 
   "elemenix.elemenix.organix": "有機質",
   "elemenix.elemenix.terrix": "礦化質",
@@ -146,7 +153,14 @@
   "tooltip.elemenix.remote_storage.dimension_mismatch": "無法連接至不同維度",
   "tooltip.elemenix.technical": "技術性物品",
 
-  "message.remote_storage.bound": "已綁定至坐標 (%d, %d, %d)",
+  "message.elemenix.remote_storage.bound": "已綁定至坐標 (%d, %d, %d)",
+  "message.elemenix.scanner.exceed": "數值超出統計範圍，掃描失敗",
+  "message.elemenix.scanner.empty": "容器為空，掃描失敗",
+  "message.elemenix.scanner.total": "總量：",
+  "message.elemenix.scanner.disabled": "掃描已被配置禁用",
+  "message.elemenix.scanner.blacklisted": "禁止對%s進行掃描",
+  "message.elemenix.scanning_storage.empty": "未能掃描到可解構的物品",
+  "message.elemenix.scanning_storage.total": "成功解構%d個物品",
 
   "key.categories.elemenics": "元質學",
   "key.elemenix.open_memorizer_box": "打開記憶碟收納盒",
@@ -182,6 +196,8 @@
   "stat.elemenix.infuser_interactions": "使用元質注入塔次數",
   "stat.elemenix.enricher_interactions": "使用元質富集塔次數",
   "stat.elemenix.ejector_interactions": "使用元質射流塔次數",
+  "stat.elemenix.scanner_scans": "元質掃描器掃描容器次數",
+  "stat.elemenix.scanning_storage_scans": "掃描式儲存器掃描容器次數",
 
   "config.elemenix.digit_grouping_by_fours": "四位分節法",
   "config.elemenix.show_constituent_tooltips": "顯示元質成分",
@@ -196,10 +212,16 @@
   "config.elemenix.show_remote_binding_prompt": "顯示遠端儲存器綁定提示",
   "config.elemenix.show_remote_coordinates": "顯示遠端儲存器綁定座標",
   "config.elemenix.show_remote_connection_status": "顯示遠端儲存器連接狀態",
+  "config.elemenix.show_scanner_particles": "顯示掃描器粒子",
+  "config.elemenix.show_scanning_storage_particles": "顯示掃描式儲存器粒子",
   "config.elemenix.elemenix_mappings": "元質映射",
   "config.elemenix.unanalysable_list": "不可解析物品列表",
   "config.elemenix.deconstruction_discount": "解構貶值",
   "config.elemenix.reconstruction_premium": "重構溢價",
+  "config.elemenix.disable_scanner_scanning": "禁止掃描器掃描容器",
+  "config.elemenix.disable_scanning_storage_scanning": "禁止掃描式儲存器掃描容器",
+  "config.elemenix.scanner_blacklist": "掃描器方塊黑名單",
+  "config.elemenix.scanning_storage_blacklist": "掃描式儲存器方塊黑名單",
   "config.elemenix.geological_simulator_consumption": "地質模擬儀消耗",
   "config.elemenix.geological_simulator_production": "地質模擬儀產出",
   "config.elemenix.geological_simulator_dc_interval": "地質模擬儀解構間隔",
@@ -243,5 +265,7 @@
   "jei.info.flow_straightener": "整流柵用於限制元質射流塔的射流順序，當安裝有整流柵時，元質射流塔會按照從左至右的順序發射儲存的元質純質。同時，安裝有整流柵的元質射流塔可同時進行富集和射流。",
   "jei.info.memory_burner": "刻錄筆用於編輯元質記憶碟中的物品列表順序，可實現物品的移動、交換、刪除等操作，並支援將列表複製或拼接至另一張記憶碟。",
   "jei.info.elemenic_storage": "元質儲存器用於暫存元質注入塔儲存的元質，也可用於和遠程元質儲存器建立連接。當玩家需要時，可將元質儲存器中暫存的元質轉移至元質分析器中，其方法與解構物品類似。",
-  "jei.info.remote_elemenic_storage": "遠程元質儲存器用於遠程調用元質儲存器中的元質，該物品並不直接儲存任何元質，僅為玩家提供一種無需取出儲存器即可轉移其元質儲量的方法。"
+  "jei.info.remote_elemenic_storage": "遠程元質儲存器用於遠程調用元質儲存器中的元質，該物品並不直接儲存任何元質，僅為玩家提供一種無需取出儲存器即可轉移其元質儲量的方法。",
+  "jei.info.elemenic_scanner": "元質掃描器用於掃描並計算一個容器方塊中所有物品的元質總和，並為玩家顯示。",
+  "jei.info.scanning_storage": "掃描式儲存器可快速解構一個容器方塊中的所有物品並將其儲存起來，該過程也會被視為打開容器，可觸發陷阱箱等特殊容器的開啟效果。"
 }

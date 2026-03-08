@@ -2,7 +2,7 @@ package net.lghast.elemenix.client.screen;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.lghast.elemenix.common.system.menu.AnalyzerMenu;
-import net.lghast.elemenix.network.ReconstructionPayload;
+import net.lghast.elemenix.network.analyzer.ReconstructionPayload;
 import net.lghast.elemenix.register.content.ModItems;
 import net.lghast.elemenix.utils.ElemenixInfo;
 import net.lghast.elemenix.utils.ModUtils;

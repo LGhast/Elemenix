@@ -33,7 +33,7 @@ public class ElemenixInfo {
         if (isInitialized) return;
 
         if(ADDITIONAL_MAP.isEmpty()){
-            reloadFromConfig();
+            loadFromConfig();
         }
 
         loadModMappings();
@@ -220,7 +220,7 @@ public class ElemenixInfo {
         }
     }
 
-    public static void reloadFromConfig() {
+    public static void loadFromConfig() {
         Map<String, Constituents> newElemenixMap = new HashMap<>();
         List<? extends String> configElemenixList = CommonConfig.ELEMENIX_MAPPINGS.get();
         List<? extends String> configUnanalysableList = CommonConfig.UNANALYSABLE_LIST.get();

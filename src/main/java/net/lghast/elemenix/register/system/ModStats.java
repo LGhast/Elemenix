@@ -81,6 +81,12 @@ public class ModStats {
     public static final DeferredHolder<ResourceLocation, ResourceLocation> EJECTOR_INTERACTIONS =
             makeStat("ejector_interactions");
 
+    public static final DeferredHolder<ResourceLocation, ResourceLocation> SCANNER_SCANS =
+            makeStat("scanner_scans");
+
+    public static final DeferredHolder<ResourceLocation, ResourceLocation> SCANNING_STORAGE_SCANS =
+            makeStat("scanning_storage_scans");
+
     private static DeferredHolder<ResourceLocation, ResourceLocation> makeStat(String key) {
         ResourceLocation resourceLocation = ResourceLocation.fromNamespaceAndPath(Elemenics.MOD_ID, key);
         STAT_SETUP.add(() -> Stats.CUSTOM.get(resourceLocation, StatFormatter.DEFAULT));

@@ -1,11 +1,11 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_elemenic_analyzer": {
+    "has_analyzing_chip": {
       "conditions": {
         "items": [
           {
-            "items": "elemenix:elemenic_analyzer"
+            "items": "elemenix:analyzing_chip"
           }
         ]
       },
@@ -21,7 +21,7 @@
   "requirements": [
     [
       "has_the_recipe",
-      "has_elemenic_analyzer"
+      "has_analyzing_chip"
     ]
   ],
   "rewards": {

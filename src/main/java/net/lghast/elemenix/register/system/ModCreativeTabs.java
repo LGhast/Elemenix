@@ -21,11 +21,14 @@ public class ModCreativeTabs {
             ()-> CreativeModeTab.builder().icon(()->new ItemStack(ModItems.ELEMENIC_ANALYZER.get()))
                     .title(Component.translatable("creativetab.elemenix.elemenix"))
                     .displayItems((itemDisplayParameters,output)->{
+                        output.accept(ModItems.ANALYZING_CHIP);
                         output.accept(ModItems.ELEMENIC_ANALYZER);
                         output.accept(ModItems.ELEMENIC_MEMORIZER);
                         output.accept(ModItems.FONDANT_CAKE);
+                        output.accept(ModItems.ELEMENIC_SCANNER);
                         output.accept(ModItems.ELEMENIC_STORAGE);
                         output.accept(ModItems.REMOTE_ELEMENIC_STORAGE);
+                        output.accept(ModItems.SCANNING_STORAGE);
                         output.accept(ModItems.MEMORIZER_BOX);
                         output.accept(ModItems.MEMORY_BURNER);
                         output.accept(ModItems.THROTTLE_VALVE);

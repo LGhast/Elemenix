@@ -7,7 +7,7 @@ import net.lghast.elemenix.common.content.item.StorageItem;
 import net.lghast.elemenix.common.system.datacomponent.ElemenicStorage;
 import net.lghast.elemenix.common.system.datacomponent.RemoteStorageBinding;
 import net.lghast.elemenix.common.system.menu.InfuserMenu;
-import net.lghast.elemenix.network.InfuserDataUpdatePayload;
+import net.lghast.elemenix.network.infuser.InfuserDataUpdatePayload;
 import net.lghast.elemenix.register.content.ModBlockEntities;
 import net.lghast.elemenix.register.system.ModDataComponents;
 import net.lghast.elemenix.register.system.ModTags;

@@ -1,0 +1,26 @@
+{
+  "parent": "elemenix:elemenics/root",
+  "criteria": {
+    "scan_container": {
+      "trigger": "elemenix:scan"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.elemenix.scan_container.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "elemenix:elemenic_scanner"
+    },
+    "title": {
+      "translate": "advancements.elemenix.scan_container.title"
+    }
+  },
+  "requirements": [
+    [
+      "scan_container"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

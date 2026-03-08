@@ -69,6 +69,10 @@ public class JEIPlugin implements IModPlugin {
                 Component.translatable("jei.info.elemenic_storage"));
         registration.addItemStackInfo(new ItemStack(ModItems.REMOTE_ELEMENIC_STORAGE.get()),
                 Component.translatable("jei.info.remote_elemenic_storage"));
+        registration.addItemStackInfo(new ItemStack(ModItems.ELEMENIC_SCANNER.get()),
+                Component.translatable("jei.info.elemenic_scanner"));
+        registration.addItemStackInfo(new ItemStack(ModItems.SCANNING_STORAGE.get()),
+                Component.translatable("jei.info.scanning_storage"));
     }
 
     private List<TransformingRecipe> getTransformingRecipes() {

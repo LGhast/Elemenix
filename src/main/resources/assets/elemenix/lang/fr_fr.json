@@ -33,6 +33,10 @@
   "advancements.elemenix.obtain_storage.description": "Fabriquez un réservoir d'élémentium pour recevoir l'élémentium dans une tour d'injection et le transférer à l'analyseur",
   "advancements.elemenix.obtain_remote_storage.title": "La télécommande a encore disparu...",
   "advancements.elemenix.obtain_remote_storage.description": "Fabriquez un réservoir d'élémentium à distance qui peut se lier à un réservoir d'élémentium dans une tour d'injection pour accéder à distance aux réserves d'élémentium",
+  "advancements.elemenix.scan_container.title": "Scan exhaustif",
+  "advancements.elemenix.scan_container.description": "Utilisez un Scanner d'Élémentium pour scanner un bloc conteneur.",
+  "advancements.elemenix.obtain_scanning_storage.title": "Coup de balai",
+  "advancements.elemenix.obtain_scanning_storage.description": "Fabriquez un Réservoir de scan d'Élémentium pour déconstruire instantanément tous les objets d'un conteneur.",
 
   "creativetab.elemenix.elemenix": "Élémentiologie",
 
@@ -49,6 +53,9 @@
   "item.elemenix.elemenic_memorizer": "Disque de Mémoire Élémentaire",
   "item.elemenix.elemenic_storage": "Réservoir d'Élémentium",
   "item.elemenix.remote_elemenic_storage": "Réservoir d'Élémentium à Distance",
+  "item.elemenix.elemenic_scanner": "Scanner d'Élémentium",
+  "item.elemenix.scanning_storage": "Réservoir de scan d'Élémentium",
+  "item.elemenix.analyzing_chip": "Puce d'analyseur",
   "item.elemenix.elemenic_memorizer.style.white": "Blanc",
   "item.elemenix.elemenic_memorizer.style.red": "Rouge",
   "item.elemenix.elemenic_memorizer.style.orange": "Orange",
@@ -146,7 +153,14 @@
   "tooltip.elemenix.remote_storage.dimension_mismatch": "Impossible d'utiliser entre les dimensions",
   "tooltip.elemenix.technical": "Objet technique",
 
-  "message.remote_storage.bound": "Lié aux coordonnées (%d, %d, %d)",
+  "message.elemenix.remote_storage.bound": "Lié aux coordonnées (%d, %d, %d)",
+  "message.elemenix.scanner.exceed": "La valeur dépasse la plage statistique, échec du scan.",
+  "message.elemenix.scanner.empty": "Le conteneur est vide, échec du scan.",
+  "message.elemenix.scanner.total": "Quantité totale :",
+  "message.elemenix.scanner.blacklisted": "Scan de %s interdit",
+  "message.elemenix.scanner.disabled": "Le scan est désactivé par la configuration.",
+  "message.elemenix.scanning_storage.empty": "Impossible de scanner des objets déconstructibles.",
+  "message.elemenix.scanning_storage.total": "Déconstruction réussie de %d objets",
 
   "key.categories.elemenics": "Élémentiologie",
   "key.elemenix.open_memorizer_box": "Ouvrir la Boîte à Disques de Mémoire",
@@ -182,6 +196,8 @@
   "stat.elemenix.infuser_interactions": "Interactions avec les tours d'injection",
   "stat.elemenix.enricher_interactions": "Interactions avec les tours d'enrichissement",
   "stat.elemenix.ejector_interactions": "Interactions avec les tours d'éjection",
+  "stat.elemenix.scanner_scans": "Scans de conteneurs avec le scanner d'élémentium",
+  "stat.elemenix.scanning_storage_scans": "Scans de conteneurs avec le réservoir de scan d'élémentium",
 
   "config.elemenix.digit_grouping_by_fours": "Regroupement par quatre chiffres",
   "config.elemenix.show_constituent_tooltips": "Afficher les constituants",
@@ -228,6 +244,12 @@
   "config.elemenix.ejector_dc_interval": "Intervalle de déconstruction de la tour d'éjection",
   "config.elemenix.ejector_enriching_interval": "Intervalle de production de la tour d'éjection",
   "config.elemenix.ejecting_interval": "Intervalle d'éjection de la tour d'éjection",
+  "config.elemenix.disable_scanner_scanning": "Désactiver le scan du scanner d'élémentium",
+  "config.elemenix.disable_scanning_storage_scanning": "Désactiver le scan du réservoir de scan d'élémentium",
+  "config.elemenix.show_scanner_particles": "Afficher les particules du scanner d'élémentium",
+  "config.elemenix.show_scanning_storage_particles": "Afficher les particules du réservoir de scan d'élémentium",
+  "config.elemenix.scanner_blacklist": "Liste noire du scanner d'Élémentium",
+  "config.elemenix.scanning_storage_blacklist": "Liste noire du réservoir de scan d'Élémentium",
 
   "jei.category.elemenix.enriching": "Enrichissement",
   "jei.category.elemenix.transforming": "Transformation Élémentaire",
@@ -243,5 +265,7 @@
   "jei.info.flow_straightener": "Le Redresseur d'Écoulement restreint la séquence d'éjection de la tour d'éjection. Une fois installé, l'éjecteur lancera l'essence élémentaire stockée de gauche à droite. De plus, un éjecteur équipé d'un redresseur d'écoulement peut effectuer l'enrichissement et l'éjection simultanément.",
   "jei.info.memory_burner": "Le Graveur de Mémoire est utilisé pour éditer la séquence d'objets stockée dans un disque de mémoire. Il permet des opérations telles que le déplacement, l'échange et la suppression d'objets, et prend en charge la copie ou la fusion de la liste vers un autre disque de mémoire.",
   "jei.info.elemenic_storage": "Le Réservoir d'Élémentium est utilisé pour retenir temporairement l'élémentium stocké par la tour d'injection, et peut également établir une connexion avec un réservoir d'élémentium à distance. Lorsque c'est nécessaire, le joueur peut transférer l'élémentium du réservoir dans un analyseur, en utilisant une méthode similaire à la déconstruction d'objets.",
-  "jei.info.remote_elemenic_storage": "Le Réservoir d'Élémentium à Distance est utilisé pour accéder à distance à l'élémentium d'un réservoir d'élémentium. Cet objet ne stocke pas directement d'élémentium ; il fournit simplement au joueur une méthode pour transférer les réserves d'élémentium sans avoir à récupérer l'unité de stockage physique."
+  "jei.info.remote_elemenic_storage": "Le Réservoir d'Élémentium à Distance est utilisé pour accéder à distance à l'élémentium d'un réservoir d'élémentium. Cet objet ne stocke pas directement d'élémentium ; il fournit simplement au joueur une méthode pour transférer les réserves d'élémentium sans avoir à récupérer l'unité de stockage physique.",
+  "jei.info.elemenic_scanner": "Le Scanner d'Élémentium est utilisé pour scanner et calculer le total d'élémentium de tous les objets dans un bloc conteneur, et l'afficher au joueur.",
+  "jei.info.scanning_storage": "Le Réservoir de scan d'Élémentium peut rapidement déconstruire tous les objets d'un bloc conteneur et les stocker. Ce processus est également considéré comme une ouverture du conteneur, ce qui peut déclencher les effets d'ouverture de conteneurs spéciaux tels que les coffres piégés."
 }

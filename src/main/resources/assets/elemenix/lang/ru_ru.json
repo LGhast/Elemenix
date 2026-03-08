@@ -33,6 +33,10 @@
   "advancements.elemenix.obtain_storage.description": "Создайте элементное хранилище для получения элеменции в башне инъекции и передачи её в анализатор",
   "advancements.elemenix.obtain_remote_storage.title": "Пульт снова пропал...",
   "advancements.elemenix.obtain_remote_storage.description": "Создайте удалённое элементное хранилище, которое может связаться с элементным хранилищем в башне инъекции для удалённого доступа к запасам элеменции",
+  "advancements.elemenix.scan_container.title": "Полный скан",
+  "advancements.elemenix.scan_container.description": "Используйте сканер элеменции, чтобы просканировать блок контейнера.",
+  "advancements.elemenix.obtain_scanning_storage.title": "Всё подчистую",
+  "advancements.elemenix.obtain_scanning_storage.description": "Создайте сканирующее элементное хранилище, чтобы мгновенно деконструировать все предметы в контейнере.",
 
   "creativetab.elemenix.elemenix": "Элеменциология",
 
@@ -90,6 +94,10 @@
   "item.elemenix.throttle_valve": "Дроссельный Клапан",
   "item.elemenix.flow_straightener": "Выпрямитель Потока",
   "item.elemenix.nullvoid": "Ничтопусто",
+  "item.elemenix.elemenic_scanner": "Сканер Элеменции",
+  "item.elemenix.scanning_storage": "Сканирующее Элементное Хранилище",
+  "item.elemenix.analyzing_chip": "Чип анализатора",
+
 
   "elemenix.elemenix.organix": "Органическая Субстанция",
   "elemenix.elemenix.terrix": "Минеральная Субстанция",
@@ -146,7 +154,14 @@
   "tooltip.elemenix.remote_storage.dimension_mismatch": "Нельзя использовать между измерениями",
   "tooltip.elemenix.technical": "Технический предмет",
 
-  "message.remote_storage.bound": "Привязано к координатам (%d, %d, %d)",
+  "message.elemenix.remote_storage.bound": "Привязано к координатам (%d, %d, %d)",
+  "message.elemenix.scanner.exceed": "Значение превышает статистический диапазон, скан не удался.",
+  "message.elemenix.scanner.empty": "Контейнер пуст, скан не удался.",
+  "message.elemenix.scanner.total": "Общее количество:",
+  "message.elemenix.scanner.disabled": "Сканирование отключено в конфигурации.",
+  "message.elemenix.scanner.blacklisted": "Сканирование %s запрещено",
+  "message.elemenix.scanning_storage.empty": "Не удалось найти деконструируемые предметы для сканирования.",
+  "message.elemenix.scanning_storage.total": "Успешно деконструировано %d предметов",
 
   "key.categories.elemenics": "Элеменциология",
   "key.elemenix.open_memorizer_box": "Открыть Коробку для Дисков Памяти",
@@ -182,6 +197,8 @@
   "stat.elemenix.infuser_interactions": "Взаимодействий с башней инъекции",
   "stat.elemenix.enricher_interactions": "Взаимодействий с башней обогащения",
   "stat.elemenix.ejector_interactions": "Взаимодействий с башней выброса",
+  "stat.elemenix.scanner_scans": "Сканирований контейнеров сканером элеменции",
+  "stat.elemenix.scanning_storage_scans": "Сканирований контейнеров сканирующим элементным хранилищем",
 
   "config.elemenix.digit_grouping_by_fours": "Группировка по четыре цифры",
   "config.elemenix.show_constituent_tooltips": "Показать составные части",
@@ -228,6 +245,12 @@
   "config.elemenix.ejector_dc_interval": "Интервал деконструкции башни выброса",
   "config.elemenix.ejector_enriching_interval": "Интервал производства башни выброса",
   "config.elemenix.ejecting_interval": "Интервал выброса башни выброса",
+  "config.elemenix.disable_scanner_scanning": "Отключить сканирование сканером элеменции",
+  "config.elemenix.disable_scanning_storage_scanning": "Отключить сканирование сканирующим элементным хранилищем",
+  "config.elemenix.show_scanner_particles": "Показывать частицы сканера элеменции",
+  "config.elemenix.show_scanning_storage_particles": "Показывать частицы сканирующего элементного хранилища",
+  "config.elemenix.scanner_blacklist": "Чёрный список сканера элеменции",
+  "config.elemenix.scanning_storage_blacklist": "Чёрный список сканирующего элементного хранилища",
 
   "jei.category.elemenix.enriching": "Обогащение",
   "jei.category.elemenix.transforming": "Элементное Преобразование",
@@ -243,5 +266,7 @@
   "jei.info.flow_straightener": "Выпрямитель Потока ограничивает последовательность выброса башни выброса. После установки эжектор будет запускать сохранённую элементную эссенцию слева направо. Кроме того, эжектор, оборудованный выпрямителем потока, может выполнять обогащение и выброс одновременно.",
   "jei.info.memory_burner": "Прожигатель Памяти используется для редактирования последовательности предметов, сохранённой на диске памяти. Он позволяет выполнять такие операции, как перемещение, обмен и удаление предметов, а также поддерживает копирование или объединение списка с другим диском памяти.",
   "jei.info.elemenic_storage": "Элементное Хранилище используется для временного хранения элеменции, сохранённой башней инъекции, а также может установить соединение с удалённым элементным хранилищем. При необходимости игрок может передать элеменцию из хранилища в анализатор, используя метод, аналогичный деконструкции предметов.",
-  "jei.info.remote_elemenic_storage": "Удалённое Элементное Хранилище используется для удалённого доступа к элеменции из элементного хранилища. Этот предмет сам по себе не хранит элеменцию; он просто предоставляет игроку метод передачи запасов элеменции без необходимости извлекать физический блок хранилища."
+  "jei.info.remote_elemenic_storage": "Удалённое Элементное Хранилище используется для удалённого доступа к элеменции из элементного хранилища. Этот предмет сам по себе не хранит элеменцию; он просто предоставляет игроку метод передачи запасов элеменции без необходимости извлекать физический блок хранилища.",
+  "jei.info.elemenic_scanner": "Сканер Элеменции используется для сканирования и расчета общего количества элеменции всех предметов в блоке контейнера и отображения этого игроку.",
+  "jei.info.scanning_storage": "Сканирующее Элементное Хранилище может быстро деконструировать все предметы в блоке контейнера и сохранить их. Этот процесс также считается открытием контейнера, что может вызвать эффекты открытия специальных контейнеров, таких как контейнеры-ловушки."
 }

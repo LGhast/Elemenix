@@ -1,4 +1,4 @@
-package net.lghast.elemenix.network;
+package net.lghast.elemenix.network.burner;
 
 import net.lghast.elemenix.common.system.menu.BurnerMenu;
 import net.minecraft.network.FriendlyByteBuf;

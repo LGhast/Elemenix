@@ -2,8 +2,8 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "A": {
-      "item": "elemenix:elemenic_analyzer"
+    "C": {
+      "item": "elemenix:analyzing_chip"
     },
     "H": {
       "item": "minecraft:hopper"
@@ -20,7 +20,7 @@
   },
   "pattern": [
     "IHI",
-    "RAR",
+    "RCR",
     "INI"
   ],
   "result": {

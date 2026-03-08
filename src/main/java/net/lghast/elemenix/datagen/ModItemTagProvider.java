@@ -260,9 +260,17 @@ public class ModItemTagProvider extends ItemTagsProvider {
         tag(ModTags.IGNORED_BY_DECONSTRUCTOR_INPUT)
                 .add(ModItems.ELEMENIC_STORAGE.asItem())
                 .add(ModItems.ELEMENIC_ANALYZER.asItem())
+                .add(ModItems.SCANNING_STORAGE.asItem())
                 .add(ModItems.ELEMENIC_MEMORIZER.asItem())
                 .add(ModItems.MEMORIZER_BOX.asItem())
                 .add(ModItems.REMOTE_ELEMENIC_STORAGE.asItem())
+        ;
+
+        tag(ModTags.IGNORED_BY_SCANNING)
+                .add(ModItems.ELEMENIC_STORAGE.asItem())
+                .add(ModItems.ELEMENIC_ANALYZER.asItem())
+                .add(ModItems.SCANNING_STORAGE.asItem())
+                .add(ModItems.ELEMENIC_MEMORIZER.asItem())
         ;
     }
 }

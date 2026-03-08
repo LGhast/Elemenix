@@ -1,5 +1,6 @@
 package net.lghast.elemenix.datagen;
 
+import net.lghast.elemenix.common.system.advancement.ScanTrigger;
 import net.lghast.elemenix.common.system.advancement.ValveTrigger;
 import net.lghast.elemenix.common.system.advancement.WaxOffTrigger;
 import net.lghast.elemenix.common.system.advancement.WaxOnTrigger;
@@ -328,6 +329,38 @@ public class ModAdvancementProvider extends AdvancementProvider {
                             ItemPredicate.Builder.item().of(ModItems.REMOTE_ELEMENIC_STORAGE.get()).build()
                     ))
                     .save(saver, ResourceLocation.parse("elemenix:elemenics/obtain_remote_storage"), existingFileHelper);
+
+            AdvancementHolder scanContainer = Advancement.Builder.advancement()
+                    .parent(rootAdvancement)
+                    .display(
+                            ModItems.ELEMENIC_SCANNER,
+                            Component.translatable("advancements.elemenix.scan_container.title"),
+                            Component.translatable("advancements.elemenix.scan_container.description"),
+                            null,
+                            AdvancementType.TASK,
+                            true,
+                            true,
+                            false
+                    )
+                    .addCriterion("scan_container", ScanTrigger.scan())
+                    .save(saver, ResourceLocation.parse("elemenix:elemenics/scan_container"), existingFileHelper);
+
+            AdvancementHolder obtainScanningStorage = Advancement.Builder.advancement()
+                    .parent(scanContainer)
+                    .display(
+                            ModItems.SCANNING_STORAGE,
+                            Component.translatable("advancements.elemenix.obtain_scanning_storage.title"),
+                            Component.translatable("advancements.elemenix.obtain_scanning_storage.description"),
+                            null,
+                            AdvancementType.GOAL,
+                            true,
+                            true,
+                            true
+                    )
+                    .addCriterion("get_scanning_storage", InventoryChangeTrigger.TriggerInstance.hasItems(
+                            ItemPredicate.Builder.item().of(ModItems.SCANNING_STORAGE.get()).build()
+                    ))
+                    .save(saver, ResourceLocation.parse("elemenix:elemenics/obtain_scanning_storage"), existingFileHelper);
         }
     }
 }

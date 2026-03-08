@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "minecraft:organix_essence_from_essences"
+        "recipe": "elemenix:analyzing_chip"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -26,7 +26,7 @@
   ],
   "rewards": {
     "recipes": [
-      "minecraft:organix_essence_from_essences"
+      "elemenix:analyzing_chip"
     ]
   }
 }

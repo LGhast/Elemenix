@@ -2,7 +2,7 @@ package net.lghast.elemenix.client.screen;
 
 import net.lghast.elemenix.common.content.item.MemorizerItem;
 import net.lghast.elemenix.common.system.menu.BurnerMenu;
-import net.lghast.elemenix.network.*;
+import net.lghast.elemenix.network.burner.*;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;

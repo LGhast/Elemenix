@@ -6,8 +6,8 @@ import net.lghast.elemenix.common.content.item.StorageItem;
 import net.lghast.elemenix.common.system.datacomponent.ElemenicStorage;
 import net.lghast.elemenix.common.system.datacomponent.RemoteStorageBinding;
 import net.lghast.elemenix.common.system.menu.AnalyzerMenu;
-import net.lghast.elemenix.network.DeconstructionPayload;
-import net.lghast.elemenix.network.RequestInfuserUpdatePayload;
+import net.lghast.elemenix.network.analyzer.DeconstructionPayload;
+import net.lghast.elemenix.network.infuser.RequestInfuserUpdatePayload;
 import net.lghast.elemenix.register.content.ModItems;
 import net.lghast.elemenix.register.system.ModDataComponents;
 import net.lghast.elemenix.utils.*;
@@ -179,7 +179,7 @@ public class AnalyzerScreen extends AbstractContainerScreen<AnalyzerMenu> {
                 } else {
                     renderRegularItemPreview(graphics, inputStack, x, y);
                 }
-            } else if (inputStack.is(ModItems.ELEMENIC_STORAGE)) {
+            } else if (inputStack.is(ModItems.ELEMENIC_STORAGE) || inputStack.is(ModItems.SCANNING_STORAGE)) {
                 ElemenicStorage storageData = StorageItem.getOrCreateData(inputStack);
 
                 if (storageData.isEmpty()) {
@@ -264,7 +264,9 @@ public class AnalyzerScreen extends AbstractContainerScreen<AnalyzerMenu> {
         ItemStack inputStack = menu.getInputItem();
         ItemStack memorizerStack = menu.getMemorizerItem();
 
-        if(inputStack.is(ModItems.ELEMENIC_STORAGE) || inputStack.is(ModItems.REMOTE_ELEMENIC_STORAGE)){
+        if(inputStack.is(ModItems.ELEMENIC_STORAGE) ||
+                inputStack.is(ModItems.REMOTE_ELEMENIC_STORAGE) ||
+                inputStack.is(ModItems.SCANNING_STORAGE)){
             return;
         }
         

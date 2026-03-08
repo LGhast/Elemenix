@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "minecraft:organix_essence_from_equilibrium"
+        "recipe": "minecraft:elemenic_analyzer_from_equilibrium"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -26,7 +26,7 @@
   ],
   "rewards": {
     "recipes": [
-      "minecraft:organix_essence_from_equilibrium"
+      "minecraft:elemenic_analyzer_from_equilibrium"
     ]
   }
 }

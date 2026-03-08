@@ -2,6 +2,7 @@
   "values": [
     "elemenix:elemenic_storage",
     "elemenix:elemenic_analyzer",
+    "elemenix:scanning_storage",
     "elemenix:elemenic_memorizer",
     "elemenix:memorizer_box",
     "elemenix:remote_elemenic_storage"

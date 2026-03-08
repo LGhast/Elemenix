@@ -18,36 +18,45 @@ public class ModRecipeProvider extends RecipeProvider {
 
     @Override
     protected void buildRecipes(RecipeOutput recipeOutput) {
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ModItems.ANALYZING_CHIP.get(), 1)
+                .pattern(" R ")
+                .pattern("IDI")
+                .pattern(" R ")
+                .define('D', Items.DIAMOND)
+                .define('I', Items.IRON_INGOT)
+                .define('R', Items.REDSTONE)
+                .unlockedBy("has_diamond", has(Items.DIAMOND))
+                .save(recipeOutput);
+
         ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ModItems.ELEMENIC_ANALYZER.get(), 1)
                 .pattern("ABC")
-                .pattern("NDN")
+                .pattern(" D ")
                 .pattern("EFG")
-                .define('D', Items.DIAMOND)
-                .define('N', Items.QUARTZ)
+                .define('D', ModItems.ANALYZING_CHIP)
                 .define('A', Items.FLINT)
                 .define('B', Items.WHEAT)
                 .define('C', Items.BLAZE_ROD)
                 .define('E', Items.GOLD_NUGGET)
                 .define('F', Items.ENDER_PEARL)
                 .define('G', Items.SNOWBALL)
-                .unlockedBy("has_diamond", has(Items.DIAMOND))
+                .unlockedBy("has_analyzing_chip", has(ModItems.ANALYZING_CHIP))
                 .save(recipeOutput);
 
         ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ModItems.ELEMENIC_STORAGE.get(), 1)
                 .pattern(" B ")
                 .pattern("NDN")
                 .pattern(" N ")
-                .define('D', Items.DIAMOND)
+                .define('D', ModItems.ANALYZING_CHIP)
                 .define('N', Items.QUARTZ)
                 .define('B', Items.BLAZE_POWDER)
-                .unlockedBy("has_diamond", has(Items.DIAMOND))
+                .unlockedBy("has_analyzing_chip", has(ModItems.ANALYZING_CHIP))
                 .save(recipeOutput);
 
         ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ModItems.REMOTE_ELEMENIC_STORAGE.get(), 1)
                 .pattern(" B ")
                 .pattern("NDN")
                 .pattern("ENE")
-                .define('D', Items.DIAMOND)
+                .define('D', ModItems.ANALYZING_CHIP)
                 .define('N', Items.QUARTZ)
                 .define('B', Items.BLAZE_POWDER)
                 .define('E', Items.ENDER_EYE)
@@ -56,18 +65,17 @@ public class ModRecipeProvider extends RecipeProvider {
 
         ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ModItems.ELEMENIC_ANALYZER.get(), 1)
                 .pattern("ABC")
-                .pattern("NDN")
+                .pattern(" D ")
                 .pattern("EFG")
-                .define('D', Items.DIAMOND)
-                .define('N', Items.QUARTZ)
+                .define('D', ModItems.ANALYZING_CHIP)
                 .define('A', ModItems.TERRIX_ESSENCE)
                 .define('B', ModItems.ORGANIX_ESSENCE)
                 .define('C', ModItems.ENERGIX_ESSENCE)
                 .define('E', ModItems.METALLIX_ESSENCE)
                 .define('F', ModItems.ARCANIX_ESSENCE)
                 .define('G', ModItems.FLUMIX_ESSENCE)
-                .unlockedBy("has_diamond", has(Items.DIAMOND))
-                .save(recipeOutput, "organix_essence_from_essences");
+                .unlockedBy("has_analyzing_chip", has(ModItems.ANALYZING_CHIP))
+                .save(recipeOutput, "elemenic_analyzer_from_essences");
 
         ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ModItems.ELEMENIC_MEMORIZER.get(), 1)
                 .pattern("A A")
@@ -177,11 +185,10 @@ public class ModRecipeProvider extends RecipeProvider {
                 .save(recipeOutput, "elemenic_equiliplex");
 
         ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, ModItems.ELEMENIC_ANALYZER.get(), 1)
-                .requires(Items.DIAMOND, 1)
-                .requires(Items.QUARTZ, 2)
+                .requires(ModItems.ANALYZING_CHIP, 1)
                 .requires(ModItems.ELEMENIC_EQUILIBRIUM)
                 .unlockedBy("has_elemenic_equilibrium", has(ModItems.ELEMENIC_EQUILIBRIUM))
-                .save(recipeOutput, "organix_essence_from_equilibrium");
+                .save(recipeOutput, "elemenic_analyzer_from_equilibrium");
 
         ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ModBlocks.GEOLOGICAL_SIMULATOR.get(), 1)
                 .pattern("IRI")
@@ -250,14 +257,14 @@ public class ModRecipeProvider extends RecipeProvider {
 
         ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ModBlocks.ELEMENIC_INFUSER.get(), 1)
                 .pattern("IHI")
-                .pattern("RAR")
+                .pattern("RCR")
                 .pattern("INI")
                 .define('I', Items.IRON_INGOT)
                 .define('R', Items.REDSTONE_LAMP)
                 .define('N', Items.NETHERITE_SCRAP)
                 .define('H', Items.HOPPER)
-                .define('A', ModItems.ELEMENIC_ANALYZER)
-                .unlockedBy("has_elemenic_analyzer", has(ModItems.ELEMENIC_ANALYZER))
+                .define('C', ModItems.ANALYZING_CHIP)
+                .unlockedBy("has_analyzing_chip", has(ModItems.ANALYZING_CHIP))
                 .save(recipeOutput);
 
         ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ModBlocks.ELEMENIC_ENRICHER.get(), 1)
@@ -311,6 +318,25 @@ public class ModRecipeProvider extends RecipeProvider {
                 .define('B', Items.BUCKET)
                 .define('R', Items.REDSTONE)
                 .unlockedBy("has_bucket", has(Items.BUCKET))
+                .save(recipeOutput);
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ModItems.ELEMENIC_SCANNER.get(), 1)
+                .pattern(" G ")
+                .pattern("GCG")
+                .pattern(" G ")
+                .define('G', Items.GOLD_NUGGET)
+                .define('C', ModItems.ANALYZING_CHIP)
+                .unlockedBy("has_analyzing_chip", has(ModItems.ANALYZING_CHIP))
+                .save(recipeOutput);
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ModItems.SCANNING_STORAGE.get(), 1)
+                .pattern(" B ")
+                .pattern("GSG")
+                .pattern(" G ")
+                .define('G', Items.GOLD_INGOT)
+                .define('B', Items.BLAZE_POWDER)
+                .define('S', ModItems.ELEMENIC_SCANNER)
+                .unlockedBy("has_scanning_storage", has(ModItems.ELEMENIC_SCANNER))
                 .save(recipeOutput);
     }
 }

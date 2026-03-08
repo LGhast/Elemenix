@@ -1,5 +1,6 @@
 package net.lghast.elemenix.register.system;
 
+import net.lghast.elemenix.common.system.advancement.ScanTrigger;
 import net.lghast.elemenix.common.system.advancement.ValveTrigger;
 import net.lghast.elemenix.common.system.advancement.WaxOffTrigger;
 import net.lghast.elemenix.common.system.advancement.WaxOnTrigger;
@@ -10,5 +11,6 @@ public class ModAdvancementTriggers {
         WaxOnTrigger.TRIGGER_TYPES.register(eventBus);
         WaxOffTrigger.TRIGGER_TYPES.register(eventBus);
         ValveTrigger.TRIGGER_TYPES.register(eventBus);
+        ScanTrigger.TRIGGER_TYPES.register(eventBus);
     }
 }

@@ -58,6 +58,7 @@ public class ModElemenixMapping {
             map.put("#twilightforest:magic_berries", new Constituents(8, 0, 6, 0, 0, 1));
             map.put("#twilightforest:magic_berry_bushes", new Constituents(36, 0, 24, 0, 0, 4));
             map.put("#twilightforest:castle_rune_bricks", new Constituents(0, 24, 0, 0, 0, 4));
+            map.put("#twilightforest:castle_doors", new Constituents(0, 24, 0, 0, 12, 12));
             map.put("twilightforest:chiseled_canopy_bookshelf", new Constituents(Elemenix.ORGANIX, 180));
             map.put("twilightforest:mangrove_root", new Constituents(Elemenix.ORGANIX, 18));
             map.put("twilightforest:root", new Constituents(Elemenix.ORGANIX, 18));
@@ -587,6 +588,10 @@ public class ModElemenixMapping {
             map.put("eternal_starlight:crinoa_seeds", new Constituents(Elemenix.ORGANIX, 4));
             map.put("eternal_starlight:starfire_bird_egg", new Constituents(8, 10, 8, 0, 2, 0));
             map.put("eternal_starlight:energy_sword", new Constituents(0, 0, 0, 10368, 0, 500));
+            map.put("eternal_starlight:music_disc_ether_rain", new Constituents(200, 0, 0, 0, 300, 300));
+            map.put("eternal_starlight:music_disc_optimized_option", new Constituents(0, 0, 0, 1200, 0, 450));
+            map.put("eternal_starlight:music_disc_mechanical_fossil", new Constituents(0, 900, 0, 300, 0, 450));
+            map.put("eternal_starlight:music_disc_fake_light", new Constituents(1200, 0, 0, 0, 0, 450));
             return map;
         });
 
@@ -718,7 +723,7 @@ public class ModElemenixMapping {
             map.put("irons_spellbooks:fire_ale", new Constituents(12, 8, 24, 0, 42, 40));
             map.put("irons_spellbooks:netherward_tincture", new Constituents(24, 8, 12, 0, 0, 20));
             map.put("irons_spellbooks:disc_fragment_flame_still_burns", new Constituents(0, 64, 0, 0, 5, 30));
-            map.put("irons_spellbooks:music_disc_dead_king_lullaby", new Constituents(0, 550, 0, 0, 20, 300));
+            map.put("irons_spellbooks:music_disc_dead_king_lullaby", new Constituents(0, 1200, 0, 0, 500, 450));
             map.put("irons_spellbooks:ice_spider_egg", new Constituents(50, 16, 45, 0, 0, 0));
             map.put("irons_spellbooks:lightning_rod", new Constituents(0, 352, 0, 864, 1024, 192));
             map.put("irons_spellbooks:blood_staff", new Constituents(120, 21500, 120, 0, 320, 1000));
@@ -845,9 +850,9 @@ public class ModElemenixMapping {
             map.put("ars_nouveau:sourcestone", new Constituents(0, 26, 0, 0, 0, 2));
             map.put("ars_nouveau:sourcestone_sconce", new Constituents(0, 70, 0, 0, 0, 24));
             map.put("ars_nouveau:magebloom_fiber", new Constituents(5, 0, 2, 0, 0, 1));
-            map.put("ars_nouveau:music_disc_aria_biblio", new Constituents(0, 550, 0, 0, 0, 300));
-            map.put("ars_nouveau:music_disc_firel_the_wild_hunt", new Constituents(0, 550, 0, 0, 0, 300));
-            map.put("ars_nouveau:music_disc_thistle_the_sound_of_glass", new Constituents(0, 550, 0, 0, 0, 300));
+            map.put("ars_nouveau:music_disc_aria_biblio", new Constituents(0, 550, 0, 0, 0, 350));
+            map.put("ars_nouveau:music_disc_firel_the_wild_hunt", new Constituents(0, 550, 0, 0, 0, 350));
+            map.put("ars_nouveau:music_disc_thistle_the_sound_of_glass", new Constituents(0, 550, 0, 0, 0, 350));
             map.put("ars_nouveau:basic_spell_turret", new Constituents(0, 234, 0, 1728, 54, 80));
             map.put("ars_nouveau:arcane_pedestal", new Constituents(0, 122, 0, 192, 0, 28));
             map.put("ars_nouveau:whirlisprig_shards", new Constituents(120, 0, 0, 0, 0, 24));
@@ -1141,26 +1146,26 @@ public class ModElemenixMapping {
 
         registerModMappings("lendersdelight", () -> {
             Map<String, Constituents> map = new HashMap<>();
-            map.put("lendersdelight:leviathan", new Constituents(600, 0, 420, 0, 0, 65));
+            map.put("lendersdelight:leviathan", new Constituents(800, 0, 420, 0, 0, 120));
             map.put("lendersdelight:ender_golem_meat", new Constituents(0, 150, 0, 0, 32, 25));
-            map.put("lendersdelight:netherite_monstrosity_meat", new Constituents(0, 600, 0, 850, 0, 60));
+            map.put("lendersdelight:netherite_monstrosity_meat", new Constituents(0, 600, 0, 1200, 0, 120));
             map.put("lendersdelight:berserker", new Constituents(0, 150, 0, 0, 35, 10));
             map.put("lendersdelight:raw_deepling_meat", Constituents.rawMeat(9, 12));
             map.put("lendersdelight:raw_warlock_deepling_meat", Constituents.rawMeat(9, 12));
             map.put("lendersdelight:raw_brute_deepling_meat", Constituents.rawMeat(9, 12));
             map.put("lendersdelight:coral_golem_meat", new Constituents(180, 0, 60, 0, 0, 0));
             map.put("lendersdelight:crystallized_coral_pie_slice", new Constituents(346, 180, 150, 0, 0, 15));
-            map.put("lendersdelight:koboleton_meat", new Constituents(12, 0, 40, 0, 0, 0));
+            map.put("lendersdelight:koboleton_meat", new Constituents(24, 0, 60, 0, 0, 0));
             map.put("lendersdelight:crab_legs", new Constituents(45, 20, 32, 0, 0, 0));
-            map.put("lendersdelight:maledictus_heart", new Constituents(0, 0, 850, 0, 0, 65));
-            map.put("lendersdelight:ender_guardian_crystal", new Constituents(0, 850, 0, 0, 70, 65));
+            map.put("lendersdelight:maledictus_heart", new Constituents(0, 0, 1200, 0, 0, 240));
+            map.put("lendersdelight:ender_guardian_crystal", new Constituents(0, 850, 0, 0, 70, 120));
             map.put("lendersdelight:ignis", new Constituents(0, 120, 0, 0, 150, 10));
             map.put("lendersdelight:watcher_heart", new Constituents(0, 0, 0, 320, 102, 0));
             map.put("lendersdelight:cindaria_hat", new Constituents(20, 0, 160, 0, 0, 10));
             map.put("lendersdelight:hippocamtus", new Constituents(40, 0, 15, 0, 0, 0));
             map.put("lendersdelight:symbiocto_tentacle", new Constituents(35, 0, 20, 0, 0, 0));
             map.put("lendersdelight:urchinkin", new Constituents(45, 0, 20, 0, 0, 0));
-            map.put("lendersdelight:scylla_snake", new Constituents(20, 0, 900, 0, 0, 70));
+            map.put("lendersdelight:scylla_snake", new Constituents(20, 0, 1000, 0, 0, 240));
             return map;
         });
 
@@ -1279,7 +1284,7 @@ public class ModElemenixMapping {
             map.put("mowziesmobs:red_raked_sand", new Constituents(Elemenix.TERRIX, 8));
             map.put("mowziesmobs:clawed_log", new Constituents(Elemenix.ORGANIX, 96));
             map.put("mowziesmobs:gong", new Constituents(96, 243, 0, 648, 0, 0));
-            map.put("mowziesmobs:music_disc_petiole", new Constituents(0, 0, 550, 0, 0, 300));
+            map.put("mowziesmobs:music_disc_petiole", new Constituents(0, 0, 550, 0, 0, 350));
             map.put("mowziesmobs:bluff_rod", new Constituents(Elemenix.TERRIX, 96));
             map.put("mowziesmobs:naga_fang", new Constituents(96, 240, 0, 0, 0, 40));
             map.put("mowziesmobs:foliaath_seed", new Constituents(256, 0, 120, 0, 0, 20));
@@ -1397,10 +1402,14 @@ public class ModElemenixMapping {
             map.put("aether:lightning_knife",new Constituents(0, 600, 0, 0, 4000, 150));
             map.put("aether:pig_slayer",new Constituents(24, 0, 0, 3200, 0, 100));
             map.put("aether:hammer_of_kingbdogz",new Constituents(0, 2000, 0, 32000, 0, 500));
-            map.put("aether:music_disc_ascending_dawn", new Constituents(0, 0, 0, 1500, 550, 350));
-            map.put("aether:music_disc_sliders_wrath", new Constituents(0, 2050, 0, 0, 0, 350));
+            map.put("aether:music_disc_ascending_dawn", new Constituents(0, 0, 0, 1000, 500, 400));
+            map.put("aether:music_disc_sliders_wrath", new Constituents(0, 1500, 0, 0, 0, 400));
             map.put("aether:sentry_boots", new Constituents(0, 4800, 0, 0, 50, 200));
             map.put("aether:aerogel", new Constituents(Elemenix.FLUMIX, 120));
+            map.put("aether:sentry_stone", new Constituents(Elemenix.TERRIX, 32));
+            map.put("aether:angelic_stone", new Constituents(Elemenix.TERRIX, 32));
+            map.put("aether:hellfire_stone", new Constituents(0, 24, 0, 0, 12, 0));
+            map.put("aether:treasure_chest", new Constituents(Elemenix.TERRIX, 192));
             return map;
         });
 
@@ -1414,7 +1423,7 @@ public class ModElemenixMapping {
             map.put("deep_aether:quail_egg", new Constituents(6, 8, 6, 0, 0, 0));
             map.put("deep_aether:raw_quail", Constituents.rawMeat(6));
             map.put("deep_aether:stratus_smithing_template", new Constituents(0, 140024, 0, 0, 0, 2800));
-            map.put("deep_aether:skyjade_gemstone", new Constituents(0, 18000, 0, 0, 0, 585));
+            map.put("deep_aether:skyjade", new Constituents(0, 18000, 0, 0, 0, 585));
             map.put("deep_aether:skyjade_ore", new Constituents(0, 18024, 0, 0, 2, 585));
             map.put("deep_aether:aersmog", new Constituents(12, 0, 24, 0, 0, 0));
             map.put("deep_aether:sterling_aercloud", new Constituents(Elemenix.FLUMIX, 24));
@@ -1442,16 +1451,13 @@ public class ModElemenixMapping {
             map.put("deep_aether:tall_golden_grass", new Constituents(12, 0, 4, 0, 0, 0));
             map.put("deep_aether:mini_golden_grass", new Constituents(3, 0, 1, 0, 0, 0));
             map.put("deep_aether:poison_bucket", new Constituents(8, 27, 8, 648, 0, 0));
+            map.put("deep_aether:virulent_quicksand_bucket", new Constituents(0, 60, 0, 648, 0, 0));
+            map.put("deep_aether:skyroot_virulent_quicksand_bucket", new Constituents(72, 32, 0, 0, 0, 0));
             map.put("deep_aether:raw_aerglow_fish", Constituents.rawFish(5));
             map.put("deep_aether:cloud_cape", new Constituents(300, 0, 500, 0, 0, 120));
             map.put("deep_aether:spooky_ring", new Constituents(0, 1600, 0, 800, 0, 250));
-            map.put("deep_aether:stormforged_helmet", new Constituents(0, 0, 0, 75000, 30000, 1000));
-            map.put("deep_aether:stormforged_chestplate", new Constituents(0, 0, 0, 120000, 48000, 1600));
-            map.put("deep_aether:stormforged_leggings", new Constituents(0, 0, 0, 105000, 42000, 1400));
-            map.put("deep_aether:stormforged_boots", new Constituents(0, 0, 0, 60000, 24000, 800));
-            map.put("deep_aether:stormforged_gloves", new Constituents(0, 0, 0, 30000, 12000, 400));
-            map.put("deep_aether:stormforged_sword", new Constituents(0, 0, 0, 32000, 12000, 500));
-            map.put("deep_aether:stormforged_bow", new Constituents(0, 0, 0, 32000, 12000, 500));
+            map.put("deep_aether:squall_plate", new Constituents(0, 0, 5000, 30000, 10000, 400));
+            map.put("deep_aether:stormforged_smithing_template", new Constituents(0, 140024, 0, 0, 0, 2800));
             map.put("deep_aether:slider_eye", new Constituents(0, 5200, 0, 0, 500, 500));
             map.put("deep_aether:medal_of_honor", new Constituents(0, 0, 0, 7400, 2400, 800));
             map.put("deep_aether:sun_core", new Constituents(0, 2000, 0, 0, 8600, 600));
@@ -1460,14 +1466,68 @@ public class ModElemenixMapping {
             map.put("deep_aether:wind_shield", new Constituents(0, 0, 5400, 0, 0, 400));
             map.put("deep_aether:blade_of_luck", new Constituents(0, 2000, 0, 7500, 0, 600));
             map.put("deep_aether:floaty_scarf", new Constituents(0, 0, 7500, 0, 2300, 600));
-            map.put("deep_aether:music_disc_a_morning_wish", new Constituents(550, 0, 0, 0, 10, 300));
-            map.put("deep_aether:music_disc_nabooru", new Constituents(550, 0, 0, 0, 10, 300));
-            map.put("deep_aether:music_disc_cyclone", new Constituents(500, 0, 500, 0, 0, 300));
-            map.put("deep_aether:music_disc_above_the_rain", new Constituents(500, 0, 520, 0, 0, 500));
-            map.put("deep_aether:music_disc_atta", new Constituents(0, 0, 0, 2050, 0, 350));
-            map.put("deep_aether:music_disc_faent", new Constituents(0, 0, 0, 2050, 0, 350));
-            map.put("deep_aether:music_disc_himininn", new Constituents(0, 0, 2050, 0, 0, 350));
+            map.put("deep_aether:music_disc_a_morning_wish", new Constituents(550, 0, 0, 0, 50, 320));
+            map.put("deep_aether:music_disc_nabooru", new Constituents(550, 0, 0, 0, 10, 320));
+            map.put("deep_aether:music_disc_cyclone", new Constituents(500, 0, 500, 0, 0, 320));
+            map.put("deep_aether:music_disc_above_the_rain", new Constituents(500, 0, 520, 0, 0, 400));
+            map.put("deep_aether:music_disc_atta", new Constituents(0, 0, 0, 1500, 0, 400));
+            map.put("deep_aether:music_disc_faent", new Constituents(0, 0, 0, 1500, 0, 400));
+            map.put("deep_aether:music_disc_himininn", new Constituents(0, 0, 1500, 0, 0, 400));
+            map.put("deep_aether:music_disc_naburoo", new Constituents(0, 0, 0, 600, 0, 400));
             map.put("deep_aether:brass_dungeon_key", new Constituents(0, 0, 0, 420, 0, 500));
+            map.put("deep_aether:nimbus_stone", new Constituents(0, 24, 12, 0, 0, 0));
+            return map;
+        });
+
+        registerModMappings("projecte", () -> {
+            Map<String, Constituents> map = new HashMap<>();
+            map.put("projecte:alchemical_coal", new Constituents(232, 152, 0, 0, 192, 0));
+            map.put("projecte:mobius_fuel", new Constituents(928, 608, 0, 0, 768, 0));
+            map.put("projecte:aeternalis_fuel", new Constituents(3712, 2432, 0, 0, 3072, 0));
+            map.put("projecte:dark_matter", new Constituents(29696, 199456, 0, 0, 24576, 3600));
+            map.put("projecte:red_matter", new Constituents(111360, 612960, 0, 0, 92160, 10800));
+            return map;
+        });
+
+        registerModMappings("deeperdarker", () -> {
+            Map<String, Constituents> map = new HashMap<>();
+            map.put("deeperdarker:sculk_stone", Constituents.stone());
+            map.put("deeperdarker:cobbled_sculk_stone", Constituents.stone());
+            map.put("deeperdarker:gloomslate", Constituents.stone());
+            map.put("deeperdarker:cobbled_gloomslate", Constituents.stone());
+            map.put("deeperdarker:grime_ball", new Constituents(2, 6, 0, 0, 0, 0));
+            map.put("deeperdarker:echo_log", new Constituents(Elemenix.ORGANIX, 96));
+            map.put("deeperdarker:echo_wood", new Constituents(Elemenix.ORGANIX, 96));
+            map.put("deeperdarker:stripped_echo_log", new Constituents(Elemenix.ORGANIX, 96));
+            map.put("deeperdarker:stripped_echo_wood", new Constituents(Elemenix.ORGANIX, 96));
+            map.put("deeperdarker:blooming_stem", new Constituents(Elemenix.ORGANIX, 96));
+            map.put("deeperdarker:stripped_blooming_stem", new Constituents(Elemenix.ORGANIX, 96));
+            map.put("deeperdarker:echo_soil", new Constituents(0, 18, 0, 0, 6, 0));
+            map.put("deeperdarker:blooming_moss_block", new Constituents(9, 0, 0, 0, 6, 0));
+            map.put("deeperdarker:blooming_sculk_stone", new Constituents(4, 24, 0, 0, 2, 0));
+            map.put("deeperdarker:glowing_flowers", new Constituents(12, 0, 6, 0, 2, 0));
+            map.put("deeperdarker:glowing_grass", new Constituents(6, 0, 2, 0, 1, 0));
+            map.put("deeperdarker:gloomy_grass", Constituents.grassVineLeaves());
+            map.put("deeperdarker:sculk_vines", Constituents.grassVineLeaves());
+            map.put("deeperdarker:sculk_tendrils", Constituents.grassVineLeaves());
+            map.put("deeperdarker:glowing_roots", new Constituents(6, 0, 2, 0, 1, 0));
+            map.put("deeperdarker:ice_lily", new Constituents(18, 0, 10, 0, 0, 0));
+            map.put("deeperdarker:gloomy_cactus", new Constituents(18, 0, 10, 0, 0, 2));
+            map.put("deeperdarker:bloom_berries", new Constituents(6, 0, 4, 0, 0, 1));
+            map.put("deeperdarker:warden_carapace", new Constituents(4000, 0, 0, 0, 800, 150));
+            map.put("deeperdarker:heart_of_the_deep", new Constituents(15000, 0, 0, 0, 3000, 1000));
+            map.put("deeperdarker:warden_upgrade_smithing_template", new Constituents(0, 140000, 0, 0, 2, 2804));
+            map.put("deeperdarker:crystallized_amber", new Constituents(80, 0, 0, 0, 16, 0));
+            map.put("deeperdarker:gloomy_sculk", new Constituents(0, 0, 0, 0, 4, 4));
+            map.put("deeperdarker:gloomy_geyser", new Constituents(0, 0, 0, 0, 60, 10));
+            map.put("deeperdarker:sculk_gleam", new Constituents(24, 0, 5, 0, 40, 2));
+            map.put("deeperdarker:soul_dust", new Constituents(20, 0, 12, 0, 0, 5));
+            map.put("deeperdarker:soul_crystal", new Constituents(0, 150, 80, 0, 0, 15));
+            map.put("deeperdarker:sculk_bone", new Constituents(0, 50, 0, 0, 12, 2));
+            map.put("deeperdarker:resonarium", new Constituents(35, 0, 0, 0, 12, 2));
+            map.put("deeperdarker:sculk_jaw", new Constituents(0, 10, 0, 0, 15, 30));
+            map.put("deeperdarker:ancient_vase", new Constituents(Elemenix.TERRIX, 24));
+            map.put("deeperdarker:sculk_transmitter", new Constituents(0, 0, 0, 1640, 860, 500));
             return map;
         });
     }

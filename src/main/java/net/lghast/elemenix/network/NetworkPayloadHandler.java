@@ -1,6 +1,11 @@
 package net.lghast.elemenix.network;
 
 import net.lghast.elemenix.Elemenics;
+import net.lghast.elemenix.network.analyzer.DeconstructionPayload;
+import net.lghast.elemenix.network.analyzer.ReconstructionPayload;
+import net.lghast.elemenix.network.burner.*;
+import net.lghast.elemenix.network.infuser.InfuserDataUpdatePayload;
+import net.lghast.elemenix.network.infuser.RequestInfuserUpdatePayload;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;

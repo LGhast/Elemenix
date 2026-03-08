@@ -6,7 +6,7 @@ import net.lghast.elemenix.common.content.blockentity.InfuserBlockEntity;
 import net.lghast.elemenix.common.system.datacomponent.ElemenicStorage;
 import net.lghast.elemenix.common.system.datacomponent.RemoteStorageBinding;
 import net.lghast.elemenix.conifig.ClientConfig;
-import net.lghast.elemenix.network.RequestInfuserUpdatePayload;
+import net.lghast.elemenix.network.infuser.RequestInfuserUpdatePayload;
 import net.lghast.elemenix.register.system.ModDataComponents;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
@@ -91,7 +91,7 @@ public class RemoteStorageItem extends Item {
             stack.set(ModDataComponents.REMOTE_STORAGE_BINDING.get(), RemoteStorageBinding.of(globalPos));
 
             player.displayClientMessage(
-                    Component.translatable("message.remote_storage.bound", pos.getX(), pos.getY(), pos.getZ())
+                    Component.translatable("message.elemenix.remote_storage.bound", pos.getX(), pos.getY(), pos.getZ())
                             .withStyle(ChatFormatting.GREEN),
                     true
             );

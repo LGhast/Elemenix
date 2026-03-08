@@ -33,6 +33,10 @@
   "advancements.elemenix.obtain_storage.description": "元質ストレージを製作する。注入塔で元質を受け取り、アナライザーに転送する",
   "advancements.elemenix.obtain_remote_storage.title": "再び行方不明のリモート…",
   "advancements.elemenix.obtain_remote_storage.description": "リモート元質ストレージを製作する。注入塔内の元質ストレージにバインドし、遠隔で元質を呼び出せる",
+  "advancements.elemenix.scan_container.title": "スキャン一括",
+  "advancements.elemenix.scan_container.description": "元質スキャナーを使用してコンテナブロックをスキャンする",
+  "advancements.elemenix.obtain_scanning_storage.title": "強奪スキャナー",
+  "advancements.elemenix.obtain_scanning_storage.description": "スキャニングストレージを製作し、コンテナ内のアイテムを一瞬で分解する",
 
   "creativetab.elemenix.elemenix": "元質学",
 
@@ -67,6 +71,9 @@
   "item.elemenix.throttle_valve": "スロットルバルブ",
   "item.elemenix.flow_straightener": "整流グリル",
   "item.elemenix.nullvoid": "虚無",
+  "item.elemenix.elemenic_scanner": "元質スキャナー",
+  "item.elemenix.scanning_storage": "スキャニングストレージ",
+  "item.elemenix.analyzing_chip": "アナライザーチップ",
   "item.elemenix.elemenic_memorizer.style.white": "白色",
   "item.elemenix.elemenic_memorizer.style.red": "赤色",
   "item.elemenix.elemenic_memorizer.style.orange": "橙色",
@@ -146,7 +153,14 @@
   "tooltip.elemenix.remote_storage.dimension_mismatch": "異次元間では使用不可",
   "tooltip.elemenix.technical": "技術アイテム",
 
-  "message.remote_storage.bound": "座標 (%d, %d, %d) にバインドしました",
+  "message.elemenix.remote_storage.bound": "座標 (%d, %d, %d) にバインドしました",
+  "message.elemenix.scanner.exceed": "値が統計範囲を超えています。スキャンに失敗しました",
+  "message.elemenix.scanner.empty": "コンテナは空です。スキャンに失敗しました",
+  "message.elemenix.scanner.total": "総量：",
+  "message.elemenix.scanner.blacklisted": "%sはスキャン禁止です",
+  "message.elemenix.scanner.disabled": "スキャンは設定で無効化されています",
+  "message.elemenix.scanning_storage.empty": "スキャン可能なアイテムは見つかりませんでした",
+  "message.elemenix.scanning_storage.total": "正常に %d 個のアイテムを分解しました",
 
   "key.categories.elemenics": "元質学",
   "key.elemenix.open_memorizer_box": "メモリーディスクボックスを開く",
@@ -182,6 +196,8 @@
   "stat.elemenix.infuser_interactions": "元質注入塔操作回数",
   "stat.elemenix.enricher_interactions": "元質富集塔操作回数",
   "stat.elemenix.ejector_interactions": "元質射出塔操作回数",
+  "stat.elemenix.scanner_scans": "元質スキャナーでコンテナをスキャンした回数",
+  "stat.elemenix.scanning_storage_scans": "スキャニングストレージでコンテナをスキャンした回数",
 
   "config.elemenix.digit_grouping_by_fours": "四桁区切り",
   "config.elemenix.show_constituent_tooltips": "構成成分ツールチップを表示",
@@ -228,6 +244,12 @@
   "config.elemenix.ejector_dc_interval": "射出塔分解間隔",
   "config.elemenix.ejector_enriching_interval": "射出塔生産間隔",
   "config.elemenix.ejecting_interval": "射出塔射出間隔",
+  "config.elemenix.disable_scanner_scanning": "スキャナーによるスキャンを無効化",
+  "config.elemenix.disable_scanning_storage_scanning": "スキャニングストレージによるスキャンを無効化",
+  "config.elemenix.show_scanner_particles": "スキャナーのパーティクルを表示",
+  "config.elemenix.show_scanning_storage_particles": "スキャニングストレージのパーティクルを表示",
+  "config.elemenix.scanner_blacklist": "元質スキャナーブラックリスト",
+  "config.elemenix.scanning_storage_blacklist": "スキャニングストレージブロックブラックリスト",
 
   "jei.category.elemenix.enriching": "富集",
   "jei.category.elemenix.transforming": "元質変換",
@@ -243,5 +265,7 @@
   "jei.info.flow_straightener": "整流グリルは、元質射出塔の射出順序を制限するために使用されます。設置されている場合、元質射出塔は左から右の順序で貯蔵された元質純質を射出します。また、整流グリルを設置した元質射出塔は、富集と射出を同時に行うことができます。",
   "jei.info.memory_burner": "メモリーバーナーは、元質メモリーディスク内のアイテムリストの順序を編集するために使用され、アイテムの移動、交換、削除などの操作が可能です。また、リストを別のメモリーディスクにコピーまたは連結することもサポートしています。",
   "jei.info.elemenic_storage": "元質ストレージは、元質注入塔に貯蔵された元質を一時保管するために使用され、リモート元質ストレージとの接続を確立するためにも使用されます。必要に応じて、プレイヤーはストレージに一時保管されている元質を元質アナライザーに転送できます。この方法はアイテムを分解する場合と類似しています。",
-  "jei.info.remote_elemenic_storage": "リモート元質ストレージは、元質ストレージ内の元質をリモートで呼び出すために使用されます。このアイテム自体は元質を直接保存せず、プレイヤーがストレージユニットを物理的に回収することなく、その元質の備蓄を転送する方法を提供します。"
+  "jei.info.remote_elemenic_storage": "リモート元質ストレージは、元質ストレージ内の元質をリモートで呼び出すために使用されます。このアイテム自体は元質を直接保存せず、プレイヤーがストレージユニットを物理的に回収することなく、その元質の備蓄を転送する方法を提供します。",
+  "jei.info.elemenic_scanner": "元質スキャナーは、コンテナブロック内の全アイテムの元質総量を計算し、プレイヤーに表示するために使用します。",
+  "jei.info.scanning_storage": "スキャニングストレージは、コンテナブロック内の全アイテムを迅速に分解して保管します。このプロセスはコンテナを開く動作としても扱われるため、トラップチェストなどの特殊なコンテナの作動効果を引き起こす可能性があります。"
 }

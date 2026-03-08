@@ -34,6 +34,8 @@ public class ModItemModelProvider extends ItemModelProvider {
         basicItem(ModItems.ELEMENIC_EQUILIPLEX.get());
         basicItem(ModItems.MEMORIZER_BOX.get());
         basicItem(ModItems.MEMORY_BURNER.get());
+        basicItem(ModItems.ELEMENIC_SCANNER.get());
+        basicItem(ModItems.ANALYZING_CHIP.get());
         basicItem(ModItems.NULLVOID.get());
     }
 }

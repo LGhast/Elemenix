@@ -15,6 +15,11 @@ public class CommonConfig {
     public static final ModConfigSpec.DoubleValue DC_DISCOUNT;
     public static final ModConfigSpec.DoubleValue RC_PREMIUM;
 
+    public static ModConfigSpec.BooleanValue DISABLE_SCANNER_SCANNING;
+    public static ModConfigSpec.BooleanValue DISABLE_SCANNING_STORAGE_SCANNING;
+    public static ModConfigSpec.ConfigValue<List<? extends String>> SCANNER_BLACKLIST;
+    public static ModConfigSpec.ConfigValue<List<? extends String>> SCANNING_STORAGE_BLACKLIST;
+
     public static ModConfigSpec.IntValue GS_CONSUMPTION;
     public static ModConfigSpec.IntValue GS_PRODUCTION;
     public static ModConfigSpec.IntValue GS_DC_INTERVAL;
@@ -85,10 +90,10 @@ public class CommonConfig {
 
         DC_DISCOUNT = BUILDER
                 .comment("解构贬值：",
-                        "当元质解析器、转化仪、注入塔、富集塔、射流塔解构物品时，",
+                        "当元质解析器、扫描式储存器、转化仪、注入塔、富集塔、射流塔解构物品时，",
                         "获得的元质 = 原始元质 × 解构贬值（向上取整）",
                         "Deconstruction Discount:",
-                        "When Elemenic Analyzer, Transformer, Infuser, Enricher or Ejector deconstructs items,",
+                        "When Elemenic Analyzer, Scanning Storage, Transformer, Infuser, Enricher or Ejector deconstructs items,",
                         "the obtained constituents = original constituents × discount (rounded up).")
                 .translation(CONFIG_PREFIX + "deconstruction_discount")
                 .defineInRange("deconstruction_discount", 1.0, Double.MIN_VALUE, 1.0);
@@ -102,6 +107,40 @@ public class CommonConfig {
                         "consumed constituents = original constituents × (1 + premium) (rounded down).")
                 .translation(CONFIG_PREFIX + "reconstruction_premium")
                 .defineInRange("reconstruction_premium", 0.0, 0.0, 99.0);
+
+        BUILDER.pop();
+
+        BUILDER.push("扫描 Scanning");
+
+        DISABLE_SCANNER_SCANNING = BUILDER
+                .comment("是否禁用元质扫描器扫描容器内物品的功能",
+                        "Whether to disable the Elemenic Scanner's ability to scan items inside containers")
+                .translation(CONFIG_PREFIX + "disable_scanner_scanning")
+                .define("disable_scanner_scanning", false);
+
+        DISABLE_SCANNING_STORAGE_SCANNING = BUILDER
+                .comment("是否禁用扫描式储存器扫描容器内物品并将其解构的功能",
+                        "Whether to disable the Scanning Storage's ability to scan and deconstruct items inside containers")
+                .translation(CONFIG_PREFIX + "disable_scanning_storage_scanning")
+                .define("disable_scanning_storage_scanning", false);
+
+        SCANNER_BLACKLIST = BUILDER
+                .comment("元质扫描器禁止扫描的容器方块ID列表",
+                        "List of container block IDs that cannot be scanned by Elemenic Scanners")
+                .translation(CONFIG_PREFIX + "scanner_blacklist")
+                .defineList("scanner_blacklist",
+                        List::of,
+                        () -> "",
+                        it -> it instanceof String);
+
+        SCANNING_STORAGE_BLACKLIST = BUILDER
+                .comment("扫描式储存器禁止扫描的容器方块ID列表",
+                        "Scanning Storage blacklist: list of container block IDs that cannot be scanned by Scanning Storages")
+                .translation(CONFIG_PREFIX + "scanning_storage_blacklist")
+                .defineList("scanning_storage_blacklist",
+                        List::of,
+                        () -> "",
+                        it -> it instanceof String);
 
         BUILDER.pop();
 

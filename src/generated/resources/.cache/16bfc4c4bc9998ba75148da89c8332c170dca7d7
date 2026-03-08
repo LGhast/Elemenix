@@ -1,9 +1,11 @@
-// 1.21.1	2025-12-30T23:20:17.2283892	Item Models: elemenix
+// 1.21.1	2026-03-03T21:43:18.7050596	Item Models: elemenix
+66c294ec535325e8f2011c6a82e6d10595c0200c assets/elemenix/models/item/analyzing_chip.json
 55ec9ca706d0943e1a8bd9ddababba73cf6cfada assets/elemenix/models/item/arcanix_essence.json
 cc094e211627b2947f5a2a32ea7c7f34c0f07ea1 assets/elemenix/models/item/arcanix_essenplex.json
 cb1e8f7df35afac4d0797e9386a3f72e1d99e3cd assets/elemenix/models/item/elemenic_analyzer.json
 cb31a85dc81228e623c82e5fdd5ac4cc8ad8e2bc assets/elemenix/models/item/elemenic_equilibrium.json
 33dee72b773d57fab343ef7e2e43be8666bc9110 assets/elemenix/models/item/elemenic_equiliplex.json
+7b9ebb75e022262b0fba9cb017293311e0380b2a assets/elemenix/models/item/elemenic_scanner.json
 140f4ac7f2c0af6ff8e143bc0bbf8192434582ca assets/elemenix/models/item/energix_essence.json
 57ef83cf7282d9a6b3e47d45e459d1a52466989a assets/elemenix/models/item/energix_essenplex.json
 33a8d635c1d7971d8ccc412ea9b566574682135e assets/elemenix/models/item/flow_straightener.json

@@ -83,6 +83,15 @@ public class ModItems {
     public static final DeferredItem<Item> MEMORY_BURNER = ITEMS.register("memory_burner",
             ()-> new BurnerItem(new Item.Properties()));
 
+    public static final DeferredItem<Item> ELEMENIC_SCANNER = ITEMS.register("elemenic_scanner",
+            ()-> new ScannerItem(new Item.Properties()));
+
+    public static final DeferredItem<Item> SCANNING_STORAGE = ITEMS.register("scanning_storage",
+            ()-> new ScanningStorageItem(new Item.Properties()));
+
+    public static final DeferredItem<Item> ANALYZING_CHIP = ITEMS.register("analyzing_chip",
+            ()-> new Item(new Item.Properties()));
+
     public static void register(IEventBus eventBus){
         ITEMS.register(eventBus);
     }

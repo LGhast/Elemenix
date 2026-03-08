@@ -227,7 +227,7 @@ public class AnalyzerMenu extends AbstractContainerMenu {
             return;
         }
 
-        if (inputStack.is(ModItems.ELEMENIC_STORAGE)) {
+        if (inputStack.is(ModItems.ELEMENIC_STORAGE) || inputStack.is(ModItems.SCANNING_STORAGE)) {
             ElemenicStorage storageData = StorageItem.getOrCreateData(inputStack);
 
             if (storageData.isEmpty()) {

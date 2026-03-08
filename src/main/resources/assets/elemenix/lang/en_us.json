@@ -33,6 +33,10 @@
   "advancements.elemenix.obtain_storage.description": "Craft an Elemenic Storage to receive elemenix in an infuser and transfer it to the analyzer",
   "advancements.elemenix.obtain_remote_storage.title": "The remote is MIA again...",
   "advancements.elemenix.obtain_remote_storage.description": "Craft a Remote Elemenic Storage that can bind to an elemenic storage in an infuser to remotely call upon elemenix reserves",
+  "advancements.elemenix.scan_container.title": "Scanty Treasure",
+  "advancements.elemenix.scan_container.description": "Use an Elemenic Scanner to scan a container block",
+  "advancements.elemenix.obtain_scanning_storage.title": "Scandalously Scanty Treasure",
+  "advancements.elemenix.obtain_scanning_storage.description": "Craft a Scanning Storage to instantly deconstruct all the items in a container",
 
   "creativetab.elemenix.elemenix": "Elemenics",
 
@@ -90,6 +94,9 @@
   "item.elemenix.memorizer_box": "Memorizer Box",
   "item.elemenix.memory_burner": "Memory Burner",
   "item.elemenix.nullvoid": "Nullvoid",
+  "item.elemenix.elemenic_scanner": "Elemenic Scanner",
+  "item.elemenix.scanning_storage": "Scanning Storage",
+  "item.elemenix.analyzing_chip": "Analyzing Chip",
 
   "elemenix.elemenix.organix": "Organix",
   "elemenix.elemenix.terrix": "Terrix",
@@ -146,7 +153,14 @@
   "tooltip.elemenix.remote_storage.dimension_mismatch": "Cannot use across dimensions",
   "tooltip.elemenix.technical": "Technical Item",
 
-  "message.remote_storage.bound": "Bound to coordinates (%d, %d, %d)",
+  "message.elemenix.remote_storage.bound": "Bound to coordinates (%d, %d, %d)",
+  "message.elemenix.scanner.exceed": "Value exceeds the statistical range, scan failed",
+  "message.elemenix.scanner.empty": "The container is empty, scan failed",
+  "message.elemenix.scanner.total": "Total Amount:",
+  "message.elemenix.scanner.disabled": "Scanning is disabled by configuration",
+  "message.elemenix.scanner.blacklisted": "Scanning %s is prohibited",
+  "message.elemenix.scanning_storage.empty": "Failed to scan any deconstructable items",
+  "message.elemenix.scanning_storage.total": "Successfully deconstructed %d items",
 
   "key.categories.elemenics": "Elemenics",
   "key.elemenix.open_memorizer_box": "Open Memorizer Box",
@@ -183,6 +197,8 @@
   "stat.elemenix.infuser_interactions": "Elemenic Infuser Interactions",
   "stat.elemenix.enricher_interactions": "Elemenic Enricher Interactions",
   "stat.elemenix.ejector_interactions": "Elemenic Ejector Interactions",
+  "stat.elemenix.scanner_scans": "Elemenic Scanner Container Scans",
+  "stat.elemenix.scanning_storage_scans": "Scanning Storage Container Scans",
 
   "config.elemenix.digit_grouping_by_fours": "Four-digit Grouping",
   "config.elemenix.show_constituent_tooltips": "Show Constituents",
@@ -197,10 +213,16 @@
   "config.elemenix.show_remote_binding_prompt": "Show Storage Binding Prompt",
   "config.elemenix.show_remote_coordinates": "Show Remote Storage Coordinates",
   "config.elemenix.show_remote_connection_status": "Show Storage Connection Status",
+  "config.elemenix.show_scanner_particles": "Show Scanner Particles",
+  "config.elemenix.show_scanning_storage_particles": "Show Scanning Storage Particles",
   "config.elemenix.elemenix_mappings": "Elemenix Mappings",
   "config.elemenix.unanalysable_list": "Unanalysable Item List",
   "config.elemenix.deconstruction_discount": "Deconstruction Discount",
   "config.elemenix.reconstruction_premium": "Reconstruction Premium",
+  "config.elemenix.disable_scanner_scanning": "Disable Scanner Scanning",
+  "config.elemenix.disable_scanning_storage_scanning": "Disable Scanning Storage Scanning",
+  "config.elemenix.scanner_blacklist": "Scanner Block Blacklist",
+  "config.elemenix.scanning_storage_blacklist": "Scanning Storage Block Blacklist",
   "config.elemenix.geological_simulator_consumption": "Geological Simulator Consumption",
   "config.elemenix.geological_simulator_production": "Geological Simulator Production",
   "config.elemenix.geological_simulator_dc_interval": "Geological Simulator DC Interval",
@@ -244,5 +266,7 @@
   "jei.info.flow_straightener": "The Flow Straightener restricts the ejection sequence of the elemenic ejector. When installed, the ejector will launch the stored elemenic essence from left to right. Additionally, an ejector equipped with a flow straightener can perform enrichment and ejection simultaneously.",
   "jei.info.memory_burner": "The Memory Burner is used to edit the item sequence stored in a memorizer. It allows for operations such as moving, swapping, and deleting items, and supports copying or merging the list to another memorizer.",
   "jei.info.elemenic_storage": "The Elemenic Storage is used to temporarily hold elemenix stored by the elemenic infuser, and can also establish a connection with a remote elemenic storage. When needed, the player can transfer the elemenix from the storage into an analyzer, using a method similar to deconstructing items.",
-  "jei.info.remote_elemenic_storage": "The Remote Elemenic Storage is used to remotely access elemenix from an elemenic storage. This item does not directly store any elemenix itself; it merely provides the player with a method to transfer the elemenix reserves without having to retrieve the physical storage unit."
+  "jei.info.remote_elemenic_storage": "The Remote Elemenic Storage is used to remotely access elemenix from an elemenic storage. This item does not directly store any elemenix itself; it merely provides the player with a method to transfer the elemenix reserves without having to retrieve the physical storage unit.",
+  "jei.info.elemenic_scanner": "The Elemenic Scanner is used to scan and calculate the total elemenix of all items in a container block, and display it to the player.",
+  "jei.info.scanning_storage": "The Scanning Storage can quickly deconstruct all items in a container block and store them. This process is also considered as opening the container, which can trigger the opening effects of special containers such as trapped chests."
 }

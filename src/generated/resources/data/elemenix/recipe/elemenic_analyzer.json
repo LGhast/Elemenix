@@ -12,7 +12,7 @@
       "item": "minecraft:blaze_rod"
     },
     "D": {
-      "item": "minecraft:diamond"
+      "item": "elemenix:analyzing_chip"
     },
     "E": {
       "item": "minecraft:gold_nugget"
@@ -22,14 +22,11 @@
     },
     "G": {
       "item": "minecraft:snowball"
-    },
-    "N": {
-      "item": "minecraft:quartz"
     }
   },
   "pattern": [
     "ABC",
-    "NDN",
+    " D ",
     "EFG"
   ],
   "result": {

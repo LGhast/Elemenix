@@ -1,4 +1,4 @@
-package net.lghast.elemenix.network;
+package net.lghast.elemenix.network.infuser;
 
 import net.lghast.elemenix.client.misc.ClientInfuserDataCache;
 import net.minecraft.core.GlobalPos;
