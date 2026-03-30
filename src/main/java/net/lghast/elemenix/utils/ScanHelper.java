@@ -1,6 +1,7 @@
 package net.lghast.elemenix.utils;
 
 import net.lghast.elemenix.conifig.CommonConfig;
+import net.lghast.elemenix.utils.elemenix.Elemenix;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;

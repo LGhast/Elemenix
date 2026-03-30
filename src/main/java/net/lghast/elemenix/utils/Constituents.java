@@ -1,6 +1,8 @@
 package net.lghast.elemenix.utils;
 
 import net.lghast.elemenix.conifig.CommonConfig;
+import net.lghast.elemenix.utils.elemenix.Elemenix;
+import net.lghast.elemenix.utils.elemenix.ElemenixInfo;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
@@ -70,25 +72,25 @@ public class Constituents {
         constituents[5] = clampValue(arcanix);
     }
 
-    public void add(Elemenix type, int addend) {
+    public void add(Elemenix type, int addition) {
         int index = type.getIndex();
-        if (unanalysable || addend <= 0 || !isValidIndex(index)) return;
+        if (unanalysable || addition <= 0 || !isValidIndex(index)) return;
 
-        long newValue = (long) constituents[index] + addend;
+        long newValue = (long) constituents[index] + addition;
         constituents[index] = (int) Math.min(newValue, MAX);
     }
 
-    public void consume(Elemenix type, int consumption) {
+    public void deduct(Elemenix type, int deduction) {
         int index = type.getIndex();
-        if (unanalysable || consumption <= 0 || !isValidIndex(index)) return;
+        if (unanalysable || deduction <= 0 || !isValidIndex(index)) return;
 
-        constituents[index] = Math.max(constituents[index] - consumption, 0);
+        constituents[index] = Math.max(constituents[index] - deduction, 0);
     }
 
-    public void multiply(double multiple) {
-        if(multiple < 0) return;
+    public void multiply(double multiplier) {
+        if(multiplier < 0) return;
         for(int i = 0; i < constituents.length; i++){
-            constituents[i] = clampValue((int)Math.floor(constituents[i] * multiple));
+            constituents[i] = clampValue((int)Math.floor(constituents[i] * multiplier));
         }
     }
 
@@ -100,17 +102,17 @@ public class Constituents {
         }
     }
 
-    public void multiplyCeil(double multiple) {
-        if(multiple < 0) return;
+    public void multiplyCeil(double multiplier) {
+        if(multiplier < 0) return;
         for(int i = 0; i < constituents.length; i++){
-            constituents[i] = clampValue((int)Math.ceil(constituents[i] * multiple));
+            constituents[i] = clampValue((int)Math.ceil(constituents[i] * multiplier));
         }
     }
 
-    public void minus(Constituents minus) {
-        if(minus == null || minus.isUnanalysable()) return;
+    public void deduct(Constituents deduction) {
+        if(deduction == null || deduction.isUnanalysable()) return;
         for(int i = 0; i < constituents.length; i++){
-            constituents[i] = clampValue(constituents[i] - minus.constituents[i]);
+            constituents[i] = clampValue(constituents[i] - deduction.constituents[i]);
         }
     }
 
@@ -132,6 +134,8 @@ public class Constituents {
 
     public boolean isPure(Elemenix pureElemenix){
         if(isUnanalysable()) return false;
+        if (pureElemenix == null) return false;
+
         for(Elemenix elemenix : Elemenix.values()){
             if(elemenix == pureElemenix && get(elemenix) <= 0){
                 return false;

@@ -1,7 +1,7 @@
 package net.lghast.elemenix.common;
 
 import net.lghast.elemenix.Elemenics;
-import net.lghast.elemenix.utils.ElemenixInfo;
+import net.lghast.elemenix.utils.elemenix.ElemenixInfo;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.client.event.RecipesUpdatedEvent;

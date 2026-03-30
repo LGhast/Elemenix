@@ -238,11 +238,6 @@ public class ModItemTagProvider extends ItemTagsProvider {
                 .add(Items.SNIFFER_EGG)
         ;
 
-        tag(ModTags.EGGS_WITH_TERRIX_SHELL)
-                .addTag(ModTags.EGGS_FORGE)
-                .add(Items.DRAGON_EGG)
-        ;
-
         tag(ModTags.ELEMENIC_TRANSFORMERS)
                 .add(ModBlocks.GEOLOGICAL_SIMULATOR.asItem())
                 .add(ModBlocks.METALLURGICAL_ACTIVATOR.asItem())

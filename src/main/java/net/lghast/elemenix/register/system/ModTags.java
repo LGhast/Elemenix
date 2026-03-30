@@ -97,6 +97,11 @@ public class ModTags {
             ResourceLocation.parse("forge:eggs")
     );
 
+    public static final TagKey<Item> C_FOODS = TagKey.create(
+            Registries.ITEM,
+            ResourceLocation.parse("c:foods")
+    );
+
     public static final TagKey<Item> ELEMENIC_TRANSFORMERS = TagKey.create(
             Registries.ITEM,
             ResourceLocation.parse("elemenix:elemenic_transformers")
@@ -140,5 +145,10 @@ public class ModTags {
     public static final TagKey<Item> UNRECONSTRUCTABLE = TagKey.create(
             Registries.ITEM,
             ResourceLocation.parse("elemenix:unreconstructable")
+    );
+
+    public static final TagKey<Item> STRICTLY_UNANALYSABLE = TagKey.create(
+            Registries.ITEM,
+            ResourceLocation.parse("elemenix:strictly_unanalysable")
     );
 }

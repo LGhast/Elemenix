@@ -1,7 +1,11 @@
-package net.lghast.elemenix.utils;
+package net.lghast.elemenix.utils.recipe;
 
 import net.lghast.elemenix.register.content.ModItems;
 import net.lghast.elemenix.register.system.ModTags;
+import net.lghast.elemenix.utils.Constituents;
+import net.lghast.elemenix.utils.elemenix.Elemenix;
+import net.lghast.elemenix.utils.elemenix.ElemenixInfo;
+import net.lghast.elemenix.utils.ModUtils;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -15,12 +19,16 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import javax.annotation.Nullable;
+
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class RecipeHelper {
     private static final Map<ResourceLocation, Item> RECIPE_OUTPUT_CACHE = new HashMap<>();
-    private static final Map<ResourceLocation, Boolean> RECIPE_ANALYZED_CACHE = new HashMap<>();
     private static final List<ResourceLocation> RECIPE_IGNORED_CACHE = new ArrayList<>();
+    private static final Map<Item, List<RecipeInfo>> RECIPE_MAP = new ConcurrentHashMap<>();
 
     private static final List<String> RECIPE_TYPES_NORMAL = new ArrayList<>();
     private static final List<String> RECIPE_TYPES_WITH_CONTAINER = new ArrayList<>();
@@ -33,6 +41,8 @@ public class RecipeHelper {
     private static final boolean CATACLYSM_LOADED;
     private static final boolean AE2_LOADED;
     private static final boolean AETHER_LOADED;
+
+    private static boolean initialized = false;
 
     private static final Logger LOGGER = LogManager.getLogger();
 
@@ -93,6 +103,7 @@ public class RecipeHelper {
         }
         if(ModUtils.hasServerMod("ars_nouveau")){
             RECIPE_TYPES_NORMAL.add("ars_nouveau:enchanting_apparatus");
+            RECIPE_TYPES_NORMAL.add("ars_nouveau:glyph");
         }
         if(ModUtils.hasServerMod("cobblemon")){
             RECIPE_TYPES_NORMAL.add("cobblemon:cooking_pot");
@@ -102,8 +113,44 @@ public class RecipeHelper {
 
     public static void clearCache() {
         RECIPE_OUTPUT_CACHE.clear();
-        RECIPE_ANALYZED_CACHE.clear();
         RECIPE_IGNORED_CACHE.clear();
+        RECIPE_MAP.clear();
+        initialized = false;
+    }
+
+    public static void precomputeRecipes(@Nullable Level level) {
+        if (level == null) {
+            LOGGER.warn("Cannot precompute recipes: level is null");
+            return;
+        }
+        RecipeManager recipeManager = level.getRecipeManager();
+
+        RECIPE_MAP.clear();
+        RECIPE_OUTPUT_CACHE.clear();
+        RECIPE_IGNORED_CACHE.clear();
+
+        for (RecipeHolder<?> holder : recipeManager.getRecipes()) {
+            ResourceLocation recipeId = holder.id();
+            Recipe<?> recipe = holder.value();
+            ItemStack result = getRecipeResultItem(recipe, level.registryAccess());
+
+            if (result == null || result.isEmpty()) {
+                continue;
+            }
+            Item resultItem = result.getItem();
+
+            if (isValidRecipeType(recipe)) {
+                RecipeInfo info = getInfo(holder, recipe, level, result);
+                RECIPE_MAP.computeIfAbsent(resultItem, k -> new ArrayList<>()).add(info);
+                RECIPE_OUTPUT_CACHE.put(recipeId, resultItem);
+                continue;
+            }
+
+            RECIPE_IGNORED_CACHE.add(recipeId);
+        }
+
+        initialized = true;
+        LOGGER.info("RecipeHelper precomputed {} recipes", RECIPE_MAP.size());
     }
 
     private static ItemStack replacedStack(RecipeType<?> type, ItemStack stack) {
@@ -134,6 +181,51 @@ public class RecipeHelper {
         return stack;
     }
 
+    private static List<Ingredient> getRecipeIngredients(Recipe<?> recipe) {
+        try {
+            NonNullList<Ingredient> ingredients = recipe.getIngredients();
+            //noinspection ConstantConditions
+            if (ingredients != null && !ingredients.isEmpty()) {
+                return ingredients;
+            }
+        } catch (Exception ignored) {}
+
+        List<?> candidateList = null;
+        try {
+            Method method = recipe.getClass().getMethod("getInputs");
+            Object result = method.invoke(recipe);
+            if (result instanceof List<?> list) {
+                candidateList = list;
+            }
+        } catch (Exception ignored) {}
+
+        if (candidateList == null) {
+            Field ingredientsField = getField(recipe.getClass(), "ingredients", List.class);
+            if (ingredientsField != null) {
+                try {
+                    Object result = ingredientsField.get(recipe);
+                    if (result instanceof List<?> list) {
+                        candidateList = list;
+                    }
+                } catch (IllegalAccessException ignored) {
+                }
+            }
+        }
+
+        if (candidateList != null) {
+            List<Ingredient> ingredients = new ArrayList<>();
+            for (Object obj : candidateList) {
+                if (obj instanceof Ingredient ingredient) {
+                    ingredients.add(ingredient);
+                }
+            }
+            if (!ingredients.isEmpty()) {
+                return ingredients;
+            }
+        }
+        return Collections.emptyList();
+    }
+
     private static ItemStack getRecipeResultItem(Recipe<?> recipe, @Nullable HolderLookup.Provider registryAccess) {
         if (registryAccess == null) return ItemStack.EMPTY;
 
@@ -142,26 +234,27 @@ public class RecipeHelper {
         if(result != null && !result.isEmpty()) return result;
 
         try {
-            java.lang.reflect.Method method = recipe.getClass().getMethod("getResultItem");
+            Method method = recipe.getClass().getMethod("getResultItem");
             return (ItemStack) method.invoke(recipe);
         } catch (NoSuchMethodException e) {
             try {
-                java.lang.reflect.Method method = recipe.getClass().getMethod("getOutput");
+                Method method = recipe.getClass().getMethod("getOutput");
                 return (ItemStack) method.invoke(recipe);
             } catch (Exception ignored) {}
 
             try {
-                java.lang.reflect.Method method = recipe.getClass().getMethod("getResult");
+                Method method = recipe.getClass().getMethod("getResult");
                 return (ItemStack) method.invoke(recipe);
             } catch (Exception ex) {
-                try {
-                    java.lang.reflect.Field field = recipe.getClass().getDeclaredField("output");
-                    field.setAccessible(true);
-                    Object output = field.get(recipe);
-                    if (output instanceof ItemStack) {
-                        return (ItemStack) output;
-                    }
-                } catch (Exception ignored) {}
+                Field outputField = getField(recipe.getClass(), "output", ItemStack.class);
+                if (outputField != null) {
+                    try {
+                        Object output = outputField.get(recipe);
+                        if (output instanceof ItemStack) {
+                            return (ItemStack) output;
+                        }
+                    } catch (IllegalAccessException ignored) {}
+                }
             }
         } catch (Exception ignored) {}
 
@@ -169,6 +262,10 @@ public class RecipeHelper {
     }
 
     private static List<RecipeInfo> getRecipesForItem(Item targetItem, @Nullable Level level) {
+        if (initialized && RECIPE_MAP.containsKey(targetItem)) {
+            return new ArrayList<>(RECIPE_MAP.get(targetItem));
+        }
+
         if(level == null){
             return Collections.emptyList();
         }
@@ -207,25 +304,33 @@ public class RecipeHelper {
                 continue;
             }
 
-            if (RECIPE_ANALYZED_CACHE.getOrDefault(recipeId, false)) {
-                recipes.add(getInfo(recipeHolder, recipe, level, result));
-            } else {
-                recipes.add(getInfo(recipeHolder, recipe, level, result));
-                RECIPE_ANALYZED_CACHE.put(recipeId, true);
-            }
+            recipes.add(getInfo(recipeHolder, recipe, level, result));
         }
 
         return recipes;
     }
 
     private static RecipeInfo getBestRecipeForItem(Item targetItem, @Nullable Level level) {
-        List<RecipeInfo> recipes = getRecipesForItem(targetItem, level);
-
-        if (recipes.isEmpty()) {
-            LOGGER.info("Fail to calculate: recipes not found");
+        if(ElemenixInfo.isUnanalysableStrictly(targetItem)){
             return null;
         }
 
+        List<RecipeInfo> recipes = getRecipesForItem(targetItem, level);
+
+        if (recipes.isEmpty()) {
+            LOGGER.info("Fail to calculate: recipes of " + targetItem.getDescription().getString() + " not found");
+            return null;
+        }
+
+        RecipeInfo bestRecipe = findBestRecipeInfo(recipes);
+
+        if(bestRecipe.sum == 0 || bestRecipe.sum == Long.MAX_VALUE){
+            return null;
+        }
+        return bestRecipe;
+    }
+
+    private static RecipeInfo findBestRecipeInfo(List<RecipeInfo> recipes) {
         RecipeInfo bestRecipe = recipes.getFirst();
 
         for (int i = 1; i < recipes.size(); i++) {
@@ -239,10 +344,6 @@ public class RecipeHelper {
                     bestRecipe = current;
                 }
             }
-        }
-
-        if(bestRecipe.sum == 0 || bestRecipe.sum == Long.MAX_VALUE){
-            return null;
         }
         return bestRecipe;
     }
@@ -299,7 +400,7 @@ public class RecipeHelper {
         } else if(isGlodiumsRecipe(recipe)){
             handleGlodiumsRecipe(recipe, info);
         }else {
-            NonNullList<Ingredient> ingredients = recipe.getIngredients();
+            List<Ingredient> ingredients = getRecipeIngredients(recipe);
             for (Ingredient ingredient : ingredients) {
                 if (ingredient != Ingredient.EMPTY) {
                     ItemStack[] matchingItems = ingredient.getItems();
@@ -351,70 +452,82 @@ public class RecipeHelper {
 
     private static void handleSmithingRecipe(Recipe<?> recipe, RecipeInfo info) {
         RecipeType<?> type = recipe.getType();
-        try {
-            java.lang.reflect.Method isTemplateIngredientMethod = recipe.getClass().getMethod("isTemplateIngredient", ItemStack.class);
-            java.lang.reflect.Method isBaseIngredientMethod = recipe.getClass().getMethod("isBaseIngredient", ItemStack.class);
-            java.lang.reflect.Method isAdditionIngredientMethod = recipe.getClass().getMethod("isAdditionIngredient", ItemStack.class);
 
-            Collection<Item> allItems = BuiltInRegistries.ITEM.stream().toList();
+        Ingredient templateIng = null;
+        Ingredient baseIng = null;
+        Ingredient additionIng = null;
 
-            List<ItemStack> templateItems = new ArrayList<>();
-            List<ItemStack> baseItems = new ArrayList<>();
-            List<ItemStack> additionItems = new ArrayList<>();
+        Field templateField = getField(recipe.getClass(), "template", Ingredient.class);
+        if (templateField != null) {
+            try {
+                templateIng = (Ingredient) templateField.get(recipe);
+            } catch (IllegalAccessException ignored) {}
+        }
 
-            for (Item item : allItems) {
-                ItemStack stack = new ItemStack(item);
-                if ((Boolean) isTemplateIngredientMethod.invoke(recipe, stack)) {
-                    templateItems.add(stack);
+        Field baseField = getField(recipe.getClass(), "base", Ingredient.class);
+        if (baseField != null) {
+            try {
+                baseIng = (Ingredient) baseField.get(recipe);
+            } catch (IllegalAccessException ignored) {}
+        }
+
+        Field additionField = getField(recipe.getClass(), "addition", Ingredient.class);
+        if (additionField != null) {
+            try {
+                additionIng = (Ingredient) additionField.get(recipe);
+            } catch (IllegalAccessException ignored) {}
+        }
+
+        if (templateIng == null || baseIng == null || additionIng == null) {
+            info.hasUnanalysable = true;
+            return;
+        }
+
+        if (templateIng != Ingredient.EMPTY) {
+            ItemStack[] stacks = templateIng.getItems();
+            if (stacks.length > 0) {
+                ItemStack best = findBestItemStack(type, stacks);
+                if (best == null || best.isEmpty()) {
+                    info.hasUnanalysable = true;
+                    return;
                 }
-                if ((Boolean) isBaseIngredientMethod.invoke(recipe, stack)) {
-                    baseItems.add(stack);
-                }
-                if ((Boolean) isAdditionIngredientMethod.invoke(recipe, stack)) {
-                    additionItems.add(stack);
-                }
-            }
-
-
-            ItemStack bestTemplate = findBestItemStack(type, templateItems.toArray(new ItemStack[0]));
-            ItemStack bestBase = findBestItemStack(type, baseItems.toArray(new ItemStack[0]));
-            ItemStack bestAddition = findBestItemStack(type, additionItems.toArray(new ItemStack[0]));
-
-            if(bestTemplate == null || bestBase == null || bestAddition == null){
+                info.ingredients.add(best);
+                info.amount += best.getCount();
+            } else {
                 info.hasUnanalysable = true;
                 return;
             }
+        }
 
-            if (!bestTemplate.isEmpty()) {
-                info.ingredients.add(bestTemplate);
-                info.amount += bestTemplate.getCount();
+        if (baseIng != Ingredient.EMPTY) {
+            ItemStack[] stacks = baseIng.getItems();
+            if (stacks.length > 0) {
+                ItemStack best = findBestItemStack(type, stacks);
+                if (best == null || best.isEmpty()) {
+                    info.hasUnanalysable = true;
+                    return;
+                }
+                info.ingredients.add(best);
+                info.amount += best.getCount();
+            } else {
+                info.hasUnanalysable = true;
+                return;
             }
-            if (!bestBase.isEmpty()) {
-                info.ingredients.add(bestBase);
-                info.amount += bestBase.getCount();
-            }
-            if (!bestAddition.isEmpty()) {
-                info.ingredients.add(bestAddition);
-                info.amount += bestAddition.getCount();
-            }
+        }
 
-            if (bestTemplate.isEmpty() || bestBase.isEmpty() || bestAddition.isEmpty()) {
+        if (additionIng != Ingredient.EMPTY) {
+            ItemStack[] stacks = additionIng.getItems();
+            if (stacks.length > 0) {
+                ItemStack best = findBestItemStack(type, stacks);
+                if (best == null || best.isEmpty()) {
+                    info.hasUnanalysable = true;
+                    return;
+                }
+                info.ingredients.add(best);
+                info.amount += best.getCount();
+            } else {
                 info.hasUnanalysable = true;
             }
-
-        } catch (Exception e) {
-            NonNullList<Ingredient> ingredients = recipe.getIngredients();
-            for (Ingredient ingredient : ingredients) {
-                if (ingredient != Ingredient.EMPTY) {
-                    ItemStack[] matchingItems = ingredient.getItems();
-                    if (matchingItems.length > 0) {
-                        ItemStack bestItemStack = findBestItemStack(type, matchingItems);
-                        info.ingredients.add(bestItemStack);
-                        info.amount += bestItemStack.getCount();
-                    }
-                }
-            }
-            info.hasUnanalysable = true;
         }
     }
 
@@ -522,57 +635,44 @@ public class RecipeHelper {
         }
     }
 
-    @SuppressWarnings("unchecked")
     private static void handleCookingWithContainerRecipe(Recipe<?> recipe, RecipeInfo info) {
-        try {
-            java.lang.reflect.Method getIngredientsMethod = recipe.getClass().getMethod("getIngredients");
-            NonNullList<Ingredient> ingredients = (NonNullList<Ingredient>) getIngredientsMethod.invoke(recipe);
+        List<Ingredient> ingredients = getRecipeIngredients(recipe);
+        if (ingredients.isEmpty()) {
+            info.hasUnanalysable = true;
+            return;
+        }
 
-            for (Ingredient ingredient : ingredients) {
-                if (ingredient != Ingredient.EMPTY) {
-                    ItemStack[] matchingItems = ingredient.getItems();
-                    if (matchingItems.length > 0) {
-                        ItemStack bestItemStack = findBestItemStack(recipe.getType(), matchingItems);
-                        if(bestItemStack == null || bestItemStack.isEmpty()){
-                            info.hasUnanalysable = true;
-                        }else {
-                            info.ingredients.add(bestItemStack);
-                            info.amount += bestItemStack.getCount();
-                        }
-                    }
-                }
-            }
-
-            try {
-                java.lang.reflect.Method getOutputContainerMethod = recipe.getClass().getMethod("getOutputContainer");
-                ItemStack container = (ItemStack) getOutputContainerMethod.invoke(recipe);
-
-                if (!container.isEmpty()) {
-                    info.container = container;
-                }
-            } catch (Exception e) {
-                try {
-                    java.lang.reflect.Method getContainerOverrideMethod = recipe.getClass().getMethod("getContainerOverride");
-                    ItemStack container = (ItemStack) getContainerOverrideMethod.invoke(recipe);
-
-                    if (!container.isEmpty()) {
-                        info.container = container;
-                    }
-                } catch (Exception ignored) {
-                }
-            }
-
-        } catch (Exception e) {
-            NonNullList<Ingredient> ingredients = recipe.getIngredients();
-            for (Ingredient ingredient : ingredients) {
-                if (ingredient != Ingredient.EMPTY) {
-                    ItemStack[] matchingItems = ingredient.getItems();
-                    if (matchingItems.length > 0) {
-                        ItemStack bestItemStack = findBestItemStack(recipe.getType(), matchingItems);
+        for (Ingredient ingredient : ingredients) {
+            if (ingredient != Ingredient.EMPTY) {
+                ItemStack[] matchingItems = ingredient.getItems();
+                if (matchingItems.length > 0) {
+                    ItemStack bestItemStack = findBestItemStack(recipe.getType(), matchingItems);
+                    if(bestItemStack == null || bestItemStack.isEmpty()){
+                        info.hasUnanalysable = true;
+                    }else {
                         info.ingredients.add(bestItemStack);
                         info.amount += bestItemStack.getCount();
                     }
                 }
+            }
+        }
+
+        try {
+            Method getOutputContainerMethod = recipe.getClass().getMethod("getOutputContainer");
+            ItemStack container = (ItemStack) getOutputContainerMethod.invoke(recipe);
+
+            if (!container.isEmpty()) {
+                info.container = container;
+            }
+        } catch (Exception e) {
+            try {
+                Method getContainerOverrideMethod = recipe.getClass().getMethod("getContainerOverride");
+                ItemStack container = (ItemStack) getContainerOverrideMethod.invoke(recipe);
+
+                if (!container.isEmpty()) {
+                    info.container = container;
+                }
+            } catch (Exception ignored) {
             }
         }
     }
@@ -580,7 +680,7 @@ public class RecipeHelper {
     @SuppressWarnings("unchecked")
     private static void handleCuttingBoardRecipe(Recipe<?> recipe, RecipeInfo info) {
         try {
-            java.lang.reflect.Method getRollableResultsMethod = recipe.getClass().getMethod("getRollableResults");
+            Method getRollableResultsMethod = recipe.getClass().getMethod("getRollableResults");
             Object rollableResults = getRollableResultsMethod.invoke(recipe);
 
             if (rollableResults instanceof List<?> results) {
@@ -590,7 +690,7 @@ public class RecipeHelper {
 
                 Object firstResult = results.getFirst();
 
-                java.lang.reflect.Method getChanceMethod =
+                Method getChanceMethod =
                         firstResult.getClass().getMethod("chance");
                 float chance = (Float) getChanceMethod.invoke(firstResult);
 
@@ -598,7 +698,7 @@ public class RecipeHelper {
                     info.isComplex = true;
                 }
 
-                java.lang.reflect.Method getStackMethod =
+                Method getStackMethod =
                         firstResult.getClass().getMethod("stack");
                 ItemStack resultStack = (ItemStack) getStackMethod.invoke(firstResult);
                 info.result = resultStack;
@@ -607,8 +707,7 @@ public class RecipeHelper {
                 info.isComplex = true;
             }
 
-            java.lang.reflect.Method getInputMethod =
-                    recipe.getClass().getMethod("getInput");
+            Method getInputMethod = recipe.getClass().getMethod("getInput");
             Ingredient input = (Ingredient) getInputMethod.invoke(recipe);
 
             if (input != Ingredient.EMPTY) {
@@ -625,8 +724,7 @@ public class RecipeHelper {
             }
         } catch (NoSuchMethodException e) {
             try {
-                java.lang.reflect.Method getResultsMethod =
-                        recipe.getClass().getMethod("getResults");
+                Method getResultsMethod = recipe.getClass().getMethod("getResults");
                 List<ItemStack> results = (List<ItemStack>) getResultsMethod.invoke(recipe);
 
                 if (results.size() != 1) {
@@ -636,10 +734,8 @@ public class RecipeHelper {
                     info.resultAmount = info.result.getCount();
                 }
 
-                java.lang.reflect.Method getIngredientsMethod =
-                        recipe.getClass().getMethod("getIngredients");
-                NonNullList<Ingredient> ingredients =
-                        (NonNullList<Ingredient>) getIngredientsMethod.invoke(recipe);
+                Method getIngredientsMethod = recipe.getClass().getMethod("getIngredients");
+                NonNullList<Ingredient> ingredients = (NonNullList<Ingredient>) getIngredientsMethod.invoke(recipe);
 
                 for (Ingredient ingredient : ingredients) {
                     if (ingredient != Ingredient.EMPTY) {
@@ -667,8 +763,8 @@ public class RecipeHelper {
         try {
             Class<?> recipeClass = recipe.getClass();
 
-            java.lang.reflect.Method isMaterialIngredientMethod = recipeClass.getMethod("isMaterialIngredient", ItemStack.class);
-            java.lang.reflect.Method inputSizeMethod = recipeClass.getMethod("inputSize");
+            Method isMaterialIngredientMethod = recipeClass.getMethod("isMaterialIngredient", ItemStack.class);
+            Method inputSizeMethod = recipeClass.getMethod("inputSize");
 
             int inputSize = (Integer) inputSizeMethod.invoke(recipe);
             Collection<Item> allItems = BuiltInRegistries.ITEM.stream().toList();
@@ -695,8 +791,7 @@ public class RecipeHelper {
                 for (Item item : allItems) {
                     ItemStack stack = new ItemStack(item);
                     try {
-                        java.lang.reflect.Method isInputIngredientMethod =
-                                recipeClass.getMethod("isInputIngredient", int.class, ItemStack.class);
+                        Method isInputIngredientMethod = recipeClass.getMethod("isInputIngredient", int.class, ItemStack.class);
                         if ((Boolean) isInputIngredientMethod.invoke(recipe, i, stack)) {
                             inputItems.add(stack);
                         }
@@ -723,10 +818,10 @@ public class RecipeHelper {
     private static void handleBrewingStandRecipe(Recipe<?> recipe, RecipeInfo info) {
         try {
             RecipeType<?> type = recipe.getType();
-            java.lang.reflect.Method getInputMethod = recipe.getClass().getMethod("getInput");
+            Method getInputMethod = recipe.getClass().getMethod("getInput");
             Ingredient inputIngredient = (Ingredient) getInputMethod.invoke(recipe);
 
-            java.lang.reflect.Method getBottleMethod = recipe.getClass().getMethod("getBottle");
+            Method getBottleMethod = recipe.getClass().getMethod("getBottle");
             Ingredient bottleIngredient = (Ingredient) getBottleMethod.invoke(recipe);
 
             if (inputIngredient != Ingredient.EMPTY) {
@@ -763,10 +858,8 @@ public class RecipeHelper {
     private static void handleWeaponFusionRecipe(Recipe<?> recipe, RecipeInfo info) {
         try {
             RecipeType<?> type = recipe.getType();
-            java.lang.reflect.Method getBaseIngredientMethod =
-                    recipe.getClass().getMethod("getbaseIngredient");
-            java.lang.reflect.Method getAdditionIngredientMethod =
-                    recipe.getClass().getMethod("getAdditionIngredient");
+            Method getBaseIngredientMethod = recipe.getClass().getMethod("getbaseIngredient");
+            Method getAdditionIngredientMethod = recipe.getClass().getMethod("getAdditionIngredient");
 
             Ingredient baseIngredient = (Ingredient) getBaseIngredientMethod.invoke(recipe);
             Ingredient additionIngredient = (Ingredient) getAdditionIngredientMethod.invoke(recipe);
@@ -803,13 +896,13 @@ public class RecipeHelper {
 
     private static void handleGlodiumRecipe(Recipe<?> recipe, RecipeInfo info) {
         try {
-            java.lang.reflect.Method getInputMethod = recipe.getClass().getMethod("getInput");
+            Method getInputMethod = recipe.getClass().getMethod("getInput");
             Object ingredientStack = getInputMethod.invoke(recipe);
 
-            java.lang.reflect.Method getIngredientMethod = ingredientStack.getClass().getMethod("getIngredient");
+            Method getIngredientMethod = ingredientStack.getClass().getMethod("getIngredient");
             Object ingredient = getIngredientMethod.invoke(ingredientStack);
 
-            java.lang.reflect.Method getAmountMethod = ingredientStack.getClass().getMethod("getAmount");
+            Method getAmountMethod = ingredientStack.getClass().getMethod("getAmount");
             int amount = (Integer) getAmountMethod.invoke(ingredientStack);
 
             if (ingredient instanceof Ingredient inputIngredient) {
@@ -844,20 +937,20 @@ public class RecipeHelper {
     @SuppressWarnings("unchecked")
     private static void handleGlodiumsRecipe(Recipe<?> recipe, RecipeInfo info) {
         try {
-            java.lang.reflect.Method getInputsMethod = recipe.getClass().getMethod("getInputs");
+            Method getInputsMethod = recipe.getClass().getMethod("getInputs");
             List<Object> inputs = (List<Object>) getInputsMethod.invoke(recipe);
 
             for (Object ingredientStack : inputs) {
                 if (ingredientStack != null) {
-                    java.lang.reflect.Method isEmptyMethod = ingredientStack.getClass().getMethod("isEmpty");
+                    Method isEmptyMethod = ingredientStack.getClass().getMethod("isEmpty");
                     if ((Boolean) isEmptyMethod.invoke(ingredientStack)) {
                         continue;
                     }
 
-                    java.lang.reflect.Method getIngredientMethod = ingredientStack.getClass().getMethod("getIngredient");
+                    Method getIngredientMethod = ingredientStack.getClass().getMethod("getIngredient");
                     Object ingredient = getIngredientMethod.invoke(ingredientStack);
 
-                    java.lang.reflect.Method getAmountMethod = ingredientStack.getClass().getMethod("getAmount");
+                    Method getAmountMethod = ingredientStack.getClass().getMethod("getAmount");
                     int amount = (Integer) getAmountMethod.invoke(ingredientStack);
 
                     if (ingredient instanceof Ingredient inputIngredient) {
@@ -916,7 +1009,7 @@ public class RecipeHelper {
             for(ItemStack stack : ingredients){
                 ItemStack remaining = stack.getCraftingRemainingItem();
                 if(!remaining.isEmpty()){
-                    constituents.minus(ElemenixInfo.getConstituents(remaining));
+                    constituents.deduct(ElemenixInfo.getConstituents(remaining));
                 }
             }
 
@@ -942,10 +1035,10 @@ public class RecipeHelper {
                 }
             }
 
-            if(result.getFoodProperties(null) != null){
+            if(result.is(ModTags.C_FOODS) || result.getFoodProperties(null) != null){
                 for(ItemStack stack : ingredients) {
                     if(stack.is(ModTags.EGGS_WITH_TERRIX_SHELL)){
-                        constituents.consume(Elemenix.TERRIX, ElemenixInfo.getConstituents(stack).get(Elemenix.TERRIX));
+                        constituents.deduct(Elemenix.TERRIX, ElemenixInfo.getConstituents(stack).get(Elemenix.TERRIX));
                     }
                 }
             }
@@ -973,5 +1066,16 @@ public class RecipeHelper {
             }
             return constituents;
         }
+    }
+
+    private static Field getField(Class<?> clazz, String fieldName, Class<?> expectedType) {
+        try {
+            Field field = clazz.getDeclaredField(fieldName);
+            if (expectedType.isAssignableFrom(field.getType())) {
+                field.setAccessible(true);
+                return field;
+            }
+        } catch (NoSuchFieldException ignored) {}
+        return null;
     }
 }

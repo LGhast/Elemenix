@@ -2,7 +2,7 @@ package net.lghast.elemenix.compat.jei.recipe;
 
 import net.lghast.elemenix.compat.jei.serializer.TransformingRecipeSerializer;
 import net.lghast.elemenix.register.system.ModRecipes;
-import net.lghast.elemenix.utils.Elemenix;
+import net.lghast.elemenix.utils.elemenix.Elemenix;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.*;

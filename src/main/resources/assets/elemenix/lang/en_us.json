@@ -200,6 +200,15 @@
   "stat.elemenix.scanner_scans": "Elemenic Scanner Container Scans",
   "stat.elemenix.scanning_storage_scans": "Scanning Storage Container Scans",
 
+  "command.elemenix.show.invalid_item": "Invalid item ID: %s",
+  "command.elemenix.show.result": "[%s] constituents: %s",
+  "command.elemenix.unanalysable.empty": "No unanalysable items found.",
+  "command.elemenix.unanalysable.header": "\nFound %d unanalysable items:",
+  "command.elemenix.unanalysable.entry": "  %s (%s)",
+  "command.elemenix.unanalysable.page_info": "Page %d / %d",
+  "command.elemenix.unanalysable.next_page_hint": "Click here to view the next page",
+  "command.elemenix.unanalysable.page_out_of_range": "Page number out of range. Maximum page number is %s",
+
   "config.elemenix.digit_grouping_by_fours": "Four-digit Grouping",
   "config.elemenix.show_constituent_tooltips": "Show Constituents",
   "config.elemenix.show_unanalysable_tooltips": "Show Unanalysable Info",

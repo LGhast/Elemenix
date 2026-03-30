@@ -10,9 +10,9 @@ import net.lghast.elemenix.register.content.ModBlockEntities;
 import net.lghast.elemenix.register.content.ModBlocks;
 import net.lghast.elemenix.register.content.ModItems;
 import net.lghast.elemenix.register.system.*;
-import net.lghast.elemenix.utils.ElemenixInfo;
+import net.lghast.elemenix.utils.elemenix.ElemenixInfo;
 import net.lghast.elemenix.utils.ModUtils;
-import net.lghast.elemenix.utils.RecipeHelper;
+import net.lghast.elemenix.utils.recipe.RecipeHelper;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.level.Level;
@@ -104,6 +104,9 @@ public class Elemenics {
 
                 ElemenixInfo.clearCaches();
                 RecipeHelper.clearCache();
+
+                ElemenixInfo.initialize();
+                RecipeHelper.precomputeRecipes(getCurrentLevel());
             }
         }
     }

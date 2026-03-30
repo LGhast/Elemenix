@@ -2,7 +2,7 @@ package net.lghast.elemenix.conifig;
 
 import net.lghast.elemenix.Elemenics;
 import net.lghast.elemenix.utils.Constituents;
-import net.lghast.elemenix.utils.ElemenixInfo;
+import net.lghast.elemenix.utils.elemenix.ElemenixInfo;
 import net.lghast.elemenix.utils.ScanHelper;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;

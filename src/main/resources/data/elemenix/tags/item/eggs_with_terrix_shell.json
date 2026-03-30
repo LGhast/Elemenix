@@ -1,0 +1,56 @@
+{
+  "values": [
+    "#forge:eggs",
+    "minecraft:dragon_egg",
+    {
+      "id": "mynethersdelight:strider_egg",
+      "required": false
+    },
+    {
+      "id": "#minecraft:eggs",
+      "required": false
+    },
+    {
+      "id": "#minecraft:eggs",
+      "required": false
+    },
+    {
+      "id": "dungeonsdelight:ancient_egg",
+      "required": false
+    },
+    {
+      "id": "eternal_starlight:starfire_bird_egg",
+      "required": false
+    },
+
+    {
+      "id": "iceandfire:hippogryph_egg",
+      "required": false
+    },
+    {
+      "id": "iceandfire:rotten_egg",
+      "required": false
+    },
+    {
+      "id": "irons_spellbooks:ice_spider_egg",
+      "required": false
+    },
+
+    {
+      "id": "aether:blue_moa_egg",
+      "required": false
+    },
+    {
+      "id": "aether:white_moa_egg",
+      "required": false
+    },
+    {
+      "id": "aether:black_moa_egg",
+      "required": false
+    },
+    {
+      "id": "deep_aether:quail_egg",
+      "required": false
+    }
+  ]
+}

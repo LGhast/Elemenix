@@ -199,6 +199,15 @@
   "stat.elemenix.scanner_scans": "元质扫描器扫描容器次数",
   "stat.elemenix.scanning_storage_scans": "扫描式储存器扫描容器次数",
 
+  "command.elemenix.show.invalid_item": "无效的物品ID：%s",
+  "command.elemenix.show.result": "[%s]的元质成分为：%s",
+  "command.elemenix.unanalysable.empty": "没有找到不可解析的物品。",
+  "command.elemenix.unanalysable.header": "\n共有 %d 个不可解析的物品：",
+  "command.elemenix.unanalysable.entry": "  %s (%s)",
+  "command.elemenix.unanalysable.page_info": "第 %d / %d 页",
+  "command.elemenix.unanalysable.next_page_hint": "点击此处查看下一页",
+  "command.elemenix.unanalysable.page_out_of_range": "页码超出范围，最大页数为 %s",
+
   "config.elemenix.digit_grouping_by_fours": "四位分节法",
   "config.elemenix.show_constituent_tooltips": "显示元质成分",
   "config.elemenix.show_unanalysable_tooltips": "显示不可解析信息",

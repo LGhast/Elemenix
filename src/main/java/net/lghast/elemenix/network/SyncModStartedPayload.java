@@ -1,8 +1,8 @@
 package net.lghast.elemenix.network;
 
 import net.lghast.elemenix.Elemenics;
-import net.lghast.elemenix.utils.ElemenixInfo;
-import net.lghast.elemenix.utils.RecipeHelper;
+import net.lghast.elemenix.utils.elemenix.ElemenixInfo;
+import net.lghast.elemenix.utils.recipe.RecipeHelper;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;

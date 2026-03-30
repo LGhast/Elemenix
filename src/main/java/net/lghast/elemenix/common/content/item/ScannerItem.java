@@ -6,6 +6,8 @@ import net.lghast.elemenix.conifig.CommonConfig;
 import net.lghast.elemenix.register.system.ModStats;
 import net.lghast.elemenix.register.system.ModTags;
 import net.lghast.elemenix.utils.*;
+import net.lghast.elemenix.utils.elemenix.Elemenix;
+import net.lghast.elemenix.utils.elemenix.ElemenixInfo;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;

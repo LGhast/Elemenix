@@ -11,6 +11,8 @@ import net.lghast.elemenix.network.infuser.RequestInfuserUpdatePayload;
 import net.lghast.elemenix.register.content.ModItems;
 import net.lghast.elemenix.register.system.ModDataComponents;
 import net.lghast.elemenix.utils.*;
+import net.lghast.elemenix.utils.elemenix.Elemenix;
+import net.lghast.elemenix.utils.elemenix.ElemenixInfo;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;

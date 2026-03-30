@@ -4,7 +4,7 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.lghast.elemenix.compat.jei.recipe.EnrichingRecipe;
-import net.lghast.elemenix.utils.Elemenix;
+import net.lghast.elemenix.utils.elemenix.Elemenix;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.item.ItemStack;

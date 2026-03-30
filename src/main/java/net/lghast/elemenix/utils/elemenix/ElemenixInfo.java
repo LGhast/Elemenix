@@ -1,8 +1,12 @@
-package net.lghast.elemenix.utils;
+package net.lghast.elemenix.utils.elemenix;
 
 import net.lghast.elemenix.Elemenics;
 import net.lghast.elemenix.conifig.CommonConfig;
 import net.lghast.elemenix.register.system.ModTags;
+import net.lghast.elemenix.utils.Constituents;
+import net.lghast.elemenix.utils.ModUtils;
+import net.lghast.elemenix.utils.recipe.RecipeHelper;
+import net.lghast.elemenix.utils.recipe.TRecipeHelper;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
@@ -22,14 +26,15 @@ public class ElemenixInfo {
 
     private static Map<String, Constituents> ADDITIONAL_MAP = new HashMap<>();
     private static final Map<String, Constituents> ELEMENIX_MAP = ElemenixMapping.ELEMENIX_MAP;
+    protected static final Map<TagKey<Item>, Constituents> TAG_MAP = new HashMap<>();
 
     protected static final Map<Item, Constituents> ITEM_CACHE = new HashMap<>();
-    protected static final Map<TagKey<Item>, Constituents> TAG_MAP = new HashMap<>();
     private static final Set<Item> CALCULATING_ITEMS = new HashSet<>();
     private static final Set<Item> UNANALYSABLE_ITEMS = new HashSet<>();
+    private static final Set<Item> UNANALYSABLE_ITEMS_STRICT = new HashSet<>();
     private static boolean isInitialized = false;
 
-    private static void initialize() {
+    public static void initialize() {
         if (isInitialized) return;
 
         if(ADDITIONAL_MAP.isEmpty()){
@@ -41,6 +46,9 @@ public class ElemenixInfo {
         handleMap(ADDITIONAL_MAP);
 
         isInitialized = true;
+
+        TRecipeHelper.initialize();
+
         LOGGER.info("ElemenixInfo Class has been initialized.");
     }
 
@@ -49,7 +57,9 @@ public class ElemenixInfo {
         ITEM_CACHE.clear();
         CALCULATING_ITEMS.clear();
         UNANALYSABLE_ITEMS.clear();
+        UNANALYSABLE_ITEMS_STRICT.clear();
         RecipeHelper.clearCache();
+        TRecipeHelper.clear();
 
         LOGGER.info("ElemenixInfo Cache has been cleared.");
     }
@@ -72,7 +82,11 @@ public class ElemenixInfo {
             } else {
                 Item item = ModUtils.getItemFromString(key);
                 if (item != null) {
-                    ITEM_CACHE.put(item, value);
+                    if(value.isUnanalysable()){
+                        UNANALYSABLE_ITEMS_STRICT.add(item);
+                    }else {
+                        ITEM_CACHE.put(item, value);
+                    }
                 } else {
                     LOGGER.info("Unknown item ID: {}", key);
                 }
@@ -111,12 +125,12 @@ public class ElemenixInfo {
             initialize();
         }
 
-        if(UNANALYSABLE_ITEMS.contains(item)){
+        if(UNANALYSABLE_ITEMS.contains(item) || UNANALYSABLE_ITEMS_STRICT.contains(item)){
             return new Constituents(true);
         }
 
         Constituents directConstituents = ITEM_CACHE.get(item);
-        if (directConstituents != null) return directConstituents;
+        if (directConstituents != null) return directConstituents.copy();
 
         List<Map.Entry<TagKey<Item>, Constituents>> matchingTags = new ArrayList<>();
         for (Map.Entry<TagKey<Item>, Constituents> entry : TAG_MAP.entrySet()) {
@@ -124,15 +138,19 @@ public class ElemenixInfo {
                 matchingTags.add(entry);
             }
         }
-        
+
         if (!matchingTags.isEmpty()) {
             Constituents tagConstituents = getConstituentsFromBestTag(matchingTags);
             ITEM_CACHE.put(item, tagConstituents);
-            return tagConstituents;
+            return tagConstituents.copy();
         }
 
         if (CALCULATING_ITEMS.contains(item)) {
             LOGGER.debug("Preventing recursion for item: {}", BuiltInRegistries.ITEM.getKey(item));
+            return new Constituents(true);
+        }
+
+        if(isUnanalysableStrictly(item)){
             return new Constituents(true);
         }
 
@@ -141,9 +159,9 @@ public class ElemenixInfo {
             Constituents recipeConstituents = RecipeHelper.getRecipeConstituents(item, level);
             if (recipeConstituents != null) {
                 ITEM_CACHE.put(item, recipeConstituents);
-                return recipeConstituents;
+                return recipeConstituents.copy();
             }
-            LOGGER.info("Fail to calculate constituents for" + item.getDescription().getString());
+            LOGGER.info("Fail to calculate constituents for " + item.getDescription().getString());
         } finally {
             CALCULATING_ITEMS.remove(item);
         }
@@ -170,7 +188,7 @@ public class ElemenixInfo {
     }
 
     public static boolean isUnanalysable(Item item){
-        if(UNANALYSABLE_ITEMS.contains(item)){
+        if(UNANALYSABLE_ITEMS.contains(item) || UNANALYSABLE_ITEMS_STRICT.contains(item)){
             return true;
         }else{
             Constituents constituents = getConstituents(item);
@@ -183,6 +201,12 @@ public class ElemenixInfo {
 
     public static boolean isUnanalysable(ItemStack stack){
         return isUnanalysable(stack.getItem());
+    }
+    public static boolean isUnanalysableStrictly(Item item){
+        return UNANALYSABLE_ITEMS_STRICT.contains(item);
+    }
+    public static boolean isUnanalysableStrictly(ItemStack stack){
+        return isUnanalysableStrictly(stack.getItem());
     }
 
     public static boolean isUndeconstructable(ItemStack stack){
@@ -268,8 +292,6 @@ public class ElemenixInfo {
             }
         }
 
-        System.out.println();
-        System.out.println();
         for (String entry : configUnanalysableList) {
             if (entry == null) {
                 continue;
@@ -300,5 +322,14 @@ public class ElemenixInfo {
 
         ADDITIONAL_MAP = newElemenixMap;
         clearCaches();
+    }
+
+    public static boolean hasCache(Item item){
+        return ITEM_CACHE.containsKey(item);
+    }
+
+    public static void addCache(Item item, Constituents constituents){
+        ITEM_CACHE.put(item, constituents);
+        UNANALYSABLE_ITEMS.remove(item);
     }
 }

@@ -1,4 +1,4 @@
-package net.lghast.elemenix.utils;
+package net.lghast.elemenix.utils.elemenix;
 
 import net.minecraft.network.chat.Component;
 

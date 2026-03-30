@@ -1,0 +1,434 @@
+{
+  "values": [
+    "minecraft:command_block",
+    "minecraft:chain_command_block",
+    "minecraft:repeating_command_block",
+    "minecraft:command_block_minecart",
+    "minecraft:barrier",
+    "minecraft:debug_stick",
+    "minecraft:filled_map",
+    "minecraft:jigsaw",
+    "minecraft:knowledge_book",
+    "minecraft:light",
+    "minecraft:spawner",
+    "minecraft:structure_block",
+    "minecraft:structure_void",
+    "minecraft:vault",
+    {
+      "id": "#eternal_starlight:wip",
+      "required": false
+    },
+    {
+      "id": "eternal_starlight:mana_crystal_shard",
+      "required": false
+    },
+    {
+      "id": "eternal_starlight:energy_block",
+      "required": false
+    },
+    {
+      "id": "let_me_see_see:data_base",
+      "required": false
+    },
+    {
+      "id": "let_me_see_see:item_data_exporter",
+      "required": false
+    },
+    {
+      "id": "let_me_see_see:retriever",
+      "required": false
+    },
+    {
+      "id": "let_me_see_see:scanner",
+      "required": false
+    },
+    {
+      "id": "create:creative_blaze_cake",
+      "required": false
+    },
+    {
+      "id": "create:creative_crate",
+      "required": false
+    },
+    {
+      "id": "create:creative_fluid_tank",
+      "required": false
+    },
+    {
+      "id": "create:creative_motor",
+      "required": false
+    },
+    {
+      "id": "create:handheld_worldshaper",
+      "required": false
+    },
+    {
+      "id": "create:handheld_worldshaper",
+      "required": false
+    },
+    {
+      "id": "create:unprocessed_obsidian_sheet",
+      "required": false
+    },
+    {
+      "id": "create:incomplete_precision_mechanism",
+      "required": false
+    },
+    {
+      "id": "create:incomplete_track",
+      "required": false
+    },
+    {
+      "id": "create:schematic",
+      "required": false
+    },
+    {
+      "id": "create:shopping_list",
+      "required": false
+    },
+    {
+      "id": "create:minecart_contraption",
+      "required": false
+    },
+    {
+      "id": "create:furnace_minecart_contraption",
+      "required": false
+    },
+    {
+      "id": "create:chest_minecart_contraption",
+      "required": false
+    },
+    {
+      "id": "create:copper_backtank_placeable",
+      "required": false
+    },
+    {
+      "id": "create:netherite_backtank_placeable",
+      "required": false
+    },
+    {
+      "id": "create:elevator_contact",
+      "required": false
+    },
+    {
+      "id": "#twilightforest:wip",
+      "required": false
+    },
+    {
+      "id": "#twilightforest:force_fields",
+      "required": false
+    },
+    {
+      "id": "#elemenix:filled_maps",
+      "required": false
+    },
+    {
+      "id": "irons_spellbooks:claymore",
+      "required": false
+    },
+    {
+      "id": "irons_spellbooks:lurker_ring",
+      "required": false
+    },
+    {
+      "id": "irons_spellbooks:legendary_spell_book",
+      "required": false
+    },
+    {
+      "id": "irons_spellbooks:wimpy_spell_book",
+      "required": false
+    },
+    {
+      "id": "irons_spellbooks:misery",
+      "required": false
+    },
+    {
+      "id": "iceandfire:dreadwood_planks_lock",
+      "required": false
+    },
+    {
+      "id": "anvilcraft:black_hole",
+      "required": false
+    },
+    {
+      "id": "anvilcraft:white_hole",
+      "required": false
+    },
+    {
+      "id": "anvilcraft:capacitor",
+      "required": false
+    },
+    {
+      "id": "anvilcraft:supercapacitor",
+      "required": false
+    },
+    {
+      "id": "anvilcraft:mob_amber_block",
+      "required": false
+    },
+    {
+      "id": "anvilcraft:resentful_amber_block",
+      "required": false
+    },
+    {
+      "id": "anvilcraft:canned_food",
+      "required": false
+    },
+    {
+      "id": "anvilcraft:structure_tool",
+      "required": false
+    },
+    {
+      "id": "anvilcraft:seeds_pack",
+      "required": false
+    },
+    {
+      "id": "anvilcraft:mineral_fountain",
+      "required": false
+    },
+    {
+      "id": "anvilcraft:arrow",
+      "required": false
+    },
+    {
+      "id": "anvilcraft:creative_generator",
+      "required": false
+    },
+    {
+      "id": "anvilcraft:overheated_ember_metal_block",
+      "required": false
+    },
+    {
+      "id": "#anvilcraft:unbroken_fire_starter",
+      "required": false
+    },
+    {
+      "id": "ars_nouveau:magic_fire",
+      "required": false
+    },
+    {
+      "id": "ars_nouveau:blank_glyph",
+      "required": false
+    },
+    {
+      "id": "ars_nouveau:creative_source_jar",
+      "required": false
+    },
+    {
+      "id": "ars_nouveau:creative_spell_book",
+      "required": false
+    },
+    {
+      "id": "ars_nouveau:starby_gift",
+      "required": false
+    },
+    {
+      "id": "ars_nouveau:alakarkinos_hat",
+      "required": false
+    },
+    {
+      "id": "ars_nouveau:debug",
+      "required": false
+    },
+    {
+      "id": "ars_nouveau:drygmy_stone",
+      "required": false
+    },
+    {
+      "id": "ars_nouveau:mage_block",
+      "required": false
+    },
+    {
+      "id": "ars_nouveau:planarium_projector",
+      "required": false
+    },
+    {
+      "id": "ars_nouveau:portal",
+      "required": false
+    },
+    {
+      "id": "ars_nouveau:whirlisprig_flower",
+      "required": false
+    },
+    {
+      "id": "ars_nouveau:wixie_cauldron",
+      "required": false
+    },
+    {
+      "id": "ars_nouveau:alakarkinos_se",
+      "required": false
+    },
+    {
+      "id": "ars_nouveau:caster_tome",
+      "required": false
+    },
+    {
+      "id": "ars_nouveau:drygmy_se",
+      "required": false
+    },
+    {
+      "id": "ars_nouveau:scryer_scroll",
+      "required": false
+    },
+    {
+      "id": "ars_nouveau:spell_parchment",
+      "required": false
+    },
+    {
+      "id": "ars_nouveau:starbuncle_se",
+      "required": false
+    },
+    {
+      "id": "ars_nouveau:whirlisprig_se",
+      "required": false
+    },
+    {
+      "id": "ars_nouveau:wilden_guardian_se",
+      "required": false
+    },
+    {
+      "id": "ars_nouveau:wilden_hunter_se",
+      "required": false
+    },
+    {
+      "id": "ars_nouveau:wilden_stalker_se",
+      "required": false
+    },
+    {
+      "id": "cataclysm:altar_of_abyss",
+      "required": false
+    },
+    {
+      "id": "cataclysm:altar_of_amethyst",
+      "required": false
+    },
+    {
+      "id": "cataclysm:altar_of_fire",
+      "required": false
+    },
+    {
+      "id": "cataclysm:altar_of_void",
+      "required": false
+    },
+    {
+      "id": "cataclysm:cursed_tombstone",
+      "required": false
+    },
+    {
+      "id": "cataclysm:door_of_seal",
+      "required": false
+    },
+    {
+      "id": "cataclysm:dungeon_block",
+      "required": false
+    },
+    {
+      "id": "cataclysm:emp",
+      "required": false
+    },
+    {
+      "id": "cataclysm:lionfish_spike",
+      "required": false
+    },
+    {
+      "id": "cataclysm:urchin_spike",
+      "required": false
+    },
+    {
+      "id": "mowziesmobs:grant_suns_blessing",
+      "required": false
+    },
+    {
+      "id": "mowziesmobs:logo",
+      "required": false
+    },
+    {
+      "id": "mowziesmobs:mob_remover",
+      "required": false
+    },
+    {
+      "id": "guideme:guide",
+      "required": false
+    },
+    {
+      "id": "ae2:missing_content",
+      "required": false
+    },
+    {
+      "id": "waystones:attuned_shard",
+      "required": false
+    },
+    {
+      "id": "waystones:attuned_shard",
+      "required": false
+    },
+    {
+      "id": "waystones:crumbling_attuned_shard",
+      "required": false
+    },
+    {
+      "id": "sophisticatedbackpacks:infinity_upgrade",
+      "required": false
+    },
+    {
+      "id": "sophisticatedbackpacks:survival_infinity_upgrade",
+      "required": false
+    },
+    {
+      "id": "mobbottle:mob_bottle_empty",
+      "required": false
+    },
+    {
+      "id": "illagerinvasion:magical_fire_charge",
+      "required": false
+    },
+    {
+      "id": "ftblibrary:icon_item",
+      "required": false
+    },
+    {
+      "id": "aether:aether_portal_frame",
+      "required": false
+    },
+    {
+      "id": "aether:chest_mimic",
+      "required": false
+    },
+    {
+      "id": "aether:present",
+      "required": false
+    },
+    {
+      "id": "bosses_of_mass_destruction:chiseled_stone_altar",
+      "required": false
+    },
+    {
+      "id": "bosses_of_mass_destruction:gauntlet_blackstone",
+      "required": false
+    },
+    {
+      "id": "bosses_of_mass_destruction:obsidilith_end_frame",
+      "required": false
+    },
+    {
+      "id": "bosses_of_mass_destruction:obsidilith_rune",
+      "required": false
+    },
+    {
+      "id": "bosses_of_mass_destruction:sealed_blackstone",
+      "required": false
+    },
+    {
+      "id": "bosses_of_mass_destruction:void_wall",
+      "required": false
+    },
+    {
+      "id": "bosses_of_mass_destruction:void_blossom",
+      "required": false
+    },
+    {
+      "id": "bosses_of_mass_destruction:void_blossom_block",
+      "required": false
+    }
+  ]
+}

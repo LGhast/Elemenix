@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public record MemoryData(List<ResourceLocation> resolvedItems) {
-    public static final int MAX = 147;
+    public static final int MAX = 175;
 
     public static final Codec<MemoryData> CODEC = RecordCodecBuilder.create(instance ->
             instance.group(

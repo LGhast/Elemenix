@@ -1,0 +1,25 @@
+{
+  "values": [
+    "minecraft:filled_map",
+    {
+      "id": "twilightforest:filled_magic_map",
+      "required": false
+    },
+    {
+      "id": "twilightforest:filled_maze_map",
+      "required": false
+    },
+    {
+      "id": "twilightforest:filled_ore_map",
+      "required": false
+    },
+    {
+      "id": "irons_spellbooks:furled_map",
+      "required": false
+    },
+    {
+      "id": "irons_spellbooks:furled_map_ancient",
+      "required": false
+    }
+  ]
+}
