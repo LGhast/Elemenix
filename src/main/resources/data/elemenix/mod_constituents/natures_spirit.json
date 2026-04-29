@@ -1,0 +1,32 @@
+{
+  "mod_id": "natures_spirit",
+  "entries": [
+    { "id": "#natures_spirit:small_grass", "preset": "grassVineLeaves" },
+    { "id": "#natures_spirit:vines", "preset": "grassVineLeaves" },
+    { "id": "#natures_spirit:plants_double_dye", "preset": "flowerLarge" },
+    { "id": "#natures_spirit:plants_single_dye", "preset": "flower" },
+    { "id": "#natures_spirit:large_grass", "constituents": [12, 0, 4, 0, 0, 0] },
+    { "id": "#natures_spirit:plants_quadruple_dye", "constituents": [72, 0, 32, 0, 0, 0] },
+    { "id": "natures_spirit:azolla", "preset": "seagrass" },
+    { "id": "natures_spirit:lotus_stem", "preset": "seagrass" },
+    { "id": "natures_spirit:coconut_shell", "elemenix": "organix", "value": 18 },
+    { "id": "natures_spirit:chalk_powder", "elemenix": "terrix", "value": 6 },
+    { "id": "natures_spirit:calcite_shard", "elemenix": "terrix", "value": 8 },
+    { "id": "natures_spirit:calcite_cluster", "elemenix": "terrix", "value": 32 },
+    { "id": "natures_spirit:large_calcite_bud", "elemenix": "terrix", "value": 24 },
+    { "id": "natures_spirit:small_calcite_bud", "elemenix": "terrix", "value": 12 },
+    { "id": "natures_spirit:desert_turnip", "constituents": [26, 0, 8, 0, 0, 0] },
+    { "id": "natures_spirit:desert_turnip_root_block", "constituents": [35, 0, 16, 0, 0, 0] },
+    { "id": "natures_spirit:shiitake_mushroom", "constituents": [18, 0, 6, 0, 0, 0] },
+    { "id": "natures_spirit:shiitake_mushroom_block", "constituents": [36, 0, 12, 0, 0, 0] },
+    { "id": "natures_spirit:gray_polypore", "constituents": [18, 0, 6, 0, 0, 0] },
+    { "id": "natures_spirit:gray_polypore_block", "constituents": [36, 0, 12, 0, 0, 0] },
+    { "id": "natures_spirit:olives", "constituents": [20, 0, 9, 0, 0, 0] },
+    { "id": "natures_spirit:olive_branch", "constituents": [36, 0, 8, 0, 0, 0] },
+    { "id": "natures_spirit:red_moss_block", "constituents": [6, 0, 6, 0, 0, 0] },
+    { "id": "natures_spirit:coconut", "constituents": [24, 0, 32, 0, 0, 0] },
+    { "id": "natures_spirit:coconut_sprout", "constituents": [32, 0, 24, 0, 0, 0] },
+    { "id": "natures_spirit:helvola_pad", "constituents": [18, 0, 10, 0, 0, 0] },
+    { "id": "natures_spirit:alluaudia", "constituents": [32, 0, 16, 0, 0, 0] }
+  ]
+}

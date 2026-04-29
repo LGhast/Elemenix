@@ -2,6 +2,7 @@ package net.lghast.elemenix.datagen;
 
 import net.lghast.elemenix.register.content.ModBlocks;
 import net.lghast.elemenix.register.content.ModItems;
+import net.lghast.elemenix.register.system.ModTags;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.*;
@@ -92,10 +93,20 @@ public class ModRecipeProvider extends RecipeProvider {
                 .pattern("CIC")
                 .pattern("   ")
                 .define('I', Items.IRON_INGOT)
-                .define('S', Items.SLIME_BALL)
+                .define('S', ModTags.C_SLIMEBALLS)
                 .define('C', Items.COPPER_INGOT)
                 .unlockedBy("has_elemenic_memorizer", has(ModItems.ELEMENIC_MEMORIZER))
                 .save(recipeOutput);
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ModItems.MEMORIZER_BOX.get(), 1)
+                .pattern("ISI")
+                .pattern("CIC")
+                .pattern("   ")
+                .define('I', Items.IRON_INGOT)
+                .define('S', ModTags.C_SLIME_BALLS)
+                .define('C', Items.COPPER_INGOT)
+                .unlockedBy("has_elemenic_memorizer", has(ModItems.ELEMENIC_MEMORIZER))
+                .save(recipeOutput, "memorizer_box_from_slime_balls");
 
         ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ModItems.MEMORY_BURNER.get(), 1)
                 .pattern("A A")

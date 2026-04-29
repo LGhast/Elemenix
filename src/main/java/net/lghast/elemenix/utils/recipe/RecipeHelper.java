@@ -24,6 +24,7 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.function.Function;
 
 public class RecipeHelper {
     private static final Map<ResourceLocation, Item> RECIPE_OUTPUT_CACHE = new HashMap<>();
@@ -41,6 +42,7 @@ public class RecipeHelper {
     private static final boolean CATACLYSM_LOADED;
     private static final boolean AE2_LOADED;
     private static final boolean AETHER_LOADED;
+    private static final boolean CONFLUENCE_LOADED;
 
     private static boolean initialized = false;
 
@@ -52,12 +54,17 @@ public class RecipeHelper {
         CATACLYSM_LOADED = ModUtils.hasServerMod("cataclysm");
         AE2_LOADED = ModUtils.hasServerMod("ae2");
         AETHER_LOADED = ModUtils.hasServerMod("aether");
+        CONFLUENCE_LOADED = ModUtils.hasServerMod("confluence");
 
         if(FARMERS_DELIGHT_LOADED){
             RECIPE_TYPES_WITH_CONTAINER.add("farmersdelight:cooking");
 
             if(ModUtils.hasServerMod("dungeonsdelight")){
                 RECIPE_TYPES_WITH_CONTAINER.add("dungeonsdelight:monster_cooking");
+            }
+
+            if(ModUtils.hasServerMod("minersdelight")){
+                RECIPE_TYPES_WITH_CONTAINER.add("minersdelight:cooking");
             }
 
             if(ModUtils.hasServerMod("youkaishomecoming")){
@@ -90,6 +97,21 @@ public class RecipeHelper {
                 RECIPE_TYPES_NORMAL.add("deep_aether:combining");
             }
         }
+        if(CONFLUENCE_LOADED){
+            RECIPE_TYPES_NORMAL.add("confluence:heavy_work_bench");
+            RECIPE_TYPES_NORMAL.add("confluence:fletching_table");
+            RECIPE_TYPES_NORMAL.add("confluence:altar");
+            RECIPE_TYPES_NORMAL.add("confluence:hellforge");
+            RECIPE_TYPES_NORMAL.add("confluence:loom");
+            RECIPE_TYPES_NORMAL.add("confluence:sky_mill");
+            RECIPE_TYPES_NORMAL.add("confluence:solidifier");
+            RECIPE_TYPES_NORMAL.add("confluence:crystal_ball");
+            RECIPE_TYPES_NORMAL.add("confluence:hardmode_anvil");
+            RECIPE_TYPES_NORMAL.add("confluence:hardmode_forge");
+            RECIPE_TYPES_NORMAL.add("terra_furniture:glass_kiln");
+            RECIPE_TYPES_WITH_CONTAINER.add("confluence:alchemy_table");
+            RECIPE_TYPES_WITH_CONTAINER.add("confluence:cooking_pot");
+        }
 
         if(ModUtils.hasServerMod("twilightforest")){
             RECIPE_TYPES_NORMAL.add("twilightforest:drying");
@@ -109,12 +131,17 @@ public class RecipeHelper {
             RECIPE_TYPES_NORMAL.add("cobblemon:cooking_pot");
             RECIPE_TYPES_BREWING_LIKE.add("cobblemon:brewing_stand");
         }
+        if(ModUtils.hasServerMod("terra_curio")){
+            RECIPE_TYPES_NORMAL.add("terra_curio:workshop");
+        }
     }
 
     public static void clearCache() {
         RECIPE_OUTPUT_CACHE.clear();
         RECIPE_IGNORED_CACHE.clear();
         RECIPE_MAP.clear();
+        METHOD_CACHE.clear();
+        FIELD_CACHE.clear();
         initialized = false;
     }
 
@@ -190,75 +217,69 @@ public class RecipeHelper {
             }
         } catch (Exception ignored) {}
 
-        List<?> candidateList = null;
-        try {
-            Method method = recipe.getClass().getMethod("getInputs");
-            Object result = method.invoke(recipe);
-            if (result instanceof List<?> list) {
-                candidateList = list;
-            }
-        } catch (Exception ignored) {}
-
-        if (candidateList == null) {
-            Field ingredientsField = getField(recipe.getClass(), "ingredients", List.class);
-            if (ingredientsField != null) {
-                try {
-                    Object result = ingredientsField.get(recipe);
-                    if (result instanceof List<?> list) {
-                        candidateList = list;
-                    }
-                } catch (IllegalAccessException ignored) {
-                }
-            }
-        }
-
-        if (candidateList != null) {
+        Optional<List<?>> fromMethod = tryInvokeMethods(recipe,
+                obj -> obj instanceof List<?> list && !list.isEmpty() ? Optional.of(list) : Optional.empty(),
+                "getInputs");
+        if (fromMethod.isPresent()) {
             List<Ingredient> ingredients = new ArrayList<>();
-            for (Object obj : candidateList) {
-                if (obj instanceof Ingredient ingredient) {
-                    ingredients.add(ingredient);
+            for (Object obj : fromMethod.get()) {
+                if (obj instanceof Ingredient ing) {
+                    ingredients.add(ing);
                 }
             }
             if (!ingredients.isEmpty()) {
                 return ingredients;
             }
         }
+
+        Optional<List<?>> fromField = tryGetFields(recipe,
+                obj -> obj instanceof List<?> list && !list.isEmpty() ? Optional.of(list) : Optional.empty(),
+                "ingredients");
+        if (fromField.isPresent()) {
+            List<Ingredient> ingredients = new ArrayList<>();
+            for (Object obj : fromField.get()) {
+                if (obj instanceof Ingredient ing) {
+                    ingredients.add(ing);
+                }
+            }
+            if (!ingredients.isEmpty()) {
+                return ingredients;
+            }
+        }
+
         return Collections.emptyList();
     }
 
     private static ItemStack getRecipeResultItem(Recipe<?> recipe, @Nullable HolderLookup.Provider registryAccess) {
         if (registryAccess == null) return ItemStack.EMPTY;
 
-        ItemStack result = recipe.getResultItem(registryAccess);
-        //noinspection ConstantConditions
-        if(result != null && !result.isEmpty()) return result;
-
         try {
-            Method method = recipe.getClass().getMethod("getResultItem");
-            return (ItemStack) method.invoke(recipe);
-        } catch (NoSuchMethodException e) {
-            try {
-                Method method = recipe.getClass().getMethod("getOutput");
-                return (ItemStack) method.invoke(recipe);
-            } catch (Exception ignored) {}
-
-            try {
-                Method method = recipe.getClass().getMethod("getResult");
-                return (ItemStack) method.invoke(recipe);
-            } catch (Exception ex) {
-                Field outputField = getField(recipe.getClass(), "output", ItemStack.class);
-                if (outputField != null) {
-                    try {
-                        Object output = outputField.get(recipe);
-                        if (output instanceof ItemStack) {
-                            return (ItemStack) output;
-                        }
-                    } catch (IllegalAccessException ignored) {}
-                }
-            }
+            ItemStack result = recipe.getResultItem(registryAccess);
+            //noinspection ConstantConditions
+            if (result != null && !result.isEmpty()) return result;
         } catch (Exception ignored) {}
 
-        return ItemStack.EMPTY;
+        Optional<ItemStack> fromMethod = tryInvokeMethods(recipe,
+                RecipeHelper::tryExtractItemStack,
+                "getResultItem", "getOutput", "getResult");
+        if (fromMethod.isPresent()) return fromMethod.get();
+
+        Optional<ItemStack> fromField = tryGetFields(recipe,
+                RecipeHelper::tryExtractItemStack,
+                "output", "result");
+        return fromField.orElse(ItemStack.EMPTY);
+    }
+
+    private static ItemStack getRecipeContainer(Recipe<?> recipe) {
+        Optional<ItemStack> fromMethod = tryInvokeMethods(recipe,
+                RecipeHelper::tryExtractItemStack,
+                "getOutputContainer", "getContainerOverride", "getBase");
+        if (fromMethod.isPresent()) return fromMethod.get();
+
+        Optional<ItemStack> fromField = tryGetFields(recipe,
+                RecipeHelper::tryExtractItemStack,
+                "container", "outputContainer", "containerItem", "base");
+        return fromField.orElse(ItemStack.EMPTY);
     }
 
     private static List<RecipeInfo> getRecipesForItem(Item targetItem, @Nullable Level level) {
@@ -363,7 +384,7 @@ public class RecipeHelper {
                 type == RecipeType.STONECUTTING ||
                 recipe instanceof SmithingTransformRecipe ||
                 isNormalModRecipe(recipe) ||
-                isCookingWithContainerRecipe(recipe) ||
+                isRecipeWithContainer(recipe) ||
                 isCuttingBoardRecipe(recipe) ||
                 isMultipleToOneSmithingRecipe(recipe) ||
                 isBrewingStandRecipe(recipe) ||
@@ -383,8 +404,8 @@ public class RecipeHelper {
         info.resultAmount = info.result.getCount();
         info.amount = 0;
 
-        if (isCookingWithContainerRecipe(recipe)) {
-            handleCookingWithContainerRecipe(recipe, info);
+        if (isRecipeWithContainer(recipe)) {
+            handleRecipeWithContainer(recipe, info);
         } else if (isCuttingBoardRecipe(recipe)) {
             handleCuttingBoardRecipe(recipe, info);
         } else if (recipe.getType() == RecipeType.SMITHING) {
@@ -453,81 +474,29 @@ public class RecipeHelper {
     private static void handleSmithingRecipe(Recipe<?> recipe, RecipeInfo info) {
         RecipeType<?> type = recipe.getType();
 
-        Ingredient templateIng = null;
-        Ingredient baseIng = null;
-        Ingredient additionIng = null;
+        Optional<Ingredient> templateOpt = tryGetFields(recipe,
+                obj -> obj instanceof Ingredient ing && ing != Ingredient.EMPTY ? Optional.of(ing) : Optional.empty(),
+                "template");
+        Optional<Ingredient> baseOpt = tryGetFields(recipe,
+                obj -> obj instanceof Ingredient ing && ing != Ingredient.EMPTY ? Optional.of(ing) : Optional.empty(),
+                "base");
+        Optional<Ingredient> additionOpt = tryGetFields(recipe,
+                obj -> obj instanceof Ingredient ing && ing != Ingredient.EMPTY ? Optional.of(ing) : Optional.empty(),
+                "addition");
 
-        Field templateField = getField(recipe.getClass(), "template", Ingredient.class);
-        if (templateField != null) {
-            try {
-                templateIng = (Ingredient) templateField.get(recipe);
-            } catch (IllegalAccessException ignored) {}
-        }
-
-        Field baseField = getField(recipe.getClass(), "base", Ingredient.class);
-        if (baseField != null) {
-            try {
-                baseIng = (Ingredient) baseField.get(recipe);
-            } catch (IllegalAccessException ignored) {}
-        }
-
-        Field additionField = getField(recipe.getClass(), "addition", Ingredient.class);
-        if (additionField != null) {
-            try {
-                additionIng = (Ingredient) additionField.get(recipe);
-            } catch (IllegalAccessException ignored) {}
-        }
-
-        if (templateIng == null || baseIng == null || additionIng == null) {
+        if (templateOpt.isEmpty() || baseOpt.isEmpty() || additionOpt.isEmpty()) {
             info.hasUnanalysable = true;
             return;
         }
 
-        if (templateIng != Ingredient.EMPTY) {
-            ItemStack[] stacks = templateIng.getItems();
-            if (stacks.length > 0) {
-                ItemStack best = findBestItemStack(type, stacks);
-                if (best == null || best.isEmpty()) {
-                    info.hasUnanalysable = true;
-                    return;
-                }
-                info.ingredients.add(best);
-                info.amount += best.getCount();
-            } else {
+        for (Ingredient ingredient : new Ingredient[]{templateOpt.get(), baseOpt.get(), additionOpt.get()}) {
+            ItemStack best = extractBestFromIngredient(ingredient, type);
+            if (best.isEmpty()) {
                 info.hasUnanalysable = true;
                 return;
             }
-        }
-
-        if (baseIng != Ingredient.EMPTY) {
-            ItemStack[] stacks = baseIng.getItems();
-            if (stacks.length > 0) {
-                ItemStack best = findBestItemStack(type, stacks);
-                if (best == null || best.isEmpty()) {
-                    info.hasUnanalysable = true;
-                    return;
-                }
-                info.ingredients.add(best);
-                info.amount += best.getCount();
-            } else {
-                info.hasUnanalysable = true;
-                return;
-            }
-        }
-
-        if (additionIng != Ingredient.EMPTY) {
-            ItemStack[] stacks = additionIng.getItems();
-            if (stacks.length > 0) {
-                ItemStack best = findBestItemStack(type, stacks);
-                if (best == null || best.isEmpty()) {
-                    info.hasUnanalysable = true;
-                    return;
-                }
-                info.ingredients.add(best);
-                info.amount += best.getCount();
-            } else {
-                info.hasUnanalysable = true;
-            }
+            info.ingredients.add(best);
+            info.amount += best.getCount();
         }
     }
 
@@ -540,7 +509,7 @@ public class RecipeHelper {
         }
     }
 
-    private static boolean isCookingWithContainerRecipe(Recipe<?> recipe) {
+    private static boolean isRecipeWithContainer(Recipe<?> recipe) {
         try {
             RecipeType<?> type = recipe.getType();
             return RECIPE_TYPES_WITH_CONTAINER.contains(type.toString());
@@ -635,7 +604,7 @@ public class RecipeHelper {
         }
     }
 
-    private static void handleCookingWithContainerRecipe(Recipe<?> recipe, RecipeInfo info) {
+    private static void handleRecipeWithContainer(Recipe<?> recipe, RecipeInfo info) {
         List<Ingredient> ingredients = getRecipeIngredients(recipe);
         if (ingredients.isEmpty()) {
             info.hasUnanalysable = true;
@@ -657,329 +626,250 @@ public class RecipeHelper {
             }
         }
 
-        try {
-            Method getOutputContainerMethod = recipe.getClass().getMethod("getOutputContainer");
-            ItemStack container = (ItemStack) getOutputContainerMethod.invoke(recipe);
-
-            if (!container.isEmpty()) {
-                info.container = container;
-            }
-        } catch (Exception e) {
-            try {
-                Method getContainerOverrideMethod = recipe.getClass().getMethod("getContainerOverride");
-                ItemStack container = (ItemStack) getContainerOverrideMethod.invoke(recipe);
-
-                if (!container.isEmpty()) {
-                    info.container = container;
-                }
-            } catch (Exception ignored) {
-            }
+        ItemStack container = getRecipeContainer(recipe);
+        if (!container.isEmpty()) {
+            info.container = container;
         }
     }
 
-    @SuppressWarnings("unchecked")
     private static void handleCuttingBoardRecipe(Recipe<?> recipe, RecipeInfo info) {
-        try {
-            Method getRollableResultsMethod = recipe.getClass().getMethod("getRollableResults");
-            Object rollableResults = getRollableResultsMethod.invoke(recipe);
+        Optional<List<?>> rollableResultsOpt = tryInvokeMethods(recipe,
+                obj -> obj instanceof List<?> list ? Optional.of(list) : Optional.empty(),
+                "getRollableResults");
 
-            if (rollableResults instanceof List<?> results) {
-                if (results.size() != 1) {
-                    info.isComplex = true;
-                }
-
-                Object firstResult = results.getFirst();
-
-                Method getChanceMethod =
-                        firstResult.getClass().getMethod("chance");
-                float chance = (Float) getChanceMethod.invoke(firstResult);
-
-                if (Math.abs(chance - 1.0f) > 0.0001f) {
-                    info.isComplex = true;
-                }
-
-                Method getStackMethod =
-                        firstResult.getClass().getMethod("stack");
-                ItemStack resultStack = (ItemStack) getStackMethod.invoke(firstResult);
-                info.result = resultStack;
-                info.resultAmount = resultStack.getCount();
-            } else {
-                info.isComplex = true;
-            }
-
-            Method getInputMethod = recipe.getClass().getMethod("getInput");
-            Ingredient input = (Ingredient) getInputMethod.invoke(recipe);
-
-            if (input != Ingredient.EMPTY) {
-                ItemStack[] matchingItems = input.getItems();
-                if (matchingItems.length > 0) {
-                    ItemStack bestItemStack = findBestItemStack(recipe.getType(), matchingItems);
-                    if(bestItemStack == null || bestItemStack.isEmpty()){
-                        info.hasUnanalysable = true;
-                    }else {
-                        info.ingredients.add(bestItemStack);
-                        info.amount += bestItemStack.getCount();
-                    }
-                }
-            }
-        } catch (NoSuchMethodException e) {
-            try {
-                Method getResultsMethod = recipe.getClass().getMethod("getResults");
-                List<ItemStack> results = (List<ItemStack>) getResultsMethod.invoke(recipe);
-
-                if (results.size() != 1) {
-                    info.isComplex = true;
-                } else {
-                    info.result = results.getFirst();
-                    info.resultAmount = info.result.getCount();
-                }
-
-                Method getIngredientsMethod = recipe.getClass().getMethod("getIngredients");
-                NonNullList<Ingredient> ingredients = (NonNullList<Ingredient>) getIngredientsMethod.invoke(recipe);
-
-                for (Ingredient ingredient : ingredients) {
-                    if (ingredient != Ingredient.EMPTY) {
-                        ItemStack[] matchingItems = ingredient.getItems();
-                        if (matchingItems.length > 0) {
-                            ItemStack bestItemStack = findBestItemStack(recipe.getType(), matchingItems);
-                            if(bestItemStack == null || bestItemStack.isEmpty()){
-                                info.hasUnanalysable = true;
-                            }else {
-                                info.ingredients.add(bestItemStack);
-                                info.amount += bestItemStack.getCount();
-                            }
-                        }
-                    }
-                }
-            } catch (Exception ex) {
-                info.isComplex = true;
-            }
-        } catch (Exception e) {
+        if (rollableResultsOpt.isEmpty()) {
             info.isComplex = true;
+            return;
+        }
+
+        List<?> resultsList = rollableResultsOpt.get();
+        if (resultsList.size() != 1) {
+            info.isComplex = true;
+            return;
+        }
+
+        Object chanceResult = resultsList.getFirst();
+        Optional<ItemStack> stackOpt = tryInvokeMethods(chanceResult,
+                obj -> obj instanceof ItemStack stack && !stack.isEmpty() ? Optional.of(stack) : Optional.empty(),
+                "stack", "getStack");
+
+        if (stackOpt.isEmpty()) {
+            info.isComplex = true;
+            return;
+        }
+
+        Optional<Float> chanceOpt = tryInvokeMethods(chanceResult,
+                obj -> obj instanceof Float f ? Optional.of(f) : Optional.empty(),
+                "chance", "getChance");
+
+        if (chanceOpt.isEmpty() || chanceOpt.get() < 1.0f) {
+            info.isComplex = true;
+            return;
+        }
+
+        info.result = stackOpt.get().copy();
+        info.resultAmount = info.result.getCount();
+
+        Optional<Ingredient> inputOpt = tryInvokeMethods(recipe,
+                obj -> obj instanceof Ingredient ing && ing != Ingredient.EMPTY ? Optional.of(ing) : Optional.empty(),
+                "getInput");
+        if (inputOpt.isPresent()) {
+            ItemStack best = extractBestFromIngredient(inputOpt.get(), recipe.getType());
+            if (!best.isEmpty()) {
+                info.ingredients.add(best);
+                info.amount += best.getCount();
+            } else {
+                info.hasUnanalysable = true;
+            }
+        } else {
+            Optional<List<?>> ingredientsList = tryInvokeMethods(recipe,
+                    obj -> obj instanceof List<?> list && !list.isEmpty() ? Optional.of(list) : Optional.empty(),
+                    "getIngredients");
+            if (ingredientsList.isPresent()) {
+                for (Object obj : ingredientsList.get()) {
+                    if (obj instanceof Ingredient ing && ing != Ingredient.EMPTY) {
+                        ItemStack best = extractBestFromIngredient(ing, recipe.getType());
+                        if (!best.isEmpty()) {
+                            info.ingredients.add(best);
+                            info.amount += best.getCount();
+                        } else {
+                            info.hasUnanalysable = true;
+                        }
+                    } else {
+                        info.hasUnanalysable = true;
+                    }
+                }
+            } else {
+                info.hasUnanalysable = true;
+            }
         }
     }
 
     private static void handleMultipleToOneSmithingRecipe(Recipe<?> recipe, RecipeInfo info) {
-        try {
-            Class<?> recipeClass = recipe.getClass();
+        RecipeType<?> type = recipe.getType();
 
-            Method isMaterialIngredientMethod = recipeClass.getMethod("isMaterialIngredient", ItemStack.class);
-            Method inputSizeMethod = recipeClass.getMethod("inputSize");
+        Optional<Object> materialPredicate = tryGetFields(recipe, obj -> obj != null ? Optional.of(obj) : Optional.empty(), "material");
+        Optional<List<?>> inputsList = tryGetFields(recipe, obj -> obj instanceof List<?> list ? Optional.of(list) : Optional.empty(), "inputs");
 
-            int inputSize = (Integer) inputSizeMethod.invoke(recipe);
-            Collection<Item> allItems = BuiltInRegistries.ITEM.stream().toList();
+        if (materialPredicate.isEmpty() || inputsList.isEmpty()) {
+            info.hasUnanalysable = true;
+            return;
+        }
 
-            List<ItemStack> materialItems = new ArrayList<>();
-            for (Item item : allItems) {
-                ItemStack stack = new ItemStack(item);
-                if ((Boolean) isMaterialIngredientMethod.invoke(recipe, stack)) {
-                    materialItems.add(stack);
+        java.util.function.Function<Object, List<ItemStack>> extractStacks = predicate -> {
+            List<ItemStack> stacks = new ArrayList<>();
+            try {
+                Optional<Set<?>> itemsSet = tryInvokeMethods(predicate,
+                        obj -> obj instanceof Set<?> set && !set.isEmpty() ? Optional.of(set) : Optional.empty(),
+                        "items");
+                if (itemsSet.isPresent()) {
+                    for (Object itemObj : itemsSet.get()) {
+                        if (itemObj instanceof Item item) {
+                            stacks.add(new ItemStack(item));
+                        }
+                    }
+                } else {
+                    Optional<ItemStack[]> matchingStacks = tryInvokeMethods(predicate,
+                            obj -> obj instanceof ItemStack[] arr && arr.length > 0 ? Optional.of(arr) : Optional.empty(),
+                            "getMatchingStacks", "getItems");
+                    matchingStacks.ifPresent(itemStacks -> stacks.addAll(Arrays.asList(itemStacks)));
                 }
-            }
+            } catch (Exception ignored) {}
+            return stacks;
+        };
 
-            ItemStack bestMaterial = findBestItemStack(recipe.getType(), materialItems.toArray(new ItemStack[0]));
-            if (bestMaterial == null || bestMaterial.isEmpty()) {
+        List<ItemStack> materialCandidates = extractStacks.apply(materialPredicate.get());
+        if (materialCandidates.isEmpty()) {
+            info.hasUnanalysable = true;
+            return;
+        }
+        ItemStack bestMaterial = findBestItemStack(type, materialCandidates.toArray(new ItemStack[0]));
+        if (bestMaterial.isEmpty()) {
+            info.hasUnanalysable = true;
+            return;
+        }
+        info.ingredients.add(bestMaterial);
+        info.amount += bestMaterial.getCount();
+
+        List<?> inputs = inputsList.get();
+        for (Object inputPredicate : inputs) {
+            List<ItemStack> inputCandidates = extractStacks.apply(inputPredicate);
+            if (inputCandidates.isEmpty()) {
                 info.hasUnanalysable = true;
                 return;
             }
-
-            info.ingredients.add(bestMaterial);
-            info.amount += bestMaterial.getCount();
-
-            for (int i = 0; i < inputSize; i++) {
-                List<ItemStack> inputItems = new ArrayList<>();
-                for (Item item : allItems) {
-                    ItemStack stack = new ItemStack(item);
-                    try {
-                        Method isInputIngredientMethod = recipeClass.getMethod("isInputIngredient", int.class, ItemStack.class);
-                        if ((Boolean) isInputIngredientMethod.invoke(recipe, i, stack)) {
-                            inputItems.add(stack);
-                        }
-                    } catch (NoSuchMethodException e) {
-                        break;
-                    }
-                }
-
-                ItemStack bestInput = findBestItemStack(recipe.getType(), inputItems.toArray(new ItemStack[0]));
-                if (bestInput == null || bestInput.isEmpty()) {
-                    info.hasUnanalysable = true;
-                    return;
-                }
-
-                info.ingredients.add(bestInput);
-                info.amount += bestInput.getCount();
+            ItemStack bestInput = findBestItemStack(type, inputCandidates.toArray(new ItemStack[0]));
+            if (bestInput.isEmpty()) {
+                info.hasUnanalysable = true;
+                return;
             }
-
-        } catch (Exception e) {
-            info.hasUnanalysable = true;
+            info.ingredients.add(bestInput);
+            info.amount += bestInput.getCount();
         }
     }
 
     private static void handleBrewingStandRecipe(Recipe<?> recipe, RecipeInfo info) {
-        try {
-            RecipeType<?> type = recipe.getType();
-            Method getInputMethod = recipe.getClass().getMethod("getInput");
-            Ingredient inputIngredient = (Ingredient) getInputMethod.invoke(recipe);
+        RecipeType<?> type = recipe.getType();
+        info.isBrewingStandRecipe = true;
 
-            Method getBottleMethod = recipe.getClass().getMethod("getBottle");
-            Ingredient bottleIngredient = (Ingredient) getBottleMethod.invoke(recipe);
+        Optional<Ingredient> inputOpt = tryInvokeMethods(recipe,
+                obj -> obj instanceof Ingredient ing && ing != Ingredient.EMPTY ? Optional.of(ing) : Optional.empty(),
+                "getInput");
+        Optional<Ingredient> bottleOpt = tryInvokeMethods(recipe,
+                obj -> obj instanceof Ingredient ing && ing != Ingredient.EMPTY ? Optional.of(ing) : Optional.empty(),
+                "getBottle");
 
-            if (inputIngredient != Ingredient.EMPTY) {
-                ItemStack[] inputItems = inputIngredient.getItems();
-                if (inputItems.length > 0) {
-                    ItemStack bestInput = findBestItemStack(type, inputItems);
-                    if(bestInput == null || bestInput.isEmpty()){
-                        info.hasUnanalysable = true;
-                    } else {
-                        info.ingredients.add(bestInput);
-                        info.amount += bestInput.getCount();
-                    }
-                }
-            }
-
-            if (bottleIngredient != Ingredient.EMPTY) {
-                ItemStack[] bottleItems = bottleIngredient.getItems();
-                if (bottleItems.length > 0) {
-                    ItemStack bestBottle = findBestItemStack(type, bottleItems);
-                    if(bestBottle == null || bestBottle.isEmpty()){
-                        info.hasUnanalysable = true;
-                    } else {
-                        info.ingredients.add(bestBottle);
-                        info.amount += bestBottle.getCount();
-                    }
-                }
-            }
-            info.isBrewingStandRecipe = true;
-        } catch (Exception e) {
-            info.hasUnanalysable = true;
-        }
-    }
-
-    private static void handleWeaponFusionRecipe(Recipe<?> recipe, RecipeInfo info) {
-        try {
-            RecipeType<?> type = recipe.getType();
-            Method getBaseIngredientMethod = recipe.getClass().getMethod("getbaseIngredient");
-            Method getAdditionIngredientMethod = recipe.getClass().getMethod("getAdditionIngredient");
-
-            Ingredient baseIngredient = (Ingredient) getBaseIngredientMethod.invoke(recipe);
-            Ingredient additionIngredient = (Ingredient) getAdditionIngredientMethod.invoke(recipe);
-
-            if (baseIngredient != Ingredient.EMPTY) {
-                ItemStack[] baseItems = baseIngredient.getItems();
-                if (baseItems.length > 0) {
-                    ItemStack bestBase = findBestItemStack(type, baseItems);
-                    if(bestBase == null || bestBase.isEmpty()){
-                        info.hasUnanalysable = true;
-                    } else {
-                        info.ingredients.add(bestBase);
-                        info.amount += bestBase.getCount();
-                    }
-                }
-            }
-
-            if (additionIngredient != Ingredient.EMPTY) {
-                ItemStack[] additionItems = additionIngredient.getItems();
-                if (additionItems.length > 0) {
-                    ItemStack bestAddition = findBestItemStack(type, additionItems);
-                    if(bestAddition == null || bestAddition.isEmpty()){
-                        info.hasUnanalysable = true;
-                    } else {
-                        info.ingredients.add(bestAddition);
-                        info.amount += bestAddition.getCount();
-                    }
-                }
-            }
-        } catch (Exception e) {
-            info.hasUnanalysable = true;
-        }
-    }
-
-    private static void handleGlodiumRecipe(Recipe<?> recipe, RecipeInfo info) {
-        try {
-            Method getInputMethod = recipe.getClass().getMethod("getInput");
-            Object ingredientStack = getInputMethod.invoke(recipe);
-
-            Method getIngredientMethod = ingredientStack.getClass().getMethod("getIngredient");
-            Object ingredient = getIngredientMethod.invoke(ingredientStack);
-
-            Method getAmountMethod = ingredientStack.getClass().getMethod("getAmount");
-            int amount = (Integer) getAmountMethod.invoke(ingredientStack);
-
-            if (ingredient instanceof Ingredient inputIngredient) {
-                if (inputIngredient != Ingredient.EMPTY) {
-                    ItemStack[] matchingItems = inputIngredient.getItems();
-                    if (matchingItems.length > 0) {
-                        ItemStack bestItemStack = findBestItemStack(recipe.getType(), matchingItems);
-                        if (bestItemStack == null || bestItemStack.isEmpty()) {
-                            info.hasUnanalysable = true;
-                        } else {
-                            ItemStack stackWithAmount = bestItemStack.copy();
-                            stackWithAmount.setCount(amount);
-                            info.ingredients.add(stackWithAmount);
-                            info.amount += amount;
-                        }
-                    } else {
-                        info.hasUnanalysable = true;
-                    }
-                } else {
-                    info.hasUnanalysable = true;
-                }
+        if (inputOpt.isPresent()) {
+            ItemStack best = extractBestFromIngredient(inputOpt.get(), type);
+            if (!best.isEmpty()) {
+                info.ingredients.add(best);
+                info.amount += best.getCount();
             } else {
                 info.hasUnanalysable = true;
             }
-
-        } catch (Exception e) {
-            info.hasUnanalysable = true;
         }
+        if (bottleOpt.isPresent()) {
+            ItemStack best = extractBestFromIngredient(bottleOpt.get(), type);
+            if (!best.isEmpty()) {
+                info.ingredients.add(best);
+                info.amount += best.getCount();
+            } else {
+                info.hasUnanalysable = true;
+            }
+        }
+        if (info.ingredients.isEmpty()) info.hasUnanalysable = true;
     }
 
+    private static void handleWeaponFusionRecipe(Recipe<?> recipe, RecipeInfo info) {
+        RecipeType<?> type = recipe.getType();
 
-    @SuppressWarnings("unchecked")
-    private static void handleGlodiumsRecipe(Recipe<?> recipe, RecipeInfo info) {
-        try {
-            Method getInputsMethod = recipe.getClass().getMethod("getInputs");
-            List<Object> inputs = (List<Object>) getInputsMethod.invoke(recipe);
+        Optional<Ingredient> baseOpt = tryInvokeMethods(recipe,
+                obj -> obj instanceof Ingredient ing && ing != Ingredient.EMPTY ? Optional.of(ing) : Optional.empty(),
+                "getbaseIngredient", "getBaseIngredient");
+        Optional<Ingredient> additionOpt = tryInvokeMethods(recipe,
+                obj -> obj instanceof Ingredient ing && ing != Ingredient.EMPTY ? Optional.of(ing) : Optional.empty(),
+                "getAdditionIngredient");
 
-            for (Object ingredientStack : inputs) {
-                if (ingredientStack != null) {
-                    Method isEmptyMethod = ingredientStack.getClass().getMethod("isEmpty");
-                    if ((Boolean) isEmptyMethod.invoke(ingredientStack)) {
-                        continue;
-                    }
-
-                    Method getIngredientMethod = ingredientStack.getClass().getMethod("getIngredient");
-                    Object ingredient = getIngredientMethod.invoke(ingredientStack);
-
-                    Method getAmountMethod = ingredientStack.getClass().getMethod("getAmount");
-                    int amount = (Integer) getAmountMethod.invoke(ingredientStack);
-
-                    if (ingredient instanceof Ingredient inputIngredient) {
-                        if (inputIngredient != Ingredient.EMPTY) {
-                            ItemStack[] matchingItems = inputIngredient.getItems();
-                            if (matchingItems.length > 0) {
-                                ItemStack bestItemStack = findBestItemStack(recipe.getType(), matchingItems);
-                                if (bestItemStack == null || bestItemStack.isEmpty()) {
-                                    info.hasUnanalysable = true;
-                                    return;
-                                }
-                                ItemStack stackWithAmount = bestItemStack.copy();
-                                stackWithAmount.setCount(amount);
-                                info.ingredients.add(stackWithAmount);
-                                info.amount += amount;
-                            } else {
-                                info.hasUnanalysable = true;
-                                return;
-                            }
-                        } else {
-                            info.hasUnanalysable = true;
-                            return;
-                        }
-                    }
-                }
-            }
-
-        } catch (Exception e) {
+        if (baseOpt.isEmpty() || additionOpt.isEmpty()) {
             info.hasUnanalysable = true;
+            return;
+        }
+
+        ItemStack bestBase = extractBestFromIngredient(baseOpt.get(), type);
+        ItemStack bestAddition = extractBestFromIngredient(additionOpt.get(), type);
+        if (bestBase.isEmpty() || bestAddition.isEmpty()) {
+            info.hasUnanalysable = true;
+            return;
+        }
+        info.ingredients.add(bestBase);
+        info.amount += bestBase.getCount();
+        info.ingredients.add(bestAddition);
+        info.amount += bestAddition.getCount();
+    }
+
+    private static void handleGlodiumRecipe(Recipe<?> recipe, RecipeInfo info) {
+        Optional<Object> ingredientStackOpt = tryInvokeMethods(recipe,
+                obj -> obj != null ? Optional.of(obj) : Optional.empty(),
+                "getInput");
+        if (ingredientStackOpt.isEmpty()) {
+            info.hasUnanalysable = true;
+            return;
+        }
+        ItemStack extracted = extractFromGlodiumStack(ingredientStackOpt.get(), recipe.getType());
+        if (extracted.isEmpty()) {
+            info.hasUnanalysable = true;
+            return;
+        }
+        info.ingredients.add(extracted);
+        info.amount += extracted.getCount();
+    }
+
+    private static void handleGlodiumsRecipe(Recipe<?> recipe, RecipeInfo info) {
+        Optional<List<?>> inputsOpt = tryInvokeMethods(recipe,
+                obj -> obj instanceof List<?> list ? Optional.of(list) : Optional.empty(),
+                "getInputs");
+        if (inputsOpt.isEmpty()) {
+            info.hasUnanalysable = true;
+            return;
+        }
+        List<?> inputs = inputsOpt.get();
+        for (Object stackObj : inputs) {
+            if (stackObj == null) continue;
+            try {
+                Method isEmptyMethod = getMethod(stackObj.getClass(), "isEmpty");
+                if (isEmptyMethod != null) {
+                    Boolean isEmpty = (Boolean) isEmptyMethod.invoke(stackObj);
+                    if (isEmpty != null && isEmpty) continue;
+                }
+            } catch (Exception ignored) {}
+
+            ItemStack extracted = extractFromGlodiumStack(stackObj, recipe.getType());
+            if (extracted.isEmpty()) {
+                info.hasUnanalysable = true;
+                return;
+            }
+            info.ingredients.add(extracted);
+            info.amount += extracted.getCount();
         }
     }
 
@@ -1068,14 +958,141 @@ public class RecipeHelper {
         }
     }
 
-    private static Field getField(Class<?> clazz, String fieldName, Class<?> expectedType) {
+    private static final Map<Class<?>, Map<String, Method>> METHOD_CACHE = new ConcurrentHashMap<>();
+    private static final Map<Class<?>, Map<String, Field>> FIELD_CACHE = new ConcurrentHashMap<>();
+
+    @Nullable
+    private static Method getMethod(Class<?> clazz, String methodName) {
+        if (clazz == null || methodName == null) return null;
+
+        return METHOD_CACHE.computeIfAbsent(clazz, k -> new ConcurrentHashMap<>())
+                .computeIfAbsent(methodName, name -> {
+                    try {
+                        Method method = clazz.getMethod(name);
+                        method.setAccessible(true);
+                        return method;
+                    } catch (NoSuchMethodException e) {
+                        return null;
+                    }
+                });
+    }
+
+    @Nullable
+    private static Field getField(Class<?> clazz, String fieldName) {
+        if (clazz == null || fieldName == null) return null;
+
+        Map<String, Field> classCache = FIELD_CACHE.computeIfAbsent(clazz, k -> new ConcurrentHashMap<>());
+        Field field = classCache.get(fieldName);
+        if (field != null) {
+            return field;
+        }
+
+        field = findFieldRecursiveAndCache(clazz, fieldName);
+        if (field != null) {
+            classCache.put(fieldName, field);
+        }
+        return field;
+    }
+
+    @Nullable
+    private static Field findFieldRecursiveAndCache(Class<?> clazz, String fieldName) {
+        if (clazz == null || fieldName == null) return null;
         try {
             Field field = clazz.getDeclaredField(fieldName);
-            if (expectedType.isAssignableFrom(field.getType())) {
-                field.setAccessible(true);
-                return field;
+            field.setAccessible(true);
+            return field;
+        } catch (NoSuchFieldException e) {
+            Class<?> superclass = clazz.getSuperclass();
+            if (superclass != null && superclass != Object.class) {
+                return findFieldRecursiveAndCache(superclass, fieldName);
             }
-        } catch (NoSuchFieldException ignored) {}
-        return null;
+            return null;
+        }
+    }
+
+    private static <T> Optional<T> tryInvokeMethods(Object target, Function<Object, Optional<T>> converter, String... methodNames) {
+        if (target == null || methodNames == null) return Optional.empty();
+        Class<?> clazz = target.getClass();
+        for (String name : methodNames) {
+            if (name == null) continue;
+            Method method = getMethod(clazz, name);
+            if (method == null) continue;
+            try {
+                Object result = method.invoke(target);
+                Optional<T> converted = converter.apply(result);
+                if (converted.isPresent()) {
+                    return converted;
+                }
+            } catch (Exception ignored) {}
+        }
+        return Optional.empty();
+    }
+
+    private static <T> Optional<T> tryGetFields(Object target, Function<Object, Optional<T>> converter, String... fieldNames) {
+        if (target == null || fieldNames == null) return Optional.empty();
+        Class<?> clazz = target.getClass();
+        for (String name : fieldNames) {
+            if (name == null) continue;
+            Field field = getField(clazz, name);
+            if (field == null) continue;
+            try {
+                Object value = field.get(target);
+                Optional<T> converted = converter.apply(value);
+                if (converted.isPresent()) {
+                    return converted;
+                }
+            } catch (IllegalAccessException ignored) {}
+        }
+        return Optional.empty();
+    }
+
+    private static ItemStack extractItemStackFromObject(Object obj) {
+        if (obj instanceof ItemStack stack && !stack.isEmpty()) {
+            return stack;
+        }
+        if (obj instanceof Ingredient ingredient && ingredient != Ingredient.EMPTY) {
+            ItemStack[] items = ingredient.getItems();
+            if (items.length > 0 && items[0] != null && !items[0].isEmpty()) {
+                return items[0].copy();
+            }
+        }
+        return ItemStack.EMPTY;
+    }
+
+    private static Optional<ItemStack> tryExtractItemStack(Object obj) {
+        ItemStack stack = extractItemStackFromObject(obj);
+        return stack.isEmpty() ? Optional.empty() : Optional.of(stack);
+    }
+
+    private static ItemStack extractBestFromIngredient(Ingredient ing, RecipeType<?> type) {
+        ItemStack[] items = ing.getItems();
+        if (items.length == 0) return ItemStack.EMPTY;
+        return findBestItemStack(type, items);
+    }
+
+    private static ItemStack extractFromGlodiumStack(Object stackObj, RecipeType<?> type) {
+        if (stackObj == null) return ItemStack.EMPTY;
+        try {
+            Optional<Ingredient> ingOpt = tryInvokeMethods(stackObj,
+                    obj -> obj instanceof Ingredient ing && ing != Ingredient.EMPTY ? Optional.of(ing) : Optional.empty(),
+                    "getIngredient");
+            Optional<Integer> amountOpt = tryInvokeMethods(stackObj,
+                    obj -> obj instanceof Integer i ? Optional.of(i) : Optional.empty(),
+                    "getAmount");
+            if (ingOpt.isEmpty() || amountOpt.isEmpty()) return ItemStack.EMPTY;
+
+            Ingredient ing = ingOpt.get();
+            int amount = amountOpt.get();
+            ItemStack[] items = ing.getItems();
+            if (items.length == 0) return ItemStack.EMPTY;
+
+            ItemStack best = findBestItemStack(type, items);
+            if (best.isEmpty()) return ItemStack.EMPTY;
+            best = best.copy();
+            best.setCount(amount);
+            return best;
+        } catch (Exception e) {
+            return ItemStack.EMPTY;
+        }
     }
 }

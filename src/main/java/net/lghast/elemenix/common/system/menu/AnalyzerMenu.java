@@ -1,5 +1,6 @@
 package net.lghast.elemenix.common.system.menu;
 
+import net.lghast.elemenix.Elemenics;
 import net.lghast.elemenix.common.content.blockentity.InfuserBlockEntity;
 import net.lghast.elemenix.common.content.item.AnalyzerItem;
 import net.lghast.elemenix.common.content.item.MemorizerItem;
@@ -8,6 +9,7 @@ import net.lghast.elemenix.common.content.item.StorageItem;
 import net.lghast.elemenix.common.system.datacomponent.ElemenicStorage;
 import net.lghast.elemenix.common.system.datacomponent.MemoryData;
 import net.lghast.elemenix.common.system.datacomponent.RemoteStorageBinding;
+import net.lghast.elemenix.compat.ftbquests.util.AnalyzerTaskHelper;
 import net.lghast.elemenix.register.content.ModItems;
 import net.lghast.elemenix.register.system.ModDataComponents;
 import net.lghast.elemenix.register.system.ModMenus;
@@ -255,6 +257,9 @@ public class AnalyzerMenu extends AbstractContainerMenu {
         }
         recordToMemorizer(inputStack);
         player.awardStat(ModStats.DECONSTRUCTED_ITEMS.get(), inputStack.getCount());
+        if(Elemenics.isFtbQuestsLoaded() && player instanceof ServerPlayer serverPlayer) {
+            AnalyzerTaskHelper.handleDeconstructProgress(serverPlayer, inputStack.copy(), inputStack.getCount());
+        }
 
         analyzerContainer.setItem(INPUT_SLOT, ItemStack.EMPTY);
 
@@ -375,6 +380,11 @@ public class AnalyzerMenu extends AbstractContainerMenu {
             newMemories.add(itemId);
             player.awardStat(ModStats.MEMORIZER_RECORDS_ADDED.get());
             memorizerStack.set(ModDataComponents.MEMORY_DATA.get(), currentMemoryData.withResolvedItems(newMemories));
+
+            if(Elemenics.isFtbQuestsLoaded() && player instanceof ServerPlayer serverPlayer) {
+                AnalyzerTaskHelper.handleMemorizeProgress(serverPlayer, inputStack.copy());
+            }
+
             slots.get(MEMORIZER_SLOT).setChanged();
         }
     }
@@ -428,6 +438,9 @@ public class AnalyzerMenu extends AbstractContainerMenu {
             setCarried(resultStack);
         }
         player.awardStat(ModStats.RECONSTRUCTED_ITEMS.get(), maxAmount);
+        if(Elemenics.isFtbQuestsLoaded() && player instanceof ServerPlayer serverPlayer) {
+            AnalyzerTaskHelper.handleReconstructProgress(serverPlayer, resultStack.copy(), maxAmount);
+        }
 
         saveStorageAndMemoryData();
         broadcastChanges();

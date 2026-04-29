@@ -1,0 +1,11 @@
+{
+  "mod_id": "rusticdelight",
+  "entries": [
+    { "id": "rusticdelight:cotton_boll", "elemenix": "organix", "value": 24 },
+    { "id": "rusticdelight:coffee_beans", "elemenix": "organix", "value": 20 },
+    { "id": "rusticdelight:bell_pepper_green", "constituents": [18, 0, 8, 0, 0, 0] },
+    { "id": "rusticdelight:bell_pepper_red", "constituents": [18, 0, 8, 0, 0, 0] },
+    { "id": "rusticdelight:bell_pepper_yellow", "constituents": [18, 0, 8, 0, 0, 0] },
+    { "id": "rusticdelight:calamari", "constituents": [25, 0, 10, 0, 0, 0] }
+  ]
+}

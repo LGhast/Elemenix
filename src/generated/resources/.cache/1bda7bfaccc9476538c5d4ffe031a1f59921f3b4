@@ -1,4 +1,4 @@
-// 1.21.1	2026-03-06T15:32:28.7016392	Tags for minecraft:item mod id elemenix
+// 1.21.1	2026-04-25T17:03:57.6948439	Tags for minecraft:item mod id elemenix
 41602df7c255b970fd2469e0ae31a669fe9fd4f0 data/elemenix/tags/item/analyzer_unrecordable.json
 002a1f0e0b109cd883572ac23180e47312fdd8bb data/elemenix/tags/item/big_flowers.json
 47f300d49d177398bdeb09deddc1ccdb34ba0a69 data/elemenix/tags/item/concrete.json
@@ -10,7 +10,6 @@ a8e3cdd07707862c9287a13bbcb1ad927c21bde8 data/elemenix/tags/item/dead_coral_bloc
 f447b7a41d4f0a30a37d2ca0255a43404cb37f24 data/elemenix/tags/item/dyed_beds.json
 c9783bd9d4d6307eb46ee43ca43c6102e8ad53bd data/elemenix/tags/item/dyed_shulker_boxes.json
 f318dceccf8a2bc5ae00b161f0bbd47cb616403d data/elemenix/tags/item/dyed_wools.json
-c2780400e2740aa6cafa285d6f00be48fbbd3304 data/elemenix/tags/item/eggs_with_terrix_shell.json
 19ded44dec005812482659ad1389b3044c247f12 data/elemenix/tags/item/elemenic_deconstructors.json
 fcb8476625195d2351238f217849450d2e531edf data/elemenix/tags/item/elemenic_transformers.json
 63b7b24767e03c11f5fc01e724ebfeed7e575273 data/elemenix/tags/item/equilibrium.json

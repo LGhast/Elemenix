@@ -165,6 +165,15 @@
   "key.categories.elemenics": "元質学",
   "key.elemenix.open_memorizer_box": "メモリーディスクボックスを開く",
 
+  "command.elemenix.show.invalid_item": "無効なアイテムID：%s",
+  "command.elemenix.show.result": "[%s]の元質構成：%s",
+  "command.elemenix.unanalysable.empty": "解析不能なアイテムは見つかりませんでした。",
+  "command.elemenix.unanalysable.header": "\n合計 %d 個の解析不能なアイテム：",
+  "command.elemenix.unanalysable.entry": "  %s (%s)",
+  "command.elemenix.unanalysable.page_info": "%d / %d ページ",
+  "command.elemenix.unanalysable.next_page_hint": "次のページはこちらをクリック",
+  "command.elemenix.unanalysable.page_out_of_range": "ページ番号が範囲外です。最大ページ数は %s",
+
   "tag.item.elemenix.essences": "元質純質",
   "tag.item.elemenix.equilibrium": "元質均衡体",
   "tag.item.elemenix.vinyl_discs": "レコードディスク",
@@ -267,5 +276,10 @@
   "jei.info.elemenic_storage": "元質ストレージは、元質注入塔に貯蔵された元質を一時保管するために使用され、リモート元質ストレージとの接続を確立するためにも使用されます。必要に応じて、プレイヤーはストレージに一時保管されている元質を元質アナライザーに転送できます。この方法はアイテムを分解する場合と類似しています。",
   "jei.info.remote_elemenic_storage": "リモート元質ストレージは、元質ストレージ内の元質をリモートで呼び出すために使用されます。このアイテム自体は元質を直接保存せず、プレイヤーがストレージユニットを物理的に回収することなく、その元質の備蓄を転送する方法を提供します。",
   "jei.info.elemenic_scanner": "元質スキャナーは、コンテナブロック内の全アイテムの元質総量を計算し、プレイヤーに表示するために使用します。",
-  "jei.info.scanning_storage": "スキャニングストレージは、コンテナブロック内の全アイテムを迅速に分解して保管します。このプロセスはコンテナを開く動作としても扱われるため、トラップチェストなどの特殊なコンテナの作動効果を引き起こす可能性があります。"
+  "jei.info.scanning_storage": "スキャニングストレージは、コンテナブロック内の全アイテムを迅速に分解して保管します。このプロセスはコンテナを開く動作としても扱われるため、トラップチェストなどの特殊なコンテナの作動効果を引き起こす可能性があります。",
+
+  "ftbquests.task.elemenix.deconstruct_item": "アナライザーで分解",
+  "ftbquests.task.elemenix.reconstruct_item": "アナライザーで再構成",
+  "ftbquests.task.elemenix.memorize_item": "アイテムを記憶する",
+  "ftbquests.task.elemenix.count": "累計数"
 }

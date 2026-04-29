@@ -1,0 +1,14 @@
+{
+  "mod_id": "minersdelight",
+  "entries": [
+    { "id": "minersdelight:bat_wing", "preset": "rawMeat", "hunger": 3 },
+    { "id": "minersdelight:spider_leg", "preset": "rawMeat", "hunger": 10 },
+    { "id": "minersdelight:squid", "preset": "rawMeat", "hunger": 6, "flumix_addition": 4 },
+    { "id": "minersdelight:tentacles", "preset": "rawMeat", "hunger": 2, "flumix_addition": 2 },
+    { "id": "minersdelight:cave_carrot", "constituents": [20, 0, 8, 0, 0, 0] },
+    { "id": "minersdelight:gossypium", "constituents": [24, 0, 6, 0, 0, 0] },
+    { "id": "minersdelight:wild_cave_carrots", "constituents": [64, 0, 20, 0, 0, 0] },
+    { "id": "minersdelight:silverfish_eggs", "constituents": [12, 0, 5, 0, 0, 0] },
+    { "id": "minersdelight:arthropod", "constituents": [24, 0, 2, 0, 0, 0] }
+  ]
+}

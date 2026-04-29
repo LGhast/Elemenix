@@ -1,0 +1,24 @@
+{
+  "values": [
+    {
+      "id": "#c:gems/amethyst",
+      "required": false
+    },
+    {
+      "id": "#c:gems/jade",
+      "required": false
+    },
+    {
+      "id": "#c:gems/ruby",
+      "required": false
+    },
+    {
+      "id": "#c:gems/topaz",
+      "required": false
+    },
+    {
+      "id": "#c:gems/sapphire",
+      "required": false
+    }
+  ]
+}

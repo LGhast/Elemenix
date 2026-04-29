@@ -102,6 +102,16 @@ public class ModTags {
             ResourceLocation.parse("c:foods")
     );
 
+    public static final TagKey<Item> C_SLIMEBALLS = TagKey.create(
+            Registries.ITEM,
+            ResourceLocation.parse("c:slimeballs")
+    );
+
+    public static final TagKey<Item> C_SLIME_BALLS = TagKey.create(
+            Registries.ITEM,
+            ResourceLocation.parse("c:slime_balls")
+    );
+
     public static final TagKey<Item> ELEMENIC_TRANSFORMERS = TagKey.create(
             Registries.ITEM,
             ResourceLocation.parse("elemenix:elemenic_transformers")

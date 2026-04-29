@@ -1,0 +1,21 @@
+{
+  "mod_id": "farmersdelight",
+  "entries": [
+    { "id": "#farmersdelight:wild_crops", "constituents": [64, 0, 24, 0, 0, 0] },
+    { "id": "#farmersdelight:barks", "elemenix": "organix", "value": 7 },
+    { "id": "farmersdelight:sandy_shrub", "preset": "grassVineLeaves" },
+    { "id": "farmersdelight:straw", "elemenix": "organix", "value": 12 },
+    { "id": "farmersdelight:tree_bark", "elemenix": "organix", "value": 7 },
+    { "id": "farmersdelight:tomato", "constituents": [20, 0, 12, 0, 0, 0] },
+    { "id": "farmersdelight:rotten_tomato", "constituents": [18, 0, 10, 0, 0, 0] },
+    { "id": "farmersdelight:onion", "constituents": [20, 0, 10, 0, 0, 0] },
+    { "id": "farmersdelight:cabbage", "constituents": [26, 0, 8, 0, 0, 0] },
+    { "id": "farmersdelight:rice_panicle", "constituents": [24, 0, 5, 0, 0, 0] },
+    { "id": "farmersdelight:rice", "constituents": [24, 0, 0, 0, 0, 0] },
+    { "id": "farmersdelight:brown_mushroom_colony", "constituents": [90, 0, 30, 0, 0, 0] },
+    { "id": "farmersdelight:red_mushroom_colony", "constituents": [90, 0, 30, 0, 0, 0] },
+    { "id": "farmersdelight:chicken_cuts", "constituents": [15, 0, 4, 0, 0, 0] },
+    { "id": "farmersdelight:cod_slice", "constituents": [12, 0, 4, 0, 0, 0] },
+    { "id": "farmersdelight:salmon_slice", "constituents": [15, 0, 4, 0, 0, 0] }
+  ]
+}

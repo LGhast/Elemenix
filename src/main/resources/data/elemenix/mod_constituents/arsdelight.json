@@ -1,0 +1,8 @@
+{
+  "mod_id": "arsdelight",
+  "entries": [
+    { "id": "arsdelight:wilden_meat", "preset": "rawMeat", "hunger": 10 },
+    { "id": "arsdelight:chimera_meat", "preset": "rawMeat", "hunger": 18 },
+    { "id": "arsdelight:chimera_horn", "constituents": [10, 80, 0, 0, 0, 100] }
+  ]
+}

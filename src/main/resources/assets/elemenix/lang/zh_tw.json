@@ -199,6 +199,15 @@
   "stat.elemenix.scanner_scans": "元質掃描器掃描容器次數",
   "stat.elemenix.scanning_storage_scans": "掃描式儲存器掃描容器次數",
 
+  "command.elemenix.show.invalid_item": "無效的物品ID：%s",
+  "command.elemenix.show.result": "[%s]的元質成分為：%s",
+  "command.elemenix.unanalysable.empty": "沒有找到無法解析的物品。",
+  "command.elemenix.unanalysable.header": "\n共有 %d 個無法解析的物品：",
+  "command.elemenix.unanalysable.entry": "  %s (%s)",
+  "command.elemenix.unanalysable.page_info": "第 %d / %d 頁",
+  "command.elemenix.unanalysable.next_page_hint": "點擊此處查看下一頁",
+  "command.elemenix.unanalysable.page_out_of_range": "頁碼超出範圍，最大頁數為 %s",
+
   "config.elemenix.digit_grouping_by_fours": "四位分節法",
   "config.elemenix.show_constituent_tooltips": "顯示元質成分",
   "config.elemenix.show_unanalysable_tooltips": "顯示不可解析資訊",
@@ -267,5 +276,10 @@
   "jei.info.elemenic_storage": "元質儲存器用於暫存元質注入塔儲存的元質，也可用於和遠程元質儲存器建立連接。當玩家需要時，可將元質儲存器中暫存的元質轉移至元質分析器中，其方法與解構物品類似。",
   "jei.info.remote_elemenic_storage": "遠程元質儲存器用於遠程調用元質儲存器中的元質，該物品並不直接儲存任何元質，僅為玩家提供一種無需取出儲存器即可轉移其元質儲量的方法。",
   "jei.info.elemenic_scanner": "元質掃描器用於掃描並計算一個容器方塊中所有物品的元質總和，並為玩家顯示。",
-  "jei.info.scanning_storage": "掃描式儲存器可快速解構一個容器方塊中的所有物品並將其儲存起來，該過程也會被視為打開容器，可觸發陷阱箱等特殊容器的開啟效果。"
+  "jei.info.scanning_storage": "掃描式儲存器可快速解構一個容器方塊中的所有物品並將其儲存起來，該過程也會被視為打開容器，可觸發陷阱箱等特殊容器的開啟效果。",
+
+  "ftbquests.task.elemenix.deconstruct_item": "使用解析器解構物品",
+  "ftbquests.task.elemenix.reconstruct_item": "使用解析器重構物品",
+  "ftbquests.task.elemenix.memorize_item": "記憶物品",
+  "ftbquests.task.elemenix.count": "累計數量"
 }

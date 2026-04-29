@@ -1,0 +1,16 @@
+{
+  "mod_id": "terra_guns",
+  "entries": [
+    { "id": "terra_guns:blowgun", "elemenix": "organix", "value": 240 },
+    { "id": "terra_guns:snowball_cannon", "elemenix": "metallix", "value": 1300 },
+    { "id": "terra_guns:musket_bullet", "constituents": [0, 4, 0, 20, 2, 0] },
+    { "id": "terra_guns:hand_gun", "constituents": [80, 0, 0, 800, 0, 0] },
+    { "id": "terra_guns:flintlock_pistol", "constituents": [120, 0, 0, 500, 0, 0] },
+    { "id": "terra_guns:the_undertaker", "constituents": [100, 0, 0, 520, 0, 0] },
+    { "id": "terra_guns:shotgun", "constituents": [80, 0, 0, 1250, 0, 0] },
+    { "id": "terra_guns:tactical_shotgun", "constituents": [100, 0, 0, 2500, 100, 0] },
+    { "id": "terra_guns:boomstick", "constituents": [100, 0, 0, 1200, 0, 0] },
+    { "id": "terra_guns:musket", "constituents": [80, 0, 0, 1500, 0, 0] },
+    { "id": "terra_guns:minishark", "constituents": [80, 0, 0, 1200, 50, 0] }
+  ]
+}

@@ -1,0 +1,32 @@
+{
+  "values": [
+    "confluence:wooden_crate",
+    "confluence:iron_crate",
+    "confluence:golden_crate",
+    "confluence:jungle_crate",
+    "confluence:savanna_crate",
+    "confluence:sky_crate",
+    "confluence:corrupt_crate",
+    "confluence:crimson_crate",
+    "confluence:hallowed_crate",
+    "confluence:dungeon_crate",
+    "confluence:frozen_crate",
+    "confluence:oasis_crate",
+    "confluence:obsidian_crate",
+    "confluence:ocean_crate",
+    "confluence:pearlwood_crate",
+    "confluence:mythril_crate",
+    "confluence:titanium_crate",
+    "confluence:bramble_crate",
+    "confluence:wild_crate",
+    "confluence:azure_crate",
+    "confluence:defiled_crate",
+    "confluence:hematic_crate",
+    "confluence:divine_crate",
+    "confluence:stockade_crate",
+    "confluence:boreal_crate",
+    "confluence:mirage_crate",
+    "confluence:hellstone_crate",
+    "confluence:seaside_crate"
+  ]
+}

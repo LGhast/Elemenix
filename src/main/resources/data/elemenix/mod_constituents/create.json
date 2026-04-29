@@ -1,0 +1,21 @@
+{
+  "mod_id": "create",
+  "entries": [
+    { "id": "#create:packages", "elemenix": "organix", "value": 24 },
+    { "id": "#create:toolboxes", "constituents": [248, 7, 0, 866, 0, 0] },
+    { "id": "create:limestone", "preset": "stone" },
+    { "id": "create:zinc_ore", "elemenix": "terrix", "value": 102 },
+    { "id": "create:deepslate_zinc_ore", "elemenix": "terrix", "value": 102 },
+    { "id": "create:raw_zinc", "elemenix": "terrix", "value": 78 },
+    { "id": "create:zinc_ingot", "constituents": [0, 6, 0, 72, 0, 0] },
+    { "id": "create:andesite_alloy", "constituents": [0, 28, 0, 8, 0, 0] },
+    { "id": "create:cinder_flour", "constituents": [10, 0, 0, 0, 1, 0] },
+    { "id": "create:experience_nugget", "constituents": [0, 0, 0, 0, 2, 2] },
+    { "id": "create:bar_of_chocolate", "constituents": [39, 0, 5, 0, 0, 0] },
+    { "id": "create:builders_tea", "constituents": [3, 8, 6, 0, 2, 0] },
+    { "id": "create:asurine", "constituents": [0, 20, 0, 4, 0, 0] },
+    { "id": "create:crimsite", "constituents": [0, 20, 0, 4, 0, 0] },
+    { "id": "create:ochrum", "constituents": [0, 20, 0, 4, 0, 0] },
+    { "id": "create:veridium", "constituents": [0, 20, 0, 4, 0, 0] }
+  ]
+}

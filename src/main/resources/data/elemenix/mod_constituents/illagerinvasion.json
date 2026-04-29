@@ -1,0 +1,11 @@
+{
+  "mod_id": "illagerinvasion",
+  "entries": [
+    { "id": "illagerinvasion:platinum_chunk", "constituents": [0, 0, 0, 108, 0, 5] },
+    { "id": "illagerinvasion:primal_essence", "constituents": [0, 0, 5200, 0, 750, 200] },
+    { "id": "illagerinvasion:illusionary_dust", "constituents": [32, 0, 0, 0, 0, 35] },
+    { "id": "illagerinvasion:unusual_dust", "constituents": [0, 32, 0, 0, 0, 35] },
+    { "id": "illagerinvasion:platinum_infused_hatchet", "constituents": [24, 8000, 0, 12864, 0, 940] },
+    { "id": "illagerinvasion:lost_candle", "constituents": [150, 0, 0, 0, 0, 80] }
+  ]
+}

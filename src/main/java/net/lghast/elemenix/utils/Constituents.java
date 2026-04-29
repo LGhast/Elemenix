@@ -12,8 +12,8 @@ import java.util.List;
 
 public class Constituents {
     private static final int MAX = 20_0000_0000;
-    public static double DISCOUNT = 1.0;
-    public static double PREMIUM = 0;
+    public static volatile double DISCOUNT = 1.0;
+    public static volatile double PREMIUM = 0;
 
     final int[] constituents = new int[6];
     boolean unanalysable = false;
@@ -36,10 +36,6 @@ public class Constituents {
         this.unanalysable = unanalysable;
     }
 
-    public void clear(){
-        Arrays.fill(constituents, 0);
-    }
-
     private boolean isValidIndex(int index){
         return index>=0 && index<constituents.length;
     }
@@ -48,16 +44,19 @@ public class Constituents {
         return Math.max(0, Math.min(value, MAX));
     }
 
+    public void clear(){
+        Arrays.fill(constituents, 0);
+    }
+
     public int get(Elemenix type){
         int index = type.getIndex();
         return isValidIndex(index) ? constituents[index] : 0;
     }
 
-    public void set(Elemenix type, int value){
+    public void set(Elemenix type, int value) {
+        if (unanalysable) return;
         int index = type.getIndex();
-        if(unanalysable || !isValidIndex(index)){
-            return;
-        }
+        if (!isValidIndex(index)) return;
         constituents[index] = clampValue(value);
     }
 
@@ -73,25 +72,31 @@ public class Constituents {
     }
 
     public void add(Elemenix type, int addition) {
+        if (unanalysable || addition <= 0) return;
         int index = type.getIndex();
-        if (unanalysable || addition <= 0 || !isValidIndex(index)) return;
-
+        if (!isValidIndex(index)) return;
         long newValue = (long) constituents[index] + addition;
         constituents[index] = (int) Math.min(newValue, MAX);
     }
 
     public void deduct(Elemenix type, int deduction) {
+        if (unanalysable || deduction <= 0) return;
         int index = type.getIndex();
-        if (unanalysable || deduction <= 0 || !isValidIndex(index)) return;
-
+        if (!isValidIndex(index)) return;
         constituents[index] = Math.max(constituents[index] - deduction, 0);
     }
 
-    public void multiply(double multiplier) {
-        if(multiplier < 0) return;
-        for(int i = 0; i < constituents.length; i++){
-            constituents[i] = clampValue((int)Math.floor(constituents[i] * multiplier));
+    private void multiplyInternal(double multiplier, boolean useCeil) {
+        if (multiplier < 0) return;
+        for (int i = 0; i < constituents.length; i++) {
+            double raw = constituents[i] * multiplier;
+            int newVal = useCeil ? (int) Math.ceil(raw) : (int) Math.floor(raw);
+            constituents[i] = clampValue(newVal);
         }
+    }
+
+    public void multiply(double multiplier) {
+        multiplyInternal(multiplier, false);
     }
 
     public void multiply(int factor) {
@@ -103,23 +108,20 @@ public class Constituents {
     }
 
     public void multiplyCeil(double multiplier) {
-        if(multiplier < 0) return;
-        for(int i = 0; i < constituents.length; i++){
-            constituents[i] = clampValue((int)Math.ceil(constituents[i] * multiplier));
+        multiplyInternal(multiplier, true);
+    }
+
+    public void add(Constituents other) {
+        if (unanalysable || other == null || other.unanalysable) return;
+        for (int i = 0; i < constituents.length; i++) {
+            constituents[i] = clampValue(constituents[i] + other.constituents[i]);
         }
     }
 
-    public void deduct(Constituents deduction) {
-        if(deduction == null || deduction.isUnanalysable()) return;
-        for(int i = 0; i < constituents.length; i++){
-            constituents[i] = clampValue(constituents[i] - deduction.constituents[i]);
-        }
-    }
-
-    public void add(Constituents addition) {
-        if(addition == null || addition.isUnanalysable()) return;
-        for(int i = 0; i < constituents.length; i++){
-            constituents[i] = clampValue(constituents[i] + addition.constituents[i]);
+    public void deduct(Constituents other) {
+        if (unanalysable || other == null || other.unanalysable) return;
+        for (int i = 0; i < constituents.length; i++) {
+            constituents[i] = clampValue(constituents[i] - other.constituents[i]);
         }
     }
 
@@ -132,9 +134,13 @@ public class Constituents {
         return sum;
     }
 
+    public boolean isUnanalysable() {
+        return unanalysable;
+    }
+
     public boolean isPure(Elemenix pureElemenix){
-        if(isUnanalysable()) return false;
-        if (pureElemenix == null) return false;
+        if(unanalysable) return false;
+        if(pureElemenix == null) return false;
 
         for(Elemenix elemenix : Elemenix.values()){
             if(elemenix == pureElemenix && get(elemenix) <= 0){
@@ -145,6 +151,13 @@ public class Constituents {
             }
         }
         return true;
+    }
+
+    public Constituents copy() {
+        Constituents copy = new Constituents();
+        System.arraycopy(this.constituents, 0, copy.constituents, 0, this.constituents.length);
+        copy.unanalysable = this.unanalysable;
+        return copy;
     }
 
     public static Constituents sumConstituents(List<ItemStack> stacks){
@@ -161,39 +174,30 @@ public class Constituents {
         for(ItemStack stack : stacks){
             if(stack == null || stack.isEmpty()) continue;
 
-            Constituents c = ElemenixInfo.getConstituents(stack);
-            if(c == null) continue;
-            int count = stack.getCount();
+            Constituents constituents = ElemenixInfo.getConstituents(stack);
+            if(constituents == null) continue;
 
-            Constituents multiplied = c.copy();
-            multiplied.multiply(count);
-
-            result.add(multiplied);
+            constituents.multiply(stack.getCount());
+            result.add(constituents);
         }
         return result;
     }
 
-    public boolean isUnanalysable() {
-        return unanalysable;
-    }
-
-    public Constituents copy() {
-        Constituents copy = new Constituents();
-        System.arraycopy(this.constituents, 0, copy.constituents, 0, this.constituents.length);
-        copy.unanalysable = this.unanalysable;
-        return copy;
-    }
-
-    public static Constituents getDiscountApplied(Constituents constituents){
-        Constituents discounted = constituents.copy();
+    public static Constituents getDiscountApplied(Constituents original){
+        Constituents discounted = original.copy();
         discounted.multiplyCeil(DISCOUNT);
         return discounted;
     }
 
-    public static Constituents getPremiumApplied(Constituents constituents){
-        Constituents premiumApplied = constituents.copy();
+    public static Constituents getPremiumApplied(Constituents original){
+        Constituents premiumApplied = original.copy();
         premiumApplied.multiply(1 + PREMIUM);
         return premiumApplied;
+    }
+
+    public static void loadFromConfig(){
+        DISCOUNT = CommonConfig.DC_DISCOUNT.get();
+        PREMIUM = CommonConfig.RC_PREMIUM.get();
     }
 
     @Override
@@ -261,10 +265,5 @@ public class Constituents {
 
     public static Constituents flowerLarge(){
         return new Constituents(36, 0, 16, 0, 0, 0);
-    }
-
-    public static void loadFromConfig(){
-        DISCOUNT = CommonConfig.DC_DISCOUNT.get();
-        PREMIUM = CommonConfig.RC_PREMIUM.get();
     }
 }

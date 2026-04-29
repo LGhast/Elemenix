@@ -1,0 +1,15 @@
+{
+  "mod_id": "apothic_enchanting",
+  "entries": [
+    { "id": "apothic_enchanting:warden_tendril", "constituents": [15000, 0, 0, 0, 3000, 600] },
+    { "id": "apothic_enchanting:infused_breath", "constituents": [0, 8, 20, 0, 85, 70] },
+    { "id": "apothic_enchanting:infused_hellshelf", "constituents": [420, 456, 0, 0, 96, 100] },
+    { "id": "apothic_enchanting:infused_seashelf", "constituents": [450, 651, 10, 0, 0, 105] },
+    { "id": "apothic_enchanting:deepshelf", "constituents": [276, 144, 0, 0, 0, 100] },
+    { "id": "apothic_enchanting:ender_lead", "constituents": [65, 20, 5, 432, 0, 250] },
+    { "id": "apothic_enchanting:occult_ender_lead", "constituents": [65, 20, 5, 432, 0, 400] },
+    { "id": "apothic_enchanting:ender_library", "constituents": [1196, 44976, 0, 0, 144, 2050] },
+    { "id": "apothic_enchanting:improved_scrap_tome", "constituents": [92, 8, 0, 209, 0, 40] },
+    { "id": "apothic_enchanting:extraction_tome", "constituents": [92, 2, 0, 52, 0, 60] }
+  ]
+}

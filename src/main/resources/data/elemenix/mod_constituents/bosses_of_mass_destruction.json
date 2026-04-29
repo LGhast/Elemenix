@@ -1,0 +1,11 @@
+{
+  "mod_id": "bosses_of_mass_destruction",
+  "entries": [
+    { "id": "bosses_of_mass_destruction:soul_star", "constituents": [0, 0, 240, 0, 50, 32] },
+    { "id": "bosses_of_mass_destruction:ancient_anima", "constituents": [0, 0, 9000, 0, 320, 400] },
+    { "id": "bosses_of_mass_destruction:blazing_eye", "constituents": [0, 4200, 0, 0, 6000, 520] },
+    { "id": "bosses_of_mass_destruction:obsidian_heart", "constituents": [0, 12500, 0, 0, 0, 600] },
+    { "id": "bosses_of_mass_destruction:void_thorn", "constituents": [5500, 0, 0, 0, 0, 2400] },
+    { "id": "bosses_of_mass_destruction:crystal_fruit", "constituents": [240, 0, 100, 0, 0, 10] }
+  ]
+}

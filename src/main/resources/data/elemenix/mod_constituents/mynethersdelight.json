@@ -1,0 +1,23 @@
+{
+  "mod_id": "mynethersdelight",
+  "entries": [
+    { "id": "mynethersdelight:hoglin_loin", "preset": "rawMeat", "hunger": 7 },
+    { "id": "mynethersdelight:hoglin_hide", "elemenix": "organix", "value": 160 },
+    { "id": "mynethersdelight:slices_of_bread", "elemenix": "organix", "value": 20 },
+    { "id": "mynethersdelight:powder_cannon", "constituents": [6, 0, 0, 0, 1, 0] },
+    { "id": "mynethersdelight:bullet_pepper", "constituents": [24, 0, 0, 0, 12, 0] },
+    { "id": "mynethersdelight:pepper_powder", "constituents": [2, 0, 0, 0, 12, 0] },
+    { "id": "mynethersdelight:ghasta", "constituents": [24, 0, 0, 0, 2, 2] },
+    { "id": "mynethersdelight:strider_slice", "constituents": [36, 0, 6, 0, 2, 0] },
+    { "id": "mynethersdelight:strider_rock", "constituents": [30, 24, 8, 0, 5, 0] },
+    { "id": "mynethersdelight:strider_egg", "constituents": [30, 5, 8, 0, 3, 0] },
+    { "id": "mynethersdelight:enchanted_golden_egg", "constituents": [30, 0, 8, 10015, 1000, 1000] },
+    { "id": "mynethersdelight:crimson_fungus_colony", "constituents": [225, 0, 85, 0, 0, 0] },
+    { "id": "mynethersdelight:warped_fungus_colony", "constituents": [225, 0, 85, 0, 0, 0] },
+    { "id": "mynethersdelight:roast_ear", "constituents": [23, 1, 8, 0, 0, 0] },
+    { "id": "mynethersdelight:hoglin_trophy", "constituents": [286, 120, 0, 432, 0, 0] },
+    { "id": "mynethersdelight:plate_of_stuffed_hoglin_snout", "constituents": [182, 4, 43, 0, 1, 0] },
+    { "id": "mynethersdelight:plate_of_stuffed_hoglin_ham", "constituents": [158, 3, 39, 0, 1, 0] },
+    { "id": "mynethersdelight:plate_of_stuffed_hoglin", "constituents": [158, 3, 39, 0, 1, 0] }
+  ]
+}

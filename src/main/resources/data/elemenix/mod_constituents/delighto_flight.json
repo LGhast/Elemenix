@@ -1,0 +1,25 @@
+{
+  "mod_id": "delighto_flight",
+  "entries": [
+    { "id": "delighto_flight:cloud", "elemenix": "flumix", "value": 32 },
+    { "id": "delighto_flight:copper_thunder_fruit", "constituents": [16, 0, 0, 24, 24, 0] },
+    { "id": "delighto_flight:cloud_berries", "constituents": [8, 0, 6, 0, 0, 0] },
+    { "id": "delighto_flight:thunder_fruit_seeds", "constituents": [4, 0, 0, 0, 2, 0] },
+    { "id": "delighto_flight:thunder_fruit", "constituents": [32, 0, 8, 0, 16, 0] },
+    { "id": "delighto_flight:clear_cloudshroom", "constituents": [18, 0, 6, 0, 0, 0] },
+    { "id": "delighto_flight:rainy_cloudshroom", "constituents": [18, 0, 12, 0, 0, 0] },
+    { "id": "delighto_flight:thunder_cloudshroom", "constituents": [18, 0, 12, 0, 6, 0] },
+    { "id": "delighto_flight:cloudshroom_colony", "constituents": [90, 0, 30, 0, 0, 0] },
+    { "id": "delighto_flight:magic_chef_hat", "constituents": [240, 0, 0, 0, 0, 40] },
+    { "id": "delighto_flight:cook_book", "constituents": [92, 0, 0, 0, 0, 24] },
+    { "id": "delighto_flight:lotus_seeds", "constituents": [20, 0, 4, 0, 0, 0] },
+    { "id": "delighto_flight:lotus_root", "constituents": [22, 0, 12, 0, 0, 0] },
+    { "id": "delighto_flight:wild_lotus", "constituents": [64, 0, 24, 0, 0, 0] },
+    { "id": "delighto_flight:lotus_flower", "constituents": [18, 0, 10, 0, 0, 0] },
+    { "id": "delighto_flight:lotus_leaf", "constituents": [18, 0, 10, 0, 0, 0] },
+    { "id": "delighto_flight:rooted_mud", "constituents": [26, 18, 10, 0, 0, 0] },
+    { "id": "delighto_flight:clear_horn", "constituents": [10, 80, 0, 0, 0, 0] },
+    { "id": "delighto_flight:rainy_horn", "constituents": [10, 80, 10, 0, 0, 0] },
+    { "id": "delighto_flight:thunder_horn", "constituents": [10, 80, 0, 0, 15, 0] }
+  ]
+}

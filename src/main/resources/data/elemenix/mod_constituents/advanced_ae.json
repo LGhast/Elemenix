@@ -1,0 +1,9 @@
+{
+  "mod_id": "advanced_ae",
+  "entries": [
+    { "id": "advanced_ae:quantum_alloy", "constituents": [768000, 1536668, 384000, 1536288, 384000, 192640] },
+    { "id": "advanced_ae:advanced_pattern_provider", "constituents": [192, 198, 0, 1728, 44, 160] },
+    { "id": "advanced_ae:advanced_extended_pattern_provider", "constituents": [480, 641, 0, 3996, 190, 160] },
+    { "id": "advanced_ae:quantum_infusion_bucket", "constituents": [64000, 128167, 32000, 128648, 32000, 16160] }
+  ]
+}

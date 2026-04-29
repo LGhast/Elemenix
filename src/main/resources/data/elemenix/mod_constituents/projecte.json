@@ -1,0 +1,10 @@
+{
+  "mod_id": "projecte",
+  "entries": [
+    { "id": "projecte:alchemical_coal", "constituents": [232, 152, 0, 0, 192, 0] },
+    { "id": "projecte:mobius_fuel", "constituents": [928, 608, 0, 0, 768, 0] },
+    { "id": "projecte:aeternalis_fuel", "constituents": [3712, 2432, 0, 0, 3072, 0] },
+    { "id": "projecte:dark_matter", "constituents": [29696, 199456, 0, 0, 24576, 3600] },
+    { "id": "projecte:red_matter", "constituents": [111360, 612960, 0, 0, 92160, 10800] }
+  ]
+}

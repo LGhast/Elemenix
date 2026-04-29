@@ -1,0 +1,12 @@
+{
+  "mod_id": "endersdelight",
+  "entries": [
+    { "id": "endersdelight:mite_crust", "constituents": [6, 0, 0, 0, 0, 1] },
+    { "id": "endersdelight:enderman_sight", "constituents": [16, 0, 0, 0, 0, 12] },
+    { "id": "endersdelight:shulker_mollusk", "constituents": [40, 0, 10, 0, 0, 10] },
+    { "id": "endersdelight:ethereal_saffron", "constituents": [24, 0, 6, 0, 0, 5] },
+    { "id": "endersdelight:amberveil", "constituents": [18, 0, 6, 0, 0, 3] },
+    { "id": "endersdelight:chorusflame", "constituents": [18, 0, 8, 0, 2, 2] },
+    { "id": "endersdelight:voidpepper", "constituents": [24, 0, 6, 0, 0, 3] }
+  ]
+}

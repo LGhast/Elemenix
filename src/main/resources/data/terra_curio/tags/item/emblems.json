@@ -1,0 +1,11 @@
+{
+  "values": [
+    "terra_curio:sorcerer_emblem",
+    "terra_curio:ranger_emblem",
+    "terra_curio:warrior_emblem",
+    {
+      "id": "confluence:summoner_emblem",
+      "required": false
+    }
+  ]
+}

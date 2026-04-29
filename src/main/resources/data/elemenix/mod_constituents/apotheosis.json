@@ -1,0 +1,15 @@
+{
+  "mod_id": "apotheosis",
+  "entries": [
+    { "id": "apotheosis:gem_dust", "constituents": [0, 250, 0, 0, 0, 45] },
+    { "id": "apotheosis:lucky_foot", "constituents": [64, 12, 12, 0, 0, 250] },
+    { "id": "apotheosis:warden_tendril", "constituents": [15000, 0, 0, 0, 3000, 600] },
+    { "id": "apotheosis:sigil_of_malice", "constituents": [0, 666, 0, 0, 50, 400] },
+    { "id": "apotheosis:common_material", "constituents": [0, 25, 0, 150, 0, 50] },
+    { "id": "apotheosis:uncommon_material", "constituents": [500, 0, 0, 0, 0, 100] },
+    { "id": "apotheosis:rare_material", "constituents": [0, 3000, 0, 0, 120, 200] },
+    { "id": "apotheosis:epic_material", "constituents": [0, 10000, 0, 0, 350, 350] },
+    { "id": "apotheosis:mythic_material", "constituents": [0, 24000, 0, 0, 1250, 700] },
+    { "id": "apotheosis:infused_breath", "constituents": [0, 8, 20, 0, 85, 70] }
+  ]
+}

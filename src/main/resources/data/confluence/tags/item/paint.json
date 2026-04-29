@@ -1,0 +1,33 @@
+{
+  "values": [
+    "confluence:paint",
+    "confluence:red_paint",
+    "confluence:deep_red_paint",
+    "confluence:orange_paint",
+    "confluence:deep_orange_paint",
+    "confluence:yellow_paint",
+    "confluence:deep_yellow_paint",
+    "confluence:lime_paint",
+    "confluence:deep_lime_paint",
+    "confluence:green_paint",
+    "confluence:deep_green_paint",
+    "confluence:teal_paint",
+    "confluence:deep_teal_paint",
+    "confluence:cyan_paint",
+    "confluence:deep_cyan_paint",
+    "confluence:sky_blue_paint",
+    "confluence:deep_sky_blue_paint",
+    "confluence:blue_paint",
+    "confluence:deep_blue_paint",
+    "confluence:purple_paint",
+    "confluence:deep_purple_paint",
+    "confluence:violet_paint",
+    "confluence:deep_violet_paint",
+    "confluence:pink_paint",
+    "confluence:deep_pink_paint",
+    "confluence:black_paint",
+    "confluence:gray_paint",
+    "confluence:white_paint",
+    "confluence:brown_paint"
+  ]
+}

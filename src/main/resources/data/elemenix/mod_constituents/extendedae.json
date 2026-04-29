@@ -1,0 +1,13 @@
+{
+  "mod_id": "extendedae",
+  "entries": [
+    { "id": "extendedae:entro_shard", "constituents": [0, 4, 0, 0, 1, 0] },
+    { "id": "extendedae:entro_crystal", "constituents": [0, 32, 0, 0, 8, 0] },
+    { "id": "extendedae:entro_cluster_small", "constituents": [0, 32, 0, 0, 8, 0] },
+    { "id": "extendedae:entro_cluster_medium", "constituents": [0, 64, 0, 0, 16, 0] },
+    { "id": "extendedae:entro_cluster_large", "constituents": [0, 96, 0, 0, 24, 0] },
+    { "id": "extendedae:entro_cluster", "constituents": [0, 128, 0, 0, 32, 0] },
+    { "id": "extendedae:entro_ingot", "constituents": [0, 50, 0, 432, 8, 0] },
+    { "id": "extendedae:ex_pattern_provider", "constituents": [480, 561, 0, 3564, 178, 0] }
+  ]
+}

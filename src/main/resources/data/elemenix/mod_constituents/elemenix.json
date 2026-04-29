@@ -1,0 +1,28 @@
+{
+  "mod_id": "elemenix",
+  "entries": [
+    { "id": "#elemenix:strictly_unanalysable", "unanalysable": true },
+    { "id": "#elemenix:big_flowers", "preset": "flowerLarge" },
+    { "id": "#elemenix:dyed_beds", "elemenix": "organix", "value": 414 },
+    { "id": "#elemenix:dyed_wools", "elemenix": "organix", "value": 114 },
+    { "id": "#elemenix:normal_gems", "elemenix": "terrix", "value": 300 },
+    { "id": "#elemenix:normal_gem_ores", "elemenix": "terrix", "value": 324 },
+    { "id": "#elemenix:concrete", "constituents": [2, 16, 0, 0, 0, 0] },
+    { "id": "#elemenix:concrete_powder", "constituents": [2, 16, 0, 0, 0, 0] },
+    { "id": "#elemenix:infested_stones", "constituents": [24, 24, 5, 0, 0, 0] },
+    { "id": "#elemenix:dyed_shulker_boxes", "constituents": [210, 256, 0, 0, 0, 40] },
+    { "id": "#elemenix:vinyl_discs", "constituents": [550, 0, 0, 0, 0, 300] },
+    { "id": "#elemenix:froglights", "constituents": [32, 16, 0, 0, 12, 0] },
+    { "id": "#elemenix:corals", "constituents": [18, 8, 8, 0, 0, 0] },
+    { "id": "#elemenix:dead_corals", "constituents": [18, 8, 0, 0, 0, 0] },
+    { "id": "#elemenix:coral_blocks", "constituents": [36, 16, 16, 0, 0, 0] },
+    { "id": "#elemenix:dead_coral_blocks", "constituents": [36, 16, 0, 0, 0, 0] },
+    { "id": "elemenix:organix_essence", "elemenix": "organix", "value": 486 },
+    { "id": "elemenix:terrix_essence", "elemenix": "terrix", "value": 486 },
+    { "id": "elemenix:flumix_essence", "elemenix": "flumix", "value": 486 },
+    { "id": "elemenix:metallix_essence", "elemenix": "metallix", "value": 486 },
+    { "id": "elemenix:energix_essence", "elemenix": "energix", "value": 486 },
+    { "id": "elemenix:arcanix_essence", "elemenix": "arcanix", "value": 486 },
+    { "id": "elemenix:nullvoid", "constituents": [0, 0, 0, 0, 0, 0] }
+  ]
+}

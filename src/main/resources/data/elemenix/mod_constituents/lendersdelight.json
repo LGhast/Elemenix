@@ -1,0 +1,25 @@
+{
+  "mod_id": "lendersdelight",
+  "entries": [
+    { "id": "lendersdelight:raw_warlock_deepling_meat", "preset": "rawMeat", "hunger": 9, "flumix_addition": 12 },
+    { "id": "lendersdelight:raw_brute_deepling_meat", "preset": "rawMeat", "hunger": 9, "flumix_addition": 12 },
+    { "id": "lendersdelight:raw_deepling_meat", "preset": "rawMeat", "hunger": 9, "flumix_addition": 12 },
+    { "id": "lendersdelight:leviathan", "constituents": [800, 0, 420, 0, 0, 120] },
+    { "id": "lendersdelight:ender_golem_meat", "constituents": [0, 150, 0, 0, 32, 25] },
+    { "id": "lendersdelight:netherite_monstrosity_meat", "constituents": [0, 600, 0, 1200, 0, 120] },
+    { "id": "lendersdelight:berserker", "constituents": [0, 150, 0, 0, 35, 10] },
+    { "id": "lendersdelight:coral_golem_meat", "constituents": [180, 0, 60, 0, 0, 0] },
+    { "id": "lendersdelight:crystallized_coral_pie_slice", "constituents": [346, 180, 150, 0, 0, 15] },
+    { "id": "lendersdelight:koboleton_meat", "constituents": [24, 0, 60, 0, 0, 0] },
+    { "id": "lendersdelight:crab_legs", "constituents": [45, 20, 32, 0, 0, 0] },
+    { "id": "lendersdelight:maledictus_heart", "constituents": [0, 0, 1200, 0, 0, 240] },
+    { "id": "lendersdelight:ender_guardian_crystal", "constituents": [0, 850, 0, 0, 70, 120] },
+    { "id": "lendersdelight:ignis", "constituents": [0, 120, 0, 0, 150, 10] },
+    { "id": "lendersdelight:watcher_heart", "constituents": [0, 0, 0, 320, 102, 0] },
+    { "id": "lendersdelight:cindaria_hat", "constituents": [20, 0, 160, 0, 0, 10] },
+    { "id": "lendersdelight:hippocamtus", "constituents": [40, 0, 15, 0, 0, 0] },
+    { "id": "lendersdelight:symbiocto_tentacle", "constituents": [35, 0, 20, 0, 0, 0] },
+    { "id": "lendersdelight:urchinkin", "constituents": [45, 0, 20, 0, 0, 0] },
+    { "id": "lendersdelight:scylla_snake", "constituents": [20, 0, 1000, 0, 0, 240] }
+  ]
+}

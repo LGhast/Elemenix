@@ -1,0 +1,8 @@
+{
+  "mod_id": "twilightdelight",
+  "entries": [
+    { "id": "twilightdelight:mushgloom_colony", "constituents": [90, 0, 30, 0, 10, 0] },
+    { "id": "twilightdelight:experiment_110", "constituents": [110, 110, 110, 110, 110, 110] },
+    { "id": "twilightdelight:experiment_113", "constituents": [113, 113, 113, 113, 113, 113] }
+  ]
+}

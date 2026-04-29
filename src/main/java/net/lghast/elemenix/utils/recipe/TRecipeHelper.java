@@ -22,6 +22,7 @@ public class TRecipeHelper {
         recipes.add(new TechnicalRecipe("minecraft:bread", 1).addInput("minecraft:wheat", 3));
         recipes.add(new TechnicalRecipe("minecraft:melon_slice", 9).addInput("minecraft:melon", 1));
         recipes.add(new TechnicalRecipe("minecraft:disc_fragment_5", 9).addInput("minecraft:music_disc_5", 1));
+        recipes.add(new TechnicalRecipe("minecraft:bricks", 1).addInput("minecraft:brick", 4));
 
         recipes.add(new TechnicalRecipe("minecraft:cookie", 8)
                 .addInput("minecraft:wheat", 2)
@@ -166,6 +167,7 @@ public class TRecipeHelper {
             recipes.add(new TechnicalRecipe("farmersdelight:apple_pie_slice", 4).addInput("farmersdelight:apple_pie", 1));
             recipes.add(new TechnicalRecipe("farmersdelight:chocolate_pie_slice", 4).addInput("farmersdelight:chocolate_pie", 1));
             recipes.add(new TechnicalRecipe("farmersdelight:sweet_berry_cheesecake_slice", 4).addInput("farmersdelight:sweet_berry_cheesecake", 1));
+            recipes.add(new TechnicalRecipe("farmersdelight:pumpkin_pie_slice", 4).addInput("minecraft:pumpkin_pie", 1));
 
             recipes.add(new TechnicalRecipe("farmersdelight:tatami", 1)
                     .addInput("minecraft:straw", 1)
@@ -182,6 +184,7 @@ public class TRecipeHelper {
 
             addNewFoodUnit("farmersdelight:roast_chicken", "farmersdelight:roast_chicken_block");
             addNewFoodUnit("farmersdelight:shepherds_pie", "farmersdelight:shepherds_pie_block");
+            addNewFoodUnit("farmersdelight:gleaming_salad", "farmersdelight:gleaming_salad_block");
             addNewFoodUnit("farmersdelight:stuffed_pumpkin", 4, "minecraft:bowl", "farmersdelight:stuffed_pumpkin_block");
             addNewFoodUnit("farmersdelight:honey_glazed_ham", "farmersdelight:honey_glazed_ham_block", "minecraft:bone");
         }
@@ -244,9 +247,6 @@ public class TRecipeHelper {
             recipes.add(new TechnicalRecipe("mynethersdelight:resurgent_soil", 1).addInput("mynethersdelight:letios_compost", 1));
             recipes.add(new TechnicalRecipe("mynethersdelight:resurgent_soil_farmland", 1).addInput("mynethersdelight:letios_compost", 1));
             recipes.add(new TechnicalRecipe("mynethersdelight:magma_cake_slice", 7).addInput("mynethersdelight:magma_cake_block", 1));
-            addNewFoodUnit("mynethersdelight:plate_of_striderloaf", "mynethersdelight:striderloaf", "minecraft:string");
-            addNewFoodUnit("mynethersdelight:plate_of_cold_striderloaf", "mynethersdelight:cold_striderloaf", "minecraft:string");
-            addNewFoodUnit("mynethersdelight:plate_of_ghasta_with_cream", "mynethersdelight:ghasta_with_cream", "minecraft:magma_cream");
 
             recipes.add(new TechnicalRecipe("mynethersdelight:ghasmati", 1)
                     .addInput("mynethersdelight:ghasta", 1)
@@ -294,6 +294,10 @@ public class TRecipeHelper {
                     .addInput("mynethersdelight:skoglin_trophy", 1)
                     .addInput("minecraft:gold_ingot", 15)
             );
+
+            addNewFoodUnit("mynethersdelight:plate_of_striderloaf", "mynethersdelight:striderloaf", "minecraft:string");
+            addNewFoodUnit("mynethersdelight:plate_of_cold_striderloaf", "mynethersdelight:cold_striderloaf", "minecraft:string");
+            addNewFoodUnit("mynethersdelight:plate_of_ghasta_with_cream", "mynethersdelight:ghasta_with_cream", "minecraft:magma_cream");
         }
 
         if(ModUtils.hasServerMod("endersdelight")){
@@ -363,7 +367,7 @@ public class TRecipeHelper {
                     .addOffcut("dungeonsdelight:gunk", 2)
             );
 
-            addNewFoodUnit("dungeonsdelight:ossobuco", 4, "minecraft:bowl", "dungeonsdelight:ossobuco_block", "minecraft:skeleton_skull");
+            addNewFoodUnit("dungeonsdelight:ossobuco", "minecraft:bowl", "dungeonsdelight:ossobuco_block", "minecraft:skeleton_skull");
             addNewFoodUnit("dungeonsdelight:guardian_angel", "dungeonsdelight:guardian_angel_block");
             addNewFoodUnit("dungeonsdelight:silverfish_and_chips", "dungeonsdelight:silverfish_and_chips_block");
             addNewFoodUnit("dungeonsdelight:monster_mousse", "dungeonsdelight:monster_mousse_block");
@@ -584,7 +588,7 @@ public class TRecipeHelper {
                     .setContainer("minecraft:bowl")
             );
 
-            addNewFoodUnit("delighto_flight:thunder_fruit_stew", 4, "minecraft:bowl", "delighto_flight:thunder_fruit_stew_block", "minecraft:bucket");
+            addNewFoodUnit("delighto_flight:thunder_fruit_stew", "minecraft:bowl", "delighto_flight:thunder_fruit_stew_block", "minecraft:bucket");
             addNewFoodUnit("delighto_flight:lotus_leaf_rice", "delighto_flight:lotus_leaf_rice_block");
         }
 
@@ -718,7 +722,7 @@ public class TRecipeHelper {
         if(ModUtils.hasServerMod("youkaishomecoming")){
             recipes.add(new TechnicalRecipe("youkaishomecoming:tarte_lune_slice", 4).addInput("youkaishomecoming:tarte_lune", 1));
 
-            addNewFoodUnit("youkaishomecoming:bowl_of_heart_throbbing_surprise", 4, "minecraft:bowl", "youkaishomecoming:chest_of_heart_throbbing_surprise", "minecraft:chest");
+            addNewFoodUnit("youkaishomecoming:bowl_of_heart_throbbing_surprise", "minecraft:bowl", "youkaishomecoming:chest_of_heart_throbbing_surprise", "minecraft:chest");
             addNewMobBucket("youkaishomecoming:lamprey_bucket", "youkaishomecoming:raw_lamprey");
 
             recipes.add(new TechnicalRecipe("youkaishomecoming:soy_sauce_bottle", 1)
@@ -749,7 +753,7 @@ public class TRecipeHelper {
 
             addNewFoodUnit("arsdelight:bowl_of_honey_glazed_chimera", "arsdelight:honey_glazed_chimera");
             addNewFoodUnit("arsdelight:bowl_of_wilden_salad", "arsdelight:wilden_salad");
-            addNewFoodUnit("arsdelight:horn_roll", 4, "arsdelight:chimera_horn", "arsdelight:wilden_salad", "minecraft:bowl");
+            addNewFoodUnit("arsdelight:horn_roll", "arsdelight:chimera_horn", "arsdelight:wilden_salad", "minecraft:bowl");
         }
 
         if(ModUtils.hasServerMod("cataclysm")){
@@ -805,11 +809,191 @@ public class TRecipeHelper {
         if(ModUtils.hasServerMod("deeperdarker")){
             addNewTemplate("deeperdarker:warden_upgrade_smithing_template", "minecraft:diamond", "minecraft:sculk");
         }
+
+        if(ModUtils.hasServerMod("confluence")){
+            recipes.add(new TechnicalRecipe("confluence:bottle", 1).addInput("confluence:pure_glass", 1));
+            recipes.add(new TechnicalRecipe("confluence:arcane_crystal", 1).addInput("confluence:mana_crystal", 1));
+            recipes.add(new TechnicalRecipe("confluence:vital_crystal", 1).addInput("confluence:life_crystal", 1));
+            recipes.add(new TechnicalRecipe("confluence:aegis_apple", 1).addInput("confluence:life_fruit", 1));
+            recipes.add(new TechnicalRecipe("confluence:gummy_worm", 1).addInput("confluence:gold_worm", 1));
+            recipes.add(new TechnicalRecipe("confluence:stony_log", 1).addInput("minecraft:cobblestone", 2));
+            recipes.add(new TechnicalRecipe("confluence:colored_wool", 1).addInput("minecraft:red_wool", 1));
+            recipes.add(new TechnicalRecipe("confluence:bewitching_table", 1).addInput("confluence:alchemy_table", 1));
+            recipes.add(new TechnicalRecipe("confluence:echo_block", 1).addInput("minecraft:sculk", 1));
+            recipes.add(new TechnicalRecipe("confluence:aetherium_block", 1).addInput("minecraft:snow_block", 1));
+            recipes.add(new TechnicalRecipe("confluence:dark_aetherium_block", 1).addInput("confluence:aetherium_block", 1));
+            recipes.add(new TechnicalRecipe("confluence:dungeon_compass", 1).addInput("confluence:meteor_compass", 1));
+            recipes.add(new TechnicalRecipe("confluence:chromatic_cloak", 1).addInput("terra_curio:star_cloak", 1));
+            recipes.add(new TechnicalRecipe("confluence:timers_1_4", 1).addInput("confluence:timers_5_1", 1));
+            recipes.add(new TechnicalRecipe("confluence:timers_1_2", 1).addInput("confluence:timers_5_1", 1));
+            recipes.add(new TechnicalRecipe("confluence:shimmer_arrow", 1).addInput("confluence:star_arrow", 1));
+            recipes.add(new TechnicalRecipe("confluence:purification_powder", 1).addInput("confluence:vile_powder", 1));
+
+            recipes.add(new TechnicalRecipe("confluence:bottled_water", 1)
+                    .addInput("confluence:bottle", 1)
+                    .setAddition(Elemenix.FLUMIX, 1)
+            );
+            recipes.add(new TechnicalRecipe("confluence:can_of_worms", 1)
+                    .addInput("confluence:worm", 7)
+                    .setAddition(Elemenix.METALLIX, 16)
+            );
+            recipes.add(new TechnicalRecipe("confluence:ale", 1)
+                    .addInput("confluence:mug", 1)
+                    .setAdditions(new Constituents(1, 0, 1, 0, 0, 0))
+            );
+            recipes.add(new TechnicalRecipe("confluence:lesser_mana_potion", 1)
+                    .addInput("confluence:bottle", 1)
+                    .setAdditions(new Constituents(0, 0, 6, 0, 12, 4))
+            );
+            recipes.add(new TechnicalRecipe("confluence:lesser_mana_potion", 1)
+                    .addInput("confluence:bottle", 1)
+                    .setAdditions(new Constituents(0, 0, 6, 0, 12, 4))
+            );
+            recipes.add(new TechnicalRecipe("confluence:greater_mana_potion", 1)
+                    .addInput("confluence:mana_potion", 2)
+                    .addOffcut("confluence:bottle", 1)
+            );
+            recipes.add(new TechnicalRecipe("confluence:apple_juice", 1)
+                    .addInput("minecraft:apple", 1)
+                    .addOffcut("confluence:bottle", 1)
+            );
+            recipes.add(new TechnicalRecipe("confluence:golden_bug_net", 1)
+                    .addInput("confluence:bug_net", 1)
+                    .addOffcut("minecraft:gold_ingot", 4)
+            );
+            recipes.add(new TechnicalRecipe("confluence:ruby_sapling", 1)
+                    .addInput("confluence:ruby", 1)
+                    .addInput("minecraft:oak_sapling", 1)
+            );
+            recipes.add(new TechnicalRecipe("confluence:amber_sapling", 1)
+                    .addInput("confluence:amber", 1)
+                    .addInput("minecraft:oak_sapling", 1)
+            );
+            recipes.add(new TechnicalRecipe("confluence:topaz_sapling", 1)
+                    .addInput("confluence:topaz", 1)
+                    .addInput("minecraft:oak_sapling", 1)
+            );
+            recipes.add(new TechnicalRecipe("confluence:jade_sapling", 1)
+                    .addInput("confluence:jade", 1)
+                    .addInput("minecraft:oak_sapling", 1)
+            );
+            recipes.add(new TechnicalRecipe("confluence:diamond_sapling", 1)
+                    .addInput("minecraft:diamond", 1)
+                    .addInput("minecraft:oak_sapling", 1)
+            );
+            recipes.add(new TechnicalRecipe("confluence:sapphire_sapling", 1)
+                    .addInput("confluence:sapphire", 1)
+                    .addInput("minecraft:oak_sapling", 1)
+            );
+            recipes.add(new TechnicalRecipe("confluence:amethyst_sapling", 1)
+                    .addInput("confluence:amethyst", 1)
+                    .addInput("minecraft:oak_sapling", 1)
+            );
+            recipes.add(new TechnicalRecipe("confluence:chipped_lead_anvil", 1)
+                    .addInput("confluence:lead_anvil", 1)
+                    .setMultiplier(0.7)
+            );
+            recipes.add(new TechnicalRecipe("confluence:damaged_lead_anvil", 1)
+                    .addInput("confluence:lead_anvil", 1)
+                    .setMultiplier(0.5)
+            );
+            recipes.add(new TechnicalRecipe("confluence:thin_honey_block", 1)
+                    .addInput("minecraft:honey_block", 1)
+                    .setMultiplier(0.6)
+            );
+            recipes.add(new TechnicalRecipe("confluence:asphalt_block", 1)
+                    .addInput("confluence:raw_asphalt", 1)
+                    .setMultiplier(0.5)
+            );
+            recipes.add(new TechnicalRecipe("confluence:keg", 1)
+                    .addInput("minecraft:barrel", 1)
+                    .addInput("minecraft:oak_fence", 1)
+                    .addInput("minecraft:copper_ingot", 1)
+            );
+            recipes.add(new TechnicalRecipe("confluence:loom", 1)
+                    .addInput("minecraft:oak_planks", 12)
+                    .addInput("minecraft:oak_slab", 2)
+            );
+
+            addNewBucket("confluence:honey_bucket", Elemenix.ORGANIX, 180);
+        }
+
+        if(ModUtils.hasServerMod("eternalnether")){
+            recipes.add(new TechnicalRecipe("eternalnether:netherite_bell", 1)
+                    .addInput("minecraft:bell", 1)
+                    .addInput("minecraft:netherite_ingot", 1)
+                    .addInput("minecraft:netherite_upgrade_smithing_template", 1)
+            );
+
+            recipes.add(new TechnicalRecipe("eternalnether:gilded_netherite_shield", 1)
+                    .addInput("minecraft:shield", 1)
+                    .addInput("minecraft:netherite_ingot", 1)
+                    .addInput("minecraft:netherite_upgrade_smithing_template", 1)
+            );
+        }
+
+        if(ModUtils.hasServerMod("friendsandfoes")){
+            addNewCopperItems("friendsandfoes", "copper_button");
+            addNewCopperItems("minecraft", "friendsandfoes", "lightning_rod", "lightning_rod");
+        }
+
+        if(ModUtils.hasServerMod("yungscavebiomes")){
+            addNewTemplate("yungscavebiomes:ancient_armor_trim_smithing_template", "minecraft:diamond", "yungscavebiomes:ancient_sandstone");
+        }
+
+        if(ModUtils.hasServerMod("minersdelight")){
+            recipes.add(new TechnicalRecipe("minersdelight:water_cup", 1)
+                    .addInput("minersdelight:copper_cup", 1)
+                    .setAddition(Elemenix.FLUMIX, 4)
+            );
+            recipes.add(new TechnicalRecipe("minersdelight:powder_snow_cup", 1)
+                    .addInput("minersdelight:copper_cup", 1)
+                    .setAddition(Elemenix.FLUMIX, 32)
+            );
+            recipes.add(new TechnicalRecipe("minersdelight:milk_cup", 1)
+                    .addInput("minersdelight:copper_cup", 1)
+                    .setAdditions(new Constituents(5, 0, 6, 0, 0, 0))
+            );
+            recipes.add(new TechnicalRecipe("minersdelight:glow_squid", 1)
+                    .addInput("minersdelight:squid", 1)
+                    .setAddition(Elemenix.ENERGIX, 9)
+            );
+
+            addNewFoodUnit("minersdelight:bowl_of_stuffed_squid", 5, "minecraft:bowl", "minersdelight:stuffed_squid");
+            addNewFoodUnit("minersdelight:plate_of_fake_meatloaf", "minersdelight:fake_meatloaf");
+            addNewFoodUnit("minersdelight:plate_of_glazed_arachnid_limbs", "minersdelight:glazed_arachnid_limbs");
+
+            addNewCopperCupFood("minersdelight:beetroot_soup_cup", "minecraft:beetroot_soup");
+            addNewCopperCupFood("minersdelight:mushroom_stew_cup", "minecraft:mushroom_stew");
+            addNewCopperCupFood("minersdelight:rabbit_stew_cup", "minecraft:rabbit_stew");
+            addNewCopperCupFood("minersdelight:baked_cod_stew_cup", "farmersdelight:baked_cod_stew");
+            addNewCopperCupFood("minersdelight:noodle_soup_cup", "farmersdelight:noodle_soup");
+            addNewCopperCupFood("minersdelight:beef_stew_cup", "farmersdelight:beef_stew");
+            addNewCopperCupFood("minersdelight:chicken_soup_cup", "farmersdelight:chicken_soup");
+            addNewCopperCupFood("minersdelight:fish_stew_cup", "farmersdelight:fish_stew");
+            addNewCopperCupFood("minersdelight:pumpkin_soup_cup", "farmersdelight:pumpkin_soup");
+            addNewCopperCupFood("minersdelight:vegetable_soup_cup", "farmersdelight:vegetable_soup");
+            addNewCopperCupFood("minersdelight:bone_broth_cup", "farmersdelight:bone_broth");
+            addNewCopperCupFood("minersdelight:onion_soup_cup", "farmersdelight:onion_soup");
+            addNewCopperCupFood("minersdelight:cave_soup_cup", "minersdelight:cave_soup");
+            addNewCopperCupFood("minersdelight:bat_soup_cup", "minersdelight:bat_soup");
+            addNewCopperCupFood("minersdelight:insect_stew_cup", "minersdelight:insect_stew");
+
+            addNewCopperCupFood("minersdelight:rock_soup_cup", "mynethersdelight:rock_soup");
+            addNewCopperCupFood("minersdelight:spicy_hoglin_stew_cup", "mynethersdelight:spicy_hoglin_stew_soup");
+            addNewCopperCupFood("minersdelight:strider_stew_cup", "mynethersdelight:strider_stew_soup");
+            addNewCopperCupFood("minersdelight:spicy_noodle_soup_cup", "mynethersdelight:spicy_noodle_soup");
+            addNewCopperCupFood("minersdelight:egg_soup_cup", "mynethersdelight:egg_soup");
+        }
     }
 
     public static void initialize(){
         clear();
         handleMap();
+    }
+
+    public static void clear(){
+        handled = false;
     }
 
     private static void addNewBucket(String id, Elemenix elemenix, int value){
@@ -847,8 +1031,8 @@ public class TRecipeHelper {
         );
     }
 
-    private static void addNewFoodUnit(String unitId, int count, String containerId, String sourceId, String sourceContainerId){
-        recipes.add(new TechnicalRecipe(unitId, count)
+    private static void addNewFoodUnit(String unitId, String containerId, String sourceId, String sourceContainerId){
+        recipes.add(new TechnicalRecipe(unitId, 4)
                 .addInput(sourceId, 1)
                 .addOffcut(sourceContainerId, 1)
                 .setContainer(containerId)
@@ -872,117 +1056,120 @@ public class TRecipeHelper {
     }
 
     private static void addNewFoodUnit(String unitId, String sourceId){
-        addNewFoodUnit(unitId, 4, "minecraft:bowl", sourceId, "minecraft:bowl");
+        addNewFoodUnit(unitId, "minecraft:bowl", sourceId, "minecraft:bowl");
     }
 
     private static void addNewCopperItems(String namespace, String path){
-        String inputId = namespace + ":" + path;
-
-        for(TechnicalRecipe.CopperState copperState : TechnicalRecipe.CopperState.values()) {
-            String outputId = namespace + ":" + copperState.getId() + "_" + path;
-            recipes.add(new TechnicalRecipe(outputId, 1).addInput(inputId, 1).setCopperState(copperState));
-        }
+        addNewCopperItems(namespace, path, path);
     }
 
     private static void addNewCopperItems(String namespace, String path, String pathOxidized){
+        addNewCopperItems(namespace, namespace, path, pathOxidized);
+    }
+
+    private static void addNewCopperItems(String namespace, String namespaceOxidized, String path, String pathOxidized){
         String inputId = namespace + ":" + path;
 
         for(TechnicalRecipe.CopperState copperState : TechnicalRecipe.CopperState.values()) {
-            String outputId = namespace + ":" + copperState.getId() + "_" + pathOxidized;
+            String outputId = namespaceOxidized + ":" + copperState.getId() + "_" + pathOxidized;
             recipes.add(new TechnicalRecipe(outputId, 1).addInput(inputId, 1).setCopperState(copperState));
         }
     }
 
-    public static void clear(){
-        handled = false;
+    private static void addNewCopperCupFood(String foodId, String sourceId){
+        recipes.add(new TechnicalRecipe(foodId, 1)
+                .addInput(sourceId, 1)
+                .addOffcut("minecraft:bowl", 1)
+                .setMultiplier(0.5)
+                .setContainer("minersdelight:copper_cup")
+        );
     }
 
     public static void handleMap(){
-        if(handled) return;
+        if (handled || recipes.isEmpty()) return;
 
-        if(recipes.isEmpty()) return;
-
-        for(TechnicalRecipe recipe : recipes){
+        for (TechnicalRecipe recipe : recipes) {
             ItemStack output = recipe.getOutput();
-            if(output == null || output.isEmpty()){
+            if (output.isEmpty()) continue;
+
+            if (ElemenixInfo.isUnanalysableStrictly(output) || ElemenixInfo.hasCache(output.getItem())) {
                 continue;
             }
 
-            if(ElemenixInfo.isUnanalysableStrictly(output) || ElemenixInfo.hasCache(output.getItem())){
-                continue;
-            }
-
-            List<ItemStack> inputs = recipe.getInputs();
-            if(inputs.isEmpty()){
-                continue;
-            }
-
-            Constituents constituents = new Constituents(false);
-            for(ItemStack input : inputs){
-                if(input.isEmpty()){
-                    continue;
-                }
-
-                Constituents inputConstituents = ElemenixInfo.getConstituents(input);
-
-                if(input.is(ModTags.EGGS_WITH_TERRIX_SHELL) && output.is(ModTags.C_FOODS)){
-                    inputConstituents.set(Elemenix.TERRIX, 0);
-                }
-                inputConstituents.multiply(input.getCount());
-                constituents.add(inputConstituents);
-            }
-
-            TechnicalRecipe.CopperState copperState = recipe.getCopperState();
-            if(copperState != null){
-                double oxidizingRate = switch (copperState) {
-                    case EXPOSED -> 0.2;
-                    case WEATHERED -> 0.4;
-                    case OXIDIZED -> 0.6;
-                };
-                int oxidizedPart = (int)(constituents.get(Elemenix.METALLIX) * oxidizingRate);
-                constituents.add(Elemenix.TERRIX, oxidizedPart);
-                constituents.deduct(Elemenix.METALLIX, oxidizedPart);
-
-                if(!constituents.isUnanalysable()){
-                    ElemenixInfo.addCache(output.getItem(), constituents);
-                }
-                continue;
-            }
-
-            List<ItemStack> offcuts = recipe.getOffcuts();
-            if(!offcuts.isEmpty()){
-                for(ItemStack offcut : offcuts){
-                    if(offcut.isEmpty()){
-                        continue;
-                    }
-
-                    Constituents offcutConstituents = ElemenixInfo.getConstituents(offcut);
-                    offcutConstituents.multiply(offcut.getCount());
-                    constituents.deduct(offcutConstituents);
-                }
-            }
-
-            constituents.multiply(recipe.getMultiplier());
-            constituents.multiply(1.0 / output.getCount());
-
-            constituents.add(recipe.getAdditions());
-            constituents.deduct(recipe.getDeductions());
-
-            Elemenix removedElemenix = recipe.getRemovedElemenix();
-            if(removedElemenix != null){
-                constituents.set(removedElemenix, 0);
-            }
-
-            Item container = recipe.getContainer();
-            if(container != null){
-                constituents.add(ElemenixInfo.getConstituents(container));
-            }
-
-            if(!constituents.isUnanalysable()){
-                ElemenixInfo.addCache(output.getItem(), constituents);
+            if (recipe.getCopperState() != null) {
+                handleCopperRecipe(recipe, output);
+            } else {
+                handleNormalRecipe(recipe, output);
             }
         }
-
         handled = true;
+    }
+
+    private static void handleCopperRecipe(TechnicalRecipe recipe, ItemStack output) {
+        Constituents totalInput = calculateInputConstituents(recipe.getInputs(), output);
+        if (totalInput.isUnanalysable()) return;
+
+        double rate = recipe.getCopperState().getOxidizingRate();
+        int metallix = totalInput.get(Elemenix.METALLIX);
+        int oxidized = (int) (metallix * rate);
+        totalInput.add(Elemenix.TERRIX, oxidized);
+        totalInput.deduct(Elemenix.METALLIX, oxidized);
+
+        if (!totalInput.isUnanalysable()) {
+            ElemenixInfo.addCache(output.getItem(), totalInput);
+        }
+    }
+
+    private static void handleNormalRecipe(TechnicalRecipe recipe, ItemStack output) {
+        Constituents result = calculateInputConstituents(recipe.getInputs(), output);
+        if (result.isUnanalysable()) return;
+
+        for (ItemStack offcut : recipe.getOffcuts()) {
+            Constituents offcutCons = getConstituentsSafe(offcut);
+            if (offcutCons == null) continue;
+            offcutCons.multiply(offcut.getCount());
+            result.deduct(offcutCons);
+        }
+
+        result.multiply(recipe.getMultiplier());
+        result.multiply(1.0 / output.getCount());
+        result.add(recipe.getAdditions());
+        result.deduct(recipe.getDeductions());
+
+        Elemenix removed = recipe.getRemovedElemenix();
+        if (removed != null) result.set(removed, 0);
+
+        Item container = recipe.getContainer();
+        if (container != null) {
+            Constituents containerCons = getConstituentsSafe(new ItemStack(container));
+            if (containerCons != null) result.add(containerCons);
+        }
+
+        if (!result.isUnanalysable()) {
+            ElemenixInfo.addCache(output.getItem(), result);
+        }
+    }
+
+    private static Constituents calculateInputConstituents(List<ItemStack> inputs, ItemStack output) {
+        Constituents total = new Constituents();
+        for (ItemStack input : inputs) {
+            if (input.isEmpty()) continue;
+            Constituents inputCons = getConstituentsSafe(input);
+            if (inputCons == null) continue;
+
+            if (input.is(ModTags.EGGS_WITH_TERRIX_SHELL) && output.is(ModTags.C_FOODS)) {
+                inputCons = inputCons.copy();
+                inputCons.set(Elemenix.TERRIX, 0);
+            }
+
+            inputCons.multiply(input.getCount());
+            total.add(inputCons);
+        }
+        return total;
+    }
+
+    private static Constituents getConstituentsSafe(ItemStack stack) {
+        Constituents constituents = ElemenixInfo.getConstituents(stack);
+        return (constituents != null && !constituents.isUnanalysable()) ? constituents : null;
     }
 }

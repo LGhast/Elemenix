@@ -1,0 +1,11 @@
+{
+  "mod_id": "crittersandcompanions",
+  "entries": [
+    { "id": "crittersandcompanions:dragonfly_wing", "elemenix": "organix", "value": 16 },
+    { "id": "crittersandcompanions:silk", "elemenix": "organix", "value": 24 },
+    { "id": "crittersandcompanions:silk_cocoon", "elemenix": "organix", "value": 72 },
+    { "id": "crittersandcompanions:pearl", "elemenix": "terrix", "value": 24 },
+    { "id": "crittersandcompanions:koi_fish", "constituents": [20, 2, 12, 0, 0, 0] },
+    { "id": "crittersandcompanions:clam", "constituents": [15, 36, 5, 0, 0, 0] }
+  ]
+}

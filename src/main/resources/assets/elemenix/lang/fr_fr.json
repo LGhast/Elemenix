@@ -106,7 +106,7 @@
   "elemenix.elemenix.arcanix": "Substance Arcanique",
 
   "gui.elemenix.analyzer": "Analyseur",
-  "gui.elemenix.deconstruct": "Déconstruire",
+  "gui.elemenix.deconstruct": "Déconstr.",
   "gui.elemenix.item_list": "Objets Reconstructibles",
   "gui.elemenix.no_resolved_items": "Aucun Objet Analysé",
   "gui.elemenix.no_analyzer": "Analyseur Non Installé",
@@ -164,6 +164,15 @@
 
   "key.categories.elemenics": "Élémentiologie",
   "key.elemenix.open_memorizer_box": "Ouvrir la Boîte à Disques de Mémoire",
+
+  "command.elemenix.show.invalid_item": "ID d'objet invalide : %s",
+  "command.elemenix.show.result": "[%s] a la composition élémentaire : %s",
+  "command.elemenix.unanalysable.empty": "Aucun objet inanalysable trouvé.",
+  "command.elemenix.unanalysable.header": "\nTotal de %d objets inanalysables :",
+  "command.elemenix.unanalysable.entry": "  %s (%s)",
+  "command.elemenix.unanalysable.page_info": "Page %d / %d",
+  "command.elemenix.unanalysable.next_page_hint": "Cliquez ici pour voir la page suivante",
+  "command.elemenix.unanalysable.page_out_of_range": "Numéro de page hors limites, le maximum est %s",
 
   "tag.item.elemenix.essences": "Essences d'Élémentium",
   "tag.item.elemenix.equilibrium": "Équilibre Élémentaire",
@@ -267,5 +276,10 @@
   "jei.info.elemenic_storage": "Le Réservoir d'Élémentium est utilisé pour retenir temporairement l'élémentium stocké par la tour d'injection, et peut également établir une connexion avec un réservoir d'élémentium à distance. Lorsque c'est nécessaire, le joueur peut transférer l'élémentium du réservoir dans un analyseur, en utilisant une méthode similaire à la déconstruction d'objets.",
   "jei.info.remote_elemenic_storage": "Le Réservoir d'Élémentium à Distance est utilisé pour accéder à distance à l'élémentium d'un réservoir d'élémentium. Cet objet ne stocke pas directement d'élémentium ; il fournit simplement au joueur une méthode pour transférer les réserves d'élémentium sans avoir à récupérer l'unité de stockage physique.",
   "jei.info.elemenic_scanner": "Le Scanner d'Élémentium est utilisé pour scanner et calculer le total d'élémentium de tous les objets dans un bloc conteneur, et l'afficher au joueur.",
-  "jei.info.scanning_storage": "Le Réservoir de scan d'Élémentium peut rapidement déconstruire tous les objets d'un bloc conteneur et les stocker. Ce processus est également considéré comme une ouverture du conteneur, ce qui peut déclencher les effets d'ouverture de conteneurs spéciaux tels que les coffres piégés."
+  "jei.info.scanning_storage": "Le Réservoir de scan d'Élémentium peut rapidement déconstruire tous les objets d'un bloc conteneur et les stocker. Ce processus est également considéré comme une ouverture du conteneur, ce qui peut déclencher les effets d'ouverture de conteneurs spéciaux tels que les coffres piégés.",
+
+  "ftbquests.task.elemenix.deconstruct_item": "Déconstr. (analyseur)",
+  "ftbquests.task.elemenix.reconstruct_item": "Reconstr. (analyseur)",
+  "ftbquests.task.elemenix.memorize_item": "Mémoriser un objet",
+  "ftbquests.task.elemenix.count": "Quantité cumulée"
 }

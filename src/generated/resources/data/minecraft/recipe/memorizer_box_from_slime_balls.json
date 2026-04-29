@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "C": {
+      "item": "minecraft:copper_ingot"
+    },
+    "I": {
+      "item": "minecraft:iron_ingot"
+    },
+    "S": {
+      "tag": "c:slime_balls"
+    }
+  },
+  "pattern": [
+    "ISI",
+    "CIC",
+    "   "
+  ],
+  "result": {
+    "count": 1,
+    "id": "elemenix:memorizer_box"
+  }
+}

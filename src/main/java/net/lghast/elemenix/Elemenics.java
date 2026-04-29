@@ -2,6 +2,7 @@ package net.lghast.elemenix;
 
 import net.lghast.elemenix.client.misc.ModItemProperties;
 import net.lghast.elemenix.client.misc.ModRenders;
+import net.lghast.elemenix.compat.ftbquests.task.ModTaskTypes;
 import net.lghast.elemenix.conifig.ClientConfig;
 import net.lghast.elemenix.conifig.CommonConfig;
 import net.lghast.elemenix.datagen.DataGenerators;
@@ -41,6 +42,7 @@ public class Elemenics {
     public static boolean started = false;
     private static int tickCounter = 0;
     private static boolean hasWorldLoaded = false;
+    private static final boolean isFtbQuestsLoaded = ModUtils.hasServerMod("ftbquests");
 
     @Nullable
     private static ServerLevel currentServerLevel = null;
@@ -58,6 +60,10 @@ public class Elemenics {
         ModAdvancementTriggers.register(modEventBus);
         ModRecipes.register(modEventBus);
         ModStats.register(modEventBus);
+
+        if(isFtbQuestsLoaded){
+            ModTaskTypes.init();
+        }
 
         modEventBus.addListener(this::gatherData);
         modEventBus.addListener(this::onClientSetup);
@@ -148,5 +154,9 @@ public class Elemenics {
                 sendSyncStartedPacket(player, true);
             }
         }
+    }
+
+    public static boolean isFtbQuestsLoaded(){
+        return isFtbQuestsLoaded;
     }
 }

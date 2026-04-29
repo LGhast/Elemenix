@@ -1,0 +1,24 @@
+{
+  "values": [
+    {
+      "id": "#c:ores/amethyst",
+      "required": false
+    },
+    {
+      "id": "#c:ores/jade",
+      "required": false
+    },
+    {
+      "id": "#c:ores/ruby",
+      "required": false
+    },
+    {
+      "id": "#c:ores/topaz",
+      "required": false
+    },
+    {
+      "id": "#c:ores/sapphire",
+      "required": false
+    }
+  ]
+}

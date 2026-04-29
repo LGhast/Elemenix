@@ -1,0 +1,28 @@
+{
+  "mod_id": "youkaishomecoming",
+  "entries": [
+    { "id": "#c:tea_leaves", "constituents": [10, 0, 4, 0, 0, 0] },
+    { "id": "youkaishomecoming:soybean", "elemenix": "organix", "value": 20 },
+    { "id": "youkaishomecoming:redbean", "elemenix": "organix", "value": 20 },
+    { "id": "youkaishomecoming:green_coffee_bean", "elemenix": "organix", "value": 15 },
+    { "id": "youkaishomecoming:tea_seeds", "elemenix": "organix", "value": 4 },
+    { "id": "youkaishomecoming:coffee_beans", "elemenix": "organix", "value": 15 },
+    { "id": "youkaishomecoming:udumbara_seeds", "elemenix": "organix", "value": 4 },
+    { "id": "youkaishomecoming:butter", "elemenix": "organix", "value": 24 },
+    { "id": "youkaishomecoming:pods", "constituents": [20, 0, 8, 0, 0, 0] },
+    { "id": "youkaishomecoming:coffee_berries", "constituents": [15, 0, 6, 0, 0, 0] },
+    { "id": "youkaishomecoming:raw_lamprey", "constituents": [40, 2, 20, 0, 0, 0] },
+    { "id": "youkaishomecoming:lamprey_bucket", "constituents": [40, 29, 20, 648, 0, 0] },
+    { "id": "youkaishomecoming:roe", "constituents": [12, 0, 8, 0, 0, 0] },
+    { "id": "youkaishomecoming:udumbara_flower", "constituents": [28, 0, 12, 0, 0, 8] },
+    { "id": "youkaishomecoming:suigei", "constituents": [49, 0, 11, 0, 0, 1] },
+    { "id": "youkaishomecoming:full_moons_eve", "constituents": [46, 0, 7, 0, 0, 2] },
+    { "id": "youkaishomecoming:sparrow_sake", "constituents": [46, 0, 7, 0, 0, 2] },
+    { "id": "youkaishomecoming:kappa_village", "constituents": [42, 0, 7, 0, 0, 0] },
+    { "id": "youkaishomecoming:hakutsuru", "constituents": [42, 0, 8, 0, 0, 0] },
+    { "id": "youkaishomecoming:mio", "constituents": [24, 8, 5, 0, 0, 0] },
+    { "id": "youkaishomecoming:mead", "constituents": [39, 0, 13, 0, 0, 0] },
+    { "id": "youkaishomecoming:tengu_tango", "constituents": [48, 0, 5, 0, 0, 2] },
+    { "id": "youkaishomecoming:kiku", "constituents": [40, 0, 5, 0, 0, 0] }
+  ]
+}

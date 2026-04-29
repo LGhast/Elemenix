@@ -56,6 +56,9 @@ public class CommonConfig {
     public static ModConfigSpec.IntValue EJECTOR_ENRICHING_INTERVAL;
     public static ModConfigSpec.IntValue EJECTING_INTERVAL;
 
+    public static ModConfigSpec.BooleanValue SHOW_SCANNER_PARTICLES;
+    public static ModConfigSpec.BooleanValue SHOW_SCANNING_STORAGE_PARTICLES;
+
     static {
         BUILDER.push("核心内容 Core Content");
 
@@ -317,6 +320,22 @@ public class CommonConfig {
                         "Time interval (in ticks) for the Elemenic Ejector to eject essence")
                 .translation(CONFIG_PREFIX + "ejecting_interval")
                 .defineInRange("ejecting_interval", 15, 1, Integer.MAX_VALUE);
+
+        BUILDER.pop();
+
+        BUILDER.push("粒子效果 Particles");
+
+        SHOW_SCANNER_PARTICLES = BUILDER
+                .comment("是否在元质扫描器扫描容器时显示粒子效果",
+                        "Whether to display particle effects when the Elemenic Scanner scans a container")
+                .translation(CONFIG_PREFIX + "show_scanner_particles")
+                .define("show_scanner_particles", true);
+
+        SHOW_SCANNING_STORAGE_PARTICLES = BUILDER
+                .comment("是否在扫描式储存器扫描容器时显示粒子效果",
+                        "Whether to display particle effects when the Scanning Storage scans a container")
+                .translation(CONFIG_PREFIX + "show_scanning_storage_particles")
+                .define("show_scanning_storage_particles", true);
 
         BUILDER.pop();
 

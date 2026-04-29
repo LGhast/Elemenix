@@ -15,6 +15,10 @@
       "required": false
     },
     {
+      "id": "#iceandfire:dragon_eggs",
+      "required": false
+    },
+    {
       "id": "dungeonsdelight:ancient_egg",
       "required": false
     },
@@ -50,6 +54,10 @@
     },
     {
       "id": "deep_aether:quail_egg",
+      "required": false
+    },
+    {
+      "id": "friendsandfoes:crab_egg",
       "required": false
     }
   ]

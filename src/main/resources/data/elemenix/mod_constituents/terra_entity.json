@@ -1,0 +1,14 @@
+{
+  "mod_id": "terra_entity",
+  "entries": [
+    { "id": "terra_entity:wood_boomerang", "elemenix": "organix", "value": 120 },
+    { "id": "terra_entity:shroomerang", "elemenix": "organix", "value": 520 },
+    { "id": "terra_entity:leather_whip", "elemenix": "organix", "value": 600 },
+    { "id": "terra_entity:ice_boomerang", "elemenix": "flumix", "value": 500 },
+    { "id": "terra_entity:combat_wrench", "elemenix": "metallix", "value": 1250 },
+    { "id": "terra_entity:slimy_saddle", "constituents": [250, 0, 600, 0, 0, 0] },
+    { "id": "terra_entity:chester_staff", "constituents": [2000, 8000, 0, 0, 0, 400] },
+    { "id": "terra_entity:wallet", "constituents": [0, 1500, 0, 0, 0, 200] },
+    { "id": "terra_entity:finch_staff", "constituents": [420, 0, 0, 0, 0, 50] }
+  ]
+}

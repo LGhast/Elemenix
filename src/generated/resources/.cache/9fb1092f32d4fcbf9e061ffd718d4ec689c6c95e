@@ -1,4 +1,4 @@
-// 1.21.1	2026-03-03T21:50:40.2636762	Recipes
+// 1.21.1	2026-04-25T22:48:51.4739575	Recipes
 a5972f5f16b8d08a054c46ca513dcaaf6dbf21ea data/elemenix/advancement/recipes/food/fondant_cake.json
 fd61a8d55280e7ed7976d1df32b06297bbf29bc7 data/elemenix/advancement/recipes/misc/analyzing_chip.json
 436001b848b2166f3268f565c6939d909e873f2f data/elemenix/advancement/recipes/misc/arcanix_essenplex.json
@@ -42,7 +42,7 @@ f802e27a6d05e371c01d5791fb9f9ed28b65cb6d data/elemenix/recipe/flow_straightener.
 d4ed7c9d5000e7a7dd0f7061ad2ee6280c42d9db data/elemenix/recipe/fondant_cake.json
 92825c99b68c12ad96db7971a7bf798ec30c0149 data/elemenix/recipe/geological_simulator.json
 b86568224874c034e1b49217f44c49d10f6d662c data/elemenix/recipe/germinal_accelerator.json
-65ed8d54e3cc7f194a91debfe2a7eee1f253fe38 data/elemenix/recipe/memorizer_box.json
+31b5cc3496b046a590f786eec3457b890f69a4eb data/elemenix/recipe/memorizer_box.json
 887acba92d15bd4ea56f8f24fe5da03de9537607 data/elemenix/recipe/memory_burner.json
 639b2b2763da5f4f0301ebdec215d97933cd2c0c data/elemenix/recipe/metallix_essenplex.json
 46d3fac86ded1bc9079cfdaf3968880862761c05 data/elemenix/recipe/metallurgical_activator.json
@@ -57,7 +57,9 @@ ffb8c4c73dfcd49832f593da912cd42af60f14ca data/elemenix/recipe/scanning_storage.j
 4aa7321424e9cf2a9a0bfbee030dfe18427346b8 data/minecraft/advancement/recipes/misc/elemenic_analyzer_from_essences.json
 441eb0513cc8b13a6d68864ea047c918fd497ed9 data/minecraft/advancement/recipes/misc/elemenic_equiliplex.json
 75010c6a98635c0a87c1c47058b13ad6cb5f71b0 data/minecraft/advancement/recipes/misc/elemenic_equiliplex_from_equilibrium.json
+d94935975e28ef0b04825cc29041a2fb81f29a0c data/minecraft/advancement/recipes/misc/memorizer_box_from_slime_balls.json
 66a2213a1c05aaf2506c03a5952900a21da7cf09 data/minecraft/recipe/elemenic_analyzer_from_equilibrium.json
 fdccab58fab45519d1809da08a732e67ff20a249 data/minecraft/recipe/elemenic_analyzer_from_essences.json
 9c4dad68ef7deee0bbec56550cf4e2f6ab82b819 data/minecraft/recipe/elemenic_equiliplex.json
 bc05348e1b187f2b5d4ca80aadb2555046f7ec39 data/minecraft/recipe/elemenic_equiliplex_from_equilibrium.json
+90ae083c34e6a8427c9c06b17b2272b85d774753 data/minecraft/recipe/memorizer_box_from_slime_balls.json

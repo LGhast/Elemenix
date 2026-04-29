@@ -106,7 +106,7 @@
   "elemenix.elemenix.arcanix": "Arcanix",
 
   "gui.elemenix.analyzer": "Elemenic Analyzer",
-  "gui.elemenix.deconstruct": "Deconstruct",
+  "gui.elemenix.deconstruct": "Decon.",
   "gui.elemenix.item_list": "Reconstructable Items",
   "gui.elemenix.no_resolved_items": "No Resolved Items Yet",
   "gui.elemenix.no_analyzer": "No Analyzer Placed",
@@ -277,5 +277,10 @@
   "jei.info.elemenic_storage": "The Elemenic Storage is used to temporarily hold elemenix stored by the elemenic infuser, and can also establish a connection with a remote elemenic storage. When needed, the player can transfer the elemenix from the storage into an analyzer, using a method similar to deconstructing items.",
   "jei.info.remote_elemenic_storage": "The Remote Elemenic Storage is used to remotely access elemenix from an elemenic storage. This item does not directly store any elemenix itself; it merely provides the player with a method to transfer the elemenix reserves without having to retrieve the physical storage unit.",
   "jei.info.elemenic_scanner": "The Elemenic Scanner is used to scan and calculate the total elemenix of all items in a container block, and display it to the player.",
-  "jei.info.scanning_storage": "The Scanning Storage can quickly deconstruct all items in a container block and store them. This process is also considered as opening the container, which can trigger the opening effects of special containers such as trapped chests."
+  "jei.info.scanning_storage": "The Scanning Storage can quickly deconstruct all items in a container block and store them. This process is also considered as opening the container, which can trigger the opening effects of special containers such as trapped chests.",
+
+  "ftbquests.task.elemenix.deconstruct_item": "Deconstruct Item with Analyzer",
+  "ftbquests.task.elemenix.reconstruct_item": "Reconstruct Item with Analyzer",
+  "ftbquests.task.elemenix.memorize_item": "Memorize Item",
+  "ftbquests.task.elemenix.count": "Cumulative Quantity"
 }

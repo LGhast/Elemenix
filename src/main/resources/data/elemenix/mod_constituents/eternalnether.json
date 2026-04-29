@@ -1,0 +1,15 @@
+{
+  "mod_id": "eternalnether",
+  "entries": [
+    { "id": "eternalnether:withered_basalt", "constituents": [0, 24, 0, 0, 0, 1] },
+    { "id": "eternalnether:withered_blackstone", "constituents": [0, 24, 0, 0, 0, 1] },
+    { "id": "eternalnether:withered_bone", "constituents": [0, 24, 0, 0, 0, 3] },
+    { "id": "eternalnether:withered_bone_meal", "constituents": [0, 8, 0, 0, 0, 1] },
+    { "id": "eternalnether:withered_coal_block", "constituents": [207, 342, 0, 0, 207, 54] },
+    { "id": "eternalnether:withered_debris", "constituents": [0, 7500, 0, 12100, 0, 920] },
+    { "id": "eternalnether:withered_quartz_block", "constituents": [0, 32, 0, 0, 0, 1] },
+    { "id": "eternalnether:soul_stone", "constituents": [0, 18, 6, 0, 0, 0] },
+    { "id": "eternalnether:cutlass", "constituents": [12, 20, 0, 500, 0, 0] },
+    { "id": "eternalnether:warped_ender_pearl", "constituents": [20, 0, 0, 0, 12, 150] }
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "mod_id": "dungeonsdelight",
+  "entries": [
+    { "id": "dungeonsdelight:spider_meat", "preset": "rawMeat", "hunger": 5 },
+    { "id": "dungeonsdelight:bug_chops", "preset": "rawMeat", "hunger": 8 },
+    { "id": "dungeonsdelight:sniffer_shank", "preset": "rawMeat", "hunger": 8, "flumix_addition": 2 },
+    { "id": "dungeonsdelight:marbled_meat", "preset": "rawMeat", "hunger": 8 },
+    { "id": "dungeonsdelight:volaille", "preset": "rawMeat", "hunger": 6 },
+    { "id": "dungeonsdelight:wormroot_tendrils", "elemenix": "organix", "value": 12 },
+    { "id": "dungeonsdelight:wormouth", "elemenix": "organix", "value": 144 },
+    { "id": "dungeonsdelight:rotbulb", "constituents": [24, 0, 6, 0, 0, 0] },
+    { "id": "dungeonsdelight:rotbulb_crop", "constituents": [24, 0, 6, 0, 0, 0] },
+    { "id": "dungeonsdelight:rotbulb_plant", "constituents": [42, 0, 8, 0, 0, 0] },
+    { "id": "dungeonsdelight:stained_scrap", "constituents": [18, 0, 0, 270, 0, 9] },
+    { "id": "dungeonsdelight:heap_of_ancient_eggs", "constituents": [54, 40, 30, 0, 20, 20] },
+    { "id": "dungeonsdelight:gritty_flesh", "constituents": [18, 10, 2, 0, 0, 0] },
+    { "id": "dungeonsdelight:brined_flesh", "constituents": [26, 0, 8, 0, 0, 0] },
+    { "id": "dungeonsdelight:bogged_brain", "constituents": [26, 0, 12, 0, 0, 0] },
+    { "id": "dungeonsdelight:silverfish_abdomen", "constituents": [12, 2, 2, 0, 0, 0] },
+    { "id": "dungeonsdelight:ghast_tentacle", "constituents": [24, 0, 0, 0, 2, 2] },
+    { "id": "dungeonsdelight:ancient_egg", "constituents": [10, 8, 6, 0, 2, 2] },
+    { "id": "dungeonsdelight:soft_serve_sniffer_egg", "constituents": [70, 16, 12, 0, 16, 0] },
+    { "id": "dungeonsdelight:rotgourd", "constituents": [80, 0, 60, 0, 0, 0] },
+    { "id": "dungeonsdelight:music_disc_malady", "constituents": [550, 0, 0, 0, 0, 300] }
+  ]
+}

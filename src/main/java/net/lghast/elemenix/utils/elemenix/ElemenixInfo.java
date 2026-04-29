@@ -13,25 +13,24 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.neoforged.fml.ModList;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import javax.annotation.Nullable;
 import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class ElemenixInfo {
     private static final Logger LOGGER = LogManager.getLogger();
     public static final int ESSENCE_VALUE = 486;
 
     private static Map<String, Constituents> ADDITIONAL_MAP = new HashMap<>();
-    private static final Map<String, Constituents> ELEMENIX_MAP = ElemenixMapping.ELEMENIX_MAP;
     protected static final Map<TagKey<Item>, Constituents> TAG_MAP = new HashMap<>();
 
-    protected static final Map<Item, Constituents> ITEM_CACHE = new HashMap<>();
-    private static final Set<Item> CALCULATING_ITEMS = new HashSet<>();
-    private static final Set<Item> UNANALYSABLE_ITEMS = new HashSet<>();
-    private static final Set<Item> UNANALYSABLE_ITEMS_STRICT = new HashSet<>();
+    protected static final Map<Item, Constituents> ITEM_CACHE = new ConcurrentHashMap<>();
+    private static final Set<Item> CALCULATING_ITEMS = ConcurrentHashMap.newKeySet();
+    private static final Set<Item> UNANALYSABLE_ITEMS = ConcurrentHashMap.newKeySet();
+    private static final Set<Item> UNANALYSABLE_ITEMS_STRICT = ConcurrentHashMap.newKeySet();
     private static boolean isInitialized = false;
 
     public static void initialize() {
@@ -42,7 +41,6 @@ public class ElemenixInfo {
         }
 
         loadModMappings();
-        handleMap(ELEMENIX_MAP);
         handleMap(ADDITIONAL_MAP);
 
         isInitialized = true;
@@ -232,16 +230,8 @@ public class ElemenixInfo {
     }
 
     private static void loadModMappings() {
-        for (String modId : ModElemenixMapping.getAvailableModMappings()) {
-            if (ModList.get().isLoaded(modId)) {
-                try {
-                    Map<String, Constituents> modMap = ModElemenixMapping.getModMappings(modId);
-                    handleMap(modMap);
-                } catch (Exception e) {
-                    LOGGER.info("Failed to load compatibility mappings for mod: {}", modId, e);
-                }
-            }
-        }
+        Map<String, Constituents> jsonMappings = JsonElemenixLoader.loadAllMappings();
+        handleMap(jsonMappings);
     }
 
     public static void loadFromConfig() {

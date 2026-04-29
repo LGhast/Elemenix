@@ -20,6 +20,10 @@
     {
       "id": "irons_spellbooks:furled_map_ancient",
       "required": false
+    },
+    {
+      "id": "waystones:bound_scroll",
+      "required": false
     }
   ]
 }

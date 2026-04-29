@@ -1,0 +1,12 @@
+{
+  "mod_id": "yungscavebiomes",
+  "entries": [
+    { "id": "yungscavebiomes:prickly_vines", "preset": "grassVineLeaves" },
+    { "id": "yungscavebiomes:suspicious_ancient_sand", "elemenix": "terrix", "value": 8 },
+    { "id": "yungscavebiomes:icicle", "elemenix": "flumix", "value": 6 },
+    { "id": "yungscavebiomes:frost_lily", "constituents": [0, 0, 20, 0, 0, 2] },
+    { "id": "yungscavebiomes:prickly_peach", "constituents": [18, 0, 5, 0, 0, 0] },
+    { "id": "yungscavebiomes:prickly_peach_cactus", "constituents": [18, 0, 8, 0, 0, 0] },
+    { "id": "yungscavebiomes:rare_ice", "constituents": [0, 0, 36, 0, 12, 0] }
+  ]
+}

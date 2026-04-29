@@ -276,5 +276,10 @@
   "jei.info.elemenic_storage": "元质储存器用于暂存元质注入塔储存的元质，也可用于和远程元质储存器建立连接。当玩家需要时，可将元质储存器中暂存的元质转移至元质解析器中，其方法与解构物品类似。",
   "jei.info.remote_elemenic_storage": "远程元质储存器用于远程调用元质储存器中的元质，该物品并不直接储存任何元质，仅为玩家提供一种无需取出储存器即可转移其元质储量的方法。",
   "jei.info.elemenic_scanner": "元质扫描器用于扫描并计算一个容器方块中所有物品的元质总和，并为玩家显示。",
-  "jei.info.scanning_storage": "扫描式储存器可快速解构一个容器方块中的所有物品并将其储存起来，该过程也会被视为打开容器，可触发陷阱箱等特殊容器的开启效果。"
+  "jei.info.scanning_storage": "扫描式储存器可快速解构一个容器方块中的所有物品并将其储存起来，该过程也会被视为打开容器，可触发陷阱箱等特殊容器的开启效果。",
+
+  "ftbquests.task.elemenix.deconstruct_item": "使用解析器解构物品",
+  "ftbquests.task.elemenix.reconstruct_item": "使用解析器重构物品",
+  "ftbquests.task.elemenix.memorize_item": "记忆物品",
+  "ftbquests.task.elemenix.count": "累计数量"
 }

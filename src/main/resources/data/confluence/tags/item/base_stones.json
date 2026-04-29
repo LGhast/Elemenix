@@ -1,0 +1,24 @@
+{
+  "values": [
+    "confluence:pearlstone",
+    "confluence:ebonstone",
+    "confluence:cobbled_pearlstone",
+    "confluence:cobbled_ebonstone",
+    "confluence:granite",
+    "confluence:silt_block",
+    "confluence:hardened_sand_block",
+    "confluence:hardened_red_sand_block",
+    "confluence:hardened_ebonsand_block",
+    "confluence:hardened_pearlsand_block",
+    "confluence:hardened_crimsand_block",
+    "confluence:blue_bricks",
+    "confluence:pink_bricks",
+    "confluence:green_bricks",
+    "confluence:cracked_blue_bricks",
+    "confluence:cracked_pink_bricks",
+    "confluence:cracked_green_bricks",
+    "confluence:chiseled_blue_bricks",
+    "confluence:chiseled_pink_bricks",
+    "confluence:chiseled_green_bricks"
+  ]
+}

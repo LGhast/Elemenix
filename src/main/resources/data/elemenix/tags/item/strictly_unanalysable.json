@@ -14,6 +14,14 @@
     "minecraft:structure_block",
     "minecraft:structure_void",
     "minecraft:vault",
+    "minecraft:petrified_oak_slab",
+    "minecraft:bedrock",
+    "minecraft:end_portal_frame",
+    "minecraft:reinforced_deepslate",
+    {
+      "id": "farmersdelight:debug_pumpkin_pie",
+      "required": false
+    },
     {
       "id": "#eternal_starlight:wip",
       "required": false
@@ -24,6 +32,14 @@
     },
     {
       "id": "eternal_starlight:energy_block",
+      "required": false
+    },
+    {
+      "id": "eternal_starlight:loot_bag",
+      "required": false
+    },
+    {
+      "id": "eternal_starlight:loot_chest",
       "required": false
     },
     {
@@ -119,6 +135,22 @@
       "required": false
     },
     {
+      "id": "#twilightforest:miniature_structures",
+      "required": false
+    },
+    {
+      "id": "twilightforest:brown_thorns",
+      "required": false
+    },
+    {
+      "id": "twilightforest:burnt_thorns",
+      "required": false
+    },
+    {
+      "id": "twilightforest:green_thorns",
+      "required": false
+    },
+    {
       "id": "#elemenix:filled_maps",
       "required": false
     },
@@ -144,6 +176,18 @@
     },
     {
       "id": "iceandfire:dreadwood_planks_lock",
+      "required": false
+    },
+    {
+      "id": "iceandfire:creative_dragon_meal",
+      "required": false
+    },
+    {
+      "id": "iceandfire:dragon_debug_stick",
+      "required": false
+    },
+    {
+      "id": "iceandfire:dread_portal",
       "required": false
     },
     {
@@ -375,6 +419,22 @@
       "required": false
     },
     {
+      "id": "sophisticatedstorage:debug_tool",
+      "required": false
+    },
+    {
+      "id": "sophisticatedstorage:inaccessible_slot",
+      "required": false
+    },
+    {
+      "id": "sophisticatedstorage:infinity_upgrade",
+      "required": false
+    },
+    {
+      "id": "sophisticatedstorage:survival_infinity_upgrade",
+      "required": false
+    },
+    {
       "id": "mobbottle:mob_bottle_empty",
       "required": false
     },
@@ -423,11 +483,247 @@
       "required": false
     },
     {
+      "id": "bosses_of_mass_destruction:vine_wall",
+      "required": false
+    },
+    {
       "id": "bosses_of_mass_destruction:void_blossom",
       "required": false
     },
     {
       "id": "bosses_of_mass_destruction:void_blossom_block",
+      "required": false
+    },
+    {
+      "id": "#confluence_magic_lib:wip",
+      "required": false
+    },
+    {
+      "id": "#confluence:treasure_bag",
+      "required": false
+    },
+    {
+      "id": "#confluence:coins",
+      "required": false
+    },
+    {
+      "id": "#confluence:icons",
+      "required": false
+    },
+    {
+      "id": "#confluence:bottomless",
+      "required": false
+    },
+    {
+      "id": "#confluence:crates",
+      "required": false
+    },
+    {
+      "id": "confluence:demon_altar",
+      "required": false
+    },
+    {
+      "id": "confluence:crimson_altar",
+      "required": false
+    },
+    {
+      "id": "confluence:test_block",
+      "required": false
+    },
+    {
+      "id": "confluence:star",
+      "required": false
+    },
+    {
+      "id": "confluence:heart",
+      "required": false
+    },
+    {
+      "id": "confluence:entity_display",
+      "required": false
+    },
+    {
+      "id": "confluence:group",
+      "required": false
+    },
+    {
+      "id": "confluence:honey_cauldron",
+      "required": false
+    },
+    {
+      "id": "confluence:aetherium_cauldron",
+      "required": false
+    },
+    {
+      "id": "confluence:developer_bow",
+      "required": false
+    },
+    {
+      "id": "confluence:developer_icon",
+      "required": false
+    },
+    {
+      "id": "confluence:developer_sword",
+      "required": false
+    },
+    {
+      "id": "confluence:dev_fishing_rod",
+      "required": false
+    },
+    {
+      "id": "confluence:dev_bug_net",
+      "required": false
+    },
+    {
+      "id": "confluence:bestiary",
+      "required": false
+    },
+    {
+      "id": "confluence:soul_cake",
+      "required": false
+    },
+    {
+      "id": "confluence:sugar_plum",
+      "required": false
+    },
+    {
+      "id": "confluence:candy_apple",
+      "required": false
+    },
+    {
+      "id": "confluence:candy_cane",
+      "required": false
+    },
+    {
+      "id": "confluence:pink_cola",
+      "required": false
+    },
+    {
+      "id": "confluence:dongdongs_flatbread",
+      "required": false
+    },
+    {
+      "id": "confluence:piglin_stew",
+      "required": false
+    },
+    {
+      "id": "confluence:mysterious_note",
+      "required": false
+    },
+    {
+      "id": "confluence:mysterious_slate",
+      "required": false
+    },
+    {
+      "id": "confluence:ice_tofu_brick",
+      "required": false
+    },
+    {
+      "id": "confluence:andesite_casing",
+      "required": false
+    },
+    {
+      "id": "confluence:stellar_blossom",
+      "required": false
+    },
+    {
+      "id": "#terra_entity:sword_summon",
+      "required": false
+    },
+    {
+      "id": "terra_entity:bei_dou_boomerang",
+      "required": false
+    },
+    {
+      "id": "terra_entity:developer_boomerang",
+      "required": false
+    },
+    {
+      "id": "terra_entity:worm_food",
+      "required": false
+    },
+    {
+      "id": "terra_curio:icon",
+      "required": false
+    },
+    {
+      "id": "terra_curio:star",
+      "required": false
+    },
+    {
+      "id": "terra_guns:empty_bullet",
+      "required": false
+    },
+    {
+      "id": "ftbquests:barrier",
+      "required": false
+    },
+    {
+      "id": "ftbquests:custom_icon",
+      "required": false
+    },
+    {
+      "id": "ftbquests:detector",
+      "required": false
+    },
+    {
+      "id": "ftbquests:lootcrate",
+      "required": false
+    },
+    {
+      "id": "ftbquests:missing_item",
+      "required": false
+    },
+    {
+      "id": "ftbquests:stage_barrier",
+      "required": false
+    },
+    {
+      "id": "fdlib:test_multiblock",
+      "required": false
+    },
+    {
+      "id": "hammerlib:test_machine",
+      "required": false
+    },
+    {
+      "id": "#lootr:containers",
+      "required": false
+    },
+    {
+      "id": "yungscavebiomes:ice_sheet",
+      "required": false
+    },
+    {
+      "id": "toms_storage:painted_trim",
+      "required": false
+    },
+    {
+      "id": "block_factorys_bosses:achievement_icons",
+      "required": false
+    },
+    {
+      "id": "block_factorys_bosses:tp_stick",
+      "required": false
+    },
+    {
+      "id": "block_factorys_bosses:loot_table_stick",
+      "required": false
+    },
+    {
+      "id": "block_factorys_bosses:loot_table_stick_dragon",
+      "required": false
+    },
+    {
+      "id": "block_factorys_bosses:loot_table_stick_rare",
+      "required": false
+    },
+    {
+      "id": "block_factorys_bosses:placeholder",
+      "required": false
+    },
+    {
+      "id": "block_factorys_bosses:ice_block_particules",
       "required": false
     }
   ]

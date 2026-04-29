@@ -1,0 +1,6 @@
+{
+  "mod_id": "lootr",
+  "entries": [
+    { "id": "lootr:trophy", "constituents": [100, 100, 0, 0, 0, 100] }
+  ]
+}

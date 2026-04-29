@@ -1,0 +1,17 @@
+{
+  "values": [
+    "confluence:armor_icon",
+    "confluence:blocks_icon",
+    "confluence:developer_icon",
+    "confluence:magic_icon",
+    "confluence:material_icon",
+    "confluence:mechanical_icon",
+    "confluence:melee_icon",
+    "confluence:nature_icon",
+    "confluence:potion_icon",
+    "confluence:precious_icon",
+    "confluence:remote_icon",
+    "confluence:summon_icon",
+    "confluence:tools_icon"
+  ]
+}
