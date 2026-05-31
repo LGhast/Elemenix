@@ -1,0 +1,37 @@
+{
+  "mod_id": "deeperdarker",
+  "load_after": ["minecraft"],
+  "recipes": [
+    {
+      "preset": "template",
+      "output": "deeperdarker:warden_upgrade_smithing_template",
+      "material": "minecraft:sculk"
+    },
+    {
+      "preset": "template",
+      "output": "deeperdarker:resonarium_upgrade_smithing_template",
+      "material": "deeperdarker:resonarium"
+    },
+    {
+      "preset": "same",
+      "output": "deeperdarker:porous_sculk_gleam",
+      "input": "deeperdarker:sculk_gleam",
+      "multiplier": 0.8
+    },
+    {
+      "output": "deeperdarker:enriched_gloomslate_bricks",
+      "count": 1,
+      "inputs": [
+        { "id": "deeperdarker:gloomslate_bricks", "count": 1 },
+        { "id": "deeperdarker:lite", "count": 1 }
+      ]
+    },
+    {
+      "output": "deeperdarker:gloomslate_pot",
+      "count": 1,
+      "inputs": [
+        { "id": "deeperdarker:gloomsherd", "count": 1 }
+      ]
+    }
+  ]
+}

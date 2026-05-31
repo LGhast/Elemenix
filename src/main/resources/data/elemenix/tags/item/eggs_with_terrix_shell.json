@@ -59,6 +59,14 @@
     {
       "id": "friendsandfoes:crab_egg",
       "required": false
+    },
+    {
+      "id": "untitledduckmod:duck_egg",
+      "required": false
+    },
+    {
+      "id": "untitledduckmod:goose_egg",
+      "required": false
     }
   ]
 }

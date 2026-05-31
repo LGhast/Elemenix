@@ -14,6 +14,7 @@ public class CommonConfig {
     public static ModConfigSpec.ConfigValue<List<? extends String>> UNANALYSABLE_LIST;
     public static final ModConfigSpec.DoubleValue DC_DISCOUNT;
     public static final ModConfigSpec.DoubleValue RC_PREMIUM;
+    public static ModConfigSpec.BooleanValue ALLOW_NON_CREATIVE_RECORDING;
 
     public static ModConfigSpec.BooleanValue DISABLE_SCANNER_SCANNING;
     public static ModConfigSpec.BooleanValue DISABLE_SCANNING_STORAGE_SCANNING;
@@ -110,6 +111,14 @@ public class CommonConfig {
                         "consumed constituents = original constituents × (1 + premium) (rounded down).")
                 .translation(CONFIG_PREFIX + "reconstruction_premium")
                 .defineInRange("reconstruction_premium", 0.0, 0.0, 99.0);
+
+        ALLOW_NON_CREATIVE_RECORDING = BUILDER
+                .comment("是否允许非创造模式下的玩家将物品录入记忆碟。",
+                        "若为 false，只有创造模式玩家能够录入。",
+                        "Whether to allow non-creative players to record items into the Memorizer.",
+                        "If false, only creative players can record.")
+                .translation(CONFIG_PREFIX + "allow_non_creative_recording")
+                .define("allow_non_creative_recording", true);
 
         BUILDER.pop();
 

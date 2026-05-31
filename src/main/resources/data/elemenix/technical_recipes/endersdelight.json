@@ -1,0 +1,12 @@
+{
+  "mod_id": "endersdelight",
+  "load_after": ["farmersdelight"],
+  "recipes": [
+    {
+      "preset": "food_unit",
+      "output": "endersdelight:stuffed_shulker_bowl",
+      "source": "endersdelight:stuffed_shulker",
+      "container": "endersdelight:shulker_bowl"
+    }
+  ]
+}

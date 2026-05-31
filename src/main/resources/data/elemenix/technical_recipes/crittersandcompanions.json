@@ -1,0 +1,38 @@
+{
+  "mod_id": "crittersandcompanions",
+  "load_after": ["minecraft"],
+  "recipes": [
+    {
+      "output": "crittersandcompanions:sea_bunny_slime_bottle",
+      "count": 1,
+      "inputs": [
+        { "id": "minecraft:glass_bottle", "count": 1 }
+      ],
+      "additions": [
+        { "type": "organix", "value": 30 },
+        { "type": "flumix", "value": 15 }
+      ]
+    },
+    {
+      "preset": "mob_bucket",
+      "output": "crittersandcompanions:koi_fish_bucket",
+      "mob_item": "crittersandcompanions:koi_fish"
+    },
+    {
+      "preset": "mob_bucket",
+      "output": "crittersandcompanions:sea_bunny_bucket",
+      "mob_constituents": [
+        { "type": "organix", "value": 30 },
+        { "type": "flumix", "value": 15 }
+      ]
+    },
+    {
+      "preset": "mob_bucket",
+      "output": "crittersandcompanions:dumbo_octopus_bucket",
+      "mob_constituents": [
+        { "type": "organix", "value": 50 },
+        { "type": "flumix", "value": 15 }
+      ]
+    }
+  ]
+}

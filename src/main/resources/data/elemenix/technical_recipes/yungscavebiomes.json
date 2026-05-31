@@ -1,0 +1,11 @@
+{
+  "mod_id": "yungscavebiomes",
+  "load_after": ["minecraft"],
+  "recipes": [
+    {
+      "preset": "template",
+      "output": "yungscavebiomes:ancient_armor_trim_smithing_template",
+      "material": "yungscavebiomes:ancient_sandstone"
+    }
+  ]
+}

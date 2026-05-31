@@ -10,6 +10,7 @@ import net.lghast.elemenix.common.system.datacomponent.ElemenicStorage;
 import net.lghast.elemenix.common.system.datacomponent.MemoryData;
 import net.lghast.elemenix.common.system.datacomponent.RemoteStorageBinding;
 import net.lghast.elemenix.compat.ftbquests.util.AnalyzerTaskHelper;
+import net.lghast.elemenix.conifig.CommonConfig;
 import net.lghast.elemenix.register.content.ModItems;
 import net.lghast.elemenix.register.system.ModDataComponents;
 import net.lghast.elemenix.register.system.ModMenus;
@@ -391,6 +392,10 @@ public class AnalyzerMenu extends AbstractContainerMenu {
 
     public boolean canRecordInputItem(ItemStack inputStack, ItemStack memorizerStack) {
         if (inputStack.isEmpty() || inputStack.is(ModTags.ANALYZER_UNRECORDABLE)) {
+            return false;
+        }
+
+        if (!CommonConfig.ALLOW_NON_CREATIVE_RECORDING.get() && !player.getAbilities().instabuild) {
             return false;
         }
 

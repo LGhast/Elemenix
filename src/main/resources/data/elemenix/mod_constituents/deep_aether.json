@@ -8,6 +8,7 @@
     { "id": "deep_aether:feather_grass", "preset": "grassVineLeaves" },
     { "id": "deep_aether:short_golden_grass", "preset": "grassVineLeaves" },
     { "id": "deep_aether:yagroot_vine", "preset": "grassVineLeaves" },
+    { "id": "deep_aether:highstone", "preset": "stone" },
     { "id": "deep_aether:raw_quail", "preset": "rawMeat", "hunger": 6 },
     { "id": "deep_aether:raw_aerglow_fish", "preset": "rawFish", "hunger": 5 },
     { "id": "deep_aether:golden_grass_seeds", "elemenix": "organix", "value": 4 },

@@ -1,0 +1,43 @@
+{
+  "mod_id": "cataclysm",
+  "load_after": ["minecraft"],
+  "recipes": [
+    {
+      "preset": "same",
+      "output": "cataclysm:polished_sandstone",
+      "input": "minecraft:sandstone"
+    },
+    {
+      "preset": "same",
+      "output": "cataclysm:obsidian_fence",
+      "input": "minecraft:obsidian"
+    },
+    {
+      "output": "cataclysm:blessed_amethyst_crab_meat",
+      "count": 1,
+      "inputs": [
+        { "id": "cataclysm:amethyst_crab_meat", "count": 1 }
+      ],
+      "additions": [
+        { "type": "arcanix", "value": 10 }
+      ]
+    },
+    {
+      "preset": "mob_bucket",
+      "output": "cataclysm:netherite_ministrosity_bucket",
+      "mob_item": "cataclysm:netherite_effigy",
+      "in_water": false
+    },
+    {
+      "preset": "mob_bucket",
+      "output": "cataclysm:modern_remnant_bucket",
+      "mob_item": "cataclysm:remnant_skull",
+      "in_water": false
+    },
+    {
+      "preset": "mob_bucket",
+      "output": "cataclysm:the_baby_leviathan_bucket",
+      "mob_item": "cataclysm:abyssal_egg"
+    }
+  ]
+}

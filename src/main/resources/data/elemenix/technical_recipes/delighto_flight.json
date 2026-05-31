@@ -1,0 +1,55 @@
+{
+  "mod_id": "delighto_flight",
+  "load_after": ["farmersdelight"],
+  "recipes": [
+    {
+      "preset": "same",
+      "output": "delighto_flight:weather_soil_farmland",
+      "input": "delighto_flight:weather_soil"
+    },
+    {
+      "output": "delighto_flight:phantom_wing",
+      "count": 1,
+      "inputs": [
+        { "id": "minecraft:bone", "count": 1 },
+        { "id": "minecraft:phantom_membrane", "count": 2 }
+      ]
+    },
+    {
+      "output": "delighto_flight:cloud_berry_pancake",
+      "count": 4,
+      "inputs": [
+        { "id": "delighto_flight:cloud_berry_pancake_tower", "count": 1 }
+      ],
+      "offcuts": [
+        { "id": "minecraft:bowl", "count": 1 }
+      ]
+    },
+    {
+      "output": "delighto_flight:mushroom_hotpot",
+      "count": 4,
+      "inputs": [
+        { "id": "delighto_flight:mushroom_hotpot_block", "count": 1 }
+      ],
+      "offcuts": [
+        { "id": "minecraft:copper_ingot", "count": 4 }
+      ],
+      "container": "minecraft:bowl"
+    },
+    {
+      "preset": "food_unit",
+      "output": "delighto_flight:thunder_fruit_stew",
+      "source": "delighto_flight:thunder_fruit_stew_block",
+      "container": "minecraft:bowl",
+      "offcuts": [
+        { "id": "minecraft:bowl", "count": 1 },
+        { "id": "minecraft:bucket", "count": 1 }
+      ]
+    },
+    {
+      "preset": "food_unit_bowl",
+      "output": "delighto_flight:lotus_leaf_rice",
+      "source": "delighto_flight:lotus_leaf_rice_block"
+    }
+  ]
+}

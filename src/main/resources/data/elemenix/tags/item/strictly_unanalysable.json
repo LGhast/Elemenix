@@ -39,6 +39,18 @@
       "required": false
     },
     {
+      "id": "eternal_starlight:loot_bag",
+      "required": false
+    },
+    {
+      "id": "eternal_starlight:book",
+      "required": false
+    },
+    {
+      "id": "eternal_starlight:gravity_pickaxe",
+      "required": false
+    },
+    {
       "id": "eternal_starlight:loot_chest",
       "required": false
     },
@@ -156,6 +168,14 @@
     },
     {
       "id": "irons_spellbooks:claymore",
+      "required": false
+    },
+    {
+      "id": "irons_spellbooks:armor_pile",
+      "required": false
+    },
+    {
+      "id": "irons_spellbooks:cinderous_soul_rune",
       "required": false
     },
     {
@@ -339,6 +359,30 @@
       "required": false
     },
     {
+      "id": "ars_nouveau:familiar_amethyst_golem",
+      "required": false
+    },
+    {
+      "id": "ars_nouveau:familiar_bookwyrm",
+      "required": false
+    },
+    {
+      "id": "ars_nouveau:familiar_drygmy",
+      "required": false
+    },
+    {
+      "id": "ars_nouveau:familiar_starbuncle",
+      "required": false
+    },
+    {
+      "id": "ars_nouveau:familiar_whirlisprig",
+      "required": false
+    },
+    {
+      "id": "ars_nouveau:familiar_wixie",
+      "required": false
+    },
+    {
       "id": "cataclysm:altar_of_abyss",
       "required": false
     },
@@ -456,6 +500,26 @@
     },
     {
       "id": "aether:present",
+      "required": false
+    },
+    {
+      "id": "#aether:locked_dungeon_blocks",
+      "required": false
+    },
+    {
+      "id": "#aether:trapped_dungeon_blocks",
+      "required": false
+    },
+    {
+      "id": "#aether:treasure_doorway_dungeon_blocks",
+      "required": false
+    },
+    {
+      "id": "#aether:boss_doorway_dungeon_blocks",
+      "required": false
+    },
+    {
+      "id": "#deep_aether:dungeon_blocks_unanalysable",
       "required": false
     },
     {
@@ -724,6 +788,26 @@
     },
     {
       "id": "block_factorys_bosses:ice_block_particules",
+      "required": false
+    },
+    {
+      "id": "exposure:chromatic_sheet",
+      "required": false
+    },
+    {
+      "id": "dungeonsdelight:logo_item",
+      "required": false
+    },
+    {
+      "id": "irons_lib:player_statue",
+      "required": false
+    },
+    {
+      "id": "irons_patreon_lib:player_statue",
+      "required": false
+    },
+    {
+      "id": "irons_patreon_lib:transmog_table",
       "required": false
     }
   ]

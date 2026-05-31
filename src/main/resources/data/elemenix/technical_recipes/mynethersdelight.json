@@ -1,0 +1,166 @@
+{
+  "mod_id": "mynethersdelight",
+  "load_after": ["farmersdelight"],
+  "recipes": [
+    {
+      "preset": "same",
+      "output": "mynethersdelight:stripped_powdery_block",
+      "input": "mynethersdelight:powdery_block"
+    },
+    {
+      "output": "mynethersdelight:hoglin_sausage",
+      "count": 2,
+      "inputs": [
+        { "id": "mynethersdelight:hoglin_loin", "count": 1 }
+      ]
+    },
+    {
+      "output": "mynethersdelight:ghast_sourdough",
+      "count": 1,
+      "inputs": [
+        { "id": "mynethersdelight:ghast_dough", "count": 4 }
+      ]
+    },
+    {
+      "preset": "same",
+      "output": "mynethersdelight:resurgent_soil",
+      "input": "mynethersdelight:letios_compost"
+    },
+    {
+      "preset": "same",
+      "output": "mynethersdelight:resurgent_soil_farmland",
+      "input": "mynethersdelight:letios_compost"
+    },
+    {
+      "output": "mynethersdelight:magma_cake_slice",
+      "count": 7,
+      "inputs": [
+        { "id": "mynethersdelight:magma_cake_block", "count": 1 }
+      ]
+    },
+    {
+      "output": "mynethersdelight:ghasmati",
+      "count": 1,
+      "inputs": [
+        { "id": "mynethersdelight:ghasta", "count": 1 }
+      ],
+      "deductions": [
+        { "type": "organix", "value": 2 }
+      ]
+    },
+    {
+      "output": "mynethersdelight:minced_strider",
+      "count": 2,
+      "inputs": [
+        { "id": "mynethersdelight:strider_slice", "count": 1 }
+      ],
+      "offcuts": [
+        { "id": "minecraft:string", "count": 1 }
+      ]
+    },
+    {
+      "output": "mynethersdelight:cold_striderloaf",
+      "count": 1,
+      "inputs": [
+        { "id": "mynethersdelight:striderloaf", "count": 1 }
+      ],
+      "removed_elemenix": "energix"
+    },
+    {
+      "output": "mynethersdelight:boiled_egg",
+      "count": 1,
+      "inputs": [
+        { "id": "mynethersdelight:strider_egg", "count": 1 }
+      ],
+      "removed_elemenix": "terrix"
+    },
+    {
+      "output": "mynethersdelight:hot_wings",
+      "count": 1,
+      "inputs": [
+        { "id": "mynethersdelight:pepper_powder", "count": 1 },
+        { "id": "farmersdelight:onion", "count": 1 },
+        { "id": "farmersdelight:chicken_cuts", "count": 1 },
+        { "id": "minecraft:bowl", "count": 1 }
+      ]
+    },
+    {
+      "output": "mynethersdelight:hot_cream",
+      "count": 1,
+      "inputs": [
+        { "id": "mynethersdelight:pepper_powder", "count": 2 },
+        { "id": "minecraft:magma_cream", "count": 2 },
+        { "id": "minecraft:egg", "count": 1 },
+        { "id": "minecraft:lava_bucket", "count": 1 }
+      ],
+      "removed_elemenix": "flumix"
+    },
+    {
+      "output": "mynethersdelight:hot_cream_cone",
+      "count": 3,
+      "inputs": [
+        { "id": "mynethersdelight:hot_cream", "count": 1 },
+        { "id": "mynethersdelight:powder_cannon", "count": 3 }
+      ],
+      "offcuts": [
+        { "id": "minecraft:bucket", "count": 1 }
+      ]
+    },
+    {
+      "output": "mynethersdelight:ghast_dough",
+      "count": 1,
+      "inputs": [
+        { "id": "mynethersdelight:ghasmati", "count": 1 },
+        { "id": "minecraft:egg", "count": 1 }
+      ]
+    },
+    {
+      "output": "mynethersdelight:skoglin_trophy",
+      "count": 1,
+      "inputs": [
+        { "id": "mynethersdelight:hoglin_trophy", "count": 1 }
+      ],
+      "offcuts": [
+        { "id": "mynethersdelight:hoglin_hide", "count": 1 }
+      ]
+    },
+    {
+      "output": "mynethersdelight:golden_trophy",
+      "count": 1,
+      "inputs": [
+        { "id": "mynethersdelight:skoglin_trophy", "count": 1 },
+        { "id": "minecraft:gold_ingot", "count": 15 }
+      ]
+    },
+    {
+      "preset": "food_unit",
+      "output": "mynethersdelight:plate_of_striderloaf",
+      "source": "mynethersdelight:striderloaf",
+      "container": "minecraft:bowl",
+      "offcuts": [
+        { "id": "minecraft:bowl", "count": 1 },
+        { "id": "minecraft:string", "count": 1 }
+      ]
+    },
+    {
+      "preset": "food_unit",
+      "output": "mynethersdelight:plate_of_cold_striderloaf",
+      "source": "mynethersdelight:cold_striderloaf",
+      "container": "minecraft:bowl",
+      "offcuts": [
+        { "id": "minecraft:bowl", "count": 1 },
+        { "id": "minecraft:string", "count": 1 }
+      ]
+    },
+    {
+      "preset": "food_unit",
+      "output": "mynethersdelight:plate_of_ghasta_with_cream",
+      "source": "mynethersdelight:ghasta_with_cream",
+      "container": "minecraft:bowl",
+      "offcuts": [
+        { "id": "minecraft:bowl", "count": 1 },
+        { "id": "minecraft:magma_cream", "count": 1 }
+      ]
+    }
+  ]
+}

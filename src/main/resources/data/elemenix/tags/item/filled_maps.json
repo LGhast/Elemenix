@@ -24,6 +24,30 @@
     {
       "id": "waystones:bound_scroll",
       "required": false
+    },
+    {
+      "id": "exposure:stacked_photographs",
+      "required": false
+    },
+    {
+      "id": "exposure:signed_album",
+      "required": false
+    },
+    {
+      "id": "exposure:developed_color_film",
+      "required": false
+    },
+    {
+      "id": "exposure:developed_black_and_white_film",
+      "required": false
+    },
+    {
+      "id": "fieldguide:page",
+      "required": false
+    },
+    {
+      "id": "irons_spellbooks:scroll",
+      "required": false
     }
   ]
 }

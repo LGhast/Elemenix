@@ -1,0 +1,11 @@
+{
+  "mod_id": "untitledduckmod",
+  "entries": [
+    { "id": "untitledduckmod:raw_duck", "preset": "rawMeat", "hunger": 6 },
+    { "id": "untitledduckmod:raw_goose", "preset": "rawMeat", "hunger": 8 },
+    { "id": "untitledduckmod:duck_feather", "elemenix": "organix", "value": 24 },
+    { "id": "untitledduckmod:duck_egg", "constituents": [6, 8, 6, 0, 0, 0] },
+    { "id": "untitledduckmod:goose_egg", "constituents": [8, 10, 8, 0, 0, 0] },
+    { "id": "untitledduckmod:goose_foot", "constituents": [45, 8, 12, 0, 0, 5] }
+  ]
+}

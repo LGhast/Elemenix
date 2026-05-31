@@ -475,21 +475,23 @@ public class RecipeHelper {
         RecipeType<?> type = recipe.getType();
 
         Optional<Ingredient> templateOpt = tryGetFields(recipe,
-                obj -> obj instanceof Ingredient ing && ing != Ingredient.EMPTY ? Optional.of(ing) : Optional.empty(),
-                "template");
+                obj -> obj instanceof Ingredient ing && ing != Ingredient.EMPTY ? Optional.of(ing) : Optional.empty(), "template");
         Optional<Ingredient> baseOpt = tryGetFields(recipe,
-                obj -> obj instanceof Ingredient ing && ing != Ingredient.EMPTY ? Optional.of(ing) : Optional.empty(),
-                "base");
+                obj -> obj instanceof Ingredient ing && ing != Ingredient.EMPTY ? Optional.of(ing) : Optional.empty(), "base");
         Optional<Ingredient> additionOpt = tryGetFields(recipe,
-                obj -> obj instanceof Ingredient ing && ing != Ingredient.EMPTY ? Optional.of(ing) : Optional.empty(),
-                "addition");
+                obj -> obj instanceof Ingredient ing && ing != Ingredient.EMPTY ? Optional.of(ing) : Optional.empty(), "addition");
 
-        if (templateOpt.isEmpty() || baseOpt.isEmpty() || additionOpt.isEmpty()) {
+        if (baseOpt.isEmpty() || additionOpt.isEmpty()) {
             info.hasUnanalysable = true;
             return;
         }
 
-        for (Ingredient ingredient : new Ingredient[]{templateOpt.get(), baseOpt.get(), additionOpt.get()}) {
+        List<Ingredient> validIngredients = new ArrayList<>();
+        templateOpt.ifPresent(validIngredients::add);
+        validIngredients.add(baseOpt.get());
+        validIngredients.add(additionOpt.get());
+
+        for (Ingredient ingredient : validIngredients) {
             ItemStack best = extractBestFromIngredient(ingredient, type);
             if (best.isEmpty()) {
                 info.hasUnanalysable = true;

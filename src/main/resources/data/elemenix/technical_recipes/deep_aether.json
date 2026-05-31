@@ -1,0 +1,82 @@
+{
+  "mod_id": "deep_aether",
+  "load_after": ["aether"],
+  "recipes": [
+    {
+      "output": "deep_aether:stratus_block",
+      "count": 1,
+      "inputs": [
+        { "id": "deep_aether:stratus_ingot", "count": 9 }
+      ]
+    },
+    {
+      "preset": "bucket_constituents",
+      "output": "deep_aether:poison_bucket",
+      "constituents": [
+        { "type": "organix", "value": 8 },
+        { "type": "flumix", "value": 8 }
+      ]
+    },
+    {
+      "preset": "bucket_elemenix",
+      "output": "deep_aether:virulent_quicksand_bucket",
+      "elemenix_type": "terrix",
+      "value": 32
+    },
+    {
+      "preset": "mob_bucket",
+      "output": "deep_aether:aerglow_fish_bucket",
+      "mob_item": "deep_aether:raw_aerglow_fish"
+    },
+    {
+      "preset": "template",
+      "output": "deep_aether:stratus_smithing_template",
+      "main_item": "minecraft:diamond",
+      "material": "aether:holystone"
+    },
+    {
+      "preset": "template",
+      "output": "deep_aether:stormforged_smithing_template",
+      "main_item": "minecraft:diamond",
+      "material": "deep_aether:nimbus_stone"
+    },
+    {
+      "output": "deep_aether:carved_blue_squash",
+      "count": 1,
+      "inputs": [
+        { "id": "deep_aether:blue_squash", "count": 1 }
+      ],
+      "offcuts": [
+        { "id": "deep_aether:squash_seeds", "count": 4 }
+      ]
+    },
+    {
+      "output": "deep_aether:carved_green_squash",
+      "count": 1,
+      "inputs": [
+        { "id": "deep_aether:green_squash", "count": 1 }
+      ],
+      "offcuts": [
+        { "id": "deep_aether:squash_seeds", "count": 4 }
+      ]
+    },
+    {
+      "output": "deep_aether:carved_purple_squash",
+      "count": 1,
+      "inputs": [
+        { "id": "deep_aether:purple_squash", "count": 1 }
+      ],
+      "offcuts": [
+        { "id": "deep_aether:squash_seeds", "count": 4 }
+      ]
+    },
+    {
+      "output": "deep_aether:skyroot_aerglow_fish_bucket",
+      "count": 1,
+      "inputs": [
+        { "id": "deep_aether:raw_aerglow_fish", "count": 1 },
+        { "id": "aether:skyroot_water_bucket", "count": 1 }
+      ]
+    }
+  ]
+}

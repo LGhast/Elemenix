@@ -1,0 +1,14 @@
+{
+  "mod_id": "untitledduckmod",
+  "load_after": ["minecraft"],
+  "recipes": [
+    {
+      "output": "untitledduckmod:duck_sack",
+      "count": 1,
+      "inputs": [
+        { "id": "untitledduckmod:empty_duck_sack", "count": 1 },
+        { "id": "untitledduckmod:raw_duck", "count": 1 }
+      ]
+    }
+  ]
+}

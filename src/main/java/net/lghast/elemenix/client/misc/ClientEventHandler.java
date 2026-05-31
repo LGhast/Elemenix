@@ -8,6 +8,7 @@ import net.lghast.elemenix.register.content.ModItems;
 import net.lghast.elemenix.register.system.ModMenus;
 import net.lghast.elemenix.register.system.ModTags;
 import net.lghast.elemenix.utils.Constituents;
+import net.lghast.elemenix.utils.elemenix.Elemenix;
 import net.lghast.elemenix.utils.elemenix.ElemenixInfo;
 import net.lghast.elemenix.utils.ModUtils;
 import net.minecraft.ChatFormatting;
@@ -34,6 +35,8 @@ import java.util.Objects;
 public class ClientEventHandler {
     @SubscribeEvent
     public static void onItemTooltip(ItemTooltipEvent event) {
+        if(!Elemenics.started) return;
+
         ItemStack stack = event.getItemStack();
 
         if(ClientConfig.SHOW_CONSTITUENT_TOOLTIPS_WHEN_SHIFT.get() && !Screen.hasShiftDown()) {

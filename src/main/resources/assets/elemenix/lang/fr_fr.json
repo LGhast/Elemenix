@@ -259,6 +259,7 @@
   "config.elemenix.show_scanning_storage_particles": "Afficher les particules du réservoir de scan d'élémentium",
   "config.elemenix.scanner_blacklist": "Liste noire du scanner d'Élémentium",
   "config.elemenix.scanning_storage_blacklist": "Liste noire du réservoir de scan d'Élémentium",
+  "config.elemenix.allow_non_creative_recording": "Autoriser l'enregistrement hors mode créatif",
 
   "jei.category.elemenix.enriching": "Enrichissement",
   "jei.category.elemenix.transforming": "Transformation Élémentaire",

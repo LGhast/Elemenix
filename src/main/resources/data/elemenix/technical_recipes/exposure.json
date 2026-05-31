@@ -1,0 +1,16 @@
+{
+  "mod_id": "exposure",
+  "load_after": ["minecraft"],
+  "recipes": [
+    {
+      "output": "exposure:broken_interplanar_projector",
+      "count": 1,
+      "inputs": [
+        { "id": "exposure:interplanar_projector", "count": 1 }
+      ],
+      "offcuts": [
+        { "id": "minecraft:ender_eye", "count": 1 }
+      ]
+    }
+  ]
+}

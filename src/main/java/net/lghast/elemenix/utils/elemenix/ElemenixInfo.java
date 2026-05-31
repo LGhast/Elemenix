@@ -31,27 +31,28 @@ public class ElemenixInfo {
     private static final Set<Item> CALCULATING_ITEMS = ConcurrentHashMap.newKeySet();
     private static final Set<Item> UNANALYSABLE_ITEMS = ConcurrentHashMap.newKeySet();
     private static final Set<Item> UNANALYSABLE_ITEMS_STRICT = ConcurrentHashMap.newKeySet();
-    private static boolean isInitialized = false;
+    private static boolean initialized = false;
+    private static volatile boolean initializing = false;
 
     public static void initialize() {
-        if (isInitialized) return;
-
-        if(ADDITIONAL_MAP.isEmpty()){
-            loadFromConfig();
+        if (initialized || initializing) return;
+        initializing = true;
+        try {
+            if(ADDITIONAL_MAP.isEmpty()){
+                loadFromConfig();
+            }
+            loadModMappings();
+            handleMap(ADDITIONAL_MAP);
+            TRecipeHelper.initialize();
+            initialized = true;
+            LOGGER.info("ElemenixInfo Class has been initialized.");
+        } finally {
+            initializing = false;
         }
-
-        loadModMappings();
-        handleMap(ADDITIONAL_MAP);
-
-        isInitialized = true;
-
-        TRecipeHelper.initialize();
-
-        LOGGER.info("ElemenixInfo Class has been initialized.");
     }
 
     public static void clearCaches() {
-        isInitialized = false;
+        initialized = false;
         ITEM_CACHE.clear();
         CALCULATING_ITEMS.clear();
         UNANALYSABLE_ITEMS.clear();
@@ -118,7 +119,7 @@ public class ElemenixInfo {
             return new Constituents(true);
         }
 
-        if (!isInitialized) {
+        if (!initialized) {
             LOGGER.info("ElemenixInfo Class hasn't initialized. Unanalysable constituents has been returned.");
             initialize();
         }

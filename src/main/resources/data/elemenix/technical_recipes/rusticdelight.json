@@ -1,0 +1,124 @@
+{
+  "mod_id": "rusticdelight",
+  "load_after": ["farmersdelight"],
+  "recipes": [
+    {
+      "output": "rusticdelight:bell_pepper_slice_green",
+      "count": 1,
+      "inputs": [
+        { "id": "rusticdelight:bell_pepper_green", "count": 1 }
+      ],
+      "offcuts": [
+        { "id": "rusticdelight:bell_pepper_seeds", "count": 1 }
+      ]
+    },
+    {
+      "output": "rusticdelight:bell_pepper_slice_red",
+      "count": 1,
+      "inputs": [
+        { "id": "rusticdelight:bell_pepper_red", "count": 1 }
+      ],
+      "offcuts": [
+        { "id": "rusticdelight:bell_pepper_seeds", "count": 1 }
+      ]
+    },
+    {
+      "output": "rusticdelight:bell_pepper_slice_yellow",
+      "count": 1,
+      "inputs": [
+        { "id": "rusticdelight:bell_pepper_yellow", "count": 1 }
+      ],
+      "offcuts": [
+        { "id": "rusticdelight:bell_pepper_seeds", "count": 1 }
+      ]
+    },
+    {
+      "output": "rusticdelight:calamari_slice",
+      "count": 2,
+      "inputs": [
+        { "id": "rusticdelight:calamari", "count": 1 }
+      ]
+    },
+    {
+      "output": "rusticdelight:syrup_cheesecake_slice",
+      "count": 4,
+      "inputs": [
+        { "id": "rusticdelight:syrup_cheesecake", "count": 1 }
+      ]
+    },
+    {
+      "output": "rusticdelight:cherry_blossom_cheesecake_slice",
+      "count": 4,
+      "inputs": [
+        { "id": "rusticdelight:cherry_blossom_cheesecake", "count": 1 }
+      ]
+    },
+    {
+      "output": "rusticdelight:pancake",
+      "count": 6,
+      "inputs": [
+        { "id": "rusticdelight:pancakes", "count": 1 }
+      ],
+      "offcuts": [
+        { "id": "minecraft:bowl", "count": 1 }
+      ]
+    },
+    {
+      "output": "rusticdelight:honey_pancake",
+      "count": 6,
+      "inputs": [
+        { "id": "rusticdelight:honey_pancakes", "count": 1 }
+      ],
+      "offcuts": [
+        { "id": "minecraft:bowl", "count": 1 }
+      ]
+    },
+    {
+      "output": "rusticdelight:chocolate_pancake",
+      "count": 6,
+      "inputs": [
+        { "id": "rusticdelight:chocolate_pancakes", "count": 1 }
+      ],
+      "offcuts": [
+        { "id": "minecraft:bowl", "count": 1 }
+      ]
+    },
+    {
+      "output": "rusticdelight:cherry_blossom_pancake",
+      "count": 6,
+      "inputs": [
+        { "id": "rusticdelight:cherry_blossom_pancakes", "count": 1 }
+      ],
+      "offcuts": [
+        { "id": "minecraft:bowl", "count": 1 }
+      ]
+    },
+    {
+      "output": "rusticdelight:vegetable_pancake",
+      "count": 6,
+      "inputs": [
+        { "id": "rusticdelight:vegetable_pancakes", "count": 1 }
+      ],
+      "offcuts": [
+        { "id": "minecraft:bowl", "count": 1 }
+      ]
+    },
+    {
+      "output": "rusticdelight:pumpkin_pancake",
+      "count": 6,
+      "inputs": [
+        { "id": "rusticdelight:pumpkin_pancakes", "count": 1 }
+      ],
+      "offcuts": [
+        { "id": "minecraft:bowl", "count": 1 }
+      ]
+    },
+    {
+      "output": "rusticdelight:roasted_coffee_beans_bag",
+      "count": 1,
+      "inputs": [
+        { "id": "rusticdelight:roasted_coffee_beans", "count": 9 }
+      ]
+    }
+  ]
+}

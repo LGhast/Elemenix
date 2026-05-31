@@ -1,6 +1,6 @@
 package net.lghast.elemenix.common.content.item;
 
-import net.lghast.elemenix.common.system.datacomponent.AnalyzerUuid;
+import net.lghast.elemenix.common.system.datacomponent.UuidData;
 import net.lghast.elemenix.common.system.menu.AnalyzerMenu;
 import net.lghast.elemenix.conifig.ClientConfig;
 import net.lghast.elemenix.register.system.ModDataComponents;
@@ -22,13 +22,13 @@ import java.util.UUID;
 @ParametersAreNonnullByDefault
 public class AnalyzerItem extends StorageItem {
     public AnalyzerItem(Properties properties) {
-        super(properties.rarity(Rarity.RARE).component(ModDataComponents.ANALYZER_UUID, AnalyzerUuid.createRandom()));
+        super(properties.rarity(Rarity.RARE).component(ModDataComponents.ANALYZER_UUID, UuidData.createRandom()));
     }
 
-    public static AnalyzerUuid getOrCreateUuid(ItemStack stack) {
-        AnalyzerUuid uuid = stack.get(ModDataComponents.ANALYZER_UUID);
+    public static UuidData getOrCreateUuid(ItemStack stack) {
+        UuidData uuid = stack.get(ModDataComponents.ANALYZER_UUID);
         if (uuid == null) {
-            uuid = AnalyzerUuid.createRandom();
+            uuid = UuidData.createRandom();
         }
         return uuid;
     }
@@ -59,7 +59,7 @@ public class AnalyzerItem extends StorageItem {
     }
 
     private static void randomizeUuid(ItemStack stack){
-        stack.set(ModDataComponents.ANALYZER_UUID, AnalyzerUuid.createRandom());
+        stack.set(ModDataComponents.ANALYZER_UUID, UuidData.createRandom());
     }
 
     @Override

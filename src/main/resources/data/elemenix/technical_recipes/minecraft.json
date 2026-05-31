@@ -1,0 +1,435 @@
+{
+  "mod_id": "minecraft",
+  "load_after": [],
+  "recipes": [
+    {
+      "preset": "same",
+      "output": "minecraft:written_book",
+      "input": "minecraft:writable_book"
+    },
+    {
+      "preset": "same",
+      "output": "minecraft:farmland",
+      "input": "minecraft:dirt"
+    },
+    {
+      "preset": "same",
+      "output": "minecraft:dirt_path",
+      "input": "minecraft:dirt"
+    },
+    {
+      "output": "minecraft:bread",
+      "count": 1,
+      "inputs": [
+        { "id": "minecraft:wheat", "count": 3 }
+      ]
+    },
+    {
+      "output": "minecraft:minecart",
+      "count": 1,
+      "inputs": [
+        { "id": "minecraft:iron_ingot", "count": 5 }
+      ]
+    },
+    {
+      "output": "minecraft:melon_slice",
+      "count": 9,
+      "inputs": [
+        { "id": "minecraft:melon", "count": 1 }
+      ]
+    },
+    {
+      "output": "minecraft:disc_fragment_5",
+      "count": 9,
+      "inputs": [
+        { "id": "minecraft:music_disc_5", "count": 1 }
+      ]
+    },
+    {
+      "output": "minecraft:bricks",
+      "count": 1,
+      "inputs": [
+        { "id": "minecraft:brick", "count": 4 }
+      ]
+    },
+    {
+      "output": "minecraft:cookie",
+      "count": 8,
+      "inputs": [
+        { "id": "minecraft:wheat", "count": 2 },
+        { "id": "minecraft:cocoa_beans", "count": 1 }
+      ]
+    },
+    {
+      "output": "minecraft:enchanted_book",
+      "count": 1,
+      "inputs": [
+        { "id": "minecraft:book", "count": 1 }
+      ],
+      "additions": [
+        { "type": "arcanix", "value": 10 }
+      ]
+    },
+    {
+      "output": "minecraft:torch",
+      "count": 4,
+      "inputs": [
+        { "id": "minecraft:coal", "count": 1 },
+        { "id": "minecraft:stick", "count": 1 }
+      ]
+    },
+    {
+      "output": "minecraft:book",
+      "count": 1,
+      "inputs": [
+        { "id": "minecraft:paper", "count": 3 },
+        { "id": "minecraft:leather", "count": 1 }
+      ]
+    },
+    {
+      "output": "minecraft:white_bed",
+      "count": 1,
+      "inputs": [
+        { "id": "minecraft:white_wool", "count": 3 },
+        { "id": "minecraft:oak_planks", "count": 3 }
+      ]
+    },
+    {
+      "output": "minecraft:lava_bucket",
+      "count": 1,
+      "inputs": [
+        { "id": "minecraft:bucket", "count": 1 },
+        { "id": "minecraft:obsidian", "count": 1 }
+      ]
+    },
+    {
+      "output": "minecraft:carved_pumpkin",
+      "count": 1,
+      "inputs": [
+        { "id": "minecraft:pumpkin", "count": 1 }
+      ],
+      "offcuts": [
+        { "id": "minecraft:pumpkin_seeds", "count": 4 }
+      ]
+    },
+    {
+      "output": "minecraft:suspicious_stew",
+      "count": 1,
+      "inputs": [
+        { "id": "minecraft:bowl", "count": 1 },
+        { "id": "minecraft:red_mushroom", "count": 1 },
+        { "id": "minecraft:brown_mushroom", "count": 1 }
+      ],
+      "additions": [
+        { "type": "organix", "value": 18 },
+        { "type": "flumix", "value": 8 }
+      ]
+    },
+    {
+      "output": "minecraft:enchanted_golden_apple",
+      "count": 1,
+      "inputs": [
+        { "id": "minecraft:apple", "count": 1 },
+        { "id": "minecraft:gold_block", "count": 4 }
+      ],
+      "additions": [
+        { "type": "arcanix", "value": 1500 }
+      ]
+    },
+    {
+      "output": "minecraft:dragon_breath",
+      "count": 1,
+      "inputs": [
+        { "id": "minecraft:glass_bottle", "count": 1 }
+      ],
+      "additions": [
+        { "type": "flumix", "value": 60 },
+        { "type": "energix", "value": 10 },
+        { "type": "arcanix", "value": 50 }
+      ]
+    },
+    {
+      "output": "minecraft:experience_bottle",
+      "count": 1,
+      "inputs": [
+        { "id": "minecraft:glass_bottle", "count": 1 }
+      ],
+      "additions": [
+        { "type": "energix", "value": 4 },
+        { "type": "arcanix", "value": 8 }
+      ]
+    },
+    {
+      "preset": "same",
+      "output": "minecraft:chipped_anvil",
+      "input": "minecraft:anvil",
+      "multiplier": 0.7
+    },
+    {
+      "preset": "same",
+      "output": "minecraft:damaged_anvil",
+      "input": "minecraft:anvil",
+      "multiplier": 0.5
+    },
+    {
+      "output": "minecraft:iron_horse_armor",
+      "count": 1,
+      "inputs": [
+        { "id": "minecraft:iron_ingot", "count": 6 },
+        { "id": "minecraft:leather", "count": 1 }
+      ]
+    },
+    {
+      "output": "minecraft:golden_horse_armor",
+      "count": 1,
+      "inputs": [
+        { "id": "minecraft:gold_ingot", "count": 6 },
+        { "id": "minecraft:leather", "count": 1 }
+      ]
+    },
+    {
+      "output": "minecraft:diamond_horse_armor",
+      "count": 1,
+      "inputs": [
+        { "id": "minecraft:diamond", "count": 6 },
+        { "id": "minecraft:leather", "count": 1 }
+      ]
+    },
+    {
+      "output": "minecraft:firework_star",
+      "count": 1,
+      "inputs": [
+        { "id": "minecraft:gunpowder", "count": 1 },
+        { "id": "minecraft:red_dye", "count": 1 }
+      ]
+    },
+    {
+      "output": "minecraft:firework_rocket",
+      "count": 3,
+      "inputs": [
+        { "id": "minecraft:paper", "count": 1 },
+        { "id": "minecraft:gunpowder", "count": 1 }
+      ]
+    },
+    {
+      "output": "minecraft:bundle",
+      "count": 1,
+      "inputs": [
+        { "id": "minecraft:leather", "count": 1 },
+        { "id": "minecraft:string", "count": 1 }
+      ]
+    },
+    {
+      "output": "minecraft:golden_apple",
+      "count": 1,
+      "inputs": [
+        { "id": "minecraft:gold_ingot", "count": 8 },
+        { "id": "minecraft:apple", "count": 1 }
+      ]
+    },
+    {
+      "output": "minecraft:golden_carrot",
+      "count": 1,
+      "inputs": [
+        { "id": "minecraft:gold_nugget", "count": 8 },
+        { "id": "minecraft:carrot", "count": 1 }
+      ]
+    },
+    {
+      "output": "minecraft:honey_bottle",
+      "count": 1,
+      "inputs": [
+        { "id": "minecraft:glass_bottle", "count": 1 }
+      ],
+      "additions": [
+        { "type": "organix", "value": 60 }
+      ]
+    },
+    {
+      "output": "minecraft:honey_block",
+      "count": 1,
+      "inputs": [
+        { "id": "minecraft:honey_bottle", "count": 4 }
+      ],
+      "offcuts": [
+        { "id": "minecraft:glass_bottle", "count": 4 }
+      ]
+    },
+    {
+      "preset": "bucket_elemenix",
+      "output": "minecraft:water_bucket",
+      "elemenix_type": "flumix",
+      "value": 4
+    },
+    {
+      "preset": "bucket_elemenix",
+      "output": "minecraft:powder_snow_bucket",
+      "elemenix_type": "flumix",
+      "value": 32
+    },
+    {
+      "preset": "bucket_constituents",
+      "output": "minecraft:milk_bucket",
+      "constituents": [
+        { "type": "organix", "value": 5 },
+        { "type": "flumix", "value": 6 }
+      ]
+    },
+    {
+      "preset": "mob_bucket",
+      "output": "minecraft:cod_bucket",
+      "mob_item": "minecraft:cod"
+    },
+    {
+      "preset": "mob_bucket",
+      "output": "minecraft:salmon_bucket",
+      "mob_item": "minecraft:salmon"
+    },
+    {
+      "preset": "mob_bucket",
+      "output": "minecraft:tropical_fish_bucket",
+      "mob_item": "minecraft:tropical_fish"
+    },
+    {
+      "preset": "mob_bucket",
+      "output": "minecraft:pufferfish_bucket",
+      "mob_item": "minecraft:pufferfish"
+    },
+    {
+      "preset": "mob_bucket",
+      "output": "minecraft:tadpole_bucket",
+      "mob_constituents": [
+        { "type": "organix", "value": 20 },
+        { "type": "flumix", "value": 15 }
+      ]
+    },
+    {
+      "preset": "mob_bucket",
+      "output": "minecraft:axolotl_bucket",
+      "mob_constituents": [
+        { "type": "organix", "value": 50 },
+        { "type": "terrix", "value": 5 },
+        { "type": "flumix", "value": 25 }
+      ]
+    },
+    {
+      "preset": "mob_bucket",
+      "output": "minecraft:sulfur_cube_bucket",
+      "in_water": false,
+      "mob_constituents": [
+        { "type": "terrix", "value": 160 },
+        { "type": "arcanix", "value": 10 }
+      ]
+    },
+    {
+      "preset": "copper_oxidizing",
+      "input": "minecraft:copper_block",
+      "base_output": "minecraft:copper"
+    },
+    {
+      "preset": "copper_oxidizing",
+      "input": "minecraft:copper_door",
+      "output_prefix": "minecraft:copper_door"
+    },
+    {
+      "preset": "copper_oxidizing",
+      "input": "minecraft:copper_trapdoor",
+      "output_prefix": "minecraft:copper_trapdoor"
+    },
+    {
+      "preset": "template",
+      "output": "minecraft:netherite_upgrade_smithing_template",
+      "material": "minecraft:netherrack"
+    },
+    {
+      "preset": "template",
+      "output": "minecraft:sentry_armor_trim_smithing_template",
+      "material": "minecraft:cobblestone"
+    },
+    {
+      "preset": "template",
+      "output": "minecraft:vex_armor_trim_smithing_template",
+      "material": "minecraft:cobblestone"
+    },
+    {
+      "preset": "template",
+      "output": "minecraft:wild_armor_trim_smithing_template",
+      "material": "minecraft:mossy_cobblestone"
+    },
+    {
+      "preset": "template",
+      "output": "minecraft:coast_armor_trim_smithing_template",
+      "material": "minecraft:cobblestone"
+    },
+    {
+      "preset": "template",
+      "output": "minecraft:dune_armor_trim_smithing_template",
+      "material": "minecraft:sandstone"
+    },
+    {
+      "preset": "template",
+      "output": "minecraft:wayfinder_armor_trim_smithing_template",
+      "material": "minecraft:terracotta"
+    },
+    {
+      "preset": "template",
+      "output": "minecraft:raiser_armor_trim_smithing_template",
+      "material": "minecraft:terracotta"
+    },
+    {
+      "preset": "template",
+      "output": "minecraft:shaper_armor_trim_smithing_template",
+      "material": "minecraft:terracotta"
+    },
+    {
+      "preset": "template",
+      "output": "minecraft:host_armor_trim_smithing_template",
+      "material": "minecraft:terracotta"
+    },
+    {
+      "preset": "template",
+      "output": "minecraft:ward_armor_trim_smithing_template",
+      "material": "minecraft:cobbled_deepslate"
+    },
+    {
+      "preset": "template",
+      "output": "minecraft:silence_armor_trim_smithing_template",
+      "material": "minecraft:cobbled_deepslate"
+    },
+    {
+      "preset": "template",
+      "output": "minecraft:tide_armor_trim_smithing_template",
+      "material": "minecraft:prismarine"
+    },
+    {
+      "preset": "template",
+      "output": "minecraft:snout_armor_trim_smithing_template",
+      "material": "minecraft:blackstone"
+    },
+    {
+      "preset": "template",
+      "output": "minecraft:rib_armor_trim_smithing_template",
+      "material": "minecraft:netherrack"
+    },
+    {
+      "preset": "template",
+      "output": "minecraft:eye_armor_trim_smithing_template",
+      "material": "minecraft:end_stone"
+    },
+    {
+      "preset": "template",
+      "output": "minecraft:spire_armor_trim_smithing_template",
+      "material": "minecraft:purpur_block"
+    },
+    {
+      "preset": "template",
+      "output": "minecraft:flow_armor_trim_smithing_template",
+      "material": "minecraft:breeze_rod"
+    },
+    {
+      "preset": "template",
+      "output": "minecraft:bolt_armor_trim_smithing_template",
+      "material": "minecraft:copper_block"
+    }
+  ]
+}

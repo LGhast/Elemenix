@@ -1,0 +1,150 @@
+{
+  "mod_id": "farmersdelight",
+  "load_after": ["minecraft"],
+  "recipes": [
+    {
+      "output": "farmersdelight:rope",
+      "count": 2,
+      "inputs": [
+        { "id": "farmersdelight:straw", "count": 1 }
+      ]
+    },
+    {
+      "output": "farmersdelight:canvas",
+      "count": 1,
+      "inputs": [
+        { "id": "farmersdelight:straw", "count": 4 }
+      ]
+    },
+    {
+      "output": "farmersdelight:full_tatami_mat",
+      "count": 2,
+      "inputs": [
+        { "id": "farmersdelight:tatami", "count": 1 }
+      ]
+    },
+    {
+      "output": "farmersdelight:half_tatami_mat",
+      "count": 2,
+      "inputs": [
+        { "id": "farmersdelight:full_tatami_mat", "count": 1 }
+      ]
+    },
+    {
+      "output": "farmersdelight:pumpkin_slice",
+      "count": 4,
+      "inputs": [
+        { "id": "minecraft:pumpkin", "count": 1 }
+      ]
+    },
+    {
+      "preset": "same",
+      "output": "farmersdelight:rich_soil",
+      "input": "farmersdelight:organic_compost"
+    },
+    {
+      "preset": "same",
+      "output": "farmersdelight:rich_soil_farmland",
+      "input": "farmersdelight:organic_compost"
+    },
+    {
+      "output": "farmersdelight:canvas_rug",
+      "count": 2,
+      "inputs": [
+        { "id": "farmersdelight:canvas", "count": 1 }
+      ]
+    },
+    {
+      "output": "farmersdelight:cake_slice",
+      "count": 7,
+      "inputs": [
+        { "id": "minecraft:cake", "count": 1 }
+      ]
+    },
+    {
+      "output": "farmersdelight:apple_pie_slice",
+      "count": 4,
+      "inputs": [
+        { "id": "farmersdelight:apple_pie", "count": 1 }
+      ]
+    },
+    {
+      "output": "farmersdelight:chocolate_pie_slice",
+      "count": 4,
+      "inputs": [
+        { "id": "farmersdelight:chocolate_pie", "count": 1 }
+      ]
+    },
+    {
+      "output": "farmersdelight:sweet_berry_cheesecake_slice",
+      "count": 4,
+      "inputs": [
+        { "id": "farmersdelight:sweet_berry_cheesecake", "count": 1 }
+      ]
+    },
+    {
+      "output": "farmersdelight:pumpkin_pie_slice",
+      "count": 4,
+      "inputs": [
+        { "id": "minecraft:pumpkin_pie", "count": 1 }
+      ]
+    },
+    {
+      "output": "farmersdelight:tatami",
+      "count": 1,
+      "inputs": [
+        { "id": "minecraft:straw", "count": 1 },
+        { "id": "minecraft:canvas", "count": 1 }
+      ]
+    },
+    {
+      "output": "farmersdelight:wheat_dough",
+      "count": 1,
+      "inputs": [
+        { "id": "minecraft:wheat", "count": 1 }
+      ],
+      "additions": [
+        { "type": "flumix", "value": 4 }
+      ]
+    },
+    {
+      "output": "farmersdelight:ham",
+      "count": 1,
+      "inputs": [
+        { "id": "minecraft:bone", "count": 1 },
+        { "id": "minecraft:porkchop", "count": 2 }
+      ]
+    },
+    {
+      "preset": "food_unit_bowl",
+      "output": "farmersdelight:roast_chicken",
+      "source": "farmersdelight:roast_chicken_block"
+    },
+    {
+      "preset": "food_unit_bowl",
+      "output": "farmersdelight:shepherds_pie",
+      "source": "farmersdelight:shepherds_pie_block"
+    },
+    {
+      "preset": "food_unit_bowl",
+      "output": "farmersdelight:gleaming_salad",
+      "source": "farmersdelight:gleaming_salad_block"
+    },
+    {
+      "preset": "food_unit",
+      "output": "farmersdelight:stuffed_pumpkin",
+      "source": "farmersdelight:stuffed_pumpkin_block",
+      "container": "minecraft:bowl"
+    },
+    {
+      "preset": "food_unit",
+      "output": "farmersdelight:honey_glazed_ham",
+      "source": "farmersdelight:honey_glazed_ham_block",
+      "container": "minecraft:bowl",
+      "offcuts": [
+        { "id": "minecraft:bowl", "count": 1 },
+        { "id": "minecraft:bone", "count": 1 }
+      ]
+    }
+  ]
+}

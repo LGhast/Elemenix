@@ -1,0 +1,16 @@
+{
+  "mod_id": "friendsandfoes",
+  "load_after": ["minecraft"],
+  "recipes": [
+    {
+      "preset": "copper_oxidizing",
+      "input": "friendsandfoes:copper_button",
+      "output_prefix": "friendsandfoes:copper_button"
+    },
+    {
+      "preset": "copper_oxidizing",
+      "input": "minecraft:lightning_rod",
+      "output_prefix": "friendsandfoes:lightning_rod"
+    }
+  ]
+}

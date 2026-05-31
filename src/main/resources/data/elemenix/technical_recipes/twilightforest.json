@@ -1,0 +1,144 @@
+{
+  "mod_id": "twilightforest",
+  "load_after": ["minecraft"],
+  "recipes": [
+    {
+      "output": "twilightforest:giant_cobblestone",
+      "count": 1,
+      "inputs": [
+        { "id": "minecraft:cobblestone", "count": 64 }
+      ]
+    },
+    {
+      "output": "twilightforest:giant_log",
+      "count": 1,
+      "inputs": [
+        { "id": "minecraft:oak_log", "count": 64 }
+      ]
+    },
+    {
+      "output": "twilightforest:giant_leaves",
+      "count": 1,
+      "inputs": [
+        { "id": "minecraft:oak_leaves", "count": 64 }
+      ]
+    },
+    {
+      "output": "twilightforest:giant_obsidian",
+      "count": 1,
+      "inputs": [
+        { "id": "minecraft:obsidian", "count": 64 }
+      ]
+    },
+    {
+      "preset": "same",
+      "output": "twilightforest:knightmetal_ingot",
+      "input": "twilightforest:armor_shard_cluster"
+    },
+    {
+      "output": "twilightforest:knightmetal_block",
+      "count": 1,
+      "inputs": [
+        { "id": "twilightforest:knightmetal_ingot", "count": 9 }
+      ]
+    },
+    {
+      "preset": "same",
+      "output": "twilightforest:cracked_deadrock",
+      "input": "twilightforest:deadrock",
+      "multiplier": 0.8
+    },
+    {
+      "preset": "same",
+      "output": "twilightforest:weathered_deadrock",
+      "input": "twilightforest:deadrock",
+      "multiplier": 0.5
+    },
+    {
+      "output": "twilightforest:iron_berry",
+      "count": 1,
+      "inputs": [
+        { "id": "minecraft:iron_nugget", "count": 1 }
+      ],
+      "additions": [
+        { "type": "organix", "value": 5 }
+      ]
+    },
+    {
+      "output": "twilightforest:gold_berry",
+      "count": 1,
+      "inputs": [
+        { "id": "minecraft:gold_nugget", "count": 1 }
+      ],
+      "additions": [
+        { "type": "organix", "value": 5 }
+      ]
+    },
+    {
+      "output": "twilightforest:copper_berry",
+      "count": 1,
+      "inputs": [
+        { "id": "twilightforest:copper_nugget", "count": 1 }
+      ],
+      "additions": [
+        { "type": "organix", "value": 5 }
+      ]
+    },
+    {
+      "output": "twilightforest:fiery_ingot",
+      "count": 1,
+      "inputs": [
+        { "id": "twilightforest:fiery_blood", "count": 1 },
+        { "id": "minecraft:iron_ingot", "count": 1 }
+      ]
+    },
+    {
+      "output": "twilightforest:creeper_skull_candle",
+      "count": 1,
+      "inputs": [
+        { "id": "minecraft:creeper_head", "count": 1 },
+        { "id": "minecraft:candle", "count": 1 }
+      ]
+    },
+    {
+      "output": "twilightforest:piglin_skull_candle",
+      "count": 1,
+      "inputs": [
+        { "id": "minecraft:piglin_head", "count": 1 },
+        { "id": "minecraft:candle", "count": 1 }
+      ]
+    },
+    {
+      "output": "twilightforest:player_skull_candle",
+      "count": 1,
+      "inputs": [
+        { "id": "minecraft:player_head", "count": 1 },
+        { "id": "minecraft:candle", "count": 1 }
+      ]
+    },
+    {
+      "output": "twilightforest:zombie_skull_candle",
+      "count": 1,
+      "inputs": [
+        { "id": "minecraft:zombie_head", "count": 1 },
+        { "id": "minecraft:candle", "count": 1 }
+      ]
+    },
+    {
+      "output": "twilightforest:skeleton_skull_candle",
+      "count": 1,
+      "inputs": [
+        { "id": "minecraft:skeleton_skull", "count": 1 },
+        { "id": "minecraft:candle", "count": 1 }
+      ]
+    },
+    {
+      "output": "twilightforest:wither_skeleton_skull_candle",
+      "count": 1,
+      "inputs": [
+        { "id": "minecraft:wither_skeleton_skull", "count": 1 },
+        { "id": "minecraft:candle", "count": 1 }
+      ]
+    }
+  ]
+}

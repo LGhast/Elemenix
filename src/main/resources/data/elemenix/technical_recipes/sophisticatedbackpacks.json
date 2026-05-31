@@ -1,0 +1,15 @@
+{
+  "mod_id": "sophisticatedbackpacks",
+  "load_after": ["minecraft"],
+  "recipes": [
+    {
+      "output": "sophisticatedbackpacks:netherite_backpack",
+      "count": 1,
+      "inputs": [
+        { "id": "sophisticatedbackpacks:diamond_backpack", "count": 1 },
+        { "id": "minecraft:netherite_ingot", "count": 1 },
+        { "id": "minecraft:netherite_upgrade_smithing_template", "count": 1 }
+      ]
+    }
+  ]
+}

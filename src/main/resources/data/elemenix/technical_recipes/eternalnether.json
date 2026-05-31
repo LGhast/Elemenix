@@ -1,0 +1,24 @@
+{
+  "mod_id": "eternalnether",
+  "load_after": ["minecraft"],
+  "recipes": [
+    {
+      "output": "eternalnether:netherite_bell",
+      "count": 1,
+      "inputs": [
+        { "id": "minecraft:bell", "count": 1 },
+        { "id": "minecraft:netherite_ingot", "count": 1 },
+        { "id": "minecraft:netherite_upgrade_smithing_template", "count": 1 }
+      ]
+    },
+    {
+      "output": "eternalnether:gilded_netherite_shield",
+      "count": 1,
+      "inputs": [
+        { "id": "minecraft:shield", "count": 1 },
+        { "id": "minecraft:netherite_ingot", "count": 1 },
+        { "id": "minecraft:netherite_upgrade_smithing_template", "count": 1 }
+      ]
+    }
+  ]
+}

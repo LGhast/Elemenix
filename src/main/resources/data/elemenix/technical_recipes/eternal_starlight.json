@@ -1,0 +1,166 @@
+{
+  "mod_id": "eternal_starlight",
+  "load_after": [],
+  "recipes": [
+    {
+      "output": "eternal_starlight:ashen_snow",
+      "count": 1,
+      "inputs": [
+        { "id": "eternal_starlight:ashen_snowball", "count": 2 }
+      ]
+    },
+    {
+      "output": "eternal_starlight:aethersent_nugget",
+      "count": 9,
+      "inputs": [
+        { "id": "eternal_starlight:aethersent_ingot", "count": 1 }
+      ]
+    },
+    {
+      "output": "eternal_starlight:molten_stellagmite_slab",
+      "count": 2,
+      "inputs": [
+        { "id": "eternal_starlight:molten_stellagmite", "count": 1 }
+      ]
+    },
+    {
+      "output": "eternal_starlight:molten_stellagmite_stairs",
+      "count": 1,
+      "inputs": [
+        { "id": "eternal_starlight:molten_stellagmite", "count": 1 }
+      ]
+    },
+    {
+      "output": "eternal_starlight:molten_stellagmite_wall",
+      "count": 1,
+      "inputs": [
+        { "id": "eternal_starlight:molten_stellagmite", "count": 1 }
+      ]
+    },
+    {
+      "output": "eternal_starlight:red_starlight_crystal_block",
+      "count": 1,
+      "inputs": [
+        { "id": "eternal_starlight:red_starlight_crystal_shard", "count": 4 }
+      ]
+    },
+    {
+      "output": "eternal_starlight:blue_starlight_crystal_block",
+      "count": 1,
+      "inputs": [
+        { "id": "eternal_starlight:blue_starlight_crystal_shard", "count": 4 }
+      ]
+    },
+    {
+      "output": "eternal_starlight:carved_lunaris_cactus_fruit",
+      "count": 1,
+      "inputs": [
+        { "id": "eternal_starlight:lunaris_cactus_fruit", "count": 1 }
+      ],
+      "deductions": [
+        { "type": "organix", "value": 2 },
+        { "type": "flumix", "value": 2 }
+      ]
+    },
+    {
+      "output": "eternal_starlight:blooming_shadegrieve",
+      "count": 1,
+      "inputs": [
+        { "id": "eternal_starlight:shadegrieve", "count": 1 }
+      ],
+      "additions": [
+        { "type": "organix", "value": 2 }
+      ]
+    },
+    {
+      "output": "eternal_starlight:blazing_atalphaite_block",
+      "count": 1,
+      "inputs": [
+        { "id": "eternal_starlight:atalphaite_block", "count": 1 }
+      ],
+      "additions": [
+        { "type": "energix", "value": 12 }
+      ]
+    },
+    {
+      "preset": "same",
+      "output": "eternal_starlight:atalphaite_light",
+      "input": "eternal_starlight:blazing_atalphaite_block"
+    },
+    {
+      "output": "eternal_starlight:unrealium_ingot",
+      "count": 1,
+      "inputs": [
+        { "id": "eternal_starlight:deepsilver_ingot", "count": 1 },
+        { "id": "eternal_starlight:golem_steel_ingot", "count": 1 },
+        { "id": "eternal_starlight:malarite", "count": 1 },
+        { "id": "eternal_starlight:soul_dew", "count": 1 }
+      ]
+    },
+    {
+      "preset": "bucket_constituents",
+      "output": "eternal_starlight:ether_bucket",
+      "constituents": [
+        { "type": "flumix", "value": 20 },
+        { "type": "energix", "value": 20 }
+      ]
+    },
+    {
+      "preset": "mob_bucket",
+      "output": "eternal_starlight:rookfish_bucket",
+      "mob_item": "eternal_starlight:rookfish"
+    },
+    {
+      "preset": "mob_bucket",
+      "output": "eternal_starlight:luminofish_bucket",
+      "mob_item": "eternal_starlight:luminofish"
+    },
+    {
+      "preset": "mob_bucket",
+      "output": "eternal_starlight:luminaris_bucket",
+      "mob_item": "eternal_starlight:luminaris"
+    },
+    {
+      "preset": "template",
+      "output": "eternal_starlight:keeper_armor_trim_smithing_template",
+      "main_item": "eternal_starlight:deepsilver_ingot",
+      "material": "eternal_starlight:grimstone"
+    },
+    {
+      "preset": "template",
+      "output": "eternal_starlight:forge_armor_trim_smithing_template",
+      "main_item": "eternal_starlight:deepsilver_ingot",
+      "material": "eternal_starlight:voidstone"
+    },
+    {
+      "preset": "template",
+      "output": "eternal_starlight:blooming_armor_trim_smithing_template",
+      "main_item": "eternal_starlight:amaramber_ingot",
+      "material": "eternal_starlight:grimstone"
+    },
+    {
+      "preset": "template",
+      "output": "eternal_starlight:twining_armor_trim_smithing_template",
+      "main_item": "eternal_starlight:amaramber_ingot",
+      "material": "eternal_starlight:grimstone"
+    },
+    {
+      "preset": "template",
+      "output": "eternal_starlight:pungency_fruit_upgrade_smithing_template",
+      "main_item": "eternal_starlight:malarite",
+      "material": "eternal_starlight:nightfall_mud_bricks"
+    },
+    {
+      "preset": "template",
+      "output": "eternal_starlight:starfire_upgrade_smithing_template",
+      "main_item": "eternal_starlight:thermal_springstone_ingot",
+      "material": "eternal_starlight:starcore_block"
+    },
+    {
+      "preset": "template",
+      "output": "eternal_starlight:flowglaze_upgrade_smithing_template",
+      "main_item": "eternal_starlight:glacite_shard",
+      "material": "eternal_starlight:eternal_ice"
+    }
+  ]
+}

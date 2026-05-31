@@ -23,7 +23,9 @@ public class ModDataComponents {
 
     public static final Codec<Waxed> WAXED_CODEC = Waxed.CODEC;
 
-    public static final Codec<AnalyzerUuid> ANALYZER_UUID_CODEC = AnalyzerUuid.CODEC;
+    public static final Codec<UuidData> ANALYZER_UUID_CODEC = UuidData.CODEC;
+
+    public static final Codec<UuidData> BOX_UUID_CODEC = UuidData.CODEC;
 
     public static final Codec<ValveOpenness> VALVE_OPENNESS_CODEC = ValveOpenness.CODEC;
 
@@ -70,8 +72,11 @@ public class ModDataComponents {
     public static final StreamCodec<RegistryFriendlyByteBuf, RemoteStorageBinding> REMOTE_STORAGE_BINDING_STREAM_CODEC =
             RemoteStorageBinding.STREAM_CODEC;
 
-    public static final StreamCodec<RegistryFriendlyByteBuf, AnalyzerUuid> ANALYZER_UUID_STREAM_CODEC =
-            AnalyzerUuid.STREAM_CODEC;
+    public static final StreamCodec<RegistryFriendlyByteBuf, UuidData> ANALYZER_UUID_STREAM_CODEC =
+            UuidData.STREAM_CODEC;
+
+    public static final StreamCodec<RegistryFriendlyByteBuf, UuidData> BOX_UUID_STREAM_CODEC =
+            UuidData.STREAM_CODEC;
 
     public static final DeferredHolder<DataComponentType<?>, DataComponentType<ElemenicStorage>> ELEMENIC_STORAGE =
             REGISTRAR.registerComponentType("elemenic_storage", builder ->
@@ -91,10 +96,16 @@ public class ModDataComponents {
                             .networkSynchronized(WAXED_STREAM_CODEC)
             );
 
-    public static final DeferredHolder<DataComponentType<?>, DataComponentType<AnalyzerUuid>> ANALYZER_UUID =
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<UuidData>> ANALYZER_UUID =
             REGISTRAR.registerComponentType("analyzer_uuid", builder ->
                     builder.persistent(ANALYZER_UUID_CODEC)
                             .networkSynchronized(ANALYZER_UUID_STREAM_CODEC)
+            );
+
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<UuidData>> BOX_UUID =
+            REGISTRAR.registerComponentType("box_uuid", builder ->
+                    builder.persistent(BOX_UUID_CODEC)
+                            .networkSynchronized(BOX_UUID_STREAM_CODEC)
             );
 
     public static final DeferredHolder<DataComponentType<?>, DataComponentType<ValveOpenness>> VALVE_OPENNESS =

@@ -1,0 +1,106 @@
+{
+  "mod_id": "irons_spellbooks",
+  "load_after": ["minecraft"],
+  "recipes": [
+    {
+      "preset": "same",
+      "output": "irons_spellbooks:archevoker_logbook_translated",
+      "input": "irons_spellbooks:archevoker_logbook_untranslated"
+    },
+    {
+      "preset": "same",
+      "output": "irons_spellbooks:unchained_book",
+      "input": "irons_spellbooks:chained_book"
+    },
+    {
+      "output": "irons_spellbooks:lightning_bottle",
+      "count": 1,
+      "inputs": [
+        { "id": "minecraft:glass_bottle", "count": 1 }
+      ],
+      "additions": [
+        { "type": "energix", "value": 128 },
+        { "type": "arcanix", "value": 24 }
+      ]
+    },
+    {
+      "output": "irons_spellbooks:blood_vial",
+      "count": 1,
+      "inputs": [
+        { "id": "minecraft:glass_bottle", "count": 1 }
+      ],
+      "additions": [
+        { "type": "organix", "value": 16 },
+        { "type": "flumix", "value": 24 },
+        { "type": "arcanix", "value": 2 }
+      ]
+    },
+    {
+      "output": "irons_spellbooks:bloody_vellum",
+      "count": 1,
+      "inputs": [
+        { "id": "irons_spellbooks:hogskin", "count": 1 }
+      ],
+      "additions": [
+        { "type": "organix", "value": 64 },
+        { "type": "arcanix", "value": 8 }
+      ]
+    },
+    {
+      "output": "irons_spellbooks:common_ink",
+      "count": 1,
+      "inputs": [
+        { "id": "minecraft:glass_bottle", "count": 1 }
+      ],
+      "additions": [
+        { "type": "terrix", "value": 16 },
+        { "type": "flumix", "value": 10 },
+        { "type": "arcanix", "value": 4 }
+      ]
+    },
+    {
+      "output": "irons_spellbooks:uncommon_ink",
+      "count": 1,
+      "inputs": [
+        { "id": "irons_spellbooks:common_ink", "count": 4 },
+        { "id": "minecraft:copper_ingot", "count": 1 }
+      ],
+      "offcuts": [
+        { "id": "minecraft:glass_bottle", "count": 3 }
+      ]
+    },
+    {
+      "output": "irons_spellbooks:rare_ink",
+      "count": 1,
+      "inputs": [
+        { "id": "irons_spellbooks:uncommon_ink", "count": 4 },
+        { "id": "minecraft:iron_ingot", "count": 1 }
+      ],
+      "offcuts": [
+        { "id": "minecraft:glass_bottle", "count": 3 }
+      ]
+    },
+    {
+      "output": "irons_spellbooks:epic_ink",
+      "count": 1,
+      "inputs": [
+        { "id": "irons_spellbooks:rare_ink", "count": 4 },
+        { "id": "minecraft:gold_ingot", "count": 1 }
+      ],
+      "offcuts": [
+        { "id": "minecraft:glass_bottle", "count": 3 }
+      ]
+    },
+    {
+      "output": "irons_spellbooks:legendary_ink",
+      "count": 1,
+      "inputs": [
+        { "id": "irons_spellbooks:epic_ink", "count": 4 },
+        { "id": "minecraft:amethyst_shard", "count": 1 }
+      ],
+      "offcuts": [
+        { "id": "minecraft:glass_bottle", "count": 3 }
+      ]
+    }
+  ]
+}

@@ -34,6 +34,9 @@
     { "id": "eternal_starlight:luminofish", "preset": "rawFish", "hunger": 6 },
     { "id": "eternal_starlight:luminaris", "preset": "rawFish", "hunger": 6 },
     { "id": "eternal_starlight:pungency_fruit_seeds", "elemenix": "organix", "value": 5 },
+    { "id": "eternal_starlight:nocturnal_millet_seeds", "elemenix": "organix", "value": 5 },
+    { "id": "eternal_starlight:nocturnal_millet", "elemenix": "organix", "value": 26 },
+    { "id": "eternal_starlight:forgotten_nocturnal_millet", "elemenix": "organix", "value": 64 },
     { "id": "eternal_starlight:dead_lunar_bush", "elemenix": "organix", "value": 12 },
     { "id": "eternal_starlight:white_yeti_fur", "elemenix": "organix", "value": 96 },
     { "id": "eternal_starlight:drying_rack", "elemenix": "organix", "value": 128 },
@@ -52,6 +55,7 @@
     { "id": "eternal_starlight:thioquartz_cluster", "elemenix": "terrix", "value": 96 },
     { "id": "eternal_starlight:budding_thioquartz", "elemenix": "terrix", "value": 144 },
     { "id": "eternal_starlight:eternal_ice", "elemenix": "flumix", "value": 60 },
+    { "id": "eternal_starlight:thin_eternal_ice", "elemenix": "flumix", "value": 30 },
     { "id": "eternal_starlight:icicle", "elemenix": "flumix", "value": 24 },
     { "id": "eternal_starlight:nightfall_mud_deepsilver_ore", "constituents": [6, 16, 4, 865, 0, 45] },
     { "id": "eternal_starlight:packed_nightfall_mud_deepsilver_ore", "constituents": [32, 18, 4, 864, 0, 45] },
@@ -125,6 +129,9 @@
     { "id": "eternal_starlight:glowing_mushroom", "constituents": [18, 0, 6, 0, 2, 0] },
     { "id": "eternal_starlight:glowing_mushroom_block", "constituents": [36, 0, 12, 0, 4, 0] },
     { "id": "eternal_starlight:glowing_mushroom_stem", "constituents": [36, 0, 12, 0, 4, 0] },
+    { "id": "eternal_starlight:shining_mushroom", "constituents": [18, 0, 6, 0, 2, 0] },
+    { "id": "eternal_starlight:shining_mushroom_block", "constituents": [36, 0, 12, 0, 4, 0] },
+    { "id": "eternal_starlight:shining_mushroom_stem", "constituents": [36, 0, 12, 0, 4, 0] },
     { "id": "eternal_starlight:bouldershroom", "constituents": [18, 0, 6, 0, 0, 0] },
     { "id": "eternal_starlight:bouldershroom_block", "constituents": [36, 0, 12, 0, 0, 0] },
     { "id": "eternal_starlight:bouldershroom_stem", "constituents": [36, 0, 12, 0, 0, 0] },
@@ -164,6 +171,7 @@
     { "id": "eternal_starlight:gleech_egg", "constituents": [32, 0, 12, 0, 0, 0] },
     { "id": "eternal_starlight:tangled_skull", "constituents": [50, 360, 0, 0, 0, 400] },
     { "id": "eternal_starlight:jingling_pickle", "constituents": [18, 0, 12, 0, 5, 0] },
+    { "id": "eternal_starlight:gloomcandle_root", "constituents": [18, 0, 0, 0, 2, 0] },
     { "id": "eternal_starlight:velvetumoss", "constituents": [140, 0, 40, 0, 0, 0] },
     { "id": "eternal_starlight:velvetumoss_ball", "constituents": [18, 0, 5, 0, 0, 0] },
     { "id": "eternal_starlight:velvetumoss_villi", "constituents": [7, 0, 2, 0, 0, 0] },
@@ -212,6 +220,7 @@
     { "id": "eternal_starlight:glistering_sword", "constituents": [0, 0, 0, 2592, 300, 270] },
     { "id": "eternal_starlight:glistering_greatsword", "constituents": [0, 0, 0, 4320, 500, 400] },
     { "id": "eternal_starlight:glistering_morning_star", "constituents": [0, 0, 0, 3456, 400, 335] },
-    { "id": "eternal_starlight:coldsnap", "constituents": [0, 0, 1200, 600, 0, 80] }
+    { "id": "eternal_starlight:coldsnap", "constituents": [0, 0, 1200, 600, 0, 80] },
+    { "id": "eternal_starlight:blossom_of_stars", "constituents": [25, 0, 0, 0, 500, 600] }
   ]
 }

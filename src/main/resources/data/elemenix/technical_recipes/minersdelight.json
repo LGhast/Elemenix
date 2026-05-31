@@ -1,0 +1,317 @@
+{
+  "mod_id": "minersdelight",
+  "load_after": ["farmersdelight", "mynethersdelight"],
+  "recipes": [
+    {
+      "output": "minersdelight:water_cup",
+      "count": 1,
+      "inputs": [
+        { "id": "minersdelight:copper_cup", "count": 1 }
+      ],
+      "additions": [
+        { "type": "flumix", "value": 4 }
+      ]
+    },
+    {
+      "output": "minersdelight:powder_snow_cup",
+      "count": 1,
+      "inputs": [
+        { "id": "minersdelight:copper_cup", "count": 1 }
+      ],
+      "additions": [
+        { "type": "flumix", "value": 32 }
+      ]
+    },
+    {
+      "output": "minersdelight:milk_cup",
+      "count": 1,
+      "inputs": [
+        { "id": "minersdelight:copper_cup", "count": 1 }
+      ],
+      "additions": [
+        { "type": "organix", "value": 5 },
+        { "type": "flumix", "value": 6 }
+      ]
+    },
+    {
+      "output": "minersdelight:glow_squid",
+      "count": 1,
+      "inputs": [
+        { "id": "minersdelight:squid", "count": 1 }
+      ],
+      "additions": [
+        { "type": "energix", "value": 9 }
+      ]
+    },
+    {
+      "output": "minersdelight:bowl_of_stuffed_squid",
+      "count": 5,
+      "inputs": [
+        { "id": "minersdelight:stuffed_squid", "count": 1 }
+      ],
+      "container": "minecraft:bowl"
+    },
+    {
+      "output": "minersdelight:plate_of_fake_meatloaf",
+      "count": 4,
+      "inputs": [
+        { "id": "minersdelight:fake_meatloaf", "count": 1 }
+      ],
+      "container": "minecraft:bowl",
+      "offcuts": [
+        { "id": "minecraft:bowl", "count": 1 }
+      ]
+    },
+    {
+      "output": "minersdelight:plate_of_glazed_arachnid_limbs",
+      "count": 4,
+      "inputs": [
+        { "id": "minersdelight:glazed_arachnid_limbs", "count": 1 }
+      ],
+      "container": "minecraft:bowl",
+      "offcuts": [
+        { "id": "minecraft:bowl", "count": 1 }
+      ]
+    },
+    {
+      "output": "minersdelight:beetroot_soup_cup",
+      "count": 1,
+      "inputs": [
+        { "id": "minecraft:beetroot_soup", "count": 1 }
+      ],
+      "container": "minersdelight:copper_cup",
+      "multiplier": 0.5,
+      "offcuts": [
+        { "id": "minecraft:bowl", "count": 1 }
+      ]
+    },
+    {
+      "output": "minersdelight:mushroom_stew_cup",
+      "count": 1,
+      "inputs": [
+        { "id": "minecraft:mushroom_stew", "count": 1 }
+      ],
+      "container": "minersdelight:copper_cup",
+      "multiplier": 0.5,
+      "offcuts": [
+        { "id": "minecraft:bowl", "count": 1 }
+      ]
+    },
+    {
+      "output": "minersdelight:rabbit_stew_cup",
+      "count": 1,
+      "inputs": [
+        { "id": "minecraft:rabbit_stew", "count": 1 }
+      ],
+      "container": "minersdelight:copper_cup",
+      "multiplier": 0.5,
+      "offcuts": [
+        { "id": "minecraft:bowl", "count": 1 }
+      ]
+    },
+    {
+      "output": "minersdelight:baked_cod_stew_cup",
+      "count": 1,
+      "inputs": [
+        { "id": "farmersdelight:baked_cod_stew", "count": 1 }
+      ],
+      "container": "minersdelight:copper_cup",
+      "multiplier": 0.5,
+      "offcuts": [
+        { "id": "minecraft:bowl", "count": 1 }
+      ]
+    },
+    {
+      "output": "minersdelight:noodle_soup_cup",
+      "count": 1,
+      "inputs": [
+        { "id": "farmersdelight:noodle_soup", "count": 1 }
+      ],
+      "container": "minersdelight:copper_cup",
+      "multiplier": 0.5,
+      "offcuts": [
+        { "id": "minecraft:bowl", "count": 1 }
+      ]
+    },
+    {
+      "output": "minersdelight:beef_stew_cup",
+      "count": 1,
+      "inputs": [
+        { "id": "farmersdelight:beef_stew", "count": 1 }
+      ],
+      "container": "minersdelight:copper_cup",
+      "multiplier": 0.5,
+      "offcuts": [
+        { "id": "minecraft:bowl", "count": 1 }
+      ]
+    },
+    {
+      "output": "minersdelight:chicken_soup_cup",
+      "count": 1,
+      "inputs": [
+        { "id": "farmersdelight:chicken_soup", "count": 1 }
+      ],
+      "container": "minersdelight:copper_cup",
+      "multiplier": 0.5,
+      "offcuts": [
+        { "id": "minecraft:bowl", "count": 1 }
+      ]
+    },
+    {
+      "output": "minersdelight:fish_stew_cup",
+      "count": 1,
+      "inputs": [
+        { "id": "farmersdelight:fish_stew", "count": 1 }
+      ],
+      "container": "minersdelight:copper_cup",
+      "multiplier": 0.5,
+      "offcuts": [
+        { "id": "minecraft:bowl", "count": 1 }
+      ]
+    },
+    {
+      "output": "minersdelight:pumpkin_soup_cup",
+      "count": 1,
+      "inputs": [
+        { "id": "farmersdelight:pumpkin_soup", "count": 1 }
+      ],
+      "container": "minersdelight:copper_cup",
+      "multiplier": 0.5,
+      "offcuts": [
+        { "id": "minecraft:bowl", "count": 1 }
+      ]
+    },
+    {
+      "output": "minersdelight:vegetable_soup_cup",
+      "count": 1,
+      "inputs": [
+        { "id": "farmersdelight:vegetable_soup", "count": 1 }
+      ],
+      "container": "minersdelight:copper_cup",
+      "multiplier": 0.5,
+      "offcuts": [
+        { "id": "minecraft:bowl", "count": 1 }
+      ]
+    },
+    {
+      "output": "minersdelight:bone_broth_cup",
+      "count": 1,
+      "inputs": [
+        { "id": "farmersdelight:bone_broth", "count": 1 }
+      ],
+      "container": "minersdelight:copper_cup",
+      "multiplier": 0.5,
+      "offcuts": [
+        { "id": "minecraft:bowl", "count": 1 }
+      ]
+    },
+    {
+      "output": "minersdelight:onion_soup_cup",
+      "count": 1,
+      "inputs": [
+        { "id": "farmersdelight:onion_soup", "count": 1 }
+      ],
+      "container": "minersdelight:copper_cup",
+      "multiplier": 0.5,
+      "offcuts": [
+        { "id": "minecraft:bowl", "count": 1 }
+      ]
+    },
+    {
+      "output": "minersdelight:cave_soup_cup",
+      "count": 1,
+      "inputs": [
+        { "id": "minersdelight:cave_soup", "count": 1 }
+      ],
+      "container": "minersdelight:copper_cup",
+      "multiplier": 0.5,
+      "offcuts": [
+        { "id": "minecraft:bowl", "count": 1 }
+      ]
+    },
+    {
+      "output": "minersdelight:bat_soup_cup",
+      "count": 1,
+      "inputs": [
+        { "id": "minersdelight:bat_soup", "count": 1 }
+      ],
+      "container": "minersdelight:copper_cup",
+      "multiplier": 0.5,
+      "offcuts": [
+        { "id": "minecraft:bowl", "count": 1 }
+      ]
+    },
+    {
+      "output": "minersdelight:insect_stew_cup",
+      "count": 1,
+      "inputs": [
+        { "id": "minersdelight:insect_stew", "count": 1 }
+      ],
+      "container": "minersdelight:copper_cup",
+      "multiplier": 0.5,
+      "offcuts": [
+        { "id": "minecraft:bowl", "count": 1 }
+      ]
+    },
+    {
+      "output": "minersdelight:rock_soup_cup",
+      "count": 1,
+      "inputs": [
+        { "id": "mynethersdelight:rock_soup", "count": 1 }
+      ],
+      "container": "minersdelight:copper_cup",
+      "multiplier": 0.5,
+      "offcuts": [
+        { "id": "minecraft:bowl", "count": 1 }
+      ]
+    },
+    {
+      "output": "minersdelight:spicy_hoglin_stew_cup",
+      "count": 1,
+      "inputs": [
+        { "id": "mynethersdelight:spicy_hoglin_stew_soup", "count": 1 }
+      ],
+      "container": "minersdelight:copper_cup",
+      "multiplier": 0.5,
+      "offcuts": [
+        { "id": "minecraft:bowl", "count": 1 }
+      ]
+    },
+    {
+      "output": "minersdelight:strider_stew_cup",
+      "count": 1,
+      "inputs": [
+        { "id": "mynethersdelight:strider_stew_soup", "count": 1 }
+      ],
+      "container": "minersdelight:copper_cup",
+      "multiplier": 0.5,
+      "offcuts": [
+        { "id": "minecraft:bowl", "count": 1 }
+      ]
+    },
+    {
+      "output": "minersdelight:spicy_noodle_soup_cup",
+      "count": 1,
+      "inputs": [
+        { "id": "mynethersdelight:spicy_noodle_soup", "count": 1 }
+      ],
+      "container": "minersdelight:copper_cup",
+      "multiplier": 0.5,
+      "offcuts": [
+        { "id": "minecraft:bowl", "count": 1 }
+      ]
+    },
+    {
+      "output": "minersdelight:egg_soup_cup",
+      "count": 1,
+      "inputs": [
+        { "id": "mynethersdelight:egg_soup", "count": 1 }
+      ],
+      "container": "minersdelight:copper_cup",
+      "multiplier": 0.5,
+      "offcuts": [
+        { "id": "minecraft:bowl", "count": 1 }
+      ]
+    }
+  ]
+}

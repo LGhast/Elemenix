@@ -8,8 +8,8 @@ import net.minecraft.network.codec.StreamCodec;
 
 import java.util.UUID;
 
-public record AnalyzerUuid(UUID uuid) {
-    public static final Codec<AnalyzerUuid> CODEC = RecordCodecBuilder.create(instance ->
+public record UuidData(UUID uuid) {
+    public static final Codec<UuidData> CODEC = RecordCodecBuilder.create(instance ->
             instance.group(
                     Codec.STRING
                             .xmap(
@@ -17,22 +17,22 @@ public record AnalyzerUuid(UUID uuid) {
                                     UUID::toString
                             )
                             .fieldOf("uuid")
-                            .forGetter(AnalyzerUuid::uuid)
-            ).apply(instance, AnalyzerUuid::new)
+                            .forGetter(UuidData::uuid)
+            ).apply(instance, UuidData::new)
     );
 
-    public static final StreamCodec<RegistryFriendlyByteBuf, AnalyzerUuid> STREAM_CODEC =
+    public static final StreamCodec<RegistryFriendlyByteBuf, UuidData> STREAM_CODEC =
             StreamCodec.composite(
                     ByteBufCodecs.STRING_UTF8
                             .map(
                                     UUID::fromString,
                                     UUID::toString
                             ),
-                    AnalyzerUuid::uuid,
-                    AnalyzerUuid::new
+                    UuidData::uuid,
+                    UuidData::new
             );
 
-    public static AnalyzerUuid createRandom() {
-        return new AnalyzerUuid(UUID.randomUUID());
+    public static UuidData createRandom() {
+        return new UuidData(UUID.randomUUID());
     }
 }

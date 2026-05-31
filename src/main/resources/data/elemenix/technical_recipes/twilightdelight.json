@@ -1,0 +1,47 @@
+{
+  "mod_id": "twilightdelight",
+  "load_after": ["twilightforest", "farmersdelight"],
+  "recipes": [
+    {
+      "output": "twilightdelight:raw_tomahawk_smeak",
+      "count": 1,
+      "inputs": [
+        { "id": "twilightforest:raw_meef", "count": 4 }
+      ]
+    },
+    {
+      "output": "twilightdelight:aurora_pie_slice",
+      "count": 4,
+      "inputs": [
+        { "id": "twilightdelight:aurora_pie", "count": 1 }
+      ]
+    },
+    {
+      "output": "twilightdelight:torchberry_pie_slice",
+      "count": 4,
+      "inputs": [
+        { "id": "twilightdelight:torchberry_pie", "count": 1 }
+      ]
+    },
+    {
+      "preset": "food_unit_bowl",
+      "output": "twilightdelight:plate_of_fiery_snakes",
+      "source": "twilightdelight:fiery_snakes_block"
+    },
+    {
+      "preset": "food_unit_bowl",
+      "output": "twilightdelight:plate_of_meef_wellington",
+      "source": "twilightdelight:meef_wellington_block"
+    },
+    {
+      "preset": "food_unit",
+      "output": "twilightdelight:plate_of_lily_chicken",
+      "source": "twilightdelight:lily_chicken_block",
+      "container": "minecraft:bowl",
+      "offcuts": [
+        { "id": "minecraft:bowl", "count": 1 },
+        { "id": "minecraft:bone_meal", "count": 1 }
+      ]
+    }
+  ]
+}

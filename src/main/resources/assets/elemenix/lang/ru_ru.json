@@ -260,6 +260,7 @@
   "config.elemenix.show_scanning_storage_particles": "Показывать частицы сканирующего элементного хранилища",
   "config.elemenix.scanner_blacklist": "Чёрный список сканера элеменции",
   "config.elemenix.scanning_storage_blacklist": "Чёрный список сканирующего элементного хранилища",
+  "config.elemenix.allow_non_creative_recording": "Разрешить запись вне творческого режима",
 
   "jei.category.elemenix.enriching": "Обогащение",
   "jei.category.elemenix.transforming": "Элементное Преобразование",

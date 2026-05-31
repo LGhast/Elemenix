@@ -1,0 +1,66 @@
+{
+  "mod_id": "iceandfire",
+  "load_after": [],
+  "recipes": [
+    {
+      "output": "iceandfire:frozen_dirt",
+      "count": 1,
+      "inputs": [
+        { "id": "minecraft:dirt", "count": 1 }
+      ],
+      "additions": [
+        { "type": "flumix", "value": 5 }
+      ]
+    },
+    {
+      "output": "iceandfire:frozen_dirt_path",
+      "count": 1,
+      "inputs": [
+        { "id": "minecraft:dirt_path", "count": 1 }
+      ],
+      "additions": [
+        { "type": "flumix", "value": 5 }
+      ]
+    },
+    {
+      "output": "iceandfire:frozen_grass",
+      "count": 1,
+      "inputs": [
+        { "id": "minecraft:grass_block", "count": 1 }
+      ],
+      "additions": [
+        { "type": "flumix", "value": 5 }
+      ]
+    },
+    {
+      "output": "iceandfire:frozen_stone",
+      "count": 1,
+      "inputs": [
+        { "id": "minecraft:stone", "count": 1 }
+      ],
+      "additions": [
+        { "type": "flumix", "value": 5 }
+      ]
+    },
+    {
+      "output": "iceandfire:frozen_cobblestone",
+      "count": 1,
+      "inputs": [
+        { "id": "minecraft:cobblestone", "count": 1 }
+      ],
+      "additions": [
+        { "type": "flumix", "value": 5 }
+      ]
+    },
+    {
+      "output": "iceandfire:frozen_gravel",
+      "count": 1,
+      "inputs": [
+        { "id": "minecraft:gravel", "count": 1 }
+      ],
+      "additions": [
+        { "type": "flumix", "value": 5 }
+      ]
+    }
+  ]
+}

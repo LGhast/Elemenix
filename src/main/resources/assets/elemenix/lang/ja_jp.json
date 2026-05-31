@@ -259,6 +259,7 @@
   "config.elemenix.show_scanning_storage_particles": "スキャニングストレージのパーティクルを表示",
   "config.elemenix.scanner_blacklist": "元質スキャナーブラックリスト",
   "config.elemenix.scanning_storage_blacklist": "スキャニングストレージブロックブラックリスト",
+  "config.elemenix.allow_non_creative_recording": "非クリエイティブモードのプレイヤーによる記録を許可",
 
   "jei.category.elemenix.enriching": "富集",
   "jei.category.elemenix.transforming": "元質変換",

@@ -1,0 +1,59 @@
+{
+  "mod_id": "youkaishomecoming",
+  "load_after": ["farmersdelight"],
+  "recipes": [
+    {
+      "output": "youkaishomecoming:tarte_lune_slice",
+      "count": 4,
+      "inputs": [
+        { "id": "youkaishomecoming:tarte_lune", "count": 1 }
+      ]
+    },
+    {
+      "preset": "food_unit",
+      "output": "youkaishomecoming:bowl_of_heart_throbbing_surprise",
+      "source": "youkaishomecoming:chest_of_heart_throbbing_surprise",
+      "container": "minecraft:bowl",
+      "offcuts": [
+        { "id": "minecraft:bowl", "count": 1 },
+        { "id": "minecraft:chest", "count": 1 }
+      ]
+    },
+    {
+      "preset": "mob_bucket",
+      "output": "youkaishomecoming:lamprey_bucket",
+      "mob_item": "youkaishomecoming:raw_lamprey"
+    },
+    {
+      "output": "youkaishomecoming:soy_sauce_bottle",
+      "count": 1,
+      "inputs": [
+        { "id": "youkaishomecoming:soy", "count": 1 },
+        { "id": "minecraft:glass_bottle", "count": 1 }
+      ],
+      "additions": [
+        { "type": "flumix", "value": 4 }
+      ]
+    },
+    {
+      "output": "youkaishomecoming:daiginjo",
+      "count": 4,
+      "inputs": [
+        { "id": "farmersdelight:rice", "count": 3 },
+        { "id": "minecraft:bowl", "count": 4 },
+        { "id": "minecraft:nether_wart", "count": 1 },
+        { "id": "minecraft:blaze_powder", "count": 1 }
+      ]
+    },
+    {
+      "output": "youkaishomecoming:dassai",
+      "count": 4,
+      "inputs": [
+        { "id": "farmersdelight:rice", "count": 3 },
+        { "id": "minecraft:bowl", "count": 4 },
+        { "id": "minecraft:nether_wart", "count": 1 },
+        { "id": "minecraft:nautilus_shell", "count": 1 }
+      ]
+    }
+  ]
+}

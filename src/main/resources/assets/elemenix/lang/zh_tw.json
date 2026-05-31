@@ -259,6 +259,7 @@
   "config.elemenix.ejector_dc_interval": "射流塔解構間隔",
   "config.elemenix.ejector_enriching_interval": "射流塔生產間隔",
   "config.elemenix.ejecting_interval": "射流塔發射間隔",
+  "config.elemenix.allow_non_creative_recording": "允許非創造模式玩家記錄物品",
 
   "jei.category.elemenix.enriching": "富集",
   "jei.category.elemenix.transforming": "元質轉化",

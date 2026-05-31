@@ -1,0 +1,269 @@
+{
+  "mod_id": "confluence",
+  "load_after": ["minecraft"],
+  "recipes": [
+    {
+      "preset": "same",
+      "output": "confluence:bottle",
+      "input": "confluence:pure_glass"
+    },
+    {
+      "preset": "same",
+      "output": "confluence:arcane_crystal",
+      "input": "confluence:mana_crystal"
+    },
+    {
+      "preset": "same",
+      "output": "confluence:vital_crystal",
+      "input": "confluence:life_crystal"
+    },
+    {
+      "preset": "same",
+      "output": "confluence:aegis_apple",
+      "input": "confluence:life_fruit"
+    },
+    {
+      "preset": "same",
+      "output": "confluence:gummy_worm",
+      "input": "confluence:gold_worm"
+    },
+    {
+      "output": "confluence:stony_log",
+      "count": 1,
+      "inputs": [
+        { "id": "minecraft:cobblestone", "count": 2 }
+      ]
+    },
+    {
+      "preset": "same",
+      "output": "confluence:colored_wool",
+      "input": "minecraft:red_wool"
+    },
+    {
+      "preset": "same",
+      "output": "confluence:bewitching_table",
+      "input": "confluence:alchemy_table"
+    },
+    {
+      "preset": "same",
+      "output": "confluence:echo_block",
+      "input": "minecraft:sculk"
+    },
+    {
+      "preset": "same",
+      "output": "confluence:aetherium_block",
+      "input": "minecraft:snow_block"
+    },
+    {
+      "preset": "same",
+      "output": "confluence:dark_aetherium_block",
+      "input": "confluence:aetherium_block"
+    },
+    {
+      "preset": "same",
+      "output": "confluence:dungeon_compass",
+      "input": "confluence:meteor_compass"
+    },
+    {
+      "preset": "same",
+      "output": "confluence:chromatic_cloak",
+      "input": "terra_curio:star_cloak"
+    },
+    {
+      "preset": "same",
+      "output": "confluence:timers_1_4",
+      "input": "confluence:timers_5_1"
+    },
+    {
+      "preset": "same",
+      "output": "confluence:timers_1_2",
+      "input": "confluence:timers_5_1"
+    },
+    {
+      "preset": "same",
+      "output": "confluence:shimmer_arrow",
+      "input": "confluence:star_arrow"
+    },
+    {
+      "preset": "same",
+      "output": "confluence:purification_powder",
+      "input": "confluence:vile_powder"
+    },
+    {
+      "output": "confluence:bottled_water",
+      "count": 1,
+      "inputs": [
+        { "id": "confluence:bottle", "count": 1 }
+      ],
+      "additions": [
+        { "type": "flumix", "value": 1 }
+      ]
+    },
+    {
+      "output": "confluence:can_of_worms",
+      "count": 1,
+      "inputs": [
+        { "id": "confluence:worm", "count": 7 }
+      ],
+      "additions": [
+        { "type": "metallix", "value": 16 }
+      ]
+    },
+    {
+      "output": "confluence:ale",
+      "count": 1,
+      "inputs": [
+        { "id": "confluence:mug", "count": 1 }
+      ],
+      "additions": [
+        { "type": "organix", "value": 1 },
+        { "type": "flumix", "value": 1 }
+      ]
+    },
+    {
+      "output": "confluence:lesser_mana_potion",
+      "count": 1,
+      "inputs": [
+        { "id": "confluence:bottle", "count": 1 }
+      ],
+      "additions": [
+        { "type": "flumix", "value": 6 },
+        { "type": "energix", "value": 12 },
+        { "type": "arcanix", "value": 4 }
+      ]
+    },
+    {
+      "output": "confluence:greater_mana_potion",
+      "count": 1,
+      "inputs": [
+        { "id": "confluence:mana_potion", "count": 2 }
+      ],
+      "offcuts": [
+        { "id": "confluence:bottle", "count": 1 }
+      ]
+    },
+    {
+      "output": "confluence:apple_juice",
+      "count": 1,
+      "inputs": [
+        { "id": "minecraft:apple", "count": 1 }
+      ],
+      "offcuts": [
+        { "id": "confluence:bottle", "count": 1 }
+      ]
+    },
+    {
+      "output": "confluence:golden_bug_net",
+      "count": 1,
+      "inputs": [
+        { "id": "confluence:bug_net", "count": 1 }
+      ],
+      "offcuts": [
+        { "id": "minecraft:gold_ingot", "count": 4 }
+      ]
+    },
+    {
+      "output": "confluence:ruby_sapling",
+      "count": 1,
+      "inputs": [
+        { "id": "confluence:ruby", "count": 1 },
+        { "id": "minecraft:oak_sapling", "count": 1 }
+      ]
+    },
+    {
+      "output": "confluence:amber_sapling",
+      "count": 1,
+      "inputs": [
+        { "id": "confluence:amber", "count": 1 },
+        { "id": "minecraft:oak_sapling", "count": 1 }
+      ]
+    },
+    {
+      "output": "confluence:topaz_sapling",
+      "count": 1,
+      "inputs": [
+        { "id": "confluence:topaz", "count": 1 },
+        { "id": "minecraft:oak_sapling", "count": 1 }
+      ]
+    },
+    {
+      "output": "confluence:jade_sapling",
+      "count": 1,
+      "inputs": [
+        { "id": "confluence:jade", "count": 1 },
+        { "id": "minecraft:oak_sapling", "count": 1 }
+      ]
+    },
+    {
+      "output": "confluence:diamond_sapling",
+      "count": 1,
+      "inputs": [
+        { "id": "minecraft:diamond", "count": 1 },
+        { "id": "minecraft:oak_sapling", "count": 1 }
+      ]
+    },
+    {
+      "output": "confluence:sapphire_sapling",
+      "count": 1,
+      "inputs": [
+        { "id": "confluence:sapphire", "count": 1 },
+        { "id": "minecraft:oak_sapling", "count": 1 }
+      ]
+    },
+    {
+      "output": "confluence:amethyst_sapling",
+      "count": 1,
+      "inputs": [
+        { "id": "confluence:amethyst", "count": 1 },
+        { "id": "minecraft:oak_sapling", "count": 1 }
+      ]
+    },
+    {
+      "preset": "same",
+      "output": "confluence:chipped_lead_anvil",
+      "input": "confluence:lead_anvil",
+      "multiplier": 0.7
+    },
+    {
+      "preset": "same",
+      "output": "confluence:damaged_lead_anvil",
+      "input": "confluence:lead_anvil",
+      "multiplier": 0.5
+    },
+    {
+      "preset": "same",
+      "output": "confluence:thin_honey_block",
+      "input": "minecraft:honey_block",
+      "multiplier": 0.6
+    },
+    {
+      "preset": "same",
+      "output": "confluence:asphalt_block",
+      "input": "confluence:raw_asphalt",
+      "multiplier": 0.5
+    },
+    {
+      "output": "confluence:keg",
+      "count": 1,
+      "inputs": [
+        { "id": "minecraft:barrel", "count": 1 },
+        { "id": "minecraft:oak_fence", "count": 1 },
+        { "id": "minecraft:copper_ingot", "count": 1 }
+      ]
+    },
+    {
+      "output": "confluence:loom",
+      "count": 1,
+      "inputs": [
+        { "id": "minecraft:oak_planks", "count": 12 },
+        { "id": "minecraft:oak_slab", "count": 2 }
+      ]
+    },
+    {
+      "preset": "bucket_elemenix",
+      "output": "confluence:honey_bucket",
+      "elemenix_type": "organix",
+      "value": 180
+    }
+  ]
+}

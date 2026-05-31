@@ -1,6 +1,8 @@
 {
   "mod_id": "deeperdarker",
   "entries": [
+    { "id": "#deeperdarker:gloomslate_sherds", "constituents": [0, 8, 0, 0, 0, 12] },
+    { "id": "#deeperdarker:dyed_transmitters", "constituents": [18, 0, 0, 1640, 860, 500] },
     { "id": "deeperdarker:sculk_stone", "preset": "stone" },
     { "id": "deeperdarker:cobbled_sculk_stone", "preset": "stone" },
     { "id": "deeperdarker:gloomslate", "preset": "stone" },
@@ -8,6 +10,7 @@
     { "id": "deeperdarker:gloomy_grass", "preset": "grassVineLeaves" },
     { "id": "deeperdarker:sculk_vines", "preset": "grassVineLeaves" },
     { "id": "deeperdarker:sculk_tendrils", "preset": "grassVineLeaves" },
+    { "id": "deeperdarker:angler_fish", "preset": "rawFish", "hunger": 6 },
     { "id": "deeperdarker:echo_log", "elemenix": "organix", "value": 96 },
     { "id": "deeperdarker:echo_wood", "elemenix": "organix", "value": 96 },
     { "id": "deeperdarker:stripped_echo_log", "elemenix": "organix", "value": 96 },
@@ -17,6 +20,7 @@
     { "id": "deeperdarker:ancient_vase", "elemenix": "terrix", "value": 24 },
     { "id": "deeperdarker:grime_ball", "constituents": [2, 6, 0, 0, 0, 0] },
     { "id": "deeperdarker:echo_soil", "constituents": [0, 18, 0, 0, 6, 0] },
+    { "id": "deeperdarker:lite", "constituents": [0, 24, 0, 0, 12, 0] },
     { "id": "deeperdarker:blooming_moss_block", "constituents": [9, 0, 0, 0, 6, 0] },
     { "id": "deeperdarker:blooming_sculk_stone", "constituents": [4, 24, 0, 0, 2, 0] },
     { "id": "deeperdarker:glowing_flowers", "constituents": [12, 0, 6, 0, 2, 0] },
@@ -25,6 +29,7 @@
     { "id": "deeperdarker:ice_lily", "constituents": [18, 0, 10, 0, 0, 0] },
     { "id": "deeperdarker:gloomy_cactus", "constituents": [18, 0, 10, 0, 0, 2] },
     { "id": "deeperdarker:bloom_berries", "constituents": [6, 0, 4, 0, 0, 1] },
+    { "id": "deeperdarker:gleam_gel", "constituents": [6, 0, 0, 0, 3, 0] },
     { "id": "deeperdarker:warden_carapace", "constituents": [4000, 0, 0, 0, 800, 150] },
     { "id": "deeperdarker:heart_of_the_deep", "constituents": [15000, 0, 0, 0, 3000, 1000] },
     { "id": "deeperdarker:crystallized_amber", "constituents": [80, 0, 0, 0, 16, 0] },
@@ -36,6 +41,7 @@
     { "id": "deeperdarker:sculk_bone", "constituents": [0, 50, 0, 0, 12, 2] },
     { "id": "deeperdarker:resonarium", "constituents": [35, 0, 0, 0, 12, 2] },
     { "id": "deeperdarker:sculk_jaw", "constituents": [0, 10, 0, 0, 15, 30] },
+    { "id": "deeperdarker:infested_sculk", "constituents": [24, 0, 5, 0, 2, 4] },
     { "id": "deeperdarker:sculk_transmitter", "constituents": [0, 0, 0, 1640, 860, 500] }
   ]
 }

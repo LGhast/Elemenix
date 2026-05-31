@@ -260,6 +260,7 @@
   "config.elemenix.ejector_dc_interval": "Ejector DC Interval",
   "config.elemenix.ejector_enriching_interval": "Ejector Production Interval",
   "config.elemenix.ejecting_interval": "Ejector Ejection Interval",
+  "config.elemenix.allow_non_creative_recording": "Allow Non-Creative Player Recording",
 
   "jei.category.elemenix.enriching": "Enriching",
   "jei.category.elemenix.transforming": "Elemenic Transforming",

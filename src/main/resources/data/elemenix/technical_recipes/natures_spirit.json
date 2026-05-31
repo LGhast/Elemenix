@@ -1,0 +1,60 @@
+{
+  "mod_id": "natures_spirit",
+  "load_after": ["minecraft"],
+  "recipes": [
+    {
+      "preset": "bucket_elemenix",
+      "output": "natures_spirit:cheese_bucket",
+      "elemenix_type": "organix",
+      "value": 24
+    },
+    {
+      "output": "natures_spirit:quarter_pizza",
+      "count": 4,
+      "inputs": [
+        { "id": "natures_spirit:whole_pizza", "count": 1 }
+      ]
+    },
+    {
+      "output": "natures_spirit:half_pizza",
+      "count": 2,
+      "inputs": [
+        { "id": "natures_spirit:whole_pizza", "count": 1 }
+      ]
+    },
+    {
+      "output": "natures_spirit:three_quarters_pizza",
+      "count": 1,
+      "inputs": [
+        { "id": "natures_spirit:quarter_pizza", "count": 3 }
+      ]
+    },
+    {
+      "output": "natures_spirit:stripped_alluaudia",
+      "count": 4,
+      "inputs": [
+        { "id": "natures_spirit:alluaudia", "count": 1 }
+      ]
+    },
+    {
+      "output": "natures_spirit:frosty_redwood_leaves",
+      "count": 1,
+      "inputs": [
+        { "id": "natures_spirit:redwood_leaves", "count": 1 }
+      ],
+      "additions": [
+        { "type": "flumix", "value": 2 }
+      ]
+    },
+    {
+      "output": "natures_spirit:frosty_fir_leaves",
+      "count": 1,
+      "inputs": [
+        { "id": "natures_spirit:fir_leaves", "count": 1 }
+      ],
+      "additions": [
+        { "type": "flumix", "value": 2 }
+      ]
+    }
+  ]
+}

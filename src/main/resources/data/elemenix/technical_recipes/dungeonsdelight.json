@@ -1,0 +1,115 @@
+{
+  "mod_id": "dungeonsdelight",
+  "load_after": ["farmersdelight"],
+  "recipes": [
+    {
+      "output": "dungeonsdelight:wormroot_stalk",
+      "count": 1,
+      "inputs": [
+        { "id": "dungeonsdelight:wormroot_tendrils", "count": 4 }
+      ]
+    },
+    {
+      "preset": "same",
+      "output": "dungeonsdelight:rotbulb_crop",
+      "input": "dungeonsdelight:rotbulb"
+    },
+    {
+      "preset": "same",
+      "output": "dungeonsdelight:slime_noodles",
+      "input": "minecraft:slime_ball"
+    },
+    {
+      "output": "dungeonsdelight:ghast_calamari",
+      "count": 2,
+      "inputs": [
+        { "id": "dungeonsdelight:ghast_tentacle", "count": 1 }
+      ]
+    },
+    {
+      "output": "dungeonsdelight:polterghast_pizza_slice",
+      "count": 4,
+      "inputs": [
+        { "id": "dungeonsdelight:polterghast_pizza", "count": 1 }
+      ]
+    },
+    {
+      "output": "dungeonsdelight:monster_cake_slice",
+      "count": 7,
+      "inputs": [
+        { "id": "dungeonsdelight:monster_cake", "count": 1 }
+      ]
+    },
+    {
+      "output": "dungeonsdelight:spider_pie_slice",
+      "count": 4,
+      "inputs": [
+        { "id": "dungeonsdelight:spider_pie", "count": 1 }
+      ]
+    },
+    {
+      "output": "dungeonsdelight:sculk_tart_slice",
+      "count": 4,
+      "inputs": [
+        { "id": "dungeonsdelight:sculk_tart", "count": 1 }
+      ]
+    },
+    {
+      "output": "dungeonsdelight:candied_silverfish_sucker",
+      "count": 1,
+      "inputs": [
+        { "id": "dungeonsdelight:amethyst_rock_candy", "count": 1 }
+      ],
+      "additions": [
+        { "type": "organix", "value": 24 },
+        { "type": "flumix", "value": 5 }
+      ]
+    },
+    {
+      "output": "dungeonsdelight:candied_vex_sucker",
+      "count": 1,
+      "inputs": [
+        { "id": "dungeonsdelight:amethyst_rock_candy", "count": 1 }
+      ],
+      "additions": [
+        { "type": "flumix", "value": 12 },
+        { "type": "arcanix", "value": 10 }
+      ]
+    },
+    {
+      "output": "dungeonsdelight:carved_rotgourd",
+      "count": 1,
+      "inputs": [
+        { "id": "dungeonsdelight:rotgourd", "count": 1 }
+      ],
+      "offcuts": [
+        { "id": "dungeonsdelight:gunk", "count": 2 }
+      ]
+    },
+    {
+      "preset": "food_unit",
+      "output": "dungeonsdelight:ossobuco",
+      "source": "dungeonsdelight:ossobuco_block",
+      "container": "minecraft:bowl",
+      "offcuts": [
+        { "id": "minecraft:bowl", "count": 1 },
+        { "id": "minecraft:skeleton_skull", "count": 1 }
+      ]
+    },
+    {
+      "preset": "food_unit_bowl",
+      "output": "dungeonsdelight:guardian_angel",
+      "source": "dungeonsdelight:guardian_angel_block"
+    },
+    {
+      "preset": "food_unit_bowl",
+      "output": "dungeonsdelight:silverfish_and_chips",
+      "source": "dungeonsdelight:silverfish_and_chips_block"
+    },
+    {
+      "preset": "food_unit_bowl",
+      "output": "dungeonsdelight:monster_mousse",
+      "source": "dungeonsdelight:monster_mousse_block"
+    }
+  ]
+}
