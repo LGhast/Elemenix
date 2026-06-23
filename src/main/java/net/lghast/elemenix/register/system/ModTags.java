@@ -7,16 +7,6 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 
 public class ModTags {
-    public static final TagKey<Item> DYED_WOOLS = TagKey.create(
-            Registries.ITEM,
-            ResourceLocation.parse("elemenix:dyed_wools")
-    );
-
-    public static final TagKey<Item> DYED_BEDS = TagKey.create(
-            Registries.ITEM,
-            ResourceLocation.parse("elemenix:dyed_beds")
-    );
-
     public static final TagKey<Item> BIG_FLOWERS = TagKey.create(
             Registries.ITEM,
             ResourceLocation.parse("elemenix:big_flowers")
@@ -160,5 +150,35 @@ public class ModTags {
     public static final TagKey<Item> STRICTLY_UNANALYSABLE = TagKey.create(
             Registries.ITEM,
             ResourceLocation.parse("elemenix:strictly_unanalysable")
+    );
+
+    public static final TagKey<Item> ORGANIX_MATERIALS = TagKey.create(
+            Registries.ITEM,
+            ResourceLocation.parse("elemenix:organix_materials")
+    );
+
+    public static final TagKey<Item> TERRIX_MATERIALS = TagKey.create(
+            Registries.ITEM,
+            ResourceLocation.parse("elemenix:terrix_materials")
+    );
+
+    public static final TagKey<Item> FLUMIX_MATERIALS = TagKey.create(
+            Registries.ITEM,
+            ResourceLocation.parse("elemenix:flumix_materials")
+    );
+
+    public static final TagKey<Item> METALLIX_MATERIALS = TagKey.create(
+            Registries.ITEM,
+            ResourceLocation.parse("elemenix:metallix_materials")
+    );
+
+    public static final TagKey<Item> ENERGIX_MATERIALS = TagKey.create(
+            Registries.ITEM,
+            ResourceLocation.parse("elemenix:energix_materials")
+    );
+
+    public static final TagKey<Item> ARCANIX_MATERIALS = TagKey.create(
+            Registries.ITEM,
+            ResourceLocation.parse("elemenix:arcanix_materials")
     );
 }

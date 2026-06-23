@@ -1,0 +1,59 @@
+{
+  "mod_id": "trailandtales_delight",
+  "load_after": ["farmersdelight"],
+  "recipes": [
+    {
+      "preset": "same",
+      "output": "trailandtales_delight:cheese_wheel",
+      "input": "trailandtales_delight:curd_block"
+    },
+    {
+      "output": "trailandtales_delight:cherry_cake_slice",
+      "count": 4,
+      "inputs": [
+        { "id": "trailandtales_delight:cherry_cake", "count": 1 }
+      ]
+    },
+    {
+      "output": "trailandtales_delight:cherry_cheese_pie_slice",
+      "count": 4,
+      "inputs": [
+        { "id": "trailandtales_delight:cherry_cheese_pie", "count": 1 }
+      ]
+    },
+    {
+      "output": "trailandtales_delight:cheese_slice",
+      "count": 4,
+      "inputs": [
+        { "id": "trailandtales_delight:cheese_wheel", "count": 1 }
+      ]
+    },
+    {
+      "output": "trailandtales_delight:pitcher_plant",
+      "count": 1,
+      "inputs": [
+        { "id": "trailandtales_delight:pitcher_taro", "count": 1 },
+        { "id": "minecraft:pitcher_plant", "count": 1 }
+      ]
+    },
+    {
+      "output": "trailandtales_delight:fried_sniffer_egg",
+      "count": 1,
+      "inputs": [
+        { "id": "trailandtales_delight:cooked_sniffer_egg_block", "count": 1 }
+      ],
+      "offcuts": [
+        { "id": "trailandtales_delight:sniffer_eggshell", "count": 1 }
+      ]
+    },
+    {
+      "preset": "food_unit",
+      "output": "trailandtales_delight:stuffed_sniffer_egg",
+      "source": "trailandtales_delight:stuffed_sniffer_egg_block",
+      "container": "minecraft:bowl",
+      "offcuts": [
+        { "id": "trailandtales_delight:sniffer_eggshell", "count": 1 }
+      ]
+    }
+  ]
+}

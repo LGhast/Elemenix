@@ -1,0 +1,21 @@
+{
+  "mod_id": "crabbersdelight",
+  "entries": [
+    { "id": "crabbersdelight:raw_clam_meat", "preset": "rawMeat", "hunger": 4, "flumix_addition": 2 },
+    { "id": "crabbersdelight:raw_frog_leg", "preset": "rawMeat", "hunger": 4 },
+    { "id": "crabbersdelight:crab", "preset": "rawFish", "hunger": 4 },
+    { "id": "crabbersdelight:shrimp", "preset": "rawFish", "hunger": 3 },
+    { "id": "crabbersdelight:clawster", "preset": "rawFish", "hunger": 7 },
+    { "id": "crabbersdelight:can", "elemenix": "metallix", "value": 32 },
+    { "id": "crabbersdelight:coconut", "constituents": [24, 0, 32, 0, 0, 0] },
+    { "id": "crabbersdelight:coconut_helmet", "constituents": [24, 0, 0, 0, 0, 40] },
+    { "id": "crabbersdelight:clam", "constituents": [20, 24, 10, 0, 0, 0] },
+    { "id": "crabbersdelight:raw_squid_tentacles", "constituents": [35, 0, 12, 0, 0, 0] },
+    { "id": "crabbersdelight:raw_glow_squid_tentacles", "constituents": [35, 0, 12, 0, 6, 0] },
+    { "id": "crabbersdelight:fish_bones", "constituents": [6, 24, 0, 0, 0, 0] },
+    { "id": "crabbersdelight:pearl", "constituents": [0, 50, 0, 0, 0, 20] },
+    { "id": "crabbersdelight:crab_claw", "constituents": [32, 10, 0, 0, 0, 0] },
+    { "id": "crabbersdelight:pufferfish_slice", "constituents": [15, 0, 5, 0, 0, 2] },
+    { "id": "crabbersdelight:tropical_fish_slice", "constituents": [10, 0, 6, 0, 0, 0] }
+  ]
+}

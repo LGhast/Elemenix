@@ -1,0 +1,14 @@
+{
+  "values": [
+    "#regions_unexplored:grass",
+    "regions_unexplored:ashen_grass",
+    "regions_unexplored:bladed_grass",
+    "regions_unexplored:mycotoxic_grass",
+    "regions_unexplored:prismoss_sprout",
+    "regions_unexplored:brimsprout",
+    "regions_unexplored:glistering_sprout",
+    "regions_unexplored:glistering_fern",
+    "regions_unexplored:small_desert_shrub",
+    "regions_unexplored:dead_steppe_shrub"
+  ]
+}

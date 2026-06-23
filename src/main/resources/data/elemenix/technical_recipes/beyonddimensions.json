@@ -1,0 +1,19 @@
+{
+  "mod_id": "beyonddimensions",
+  "load_after": ["minecraft"],
+  "recipes": [
+    {
+      "preset": "same",
+      "output": "beyonddimensions:stable_space_time_fragment",
+      "input": "beyonddimensions:unstable_space_time_fragment"
+    },
+    {
+      "preset": "bucket_constituents",
+      "output": "beyonddimensions:xp_fluid_bucket",
+      "constituents": [
+        { "type": "energix", "value": 16 },
+        { "type": "arcanix", "value": 32 }
+      ]
+    }
+  ]
+}

@@ -115,12 +115,10 @@ public class ElemenixInfo {
 
     public static Constituents getConstituents(Item item, @Nullable Level level) {
         if (!Elemenics.started) {
-            LOGGER.info("The mod Elemenics hasn't started. Unanalysable constituents has been returned.");
             return new Constituents(true);
         }
 
         if (!initialized) {
-            LOGGER.info("ElemenixInfo Class hasn't initialized. Unanalysable constituents has been returned.");
             initialize();
         }
 
@@ -145,7 +143,9 @@ public class ElemenixInfo {
         }
 
         if (CALCULATING_ITEMS.contains(item)) {
-            LOGGER.debug("Preventing recursion for item: {}", BuiltInRegistries.ITEM.getKey(item));
+            if(initialized) {
+                LOGGER.debug("Preventing recursion for item: {}", BuiltInRegistries.ITEM.getKey(item));
+            }
             return new Constituents(true);
         }
 
@@ -160,7 +160,9 @@ public class ElemenixInfo {
                 ITEM_CACHE.put(item, recipeConstituents);
                 return recipeConstituents.copy();
             }
-            LOGGER.info("Fail to calculate constituents for " + item.getDescription().getString());
+            if(initialized) {
+                LOGGER.info("Fail to calculate constituents for " + item.getDescription().getString());
+            }
         } finally {
             CALCULATING_ITEMS.remove(item);
         }

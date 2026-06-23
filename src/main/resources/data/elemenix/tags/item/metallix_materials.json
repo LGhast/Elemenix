@@ -1,0 +1,17 @@
+{
+  "values": [
+    "minecraft:gold_nugget",
+    {
+      "id": "cobblemon:relic_coin_pouch",
+      "required": false
+    },
+    {
+      "id": "confluence:gold_dust",
+      "required": false
+    },
+    {
+      "id": "#c:nuggets/silver",
+      "required": false
+    }
+  ]
+}

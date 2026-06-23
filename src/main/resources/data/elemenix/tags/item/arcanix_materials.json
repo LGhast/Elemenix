@@ -1,0 +1,17 @@
+{
+  "values": [
+    "minecraft:ender_pearl",
+    {
+      "id": "anvilcraft:void_matter",
+      "required": false
+    },
+    {
+      "id": "ars_nouveau:manipulation_essence",
+      "required": false
+    },
+    {
+      "id": "beyonddimensions:shattered_space_time_crystallization",
+      "required": false
+    }
+  ]
+}

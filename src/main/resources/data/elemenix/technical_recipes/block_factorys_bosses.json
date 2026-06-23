@@ -1,0 +1,50 @@
+{
+  "mod_id": "block_factorys_bosses",
+  "load_after": ["minecraft"],
+  "recipes": [
+    {
+      "output": "block_factorys_bosses:bone_remains",
+      "count": 1,
+      "inputs": [
+        { "id": "minecraft:bone", "count": 3 }
+      ]
+    },
+    {
+      "output": "block_factorys_bosses:bone_remains_legs",
+      "count": 1,
+      "inputs": [
+        { "id": "minecraft:bone", "count": 3 }
+      ]
+    },
+    {
+      "output": "block_factorys_bosses:bone_remains_rib_cage",
+      "count": 1,
+      "inputs": [
+        { "id": "minecraft:bone", "count": 3 }
+      ]
+    },
+    {
+      "output": "block_factorys_bosses:corpse",
+      "count": 1,
+      "inputs": [
+        { "id": "minecraft:bone", "count": 5 }
+      ]
+    },
+    {
+      "output": "block_factorys_bosses:cage_skelly_item",
+      "count": 1,
+      "inputs": [
+        { "id": "block_factorys_bosses:cage_item", "count": 1 },
+        { "id": "block_factorys_bosses:corpse", "count": 1 }
+      ]
+    },
+    {
+      "output": "block_factorys_bosses:big_cage_skelly_item",
+      "count": 1,
+      "inputs": [
+        { "id": "block_factorys_bosses:big_cage_item", "count": 1 },
+        { "id": "block_factorys_bosses:corpse", "count": 2 }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "mod_id": "crabbersdelight",
+  "load_after": ["farmersdelight"],
+  "recipes": [
+    {
+      "preset": "mob_bucket",
+      "output": "crabbersdelight:crab_bucket",
+      "mob_item": "crabbersdelight:crab"
+    }
+  ]
+}

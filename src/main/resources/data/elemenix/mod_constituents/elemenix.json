@@ -3,8 +3,6 @@
   "entries": [
     { "id": "#elemenix:strictly_unanalysable", "unanalysable": true },
     { "id": "#elemenix:big_flowers", "preset": "flowerLarge" },
-    { "id": "#elemenix:dyed_beds", "elemenix": "organix", "value": 414 },
-    { "id": "#elemenix:dyed_wools", "elemenix": "organix", "value": 114 },
     { "id": "#elemenix:normal_gems", "elemenix": "terrix", "value": 300 },
     { "id": "#elemenix:normal_gem_ores", "elemenix": "terrix", "value": 324 },
     { "id": "#elemenix:concrete", "constituents": [2, 16, 0, 0, 0, 0] },

@@ -1,0 +1,88 @@
+{
+  "mod_id": "undergarden",
+  "load_after": ["minecraft"],
+  "recipes": [
+    {
+      "preset": "template",
+      "output": "undergarden:forgotten_upgrade_smithing_template",
+      "main_item": "minecraft:diamond",
+      "material": "undergarden:depthrock"
+    },
+    {
+      "preset": "mob_bucket",
+      "output": "undergarden:gwibling_bucket",
+      "mob_item": "undergarden:raw_gwibling"
+    },
+    {
+      "output": "undergarden:utheric_shard",
+      "count": 9,
+      "inputs": [
+        { "id": "undergarden:utheric_cluster", "count": 1 }
+      ]
+    },
+    {
+      "output": "undergarden:brute_tusk",
+      "count": 1,
+      "inputs": [
+        { "id": "minecraft:bone_meal", "count": 4 }
+      ]
+    },
+    {
+      "output": "undergarden:goo",
+      "count": 1,
+      "inputs": [
+        { "id": "undergarden:goo_ball", "count": 2 }
+      ]
+    },
+    {
+      "output": "undergarden:utherium_crystal",
+      "count": 1,
+      "inputs": [
+        { "id": "undergarden:utheric_cluster", "count": 1 },
+        { "id": "undergarden:rogdorium", "count": 1 }
+      ]
+    },
+    {
+      "preset": "bucket_constituents",
+      "output": "undergarden:virulent_mix_bucket",
+      "constituents": [
+        { "type": "organix", "value": 8 },
+        { "type": "flumix", "value": 8 }
+      ]
+    },
+    {
+      "output": "undergarden:carved_gloomgourd",
+      "count": 1,
+      "inputs": [
+        { "id": "undergarden:gloomgourd", "count": 1 }
+      ],
+      "offcuts": [
+        { "id": "undergarden:gloomgourd_seeds", "count": 4 }
+      ]
+    },
+    {
+      "output": "undergarden:rogdoric_gronglet",
+      "count": 1,
+      "inputs": [
+        { "id": "undergarden:gronglet", "count": 1 },
+        { "id": "undergarden:rogdorium", "count": 1 }
+      ]
+    },
+    {
+      "output": "undergarden:utheric_gronglet",
+      "count": 1,
+      "inputs": [
+        { "id": "undergarden:gronglet", "count": 1 },
+        { "id": "undergarden:utherium_crystal", "count": 1 }
+      ]
+    },
+    {
+      "output": "undergarden:denizen_totem",
+      "count": 1,
+      "inputs": [
+        { "id": "undergarden:ancient_root", "count": 1 },
+        { "id": "undergarden:rogdorium", "count": 1 }
+      ]
+    }
+  ]
+}

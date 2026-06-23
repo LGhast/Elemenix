@@ -2,6 +2,7 @@ package net.lghast.elemenix.utils.recipe;
 
 import com.google.gson.*;
 import net.lghast.elemenix.utils.Constituents;
+import net.lghast.elemenix.utils.ModUtils;
 import net.lghast.elemenix.utils.elemenix.Elemenix;
 import net.neoforged.fml.ModList;
 import net.neoforged.neoforgespi.language.IModFileInfo;
@@ -56,6 +57,9 @@ public class JsonTRecipeLoader {
             if (root == null) return;
 
             String fileModId = root.has("mod_id") ? root.get("mod_id").getAsString() : defaultModId;
+            if (!ModUtils.hasServerMod(fileModId)) {
+                return;
+            }
 
             if (root.has("load_after")) {
                 JsonArray afterArr = root.getAsJsonArray("load_after");
@@ -90,6 +94,7 @@ public class JsonTRecipeLoader {
             if (!modRecipes.isEmpty()) {
                 recipesByMod.computeIfAbsent(fileModId, k -> new ArrayList<>()).addAll(modRecipes);
             }
+            LOGGER.debug("Parse technical recipe file successfully: {}", file);
 
         } catch (Exception e) {
             LOGGER.error("Failed to parse technical recipe file: {}", file, e);

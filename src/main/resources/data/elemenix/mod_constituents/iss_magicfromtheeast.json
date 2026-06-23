@@ -1,0 +1,12 @@
+{
+  "mod_id": "iss_magicfromtheeast",
+  "entries": [
+    { "id": "iss_magicfromtheeast:vase_rice_wine", "constituents": [16, 24, 48, 0, 0, 0] },
+    { "id": "iss_magicfromtheeast:rice_wine_bottle", "constituents": [26, 0, 24, 0, 0, 0] },
+    { "id": "iss_magicfromtheeast:ritual_orihon", "constituents": [2500, 0, 0, 0, 600, 800] },
+    { "id": "iss_magicfromtheeast:muramasa", "constituents": [5000, 0, 0, 12000, 0, 700] },
+    { "id": "iss_magicfromtheeast:repeating_crossbow", "constituents": [150, 500, 0, 150, 0, 0] },
+    { "id": "iss_magicfromtheeast:rusted_coins_sword", "constituents": [50, 2000, 0, 7000, 0, 400] },
+    { "id": "iss_magicfromtheeast:jiangshi_hat", "constituents": [180, 0, 0, 0, 0, 5] }
+  ]
+}

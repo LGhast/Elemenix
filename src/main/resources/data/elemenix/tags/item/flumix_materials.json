@@ -1,0 +1,31 @@
+{
+  "values": [
+    "minecraft:snowball",
+    "minecraft:breeze_rod",
+    "minecraft:wind_charge",
+    {
+      "id": "eternal_starlight:icicle",
+      "required": false
+    },
+    {
+      "id": "cataclysm:pointed_icicle",
+      "required": false
+    },
+    {
+      "id": "regions_unexplored:icicle",
+      "required": false
+    },
+    {
+      "id": "yungscavebiomes:icicle",
+      "required": false
+    },
+    {
+      "id": "ars_nouveau:water_essence",
+      "required": false
+    },
+    {
+      "id": "ars_nouveau:air_essence",
+      "required": false
+    }
+  ]
+}

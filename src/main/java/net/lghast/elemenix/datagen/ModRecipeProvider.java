@@ -34,12 +34,12 @@ public class ModRecipeProvider extends RecipeProvider {
                 .pattern(" D ")
                 .pattern("EFG")
                 .define('D', ModItems.ANALYZING_CHIP)
-                .define('A', Items.FLINT)
-                .define('B', Items.WHEAT)
-                .define('C', Items.BLAZE_ROD)
-                .define('E', Items.GOLD_NUGGET)
-                .define('F', Items.ENDER_PEARL)
-                .define('G', Items.SNOWBALL)
+                .define('A', ModTags.TERRIX_MATERIALS)
+                .define('B', ModTags.ORGANIX_MATERIALS)
+                .define('C', ModTags.ENERGIX_MATERIALS)
+                .define('E', ModTags.METALLIX_MATERIALS)
+                .define('F', ModTags.ARCANIX_MATERIALS)
+                .define('G', ModTags.FLUMIX_MATERIALS)
                 .unlockedBy("has_analyzing_chip", has(ModItems.ANALYZING_CHIP))
                 .save(recipeOutput);
 

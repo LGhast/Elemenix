@@ -1,5 +1,6 @@
 package net.lghast.elemenix.utils.recipe;
 
+import net.lghast.elemenix.Elemenics;
 import net.lghast.elemenix.register.content.ModItems;
 import net.lghast.elemenix.register.system.ModTags;
 import net.lghast.elemenix.utils.Constituents;
@@ -146,6 +147,8 @@ public class RecipeHelper {
     }
 
     public static void precomputeRecipes(@Nullable Level level) {
+        if(!Elemenics.started) return;
+
         if (level == null) {
             LOGGER.warn("Cannot precompute recipes: level is null");
             return;

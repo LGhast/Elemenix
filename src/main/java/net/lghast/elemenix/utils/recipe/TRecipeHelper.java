@@ -1,5 +1,6 @@
 package net.lghast.elemenix.utils.recipe;
 
+import net.lghast.elemenix.Elemenics;
 import net.lghast.elemenix.register.system.ModTags;
 import net.lghast.elemenix.utils.Constituents;
 import net.lghast.elemenix.utils.elemenix.Elemenix;
@@ -15,6 +16,8 @@ public class TRecipeHelper {
     private static boolean handled = false;
 
     public static void initialize() {
+        if(!Elemenics.started) return;
+
         clear();
         recipes.clear();
         recipes.addAll(JsonTRecipeLoader.loadAllRecipes());

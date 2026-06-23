@@ -44,7 +44,7 @@ public class JsonElemenixLoader {
                     Map<String, Constituents> map = parseFile(entry);
                     if (!map.isEmpty()) {
                         result.putAll(map);
-                        LOGGER.error("Parse compat mapping file successfully: {}", entry);
+                        LOGGER.debug("Parse compat mapping file successfully: {}", entry);
                     }
                 } catch (Exception e) {
                     LOGGER.error("Failed to parse compat mapping file: {}", entry, e);

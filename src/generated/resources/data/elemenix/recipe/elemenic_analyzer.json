@@ -3,25 +3,25 @@
   "category": "misc",
   "key": {
     "A": {
-      "item": "minecraft:flint"
+      "tag": "elemenix:terrix_materials"
     },
     "B": {
-      "item": "minecraft:wheat"
+      "tag": "elemenix:organix_materials"
     },
     "C": {
-      "item": "minecraft:blaze_rod"
+      "tag": "elemenix:energix_materials"
     },
     "D": {
       "item": "elemenix:analyzing_chip"
     },
     "E": {
-      "item": "minecraft:gold_nugget"
+      "tag": "elemenix:metallix_materials"
     },
     "F": {
-      "item": "minecraft:ender_pearl"
+      "tag": "elemenix:arcanix_materials"
     },
     "G": {
-      "item": "minecraft:snowball"
+      "tag": "elemenix:flumix_materials"
     }
   },
   "pattern": [

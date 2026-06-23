@@ -14,8 +14,10 @@ import net.lghast.elemenix.register.system.*;
 import net.lghast.elemenix.utils.elemenix.ElemenixInfo;
 import net.lghast.elemenix.utils.ModUtils;
 import net.lghast.elemenix.utils.recipe.RecipeHelper;
+import net.lghast.elemenix.utils.recipe.TRecipeHelper;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.world.level.Level;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.fml.config.ModConfig;
@@ -40,8 +42,6 @@ import javax.annotation.Nullable;
 public class Elemenics {
     public static final String MOD_ID = "elemenix";
     public static boolean started = false;
-    private static int tickCounter = 0;
-    private static boolean hasWorldLoaded = false;
     private static final boolean isFtbQuestsLoaded = ModUtils.hasServerMod("ftbquests");
 
     @Nullable
@@ -61,7 +61,7 @@ public class Elemenics {
         ModRecipes.register(modEventBus);
         ModStats.register(modEventBus);
 
-        if(isFtbQuestsLoaded){
+        if (isFtbQuestsLoaded) {
             ModTaskTypes.init();
         }
 
@@ -70,17 +70,16 @@ public class Elemenics {
         modEventBus.addListener(this::onCommonSetup);
 
         NeoForge.EVENT_BUS.addListener(this::onWorldLoad);
-        NeoForge.EVENT_BUS.addListener(this::onServerTick);
-        NeoForge.EVENT_BUS.addListener(this::onPlayerLogin);
         NeoForge.EVENT_BUS.addListener(this::onServerStarted);
         NeoForge.EVENT_BUS.addListener(this::onServerStopped);
+        NeoForge.EVENT_BUS.addListener(this::onPlayerLogin);
     }
 
-    private void gatherData(GatherDataEvent event){
+    private void gatherData(GatherDataEvent event) {
         DataGenerators.gatherData(event);
     }
 
-    public void onClientSetup(FMLClientSetupEvent event){
+    public void onClientSetup(FMLClientSetupEvent event) {
         event.enqueueWork(ModRenders::setItemBlockRenders);
         event.enqueueWork(ModItemProperties::register);
     }
@@ -90,38 +89,29 @@ public class Elemenics {
     }
 
     private void onWorldLoad(ServerStartingEvent event) {
-        hasWorldLoaded = true;
-        tickCounter = 0;
         started = false;
         currentServerLevel = event.getServer().overworld();
-
         ElemenixInfo.clearCaches();
-        RecipeHelper.clearCache();
     }
 
-    private void onServerTick(ServerTickEvent.Post event) {
-        if (hasWorldLoaded) {
-            tickCounter++;
-
-            if (tickCounter >= 60) {
-                started = true;
-                hasWorldLoaded = false;
-                sendSyncToAllPlayers(event.getServer().overworld());
-
-                ElemenixInfo.clearCaches();
-                RecipeHelper.clearCache();
-
-                ElemenixInfo.initialize();
-                RecipeHelper.precomputeRecipes(getCurrentLevel());
-            }
+    private void onServerStarted(ServerStartedEvent event) {
+        currentServerLevel = event.getServer().overworld();
+        if (currentServerLevel != null) {
+            started = true;
+            ElemenixInfo.clearCaches();
+            ElemenixInfo.initialize();
+            RecipeHelper.precomputeRecipes(currentServerLevel);
         }
     }
 
+    private void onServerStopped(ServerStoppedEvent event) {
+        currentServerLevel = null;
+        started = false;
+    }
+
     private void onPlayerLogin(PlayerEvent.PlayerLoggedInEvent event) {
-        if (!event.getEntity().level().isClientSide()) {
-            if (event.getEntity() instanceof ServerPlayer serverPlayer) {
-                sendSyncStartedPacket(serverPlayer, started);
-            }
+        if (!event.getEntity().level().isClientSide() && event.getEntity() instanceof ServerPlayer serverPlayer) {
+            sendSyncStartedPacket(serverPlayer, started);
         }
     }
 
@@ -134,29 +124,12 @@ public class Elemenics {
         }
     }
 
-    private void onServerStarted(ServerStartedEvent event) {
-        currentServerLevel = event.getServer().overworld();
-    }
-
-    private void onServerStopped(ServerStoppedEvent event) {
-        currentServerLevel = null;
-    }
-
     private void sendSyncStartedPacket(ServerPlayer player, boolean started) {
         SyncModStartedPayload payload = new SyncModStartedPayload(started);
         player.connection.send(payload);
     }
 
-    private void sendSyncToAllPlayers(ServerLevel level) {
-        if (level != null) {
-            level.getServer();
-            for (ServerPlayer player : level.getServer().getPlayerList().getPlayers()) {
-                sendSyncStartedPacket(player, true);
-            }
-        }
-    }
-
-    public static boolean isFtbQuestsLoaded(){
+    public static boolean isFtbQuestsLoaded() {
         return isFtbQuestsLoaded;
     }
 }

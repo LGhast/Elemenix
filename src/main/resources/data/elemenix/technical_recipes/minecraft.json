@@ -18,6 +18,36 @@
       "input": "minecraft:dirt"
     },
     {
+      "preset": "same",
+      "output": "minecraft:brick",
+      "input": "minecraft:clay_ball"
+    },
+    {
+      "preset": "same",
+      "output": "minecraft:nether_brick",
+      "input": "minecraft:netherrack"
+    },
+    {
+      "preset": "same",
+      "output": "minecraft:chiseled_sandstone",
+      "input": "minecraft:sandstone"
+    },
+    {
+      "preset": "same",
+      "output": "minecraft:chiseled_red_sandstone",
+      "input": "minecraft:red_sandstone"
+    },
+    {
+      "preset": "same",
+      "output": "minecraft:purpur_pillar",
+      "input": "minecraft:purpur_block"
+    },
+    {
+      "preset": "same",
+      "output": "minecraft:quartz_pillar",
+      "input": "minecraft:quartz_block"
+    },
+    {
       "output": "minecraft:bread",
       "count": 1,
       "inputs": [

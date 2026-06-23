@@ -1,0 +1,166 @@
+{
+  "mod_id": "ae2",
+  "load_after": ["minecraft"],
+  "recipes": [
+    {
+      "preset": "same",
+      "output": "ae2:calculation_processor_press",
+      "input": "minecraft:iron_block"
+    },
+    {
+      "preset": "same",
+      "output": "ae2:engineering_processor_press",
+      "input": "minecraft:iron_block"
+    },
+    {
+      "preset": "same",
+      "output": "ae2:logic_processor_press",
+      "input": "minecraft:iron_block"
+    },
+    {
+      "preset": "same",
+      "output": "ae2:silicon_press",
+      "input": "minecraft:iron_block"
+    },
+    {
+      "preset": "same",
+      "output": "ae2:facade",
+      "input": "ae2:cable_anchor"
+    },
+    {
+      "preset": "same",
+      "output": "ae2:certus_quartz_dust",
+      "input": "ae2:certus_quartz_crystal"
+    },
+    {
+      "preset": "same",
+      "output": "ae2:crafting_pattern",
+      "input": "ae2:blank_pattern"
+    },
+    {
+      "preset": "same",
+      "output": "ae2:processing_pattern",
+      "input": "ae2:blank_pattern"
+    },
+    {
+      "preset": "same",
+      "output": "ae2:smithing_table_pattern",
+      "input": "ae2:blank_pattern"
+    },
+    {
+      "preset": "same",
+      "output": "ae2:stonecutting_pattern",
+      "input": "ae2:blank_pattern"
+    },
+    {
+      "output": "ae2:charged_certus_quartz_crystal",
+      "count": 1,
+      "inputs": [
+        { "id": "ae2:certus_quartz_crystal", "count": 1 }
+      ],
+      "additions": [
+        { "type": "energix", "value": 32 }
+      ]
+    },
+    {
+      "output": "ae2:fluix_crystal",
+      "count": 2,
+      "inputs": [
+        { "id": "ae2:charged_certus_quartz_crystal", "count": 1 },
+        { "id": "minecraft:quartz", "count": 1 },
+        { "id": "minecraft:redstone", "count": 1 }
+      ]
+    },
+    {
+      "preset": "same",
+      "output": "ae2:fluix_dust",
+      "input": "ae2:fluix_crystal"
+    },
+    {
+      "output": "ae2:quantum_entangled_singularity",
+      "count": 2,
+      "inputs": [
+        { "id": "ae2:singularity", "count": 1 },
+        { "id": "ae2:ender_dust", "count": 1 }
+      ]
+    },
+    {
+      "output": "ae2:damaged_budding_quartz",
+      "count": 1,
+      "inputs": [
+        { "id": "ae2:charged_certus_quartz_crystal", "count": 1 },
+        { "id": "ae2:quartz_block", "count": 1 }
+      ]
+    },
+    {
+      "output": "ae2:chipped_budding_quartz",
+      "count": 1,
+      "inputs": [
+        { "id": "ae2:charged_certus_quartz_crystal", "count": 1 },
+        { "id": "ae2:damaged_budding_quartz", "count": 1 }
+      ]
+    },
+    {
+      "output": "ae2:flawed_budding_quartz",
+      "count": 1,
+      "inputs": [
+        { "id": "ae2:charged_certus_quartz_crystal", "count": 1 },
+        { "id": "ae2:chipped_budding_quartz", "count": 1 }
+      ]
+    },
+    {
+      "output": "ae2:flawless_budding_quartz",
+      "count": 1,
+      "inputs": [
+        { "id": "ae2:charged_certus_quartz_crystal", "count": 3 },
+        { "id": "ae2:flawed_budding_quartz", "count": 1 }
+      ]
+    },
+    {
+      "output": "ae2:semi_dark_monitor",
+      "count": 3,
+      "inputs": [
+        { "id": "ae2:quartz_glass", "count": 3 },
+        { "id": "minecraft:redstone", "count": 1 },
+        { "id": "minecraft:iron_ingot", "count": 1 },
+        { "id": "minecraft:glowstone_dust", "count": 1 }
+      ]
+    },
+    {
+      "output": "ae2:mysterious_cube",
+      "count": 1,
+      "inputs": [
+        { "id": "ae2:not_so_mysterious_cube", "count": 1 },
+        { "id": "ae2:silicon_press", "count": 1 },
+        { "id": "ae2:calculation_processor_press", "count": 1 },
+        { "id": "ae2:engineering_processor_press", "count": 1 },
+        { "id": "ae2:logic_processor_press", "count": 1 }
+      ]
+    },
+    {
+      "preset": "same",
+      "output": "ae2:fe_p2p_tunnel",
+      "input": "ae2:me_p2p_tunnel"
+    },
+    {
+      "preset": "same",
+      "output": "ae2:fluid_p2p_tunnel",
+      "input": "ae2:me_p2p_tunnel"
+    },
+    {
+      "preset": "same",
+      "output": "ae2:item_p2p_tunnel",
+      "input": "ae2:me_p2p_tunnel"
+    },
+    {
+      "preset": "same",
+      "output": "ae2:light_p2p_tunnel",
+      "input": "ae2:me_p2p_tunnel"
+    },
+    {
+      "preset": "same",
+      "output": "ae2:redstone_p2p_tunnel",
+      "input": "ae2:me_p2p_tunnel"
+    }
+  ]
+}

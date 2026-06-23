@@ -1,0 +1,73 @@
+{
+  "values": [
+    "minecraft:flint",
+    "minecraft:lapis_lazuli",
+    "minecraft:quartz",
+    "minecraft:amethyst_shard",
+    "minecraft:emerald",
+    {
+      "id": "#elemenix:normal_gems",
+      "required": false
+    },
+    {
+      "id": "anvilcraft:sapphire",
+      "required": false
+    },
+    {
+      "id": "anvilcraft:topaz",
+      "required": false
+    },
+    {
+      "id": "anvilcraft:ruby",
+      "required": false
+    },
+    {
+      "id": "anvilcraft:ruby",
+      "required": false
+    },
+    {
+      "id": "anvilcraft:end_dust",
+      "required": false
+    },
+    {
+      "id": "anvilcraft:levitation_powder",
+      "required": false
+    },
+    {
+      "id": "#cobblemon:tumblestones",
+      "required": false
+    },
+    {
+      "id": "confluence:pearl",
+      "required": false
+    },
+    {
+      "id": "confluence:black_pearl",
+      "required": false
+    },
+    {
+      "id": "eternal_starlight:dusted_shard",
+      "required": false
+    },
+    {
+      "id": "eternal_starlight:thioquartz_shard",
+      "required": false
+    },
+    {
+      "id": "iceandfire:dread_shard",
+      "required": false
+    },
+    {
+      "id": "mowziesmobs:bluff_rod",
+      "required": false
+    },
+    {
+      "id": "natures_spirit:chalk_powder",
+      "required": false
+    },
+    {
+      "id": "natures_spirit:calcite_shard",
+      "required": false
+    }
+  ]
+}

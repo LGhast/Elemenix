@@ -23,42 +23,6 @@ public class ModItemTagProvider extends ItemTagsProvider {
 
     @Override
     protected void addTags(HolderLookup.@NotNull Provider pProvider) {
-        tag(ModTags.DYED_WOOLS)
-                .add(Items.ORANGE_WOOL)
-                .add(Items.RED_WOOL)
-                .add(Items.BLACK_WOOL)
-                .add(Items.YELLOW_WOOL)
-                .add(Items.LIME_WOOL)
-                .add(Items.GREEN_WOOL)
-                .add(Items.BLUE_WOOL)
-                .add(Items.CYAN_WOOL)
-                .add(Items.LIGHT_BLUE_WOOL)
-                .add(Items.LIGHT_GRAY_WOOL)
-                .add(Items.GRAY_WOOL)
-                .add(Items.BROWN_WOOL)
-                .add(Items.PINK_WOOL)
-                .add(Items.PURPLE_WOOL)
-                .add(Items.MAGENTA_WOOL)
-        ;
-
-        tag(ModTags.DYED_BEDS)
-                .add(Items.ORANGE_BED)
-                .add(Items.RED_BED)
-                .add(Items.BLACK_BED)
-                .add(Items.YELLOW_BED)
-                .add(Items.LIME_BED)
-                .add(Items.GREEN_BED)
-                .add(Items.BLUE_BED)
-                .add(Items.CYAN_BED)
-                .add(Items.LIGHT_BLUE_BED)
-                .add(Items.LIGHT_GRAY_BED)
-                .add(Items.GRAY_BED)
-                .add(Items.BROWN_BED)
-                .add(Items.PINK_BED)
-                .add(Items.PURPLE_BED)
-                .add(Items.MAGENTA_BED)
-        ;
-
         tag(ModTags.CONCRETE_POWDER)
                 .add(Items.WHITE_CONCRETE_POWDER)
                 .add(Items.ORANGE_CONCRETE_POWDER)

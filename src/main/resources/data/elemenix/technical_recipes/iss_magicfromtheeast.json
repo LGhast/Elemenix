@@ -1,0 +1,35 @@
+{
+  "mod_id": "iss_magicfromtheeast",
+  "load_after": ["irons_spellbooks"],
+  "recipes": [
+    {
+      "output": "iss_magicfromtheeast:refined_jade_block",
+      "count": 1,
+      "inputs": [
+        { "id": "iss_magicfromtheeast:refined_jade_ingot", "count": 9 }
+      ]
+    },
+    {
+      "output": "iss_magicfromtheeast:bottle_of_souls",
+      "count": 1,
+      "inputs": [
+        { "id": "minecraft:glass_bottle", "count": 1 }
+      ],
+      "additions": [
+        { "type": "flumix", "value": 24 },
+        { "type": "arcanix", "value": 5 }
+      ]
+    },
+    {
+      "output": "iss_magicfromtheeast:crystallized_soul",
+      "count": 1,
+      "inputs": [
+        { "id": "minecraft:echo_shard", "count": 1 },
+        { "id": "iss_magicfromtheeast:bottle_of_souls", "count": 4 }
+      ],
+      "offcuts": [
+        { "id": "minecraft:glass_bottle", "count": 4 }
+      ]
+    }
+  ]
+}

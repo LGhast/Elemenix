@@ -1,0 +1,124 @@
+{
+  "values": [
+    "minecraft:wheat",
+    "minecraft:bamboo",
+    "minecraft:leather",
+    "minecraft:feather",
+    "minecraft:honeycomb",
+    "minecraft:string",
+    "minecraft:sugar",
+    "minecraft:paper",
+    {
+      "id": "anvilcraft:wood_fiber",
+      "required": false
+    },
+    {
+      "id": "anvilcraft:resin",
+      "required": false
+    },
+    {
+      "id": "anvilcraft:amber",
+      "required": false
+    },
+    {
+      "id": "confluence:filamentous_fin",
+      "required": false
+    },
+    {
+      "id": "confluence:stinger",
+      "required": false
+    },
+    {
+      "id": "confluence:amber",
+      "required": false
+    },
+    {
+      "id": "confluence:harpy_feather",
+      "required": false
+    },
+    {
+      "id": "confluence:flinx_fur",
+      "required": false
+    },
+    {
+      "id": "confluence:pine_nut",
+      "required": false
+    },
+    {
+      "id": "crittersandcompanions:dragonfly_wing",
+      "required": false
+    },
+    {
+      "id": "crittersandcompanions:silk",
+      "required": false
+    },
+    {
+      "id": "dungeonsdelight:wormroot_tendrils",
+      "required": false
+    },
+    {
+      "id": "eternal_starlight:nocturnal_millet",
+      "required": false
+    },
+    {
+      "id": "eternal_starlight:crinoa",
+      "required": false
+    },
+    {
+      "id": "farmersdelight:straw",
+      "required": false
+    },
+    {
+      "id": "farmersdelight:tree_bark",
+      "required": false
+    },
+    {
+      "id": "irons_spellbooks:hogskin",
+      "required": false
+    },
+    {
+      "id": "mynethersdelight:hoglin_hide",
+      "required": false
+    },
+    {
+      "id": "natures_spirit:coconut_shell",
+      "required": false
+    },
+    {
+      "id": "rusticdelight:cotton_boll",
+      "required": false
+    },
+    {
+      "id": "rusticdelight:coffee_beans",
+      "required": false
+    },
+    {
+      "id": "undergarden:mogmoss",
+      "required": false
+    },
+    {
+      "id": "undergarden:blue_mogmoss",
+      "required": false
+    },
+    {
+      "id": "undergarden:underbeans",
+      "required": false
+    },
+    {
+      "id": "untitledduckmod:duck_feather",
+      "required": false
+    },
+    {
+      "id": "youkaishomecoming:soybean",
+      "required": false
+    },
+    {
+      "id": "youkaishomecoming:redbean",
+      "required": false
+    },
+    {
+      "id": "youkaishomecoming:green_coffee_bean",
+      "required": false
+    }
+  ]
+}

@@ -11,6 +11,7 @@
     "minecraft:knowledge_book",
     "minecraft:light",
     "minecraft:spawner",
+    "minecraft:trial_spawner",
     "minecraft:structure_block",
     "minecraft:structure_void",
     "minecraft:vault",
@@ -194,6 +195,16 @@
       "id": "irons_spellbooks:misery",
       "required": false
     },
+
+    {
+      "id": "irons_spellbooks:bone_vault",
+      "required": false
+    },
+    {
+      "id": "irons_spellbooks:cinderous_vault",
+      "required": false
+    },
+
     {
       "id": "iceandfire:dreadwood_planks_lock",
       "required": false
@@ -440,6 +451,62 @@
     },
     {
       "id": "ae2:missing_content",
+      "required": false
+    },
+    {
+      "id": "ae2:paint",
+      "required": false
+    },
+    {
+      "id": "ae2:cable_bus",
+      "required": false
+    },
+    {
+      "id": "ae2:matrix_frame",
+      "required": false
+    },
+    {
+      "id": "ae2:wrapped_generic_stack",
+      "required": false
+    },
+    {
+      "id": "ae2:creative_energy_cell",
+      "required": false
+    },
+    {
+      "id": "ae2:creative_storage_cell",
+      "required": false
+    },
+    {
+      "id": "ae2:debug_card",
+      "required": false
+    },
+    {
+      "id": "ae2:debug_cube_gen",
+      "required": false
+    },
+    {
+      "id": "ae2:debug_energy_gen",
+      "required": false
+    },
+    {
+      "id": "ae2:debug_eraser",
+      "required": false
+    },
+    {
+      "id": "ae2:debug_item_gen",
+      "required": false
+    },
+    {
+      "id": "ae2:debug_meteorite_placer",
+      "required": false
+    },
+    {
+      "id": "ae2:debug_phantom_node",
+      "required": false
+    },
+    {
+      "id": "ae2:debug_replicator_card",
       "required": false
     },
     {
@@ -791,6 +858,10 @@
       "required": false
     },
     {
+      "id": "block_factorys_bosses:underworld_arena_door",
+      "required": false
+    },
+    {
       "id": "exposure:chromatic_sheet",
       "required": false
     },
@@ -808,6 +879,22 @@
     },
     {
       "id": "irons_patreon_lib:transmog_table",
+      "required": false
+    },
+    {
+      "id": "adorablehamsterpets:announcement_bell_icon",
+      "required": false
+    },
+    {
+      "id": "adorablehamsterpets:upside_down_hamster_bed_icon",
+      "required": false
+    },
+    {
+      "id": "beyonddimensions:test_item_generate",
+      "required": false
+    },
+    {
+      "id": "beyonddimensions:matter_compress_ball",
       "required": false
     }
   ]
