@@ -3,9 +3,38 @@
   "load_after": ["farmersdelight"],
   "recipes": [
     {
+      "preset": "same",
+      "output": "crabbersdelight:signed_note",
+      "input": "crabbersdelight:note"
+    },
+    {
       "preset": "mob_bucket",
       "output": "crabbersdelight:crab_bucket",
       "mob_item": "crabbersdelight:crab"
+    },
+    {
+      "output": "crabbersdelight:wormy_dirt",
+      "count": 1,
+      "inputs": [
+        { "id": "crabbersdelight:worm", "count": 2 },
+        { "id": "minecraft:dirt", "count": 1 }
+      ]
+    },
+    {
+      "output": "crabbersdelight:bottled_note",
+      "count": 1,
+      "inputs": [
+        { "id": "crabbersdelight:note", "count": 1 },
+        { "id": "minecraft:bottle", "count": 1 }
+      ]
+    },
+    {
+      "output": "crabbersdelight:message_bottle",
+      "count": 1,
+      "inputs": [
+        { "id": "crabbersdelight:note", "count": 1 },
+        { "id": "minecraft:bottle", "count": 1 }
+      ]
     }
   ]
 }

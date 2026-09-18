@@ -92,11 +92,7 @@ public class ModUtils {
     }
 
     public static String formatNumber(int value) {
-        if(ClientConfig.DIGIT_GROUPING_BY_FOURS.get()){
-            return formatByFourGroups(value);
-        }else{
-            return formatByThreeGroups(value);
-        }
+        return formatNumber((long) value);
     }
 
     private static final String[] THREE_UNITS = {"", "K", "M", "B", "T", "Q"};

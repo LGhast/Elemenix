@@ -16,6 +16,8 @@
     { "id": "crabbersdelight:pearl", "constituents": [0, 50, 0, 0, 0, 20] },
     { "id": "crabbersdelight:crab_claw", "constituents": [32, 10, 0, 0, 0, 0] },
     { "id": "crabbersdelight:pufferfish_slice", "constituents": [15, 0, 5, 0, 0, 2] },
-    { "id": "crabbersdelight:tropical_fish_slice", "constituents": [10, 0, 6, 0, 0, 0] }
+    { "id": "crabbersdelight:tropical_fish_slice", "constituents": [10, 0, 6, 0, 0, 0] },
+    { "id": "crabbersdelight:worm", "constituents": [4, 0, 1, 0, 0, 0] },
+    { "id": "crabbersdelight:conch", "constituents": [0, 50, 0, 0, 0, 2] }
   ]
 }

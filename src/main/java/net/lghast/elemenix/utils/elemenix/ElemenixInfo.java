@@ -31,36 +31,52 @@ public class ElemenixInfo {
     private static final Set<Item> CALCULATING_ITEMS = ConcurrentHashMap.newKeySet();
     private static final Set<Item> UNANALYSABLE_ITEMS = ConcurrentHashMap.newKeySet();
     private static final Set<Item> UNANALYSABLE_ITEMS_STRICT = ConcurrentHashMap.newKeySet();
+    private static final Object INIT_LOCK = new Object();
     private static boolean initialized = false;
-    private static volatile boolean initializing = false;
+    private static boolean initializing = false;
 
     public static void initialize() {
-        if (initialized || initializing) return;
-        initializing = true;
-        try {
-            if(ADDITIONAL_MAP.isEmpty()){
-                loadFromConfig();
+        if (initialized || initializing) {
+            return;
+        }
+        synchronized (INIT_LOCK) {
+            if (initialized || initializing) {
+                return;
             }
-            loadModMappings();
-            handleMap(ADDITIONAL_MAP);
-            TRecipeHelper.initialize();
-            initialized = true;
-            LOGGER.info("ElemenixInfo Class has been initialized.");
-        } finally {
-            initializing = false;
+            initializing = true;
+
+            try {
+                if (ADDITIONAL_MAP.isEmpty()) {
+                    loadFromConfig();
+                }
+
+                loadModMappings();
+                handleMap(ADDITIONAL_MAP);
+
+                TRecipeHelper.initialize();
+                initialized = true;
+
+                LOGGER.info("ElemenixInfo Class has been initialized.");
+            } finally {
+                initializing = false;
+            }
         }
     }
 
     public static void clearCaches() {
-        initialized = false;
-        ITEM_CACHE.clear();
-        CALCULATING_ITEMS.clear();
-        UNANALYSABLE_ITEMS.clear();
-        UNANALYSABLE_ITEMS_STRICT.clear();
-        RecipeHelper.clearCache();
-        TRecipeHelper.clear();
+        synchronized (INIT_LOCK) {
+            initialized = false;
 
-        LOGGER.info("ElemenixInfo Cache has been cleared.");
+            ITEM_CACHE.clear();
+            CALCULATING_ITEMS.clear();
+            UNANALYSABLE_ITEMS.clear();
+            UNANALYSABLE_ITEMS_STRICT.clear();
+
+            RecipeHelper.clearCache();
+            TRecipeHelper.clear();
+
+            LOGGER.info("ElemenixInfo Cache has been cleared.");
+        }
     }
 
     private static void handleMap(Map<String, Constituents> map){
@@ -84,7 +100,7 @@ public class ElemenixInfo {
                     if(value.isUnanalysable()){
                         UNANALYSABLE_ITEMS_STRICT.add(item);
                     }else {
-                        ITEM_CACHE.put(item, value);
+                        ITEM_CACHE.put(item, value.copy());
                     }
                 } else {
                     LOGGER.info("Unknown item ID: {}", key);
@@ -188,24 +204,23 @@ public class ElemenixInfo {
         return bestMatch.getValue();
     }
 
-    public static boolean isUnanalysable(Item item){
-        if(UNANALYSABLE_ITEMS.contains(item) || UNANALYSABLE_ITEMS_STRICT.contains(item)){
+    public static boolean isUnanalysable(Item item) {
+        if (UNANALYSABLE_ITEMS.contains(item) || UNANALYSABLE_ITEMS_STRICT.contains(item)) {
             return true;
-        }else{
-            Constituents constituents = getConstituents(item);
-            if(constituents != null) {
-                return getConstituents(item).isUnanalysable();
-            }
-            return false;
         }
+
+        Constituents constituents = getConstituents(item);
+        return constituents != null && constituents.isUnanalysable();
     }
 
     public static boolean isUnanalysable(ItemStack stack){
         return isUnanalysable(stack.getItem());
     }
+
     public static boolean isUnanalysableStrictly(Item item){
         return UNANALYSABLE_ITEMS_STRICT.contains(item);
     }
+
     public static boolean isUnanalysableStrictly(ItemStack stack){
         return isUnanalysableStrictly(stack.getItem());
     }
@@ -321,8 +336,12 @@ public class ElemenixInfo {
         return ITEM_CACHE.containsKey(item);
     }
 
-    public static void addCache(Item item, Constituents constituents){
-        ITEM_CACHE.put(item, constituents);
+    public static void addCache(Item item, Constituents constituents) {
+        if (item == null || constituents == null) {
+            return;
+        }
+
+        ITEM_CACHE.put(item, constituents.copy());
         UNANALYSABLE_ITEMS.remove(item);
     }
 }

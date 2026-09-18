@@ -9,6 +9,7 @@ import net.lghast.elemenix.common.content.item.StorageItem;
 import net.lghast.elemenix.common.system.datacomponent.ElemenicStorage;
 import net.lghast.elemenix.common.system.datacomponent.MemoryData;
 import net.lghast.elemenix.common.system.datacomponent.RemoteStorageBinding;
+import net.lghast.elemenix.common.system.datacomponent.UuidData;
 import net.lghast.elemenix.compat.ftbquests.util.AnalyzerTaskHelper;
 import net.lghast.elemenix.conifig.CommonConfig;
 import net.lghast.elemenix.register.content.ModItems;
@@ -59,6 +60,8 @@ public class AnalyzerMenu extends AbstractContainerMenu {
     private final UUID analyzerUuid;
     private final LongContainerData data;
     private final Player player;
+    private final ItemStack originalAnalyzerStack;
+    private final int lockedPlayerInventorySlot;
 
     public AnalyzerMenu(int containerId, Inventory playerInventory, ItemStack menuStack) {
         this(containerId, playerInventory, new SimpleContainer(SLOT_COUNT), new LongContainerData(12), menuStack);
@@ -66,17 +69,23 @@ public class AnalyzerMenu extends AbstractContainerMenu {
 
     public AnalyzerMenu(int containerId, Inventory playerInventory, Container analyzerContainer, LongContainerData data, ItemStack menuStack) {
         super(ModMenus.ELEMENIX_ANALYZER_MENU.get(), containerId);
-        this.analyzerContainer = analyzerContainer;
-        this.analyzerUuid = AnalyzerItem.getOrCreateUuid(menuStack).uuid();
-        this.data = data;
-        this.player = playerInventory.player;
 
-        loadMemorizerItem(menuStack);
-        loadAnalyzerStorage();
         checkContainerSize(analyzerContainer, SLOT_COUNT);
         checkContainerDataCount(data, 12);
 
+        this.analyzerContainer = analyzerContainer;
+        this.data = data;
+        this.player = playerInventory.player;
+        this.originalAnalyzerStack = menuStack;
+
+        this.analyzerUuid = AnalyzerItem.getOrCreateUuid(menuStack).uuid();
+        this.lockedPlayerInventorySlot = findPlayerInventorySlotByAnalyzerUuid(playerInventory, analyzerUuid);
+
+        loadMemorizerItem(menuStack);
+        loadAnalyzerStorage();
+
         this.addSlot(new Slot(analyzerContainer, INPUT_SLOT, INPUT_SLOT_X, SLOT_Y) {
+
             @Override
             public boolean mayPlace(ItemStack stack) {
                 return isInputSlotPlaceable(stack);
@@ -90,44 +99,70 @@ public class AnalyzerMenu extends AbstractContainerMenu {
         });
 
         this.addSlot(new Slot(analyzerContainer, MEMORIZER_SLOT, MEMORIZER_SLOT_X, SLOT_Y) {
+
             @Override
             public boolean mayPlace(ItemStack stack) {
-                return stack.is(ModTags.MEMORIZER_SLOT_PLACEABLE);
+                return isMemorizerSlotPlaceable(stack);
             }
 
             @Override
             public void setChanged() {
                 super.setChanged();
+
                 AnalyzerMenu.this.slotsChanged(analyzerContainer);
+                AnalyzerMenu.this.saveMemorySlotChangedOnly();
             }
         });
 
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 9; j++) {
-                this.addSlot(new Slot(playerInventory, j + i * 9 + 9, 89 + j * 18, 117 + i * 18));
+                int slotIndex = j + i * 9 + 9;
+
+                this.addSlot(createPlayerInventorySlot(
+                        playerInventory,
+                        slotIndex,
+                        89 + j * 18,
+                        117 + i * 18
+                ));
             }
         }
 
         for (int i = 0; i < 9; i++) {
-            this.addSlot(new Slot(playerInventory, i, 89 + i * 18, 175));
+            this.addSlot(createPlayerInventorySlot(
+                    playerInventory,
+                    i,
+                    89 + i * 18,
+                    175
+            ));
         }
-
         this.addDataSlots(data);
     }
 
+    private static boolean isMemorizerSlotPlaceable(ItemStack stack) {
+        return stack.is(ModItems.ELEMENIC_MEMORIZER);
+    }
+
     private void loadMemorizerItem(ItemStack analyzerStack) {
+        analyzerContainer.setItem(MEMORIZER_SLOT, ItemStack.EMPTY);
         ItemContainerContents containerContents = analyzerStack.get(DataComponents.CONTAINER);
-        if (containerContents != null && containerContents.getSlots() > 0) {
-            ItemStack memorizerStack = containerContents.getStackInSlot(0);
-            if (!memorizerStack.isEmpty()) {
-                analyzerContainer.setItem(MEMORIZER_SLOT, memorizerStack);
-            }
+
+        if (containerContents == null || containerContents.getSlots() <= 0) {
+            return;
+        }
+
+        ItemStack memorizerStack = containerContents.getStackInSlot(0);
+        if (!memorizerStack.isEmpty()) {
+            analyzerContainer.setItem(MEMORIZER_SLOT, memorizerStack.copy());
         }
     }
 
-    private void saveMemorizerItem() {
-        ItemStack analyzerStack = getAnalyzerStack();
-        if (analyzerStack.isEmpty()) return;
+    private void saveMemorizerItem(ItemStack analyzerStack) {
+        if (analyzerStack.isEmpty()) {
+            return;
+        }
+        if (!(analyzerStack.getItem() instanceof AnalyzerItem)) {
+            return;
+        }
 
         ItemStack memorizerStack = getMemorizerItem();
         List<ItemStack> items = new ArrayList<>();
@@ -162,9 +197,12 @@ public class AnalyzerMenu extends AbstractContainerMenu {
         data.setLong(5, elemenicStorage.arcanix());
     }
 
-    public void saveStorageAndMemoryData() {
-        ItemStack analyzerStack = getAnalyzerStack();
-        if (analyzerStack.isEmpty()) return;
+    private void saveAnalyzerStorageOnly() {
+        ItemStack analyzerStack = getAnalyzerStackForSave();
+
+        if (analyzerStack.isEmpty()) {
+            return;
+        }
 
         long[] elemenix = new long[] {
                 data.getLong(0),
@@ -174,26 +212,51 @@ public class AnalyzerMenu extends AbstractContainerMenu {
                 data.getLong(4),
                 data.getLong(5)
         };
-        analyzerStack.set(ModDataComponents.ELEMENIC_STORAGE.get(), new ElemenicStorage(elemenix));
 
-        ItemStack memorizerItem = getMemorizerItem();
-        if (memorizerItem.is(ModItems.ELEMENIC_MEMORIZER)) {
-            List<ResourceLocation> itemMemory = MemorizerItem.getOrCreateMemories(memorizerItem).resolvedItems();
-            memorizerItem.set(ModDataComponents.MEMORY_DATA.get(), new MemoryData(itemMemory));
+        analyzerStack.set(
+                ModDataComponents.ELEMENIC_STORAGE.get(),
+                new ElemenicStorage(elemenix)
+        );
+    }
+
+    private void saveAnalyzerMemorizerSlotOnly() {
+        ItemStack analyzerStack = getAnalyzerStackForSave();
+
+        if (analyzerStack.isEmpty()) {
+            return;
         }
 
-        saveMemorizerItem();
+        saveMemorizerItem(analyzerStack);
+    }
 
-        if (!player.level().isClientSide && player instanceof ServerPlayer serverPlayer) {
-            serverPlayer.connection.send(
-                    new ClientboundContainerSetSlotPacket(
-                            containerId,
-                            serverPlayer.containerMenu.incrementStateId(),
-                            INPUT_SLOT,
-                            analyzerContainer.getItem(INPUT_SLOT)
-                    )
-            );
+    private void syncInputSlotToClient() {
+        if (player.level().isClientSide) {
+            return;
         }
+
+        if (!(player instanceof ServerPlayer serverPlayer)) {
+            return;
+        }
+
+        serverPlayer.connection.send(
+                new ClientboundContainerSetSlotPacket(
+                        containerId,
+                        serverPlayer.containerMenu.incrementStateId(),
+                        INPUT_SLOT,
+                        analyzerContainer.getItem(INPUT_SLOT)
+                )
+        );
+    }
+
+    public void saveStorageAndMemoryData() {
+        saveAnalyzerStorageOnly();
+        saveAnalyzerMemorizerSlotOnly();
+        syncInputSlotToClient();
+    }
+
+    private void saveMemorySlotChangedOnly() {
+        saveAnalyzerMemorizerSlotOnly();
+        broadcastChanges();
     }
 
     public ItemStack getInputItem() {
@@ -206,6 +269,20 @@ public class AnalyzerMenu extends AbstractContainerMenu {
 
     private ItemStack getAnalyzerStack() {
         return AnalyzerItem.findAnalyzerByUuid(player, analyzerUuid);
+    }
+
+    private ItemStack getAnalyzerStackForSave() {
+        ItemStack current = AnalyzerItem.findAnalyzerByUuid(player, analyzerUuid);
+
+        if (!current.isEmpty()) {
+            return current;
+        }
+
+        if (isSameAnalyzer(originalAnalyzerStack, analyzerUuid)) {
+            return originalAnalyzerStack;
+        }
+
+        return ItemStack.EMPTY;
     }
 
     public LongContainerData getData() {
@@ -462,62 +539,142 @@ public class AnalyzerMenu extends AbstractContainerMenu {
 
     @Override
     public boolean stillValid(Player player) {
-        return true;
+        if (player != this.player) {
+            return false;
+        }
+
+        return !AnalyzerItem.findAnalyzerByUuid(player, analyzerUuid).isEmpty();
     }
 
     @Override
     public @NotNull ItemStack quickMoveStack(Player player, int index) {
-        ItemStack stack = ItemStack.EMPTY;
-        Slot slot = this.slots.get(index);
-
-        if (slot.hasItem()) {
-            ItemStack stack1 = slot.getItem();
-            stack = stack1.copy();
-
-            if (index == INPUT_SLOT) {
-                if (!this.moveItemStackTo(stack1, SLOT_COUNT, this.slots.size(), true)) {
-                    return ItemStack.EMPTY;
-                }
-            } else if (index == MEMORIZER_SLOT) {
-                if (!this.moveItemStackTo(stack1, SLOT_COUNT, this.slots.size(), true)) {
-                    return ItemStack.EMPTY;
-                }
-            } else if (stack1.getItem() instanceof MemorizerItem) {
-                if (!this.moveItemStackTo(stack1, MEMORIZER_SLOT, MEMORIZER_SLOT + 1, false)) {
-                    return ItemStack.EMPTY;
-                }
-            } else {
-                if (!this.moveItemStackTo(stack1, INPUT_SLOT, SLOT_COUNT, false)) {
-                    return ItemStack.EMPTY;
-                }
-            }
-
-            if (stack1.isEmpty()) {
-                slot.set(ItemStack.EMPTY);
-            } else {
-                slot.setChanged();
-            }
+        if (index < 0 || index >= this.slots.size()) {
+            return ItemStack.EMPTY;
         }
 
-        return stack;
+        if (isLockedPlayerInventoryMenuSlot(index)) {
+            return ItemStack.EMPTY;
+        }
+
+        ItemStack result;
+        Slot slot = this.slots.get(index);
+
+        if (!slot.hasItem()) {
+            return ItemStack.EMPTY;
+        }
+
+        ItemStack stackInSlot = slot.getItem();
+        result = stackInSlot.copy();
+
+        if (index == INPUT_SLOT) {
+            if (!this.moveItemStackTo(stackInSlot, SLOT_COUNT, this.slots.size(), true)) {
+                return ItemStack.EMPTY;
+            }
+        } else if (index == MEMORIZER_SLOT) {
+            if (!this.moveItemStackTo(stackInSlot, SLOT_COUNT, this.slots.size(), true)) {
+                return ItemStack.EMPTY;
+            }
+        } else if (isMemorizerSlotPlaceable(stackInSlot)) {
+            if (!this.moveItemStackTo(stackInSlot, MEMORIZER_SLOT, MEMORIZER_SLOT + 1, false)) {
+                return ItemStack.EMPTY;
+            }
+        } else if (isInputSlotPlaceable(stackInSlot)) {
+            if (!this.moveItemStackTo(stackInSlot, INPUT_SLOT, INPUT_SLOT + 1, false)) {
+                return ItemStack.EMPTY;
+            }
+        } else {
+            return ItemStack.EMPTY;
+        }
+
+        if (stackInSlot.isEmpty()) {
+            slot.set(ItemStack.EMPTY);
+        } else {
+            slot.setChanged();
+        }
+
+        saveMemorySlotChangedOnly();
+        return result;
     }
 
     @Override
     public void removed(Player player) {
         super.removed(player);
 
-        if (!player.level().isClientSide) {
-            saveStorageAndMemoryData();
+        if (player.level().isClientSide) {
+            return;
+        }
 
-            ItemStack inputStack = analyzerContainer.getItem(INPUT_SLOT);
-            if (!inputStack.isEmpty()) {
-                if (player.isAlive()) {
-                    player.getInventory().placeItemBackInInventory(inputStack);
-                } else {
-                    player.drop(inputStack, false);
-                }
-                analyzerContainer.setItem(INPUT_SLOT, ItemStack.EMPTY);
+        saveStorageAndMemoryData();
+
+        ItemStack inputStack = analyzerContainer.getItem(INPUT_SLOT);
+
+        if (!inputStack.isEmpty()) {
+            if (player.isAlive()) {
+                player.getInventory().placeItemBackInInventory(inputStack);
+            } else {
+                player.drop(inputStack, false);
+            }
+
+            analyzerContainer.setItem(INPUT_SLOT, ItemStack.EMPTY);
+        }
+    }
+
+    private int findPlayerInventorySlotByAnalyzerUuid(Inventory inventory, UUID uuid) {
+        for (int i = 0; i < inventory.getContainerSize(); i++) {
+            ItemStack stack = inventory.getItem(i);
+
+            if (isSameAnalyzer(stack, uuid)) {
+                return i;
             }
         }
+
+        return -1;
+    }
+
+    private boolean isSameAnalyzer(ItemStack stack, UUID uuid) {
+        if (stack.isEmpty()) {
+            return false;
+        }
+
+        if (!(stack.getItem() instanceof AnalyzerItem)) {
+            return false;
+        }
+
+        UuidData currentUuid = stack.get(ModDataComponents.ANALYZER_UUID.get());
+
+        return currentUuid != null && uuid.equals(currentUuid.uuid());
+    }
+
+    private Slot createPlayerInventorySlot(Inventory inventory, int slotIndex, int x, int y) {
+        if (slotIndex == lockedPlayerInventorySlot) {
+            return new Slot(inventory, slotIndex, x, y) {
+
+                @Override
+                public boolean mayPickup(Player player) {
+                    return false;
+                }
+
+                @Override
+                public boolean mayPlace(ItemStack stack) {
+                    return false;
+                }
+            };
+        }
+
+        return new Slot(inventory, slotIndex, x, y);
+    }
+
+    private boolean isLockedPlayerInventoryMenuSlot(int menuIndex) {
+        if (lockedPlayerInventorySlot < 0) {
+            return false;
+        }
+
+        if (menuIndex < SLOT_COUNT || menuIndex >= this.slots.size()) {
+            return false;
+        }
+
+        Slot slot = this.slots.get(menuIndex);
+
+        return slot.getSlotIndex() == lockedPlayerInventorySlot;
     }
 }

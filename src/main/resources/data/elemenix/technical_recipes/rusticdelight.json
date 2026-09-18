@@ -4,7 +4,7 @@
   "recipes": [
     {
       "output": "rusticdelight:bell_pepper_slice_green",
-      "count": 1,
+      "count": 2,
       "inputs": [
         { "id": "rusticdelight:bell_pepper_green", "count": 1 }
       ],
@@ -14,7 +14,7 @@
     },
     {
       "output": "rusticdelight:bell_pepper_slice_red",
-      "count": 1,
+      "count": 2,
       "inputs": [
         { "id": "rusticdelight:bell_pepper_red", "count": 1 }
       ],
@@ -24,12 +24,72 @@
     },
     {
       "output": "rusticdelight:bell_pepper_slice_yellow",
-      "count": 1,
+      "count": 2,
       "inputs": [
         { "id": "rusticdelight:bell_pepper_yellow", "count": 1 }
       ],
       "offcuts": [
         { "id": "rusticdelight:bell_pepper_seeds", "count": 1 }
+      ]
+    },
+    {
+      "output": "rusticdelight:bell_pepper_slice_pink",
+      "count": 2,
+      "inputs": [
+        { "id": "rusticdelight:bell_pepper_pink", "count": 1 }
+      ],
+      "offcuts": [
+        { "id": "rusticdelight:pale_bell_pepper_seeds", "count": 1 }
+      ]
+    },
+    {
+      "output": "rusticdelight:bell_pepper_slice_orange",
+      "count": 2,
+      "inputs": [
+        { "id": "rusticdelight:bell_pepper_orange", "count": 1 }
+      ],
+      "offcuts": [
+        { "id": "rusticdelight:pale_bell_pepper_seeds", "count": 1 }
+      ]
+    },
+    {
+      "output": "rusticdelight:bell_pepper_slice_white",
+      "count": 2,
+      "inputs": [
+        { "id": "rusticdelight:bell_pepper_white", "count": 1 }
+      ],
+      "offcuts": [
+        { "id": "rusticdelight:pale_bell_pepper_seeds", "count": 1 }
+      ]
+    },
+    {
+      "output": "rusticdelight:bell_pepper_slice_blue",
+      "count": 2,
+      "inputs": [
+        { "id": "rusticdelight:bell_pepper_blue", "count": 1 }
+      ],
+      "offcuts": [
+        { "id": "rusticdelight:dark_bell_pepper_seeds", "count": 1 }
+      ]
+    },
+    {
+      "output": "rusticdelight:bell_pepper_slice_purple",
+      "count": 2,
+      "inputs": [
+        { "id": "rusticdelight:bell_pepper_purple", "count": 1 }
+      ],
+      "offcuts": [
+        { "id": "rusticdelight:dark_bell_pepper_seeds", "count": 1 }
+      ]
+    },
+    {
+      "output": "rusticdelight:bell_pepper_slice_black",
+      "count": 2,
+      "inputs": [
+        { "id": "rusticdelight:bell_pepper_black", "count": 1 }
+      ],
+      "offcuts": [
+        { "id": "rusticdelight:dark_bell_pepper_seeds", "count": 1 }
       ]
     },
     {
@@ -51,6 +111,13 @@
       "count": 4,
       "inputs": [
         { "id": "rusticdelight:cherry_blossom_cheesecake", "count": 1 }
+      ]
+    },
+    {
+      "output": "rusticdelight:coffee_cheesecake_slice",
+      "count": 4,
+      "inputs": [
+        { "id": "rusticdelight:coffee_cheesecake", "count": 1 }
       ]
     },
     {
@@ -114,10 +181,83 @@
       ]
     },
     {
+      "output": "rusticdelight:coffee_pancake",
+      "count": 6,
+      "inputs": [
+        { "id": "rusticdelight:coffee_pancakes", "count": 1 }
+      ],
+      "offcuts": [
+        { "id": "minecraft:bowl", "count": 1 }
+      ]
+    },
+    {
       "output": "rusticdelight:roasted_coffee_beans_bag",
       "count": 1,
       "inputs": [
         { "id": "rusticdelight:roasted_coffee_beans", "count": 9 }
+      ]
+    },
+    {
+      "output": "rusticdelight:bell_pepper_red_block",
+      "count": 1,
+      "inputs": [
+        { "id": "rusticdelight:bell_pepper_slice_red", "count": 9 }
+      ]
+    },
+    {
+      "output": "rusticdelight:bell_pepper_green_block",
+      "count": 1,
+      "inputs": [
+        { "id": "rusticdelight:bell_pepper_slice_green", "count": 9 }
+      ]
+    },
+    {
+      "output": "rusticdelight:bell_pepper_yellow_block",
+      "count": 1,
+      "inputs": [
+        { "id": "rusticdelight:bell_pepper_slice_yellow", "count": 9 }
+      ]
+    },
+    {
+      "output": "rusticdelight:bell_pepper_white_block",
+      "count": 1,
+      "inputs": [
+        { "id": "rusticdelight:bell_pepper_slice_white", "count": 9 }
+      ]
+    },
+    {
+      "output": "rusticdelight:bell_pepper_orange_block",
+      "count": 1,
+      "inputs": [
+        { "id": "rusticdelight:bell_pepper_slice_orange", "count": 9 }
+      ]
+    },
+    {
+      "output": "rusticdelight:bell_pepper_pink_block",
+      "count": 1,
+      "inputs": [
+        { "id": "rusticdelight:bell_pepper_slice_pink", "count": 9 }
+      ]
+    },
+    {
+      "output": "rusticdelight:bell_pepper_blue_block",
+      "count": 1,
+      "inputs": [
+        { "id": "rusticdelight:bell_pepper_slice_blue", "count": 9 }
+      ]
+    },
+    {
+      "output": "rusticdelight:bell_pepper_black_block",
+      "count": 1,
+      "inputs": [
+        { "id": "rusticdelight:bell_pepper_slice_black", "count": 9 }
+      ]
+    },
+    {
+      "output": "rusticdelight:bell_pepper_purple_block",
+      "count": 1,
+      "inputs": [
+        { "id": "rusticdelight:bell_pepper_slice_purple", "count": 9 }
       ]
     }
   ]

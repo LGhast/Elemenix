@@ -19,26 +19,29 @@ import javax.annotation.ParametersAreNonnullByDefault;
 
 @ParametersAreNonnullByDefault
 public class MemorizerBoxItem extends Item implements ICurioItem {
+
     public MemorizerBoxItem(Properties properties) {
-        super(properties.stacksTo(1).component(ModDataComponents.BOX_UUID, UuidData.createRandom()));
+        super(properties.stacksTo(1));
     }
 
-    public static UuidData getOrCreateUuid(ItemStack stack) {
+    public static void createUuid(ItemStack stack) {
         UuidData uuid = stack.get(ModDataComponents.BOX_UUID);
+
         if (uuid == null) {
             uuid = UuidData.createRandom();
+            stack.set(ModDataComponents.BOX_UUID, uuid);
         }
-        return uuid;
     }
 
-    public static void randomizeUuid(ItemStack stack){
+    public static void randomizeUuid(ItemStack stack) {
         stack.set(ModDataComponents.BOX_UUID, UuidData.createRandom());
     }
 
     @Override
     public @NotNull InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand usedHand) {
         ItemStack stack = player.getItemInHand(usedHand);
-        randomizeUuid(stack);
+
+        createUuid(stack);
 
         if (level.isClientSide) {
             return InteractionResultHolder.success(stack);
