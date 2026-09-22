@@ -1,0 +1,17 @@
+{
+  "mod_id": "kaleidoscope_nether",
+  "entries": [
+    { "id": "kaleidoscope_nether:strider_rock_shell", "elemenix": "terrix", "value": 32 },
+    { "id": "kaleidoscope_nether:ham_slice", "preset": "rawMeat", "hunger": 8 },
+    { "id": "kaleidoscope_nether:ghast_tentacle", "preset": "rawMeat", "hunger": 6 },
+    { "id": "kaleidoscope_nether:raw_piglin_meat", "preset": "rawMeat", "hunger": 8 },
+    { "id": "kaleidoscope_nether:raw_strider_meat", "preset": "rawMeat", "hunger": 6 },
+    { "id": "kaleidoscope_nether:hoglin_tusk", "constituents": [12, 35, 0, 0, 0, 0] },
+    { "id": "kaleidoscope_nether:nether_caterpillar", "constituents": [45, 12, 0, 0, 12, 0] },
+    { "id": "kaleidoscope_nether:wither_rib", "constituents": [0, 45, 0, 0, 16, 45] },
+    { "id": "kaleidoscope_nether:crimson_fruit", "constituents": [8, 0, 6, 0, 3, 0] },
+    { "id": "kaleidoscope_nether:warped_fruit", "constituents": [8, 0, 8, 0, 0, 1] },
+    { "id": "kaleidoscope_nether:poisonous_fruit", "constituents": [8, 0, 6, 0, 0, 1] },
+    { "id": "kaleidoscope_nether:soul_pepper", "constituents": [18, 0, 12, 0, 0, 1] }
+  ]
+}

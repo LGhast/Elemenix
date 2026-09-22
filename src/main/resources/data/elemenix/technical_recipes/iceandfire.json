@@ -3,6 +3,21 @@
   "load_after": [],
   "recipes": [
     {
+      "preset": "same",
+      "output": "iceandfire:dragonforge_fire_core",
+      "input": "iceandfire:dragonforge_fire_core_disabled"
+    },
+    {
+      "preset": "same",
+      "output": "iceandfire:dragonforge_ice_core",
+      "input": "iceandfire:dragonforge_ice_core_disabled"
+    },
+    {
+      "preset": "same",
+      "output": "iceandfire:dragonforge_lightning_core",
+      "input": "iceandfire:dragonforge_lightning_core_disabled"
+    },
+    {
       "output": "iceandfire:frozen_dirt",
       "count": 1,
       "inputs": [

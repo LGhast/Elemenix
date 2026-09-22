@@ -47,6 +47,7 @@
     { "id": "irons_spellbooks:music_disc_whispers_of_ice", "constituents": [0, 0, 550, 0, 0, 300] },
     { "id": "irons_spellbooks:bone_key", "constituents": [50, 700, 0, 0, 0, 800] },
     { "id": "irons_spellbooks:wicked_bone_ring", "constituents": [45, 500, 0, 0, 0, 450] },
-    { "id": "irons_spellbooks:dead_king_phylactery_shard", "constituents": [200, 2400, 0, 0, 520, 400] }
+    { "id": "irons_spellbooks:dead_king_phylactery_shard", "constituents": [200, 2400, 0, 0, 520, 400] },
+    { "id": "irons_spellbooks:tincture_of_forgetfulness", "constituents": [0, 8, 500, 0, 120, 800] }
   ]
 }

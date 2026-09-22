@@ -1,0 +1,14 @@
+{
+  "mod_id": "kaleidoscope_cookery",
+  "entries": [
+    { "id": "kaleidoscope_cookery:rice", "elemenix": "organix", "value": 12 },
+    { "id": "kaleidoscope_cookery:oil", "elemenix": "organix", "value": 8 },
+    { "id": "kaleidoscope_cookery:green_chili", "constituents": [20, 0, 6, 0, 0, 0] },
+    { "id": "kaleidoscope_cookery:red_chili", "constituents": [20, 0, 6, 0, 0, 0] },
+    { "id": "kaleidoscope_cookery:lettuce", "constituents": [24, 0, 8, 0, 0, 0] },
+    { "id": "kaleidoscope_cookery:tomato", "constituents": [20, 0, 12, 0, 0, 0] },
+    { "id": "kaleidoscope_cookery:rice_panicle", "constituents": [36, 0, 6, 0, 0, 0] },
+    { "id": "kaleidoscope_cookery:fresh_tea_leaves", "constituents": [10, 0, 4, 0, 0, 0] },
+    { "id": "kaleidoscope_cookery:caterpillar", "constituents": [45, 0, 24, 0, 0, 0] }
+  ]
+}

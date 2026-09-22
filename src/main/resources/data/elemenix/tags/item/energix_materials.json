@@ -9,6 +9,10 @@
     {
       "id": "ars_nouveau:fire_essence",
       "required": false
+    },
+    {
+      "id": "kaleidoscope_nether:blaze_heart",
+      "required": false
     }
   ]
 }

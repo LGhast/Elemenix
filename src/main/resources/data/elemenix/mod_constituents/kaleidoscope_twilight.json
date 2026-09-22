@@ -1,0 +1,18 @@
+{
+  "mod_id": "kaleidoscope_twilight",
+  "entries": [
+    { "id": "kaleidoscope_twilight:strider_rock_shell", "elemenix": "terrix", "value": 32 },
+    { "id": "kaleidoscope_twilight:raw_yeti_meat", "preset": "rawMeat", "hunger": 10 },
+    { "id": "kaleidoscope_twilight:raw_twilight_ghost_tentacle", "preset": "rawMeat", "hunger": 8 },
+    { "id": "kaleidoscope_twilight:twilight_caterpillar", "constituents": [60, 30, 0, 0, 0, 0] },
+    { "id": "kaleidoscope_twilight:raw_naga_meat", "constituents": [150, 0, 70, 0, 0, 15] },
+    { "id": "kaleidoscope_twilight:twilight_fern", "constituents": [18, 0, 6, 0, 0, 0] },
+    { "id": "kaleidoscope_twilight:four_leaf_ice_crystal", "constituents": [0, 0, 375, 0, 0, 150] },
+    { "id": "kaleidoscope_twilight:witchcraft_bone", "constituents": [45, 320, 0, 0, 0, 80] },
+    { "id": "kaleidoscope_twilight:umbral_sunflower_trophy", "constituents": [3500, 0, 1200, 0, 0, 600] },
+    { "id": "kaleidoscope_twilight:tea_date", "constituents": [65, 0, 5, 0, 25, 0] },
+    { "id": "kaleidoscope_twilight:naga_green_tongue", "constituents": [16000, 0, 12000, 0, 0, 3000] },
+    { "id": "kaleidoscope_twilight:hot_tear_sword", "constituents": [0, 0, 0, 24000, 12000, 2000] },
+    { "id": "kaleidoscope_twilight:rainbow_candy", "constituents": [32, 0, 0, 0, 0, 150] }
+  ]
+}

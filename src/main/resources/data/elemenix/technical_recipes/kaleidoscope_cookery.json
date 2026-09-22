@@ -1,0 +1,109 @@
+{
+  "mod_id": "kaleidoscope_cookery",
+  "load_after": ["minecraft"],
+  "recipes": [
+    {
+      "output": "kaleidoscope_cookery:butter_tea",
+      "count": 12,
+      "inputs": [
+        { "id": "kaleidoscope_cookery:butter_tea_bag", "count": 1 },
+        { "id": "kaleidoscope_cookery:empty_cup", "count": 12 }
+      ],
+      "additions": [
+        { "type": "flumix", "value": 2 }
+      ]
+    },
+    {
+      "output": "kaleidoscope_cookery:butter_tea",
+      "count": 12,
+      "inputs": [
+        { "id": "kaleidoscope_cookery:butter_tea_bag", "count": 1 },
+        { "id": "kaleidoscope_cookery:empty_cup", "count": 12 }
+      ],
+      "additions": [
+        { "type": "flumix", "value": 2 }
+      ]
+    },
+    {
+      "output": "kaleidoscope_cookery:barley_tea",
+      "count": 12,
+      "inputs": [
+        { "id": "kaleidoscope_cookery:barley_tea_bag", "count": 1 },
+        { "id": "kaleidoscope_cookery:empty_cup", "count": 12 }
+      ],
+      "additions": [
+        { "type": "flumix", "value": 2 }
+      ]
+    },
+    {
+      "output": "kaleidoscope_cookery:flower_tea",
+      "count": 12,
+      "inputs": [
+        { "id": "kaleidoscope_cookery:flower_tea_bag", "count": 1 },
+        { "id": "kaleidoscope_cookery:empty_cup", "count": 12 }
+      ],
+      "additions": [
+        { "type": "flumix", "value": 2 }
+      ]
+    },
+    {
+      "output": "kaleidoscope_cookery:oolong",
+      "count": 12,
+      "inputs": [
+        { "id": "kaleidoscope_cookery:oolong_tea_bag", "count": 1 },
+        { "id": "kaleidoscope_cookery:empty_cup", "count": 12 }
+      ],
+      "additions": [
+        { "type": "flumix", "value": 2 }
+      ]
+    },
+    {
+      "output": "kaleidoscope_cookery:tieguanyin",
+      "count": 12,
+      "inputs": [
+        { "id": "kaleidoscope_cookery:tieguanyin_tea_bag", "count": 1 },
+        { "id": "kaleidoscope_cookery:empty_cup", "count": 12 }
+      ],
+      "additions": [
+        { "type": "flumix", "value": 2 }
+      ]
+    },
+    {
+      "output": "kaleidoscope_cookery:biluochun",
+      "count": 12,
+      "inputs": [
+        { "id": "kaleidoscope_cookery:biluochun_tea_bag", "count": 1 },
+        { "id": "kaleidoscope_cookery:empty_cup", "count": 12 }
+      ],
+      "additions": [
+        { "type": "flumix", "value": 2 }
+      ]
+    },
+    {
+      "output": "kaleidoscope_cookery:sakura_fubuki",
+      "count": 12,
+      "inputs": [
+        { "id": "kaleidoscope_cookery:sakura_fubuki_tea_bag", "count": 1 },
+        { "id": "kaleidoscope_cookery:empty_cup", "count": 12 }
+      ],
+      "additions": [
+        { "type": "flumix", "value": 2 }
+      ]
+    },
+    {
+      "output": "kaleidoscope_cookery:cooked_rice",
+      "count": 1,
+      "inputs": [
+        { "id": "kaleidoscope_cookery:rice", "count": 1 },
+        { "id": "minecraft:bowl", "count": 1 }
+      ]
+    },
+    {
+      "output": "kaleidoscope_cookery:sticky_rice_cake",
+      "count": 1,
+      "inputs": [
+        { "id": "kaleidoscope_cookery:rice", "count": 1 }
+      ]
+    }
+  ]
+}

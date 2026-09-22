@@ -44,6 +44,7 @@ public class RecipeHelper {
     private static final boolean AE2_LOADED;
     private static final boolean AETHER_LOADED;
     private static final boolean CONFLUENCE_LOADED;
+    private static final boolean KALEIDOSCOPE_LOADED;
 
     private static boolean initialized = false;
 
@@ -56,6 +57,7 @@ public class RecipeHelper {
         AE2_LOADED = ModUtils.hasServerMod("ae2");
         AETHER_LOADED = ModUtils.hasServerMod("aether");
         CONFLUENCE_LOADED = ModUtils.hasServerMod("confluence");
+        KALEIDOSCOPE_LOADED = ModUtils.hasServerMod("kaleidoscope_cookery");
 
         if(FARMERS_DELIGHT_LOADED){
             RECIPE_TYPES_WITH_CONTAINER.add("farmersdelight:cooking");
@@ -98,6 +100,11 @@ public class RecipeHelper {
                 RECIPE_TYPES_NORMAL.add("deep_aether:combining");
             }
         }
+        if(KALEIDOSCOPE_LOADED){
+            RECIPE_TYPES_NORMAL.add("kaleidoscope_cookery:chopping_board");
+            RECIPE_TYPES_NORMAL.add("kaleidoscope_cookery:millstone");
+            RECIPE_TYPES_NORMAL.add("kaleidoscope_cookery:steamer");
+        }
         if(CONFLUENCE_LOADED){
             RECIPE_TYPES_NORMAL.add("confluence:heavy_work_bench");
             RECIPE_TYPES_NORMAL.add("confluence:fletching_table");
@@ -135,6 +142,7 @@ public class RecipeHelper {
         if(ModUtils.hasServerMod("terra_curio")){
             RECIPE_TYPES_NORMAL.add("terra_curio:workshop");
         }
+
     }
 
     public static void clearCache() {
@@ -393,7 +401,8 @@ public class RecipeHelper {
                 isBrewingStandRecipe(recipe) ||
                 isWeaponFusionRecipe(recipe) ||
                 isGlodiumRecipe(recipe) ||
-                isGlodiumsRecipe(recipe);
+                isGlodiumsRecipe(recipe) ||
+                isKaleidoscopeCookeryPotRecipe(recipe);
     }
 
     private static RecipeInfo getInfo(RecipeHolder<?> holder, Recipe<?> recipe, @Nullable Level level, ItemStack result) {
@@ -423,6 +432,8 @@ public class RecipeHelper {
             handleGlodiumRecipe(recipe, info);
         } else if(isGlodiumsRecipe(recipe)){
             handleGlodiumsRecipe(recipe, info);
+        } else if(isKaleidoscopeCookeryPotRecipe(recipe)){
+            handleKaleidoscopeCookeryPotRecipe(recipe, info);
         }else {
             List<Ingredient> ingredients = getRecipeIngredients(recipe);
             for (Ingredient ingredient : ingredients) {
@@ -586,6 +597,16 @@ public class RecipeHelper {
         }
         try {
             return type.toString().equals("aether:enchanting");
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    private static boolean isKaleidoscopeCookeryPotRecipe(Recipe<?> recipe) {
+        if(!KALEIDOSCOPE_LOADED) return false;
+        try {
+            RecipeType<?> type = recipe.getType();
+            return type.toString().equals("kaleidoscope_cookery:pot") || type.toString().equals("kaleidoscope_cookery:stockpot");
         } catch (Exception e) {
             return false;
         }
@@ -875,6 +896,30 @@ public class RecipeHelper {
             }
             info.ingredients.add(extracted);
             info.amount += extracted.getCount();
+        }
+    }
+
+    private static void handleKaleidoscopeCookeryPotRecipe(Recipe<?> recipe, RecipeInfo info) {
+        RecipeType<?> type = recipe.getType();
+        List<Ingredient> ingredients = new ArrayList<>(getRecipeIngredients(recipe));
+        Optional<Ingredient> carrierOpt = tryInvokeMethods(recipe,
+                obj -> obj instanceof Ingredient ing && ing != Ingredient.EMPTY ? Optional.of(ing) : Optional.empty(),
+                "carrier", "getCarrier");
+        if (carrierOpt.isEmpty()) {
+            carrierOpt = tryGetFields(recipe,
+                    obj -> obj instanceof Ingredient ing && ing != Ingredient.EMPTY ? Optional.of(ing) : Optional.empty(),
+                    "carrier");
+        }
+        carrierOpt.ifPresent(ingredients::add);
+        for (Ingredient ingredient : ingredients) {
+            if (ingredient == null || ingredient == Ingredient.EMPTY) continue;
+            ItemStack best = extractBestFromIngredient(ingredient, type);
+            if (best == null || best.isEmpty()) {
+                info.hasUnanalysable = true;
+            } else {
+                info.ingredients.add(best);
+                info.amount += best.getCount();
+            }
         }
     }
 

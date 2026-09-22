@@ -87,6 +87,9 @@
     { "id": "iceandfire:troll_weapon_hammer", "constituents": [3200, 8000, 0, 0, 0, 400] },
     { "id": "iceandfire:troll_weapon_trunk", "constituents": [11200, 0, 0, 0, 0, 400] },
     { "id": "iceandfire:troll_weapon_trunk_frost", "constituents": [10000, 0, 1200, 0, 0, 400] },
-    { "id": "iceandfire:cannoli", "constituents": [10000, 0, 0, 0, 1500, 200] }
+    { "id": "iceandfire:cannoli", "constituents": [10000, 0, 0, 0, 1500, 200] },
+    { "id": "iceandfire:fishing_spear", "constituents": [24, 18, 0, 432, 0, 0] },
+    { "id": "iceandfire:dread_queen_sword", "constituents": [0, 12000, 0, 80000, 0, 5000] },
+    { "id": "iceandfire:dread_queen_staff", "constituents": [0, 12000, 0, 50000, 0, 9000] }
   ]
 }

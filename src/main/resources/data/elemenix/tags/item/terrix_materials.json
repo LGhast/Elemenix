@@ -68,6 +68,10 @@
     {
       "id": "natures_spirit:calcite_shard",
       "required": false
+    },
+    {
+      "id": "kaleidoscope_cookery:strider_rock_shell",
+      "required": false
     }
   ]
 }

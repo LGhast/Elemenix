@@ -1,0 +1,18 @@
+{
+  "mod_id": "kaleidoscope_end",
+  "entries": [
+    { "id": "kaleidoscope_end:strider_rock_shell", "elemenix": "terrix", "value": 32 },
+    { "id": "kaleidoscope_end:raw_endermite_meat", "preset": "rawMeat", "hunger": 6 },
+    { "id": "kaleidoscope_end:raw_ender_dragon_meat", "preset": "rawMeat", "hunger": 26 },
+    { "id": "kaleidoscope_end:dragon_dust", "constituents": [0, 340, 0, 0, 2800, 2800] },
+    { "id": "kaleidoscope_end:dragon_egg_liquid", "constituents": [640, 0, 640, 0, 2800, 2800] },
+    { "id": "kaleidoscope_end:dream_berry", "constituents": [8, 0, 7, 0, 0, 1] },
+    { "id": "kaleidoscope_end:ender_mint", "constituents": [18, 0, 6, 0, 0, 1] },
+    { "id": "kaleidoscope_end:void_conch", "constituents": [20, 540, 0, 0, 0, 150] },
+    { "id": "kaleidoscope_end:optic_nerve", "constituents": [16, 0, 0, 0, 0, 12] },
+    { "id": "kaleidoscope_end:end_caterpillar", "constituents": [45, 0, 12, 0, 0, 12] },
+    { "id": "kaleidoscope_end:chorus_petal", "constituents": [16, 0, 2, 0, 0, 2] },
+    { "id": "kaleidoscope_end:shulker_shell_meat", "constituents": [40, 0, 10, 0, 0, 10] },
+    { "id": "kaleidoscope_end:dragon_tooth", "constituents": [80, 500, 0, 0, 1200, 5200] }
+  ]
+}

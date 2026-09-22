@@ -204,7 +204,14 @@
       "id": "irons_spellbooks:cinderous_vault",
       "required": false
     },
-
+    {
+      "id": "irons_spellbooks:staff_of_the_nines",
+      "required": false
+    },
+    {
+      "id": "irons_spellbooks:gold_crown",
+      "required": false
+    },
     {
       "id": "iceandfire:dreadwood_planks_lock",
       "required": false
@@ -219,6 +226,18 @@
     },
     {
       "id": "iceandfire:dread_portal",
+      "required": false
+    },
+    {
+      "id": "iceandfire:godly_dragon_seeker",
+      "required": false
+    },
+    {
+      "id": "iceandfire:tide_trident_inventory",
+      "required": false
+    },
+    {
+      "id": "iceandfire:egginice",
       "required": false
     },
     {
@@ -895,6 +914,18 @@
     },
     {
       "id": "beyonddimensions:matter_compress_ball",
+      "required": false
+    },
+    {
+      "id": "kaleidoscope_cookery:dark_cuisine",
+      "required": false
+    },
+    {
+      "id": "kaleidoscope_cookery:mystery_tea",
+      "required": false
+    },
+    {
+      "id": "kaleidoscope_cookery:suspicious_stir_fry",
       "required": false
     }
   ]

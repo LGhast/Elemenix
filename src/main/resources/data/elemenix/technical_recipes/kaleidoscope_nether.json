@@ -1,0 +1,43 @@
+{
+  "mod_id": "kaleidoscope_nether",
+  "load_after": ["kaleidoscope_cookery"],
+  "recipes": [
+    {
+      "output": "kaleidoscope_nether:ham",
+      "count": 1,
+      "inputs": [
+        { "id": "kaleidoscope_nether:ham_slice", "count": 3 },
+        { "id": "minecraft:bone", "count": 1 }
+      ]
+    },
+    {
+      "output": "kaleidoscope_nether:hoglin_hide",
+      "count": 1,
+      "inputs": [
+        { "id": "minecraft:leather", "count": 5 }
+      ]
+    },
+    {
+      "output": "kaleidoscope_nether:ghast_hide",
+      "count": 1,
+      "inputs": [
+        { "id": "minecraft:leather", "count": 4 }
+      ]
+    },
+    {
+      "output": "kaleidoscope_nether:gilded_fragment",
+      "count": 1,
+      "inputs": [
+        { "id": "minecraft:netherite_scrap", "count": 1 }
+      ],
+      "multiplier": 0.25
+    },
+    {
+      "output": "kaleidoscope_nether:blaze_heart",
+      "count": 1,
+      "inputs": [
+        { "id": "minecraft:blaze_powder", "count": 4 }
+      ]
+    }
+  ]
+}
