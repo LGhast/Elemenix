@@ -96,12 +96,10 @@ public class Elemenics {
 
     private void onServerStarted(ServerStartedEvent event) {
         currentServerLevel = event.getServer().overworld();
-        if (currentServerLevel != null) {
-            started = true;
-            ElemenixInfo.clearCaches();
-            ElemenixInfo.initialize();
-            RecipeHelper.precomputeRecipes(currentServerLevel);
-        }
+        started = true;
+        ElemenixInfo.clearCaches();
+        ElemenixInfo.initialize();
+        RecipeHelper.precomputeRecipes(currentServerLevel);
     }
 
     private void onServerStopped(ServerStoppedEvent event) {

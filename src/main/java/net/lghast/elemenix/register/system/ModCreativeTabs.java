@@ -31,6 +31,7 @@ public class ModCreativeTabs {
                         output.accept(ModItems.SCANNING_STORAGE);
                         output.accept(ModItems.MEMORIZER_BOX);
                         output.accept(ModItems.MEMORY_BURNER);
+                        output.accept(ModItems.ANALYSIS_TERMINAL);
                         output.accept(ModItems.THROTTLE_VALVE);
                         output.accept(ModItems.FLOW_STRAIGHTENER);
                         output.accept(ModItems.ORGANIX_ESSENCE);
@@ -47,6 +48,7 @@ public class ModCreativeTabs {
                         output.accept(ModItems.ENERGIX_ESSENPLEX);
                         output.accept(ModItems.ARCANIX_ESSENPLEX);
                         output.accept(ModItems.ELEMENIC_EQUILIPLEX);
+                        output.accept(ModItems.ELEMENIC_CHAOS);
                         output.accept(ModItems.NULLVOID);
                         output.accept(ModBlocks.GEOLOGICAL_SIMULATOR);
                         output.accept(ModBlocks.METALLURGICAL_ACTIVATOR);

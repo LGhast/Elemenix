@@ -34,6 +34,11 @@ public class ModMenus {
                     IMenuTypeExtension.create((windowId, inv, data) ->
                             new BurnerMenu(windowId, inv)));
 
+    public static final Supplier<MenuType<AnalysisTerminalMenu>> ANALYSIS_TERMINAL_MENU =
+            MENUS.register("analysis_terminal_menu", () ->
+                    IMenuTypeExtension.create((windowId, inv, data) ->
+                            new AnalysisTerminalMenu(windowId, inv, ItemStack.EMPTY, ItemStack.EMPTY)));
+
     public static final Supplier<MenuType<TransformerMenu>> TRANSFORMER_MENU =
             MENUS.register("transformer_menu", () ->
                     IMenuTypeExtension.create((windowId, inv, data) ->

@@ -7,61 +7,6 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 
 public class ModTags {
-    public static final TagKey<Item> BIG_FLOWERS = TagKey.create(
-            Registries.ITEM,
-            ResourceLocation.parse("elemenix:big_flowers")
-    );
-
-    public static final TagKey<Item> CONCRETE_POWDER = TagKey.create(
-            Registries.ITEM,
-            ResourceLocation.parse("elemenix:concrete_powder")
-    );
-
-    public static final TagKey<Item> CONCRETE = TagKey.create(
-            Registries.ITEM,
-            ResourceLocation.parse("elemenix:concrete")
-    );
-
-    public static final TagKey<Item> FROGLIGHTS = TagKey.create(
-            Registries.ITEM,
-            ResourceLocation.parse("elemenix:froglights")
-    );
-
-    public static final TagKey<Item> CORAL_BLOCKS = TagKey.create(
-            Registries.ITEM,
-            ResourceLocation.parse("elemenix:coral_blocks")
-    );
-
-    public static final TagKey<Item> DEAD_CORAL_BLOCKS = TagKey.create(
-            Registries.ITEM,
-            ResourceLocation.parse("elemenix:dead_coral_blocks")
-    );
-
-    public static final TagKey<Item> CORALS = TagKey.create(
-            Registries.ITEM,
-            ResourceLocation.parse("elemenix:corals")
-    );
-
-    public static final TagKey<Item> DEAD_CORALS = TagKey.create(
-            Registries.ITEM,
-            ResourceLocation.parse("elemenix:dead_corals")
-    );
-
-    public static final TagKey<Item> DYED_SHULKER_BOXES = TagKey.create(
-            Registries.ITEM,
-            ResourceLocation.parse("elemenix:dyed_shulker_boxes")
-    );
-
-    public static final TagKey<Item> INFESTED_STONES = TagKey.create(
-            Registries.ITEM,
-            ResourceLocation.parse("elemenix:infested_stones")
-    );
-
-    public static final TagKey<Item> VINYL_DISCS = TagKey.create(
-            Registries.ITEM,
-            ResourceLocation.parse("elemenix:vinyl_discs")
-    );
-
     public static final TagKey<Item> ESSENCES = TagKey.create(
             Registries.ITEM,
             ResourceLocation.parse("elemenix:essences")
@@ -80,11 +25,6 @@ public class ModTags {
     public static final TagKey<Item> EGGS_WITH_TERRIX_SHELL = TagKey.create(
             Registries.ITEM,
             ResourceLocation.parse("elemenix:eggs_with_terrix_shell")
-    );
-
-    public static final TagKey<Item> EGGS_FORGE = TagKey.create(
-            Registries.ITEM,
-            ResourceLocation.parse("forge:eggs")
     );
 
     public static final TagKey<Item> C_FOODS = TagKey.create(

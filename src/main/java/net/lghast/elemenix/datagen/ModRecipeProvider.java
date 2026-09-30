@@ -64,6 +64,16 @@ public class ModRecipeProvider extends RecipeProvider {
                 .unlockedBy("has_storage", has(ModItems.ELEMENIC_STORAGE))
                 .save(recipeOutput);
 
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ModItems.ANALYSIS_TERMINAL.get(), 1)
+                .pattern(" N ")
+                .pattern("DCD")
+                .pattern(" N ")
+                .define('D', ModItems.ANALYZING_CHIP)
+                .define('N', Items.NETHERITE_INGOT)
+                .define('C', ModItems.ELEMENIC_CHAOS)
+                .unlockedBy("has_elemenic_chaos", has(ModItems.ELEMENIC_CHAOS))
+                .save(recipeOutput);
+
         ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ModItems.ELEMENIC_ANALYZER.get(), 1)
                 .pattern("ABC")
                 .pattern(" D ")
@@ -174,6 +184,14 @@ public class ModRecipeProvider extends RecipeProvider {
                 .define('A', ModItems.ELEMENIC_EQUILIBRIUM)
                 .unlockedBy("has_elemenic_equilibrium", has(ModItems.ELEMENIC_EQUILIBRIUM))
                 .save(recipeOutput, "elemenic_equiliplex_from_equilibrium");
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ModItems.ELEMENIC_CHAOS.get(), 1)
+                .pattern("AAA")
+                .pattern("AAA")
+                .pattern("AAA")
+                .define('A', ModItems.ELEMENIC_EQUILIPLEX)
+                .unlockedBy("has_elemenic_equiliplex", has(ModItems.ELEMENIC_EQUILIPLEX))
+                .save(recipeOutput);
 
         ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, ModItems.ELEMENIC_EQUILIBRIUM.get(), 1)
                 .requires(ModItems.ORGANIX_ESSENCE)

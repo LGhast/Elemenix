@@ -39,7 +39,7 @@ public class AnalyzerScreen extends AbstractContainerScreen<AnalyzerMenu> {
     private static final int GUI_WIDTH = 256;
     private static final int GUI_HEIGHT = 200;
     private static final int TITLE_X = 9;
-    private static final int TITLE_Y = 6;
+    private static final int TITLE_Y = 7;
     private static final int DECONSTRUCT_BUTTON_X = 15;
     private static final int DECONSTRUCT_BUTTON_Y = 164;
     private static final int DECONSTRUCT_BUTTON_WIDTH = 60;

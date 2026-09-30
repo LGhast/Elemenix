@@ -106,6 +106,7 @@ public class ClientEventHandler {
         event.register(ModMenus.ELEMENIX_ANALYZER_MENU.get(), AnalyzerScreen::new);
         event.register(ModMenus.MEMORIZER_BOX_MENU.get(), MemorizerBoxScreen::new);
         event.register(ModMenus.BURNER_MENU.get(), BurnerScreen::new);
+        event.register(ModMenus.ANALYSIS_TERMINAL_MENU.get(), AnalysisTerminalScreen::new);
         event.register(ModMenus.TRANSFORMER_MENU.get(), TransformerScreen::new);
         event.register(ModMenus.INFUSER_MENU.get(), InfuserScreen::new);
         event.register(ModMenus.ENRICHER_MENU.get(), EnricherScreen::new);
@@ -119,8 +120,14 @@ public class ClientEventHandler {
         if (player == null || minecraft.level == null) return;
 
         while (ModKeyBindings.OPEN_MEMORIZER_BOX.consumeClick()) {
-            if (!ModUtils.findItemInPlayerInventory(player, ModItems.MEMORIZER_BOX.asItem()).isEmpty()) {
+            if (!ModUtils.findItemInCuriosSlot(player, "memorizer_box", ModItems.MEMORIZER_BOX.asItem()).isEmpty()) {
                 Objects.requireNonNull(minecraft.getConnection()).send(new OpenMemorizerBoxPayload());
+            }
+        }
+
+        while (ModKeyBindings.OPEN_ANALYZER.consumeClick()) {
+            if (!ModUtils.findItemInCuriosSlot(player, "analyzer", ModItems.ELEMENIC_ANALYZER.asItem()).isEmpty()) {
+                Objects.requireNonNull(minecraft.getConnection()).send(new OpenAnalyzerPayload());
             }
         }
     }

@@ -7,7 +7,6 @@ import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -173,30 +172,25 @@ public class ModUtils {
         return String.format(extraFormat, formatNumber(value));
     }
 
-    public static ItemStack findItemInPlayerInventory(Player player, Item item) {
-        Inventory playerInventory = player.getInventory();
+    public static boolean hasServerMod(String modId) {
+        return ModList.get().isLoaded(modId);
+    }
 
-        for (int i = 0; i < playerInventory.getContainerSize(); i++) {
-            ItemStack stack = playerInventory.getItem(i);
+    public static ItemStack findItemInCuriosSlot(Player player, String slotId, Item item) {
+        Optional<ICuriosItemHandler> optional = CuriosApi.getCuriosInventory(player);
+        if (optional.isEmpty()) {
+            return ItemStack.EMPTY;
+        }
+
+        ICuriosItemHandler handler = optional.get();
+        for (SlotResult result : handler.findCurios(slotId)) {
+            ItemStack stack = result.stack();
             if (!stack.isEmpty() && stack.is(item)) {
                 return stack;
             }
         }
 
-        Optional<ICuriosItemHandler> optional = CuriosApi.getCuriosInventory(player);
-        if (optional.isPresent()) {
-            ICuriosItemHandler handler = optional.get();
-            Optional<SlotResult> result = handler.findFirstCurio(item);
-            if (result.isPresent()) {
-                return result.get().stack();
-            }
-        }
-
         return ItemStack.EMPTY;
-    }
-
-    public static boolean hasServerMod(String modId) {
-        return ModList.get().isLoaded(modId);
     }
 
     @Nullable

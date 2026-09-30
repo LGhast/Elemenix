@@ -37,6 +37,8 @@
   "advancements.elemenix.scan_container.description": "Utilisez un Scanner d'Élémentium pour scanner un bloc conteneur.",
   "advancements.elemenix.obtain_scanning_storage.title": "Coup de balai",
   "advancements.elemenix.obtain_scanning_storage.description": "Fabriquez un Réservoir de scan d'Élémentium pour déconstruire instantanément tous les objets d'un conteneur.",
+  "advancements.elemenix.obtain_analysis_terminal.title": "Terminus, tout le monde descend!",
+  "advancements.elemenix.obtain_analysis_terminal.description": "Fabriquez un terminal d'analyse élémentaire",
 
   "creativetab.elemenix.elemenix": "Élémentiologie",
 
@@ -56,6 +58,8 @@
   "item.elemenix.elemenic_scanner": "Scanner d'Élémentium",
   "item.elemenix.scanning_storage": "Réservoir de scan d'Élémentium",
   "item.elemenix.analyzing_chip": "Puce d'analyseur",
+  "item.elemenix.elemenic_chaos": "Chaos Élémentaire",
+  "item.elemenix.analysis_terminal": "Terminal d'Analyse Élémentaire",
   "item.elemenix.elemenic_memorizer.style.white": "Blanc",
   "item.elemenix.elemenic_memorizer.style.red": "Rouge",
   "item.elemenix.elemenic_memorizer.style.orange": "Orange",
@@ -124,6 +128,13 @@
   "gui.elemenix.mode.selected": "Sélectionné",
   "gui.elemenix.mode.insert_before": "Insérer avant",
   "gui.elemenix.mode.current": "Mode",
+  "gui.elemenix.analysis_terminal": "Terminal d'Analyse",
+  "gui.elemenix.analysis_terminal.search": "Rechercher...",
+  "gui.elemenix.analysis_terminal.all": "Tout",
+  "gui.elemenix.analysis_terminal.all_memorizers": "Tous les Disques de Mémoire",
+  "gui.elemenix.analysis_terminal.enable_deconstruct": "Déconstr.",
+  "gui.elemenix.analysis_terminal.allow_memory": "Mémoire",
+  "gui.elemenix.analysis_terminal.allow_transfer": "Transfert",
 
   "container.elemenix.transformer": "Transformateur",
   "container.elemenix.geological_simulator": "Simulateur Géologique",
@@ -161,9 +172,11 @@
   "message.elemenix.scanner.disabled": "Le scan est désactivé par la configuration.",
   "message.elemenix.scanning_storage.empty": "Impossible de scanner des objets déconstructibles.",
   "message.elemenix.scanning_storage.total": "Déconstruction réussie de %d objets",
+  "message.elemenix.analysis_terminal.requires_equipment": "Nécessite un Analyseur d'Élémentium et une Boîte à Disques de Mémoire.",
 
   "key.categories.elemenics": "Élémentiologie",
   "key.elemenix.open_memorizer_box": "Ouvrir la Boîte à Disques de Mémoire",
+  "key.elemenix.open_analyzer": "Ouvrir l'Analyseur d'Élémentium",
 
   "command.elemenix.show.invalid_item": "ID d'objet invalide : %s",
   "command.elemenix.show.result": "[%s] a la composition élémentaire : %s",
@@ -282,5 +295,8 @@
   "ftbquests.task.elemenix.deconstruct_item": "Déconstr. (analyseur)",
   "ftbquests.task.elemenix.reconstruct_item": "Reconstr. (analyseur)",
   "ftbquests.task.elemenix.memorize_item": "Mémoriser un objet",
-  "ftbquests.task.elemenix.count": "Quantité cumulée"
+  "ftbquests.task.elemenix.count": "Quantité cumulée",
+
+  "curios.identifier.memorizer_box": "Boîte à Disques de Mémoire",
+  "curios.identifier.analyzer": "Analyseur"
 }

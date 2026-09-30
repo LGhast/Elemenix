@@ -37,6 +37,8 @@
   "advancements.elemenix.scan_container.description": "Use an Elemenic Scanner to scan a container block",
   "advancements.elemenix.obtain_scanning_storage.title": "Scandalously Scanty Treasure",
   "advancements.elemenix.obtain_scanning_storage.description": "Craft a Scanning Storage to instantly deconstruct all the items in a container",
+  "advancements.elemenix.obtain_analysis_terminal.title": "End of the Line",
+  "advancements.elemenix.obtain_analysis_terminal.description": "Craft an Elemenic Analysis Terminal",
 
   "creativetab.elemenix.elemenix": "Elemenics",
 
@@ -97,6 +99,8 @@
   "item.elemenix.elemenic_scanner": "Elemenic Scanner",
   "item.elemenix.scanning_storage": "Scanning Storage",
   "item.elemenix.analyzing_chip": "Analyzing Chip",
+  "item.elemenix.elemenic_chaos": "Elemenic Chaos",
+  "item.elemenix.analysis_terminal": "Elemenic Analysis Terminal",
 
   "elemenix.elemenix.organix": "Organix",
   "elemenix.elemenix.terrix": "Terrix",
@@ -124,6 +128,13 @@
   "gui.elemenix.mode.selected": "Selected",
   "gui.elemenix.mode.insert_before": "Insert Before",
   "gui.elemenix.mode.current": "Mode",
+  "gui.elemenix.analysis_terminal": "Analysis Terminal",
+  "gui.elemenix.analysis_terminal.search": "Search...",
+  "gui.elemenix.analysis_terminal.all": "All",
+  "gui.elemenix.analysis_terminal.all_memorizers": "All Memorizers",
+  "gui.elemenix.analysis_terminal.enable_deconstruct": "Decon.",
+  "gui.elemenix.analysis_terminal.allow_memory": "Memory",
+  "gui.elemenix.analysis_terminal.allow_transfer": "Transfer",
 
   "container.elemenix.transformer": "Transformer",
   "container.elemenix.geological_simulator": "Geological Simulator",
@@ -161,9 +172,11 @@
   "message.elemenix.scanner.blacklisted": "Scanning %s is prohibited",
   "message.elemenix.scanning_storage.empty": "Failed to scan any deconstructable items",
   "message.elemenix.scanning_storage.total": "Successfully deconstructed %d items",
+  "message.elemenix.analysis_terminal.requires_equipment": "Requires an Elemenic Analyzer and a Memorizer Box.",
 
   "key.categories.elemenics": "Elemenics",
   "key.elemenix.open_memorizer_box": "Open Memorizer Box",
+  "key.elemenix.open_analyzer": "Open Elemenic Analyzer",
 
   "tag.item.elemenix.essences": "Elemenic Essences",
   "tag.item.elemenix.equilibrium": "Elemenic Equilibrium",
@@ -283,5 +296,8 @@
   "ftbquests.task.elemenix.deconstruct_item": "Deconstruct Item with Analyzer",
   "ftbquests.task.elemenix.reconstruct_item": "Reconstruct Item with Analyzer",
   "ftbquests.task.elemenix.memorize_item": "Memorize Item",
-  "ftbquests.task.elemenix.count": "Cumulative Quantity"
+  "ftbquests.task.elemenix.count": "Cumulative Quantity",
+
+  "curios.identifier.memorizer_box": "Memorizer Box",
+  "curios.identifier.analyzer": "Analyzer"
 }

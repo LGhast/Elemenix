@@ -17,7 +17,6 @@
       "translate": "advancements.elemenix.obtain_remote_storage.description"
     },
     "frame": "goal",
-    "hidden": true,
     "icon": {
       "count": 1,
       "id": "elemenix:remote_elemenic_storage"

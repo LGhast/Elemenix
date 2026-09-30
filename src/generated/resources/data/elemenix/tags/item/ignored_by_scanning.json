@@ -3,6 +3,8 @@
     "elemenix:elemenic_storage",
     "elemenix:elemenic_analyzer",
     "elemenix:scanning_storage",
-    "elemenix:elemenic_memorizer"
+    "elemenix:elemenic_memorizer",
+    "elemenix:analysis_terminal",
+    "elemenix:memorizer_box"
   ]
 }

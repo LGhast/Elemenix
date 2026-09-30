@@ -37,6 +37,8 @@
   "advancements.elemenix.scan_container.description": "使用元质扫描器扫描一个容器方块",
   "advancements.elemenix.obtain_scanning_storage.title": "一扫而空",
   "advancements.elemenix.obtain_scanning_storage.description": "制作扫描式储存器，一键式解构容器中的物品",
+  "advancements.elemenix.obtain_analysis_terminal.title": "善始善终",
+  "advancements.elemenix.obtain_analysis_terminal.description": "制作一台元质解析终端",
 
   "creativetab.elemenix.elemenix": "元质学",
 
@@ -97,6 +99,8 @@
   "item.elemenix.elemenic_scanner": "元质扫描器",
   "item.elemenix.scanning_storage": "扫描式储存器",
   "item.elemenix.analyzing_chip": "解析芯片",
+  "item.elemenix.elemenic_chaos": "元质混沌体",
+  "item.elemenix.analysis_terminal": "元质解析终端",
 
   "elemenix.elemenix.organix": "有机质",
   "elemenix.elemenix.terrix": "矿化质",
@@ -124,6 +128,13 @@
   "gui.elemenix.mode.copy": "复制",
   "gui.elemenix.mode.insert_before": "向前插入",
   "gui.elemenix.mode.current": "当前模式",
+  "gui.elemenix.analysis_terminal": "解析终端",
+  "gui.elemenix.analysis_terminal.search": "搜索...",
+  "gui.elemenix.analysis_terminal.all": "全部",
+  "gui.elemenix.analysis_terminal.all_memorizers": "全部记忆碟",
+  "gui.elemenix.analysis_terminal.enable_deconstruct": "开启解构",
+  "gui.elemenix.analysis_terminal.allow_memory": "允许记忆",
+  "gui.elemenix.analysis_terminal.allow_transfer": "允许转移",
 
   "container.elemenix.transformer": "转化仪",
   "container.elemenix.geological_simulator": "地质模拟仪",
@@ -161,9 +172,11 @@
   "message.elemenix.scanner.disabled": "扫描已被配置禁用",
   "message.elemenix.scanning_storage.empty": "未能扫描到可解构的物品",
   "message.elemenix.scanning_storage.total": "成功解构%d个物品",
+  "message.elemenix.analysis_terminal.requires_equipment": "需要装备元质解析器和记忆碟收纳盒",
 
   "key.categories.elemenics": "元质学",
   "key.elemenix.open_memorizer_box": "打开记忆碟收纳盒",
+  "key.elemenix.open_analyzer": "打开元质解析器",
 
   "tag.item.elemenix.essences": "元质纯质",
   "tag.item.elemenix.equilibrium": "元质均体",
@@ -282,5 +295,8 @@
   "ftbquests.task.elemenix.deconstruct_item": "使用解析器解构物品",
   "ftbquests.task.elemenix.reconstruct_item": "使用解析器重构物品",
   "ftbquests.task.elemenix.memorize_item": "记忆物品",
-  "ftbquests.task.elemenix.count": "累计数量"
+  "ftbquests.task.elemenix.count": "累计数量",
+
+  "curios.identifier.memorizer_box": "记忆碟收纳盒",
+  "curios.identifier.analyzer": "解析器"
 }

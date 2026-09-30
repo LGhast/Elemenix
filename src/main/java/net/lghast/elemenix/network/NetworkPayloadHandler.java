@@ -6,6 +6,10 @@ import net.lghast.elemenix.network.analyzer.ReconstructionPayload;
 import net.lghast.elemenix.network.burner.*;
 import net.lghast.elemenix.network.infuser.InfuserDataUpdatePayload;
 import net.lghast.elemenix.network.infuser.RequestInfuserUpdatePayload;
+import net.lghast.elemenix.network.terminal.TerminalCarriedDeconstructPayload;
+import net.lghast.elemenix.network.terminal.TerminalMemorizerSelectPayload;
+import net.lghast.elemenix.network.terminal.TerminalFlagsPayload;
+import net.lghast.elemenix.network.terminal.TerminalReconstructPayload;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
@@ -35,6 +39,12 @@ public class NetworkPayloadHandler {
                 OpenMemorizerBoxPayload.TYPE,
                 OpenMemorizerBoxPayload.STREAM_CODEC,
                 OpenMemorizerBoxPayload::handle
+        );
+
+        registrar.playToServer(
+                OpenAnalyzerPayload.TYPE,
+                OpenAnalyzerPayload.STREAM_CODEC,
+                OpenAnalyzerPayload::handle
         );
 
         registrar.playToServer(
@@ -83,6 +93,30 @@ public class NetworkPayloadHandler {
                 SyncModStartedPayload.TYPE,
                 SyncModStartedPayload.STREAM_CODEC,
                 SyncModStartedPayload::handle
+        );
+
+        registrar.playToServer(
+                TerminalReconstructPayload.TYPE,
+                TerminalReconstructPayload.STREAM_CODEC,
+                TerminalReconstructPayload::handle
+        );
+
+        registrar.playToServer(
+                TerminalFlagsPayload.TYPE,
+                TerminalFlagsPayload.STREAM_CODEC,
+                TerminalFlagsPayload::handle
+        );
+
+        registrar.playToServer(
+                TerminalMemorizerSelectPayload.TYPE,
+                TerminalMemorizerSelectPayload.STREAM_CODEC,
+                TerminalMemorizerSelectPayload::handle
+        );
+
+        registrar.playToServer(
+                TerminalCarriedDeconstructPayload.TYPE,
+                TerminalCarriedDeconstructPayload.STREAM_CODEC,
+                TerminalCarriedDeconstructPayload::handle
         );
     }
 }

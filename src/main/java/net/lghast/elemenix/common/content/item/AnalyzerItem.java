@@ -15,9 +15,13 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
+import top.theillusivec4.curios.api.CuriosApi;
+import top.theillusivec4.curios.api.SlotResult;
+import top.theillusivec4.curios.api.type.capability.ICuriosItemHandler;
 
 import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @ParametersAreNonnullByDefault
@@ -50,12 +54,19 @@ public class AnalyzerItem extends StorageItem {
         }
 
         Inventory inventory = player.getInventory();
-
         for (int i = 0; i < inventory.getContainerSize(); i++) {
             ItemStack stack = inventory.getItem(i);
-
             if (isSameAnalyzer(stack, uuid)) {
                 return stack;
+            }
+        }
+
+        Optional<ICuriosItemHandler> optional = CuriosApi.getCuriosInventory(player);
+        if (optional.isPresent()) {
+            ICuriosItemHandler handler = optional.get();
+            Optional<SlotResult> result = handler.findFirstCurio(stack -> isSameAnalyzer(stack, uuid));
+            if (result.isPresent()) {
+                return result.get().stack();
             }
         }
 

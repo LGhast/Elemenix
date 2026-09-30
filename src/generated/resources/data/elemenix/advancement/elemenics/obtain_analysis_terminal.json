@@ -1,0 +1,34 @@
+{
+  "parent": "elemenix:elemenics/enrich_equilibrium",
+  "criteria": {
+    "get_analysis_terminal": {
+      "conditions": {
+        "items": [
+          {
+            "items": "elemenix:analysis_terminal"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.elemenix.obtain_analysis_terminal.description"
+    },
+    "frame": "challenge",
+    "icon": {
+      "count": 1,
+      "id": "elemenix:analysis_terminal"
+    },
+    "title": {
+      "translate": "advancements.elemenix.obtain_analysis_terminal.title"
+    }
+  },
+  "requirements": [
+    [
+      "get_analysis_terminal"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

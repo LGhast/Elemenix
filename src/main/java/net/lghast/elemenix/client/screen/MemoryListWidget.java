@@ -38,6 +38,7 @@ public class MemoryListWidget extends AbstractWidget {
     protected static final int ITEM_HEIGHT = 15;
     protected static final int ITEM_OFFSET = 4;
     protected static final int ITEM_NAME_OFFSET = 8;
+    protected static final int ITEM_NAME_RIGHT_PADDING = 6;
 
     protected List<ResourceLocation> items = new ArrayList<>();
     protected final List<ItemStack> itemStacks = new ArrayList<>();
@@ -162,11 +163,26 @@ public class MemoryListWidget extends AbstractWidget {
         }
 
         String displayName = stackToRender.getHoverName().getString();
-        int textWidth = getWidth() - itemSize - 8;
-        String truncatedName = ModUtils.truncateToWidth(minecraft.font, displayName, textWidth);
-
+        int maxWidth = getWidth() - itemSize - ITEM_NAME_OFFSET - ITEM_NAME_RIGHT_PADDING;
+        int nameWidth = minecraft.font.width(displayName);
         int color = ElemenixInfo.isUnreconstructable(stackToRender) ? 0xFF3333 : 0xFFFFFF;
-        graphics.drawString(minecraft.font, truncatedName, textX, textY, color, false);
+
+        if (nameWidth <= maxWidth) {
+            graphics.drawString(minecraft.font, displayName, textX, textY, color, false);
+            return;
+        }
+
+        float scale = Math.max(0.6f, (float) maxWidth / nameWidth);
+        String text = displayName;
+        if (nameWidth * scale > maxWidth) {
+            text = ModUtils.truncateToWidth(minecraft.font, displayName, (int) (maxWidth / scale));
+        }
+
+        poseStack.pushPose();
+        poseStack.translate(textX, textY + 5.0F * (1.0F - scale), 0.0F);
+        poseStack.scale(scale, scale, 1.0F);
+        graphics.drawString(minecraft.font, text, 0, 0, color, false);
+        poseStack.popPose();
     }
 
     protected void updateItemList() {

@@ -306,7 +306,7 @@ public class ModAdvancementProvider extends AdvancementProvider {
                             AdvancementType.TASK,
                             true,
                             true,
-                            true
+                            false
                     )
                     .addCriterion("get_storage", InventoryChangeTrigger.TriggerInstance.hasItems(
                             ItemPredicate.Builder.item().of(ModItems.ELEMENIC_STORAGE.get()).build()
@@ -323,7 +323,7 @@ public class ModAdvancementProvider extends AdvancementProvider {
                             AdvancementType.GOAL,
                             true,
                             true,
-                            true
+                            false
                     )
                     .addCriterion("get_remote_storage", InventoryChangeTrigger.TriggerInstance.hasItems(
                             ItemPredicate.Builder.item().of(ModItems.REMOTE_ELEMENIC_STORAGE.get()).build()
@@ -355,12 +355,29 @@ public class ModAdvancementProvider extends AdvancementProvider {
                             AdvancementType.GOAL,
                             true,
                             true,
-                            true
+                            false
                     )
                     .addCriterion("get_scanning_storage", InventoryChangeTrigger.TriggerInstance.hasItems(
                             ItemPredicate.Builder.item().of(ModItems.SCANNING_STORAGE.get()).build()
                     ))
                     .save(saver, ResourceLocation.parse("elemenix:elemenics/obtain_scanning_storage"), existingFileHelper);
+
+            AdvancementHolder obtainAnalysisTerminal = Advancement.Builder.advancement()
+                    .parent(enrichEquilibrium)
+                    .display(
+                            ModItems.ANALYSIS_TERMINAL,
+                            Component.translatable("advancements.elemenix.obtain_analysis_terminal.title"),
+                            Component.translatable("advancements.elemenix.obtain_analysis_terminal.description"),
+                            null,
+                            AdvancementType.CHALLENGE,
+                            true,
+                            true,
+                            false
+                    )
+                    .addCriterion("get_analysis_terminal", InventoryChangeTrigger.TriggerInstance.hasItems(
+                            ItemPredicate.Builder.item().of(ModItems.ANALYSIS_TERMINAL.get()).build()
+                    ))
+                    .save(saver, ResourceLocation.parse("elemenix:elemenics/obtain_analysis_terminal"), existingFileHelper);
         }
     }
 }

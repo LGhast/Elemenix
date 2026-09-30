@@ -1,6 +1,5 @@
 package net.lghast.elemenix.network;
 
-import net.lghast.elemenix.common.content.item.MemorizerBoxItem;
 import net.lghast.elemenix.common.system.menu.MemorizerBoxMenu;
 import net.lghast.elemenix.register.content.ModItems;
 import net.lghast.elemenix.utils.ModUtils;
@@ -32,9 +31,13 @@ public record OpenMemorizerBoxPayload() implements CustomPacketPayload {
     public static void handle(OpenMemorizerBoxPayload payload, IPayloadContext context) {
         context.enqueueWork(() -> {
             if (context.player() instanceof ServerPlayer player) {
-                ItemStack boxStack = ModUtils.findItemInPlayerInventory(player, ModItems.MEMORIZER_BOX.asItem());
+                ItemStack boxStack = ModUtils.findItemInCuriosSlot(
+                        player,
+                        "memorizer_box",
+                        ModItems.MEMORIZER_BOX.asItem()
+                );
+
                 if (!boxStack.isEmpty()) {
-                    MemorizerBoxItem.randomizeUuid(boxStack);
                     player.openMenu(new SimpleMenuProvider(
                             (windowId, playerInventory, playerEntity) ->
                                     new MemorizerBoxMenu(windowId, playerInventory, boxStack),

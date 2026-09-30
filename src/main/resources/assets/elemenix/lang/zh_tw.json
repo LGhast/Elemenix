@@ -37,6 +37,8 @@
   "advancements.elemenix.scan_container.description": "使用元質掃描器掃描一個容器方塊",
   "advancements.elemenix.obtain_scanning_storage.title": "一掃而空",
   "advancements.elemenix.obtain_scanning_storage.description": "製作掃描式儲存器，一鍵式解構容器中的物品",
+  "advancements.elemenix.obtain_analysis_terminal.title": "善始善終",
+  "advancements.elemenix.obtain_analysis_terminal.description": "製作一台元質解析終端",
 
   "creativetab.elemenix.elemenix": "元質學",
 
@@ -97,6 +99,8 @@
   "item.elemenix.elemenic_scanner": "元質掃描器",
   "item.elemenix.scanning_storage": "掃描式儲存器",
   "item.elemenix.analyzing_chip": "解析芯片",
+  "item.elemenix.elemenic_chaos": "元質混沌體",
+  "item.elemenix.analysis_terminal": "元質解析終端",
 
   "elemenix.elemenix.organix": "有機質",
   "elemenix.elemenix.terrix": "礦化質",
@@ -124,6 +128,13 @@
   "gui.elemenix.mode.selected": "選中",
   "gui.elemenix.mode.insert_before": "向前插入",
   "gui.elemenix.mode.current": "目前模式",
+  "gui.elemenix.analysis_terminal": "解析終端",
+  "gui.elemenix.analysis_terminal.search": "搜索...",
+  "gui.elemenix.analysis_terminal.all": "全部",
+  "gui.elemenix.analysis_terminal.all_memorizers": "全部記憶碟",
+  "gui.elemenix.analysis_terminal.enable_deconstruct": "開啟解析",
+  "gui.elemenix.analysis_terminal.allow_memory": "允許記憶",
+  "gui.elemenix.analysis_terminal.allow_transfer": "允許轉移",
 
   "container.elemenix.transformer": "轉化儀",
   "container.elemenix.geological_simulator": "地質模擬儀",
@@ -161,9 +172,11 @@
   "message.elemenix.scanner.blacklisted": "禁止對%s進行掃描",
   "message.elemenix.scanning_storage.empty": "未能掃描到可解構的物品",
   "message.elemenix.scanning_storage.total": "成功解構%d個物品",
+  "message.elemenix.analysis_terminal.requires_equipment": "需要裝備元質解析器和記憶碟收納盒",
 
   "key.categories.elemenics": "元質學",
   "key.elemenix.open_memorizer_box": "打開記憶碟收納盒",
+  "key.elemenix.open_analyzer": "打開元質解析器",
 
   "tag.item.elemenix.essences": "元質純質",
   "tag.item.elemenix.equilibrium": "元質均體",
@@ -282,5 +295,8 @@
   "ftbquests.task.elemenix.deconstruct_item": "使用解析器解構物品",
   "ftbquests.task.elemenix.reconstruct_item": "使用解析器重構物品",
   "ftbquests.task.elemenix.memorize_item": "記憶物品",
-  "ftbquests.task.elemenix.count": "累計數量"
+  "ftbquests.task.elemenix.count": "累計數量",
+
+  "curios.identifier.memorizer_box": "记忆碟收纳盒",
+  "curios.identifier.analyzer": "記憶碟收納盒"
 }

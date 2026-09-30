@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "C": {
+      "item": "elemenix:elemenic_chaos"
+    },
+    "D": {
+      "item": "elemenix:analyzing_chip"
+    },
+    "N": {
+      "item": "minecraft:netherite_ingot"
+    }
+  },
+  "pattern": [
+    " N ",
+    "DCD",
+    " N "
+  ],
+  "result": {
+    "count": 1,
+    "id": "elemenix:analysis_terminal"
+  }
+}

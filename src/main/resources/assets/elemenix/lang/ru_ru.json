@@ -37,6 +37,8 @@
   "advancements.elemenix.scan_container.description": "Используйте сканер элеменции, чтобы просканировать блок контейнера.",
   "advancements.elemenix.obtain_scanning_storage.title": "Всё подчистую",
   "advancements.elemenix.obtain_scanning_storage.description": "Создайте сканирующее элементное хранилище, чтобы мгновенно деконструировать все предметы в контейнере.",
+  "advancements.elemenix.obtain_analysis_terminal.title": "Это конечная?",
+  "advancements.elemenix.obtain_analysis_terminal.description": "Создайте терминал элементного анализа",
 
   "creativetab.elemenix.elemenix": "Элеменциология",
 
@@ -97,7 +99,8 @@
   "item.elemenix.elemenic_scanner": "Сканер Элеменции",
   "item.elemenix.scanning_storage": "Сканирующее Элементное Хранилище",
   "item.elemenix.analyzing_chip": "Чип анализатора",
-
+  "item.elemenix.elemenic_chaos": "Элементный Хаос",
+  "item.elemenix.analysis_terminal": "Терминал Элементного Анализа",
 
   "elemenix.elemenix.organix": "Органическая Субстанция",
   "elemenix.elemenix.terrix": "Минеральная Субстанция",
@@ -125,6 +128,13 @@
   "gui.elemenix.mode.selected": "Выбрано",
   "gui.elemenix.mode.insert_before": "Вставить до",
   "gui.elemenix.mode.current": "Режим",
+  "gui.elemenix.analysis_terminal": "Терминал Анализа",
+  "gui.elemenix.analysis_terminal.search": "Поиск...",
+  "gui.elemenix.analysis_terminal.all": "Все",
+  "gui.elemenix.analysis_terminal.all_memorizers": "Все Диски Памяти",
+  "gui.elemenix.analysis_terminal.enable_deconstruct": "Деконстр.",
+  "gui.elemenix.analysis_terminal.allow_memory": "Память",
+  "gui.elemenix.analysis_terminal.allow_transfer": "Перенос",
 
   "container.elemenix.transformer": "Преобразователь",
   "container.elemenix.geological_simulator": "Геологический Симулятор",
@@ -162,9 +172,11 @@
   "message.elemenix.scanner.blacklisted": "Сканирование %s запрещено",
   "message.elemenix.scanning_storage.empty": "Не удалось найти деконструируемые предметы для сканирования.",
   "message.elemenix.scanning_storage.total": "Успешно деконструировано %d предметов",
+  "message.elemenix.analysis_terminal.requires_equipment": "Требуется Анализатор Элеменции и Коробка для Дисков Памяти.",
 
   "key.categories.elemenics": "Элеменциология",
   "key.elemenix.open_memorizer_box": "Открыть Коробку для Дисков Памяти",
+  "key.elemenix.open_analyzer": "Открыть Анализатор Элеменции",
 
   "command.elemenix.show.invalid_item": "Неверный ID предмета: %s",
   "command.elemenix.show.result": "[%s] имеет элементный состав: %s",
@@ -283,5 +295,8 @@
   "ftbquests.task.elemenix.deconstruct_item": "Деконстр. (анализатор)",
   "ftbquests.task.elemenix.reconstruct_item": "Реконстр. (анализатор)",
   "ftbquests.task.elemenix.memorize_item": "Запомнить предмет",
-  "ftbquests.task.elemenix.count": "Накопленное количество"
+  "ftbquests.task.elemenix.count": "Накопленное количество",
+
+  "curios.identifier.memorizer_box": "Коробка для Дисков Памяти",
+  "curios.identifier.analyzer": "Анализатор"
 }

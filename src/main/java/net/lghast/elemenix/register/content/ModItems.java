@@ -92,6 +92,12 @@ public class ModItems {
     public static final DeferredItem<Item> ANALYZING_CHIP = ITEMS.register("analyzing_chip",
             ()-> new Item(new Item.Properties()));
 
+    public static final DeferredItem<Item> ELEMENIC_CHAOS = ITEMS.register("elemenic_chaos",
+            ()-> new Item(new Item.Properties()));
+
+    public static final DeferredItem<Item> ANALYSIS_TERMINAL = ITEMS.register("analysis_terminal",
+            ()-> new AnalysisTerminalItem(new Item.Properties()));
+
     public static void register(IEventBus eventBus){
         ITEMS.register(eventBus);
     }

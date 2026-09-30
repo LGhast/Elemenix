@@ -1,0 +1,5 @@
+{
+  "size" : 1,
+  "icon" : "elemenix:slot/memorizer_box",
+  "drop_rule" : "ALWAYS_KEEP"
+}
