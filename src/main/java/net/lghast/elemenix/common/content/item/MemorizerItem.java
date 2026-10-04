@@ -13,6 +13,7 @@ import net.lghast.elemenix.utils.ModUtils;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
@@ -64,7 +65,7 @@ public class MemorizerItem extends Item{
     public MemorizerItem(Properties properties) {
         super(properties.stacksTo(1)
                 .component(ModDataComponents.MEMORY_DATA, new MemoryData(new ArrayList<>()))
-                .component(ModDataComponents.WAXED, new Waxed(false))
+                .component(ModDataComponents.WAXED, Waxed.unwaxed())
                 .component(ModDataComponents.STYLE, new Style(0))
         );
     }
@@ -91,13 +92,17 @@ public class MemorizerItem extends Item{
         return style;
     }
 
+    public static Integer getStyleIndexFor(Item item) {
+        return STYLE_MAP.get(item);
+    }
+
     public static boolean isReadonly(ItemStack stack){
         if (!(stack.getItem() instanceof MemorizerItem)) {
             return true;
         }
         Waxed waxedData = stack.get(ModDataComponents.WAXED);
         if(waxedData == null){
-            waxedData = new Waxed(false);
+            waxedData = Waxed.unwaxed();
         }
         return waxedData.waxed();
     }
@@ -166,7 +171,7 @@ public class MemorizerItem extends Item{
             if(!player.isCreative()) {
                 offHandItem.shrink(1);
             }
-            memorizerStack.set(ModDataComponents.WAXED, new Waxed(true));
+            memorizerStack.set(ModDataComponents.WAXED, Waxed.waxedBy(player));
             ModUtils.spawnParticles(serverLevel, ParticleTypes.WAX_ON,
                     player.getX(), player.getY()+1.2, player.getZ(), 0.4, 0.3, 0.4, 8, 0.01);
             serverLevel.playSound(null , player.getX(), player.getY(), player.getZ(),
@@ -180,25 +185,44 @@ public class MemorizerItem extends Item{
     }
 
     private void waxOff(ServerLevel serverLevel, Player player, ItemStack memorizerStack, ItemStack offHandItem){
-        if(offHandItem.is(ItemTags.AXES)){
-            offHandItem.hurtAndBreak(1, player, EquipmentSlot.OFFHAND);
-            memorizerStack.set(ModDataComponents.WAXED, new Waxed(false));
-            ModUtils.spawnParticles(serverLevel, ParticleTypes.WAX_OFF,
-                    player.getX(), player.getY()+1, player.getZ(), 0.4, 0.3, 0.4, 8, 0.01);
-            serverLevel.playSound(null , player.getX(), player.getY(), player.getZ(),
-                    SoundEvents.AXE_WAX_OFF, SoundSource.PLAYERS);
+        if(!offHandItem.is(ItemTags.AXES)){
+            return;
+        }
 
-            player.awardStat(ModStats.MEMORIZERS_WAXED_OFF.get());
-            if (player instanceof ServerPlayer serverPlayer) {
-                WaxOffTrigger.TRIGGER.get().trigger(serverPlayer);
+        Waxed waxedData = memorizerStack.get(ModDataComponents.WAXED);
+        if (waxedData == null) {
+            waxedData = Waxed.unwaxed();
+        }
+
+        if (!waxedData.isOwnedBy(player)) {
+            if (waxedData.hasOwner()) {
+                player.displayClientMessage(
+                        Component.translatable("message.elemenix.memorizer.wax_off_owner_only",
+                                waxedData.ownerName().orElse(waxedData.ownerUuid().get().toString())), true);
+            } else {
+                player.displayClientMessage(
+                        Component.translatable("message.elemenix.memorizer.wax_off_permanent"), true);
             }
+            return;
+        }
+
+        offHandItem.hurtAndBreak(1, player, EquipmentSlot.OFFHAND);
+        memorizerStack.set(ModDataComponents.WAXED, Waxed.unwaxed());
+        ModUtils.spawnParticles(serverLevel, ParticleTypes.WAX_OFF,
+                player.getX(), player.getY()+1, player.getZ(), 0.4, 0.3, 0.4, 8, 0.01);
+        serverLevel.playSound(null , player.getX(), player.getY(), player.getZ(),
+                SoundEvents.AXE_WAX_OFF, SoundSource.PLAYERS);
+
+        player.awardStat(ModStats.MEMORIZERS_WAXED_OFF.get());
+        if (player instanceof ServerPlayer serverPlayer) {
+            WaxOffTrigger.TRIGGER.get().trigger(serverPlayer);
         }
     }
 
     @Override
     public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> components, TooltipFlag tooltipFlag) {
         if(isReadonly(stack) && ClientConfig.SHOW_READONLY_TOOLTIPS.get()){
-            components.add(Component.translatable("tooltip.elemenix.readonly").withStyle(ChatFormatting.DARK_GRAY));
+            components.add(getReadonlyTooltip(stack).withStyle(ChatFormatting.DARK_GRAY));
         }
         Style style = getOrCreateStyle(stack);
         if(style.style() != 0 && ClientConfig.SHOW_STYLE_TOOLTIPS.get()){
@@ -213,5 +237,16 @@ public class MemorizerItem extends Item{
             }
         }
         super.appendHoverText(stack, context, components, tooltipFlag);
+    }
+
+    private static MutableComponent getReadonlyTooltip(ItemStack stack) {
+        Waxed waxedData = stack.get(ModDataComponents.WAXED);
+        if (waxedData != null && waxedData.ownerName().isPresent()) {
+            return Component.translatable("tooltip.elemenix.readonly.owner", waxedData.ownerName().get());
+        }
+        if (waxedData != null && waxedData.ownerUuid().isPresent()) {
+            return Component.translatable("tooltip.elemenix.readonly.owner", waxedData.ownerUuid().get().toString());
+        }
+        return Component.translatable("tooltip.elemenix.readonly.permanent");
     }
 }

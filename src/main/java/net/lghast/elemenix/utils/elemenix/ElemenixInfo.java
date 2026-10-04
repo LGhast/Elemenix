@@ -32,8 +32,9 @@ public class ElemenixInfo {
     private static final Set<Item> UNANALYSABLE_ITEMS = ConcurrentHashMap.newKeySet();
     private static final Set<Item> UNANALYSABLE_ITEMS_STRICT = ConcurrentHashMap.newKeySet();
     private static final Object INIT_LOCK = new Object();
-    private static boolean initialized = false;
-    private static boolean initializing = false;
+    private static volatile boolean initialized = false;
+    private static volatile boolean initializing = false;
+    private static volatile Thread initializingThread = null;
 
     public static void initialize() {
         if (initialized || initializing) {
@@ -43,6 +44,7 @@ public class ElemenixInfo {
             if (initialized || initializing) {
                 return;
             }
+            initializingThread = Thread.currentThread();
             initializing = true;
 
             try {
@@ -59,6 +61,7 @@ public class ElemenixInfo {
                 LOGGER.info("ElemenixInfo Class has been initialized.");
             } finally {
                 initializing = false;
+                initializingThread = null;
             }
         }
     }
@@ -135,6 +138,14 @@ public class ElemenixInfo {
         }
 
         if (!initialized) {
+            if (initializing && Thread.currentThread() != initializingThread) {
+                return new Constituents(true);
+            }
+
+            Level checkLevel = level != null ? level : Elemenics.getCurrentLevel();
+            if (!RecipeHelper.areRecipesLoaded(checkLevel)) {
+                return new Constituents(true);
+            }
             initialize();
         }
 
@@ -166,6 +177,10 @@ public class ElemenixInfo {
         }
 
         if(isUnanalysableStrictly(item)){
+            return new Constituents(true);
+        }
+
+        if (RecipeHelper.isPrecomputing() && Thread.currentThread() != RecipeHelper.getPrecomputingThread()) {
             return new Constituents(true);
         }
 

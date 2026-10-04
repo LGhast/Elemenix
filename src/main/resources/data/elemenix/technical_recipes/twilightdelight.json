@@ -10,6 +10,13 @@
       ]
     },
     {
+      "output": "twilightdelight:twilight_cake_slice",
+      "count": 7,
+      "inputs": [
+        { "id": "twilightdelight:twilight_cake", "count": 1 }
+      ]
+    },
+    {
       "output": "twilightdelight:aurora_pie_slice",
       "count": 4,
       "inputs": [
@@ -34,6 +41,11 @@
       "source": "twilightdelight:meef_wellington_block"
     },
     {
+      "preset": "food_unit_bowl",
+      "output": "twilightdelight:plate_of_saucy_grilled_naga",
+      "source": "twilightdelight:saucy_grilled_naga_block"
+    },
+    {
       "preset": "food_unit",
       "output": "twilightdelight:plate_of_lily_chicken",
       "source": "twilightdelight:lily_chicken_block",
@@ -41,6 +53,15 @@
       "offcuts": [
         { "id": "minecraft:bowl", "count": 1 },
         { "id": "minecraft:bone_meal", "count": 1 }
+      ]
+    },
+    {
+      "preset": "food_unit",
+      "output": "twilightdelight:bowl_of_chaos_stew",
+      "source": "twilightdelight:chaos_stew_block",
+      "container": "minecraft:bowl",
+      "offcuts": [
+        { "id": "twilightforest:lich_trophy", "count": 1 }
       ]
     }
   ]

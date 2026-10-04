@@ -28,8 +28,8 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Function;
 
 public class RecipeHelper {
-    private static final Map<ResourceLocation, Item> RECIPE_OUTPUT_CACHE = new HashMap<>();
-    private static final List<ResourceLocation> RECIPE_IGNORED_CACHE = new ArrayList<>();
+    private static final Map<ResourceLocation, Item> RECIPE_OUTPUT_CACHE = new ConcurrentHashMap<>();
+    private static final Set<ResourceLocation> RECIPE_IGNORED_CACHE = ConcurrentHashMap.newKeySet();
     private static final Map<Item, List<RecipeInfo>> RECIPE_MAP = new ConcurrentHashMap<>();
 
     private static final List<String> RECIPE_TYPES_NORMAL = new ArrayList<>();
@@ -46,7 +46,9 @@ public class RecipeHelper {
     private static final boolean CONFLUENCE_LOADED;
     private static final boolean KALEIDOSCOPE_LOADED;
 
-    private static boolean initialized = false;
+    private static volatile boolean initialized = false;
+    private static volatile boolean precomputing = false;
+    private static volatile Thread precomputingThread = null;
 
     private static final Logger LOGGER = LogManager.getLogger();
 
@@ -154,6 +156,22 @@ public class RecipeHelper {
         initialized = false;
     }
 
+    public static boolean isPrecomputing() {
+        return precomputing;
+    }
+
+    @Nullable
+    public static Thread getPrecomputingThread() {
+        return precomputingThread;
+    }
+
+    public static boolean areRecipesLoaded(@Nullable Level level) {
+        if (level == null) {
+            return false;
+        }
+        return level.getRecipeManager().getRecipeIds().findAny().isPresent();
+    }
+
     public static void precomputeRecipes(@Nullable Level level) {
         if(!Elemenics.started) return;
 
@@ -161,34 +179,55 @@ public class RecipeHelper {
             LOGGER.warn("Cannot precompute recipes: level is null");
             return;
         }
-        RecipeManager recipeManager = level.getRecipeManager();
 
-        RECIPE_MAP.clear();
-        RECIPE_OUTPUT_CACHE.clear();
-        RECIPE_IGNORED_CACHE.clear();
-
-        for (RecipeHolder<?> holder : recipeManager.getRecipes()) {
-            ResourceLocation recipeId = holder.id();
-            Recipe<?> recipe = holder.value();
-            ItemStack result = getRecipeResultItem(recipe, level.registryAccess());
-
-            if (result == null || result.isEmpty()) {
-                continue;
-            }
-            Item resultItem = result.getItem();
-
-            if (isValidRecipeType(recipe)) {
-                RecipeInfo info = getInfo(holder, recipe, level, result);
-                RECIPE_MAP.computeIfAbsent(resultItem, k -> new ArrayList<>()).add(info);
-                RECIPE_OUTPUT_CACHE.put(recipeId, resultItem);
-                continue;
-            }
-
-            RECIPE_IGNORED_CACHE.add(recipeId);
+        if (precomputing) {
+            LOGGER.warn("Recipe precomputation is already in progress, duplicate call skipped");
+            return;
         }
 
-        initialized = true;
-        LOGGER.info("RecipeHelper precomputed {} recipes", RECIPE_MAP.size());
+        if (!areRecipesLoaded(level)) {
+            LOGGER.warn("Cannot precompute recipes: the recipe manager is empty, recipes have not been loaded yet");
+            return;
+        }
+
+        long startTime = System.currentTimeMillis();
+        precomputing = true;
+        precomputingThread = Thread.currentThread();
+
+        try {
+            RecipeManager recipeManager = level.getRecipeManager();
+
+            RECIPE_MAP.clear();
+            RECIPE_OUTPUT_CACHE.clear();
+            RECIPE_IGNORED_CACHE.clear();
+
+            for (RecipeHolder<?> holder : recipeManager.getRecipes()) {
+                ResourceLocation recipeId = holder.id();
+                Recipe<?> recipe = holder.value();
+                ItemStack result = getRecipeResultItem(recipe, level.registryAccess());
+
+                if (result == null || result.isEmpty()) {
+                    continue;
+                }
+                Item resultItem = result.getItem();
+
+                if (isValidRecipeType(recipe)) {
+                    RecipeInfo info = getInfo(holder, recipe, level, result);
+                    RECIPE_MAP.computeIfAbsent(resultItem, k -> new ArrayList<>()).add(info);
+                    RECIPE_OUTPUT_CACHE.put(recipeId, resultItem);
+                    continue;
+                }
+
+                RECIPE_IGNORED_CACHE.add(recipeId);
+            }
+
+            initialized = true;
+            LOGGER.info("RecipeHelper precomputed {} recipes in {} ms",
+                    RECIPE_MAP.size(), System.currentTimeMillis() - startTime);
+        } finally {
+            precomputing = false;
+            precomputingThread = null;
+        }
     }
 
     private static ItemStack replacedStack(RecipeType<?> type, ItemStack stack) {

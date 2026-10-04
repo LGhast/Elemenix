@@ -1,7 +1,9 @@
 package net.lghast.elemenix.client.screen;
 
 import net.lghast.elemenix.common.content.item.MemorizerItem;
+import net.lghast.elemenix.common.system.datacomponent.MemoryData;
 import net.lghast.elemenix.common.system.menu.AnalysisTerminalMenu;
+import net.lghast.elemenix.compat.jech.JechCompat;
 import net.lghast.elemenix.network.terminal.TerminalCarriedDeconstructPayload;
 import net.lghast.elemenix.network.terminal.TerminalMemorizerSelectPayload;
 import net.lghast.elemenix.network.terminal.TerminalFlagsPayload;
@@ -11,6 +13,7 @@ import net.lghast.elemenix.utils.LongContainerData;
 import net.lghast.elemenix.utils.ModUtils;
 import net.lghast.elemenix.utils.elemenix.Elemenix;
 import net.lghast.elemenix.utils.elemenix.ElemenixInfo;
+import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.EditBox;
@@ -25,11 +28,9 @@ import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 import net.neoforged.neoforge.network.PacketDistributor;
 import org.jetbrains.annotations.NotNull;
+import org.lwjgl.glfw.GLFW;
 
-import java.util.ArrayList;
-import java.util.LinkedHashSet;
-import java.util.List;
-import java.util.Locale;
+import java.util.*;
 
 @OnlyIn(Dist.CLIENT)
 public class AnalysisTerminalScreen extends AbstractContainerScreen<AnalysisTerminalMenu> {
@@ -50,6 +51,7 @@ public class AnalysisTerminalScreen extends AbstractContainerScreen<AnalysisTerm
     private static final int MEM_NAME_Y = 26;
     private static final int MEM_ICON_X = 35;
     private static final int MEM_ICON_Y = 39;
+    private static final int MEM_ICON_SIZE = 16;
     private static final int MEM_BTN_Y = 62;
     private static final int MEM_BTN_SIZE = 14;
     private static final int PREV_X = 28;
@@ -102,8 +104,10 @@ public class AnalysisTerminalScreen extends AbstractContainerScreen<AnalysisTerm
     private Button allButton;
 
     private int selectedDisk = -1;
-    private final List<ItemStack> diskStacks = new ArrayList<>();
+    private final List<ItemStack> memorizers = new ArrayList<>();
     private final List<ResourceLocation> visibleItems = new ArrayList<>();
+    private Object pinyinSearcher = null;
+    private List<ResourceLocation> pinyinIndexedItems = null;
     private int scrollOffset = 0;
     private boolean scrollbarDragging = false;
 
@@ -140,7 +144,7 @@ public class AnalysisTerminalScreen extends AbstractContainerScreen<AnalysisTerm
         this.memoryCheckbox = new SmallCheckbox(
                 leftPos + CHECK_X, topPos + CHECK_Y0 + CHECK_GAP,
                 Component.translatable("gui.elemenix.analysis_terminal.allow_memory"),
-                this.font, true,
+                this.font, false,
                 (checkbox, selected) -> sendFlags());
         this.transferCheckbox = new SmallCheckbox(
                 leftPos + CHECK_X, topPos + CHECK_Y0 + CHECK_GAP * 2,
@@ -167,6 +171,19 @@ public class AnalysisTerminalScreen extends AbstractContainerScreen<AnalysisTerm
         updateLists();
     }
 
+    @Override
+    public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
+        if (this.searchBox != null && this.searchBox.isFocused()) {
+            this.searchBox.keyPressed(keyCode, scanCode, modifiers);
+
+            if (keyCode == GLFW.GLFW_KEY_ESCAPE || keyCode == GLFW.GLFW_KEY_TAB) {
+                return super.keyPressed(keyCode, scanCode, modifiers);
+            }
+            return true;
+        }
+        return super.keyPressed(keyCode, scanCode, modifiers);
+    }
+
     private void updateCheckboxLockStates() {
         boolean deconstructEnabled = deconstructCheckbox.selected();
         memoryCheckbox.active = deconstructEnabled;
@@ -174,14 +191,14 @@ public class AnalysisTerminalScreen extends AbstractContainerScreen<AnalysisTerm
     }
 
     private void updateLists() {
-        diskStacks.clear();
+        memorizers.clear();
         for (int i = 0; i < 18; i++) {
             ItemStack stack = menu.getBoxItem(i);
             if (stack.getItem() instanceof MemorizerItem) {
-                diskStacks.add(stack);
+                memorizers.add(stack);
             }
         }
-        if (selectedDisk >= diskStacks.size()) {
+        if (selectedDisk >= memorizers.size()) {
             selectedDisk = -1;
         }
         updateVisibleItems();
@@ -190,37 +207,73 @@ public class AnalysisTerminalScreen extends AbstractContainerScreen<AnalysisTerm
 
     private void updateVisibleItems() {
         List<ResourceLocation> fullList = new ArrayList<>();
-        if (selectedDisk >= 0 && selectedDisk < diskStacks.size()) {
-            fullList.addAll(MemorizerItem.getOrCreateMemories(diskStacks.get(selectedDisk)).resolvedItems());
+        if (selectedDisk >= 0 && selectedDisk < memorizers.size()) {
+            fullList.addAll(MemorizerItem.getOrCreateMemories(memorizers.get(selectedDisk)).resolvedItems());
         } else {
             LinkedHashSet<ResourceLocation> merged = new LinkedHashSet<>();
-            for (ItemStack disk : diskStacks) {
+            for (ItemStack disk : memorizers) {
                 merged.addAll(MemorizerItem.getOrCreateMemories(disk).resolvedItems());
             }
             fullList.addAll(merged);
         }
 
-        String query = searchBox.getValue().trim().toLowerCase(Locale.ROOT);
+        String rawQuery = searchBox.getValue().trim();
+        String query = rawQuery.toLowerCase(Locale.ROOT);
+
         visibleItems.clear();
         if (query.isEmpty()) {
             visibleItems.addAll(fullList);
-        } else {
-            for (ResourceLocation itemId : fullList) {
-                ItemStack stack = new ItemStack(BuiltInRegistries.ITEM.get(itemId));
-                if (!stack.isEmpty()
-                        && stack.getHoverName().getString().toLowerCase(Locale.ROOT).contains(query)) {
-                    visibleItems.add(itemId);
+            pinyinSearcher = null;
+            pinyinIndexedItems = null;
+            clampScroll();
+            return;
+        }
+
+        if (JechCompat.isAvailable()) {
+            ensurePinyinIndex(fullList);
+            Set<Object> matched = JechCompat.searchValues(pinyinSearcher, rawQuery);
+            if (matched != null && !matched.isEmpty()) {
+                for (ResourceLocation itemId : fullList) {
+                    if (matched.contains(itemId)) {
+                        visibleItems.add(itemId);
+                    }
                 }
+                clampScroll();
+                return;
+            }
+        }
+
+        for (ResourceLocation itemId : fullList) {
+            ItemStack stack = new ItemStack(BuiltInRegistries.ITEM.get(itemId));
+            if (!stack.isEmpty()
+                    && stack.getHoverName().getString().toLowerCase(Locale.ROOT).contains(query)) {
+                visibleItems.add(itemId);
             }
         }
         clampScroll();
+    }
+
+    private void ensurePinyinIndex(List<ResourceLocation> fullList) {
+        if (pinyinSearcher != null && pinyinIndexedItems != null && pinyinIndexedItems.equals(fullList)) {
+            return;
+        }
+        pinyinSearcher = JechCompat.createSearcher();
+        pinyinIndexedItems = new ArrayList<>(fullList);
+        if (pinyinSearcher == null) return;
+
+        for (ResourceLocation itemId : fullList) {
+            ItemStack stack = new ItemStack(BuiltInRegistries.ITEM.get(itemId));
+            if (!stack.isEmpty()) {
+                JechCompat.putEntry(pinyinSearcher, stack.getHoverName().getString(), itemId);
+            }
+        }
     }
 
     private void updateButtonStates() {
         if (prevButton == null) {
             return;
         }
-        boolean hasDisks = !diskStacks.isEmpty();
+        boolean hasDisks = !memorizers.isEmpty();
         prevButton.active = hasDisks;
         nextButton.active = hasDisks;
         allButton.active = selectedDisk != -1;
@@ -233,7 +286,7 @@ public class AnalysisTerminalScreen extends AbstractContainerScreen<AnalysisTerm
     }
 
     private void pressPrev() {
-        int count = diskStacks.size();
+        int count = memorizers.size();
         if (count == 0) {
             return;
         }
@@ -241,7 +294,7 @@ public class AnalysisTerminalScreen extends AbstractContainerScreen<AnalysisTerm
     }
 
     private void pressNext() {
-        int count = diskStacks.size();
+        int count = memorizers.size();
         if (count == 0) {
             return;
         }
@@ -275,13 +328,14 @@ public class AnalysisTerminalScreen extends AbstractContainerScreen<AnalysisTerm
         renderSearchHint(graphics);
         this.renderTooltip(graphics, mouseX, mouseY);
         renderGridTooltip(graphics, mouseX, mouseY);
+        renderMemorizerTooltip(graphics, mouseX, mouseY);
     }
 
     private void renderMemoryInfo(GuiGraphics graphics) {
         String name;
         int nameColor = 0xFFFFFF;
-        if (selectedDisk >= 0 && selectedDisk < diskStacks.size()) {
-            ItemStack disk = diskStacks.get(selectedDisk);
+        if (selectedDisk >= 0 && selectedDisk < memorizers.size()) {
+            ItemStack disk = memorizers.get(selectedDisk);
             name = disk.getHoverName().getString();
             if (MemorizerItem.isReadonly(disk)) {
                 nameColor = 0xFFAA00;
@@ -307,8 +361,8 @@ public class AnalysisTerminalScreen extends AbstractContainerScreen<AnalysisTerm
             graphics.pose().popPose();
         }
 
-        if (selectedDisk >= 0 && selectedDisk < diskStacks.size()) {
-            graphics.renderItem(diskStacks.get(selectedDisk), leftPos + MEM_ICON_X, topPos + MEM_ICON_Y);
+        if (selectedDisk >= 0 && selectedDisk < memorizers.size()) {
+            graphics.renderItem(memorizers.get(selectedDisk), leftPos + MEM_ICON_X, topPos + MEM_ICON_Y);
         } else {
             graphics.blit(MEMORIZER_ICON_TEXTURE,
                     leftPos + MEM_ICON_X, topPos + MEM_ICON_Y,
@@ -510,6 +564,26 @@ public class AnalysisTerminalScreen extends AbstractContainerScreen<AnalysisTerm
         double usable = SCROLL_H - thumbHeight;
         double ratio = (mouseY - trackY - thumbHeight / 2.0) / usable;
         scrollOffset = (int) Math.round(Math.max(0.0, Math.min(1.0, ratio)) * maxOffset);
+    }
+
+    private boolean isOverMemorizerIcon(int mouseX, int mouseY) {
+        return mouseX >= leftPos + MEM_ICON_X && mouseX < leftPos + MEM_ICON_X + MEM_ICON_SIZE
+                && mouseY >= topPos + MEM_ICON_Y && mouseY < topPos + MEM_ICON_Y + MEM_ICON_SIZE;
+    }
+
+    private void renderMemorizerTooltip(GuiGraphics graphics, int mouseX, int mouseY) {
+        if (!isOverMemorizerIcon(mouseX, mouseY)) {
+            return;
+        }
+        Component line;
+        if (selectedDisk >= 0 && selectedDisk < memorizers.size()) {
+            MemoryData memoryData = MemorizerItem.getOrCreateMemories(memorizers.get(selectedDisk));
+            line = Component.literal(memoryData.resolvedItems().size() + "/" + MemoryData.MAX)
+                    .withStyle(memoryData.isFull() ? ChatFormatting.RED : ChatFormatting.GRAY);
+        } else {
+            line = Component.translatable("tooltip.elemenix.memorizers", memorizers.size());
+        }
+        graphics.renderTooltip(this.font, line, mouseX, mouseY);
     }
 
     @Override

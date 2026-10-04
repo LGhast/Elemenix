@@ -14,6 +14,7 @@ import net.minecraft.world.level.Level;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 import net.neoforged.fml.ModList;
+import net.neoforged.fml.loading.FMLEnvironment;
 import top.theillusivec4.curios.api.CuriosApi;
 import top.theillusivec4.curios.api.SlotResult;
 import top.theillusivec4.curios.api.type.capability.ICuriosItemHandler;
@@ -83,11 +84,13 @@ public class ModUtils {
     }
 
     public static String formatNumber(long value) {
-        if(ClientConfig.DIGIT_GROUPING_BY_FOURS.get()){
-            return formatByFourGroups(value);
-        }else{
-            return formatByThreeGroups(value);
+        boolean useFourGroups;
+        if (FMLEnvironment.dist.isClient()) {
+            useFourGroups = ClientConfig.DIGIT_GROUPING_BY_FOURS.get();
+        } else {
+            useFourGroups = true;
         }
+        return useFourGroups ? formatByFourGroups(value) : formatByThreeGroups(value);
     }
 
     public static String formatNumber(int value) {

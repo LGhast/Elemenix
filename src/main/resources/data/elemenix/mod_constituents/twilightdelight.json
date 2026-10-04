@@ -3,6 +3,13 @@
   "entries": [
     { "id": "twilightdelight:mushgloom_colony", "constituents": [90, 0, 30, 0, 10, 0] },
     { "id": "twilightdelight:experiment_110", "constituents": [110, 110, 110, 110, 110, 110] },
-    { "id": "twilightdelight:experiment_113", "constituents": [113, 113, 113, 113, 113, 113] }
+    { "id": "twilightdelight:experiment_113", "constituents": [113, 113, 113, 113, 113, 113] },
+    { "id": "twilightdelight:witchcraft_bone", "constituents": [20, 150, 0, 0, 0, 500] },
+    { "id": "twilightdelight:ice_knife", "constituents": [12, 0, 350, 62, 0, 500] },
+    { "id": "twilightdelight:ironwood_log", "constituents": [72, 0, 0, 544, 0, 400] },
+    { "id": "twilightdelight:ironwood_sapling", "constituents": [72, 0, 0, 544, 0, 400] },
+    { "id": "twilightdelight:ironwood_leaves", "constituents": [72, 0, 12, 800, 0, 0] },
+    { "id": "twilightdelight:raw_naga_meat", "constituents": [4000, 0, 0, 0, 0, 400] },
+    { "id": "twilightdelight:raw_naga_piece", "constituents": [1800, 0, 0, 0, 0, 180] }
   ]
 }

@@ -7,6 +7,7 @@ import net.lghast.elemenix.utils.elemenix.Elemenix;
 import net.lghast.elemenix.utils.elemenix.ElemenixInfo;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,6 +18,11 @@ public class TRecipeHelper {
 
     public static void initialize() {
         if(!Elemenics.started) return;
+
+        Level level = Elemenics.getCurrentLevel();
+        if (!RecipeHelper.areRecipesLoaded(level)) {
+            return;
+        }
 
         clear();
         recipes.clear();

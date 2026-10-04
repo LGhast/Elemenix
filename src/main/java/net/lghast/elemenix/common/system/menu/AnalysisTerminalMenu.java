@@ -66,7 +66,7 @@ public class AnalysisTerminalMenu extends AbstractContainerMenu {
 
     private int selectedMemorizer = -1;
     private boolean allowDeconstruct = true;
-    private boolean allowMemory = true;
+    private boolean allowMemory = false;
     private boolean allowTransfer = false;
 
     public AnalysisTerminalMenu(int containerId, Inventory playerInventory, ItemStack analyzerStack, ItemStack boxStack) {
@@ -336,6 +336,9 @@ public class AnalysisTerminalMenu extends AbstractContainerMenu {
 
     private void handleShiftDeconstruct(Slot slot) {
         ItemStack stack = slot.getItem();
+        if (stack.getItem() instanceof MemorizerItem) {
+            return;
+        }
         if (stack.getItem() instanceof RemoteStorageItem && RemoteStorageItem.isBound(stack)) {
             if (allowTransfer) {
                 transferFromRemoteStorage(stack);
@@ -345,7 +348,6 @@ public class AnalysisTerminalMenu extends AbstractContainerMenu {
         if (stack.is(ModItems.ELEMENIC_STORAGE) || stack.is(ModItems.SCANNING_STORAGE)) {
             ElemenicStorage storageData = StorageItem.getOrCreateData(stack);
             if (!storageData.isEmpty()) {
-
                 if (allowTransfer) {
                     transferStorageFromSlot(slot, storageData);
                 }

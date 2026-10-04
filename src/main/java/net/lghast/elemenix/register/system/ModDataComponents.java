@@ -58,10 +58,7 @@ public class ModDataComponents {
             );
 
     public static final StreamCodec<RegistryFriendlyByteBuf, Waxed> WAXED_STREAM_CODEC =
-            StreamCodec.of(
-                    (buf, waxed) -> buf.writeBoolean(waxed.waxed()),
-                    buf -> new Waxed(buf.readBoolean())
-            );
+            Waxed.STREAM_CODEC;
 
     public static final StreamCodec<RegistryFriendlyByteBuf, ValveOpenness> VALVE_OPENNESS_STREAM_CODEC =
             ValveOpenness.STREAM_CODEC;

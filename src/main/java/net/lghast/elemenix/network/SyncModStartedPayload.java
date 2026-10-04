@@ -1,12 +1,15 @@
 package net.lghast.elemenix.network;
 
 import net.lghast.elemenix.Elemenics;
+import net.lghast.elemenix.client.misc.ClientElemenixPrecompute;
 import net.lghast.elemenix.utils.elemenix.ElemenixInfo;
 import net.lghast.elemenix.utils.recipe.RecipeHelper;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.resources.ResourceLocation;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.fml.loading.FMLEnvironment;
 import net.neoforged.neoforge.network.handling.IPayloadContext;
 import org.jetbrains.annotations.NotNull;
 
@@ -40,6 +43,10 @@ public record SyncModStartedPayload(boolean started) implements CustomPacketPayl
             Elemenics.started = payload.started();
             ElemenixInfo.clearCaches();
             RecipeHelper.clearCache();
+
+            if (Elemenics.started && FMLEnvironment.dist == Dist.CLIENT) {
+                ClientElemenixPrecompute.start();
+            }
         });
     }
 }

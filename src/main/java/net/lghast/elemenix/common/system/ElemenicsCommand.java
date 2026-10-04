@@ -6,6 +6,9 @@ import com.mojang.brigadier.arguments.StringArgumentType;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.suggestion.SuggestionProvider;
+import net.lghast.elemenix.common.content.item.MemorizerItem;
+import net.lghast.elemenix.common.system.datacomponent.Waxed;
+import net.lghast.elemenix.register.system.ModDataComponents;
 import net.lghast.elemenix.register.system.ModTags;
 import net.lghast.elemenix.utils.Constituents;
 import net.lghast.elemenix.utils.ModUtils;
@@ -18,6 +21,7 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.ClickEvent;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -40,6 +44,9 @@ public class ElemenicsCommand {
                 .collect(Collectors.toList());
         return SharedSuggestionProvider.suggest(modIds, builder);
     };
+
+    private static final SuggestionProvider<CommandSourceStack> ONLINE_PLAYER_SUGGESTIONS = (context, builder) ->
+            SharedSuggestionProvider.suggest(context.getSource().getOnlinePlayerNames(), builder);
 
     @SubscribeEvent
     public static void register(RegisterCommandsEvent event) {
@@ -84,7 +91,19 @@ public class ElemenicsCommand {
                                         .then(Commands.argument("page", IntegerArgumentType.integer(1))
                                                 .executes(ctx -> listUnanalysable(ctx, "only_strict",
                                                         StringArgumentType.getString(ctx, "mod"),
-                                                        IntegerArgumentType.getInteger(ctx, "page")))))));
+                                                        IntegerArgumentType.getInteger(ctx, "page")))))))
+                .then(Commands.literal("onlyread")
+                        .requires(source -> source.hasPermission(2))
+                        .executes(ctx -> {
+                            ctx.getSource().sendFailure(Component.translatable("command.elemenix.onlyread.usage"));
+                            return 0;
+                        })
+                        .then(Commands.literal("permanent")
+                                .executes(ElemenicsCommand::waxPermanent))
+                        .then(Commands.argument("player", StringArgumentType.word())
+                                .suggests(ONLINE_PLAYER_SUGGESTIONS)
+                                .executes(ctx -> waxByPlayer(ctx,
+                                        StringArgumentType.getString(ctx, "player")))));
 
         dispatcher.register(command);
     }
@@ -213,5 +232,50 @@ public class ElemenicsCommand {
 
         String fullId = BuiltInRegistries.ITEM.getKey(item).toString();
         return fullId.contains("spawner") || fullId.contains("spawn_egg");
+    }
+
+    private static int waxPermanent(CommandContext<CommandSourceStack> context) {
+        CommandSourceStack source = context.getSource();
+
+        if (!(source.getEntity() instanceof ServerPlayer player)) {
+            source.sendFailure(Component.translatable("command.elemenix.onlyread.player_only"));
+            return 0;
+        }
+
+        ItemStack stack = player.getMainHandItem();
+        if (!(stack.getItem() instanceof MemorizerItem)) {
+            source.sendFailure(Component.translatable("command.elemenix.onlyread.no_memorizer"));
+            return 0;
+        }
+
+        stack.set(ModDataComponents.WAXED, new Waxed(true, Optional.empty(), Optional.empty()));
+        source.sendSuccess(() -> Component.translatable("command.elemenix.onlyread.permanent.success"), true);
+        return 1;
+    }
+
+    private static int waxByPlayer(CommandContext<CommandSourceStack> context, String playerName) {
+        CommandSourceStack source = context.getSource();
+
+        if (!(source.getEntity() instanceof ServerPlayer player)) {
+            source.sendFailure(Component.translatable("command.elemenix.onlyread.player_only"));
+            return 0;
+        }
+
+        ItemStack stack = player.getMainHandItem();
+        if (!(stack.getItem() instanceof MemorizerItem)) {
+            source.sendFailure(Component.translatable("command.elemenix.onlyread.no_memorizer"));
+            return 0;
+        }
+
+        ServerPlayer target = source.getServer().getPlayerList().getPlayerByName(playerName);
+        if (target == null) {
+            source.sendFailure(Component.translatable("command.elemenix.onlyread.player_not_found", playerName));
+            return 0;
+        }
+
+        stack.set(ModDataComponents.WAXED, Waxed.waxedBy(target));
+        source.sendSuccess(() -> Component.translatable(
+                "command.elemenix.onlyread.player.success", target.getGameProfile().getName()), true);
+        return 1;
     }
 }
