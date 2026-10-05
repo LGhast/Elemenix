@@ -3,6 +3,7 @@ package net.lghast.elemenix.common.content.blockentity;
 import net.lghast.elemenix.Elemenics;
 import net.lghast.elemenix.common.content.block.TransformerBlock;
 import net.lghast.elemenix.common.system.menu.TransformerMenu;
+import net.lghast.elemenix.common.system.recipe.GerminatingRecipe;
 import net.lghast.elemenix.register.content.ModBlockEntities;
 import net.lghast.elemenix.register.system.ModTags;
 import net.lghast.elemenix.utils.Constituents;
@@ -25,9 +26,17 @@ import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.ParametersAreNonnullByDefault;
+import java.util.List;
 
 @ParametersAreNonnullByDefault
 public class TransformerBlockEntity extends BaseContainerBlockEntity {
+    public static final int MODE_TRANSFORMING = 0;
+    public static final int MODE_MINERALIZING = 1;
+
+    public static final int TEMPLATE_SLOT = 3;
+    public static final int PRODUCT_SLOT_FIRST = 4;
+    public static final int PRODUCT_SLOT_COUNT = 6;
+
     private int inputA = 0;
     private int inputB = 0;
     private int outputC = 0;
@@ -35,7 +44,10 @@ public class TransformerBlockEntity extends BaseContainerBlockEntity {
     private int dcTimer = 0;
     private int rcTimer = 0;
 
-    private NonNullList<ItemStack> items = NonNullList.withSize(3, ItemStack.EMPTY);
+    private int mode = MODE_TRANSFORMING;
+    private int germinatingProgress = 0;
+
+    private NonNullList<ItemStack> items = NonNullList.withSize(10, ItemStack.EMPTY);
 
     public TransformerBlockEntity(BlockPos pos, BlockState state) {
         super(ModBlockEntities.TRANSFORMER.get(), pos, state);
@@ -53,31 +65,59 @@ public class TransformerBlockEntity extends BaseContainerBlockEntity {
         this.outputC = outputC;
     }
 
+    public int getMode() {
+        return mode;
+    }
+
+    public void setMode(int mode) {
+        this.mode = mode;
+    }
+
+    public int getGerminatingProgress() {
+        return germinatingProgress;
+    }
+
+    public void setGerminatingProgress(int germinatingProgress) {
+        this.germinatingProgress = germinatingProgress;
+    }
+
     public static void tick(Level level, BlockPos pos, BlockState state, TransformerBlockEntity blockEntity) {
         if (level.isClientSide) return;
-        if(!Elemenics.started) return;
+        if (!Elemenics.started) return;
 
         TransformerBlock block = (TransformerBlock) state.getBlock();
 
-        blockEntity.dcTimer++;
-        if (blockEntity.dcTimer >= block.getDcInterval()) {
-            blockEntity.dcTimer = 0;
-            blockEntity.deconstructInput(block);
+        if (blockEntity.mode != MODE_TRANSFORMING && block.getPageCount() > 1) {
+            block.tickSecondPage(level, pos, state, blockEntity);
+        } else if (blockEntity.germinatingProgress != 0) {
+            blockEntity.setGerminatingProgress(0);
         }
 
-        blockEntity.rcTimer++;
-        if (blockEntity.rcTimer >= block.getRcInterval()) {
-            blockEntity.rcTimer = 0;
-            blockEntity.generateOutput(block);
-        }
+        boolean suppressConsumption = block.shouldSuppressTransformingConsumption(blockEntity);
+        boolean isWorking = blockEntity.tickTransforming(level, pos, state, block, suppressConsumption);
 
-        boolean wasWorking = state.getValue(TransformerBlock.WORKING);
-        boolean isWorking = blockEntity.outputC > block.getRcRequirement() ||
-                (blockEntity.inputA >= block.getConsumptionA() && blockEntity.inputB >= block.getConsumptionB());
-
-        if (wasWorking != isWorking) {
+        if (state.getValue(TransformerBlock.WORKING) != isWorking) {
             level.setBlock(pos, state.setValue(TransformerBlock.WORKING, isWorking), 3);
         }
+    }
+
+    private boolean tickTransforming(Level level, BlockPos pos, BlockState state, TransformerBlock block, boolean suppressConsumption) {
+        dcTimer++;
+        if (dcTimer >= block.getDcInterval()) {
+            dcTimer = 0;
+            deconstructInput(block);
+        }
+
+        if (!suppressConsumption) {
+            rcTimer++;
+            if (rcTimer >= block.getRcInterval()) {
+                rcTimer = 0;
+                generateOutput(block);
+            }
+        }
+
+        return outputC > block.getRcRequirement() ||
+                (inputA >= block.getConsumptionA() && inputB >= block.getConsumptionB());
     }
 
     private void deconstructInput(TransformerBlock block) {
@@ -128,6 +168,32 @@ public class TransformerBlockEntity extends BaseContainerBlockEntity {
         return outputSlot.isEmpty() || (outputSlot.getCount() < outputSlot.getMaxStackSize() && outputSlot.getItem() == block.getOutputItem());
     }
 
+    public boolean canGenerateProducts(GerminatingRecipe recipe) {
+        List<ItemStack> products = recipe.products();
+        for (int i = 0; i < products.size(); i++) {
+            ItemStack product = products.get(i);
+            ItemStack slotStack = items.get(PRODUCT_SLOT_FIRST + i);
+            if (slotStack.isEmpty()) continue;
+            if (!ItemStack.isSameItemSameComponents(slotStack, product)) return false;
+            if (slotStack.getCount() + product.getCount() > slotStack.getMaxStackSize()) return false;
+        }
+        return true;
+    }
+
+    public void generateProducts(GerminatingRecipe recipe) {
+        List<ItemStack> products = recipe.products();
+        for (int i = 0; i < Math.min(products.size(), PRODUCT_SLOT_COUNT); i++) {
+            ItemStack product = products.get(i).copy();
+            ItemStack slotStack = items.get(PRODUCT_SLOT_FIRST + i);
+            if (slotStack.isEmpty()) {
+                items.set(PRODUCT_SLOT_FIRST + i, product);
+            } else {
+                slotStack.grow(product.getCount());
+            }
+        }
+        setChanged();
+    }
+
     public int getInputA() { return inputA; }
     public int getInputB() { return inputB; }
     public int getOutputC() { return outputC; }
@@ -169,7 +235,7 @@ public class TransformerBlockEntity extends BaseContainerBlockEntity {
 
     @Override
     public int getContainerSize() {
-        return 3;
+        return 10;
     }
 
     @Override
@@ -231,6 +297,8 @@ public class TransformerBlockEntity extends BaseContainerBlockEntity {
         tag.putLong("OutputC", outputC);
         tag.putInt("InputTimer", dcTimer);
         tag.putInt("OutputTimer", rcTimer);
+        tag.putInt("Mode", mode);
+        tag.putInt("GerminatingProgress", germinatingProgress);
         ContainerHelper.saveAllItems(tag, items, provider);
     }
 
@@ -242,6 +310,8 @@ public class TransformerBlockEntity extends BaseContainerBlockEntity {
         outputC = tag.getInt("OutputC");
         dcTimer = tag.getInt("InputTimer");
         rcTimer = tag.getInt("OutputTimer");
+        mode = tag.getInt("Mode");
+        germinatingProgress = tag.getInt("GerminatingProgress");
         ContainerHelper.loadAllItems(tag, items, provider);
     }
 
@@ -249,14 +319,17 @@ public class TransformerBlockEntity extends BaseContainerBlockEntity {
     public boolean canPlaceItem(int slot, ItemStack stack) {
         if (slot < 2) {
             TransformerBlock block = getTransformerBlock();
-            if(block == null) return false;
-            if(ElemenixInfo.isUndeconstructable(stack) || stack.is(ModTags.IGNORED_BY_DECONSTRUCTOR_INPUT)) return false;
+            if (block == null) return false;
+            if (ElemenixInfo.isUndeconstructable(stack) || stack.is(ModTags.IGNORED_BY_DECONSTRUCTOR_INPUT)) return false;
 
             Elemenix requiredType = (slot == 0) ? block.getInputElemenixA() : block.getInputElemenixB();
             Constituents constituents = ElemenixInfo.getConstituents(stack);
             return constituents.isPure(requiredType);
         }
-        return false;
+        if (slot == TEMPLATE_SLOT) {
+            return !ElemenixInfo.isUndeconstructable(stack) && !stack.is(ModTags.IGNORED_BY_DECONSTRUCTOR_INPUT);
+        }
+        return slot == 4 && !ElemenixInfo.isUndeconstructable(stack) && !stack.is(ModTags.IGNORED_BY_DECONSTRUCTOR_INPUT);
     }
 
     @Override

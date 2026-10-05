@@ -1,0 +1,8 @@
+{
+  "type": "elemenix:germinating",
+  "template": { "item": "eternal_starlight:golden_grass" },
+  "products": [
+    { "id": "eternal_starlight:golden_grass", "count": 1 },
+    { "id": "eternal_starlight:tall_golden_grass", "count": 1 }
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "type": "elemenix:germinating",
+  "template": { "item": "eternal_starlight:lunar_sapling" },
+  "products": [
+    { "id": "eternal_starlight:lunar_sapling", "count": 1 },
+    { "id": "eternal_starlight:lunar_log", "count": 1 },
+    { "id": "eternal_starlight:lunar_leaves", "count": 1 },
+    { "id": "eternal_starlight:cyan_lunar_leaves", "count": 1 },
+    { "id": "eternal_starlight:purple_lunar_leaves", "count": 1 },
+    { "id": "eternal_starlight:lunar_berries", "count": 1 }
+  ]
+}

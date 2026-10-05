@@ -1,0 +1,10 @@
+{
+  "type": "elemenix:germinating",
+  "template": { "item": "undergarden:grongle_sapling" },
+  "products": [
+    { "id": "undergarden:grongle_sapling", "count": 1 },
+    { "id": "undergarden:grongle_log", "count": 1 },
+    { "id": "undergarden:grongle_leaves", "count": 1 },
+    { "id": "undergarden:hanging_grongle_leaves", "count": 1 }
+  ]
+}

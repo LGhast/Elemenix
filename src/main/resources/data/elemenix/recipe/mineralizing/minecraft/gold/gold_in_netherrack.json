@@ -1,0 +1,6 @@
+{
+  "type": "elemenix:mineralizing",
+  "mineral": { "item": "minecraft:gold_ingot" },
+  "medium": { "item": "minecraft:netherrack" },
+  "result": { "id": "minecraft:nether_gold_ore", "count": 1 }
+}

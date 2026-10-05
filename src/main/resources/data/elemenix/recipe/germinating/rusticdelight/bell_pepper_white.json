@@ -1,0 +1,11 @@
+{
+  "type": "elemenix:germinating",
+  "template": { "item": "rusticdelight:bell_pepper_white" },
+  "products": [
+    { "id": "rusticdelight:bell_pepper_white", "count": 1 },
+    { "id": "rusticdelight:bell_pepper_slice_white", "count": 1 },
+    { "id": "rusticdelight:bell_pepper_white_block", "count": 1 },
+    { "id": "rusticdelight:pale_bell_pepper_seeds", "count": 1 },
+    { "id": "rusticdelight:wild_pale_bell_peppers", "count": 1 }
+  ]
+}

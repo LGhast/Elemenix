@@ -1,0 +1,10 @@
+{
+  "type": "elemenix:germinating",
+  "template": { "item": "farmersdelight:tomato" },
+  "products": [
+    { "id": "farmersdelight:tomato", "count": 1 },
+    { "id": "farmersdelight:tomato_seeds", "count": 1 },
+    { "id": "farmersdelight:rotten_tomato", "count": 1 },
+    { "id": "farmersdelight:wild_tomatoes", "count": 1 }
+  ]
+}

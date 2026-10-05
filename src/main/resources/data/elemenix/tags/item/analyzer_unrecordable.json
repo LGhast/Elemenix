@@ -1,0 +1,17 @@
+{
+  "values": [
+    "#elemenix:essences",
+    "#elemenix:equilibrium",
+    "minecraft:enchanted_book",
+    "elemenix:elemenic_analyzer",
+    "elemenix:analysis_terminal",
+    {
+      "id": "anvilcraft:capacitor",
+      "required": false
+    },
+    {
+      "id": "anvilcraft:supercapacitor",
+      "required": false
+    }
+  ]
+}

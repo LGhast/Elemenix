@@ -1,0 +1,6 @@
+{
+  "type": "elemenix:mineralizing",
+  "mineral": { "item": "deep_aether:skyjade" },
+  "medium": { "item": "aether:holystone" },
+  "result": { "id": "deep_aether:skyjade_ore", "count": 1 }
+}

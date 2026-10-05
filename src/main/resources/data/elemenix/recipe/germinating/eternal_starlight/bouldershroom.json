@@ -1,0 +1,10 @@
+{
+  "type": "elemenix:germinating",
+  "template": { "item": "eternal_starlight:bouldershroom" },
+  "products": [
+    { "id": "eternal_starlight:bouldershroom", "count": 1 },
+    { "id": "eternal_starlight:bouldershroom_block", "count": 1 },
+    { "id": "eternal_starlight:bouldershroom_stem", "count": 1 },
+    { "id": "eternal_starlight:bouldershroom_roots", "count": 1 }
+  ]
+}

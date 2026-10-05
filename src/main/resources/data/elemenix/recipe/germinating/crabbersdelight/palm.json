@@ -1,0 +1,11 @@
+{
+  "type": "elemenix:germinating",
+  "template": { "item": "crabbersdelight:palm_sapling" },
+  "products": [
+    { "id": "crabbersdelight:palm_sapling", "count": 1 },
+    { "id": "crabbersdelight:palm_log", "count": 1 },
+    { "id": "crabbersdelight:palm_leaves", "count": 1 },
+    { "id": "crabbersdelight:coconut", "count": 1 },
+    { "id": "crabbersdelight:coconut_halve", "count": 1 }
+  ]
+}

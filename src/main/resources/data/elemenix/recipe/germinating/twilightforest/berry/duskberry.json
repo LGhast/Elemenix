@@ -1,0 +1,8 @@
+{
+  "type": "elemenix:germinating",
+  "template": { "item": "twilightforest:duskberry" },
+  "products": [
+    { "id": "twilightforest:duskberry", "count": 1 },
+    { "id": "twilightforest:duskberry_bush", "count": 1 }
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "type": "elemenix:germinating",
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:not",
+      "value": { "type": "neoforge:mod_loaded", "modid": "farmersdelight" }
+    }
+  ],
+  "template": { "item": "minecraft:pumpkin" },
+  "products": [
+    { "id": "minecraft:pumpkin", "count": 1 },
+    { "id": "minecraft:pumpkin_seeds", "count": 1 }
+  ]
+}

@@ -12,6 +12,10 @@
     {
       "id": "beyonddimensions:shattered_space_time_crystallization",
       "required": false
+    },
+    {
+      "id": "anvilcraft:void_matter",
+      "required": false
     }
   ]
 }

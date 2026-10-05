@@ -1,0 +1,9 @@
+{
+  "type": "elemenix:germinating",
+  "template": { "item": "eternal_starlight:marimold" },
+  "products": [
+    { "id": "eternal_starlight:marimold", "count": 1 },
+    { "id": "eternal_starlight:marimold_block", "count": 1 },
+    { "id": "eternal_starlight:marimold_stem", "count": 1 }
+  ]
+}

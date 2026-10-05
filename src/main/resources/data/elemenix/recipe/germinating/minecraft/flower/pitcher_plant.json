@@ -1,0 +1,8 @@
+{
+  "type": "elemenix:germinating",
+  "template": { "item": "minecraft:pitcher_plant" },
+  "products": [
+    { "id": "minecraft:pitcher_plant", "count": 1 },
+    { "id": "minecraft:pitcher_pod", "count": 1 }
+  ]
+}

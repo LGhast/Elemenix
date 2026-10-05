@@ -1,0 +1,6 @@
+{
+  "type": "elemenix:mineralizing",
+  "mineral": { "item": "irons_spellbooks:mithril_scrap" },
+  "medium": { "item": "minecraft:deepslate" },
+  "result": { "id": "irons_spellbooks:deepslate_mithril_ore", "count": 1 }
+}

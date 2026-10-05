@@ -1,0 +1,6 @@
+{
+  "type": "elemenix:mineralizing",
+  "mineral": { "item": "anvilcraft:earth_core_shard" },
+  "medium": { "item": "minecraft:deepslate" },
+  "result": { "id": "anvilcraft:earth_core_shard_ore", "count": 1 }
+}

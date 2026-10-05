@@ -1,0 +1,9 @@
+{
+  "type": "elemenix:germinating",
+  "template": { "item": "twilightforest:darkwood_sapling" },
+  "products": [
+    { "id": "twilightforest:darkwood_sapling", "count": 1 },
+    { "id": "twilightforest:dark_log", "count": 1 },
+    { "id": "twilightforest:dark_leaves", "count": 1 }
+  ]
+}

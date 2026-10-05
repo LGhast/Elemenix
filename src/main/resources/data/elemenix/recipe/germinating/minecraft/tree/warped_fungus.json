@@ -1,0 +1,12 @@
+{
+  "type": "elemenix:germinating",
+  "template": { "item": "minecraft:warped_fungus" },
+  "products": [
+    { "id": "minecraft:warped_fungus", "count": 1 },
+    { "id": "minecraft:warped_stem", "count": 1 },
+    { "id": "minecraft:warped_wart_block", "count": 1 },
+    { "id": "minecraft:shroomlight", "count": 1 },
+    { "id": "minecraft:twisting_vines", "count": 1 },
+    { "id": "minecraft:warped_roots", "count": 1 }
+  ]
+}

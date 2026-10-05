@@ -1,0 +1,10 @@
+{
+  "type": "elemenix:germinating",
+  "template": { "item": "undergarden:deepturf" },
+  "products": [
+    { "id": "undergarden:deepturf", "count": 1 },
+    { "id": "undergarden:tall_deepturf", "count": 1 },
+    { "id": "undergarden:ashen_deepturf", "count": 1 },
+    { "id": "undergarden:frozen_deepturf", "count": 1 }
+  ]
+}

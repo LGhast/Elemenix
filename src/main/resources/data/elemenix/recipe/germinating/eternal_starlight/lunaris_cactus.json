@@ -1,0 +1,9 @@
+{
+  "type": "elemenix:germinating",
+  "template": { "item": "eternal_starlight:lunaris_cactus" },
+  "products": [
+    { "id": "eternal_starlight:lunaris_cactus", "count": 1 },
+    { "id": "eternal_starlight:lunaris_cactus_fruit", "count": 1 },
+    { "id": "eternal_starlight:carved_lunaris_cactus_fruit", "count": 1 }
+  ]
+}

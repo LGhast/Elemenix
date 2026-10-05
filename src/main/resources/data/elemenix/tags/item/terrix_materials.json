@@ -26,10 +26,6 @@
       "required": false
     },
     {
-      "id": "anvilcraft:end_dust",
-      "required": false
-    },
-    {
       "id": "anvilcraft:levitation_powder",
       "required": false
     },
@@ -71,6 +67,10 @@
     },
     {
       "id": "kaleidoscope_cookery:strider_rock_shell",
+      "required": false
+    },
+    {
+      "id": "create:powdered_obsidian",
       "required": false
     }
   ]

@@ -2,6 +2,7 @@ package net.lghast.elemenix.common.content.block;
 
 import com.mojang.serialization.MapCodec;
 import net.lghast.elemenix.common.content.blockentity.TransformerBlockEntity;
+import net.lghast.elemenix.common.system.recipe.MineralizingRecipe;
 import net.lghast.elemenix.conifig.CommonConfig;
 import net.lghast.elemenix.register.content.ModItems;
 import net.lghast.elemenix.utils.elemenix.Elemenix;
@@ -10,6 +11,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.BaseEntityBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
@@ -95,5 +97,15 @@ public class GeologicalSimulatorBlock extends TransformerBlock {
     @Override
     public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
         return new TransformerBlockEntity(pos, state);
+    }
+
+    @Override
+    public int getPageCount() {
+        return 2;
+    }
+
+    @Override
+    public ResourceLocation getSecondaryGuiTexture() {
+        return ResourceLocation.fromNamespaceAndPath("elemenix", "textures/gui/geological_simulator_mineralizing.png");
     }
 }

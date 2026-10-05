@@ -1,0 +1,10 @@
+{
+  "type": "elemenix:germinating",
+  "template": { "item": "eternal_starlight:scarlet_sapling" },
+  "products": [
+    { "id": "eternal_starlight:scarlet_sapling", "count": 1 },
+    { "id": "eternal_starlight:scarlet_log", "count": 1 },
+    { "id": "eternal_starlight:scarlet_leaves", "count": 1 },
+    { "id": "eternal_starlight:scarlet_leaves_pile", "count": 1 }
+  ]
+}

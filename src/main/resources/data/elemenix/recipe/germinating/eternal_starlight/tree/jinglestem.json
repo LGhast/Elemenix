@@ -1,0 +1,10 @@
+{
+  "type": "elemenix:germinating",
+  "template": { "item": "eternal_starlight:jinglestem_sapling" },
+  "products": [
+    { "id": "eternal_starlight:jinglestem_sapling", "count": 1 },
+    { "id": "eternal_starlight:jinglestem_log", "count": 1 },
+    { "id": "eternal_starlight:algaleaves", "count": 1 },
+    { "id": "eternal_starlight:hanging_algaleaves", "count": 1 }
+  ]
+}

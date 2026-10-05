@@ -1,0 +1,8 @@
+{
+  "type": "elemenix:germinating",
+  "template": { "item": "mynethersdelight:bullet_pepper" },
+  "products": [
+    { "id": "mynethersdelight:bullet_pepper", "count": 1 },
+    { "id": "mynethersdelight:powder_cannon", "count": 1 }
+  ]
+}

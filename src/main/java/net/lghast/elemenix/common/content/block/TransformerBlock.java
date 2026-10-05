@@ -121,6 +121,19 @@ public abstract class TransformerBlock extends BaseEntityBlock {
         return targetType == type ? (BlockEntityTicker<A>) ticker : null;
     }
 
+    public int getPageCount() {
+        return 1;
+    }
+
+    @Nullable
+    public ResourceLocation getSecondaryGuiTexture() {
+        return null;
+    }
+
+    public boolean shouldSuppressTransformingConsumption(TransformerBlockEntity blockEntity) {
+        return false;
+    }
+
     public abstract Elemenix getInputElemenixA();
     public abstract Elemenix getInputElemenixB();
     public abstract Elemenix getOutputElemenix();
@@ -133,4 +146,5 @@ public abstract class TransformerBlock extends BaseEntityBlock {
     public abstract int getRcInterval();
     public abstract ResourceLocation getGuiTexture();
     public abstract Component getGuiTitle();
+    public void tickSecondPage(Level level, BlockPos pos, BlockState state, TransformerBlockEntity blockEntity) {}
 }

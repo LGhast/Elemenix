@@ -1,0 +1,9 @@
+{
+  "type": "elemenix:germinating",
+  "template": { "item": "minecraft:chorus_fruit" },
+  "products": [
+    { "id": "minecraft:chorus_fruit", "count": 1 },
+    { "id": "minecraft:chorus_flower", "count": 1 },
+    { "id": "minecraft:chorus_plant", "count": 1 }
+  ]
+}

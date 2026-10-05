@@ -1,0 +1,10 @@
+{
+  "type": "elemenix:germinating",
+  "template": { "item": "eternal_starlight:blue_crystal_moss_block" },
+  "products": [
+    { "id": "eternal_starlight:blue_crystal_moss_block", "count": 1 },
+    { "id": "eternal_starlight:blue_crystal_moss_carpet", "count": 1 },
+    { "id": "eternal_starlight:red_crystal_moss_block", "count": 1 },
+    { "id": "eternal_starlight:red_crystal_moss_carpet", "count": 1 }
+  ]
+}

@@ -1,0 +1,6 @@
+{
+  "type": "elemenix:mineralizing",
+  "mineral": { "item": "aether:zanite_gemstone" },
+  "medium": { "item": "aether:holystone" },
+  "result": { "id": "aether:zanite_ore", "count": 1 }
+}

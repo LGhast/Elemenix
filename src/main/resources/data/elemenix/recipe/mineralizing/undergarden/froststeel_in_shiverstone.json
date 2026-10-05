@@ -1,0 +1,6 @@
+{
+  "type": "elemenix:mineralizing",
+  "mineral": { "item": "undergarden:froststeel_ingot" },
+  "medium": { "item": "undergarden:shiverstone" },
+  "result": { "id": "undergarden:shiverstone_froststeel_ore", "count": 1 }
+}

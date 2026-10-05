@@ -1,0 +1,8 @@
+{
+  "type": "elemenix:germinating",
+  "template": { "item": "twilightforest:blightberry" },
+  "products": [
+    { "id": "twilightforest:blightberry", "count": 1 },
+    { "id": "twilightforest:blightberry_bush", "count": 1 }
+  ]
+}

@@ -8,10 +8,23 @@
       "input": "anvilcraft:resin"
     },
     {
+      "preset": "same",
+      "output": "anvilcraft:burning_heater",
+      "input": "minecraft:furnace"
+    },
+    {
+      "output": "anvilcraft:sponge_gemmule",
+      "count": 4,
+      "inputs": [
+        { "id": "minecraft:wet_sponge", "count": 1 }
+      ]
+    },
+    {
       "output": "anvilcraft:large_fluid_tank",
       "count": 1,
       "inputs": [
-        { "id": "anvilcraft:fluid_tank", "count": 27 }
+        { "id": "anvilcraft:cut_brass", "count": 22 },
+        { "id": "minecraft:glass", "count": 4 }
       ]
     },
     {
@@ -124,19 +137,20 @@
       ]
     },
     {
-      "output": "anvilcraft:shulker_container",
-      "count": 1,
-      "inputs": [
-        { "id": "minecraft:netherite_block", "count": 20 },
-        { "id": "minecraft:shulker_box", "count": 6 }
-      ]
-    },
-    {
       "output": "anvilcraft:space_overcompressor",
       "count": 1,
       "inputs": [
-        { "id": "anvilcraft:supercritical_nesting_shulker_box", "count": 1 },
+        { "id": "minecraft:shulker_box", "count": 4 },
         { "id": "anvilcraft:void_matter_block", "count": 1 }
+      ]
+    },
+    {
+      "output": "anvilcraft:shulker_container",
+      "count": 1,
+      "inputs": [
+        { "id": "minecraft:netherite_block", "count": 6 },
+        { "id": "anvilcraft:space_overcompressor", "count": 1 },
+        { "id": "anvilcraft:large_crate", "count": 1 }
       ]
     },
     {
@@ -153,6 +167,13 @@
       "inputs": [
         { "id": "anvilcraft:quartz_sand", "count": 8 },
         { "id": "anvilcraft:royal_steel_ingot", "count": 1 }
+      ]
+    },
+    {
+      "output": "anvilcraft:hypercube",
+      "count": 1,
+      "inputs": [
+        { "id": "anvilcraft:tempering_glass", "count": 81 }
       ]
     },
     {
@@ -175,6 +196,255 @@
       "preset": "copper_oxidizing",
       "input": "anvilcraft:copper_pressure_plate",
       "output_prefix": "anvilcraft:copper_pressure_plate"
+    },
+    {
+      "output": "anvilcraft:ancient_sea_reef",
+      "count": 1,
+      "inputs": [
+        { "id": "minecraft:heart_of_the_sea", "count": 1 },
+        { "id": "minecraft:prismarine_shard", "count": 4 },
+        { "id": "minecraft:prismarine_crystals", "count": 4 },
+        { "id": "minecraft:brain_coral", "count": 1 },
+        { "id": "minecraft:bubble_coral", "count": 1 },
+        { "id": "minecraft:fire_coral", "count": 1 },
+        { "id": "minecraft:horn_coral", "count": 1 },
+        { "id": "minecraft:tube_coral", "count": 1 }
+      ]
+    },
+    {
+      "preset": "same",
+      "output": "anvilcraft:capacitor",
+      "input": "anvilcraft:capacitor_empty"
+    },
+    {
+      "preset": "same",
+      "output": "anvilcraft:supercapacitor",
+      "input": "anvilcraft:supercapacitor_empty"
+    },
+    {
+      "output": "anvilcraft:giant_anvil",
+      "count": 1,
+      "inputs": [
+        { "id": "anvilcraft:polished_heavy_iron_block", "count": 5 },
+        { "id": "anvilcraft:heavy_iron_beam", "count": 4 },
+        { "id": "anvilcraft:cut_heavy_iron_stairs", "count": 4 },
+        { "id": "anvilcraft:cut_heavy_iron_slab", "count": 4 },
+        { "id": "anvilcraft:heavy_iron_column", "count": 2 }
+      ]
+    },
+    {
+      "output": "anvilcraft:acceleration_ring",
+      "count": 1,
+      "inputs": [
+        { "id": "minecraft:copper_block", "count": 8 },
+        { "id": "anvilcraft:heavy_iron_block", "count": 8 },
+        { "id": "anvilcraft:tungsten_block", "count": 4 },
+        { "id": "anvilcraft:magnetoelectric_core", "count": 4 }
+      ]
+    },
+    {
+      "output": "anvilcraft:deflection_ring",
+      "count": 1,
+      "inputs": [
+        { "id": "anvilcraft:heavy_iron_block", "count": 8 },
+        { "id": "anvilcraft:magnetoelectric_core", "count": 10 }
+      ]
+    },
+    {
+      "output": "anvilcraft:large_cauldron",
+      "count": 1,
+      "inputs": [
+        { "id": "anvilcraft:cut_heavy_iron_block", "count": 17 },
+        { "id": "anvilcraft:tempering_glass", "count": 8 }
+      ]
+    },
+    {
+      "output": "anvilcraft:singularity_crystal",
+      "count": 1,
+      "inputs": [
+        { "id": "anvilcraft:confined_neutronium_ingot", "count": 14 },
+        { "id": "anvilcraft:negative_matter_block", "count": 13 }
+      ]
+    },
+    {
+      "output": "anvilcraft:large_laser",
+      "count": 1,
+      "inputs": [
+        { "id": "anvilcraft:ruby_laser", "count": 16 },
+        { "id": "anvilcraft:ruby_prism", "count": 7 }
+      ]
+    },
+    {
+      "output": "anvilcraft:large_crate",
+      "count": 1,
+      "inputs": [
+        { "id": "anvilcraft:resin_block", "count": 1 },
+        { "id": "minecraft:stripped_oak_log", "count": 26 }
+      ]
+    },
+    {
+      "output": "anvilcraft:large_crate",
+      "count": 1,
+      "inputs": [
+        { "id": "anvilcraft:resin_block", "count": 1 },
+        { "id": "minecraft:stripped_oak_log", "count": 26 }
+      ]
+    },
+    {
+      "preset": "same",
+      "output": "anvilcraft:structure_disk",
+      "input": "anvilcraft:disk"
+    },
+    {
+      "output": "anvilcraft:anvil_railgun",
+      "count": 1,
+      "inputs": [
+        { "id": "anvilcraft:energy_weapon_platform", "count": 1 },
+        { "id": "anvilcraft:acceleration_ring", "count": 4 },
+        { "id": "anvilcraft:sliding_rail", "count": 4 }
+      ]
+    },
+    {
+      "output": "anvilcraft:corrupted_beacon_activator",
+      "count": 1,
+      "inputs": [
+        { "id": "anvilcraft:energy_weapon_platform", "count": 1 },
+        { "id": "anvilcraft:corrupted_beacon", "count": 1 },
+        { "id": "anvilcraft:cursed_gold_block", "count": 9 }
+      ]
+    },
+    {
+      "output": "anvilcraft:laser_gun",
+      "count": 1,
+      "inputs": [
+        { "id": "anvilcraft:energy_weapon_platform", "count": 1 },
+        { "id": "anvilcraft:ruby_laser", "count": 16 },
+        { "id": "anvilcraft:ruby_prism", "count": 4 }
+      ]
+    },
+    {
+      "output": "anvilcraft:spectral_weapon_launcher",
+      "count": 1,
+      "inputs": [
+        { "id": "anvilcraft:energy_weapon_platform", "count": 1 },
+        { "id": "anvilcraft:spectral_slingshot", "count": 1 },
+        { "id": "anvilcraft:spectral_anvil", "count": 8 }
+      ]
+    },
+    {
+      "output": "anvilcraft:tesla_gun",
+      "count": 1,
+      "inputs": [
+        { "id": "anvilcraft:energy_weapon_platform", "count": 1 },
+        { "id": "anvilcraft:tesla_tower", "count": 4 }
+      ]
+    },
+    {
+      "output": "anvilcraft:sifting_table",
+      "count": 1,
+      "inputs": [
+        { "id": "anvilcraft:stamping_platform", "count": 1 },
+        { "id": "minecraft:scaffolding", "count": 1 }
+      ]
+    },
+    {
+      "output": "anvilcraft:unpacking_table",
+      "count": 1,
+      "inputs": [
+        { "id": "anvilcraft:stamping_platform", "count": 1 },
+        { "id": "minecraft:iron_trapdoor", "count": 1 }
+      ]
+    },
+    {
+      "output": "anvilcraft:crushing_table",
+      "count": 1,
+      "inputs": [
+        { "id": "anvilcraft:stamping_platform", "count": 1 },
+        { "id": "minecraft:grindstone", "count": 1 }
+      ]
+    },
+    {
+      "output": "anvilcraft:cake_base_block",
+      "count": 1,
+      "inputs": [
+        { "id": "anvilcraft:dough", "count": 1 },
+        { "id": "minecraft:egg", "count": 1 },
+        { "id": "minecraft:sugar", "count": 1 }
+      ],
+      "removed_elemenix": "terrix"
+    },
+    {
+      "output": "anvilcraft:cake_block",
+      "count": 1,
+      "inputs": [
+        { "id": "anvilcraft:cream_block", "count": 1 },
+        { "id": "anvilcraft:cake_base_block", "count": 1}
+      ]
+    },
+    {
+      "output": "anvilcraft:berry_cake_block",
+      "count": 1,
+      "inputs": [
+        { "id": "anvilcraft:berry_cream_block", "count": 1 },
+        { "id": "anvilcraft:cake_base_block", "count": 1}
+      ]
+    },
+    {
+      "output": "anvilcraft:honey_cake_block",
+      "count": 1,
+      "inputs": [
+        { "id": "anvilcraft:honey_cream_block", "count": 1 },
+        { "id": "anvilcraft:cake_base_block", "count": 1}
+      ]
+    },
+    {
+      "output": "anvilcraft:matcha_cake_block",
+      "count": 1,
+      "inputs": [
+        { "id": "anvilcraft:matcha_cream_block", "count": 1 },
+        { "id": "anvilcraft:cake_base_block", "count": 1}
+      ]
+    },
+    {
+      "output": "anvilcraft:chocolate_cake_block",
+      "count": 1,
+      "inputs": [
+        { "id": "anvilcraft:chocolate_cream_block", "count": 1 },
+        { "id": "anvilcraft:cake_base_block", "count": 1}
+      ]
+    },
+    {
+      "output": "anvilcraft:large_cake",
+      "count": 1,
+      "inputs": [
+        { "id": "anvilcraft:cake_block", "count": 9 },
+        { "id": "anvilcraft:berry_cake_block", "count": 5 },
+        { "id": "anvilcraft:chocolate_cake_block", "count": 1 }
+      ]
+    },
+    {
+      "output": "anvilcraft:spacetime_supercomputer",
+      "count": 1,
+      "inputs": [
+        { "id": "anvilcraft:advanced_comparator", "count": 1 },
+        { "id": "anvilcraft:transcendium_nugget", "count": 3 }
+      ]
+    },
+    {
+      "output": "anvilcraft:mass_energy_inverter",
+      "count": 1,
+      "inputs": [
+        { "id": "anvilcraft:laser_receiver", "count": 1 },
+        { "id": "anvilcraft:transcendium_nugget", "count": 3 }
+      ]
+    },
+    {
+      "output": "anvilcraft:celestial_forging_anvil_amplifier",
+      "count": 4,
+      "inputs": [
+        { "id": "anvilcraft:giant_anvil", "count": 1 },
+        { "id": "anvilcraft:spacetime_supercomputer", "count": 1 }
+      ]
     }
   ]
 }

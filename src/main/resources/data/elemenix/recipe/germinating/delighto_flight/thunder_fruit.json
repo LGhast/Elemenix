@@ -1,0 +1,8 @@
+{
+  "type": "elemenix:germinating",
+  "template": { "item": "delighto_flight:thunder_fruit" },
+  "products": [
+    { "id": "delighto_flight:thunder_fruit", "count": 1 },
+    { "id": "delighto_flight:thunder_fruit_seeds", "count": 1 }
+  ]
+}

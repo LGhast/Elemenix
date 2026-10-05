@@ -1,0 +1,6 @@
+{
+  "type": "elemenix:mineralizing",
+  "mineral": { "item": "iceandfire:sapphire" },
+  "medium": { "item": "minecraft:stone" },
+  "result": { "id": "iceandfire:sapphire_ore", "count": 1 }
+}

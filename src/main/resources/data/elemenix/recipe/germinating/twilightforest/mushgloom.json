@@ -1,0 +1,15 @@
+{
+  "type": "elemenix:germinating",
+  "template": { "item": "twilightforest:mushgloom" },
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:not",
+      "value": { "type": "neoforge:mod_loaded", "modid": "twilightdelight" }
+    }
+  ],
+  "products": [
+    { "id": "twilightforest:mushgloom", "count": 1 },
+    { "id": "twilightforest:huge_mushgloom", "count": 1 },
+    { "id": "twilightforest:huge_mushgloom_stem", "count": 1 }
+  ]
+}

@@ -1,0 +1,8 @@
+{
+  "type": "elemenix:germinating",
+  "template": { "item": "twilightforest:torchberries" },
+  "products": [
+    { "id": "twilightforest:torchberries", "count": 1 },
+    { "id": "twilightforest:torchberry_plant", "count": 1 }
+  ]
+}

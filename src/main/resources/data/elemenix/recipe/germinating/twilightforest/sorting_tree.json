@@ -1,0 +1,9 @@
+{
+  "type": "elemenix:germinating",
+  "template": { "item": "twilightforest:sorting_sapling" },
+  "products": [
+    { "id": "twilightforest:sorting_sapling", "count": 1 },
+    { "id": "twilightforest:sorting_log", "count": 1 },
+    { "id": "twilightforest:sorting_leaves", "count": 1 }
+  ]
+}

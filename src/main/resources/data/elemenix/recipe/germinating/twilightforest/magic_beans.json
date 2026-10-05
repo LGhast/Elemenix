@@ -1,0 +1,9 @@
+{
+  "type": "elemenix:germinating",
+  "template": { "item": "twilightforest:magic_beans" },
+  "products": [
+    { "id": "twilightforest:magic_beans", "count": 1 },
+    { "id": "twilightforest:huge_stalk", "count": 1 },
+    { "id": "twilightforest:beanstalk_leaves", "count": 1 }
+  ]
+}

@@ -1,0 +1,9 @@
+{
+  "type": "elemenix:germinating",
+  "template": { "item": "aether:crystal_fruit_leaves" },
+  "products": [
+    { "id": "aether:crystal_fruit_leaves", "count": 1 },
+    { "id": "aether:crystal_leaves", "count": 1 },
+    { "id": "aether:skyroot_log", "count": 1 }
+  ]
+}

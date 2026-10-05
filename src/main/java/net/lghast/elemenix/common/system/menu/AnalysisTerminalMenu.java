@@ -12,6 +12,7 @@ import net.lghast.elemenix.register.content.ModItems;
 import net.lghast.elemenix.register.system.ModDataComponents;
 import net.lghast.elemenix.register.system.ModMenus;
 import net.lghast.elemenix.register.system.ModStats;
+import net.lghast.elemenix.register.system.ModTags;
 import net.lghast.elemenix.utils.Constituents;
 import net.lghast.elemenix.utils.LongContainerData;
 import net.lghast.elemenix.utils.elemenix.Elemenix;
@@ -592,6 +593,9 @@ public class AnalysisTerminalMenu extends AbstractContainerMenu {
 
     private boolean canRecordInto(ItemStack memorizer, ItemStack inputStack) {
         if (memorizer.isEmpty() || inputStack.isEmpty()) {
+            return false;
+        }
+        if (inputStack.is(ModTags.ANALYZER_UNRECORDABLE)) {
             return false;
         }
         if (MemorizerItem.isReadonly(memorizer) || !MemorizerItem.isNotFull(memorizer)) {

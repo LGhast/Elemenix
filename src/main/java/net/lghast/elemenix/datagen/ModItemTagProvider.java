@@ -45,14 +45,6 @@ public class ModItemTagProvider extends ItemTagsProvider {
                 .add(ModItems.ELEMENIC_CHAOS.asItem())
         ;
 
-        tag(ModTags.ANALYZER_UNRECORDABLE)
-                .addTag(ModTags.ESSENCES)
-                .addTag(ModTags.EQUILIBRIUM)
-                .add(Items.ENCHANTED_BOOK)
-                .add(ModItems.ELEMENIC_ANALYZER.asItem())
-                .add(ModItems.ANALYSIS_TERMINAL.asItem())
-        ;
-
         tag(ModTags.MEMORIZER_SLOT_PLACEABLE)
                 .add(ModItems.ELEMENIC_MEMORIZER.asItem())
                 .add(ModItems.FONDANT_CAKE.asItem())

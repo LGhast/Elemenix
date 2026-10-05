@@ -1,0 +1,6 @@
+{
+  "type": "elemenix:mineralizing",
+  "mineral": { "item": "minecraft:coal" },
+  "medium": { "item": "undergarden:shiverstone" },
+  "result": { "id": "undergarden:shiverstone_coal_ore", "count": 1 }
+}

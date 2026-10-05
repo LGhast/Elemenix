@@ -1,0 +1,8 @@
+{
+  "type": "elemenix:germinating",
+  "template": { "item": "rusticdelight:coffee_beans" },
+  "products": [
+    { "id": "rusticdelight:coffee_beans", "count": 1 },
+    { "id": "rusticdelight:wild_coffee", "count": 1 }
+  ]
+}

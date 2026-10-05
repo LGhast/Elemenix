@@ -2,6 +2,7 @@ package net.lghast.elemenix.common.content.block;
 
 import com.mojang.serialization.MapCodec;
 import net.lghast.elemenix.common.content.blockentity.TransformerBlockEntity;
+import net.lghast.elemenix.common.system.recipe.GerminatingRecipe;
 import net.lghast.elemenix.conifig.CommonConfig;
 import net.lghast.elemenix.register.content.ModItems;
 import net.lghast.elemenix.utils.elemenix.Elemenix;
@@ -10,6 +11,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.BaseEntityBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
@@ -82,6 +84,11 @@ public class GerminalAcceleratorBlock extends TransformerBlock {
     }
 
     @Override
+    public ResourceLocation getSecondaryGuiTexture() {
+        return ResourceLocation.fromNamespaceAndPath("elemenix", "textures/gui/germinal_accelerator_germinating.png");
+    }
+
+    @Override
     public Component getGuiTitle() {
         return Component.translatable("container.elemenix.germinal_accelerator");
     }
@@ -95,5 +102,54 @@ public class GerminalAcceleratorBlock extends TransformerBlock {
     @Override
     public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
         return new TransformerBlockEntity(pos, state);
+    }
+
+    @Override
+    public int getPageCount() {
+        return 2;
+    }
+
+    public int getGerminationInterval() {
+        return Math.max(1, CommonConfig.GA_GERMINATION_INTERVAL.get());
+    }
+
+    @Override
+    public boolean shouldSuppressTransformingConsumption(TransformerBlockEntity blockEntity) {
+        return blockEntity.getGerminatingProgress() > 0;
+    }
+
+    @Override
+    public void tickSecondPage(Level level, BlockPos pos, BlockState state, TransformerBlockEntity blockEntity) {
+        GerminatingRecipe recipe = GerminatingRecipe.findRecipe(level,
+                blockEntity.getItem(TransformerBlockEntity.TEMPLATE_SLOT));
+
+        if (recipe == null) {
+            if (blockEntity.getGerminatingProgress() != 0) {
+                blockEntity.setGerminatingProgress(0);
+                blockEntity.setChanged();
+            }
+            return;
+        }
+
+        int[] cost = recipe.getCost();
+        if (blockEntity.getInputA() < cost[0] || blockEntity.getInputB() < cost[1]
+                || !blockEntity.canGenerateProducts(recipe)) {
+            if (blockEntity.getGerminatingProgress() != 0) {
+                blockEntity.setGerminatingProgress(0);
+                blockEntity.setChanged();
+            }
+            return;
+        }
+
+        int progress = blockEntity.getGerminatingProgress() + 1;
+        if (progress >= getGerminationInterval()) {
+            blockEntity.setInputA(blockEntity.getInputA() - cost[0]);
+            blockEntity.setInputB(blockEntity.getInputB() - cost[1]);
+            blockEntity.generateProducts(recipe);
+            blockEntity.setGerminatingProgress(0);
+        } else {
+            blockEntity.setGerminatingProgress(progress);
+        }
+        blockEntity.setChanged();
     }
 }

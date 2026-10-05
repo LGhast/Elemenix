@@ -127,6 +127,10 @@
     {
       "id": "kaleidoscope_cookery:oil",
       "required": false
+    },
+    {
+      "id": "create:wheat_flour",
+      "required": false
     }
   ]
 }

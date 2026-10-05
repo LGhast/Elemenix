@@ -1,0 +1,6 @@
+{
+  "type": "elemenix:mineralizing",
+  "mineral": { "item": "minecraft:iron_ingot" },
+  "medium": { "item": "deeperdarker:gloomslate" },
+  "result": { "id": "deeperdarker:gloomslate_iron_ore", "count": 1 }
+}

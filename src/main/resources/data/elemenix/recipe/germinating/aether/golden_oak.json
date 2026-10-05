@@ -1,0 +1,9 @@
+{
+  "type": "elemenix:germinating",
+  "template": { "item": "aether:golden_oak_sapling" },
+  "products": [
+    { "id": "aether:golden_oak_sapling", "count": 1 },
+    { "id": "aether:golden_oak_log", "count": 1 },
+    { "id": "aether:golden_oak_leaves", "count": 1 }
+  ]
+}

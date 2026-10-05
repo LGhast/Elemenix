@@ -1,0 +1,6 @@
+{
+  "type": "elemenix:mineralizing",
+  "mineral": { "item": "eternal_starlight:starcore" },
+  "medium": { "item": "eternal_starlight:eternal_ice" },
+  "result": { "id": "eternal_starlight:eternal_ice_starcore_ore", "count": 1 }
+}

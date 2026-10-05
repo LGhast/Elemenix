@@ -1,0 +1,9 @@
+{
+  "type": "elemenix:germinating",
+  "template": { "item": "undergarden:puff_mushroom" },
+  "products": [
+    { "id": "undergarden:puff_mushroom", "count": 1 },
+    { "id": "undergarden:puff_mushroom_cap", "count": 1 },
+    { "id": "undergarden:puff_mushroom_stem", "count": 1 }
+  ]
+}

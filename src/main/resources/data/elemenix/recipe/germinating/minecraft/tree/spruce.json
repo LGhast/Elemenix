@@ -1,0 +1,9 @@
+{
+  "type": "elemenix:germinating",
+  "template": { "item": "minecraft:spruce_sapling" },
+  "products": [
+    { "id": "minecraft:spruce_sapling", "count": 1 },
+    { "id": "minecraft:spruce_log", "count": 1 },
+    { "id": "minecraft:spruce_leaves", "count": 1 }
+  ]
+}

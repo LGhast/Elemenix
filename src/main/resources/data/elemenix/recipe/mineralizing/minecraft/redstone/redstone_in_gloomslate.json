@@ -1,0 +1,6 @@
+{
+  "type": "elemenix:mineralizing",
+  "mineral": { "item": "minecraft:redstone" },
+  "medium": { "item": "deeperdarker:gloomslate" },
+  "result": { "id": "deeperdarker:gloomslate_redstone_ore", "count": 1 }
+}

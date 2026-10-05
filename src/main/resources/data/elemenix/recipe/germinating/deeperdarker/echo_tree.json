@@ -1,0 +1,9 @@
+{
+  "type": "elemenix:germinating",
+  "template": { "item": "deeperdarker:echo_sapling" },
+  "products": [
+    { "id": "deeperdarker:echo_sapling", "count": 1 },
+    { "id": "deeperdarker:echo_log", "count": 1 },
+    { "id": "deeperdarker:echo_leaves", "count": 1 }
+  ]
+}

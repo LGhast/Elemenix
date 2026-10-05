@@ -1,0 +1,6 @@
+{
+  "type": "elemenix:mineralizing",
+  "mineral": { "item": "anvilcraft:silver_ingot" },
+  "medium": { "item": "minecraft:deepslate" },
+  "result": { "id": "anvilcraft:deepslate_silver_ore", "count": 1 }
+}

@@ -1,0 +1,9 @@
+{
+  "type": "elemenix:germinating",
+  "template": { "item": "undergarden:smogstem_sapling" },
+  "products": [
+    { "id": "undergarden:smogstem_sapling", "count": 1 },
+    { "id": "undergarden:smogstem_log", "count": 1 },
+    { "id": "undergarden:smogstem_leaves", "count": 1 }
+  ]
+}

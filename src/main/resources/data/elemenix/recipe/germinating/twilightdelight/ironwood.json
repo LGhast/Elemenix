@@ -1,0 +1,10 @@
+{
+  "type": "elemenix:germinating",
+  "template": { "item": "twilightdelight:ironwood_sapling" },
+  "products": [
+    { "id": "twilightdelight:ironwood_sapling", "count": 1 },
+    { "id": "twilightdelight:ironwood_log", "count": 1 },
+    { "id": "twilightdelight:ironwood_leaves", "count": 1 },
+    { "id": "twilightforest:steeleaf_ingot", "count": 1 }
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "type": "elemenix:germinating",
+  "template": { "item": "eternal_starlight:fantagrass" },
+  "products": [
+    { "id": "eternal_starlight:fantagrass", "count": 1 },
+    { "id": "eternal_starlight:green_fantagrass", "count": 1 },
+    { "id": "eternal_starlight:fantabud", "count": 1 },
+    { "id": "eternal_starlight:green_fantabud", "count": 1 },
+    { "id": "eternal_starlight:hanging_fantagrass", "count": 1 },
+    { "id": "eternal_starlight:fantasy_grass_carpet", "count": 1 }
+  ]
+}

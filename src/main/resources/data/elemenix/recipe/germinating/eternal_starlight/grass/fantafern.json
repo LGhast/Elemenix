@@ -1,0 +1,8 @@
+{
+  "type": "elemenix:germinating",
+  "template": { "item": "eternal_starlight:fantafern" },
+  "products": [
+    { "id": "eternal_starlight:fantafern", "count": 1 },
+    { "id": "eternal_starlight:green_fantafern", "count": 1 }
+  ]
+}

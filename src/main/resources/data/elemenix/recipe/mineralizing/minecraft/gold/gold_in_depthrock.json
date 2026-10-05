@@ -1,0 +1,6 @@
+{
+  "type": "elemenix:mineralizing",
+  "mineral": { "item": "minecraft:gold_ingot" },
+  "medium": { "item": "undergarden:depthrock" },
+  "result": { "id": "undergarden:depthrock_gold_ore", "count": 1 }
+}

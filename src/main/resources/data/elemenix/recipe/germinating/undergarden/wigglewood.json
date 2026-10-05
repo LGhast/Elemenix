@@ -1,0 +1,10 @@
+{
+  "type": "elemenix:germinating",
+  "template": { "item": "undergarden:wigglewood_sapling" },
+  "products": [
+    { "id": "undergarden:wigglewood_sapling", "count": 1 },
+    { "id": "undergarden:wigglewood_log", "count": 1 },
+    { "id": "undergarden:wigglewood_leaves", "count": 1 },
+    { "id": "undergarden:twistytwig", "count": 1 }
+  ]
+}

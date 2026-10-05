@@ -1,0 +1,6 @@
+{
+  "type": "elemenix:mineralizing",
+  "mineral": { "item": "eternal_starlight:starlit_diamond" },
+  "medium": { "item": "eternal_starlight:voidstone" },
+  "result": { "id": "eternal_starlight:voidstone_starlit_diamond_ore", "count": 1 }
+}

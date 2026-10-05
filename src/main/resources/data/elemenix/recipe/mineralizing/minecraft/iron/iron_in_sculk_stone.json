@@ -1,0 +1,6 @@
+{
+  "type": "elemenix:mineralizing",
+  "mineral": { "item": "minecraft:iron_ingot" },
+  "medium": { "item": "deeperdarker:sculk_stone" },
+  "result": { "id": "deeperdarker:sculk_stone_iron_ore", "count": 1 }
+}

@@ -1,0 +1,9 @@
+{
+  "type": "elemenix:germinating",
+  "template": { "item": "undergarden:indigo_mushroom" },
+  "products": [
+    { "id": "undergarden:indigo_mushroom", "count": 1 },
+    { "id": "undergarden:indigo_mushroom_cap", "count": 1 },
+    { "id": "undergarden:indigo_mushroom_stem", "count": 1 }
+  ]
+}

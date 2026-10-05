@@ -1,0 +1,10 @@
+{
+  "type": "elemenix:germinating",
+  "template": { "item": "minecraft:pale_oak_sapling" },
+  "products": [
+    { "id": "minecraft:pale_oak_sapling", "count": 1 },
+    { "id": "minecraft:pale_oak_log", "count": 1 },
+    { "id": "minecraft:pale_oak_leaves", "count": 1 },
+    { "id": "minecraft:pale_hanging_moss", "count": 1 }
+  ]
+}

@@ -1,0 +1,6 @@
+{
+  "type": "elemenix:mineralizing",
+  "mineral": { "item": "iceandfire:silver_ingot" },
+  "medium": { "item": "minecraft:stone" },
+  "result": { "id": "iceandfire:silver_ore", "count": 1 }
+}

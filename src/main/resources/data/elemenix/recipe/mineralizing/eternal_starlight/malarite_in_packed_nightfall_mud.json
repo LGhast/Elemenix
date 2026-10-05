@@ -1,0 +1,6 @@
+{
+  "type": "elemenix:mineralizing",
+  "mineral": { "item": "eternal_starlight:malarite" },
+  "medium": { "item": "eternal_starlight:packed_nightfall_mud" },
+  "result": { "id": "eternal_starlight:packed_nightfall_mud_malarite_ore", "count": 1 }
+}

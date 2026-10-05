@@ -4,18 +4,22 @@ import mezz.jei.api.IModPlugin;
 import mezz.jei.api.JeiPlugin;
 import mezz.jei.api.registration.IRecipeCategoryRegistration;
 import mezz.jei.api.registration.IRecipeRegistration;
-import net.lghast.elemenix.compat.jei.category.EnrichingRecipeCategory;
-import net.lghast.elemenix.compat.jei.category.TransformingRecipeCategory;
-import net.lghast.elemenix.compat.jei.recipe.EnrichingRecipe;
-import net.lghast.elemenix.compat.jei.recipe.TransformingRecipe;
+import net.lghast.elemenix.common.system.recipe.GerminatingRecipe;
+import net.lghast.elemenix.common.system.recipe.MineralizingRecipe;
+import net.lghast.elemenix.compat.jei.category.*;
+import net.lghast.elemenix.compat.jei.recipe.*;
 import net.lghast.elemenix.register.content.ModBlocks;
 import net.lghast.elemenix.register.content.ModItems;
+import net.lghast.elemenix.register.system.ModRecipes;
 import net.lghast.elemenix.utils.elemenix.Elemenix;
 import net.lghast.elemenix.utils.elemenix.ElemenixInfo;
+import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.RecipeHolder;
+import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
@@ -34,12 +38,16 @@ public class JEIPlugin implements IModPlugin {
     public void registerCategories(IRecipeCategoryRegistration registration) {
         registration.addRecipeCategories(new EnrichingRecipeCategory(registration.getJeiHelpers().getGuiHelper()));
         registration.addRecipeCategories(new TransformingRecipeCategory(registration.getJeiHelpers().getGuiHelper()));
+        registration.addRecipeCategories(new MineralizingRecipeCategory(registration.getJeiHelpers().getGuiHelper()));
+        registration.addRecipeCategories(new GerminatingRecipeCategory(registration.getJeiHelpers().getGuiHelper()));
     }
 
     @Override
     public void registerRecipes(IRecipeRegistration registration) {
         registration.addRecipes(EnrichingRecipeCategory.TYPE, getEnrichingRecipes());
         registration.addRecipes(TransformingRecipeCategory.TYPE, getTransformingRecipes());
+        registration.addRecipes(MineralizingRecipeCategory.TYPE, getMineralizingRecipes());
+        registration.addRecipes(GerminatingRecipeCategory.TYPE, getGerminatingRecipes());
 
         registration.addItemStackInfo(new ItemStack(ModBlocks.ELEMENIC_INFUSER.get()),
                 Component.translatable("jei.info.elemenic_infuser"));
@@ -73,6 +81,30 @@ public class JEIPlugin implements IModPlugin {
                 Component.translatable("jei.info.elemenic_scanner"));
         registration.addItemStackInfo(new ItemStack(ModItems.SCANNING_STORAGE.get()),
                 Component.translatable("jei.info.scanning_storage"));
+    }
+
+    private List<MineralizingRecipe> getMineralizingRecipes() {
+        List<MineralizingRecipe> recipes = new ArrayList<>();
+        Level level = Minecraft.getInstance().level;
+        if (level != null) {
+            for (RecipeHolder<MineralizingRecipe> holder :
+                    level.getRecipeManager().getAllRecipesFor(ModRecipes.MINERALIZING.get())) {
+                recipes.add(holder.value());
+            }
+        }
+        return recipes;
+    }
+
+    private List<GerminatingRecipe> getGerminatingRecipes() {
+        List<GerminatingRecipe> recipes = new ArrayList<>();
+        Level level = Minecraft.getInstance().level;
+        if (level != null) {
+            for (RecipeHolder<GerminatingRecipe> holder :
+                    level.getRecipeManager().getAllRecipesFor(ModRecipes.GERMINATING.get())) {
+                recipes.add(holder.value());
+            }
+        }
+        return recipes;
     }
 
     private List<TransformingRecipe> getTransformingRecipes() {
@@ -139,28 +171,24 @@ public class JEIPlugin implements IModPlugin {
                 new ItemStack(ModItems.TERRIX_ESSENCE.get()),
                 false
         ));
-
         recipes.add(new EnrichingRecipe(
                 Elemenix.FLUMIX,
                 essenceValue,
                 new ItemStack(ModItems.FLUMIX_ESSENCE.get()),
                 false
         ));
-
         recipes.add(new EnrichingRecipe(
                 Elemenix.METALLIX,
                 essenceValue,
                 new ItemStack(ModItems.METALLIX_ESSENCE.get()),
                 false
         ));
-
         recipes.add(new EnrichingRecipe(
                 Elemenix.ENERGIX,
                 essenceValue,
                 new ItemStack(ModItems.ENERGIX_ESSENCE.get()),
                 false
         ));
-
         recipes.add(new EnrichingRecipe(
                 Elemenix.ARCANIX,
                 essenceValue,
@@ -174,35 +202,30 @@ public class JEIPlugin implements IModPlugin {
                 new ItemStack(ModItems.ORGANIX_ESSENPLEX.get()),
                 true
         ));
-
         recipes.add(new EnrichingRecipe(
                 Elemenix.TERRIX,
                 essenplexValue,
                 new ItemStack(ModItems.TERRIX_ESSENPLEX.get()),
                 true
         ));
-
         recipes.add(new EnrichingRecipe(
                 Elemenix.FLUMIX,
                 essenplexValue,
                 new ItemStack(ModItems.FLUMIX_ESSENPLEX.get()),
                 true
         ));
-
         recipes.add(new EnrichingRecipe(
                 Elemenix.METALLIX,
                 essenplexValue,
                 new ItemStack(ModItems.METALLIX_ESSENPLEX.get()),
                 true
         ));
-
         recipes.add(new EnrichingRecipe(
                 Elemenix.ENERGIX,
                 essenplexValue,
                 new ItemStack(ModItems.ENERGIX_ESSENPLEX.get()),
                 true
         ));
-
         recipes.add(new EnrichingRecipe(
                 Elemenix.ARCANIX,
                 essenplexValue,

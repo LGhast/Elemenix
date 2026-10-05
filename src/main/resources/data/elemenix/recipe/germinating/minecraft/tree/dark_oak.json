@@ -1,0 +1,10 @@
+{
+  "type": "elemenix:germinating",
+  "template": { "item": "minecraft:dark_oak_sapling" },
+  "products": [
+    { "id": "minecraft:dark_oak_sapling", "count": 1 },
+    { "id": "minecraft:dark_oak_log", "count": 1 },
+    { "id": "minecraft:dark_oak_leaves", "count": 1 },
+    { "id": "minecraft:apple", "count": 1 }
+  ]
+}

@@ -1,0 +1,6 @@
+{
+  "type": "elemenix:mineralizing",
+  "mineral": { "item": "anvilcraft:titanium_ingot" },
+  "medium": { "item": "minecraft:deepslate" },
+  "result": { "id": "anvilcraft:deepslate_titanium_ore", "count": 1 }
+}

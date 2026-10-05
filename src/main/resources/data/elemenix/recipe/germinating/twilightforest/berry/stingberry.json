@@ -1,0 +1,8 @@
+{
+  "type": "elemenix:germinating",
+  "template": { "item": "twilightforest:stingberry" },
+  "products": [
+    { "id": "twilightforest:stingberry", "count": 1 },
+    { "id": "twilightforest:stingberry_bush", "count": 1 }
+  ]
+}

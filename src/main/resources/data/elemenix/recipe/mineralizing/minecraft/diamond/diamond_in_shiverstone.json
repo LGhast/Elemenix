@@ -1,0 +1,6 @@
+{
+  "type": "elemenix:mineralizing",
+  "mineral": { "item": "minecraft:diamond" },
+  "medium": { "item": "undergarden:shiverstone" },
+  "result": { "id": "undergarden:shiverstone_diamond_ore", "count": 1 }
+}

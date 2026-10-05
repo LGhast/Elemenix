@@ -1,0 +1,9 @@
+{
+  "type": "elemenix:germinating",
+  "template": { "item": "minecraft:cherry_sapling" },
+  "products": [
+    { "id": "minecraft:cherry_sapling", "count": 1 },
+    { "id": "minecraft:cherry_log", "count": 1 },
+    { "id": "minecraft:cherry_leaves", "count": 1 }
+  ]
+}

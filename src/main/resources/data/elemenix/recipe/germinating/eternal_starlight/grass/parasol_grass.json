@@ -1,0 +1,8 @@
+{
+  "type": "elemenix:germinating",
+  "template": { "item": "eternal_starlight:parasol_grass" },
+  "products": [
+    { "id": "eternal_starlight:parasol_grass", "count": 1 },
+    { "id": "eternal_starlight:glowing_parasol_grass", "count": 1 }
+  ]
+}

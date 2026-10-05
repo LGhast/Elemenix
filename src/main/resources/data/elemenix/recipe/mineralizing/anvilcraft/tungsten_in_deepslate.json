@@ -1,0 +1,6 @@
+{
+  "type": "elemenix:mineralizing",
+  "mineral": { "item": "anvilcraft:tungsten_ingot" },
+  "medium": { "item": "minecraft:deepslate" },
+  "result": { "id": "anvilcraft:deepslate_tungsten_ore", "count": 1 }
+}

@@ -1,0 +1,9 @@
+{
+  "type": "elemenix:germinating",
+  "template": { "item": "eternal_starlight:red_velvetumoss" },
+  "products": [
+    { "id": "eternal_starlight:red_velvetumoss", "count": 1 },
+    { "id": "eternal_starlight:red_velvetumoss_villi", "count": 1 },
+    { "id": "eternal_starlight:red_velvetumoss_flower", "count": 1 }
+  ]
+}

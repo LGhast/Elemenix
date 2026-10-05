@@ -1,0 +1,6 @@
+{
+  "type": "elemenix:mineralizing",
+  "mineral": { "item": "anvilcraft:uranium_ingot" },
+  "medium": { "item": "minecraft:deepslate" },
+  "result": { "id": "anvilcraft:deepslate_uranium_ore", "count": 1 }
+}

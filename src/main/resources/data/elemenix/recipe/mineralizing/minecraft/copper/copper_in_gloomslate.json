@@ -1,0 +1,6 @@
+{
+  "type": "elemenix:mineralizing",
+  "mineral": { "item": "minecraft:copper_ingot" },
+  "medium": { "item": "deeperdarker:gloomslate" },
+  "result": { "id": "deeperdarker:gloomslate_copper_ore", "count": 1 }
+}

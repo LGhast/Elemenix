@@ -1,0 +1,10 @@
+{
+  "type": "elemenix:germinating",
+  "template": { "item": "eternal_starlight:torreya_sapling" },
+  "products": [
+    { "id": "eternal_starlight:torreya_sapling", "count": 1 },
+    { "id": "eternal_starlight:torreya_log", "count": 1 },
+    { "id": "eternal_starlight:torreya_leaves", "count": 1 },
+    { "id": "eternal_starlight:torreya_vines", "count": 1 }
+  ]
+}

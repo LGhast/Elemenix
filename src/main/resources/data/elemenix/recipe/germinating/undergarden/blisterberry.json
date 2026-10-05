@@ -1,0 +1,8 @@
+{
+  "type": "elemenix:germinating",
+  "template": { "item": "undergarden:blisterberry" },
+  "products": [
+    { "id": "undergarden:blisterberry", "count": 1 },
+    { "id": "undergarden:rotten_blisterberry", "count": 1 }
+  ]
+}

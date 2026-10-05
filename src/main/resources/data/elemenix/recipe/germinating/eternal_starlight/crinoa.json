@@ -1,0 +1,8 @@
+{
+  "type": "elemenix:germinating",
+  "template": { "item": "eternal_starlight:crinoa" },
+  "products": [
+    { "id": "eternal_starlight:crinoa", "count": 1 },
+    { "id": "eternal_starlight:crinoa_seeds", "count": 1 }
+  ]
+}

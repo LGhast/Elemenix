@@ -1,0 +1,6 @@
+{
+  "type": "elemenix:mineralizing",
+  "mineral": { "item": "undergarden:regalium_crystal" },
+  "medium": { "item": "undergarden:shiverstone" },
+  "result": { "id": "undergarden:shiverstone_regalium_ore", "count": 1 }
+}

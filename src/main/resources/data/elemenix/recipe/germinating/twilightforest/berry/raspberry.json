@@ -1,0 +1,8 @@
+{
+  "type": "elemenix:germinating",
+  "template": { "item": "twilightforest:raspberry" },
+  "products": [
+    { "id": "twilightforest:raspberry", "count": 1 },
+    { "id": "twilightforest:raspberry_bush", "count": 1 }
+  ]
+}

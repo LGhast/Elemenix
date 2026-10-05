@@ -1,0 +1,8 @@
+{
+  "type": "elemenix:germinating",
+  "template": { "item": "minecraft:fern" },
+  "products": [
+    { "id": "minecraft:fern", "count": 1 },
+    { "id": "minecraft:large_fern", "count": 1 }
+  ]
+}

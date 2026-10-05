@@ -1,0 +1,8 @@
+{
+  "type": "elemenix:germinating",
+  "template": { "item": "undergarden:blue_mogmoss" },
+  "products": [
+    { "id": "undergarden:blue_mogmoss", "count": 1 },
+    { "id": "undergarden:mogmoss", "count": 1 }
+  ]
+}

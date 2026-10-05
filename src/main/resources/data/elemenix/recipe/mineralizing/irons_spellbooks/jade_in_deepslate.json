@@ -1,0 +1,6 @@
+{
+  "type": "elemenix:mineralizing",
+  "mineral": { "item": "iss_magicfromtheeast:jade" },
+  "medium": { "item": "minecraft:deepslate" },
+  "result": { "id": "iss_magicfromtheeast:deepslate_jade_ore", "count": 1 }
+}

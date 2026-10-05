@@ -1,0 +1,6 @@
+{
+  "type": "elemenix:mineralizing",
+  "mineral": { "item": "minecraft:quartz" },
+  "medium": { "item": "minecraft:netherrack" },
+  "result": { "id": "minecraft:nether_quartz_ore", "count": 1 }
+}

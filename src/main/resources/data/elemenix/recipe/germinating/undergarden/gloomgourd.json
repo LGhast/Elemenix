@@ -1,0 +1,8 @@
+{
+  "type": "elemenix:germinating",
+  "template": { "item": "undergarden:gloomgourd" },
+  "products": [
+    { "id": "undergarden:gloomgourd", "count": 1 },
+    { "id": "undergarden:gloomgourd_seeds", "count": 1 }
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "type": "elemenix:germinating",
+  "template": { "item": "eternal_starlight:scarlet_grass" },
+  "products": [
+    { "id": "eternal_starlight:scarlet_grass", "count": 1 },
+    { "id": "eternal_starlight:orange_scarlet_bud", "count": 1 },
+    { "id": "eternal_starlight:red_scarlet_bud", "count": 1 },
+    { "id": "eternal_starlight:purple_scarlet_bud", "count": 1 }
+  ]
+}

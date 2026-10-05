@@ -1,0 +1,8 @@
+{
+  "type": "elemenix:germinating",
+  "template": { "item": "eternal_starlight:gladespike" },
+  "products": [
+    { "id": "eternal_starlight:gladespike", "count": 1 },
+    { "id": "eternal_starlight:tall_gladespike", "count": 1 }
+  ]
+}

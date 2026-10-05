@@ -1,0 +1,8 @@
+{
+  "type": "elemenix:germinating",
+  "template": { "item": "ars_nouveau:magebloom" },
+  "products": [
+    { "id": "ars_nouveau:magebloom", "count": 1 },
+    { "id": "ars_nouveau:magebloom_crop", "count": 1 }
+  ]
+}

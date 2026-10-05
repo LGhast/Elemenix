@@ -1,0 +1,9 @@
+{
+  "type": "elemenix:germinating",
+  "template": { "item": "minecraft:bush" },
+  "products": [
+    { "id": "minecraft:bush", "count": 1 },
+    { "id": "minecraft:firefly_bush", "count": 1 },
+    { "id": "minecraft:dead_bush", "count": 1 }
+  ]
+}

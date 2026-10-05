@@ -1,0 +1,8 @@
+{
+  "type": "elemenix:germinating",
+  "template": { "item": "twilightforest:skyberry" },
+  "products": [
+    { "id": "twilightforest:skyberry", "count": 1 },
+    { "id": "twilightforest:skyberry_bush", "count": 1 }
+  ]
+}

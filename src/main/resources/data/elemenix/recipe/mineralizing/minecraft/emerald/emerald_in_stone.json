@@ -1,0 +1,6 @@
+{
+  "type": "elemenix:mineralizing",
+  "mineral": { "item": "minecraft:emerald" },
+  "medium": { "item": "minecraft:stone" },
+  "result": { "id": "minecraft:emerald_ore", "count": 1 }
+}

@@ -1,0 +1,10 @@
+{
+  "type": "elemenix:germinating",
+  "template": { "item": "undergarden:blood_mushroom" },
+  "products": [
+    { "id": "undergarden:blood_mushroom", "count": 1 },
+    { "id": "undergarden:blood_mushroom_cap", "count": 1 },
+    { "id": "undergarden:engorged_blood_mushroom_cap", "count": 1 },
+    { "id": "undergarden:blood_mushroom_stem", "count": 1 }
+  ]
+}

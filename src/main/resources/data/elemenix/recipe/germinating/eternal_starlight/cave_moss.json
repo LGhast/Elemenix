@@ -1,0 +1,9 @@
+{
+  "type": "elemenix:germinating",
+  "template": { "item": "eternal_starlight:cave_moss" },
+  "products": [
+    { "id": "eternal_starlight:cave_moss", "count": 1 },
+    { "id": "eternal_starlight:cave_moss_block", "count": 1 },
+    { "id": "eternal_starlight:cave_moss_carpet", "count": 1 }
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "type": "elemenix:germinating",
+  "template": { "item": "farmersdelight:cabbage" },
+  "products": [
+    { "id": "farmersdelight:cabbage", "count": 1 },
+    { "id": "farmersdelight:cabbage_leaf", "count": 1 },
+    { "id": "farmersdelight:cabbage_seeds", "count": 1 },
+    { "id": "farmersdelight:wild_cabbages", "count": 1 }
+  ]
+}

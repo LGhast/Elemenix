@@ -1,0 +1,6 @@
+{
+  "type": "elemenix:mineralizing",
+  "mineral": { "item": "minecraft:emerald" },
+  "medium": { "item": "deeperdarker:sculk_stone" },
+  "result": { "id": "deeperdarker:sculk_stone_emerald_ore", "count": 1 }
+}

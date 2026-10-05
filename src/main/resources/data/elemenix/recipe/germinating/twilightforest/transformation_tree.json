@@ -1,0 +1,9 @@
+{
+  "type": "elemenix:germinating",
+  "template": { "item": "twilightforest:transformation_sapling" },
+  "products": [
+    { "id": "twilightforest:transformation_sapling", "count": 1 },
+    { "id": "twilightforest:transformation_log", "count": 1 },
+    { "id": "twilightforest:transformation_leaves", "count": 1 }
+  ]
+}

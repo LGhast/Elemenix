@@ -1,0 +1,8 @@
+{
+  "type": "elemenix:germinating",
+  "template": { "item": "undergarden:shimmerweed" },
+  "products": [
+    { "id": "undergarden:shimmerweed", "count": 1 },
+    { "id": "undergarden:tall_shimmerweed", "count": 1 }
+  ]
+}

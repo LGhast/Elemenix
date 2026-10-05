@@ -1,0 +1,11 @@
+{
+  "type": "elemenix:germinating",
+  "template": { "item": "eternal_starlight:lunar_grass" },
+  "products": [
+    { "id": "eternal_starlight:lunar_grass", "count": 1 },
+    { "id": "eternal_starlight:glowing_lunar_grass", "count": 1 },
+    { "id": "eternal_starlight:lunar_bush", "count": 1 },
+    { "id": "eternal_starlight:glowing_lunar_bush", "count": 1 },
+    { "id": "eternal_starlight:dead_lunar_bush", "count": 1 }
+  ]
+}

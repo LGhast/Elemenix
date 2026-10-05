@@ -1,0 +1,10 @@
+{
+  "type": "elemenix:germinating",
+  "template": { "item": "twilightforest:mushgloom" },
+  "products": [
+    { "id": "twilightforest:mushgloom", "count": 1 },
+    { "id": "twilightforest:huge_mushgloom", "count": 1 },
+    { "id": "twilightforest:huge_mushgloom_stem", "count": 1 },
+    { "id": "twilightdelight:mushgloom_colony", "count": 1 }
+  ]
+}

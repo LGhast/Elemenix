@@ -1,0 +1,9 @@
+{
+  "type": "elemenix:germinating",
+  "template": { "item": "twilightforest:trollber" },
+  "products": [
+    { "id": "twilightforest:trollber", "count": 1 },
+    { "id": "twilightforest:unripe_trollber", "count": 1 },
+    { "id": "twilightforest:trollvidr", "count": 1 }
+  ]
+}

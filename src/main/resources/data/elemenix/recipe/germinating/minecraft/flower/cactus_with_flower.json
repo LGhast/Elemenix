@@ -1,0 +1,8 @@
+{
+  "type": "elemenix:germinating",
+  "template": { "item": "minecraft:cactus" },
+  "products": [
+    { "id": "minecraft:cactus", "count": 1 },
+    { "id": "minecraft:cactus_flower", "count": 1 }
+  ]
+}

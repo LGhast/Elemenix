@@ -1,0 +1,10 @@
+{
+  "type": "elemenix:germinating",
+  "template": { "item": "minecraft:red_tulip" },
+  "products": [
+    { "id": "minecraft:red_tulip", "count": 1 },
+    { "id": "minecraft:orange_tulip", "count": 1 },
+    { "id": "minecraft:white_tulip", "count": 1 },
+    { "id": "minecraft:pink_tulip", "count": 1 }
+  ]
+}

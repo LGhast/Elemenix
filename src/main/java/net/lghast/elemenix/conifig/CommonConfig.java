@@ -35,6 +35,7 @@ public class CommonConfig {
     public static ModConfigSpec.IntValue GA_PRODUCTION;
     public static ModConfigSpec.IntValue GA_DC_INTERVAL;
     public static ModConfigSpec.IntValue GA_RC_INTERVAL;
+    public static ModConfigSpec.IntValue GA_GERMINATION_INTERVAL;
 
     public static ModConfigSpec.IntValue TI_CONSUMPTION;
     public static ModConfigSpec.IntValue TI_PRODUCTION;
@@ -229,6 +230,12 @@ public class CommonConfig {
                         "Time interval (in ticks) for the Germinal Accelerator to reconstruct output items")
                 .translation(CONFIG_PREFIX + "germinal_accelerator_rc_interval")
                 .defineInRange("germinal_accelerator_rc_interval", 15, 1, Integer.MAX_VALUE);
+
+        GA_GERMINATION_INTERVAL = BUILDER
+                .comment("蕃孕加速仪完成一次蕃育所需的时间间隔（刻）",
+                        "Time interval (in ticks) for the Germinal Accelerator to complete one germination")
+                .translation(CONFIG_PREFIX + "germinal_accelerator_germination_interval")
+                .defineInRange("germinal_accelerator_germination_interval", 120, 1, Integer.MAX_VALUE);
 
         TI_CONSUMPTION = BUILDER
                 .comment("蒸腾焚化仪每次消耗输入元质的量",

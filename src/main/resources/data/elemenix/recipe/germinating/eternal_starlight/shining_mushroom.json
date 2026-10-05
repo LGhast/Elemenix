@@ -1,0 +1,9 @@
+{
+  "type": "elemenix:germinating",
+  "template": { "item": "eternal_starlight:shining_mushroom" },
+  "products": [
+    { "id": "eternal_starlight:shining_mushroom", "count": 1 },
+    { "id": "eternal_starlight:shining_mushroom_block", "count": 1 },
+    { "id": "eternal_starlight:shining_mushroom_stem", "count": 1 }
+  ]
+}

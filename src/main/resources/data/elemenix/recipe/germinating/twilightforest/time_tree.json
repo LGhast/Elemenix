@@ -1,0 +1,9 @@
+{
+  "type": "elemenix:germinating",
+  "template": { "item": "twilightforest:time_sapling" },
+  "products": [
+    { "id": "twilightforest:time_sapling", "count": 1 },
+    { "id": "twilightforest:time_log", "count": 1 },
+    { "id": "twilightforest:time_leaves", "count": 1 }
+  ]
+}

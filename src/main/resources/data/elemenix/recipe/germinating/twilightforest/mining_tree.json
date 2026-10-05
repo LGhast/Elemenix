@@ -1,0 +1,9 @@
+{
+  "type": "elemenix:germinating",
+  "template": { "item": "twilightforest:mining_sapling" },
+  "products": [
+    { "id": "twilightforest:mining_sapling", "count": 1 },
+    { "id": "twilightforest:mining_log", "count": 1 },
+    { "id": "twilightforest:mining_leaves", "count": 1 }
+  ]
+}

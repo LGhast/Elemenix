@@ -1,0 +1,10 @@
+{
+  "type": "elemenix:germinating",
+  "template": { "item": "twilightforest:mangrove_sapling" },
+  "products": [
+    { "id": "twilightforest:mangrove_sapling", "count": 1 },
+    { "id": "twilightforest:mangrove_log", "count": 1 },
+    { "id": "twilightforest:mangrove_leaves", "count": 1 },
+    { "id": "twilightforest:mangrove_root", "count": 1 }
+  ]
+}

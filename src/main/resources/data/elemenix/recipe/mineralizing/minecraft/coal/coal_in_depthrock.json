@@ -1,0 +1,6 @@
+{
+  "type": "elemenix:mineralizing",
+  "mineral": { "item": "minecraft:coal" },
+  "medium": { "item": "undergarden:depthrock" },
+  "result": { "id": "undergarden:depthrock_coal_ore", "count": 1 }
+}

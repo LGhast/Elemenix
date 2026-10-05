@@ -1,0 +1,10 @@
+{
+  "type": "elemenix:germinating",
+  "template": { "item": "undergarden:veil_mushroom" },
+  "products": [
+    { "id": "undergarden:veil_mushroom", "count": 1 },
+    { "id": "undergarden:veil_mushroom_cap", "count": 1 },
+    { "id": "undergarden:veil_mushroom_stem", "count": 1 },
+    { "id": "undergarden:mushroom_veil", "count": 1 }
+  ]
+}

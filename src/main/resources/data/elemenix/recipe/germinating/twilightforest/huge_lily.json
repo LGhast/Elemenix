@@ -1,0 +1,8 @@
+{
+  "type": "elemenix:germinating",
+  "template": { "item": "twilightforest:huge_lily_pad" },
+  "products": [
+    { "id": "twilightforest:huge_lily_pad", "count": 1 },
+    { "id": "twilightforest:huge_water_lily", "count": 1 }
+  ]
+}

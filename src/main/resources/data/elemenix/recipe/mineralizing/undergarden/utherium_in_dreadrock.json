@@ -1,0 +1,6 @@
+{
+  "type": "elemenix:mineralizing",
+  "mineral": { "item": "undergarden:utheric_cluster" },
+  "medium": { "item": "undergarden:dreadrock" },
+  "result": { "id": "undergarden:dreadrock_utherium_ore", "count": 1 }
+}

@@ -1,0 +1,10 @@
+{
+  "type": "elemenix:germinating",
+  "template": { "item": "dungeonsdelight:wormroot_tendrils" },
+  "products": [
+    { "id": "dungeonsdelight:wormroot_tendrils", "count": 1 },
+    { "id": "dungeonsdelight:wormroot_stalk", "count": 1 },
+    { "id": "dungeonsdelight:wormroots_block", "count": 1 },
+    { "id": "dungeonsdelight:wormouth", "count": 1 }
+  ]
+}

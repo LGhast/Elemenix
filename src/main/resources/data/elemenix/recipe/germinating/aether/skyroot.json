@@ -1,0 +1,9 @@
+{
+  "type": "elemenix:germinating",
+  "template": { "item": "aether:skyroot_sapling" },
+  "products": [
+    { "id": "aether:skyroot_sapling", "count": 1 },
+    { "id": "aether:skyroot_log", "count": 1 },
+    { "id": "aether:skyroot_leaves", "count": 1 }
+  ]
+}

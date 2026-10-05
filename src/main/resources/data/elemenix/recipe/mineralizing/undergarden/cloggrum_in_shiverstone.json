@@ -1,0 +1,6 @@
+{
+  "type": "elemenix:mineralizing",
+  "mineral": { "item": "undergarden:cloggrum_ingot" },
+  "medium": { "item": "undergarden:shiverstone" },
+  "result": { "id": "undergarden:shiverstone_cloggrum_ore", "count": 1 }
+}

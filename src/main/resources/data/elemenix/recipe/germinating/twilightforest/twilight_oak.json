@@ -1,0 +1,9 @@
+{
+  "type": "elemenix:germinating",
+  "template": { "item": "twilightforest:twilight_oak_sapling" },
+  "products": [
+    { "id": "twilightforest:twilight_oak_sapling", "count": 1 },
+    { "id": "twilightforest:twilight_oak_log", "count": 1 },
+    { "id": "twilightforest:twilight_oak_leaves", "count": 1 }
+  ]
+}

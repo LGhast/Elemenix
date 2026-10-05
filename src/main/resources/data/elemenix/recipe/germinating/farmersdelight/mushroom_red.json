@@ -1,0 +1,13 @@
+{
+  "type": "elemenix:germinating",
+  "template": { "item": "minecraft:red_mushroom" },
+  "neoforge:conditions": [
+    { "type": "neoforge:mod_loaded", "modid": "farmersdelight" }
+  ],
+  "products": [
+    { "id": "minecraft:red_mushroom", "count": 1 },
+    { "id": "farmersdelight:red_mushroom_colony", "count": 1 },
+    { "id": "minecraft:red_mushroom_block", "count": 1 },
+    { "id": "minecraft:mushroom_stem", "count": 1 }
+  ]
+}

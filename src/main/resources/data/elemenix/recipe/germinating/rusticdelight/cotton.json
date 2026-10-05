@@ -1,0 +1,9 @@
+{
+  "type": "elemenix:germinating",
+  "template": { "item": "rusticdelight:cotton_boll" },
+  "products": [
+    { "id": "rusticdelight:cotton_boll", "count": 1 },
+    { "id": "rusticdelight:cotton_seeds", "count": 1 },
+    { "id": "rusticdelight:wild_cotton", "count": 1 }
+  ]
+}

@@ -1,0 +1,9 @@
+{
+  "type": "elemenix:germinating",
+  "template": { "item": "eternal_starlight:northland_sapling" },
+  "products": [
+    { "id": "eternal_starlight:northland_sapling", "count": 1 },
+    { "id": "eternal_starlight:northland_log", "count": 1 },
+    { "id": "eternal_starlight:northland_leaves", "count": 1 }
+  ]
+}

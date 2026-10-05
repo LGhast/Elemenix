@@ -1,0 +1,6 @@
+{
+  "type": "elemenix:mineralizing",
+  "mineral": { "item": "aether:enchanted_gravitite" },
+  "medium": { "item": "aether:holystone" },
+  "result": { "id": "aether:gravitite_ore", "count": 1 }
+}

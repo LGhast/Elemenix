@@ -1,0 +1,8 @@
+{
+  "type": "elemenix:germinating",
+  "template": { "item": "eternal_starlight:starlight_flower" },
+  "products": [
+    { "id": "eternal_starlight:starlight_flower", "count": 1 },
+    { "id": "eternal_starlight:withered_starlight_flower", "count": 1 }
+  ]
+}

@@ -1,0 +1,8 @@
+{
+  "type": "elemenix:germinating",
+  "template": { "item": "eternal_starlight:pink_rose" },
+  "products": [
+    { "id": "eternal_starlight:pink_rose", "count": 1 },
+    { "id": "eternal_starlight:pink_rose_bush", "count": 1 }
+  ]
+}

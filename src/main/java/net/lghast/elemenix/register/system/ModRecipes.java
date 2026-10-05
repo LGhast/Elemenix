@@ -1,9 +1,8 @@
 package net.lghast.elemenix.register.system;
 
 import net.lghast.elemenix.Elemenics;
-import net.lghast.elemenix.common.system.recipe.MemorizerStylingRecipe;
-import net.lghast.elemenix.compat.jei.recipe.EnrichingRecipe;
-import net.lghast.elemenix.compat.jei.recipe.TransformingRecipe;
+import net.lghast.elemenix.common.system.recipe.*;
+import net.lghast.elemenix.compat.jei.recipe.*;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
@@ -27,9 +26,21 @@ public class ModRecipes {
     public static final Supplier<RecipeType<TransformingRecipe>> TRANSFORMING =
             RECIPE_TYPES.register("transforming", () -> new RecipeType<>() {});
 
+    public static final Supplier<RecipeType<MineralizingRecipe>> MINERALIZING =
+            RECIPE_TYPES.register("mineralizing", () -> new RecipeType<>() {});
+
+    public static final Supplier<RecipeType<GerminatingRecipe>> GERMINATING =
+            RECIPE_TYPES.register("germinating", () -> new RecipeType<>() {});
+
     public static final DeferredHolder<RecipeSerializer<?>, RecipeSerializer<MemorizerStylingRecipe>> MEMORIZER_STYLING =
             RECIPE_SERIALIZERS.register("crafting_special_memorizer_styling",
                     () -> new SimpleCraftingRecipeSerializer<>(MemorizerStylingRecipe::new));
+
+    public static final DeferredHolder<RecipeSerializer<?>, RecipeSerializer<MineralizingRecipe>> MINERALIZING_SERIALIZER =
+            RECIPE_SERIALIZERS.register("mineralizing", MineralizingRecipeSerializer::new);
+
+    public static final DeferredHolder<RecipeSerializer<?>, RecipeSerializer<GerminatingRecipe>> GERMINATING_SERIALIZER =
+            RECIPE_SERIALIZERS.register("germinating", GerminatingRecipeSerializer::new);
 
     public static void register(IEventBus eventBus) {
         RECIPE_TYPES.register(eventBus);

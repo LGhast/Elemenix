@@ -1,0 +1,6 @@
+{
+  "type": "elemenix:mineralizing",
+  "mineral": { "item": "create:zinc_ingot" },
+  "medium": { "item": "minecraft:stone" },
+  "result": { "id": "create:zinc_ore", "count": 1 }
+}

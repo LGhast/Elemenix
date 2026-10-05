@@ -1,0 +1,9 @@
+{
+  "type": "elemenix:germinating",
+  "template": { "item": "dungeonsdelight:rotgourd" },
+  "products": [
+    { "id": "dungeonsdelight:rotgourd", "count": 1 },
+    { "id": "dungeonsdelight:rotgourd_slice", "count": 1 },
+    { "id": "dungeonsdelight:gunk", "count": 1 }
+  ]
+}

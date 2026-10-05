@@ -1,0 +1,8 @@
+{
+  "type": "elemenix:germinating",
+  "template": { "item": "eternal_starlight:nightfan" },
+  "products": [
+    { "id": "eternal_starlight:nightfan", "count": 1 },
+    { "id": "eternal_starlight:nightfan_bush", "count": 1 }
+  ]
+}

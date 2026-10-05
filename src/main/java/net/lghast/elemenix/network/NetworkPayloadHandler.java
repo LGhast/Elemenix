@@ -10,6 +10,7 @@ import net.lghast.elemenix.network.terminal.TerminalCarriedDeconstructPayload;
 import net.lghast.elemenix.network.terminal.TerminalMemorizerSelectPayload;
 import net.lghast.elemenix.network.terminal.TerminalFlagsPayload;
 import net.lghast.elemenix.network.terminal.TerminalReconstructPayload;
+import net.lghast.elemenix.network.transformer.TransformerSwitchPagePayload;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
@@ -117,6 +118,12 @@ public class NetworkPayloadHandler {
                 TerminalCarriedDeconstructPayload.TYPE,
                 TerminalCarriedDeconstructPayload.STREAM_CODEC,
                 TerminalCarriedDeconstructPayload::handle
+        );
+
+        registrar.playToServer(
+                TransformerSwitchPagePayload.TYPE,
+                TransformerSwitchPagePayload.STREAM_CODEC,
+                TransformerSwitchPagePayload::handle
         );
     }
 }

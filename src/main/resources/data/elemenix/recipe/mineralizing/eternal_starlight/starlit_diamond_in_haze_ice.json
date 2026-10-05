@@ -1,0 +1,6 @@
+{
+  "type": "elemenix:mineralizing",
+  "mineral": { "item": "eternal_starlight:starlit_diamond" },
+  "medium": { "item": "eternal_starlight:haze_ice" },
+  "result": { "id": "eternal_starlight:haze_ice_starlit_diamond_ore", "count": 1 }
+}

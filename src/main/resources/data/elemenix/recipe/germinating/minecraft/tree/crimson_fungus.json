@@ -1,0 +1,12 @@
+{
+  "type": "elemenix:germinating",
+  "template": { "item": "minecraft:crimson_fungus" },
+  "products": [
+    { "id": "minecraft:crimson_fungus", "count": 1 },
+    { "id": "minecraft:crimson_stem", "count": 1 },
+    { "id": "minecraft:nether_wart_block", "count": 1 },
+    { "id": "minecraft:shroomlight", "count": 1 },
+    { "id": "minecraft:weeping_vines", "count": 1 },
+    { "id": "minecraft:crimson_roots", "count": 1 }
+  ]
+}

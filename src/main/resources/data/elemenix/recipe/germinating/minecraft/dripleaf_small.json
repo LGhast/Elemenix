@@ -1,0 +1,8 @@
+{
+  "type": "elemenix:germinating",
+  "template": { "item": "minecraft:small_dripleaf" },
+  "products": [
+    { "id": "minecraft:small_dripleaf", "count": 1 },
+    { "id": "minecraft:big_dripleaf", "count": 1 }
+  ]
+}

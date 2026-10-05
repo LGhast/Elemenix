@@ -1,0 +1,6 @@
+{
+  "type": "elemenix:mineralizing",
+  "mineral": { "item": "eternal_starlight:saltpeter_powder" },
+  "medium": { "item": "eternal_starlight:grimstone" },
+  "result": { "id": "eternal_starlight:grimstone_saltpeter_ore", "count": 1 }
+}

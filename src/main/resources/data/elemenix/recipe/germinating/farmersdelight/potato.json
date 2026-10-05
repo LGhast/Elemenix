@@ -1,0 +1,12 @@
+{
+  "type": "elemenix:germinating",
+  "template": { "item": "minecraft:potato" },
+  "neoforge:conditions": [
+    { "type": "neoforge:mod_loaded", "modid": "farmersdelight" }
+  ],
+  "products": [
+    { "id": "minecraft:potato", "count": 1 },
+    { "id": "minecraft:poisonous_potato", "count": 1 },
+    { "id": "farmersdelight:wild_potatoes", "count": 1 }
+  ]
+}

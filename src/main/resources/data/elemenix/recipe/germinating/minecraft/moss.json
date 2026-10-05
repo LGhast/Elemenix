@@ -1,0 +1,8 @@
+{
+  "type": "elemenix:germinating",
+  "template": { "item": "minecraft:moss_block" },
+  "products": [
+    { "id": "minecraft:moss_block", "count": 1 },
+    { "id": "minecraft:moss_carpet", "count": 1 }
+  ]
+}

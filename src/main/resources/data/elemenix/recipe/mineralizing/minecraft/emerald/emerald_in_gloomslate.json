@@ -1,0 +1,6 @@
+{
+  "type": "elemenix:mineralizing",
+  "mineral": { "item": "minecraft:emerald" },
+  "medium": { "item": "deeperdarker:gloomslate" },
+  "result": { "id": "deeperdarker:gloomslate_emerald_ore", "count": 1 }
+}

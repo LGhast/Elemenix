@@ -1,0 +1,11 @@
+{
+  "type": "elemenix:germinating",
+  "template": { "item": "eternal_starlight:banyin_sapling" },
+  "products": [
+    { "id": "eternal_starlight:banyin_sapling", "count": 1 },
+    { "id": "eternal_starlight:banyin_log", "count": 1 },
+    { "id": "eternal_starlight:banyin_leaves", "count": 1 },
+    { "id": "eternal_starlight:banyin_roots", "count": 1 },
+    { "id": "eternal_starlight:hanging_fantagrass", "count": 1 }
+  ]
+}

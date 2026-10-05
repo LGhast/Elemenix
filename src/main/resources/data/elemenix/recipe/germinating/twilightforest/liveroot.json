@@ -1,0 +1,10 @@
+{
+  "type": "elemenix:germinating",
+  "template": { "item": "twilightforest:liveroot" },
+  "products": [
+    { "id": "twilightforest:liveroot", "count": 1 },
+    { "id": "twilightforest:root", "count": 1 },
+    { "id": "twilightforest:liveroot_block", "count": 1 },
+    { "id": "twilightforest:root_strand", "count": 1 }
+  ]
+}

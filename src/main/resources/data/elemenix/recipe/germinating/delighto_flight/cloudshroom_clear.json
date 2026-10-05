@@ -1,0 +1,10 @@
+{
+  "type": "elemenix:germinating",
+  "template": { "item": "delighto_flight:clear_cloudshroom" },
+  "products": [
+    { "id": "delighto_flight:clear_cloudshroom", "count": 1 },
+    { "id": "delighto_flight:rainy_cloudshroom", "count": 1 },
+    { "id": "delighto_flight:thunder_cloudshroom", "count": 1 },
+    { "id": "delighto_flight:cloudshroom_colony", "count": 1 }
+  ]
+}

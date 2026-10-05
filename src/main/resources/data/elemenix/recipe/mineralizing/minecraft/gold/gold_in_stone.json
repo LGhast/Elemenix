@@ -1,0 +1,6 @@
+{
+  "type": "elemenix:mineralizing",
+  "mineral": { "item": "minecraft:gold_ingot" },
+  "medium": { "item": "minecraft:stone" },
+  "result": { "id": "minecraft:gold_ore", "count": 1 }
+}

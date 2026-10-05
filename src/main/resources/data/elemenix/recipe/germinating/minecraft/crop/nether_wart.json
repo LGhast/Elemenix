@@ -1,0 +1,8 @@
+{
+  "type": "elemenix:germinating",
+  "template": { "item": "minecraft:nether_wart" },
+  "products": [
+    { "id": "minecraft:nether_wart", "count": 1 },
+    { "id": "minecraft:nether_wart_block", "count": 1 }
+  ]
+}

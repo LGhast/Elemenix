@@ -1,0 +1,6 @@
+{
+  "type": "elemenix:mineralizing",
+  "mineral": { "item": "eternal_starlight:deepsilver_ingot" },
+  "medium": { "item": "eternal_starlight:grimstone" },
+  "result": { "id": "eternal_starlight:grimstone_deepsilver_ore", "count": 1 }
+}

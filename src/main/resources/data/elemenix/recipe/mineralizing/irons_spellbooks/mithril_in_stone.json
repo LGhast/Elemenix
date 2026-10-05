@@ -1,0 +1,6 @@
+{
+  "type": "elemenix:mineralizing",
+  "mineral": { "item": "irons_spellbooks:mithril_scrap" },
+  "medium": { "item": "minecraft:stone" },
+  "result": { "id": "irons_spellbooks:mithril_ore", "count": 1 }
+}

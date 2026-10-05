@@ -1,0 +1,9 @@
+{
+  "type": "elemenix:germinating",
+  "template": { "item": "farmersdelight:rice_panicle" },
+  "products": [
+    { "id": "farmersdelight:rice_panicle", "count": 1 },
+    { "id": "farmersdelight:rice", "count": 1 },
+    { "id": "farmersdelight:wild_rice", "count": 1 }
+  ]
+}

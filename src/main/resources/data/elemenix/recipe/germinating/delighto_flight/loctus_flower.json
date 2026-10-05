@@ -1,0 +1,12 @@
+{
+  "type": "elemenix:germinating",
+  "template": { "item": "delighto_flight:lotus_flower" },
+  "products": [
+    { "id": "delighto_flight:lotus_flower", "count": 1 },
+    { "id": "delighto_flight:lotus_leaf", "count": 1 },
+    { "id": "delighto_flight:lotus_seeds", "count": 1 },
+    { "id": "delighto_flight:lotus_root", "count": 1 },
+    { "id": "delighto_flight:lotus_root_slice", "count": 1 },
+    { "id": "delighto_flight:wild_lotus", "count": 1 }
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "type": "elemenix:germinating",
+  "template": { "item": "dungeonsdelight:rotbulb" },
+  "products": [
+    { "id": "dungeonsdelight:rotbulb", "count": 1 },
+    { "id": "dungeonsdelight:rotbulb_crop", "count": 1 },
+    { "id": "dungeonsdelight:gunk", "count": 1 },
+    { "id": "dungeonsdelight:rotbulb_plant", "count": 1 }
+  ]
+}

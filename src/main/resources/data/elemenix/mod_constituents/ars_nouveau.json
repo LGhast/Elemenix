@@ -17,7 +17,7 @@
     { "id": "ars_nouveau:frostaya_pod", "constituents": [24, 0, 22, 0, 0, 0] },
     { "id": "ars_nouveau:bastion_pod", "constituents": [24, 16, 6, 0, 0, 0] },
     { "id": "ars_nouveau:magebloom", "constituents": [20, 0, 8, 0, 0, 4] },
-    { "id": "ars_nouveau:magebloom_seeds", "constituents": [5, 0, 0, 0, 0, 1] },
+    { "id": "ars_nouveau:magebloom_crop", "constituents": [5, 0, 0, 0, 0, 1] },
     { "id": "ars_nouveau:source_gem", "constituents": [0, 18, 0, 0, 0, 20] },
     { "id": "ars_nouveau:sourcestone", "constituents": [0, 26, 0, 0, 0, 2] },
     { "id": "ars_nouveau:sourcestone_sconce", "constituents": [0, 70, 0, 0, 0, 24] },

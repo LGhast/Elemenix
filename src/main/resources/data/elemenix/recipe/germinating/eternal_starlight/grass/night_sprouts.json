@@ -1,0 +1,10 @@
+{
+  "type": "elemenix:germinating",
+  "template": { "item": "eternal_starlight:glowing_night_sprouts" },
+  "products": [
+    { "id": "eternal_starlight:night_sprouts", "count": 1 },
+    { "id": "eternal_starlight:glowing_night_sprouts", "count": 1 },
+    { "id": "eternal_starlight:small_night_sprouts", "count": 1 },
+    { "id": "eternal_starlight:small_glowing_night_sprouts", "count": 1 }
+  ]
+}

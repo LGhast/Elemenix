@@ -1,0 +1,10 @@
+{
+  "type": "elemenix:germinating",
+  "template": { "item": "minecraft:jungle_sapling" },
+  "products": [
+    { "id": "minecraft:jungle_sapling", "count": 1 },
+    { "id": "minecraft:jungle_log", "count": 1 },
+    { "id": "minecraft:jungle_leaves", "count": 1 },
+    { "id": "minecraft:cocoa_beans", "count": 1 }
+  ]
+}

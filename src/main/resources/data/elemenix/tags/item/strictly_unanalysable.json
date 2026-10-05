@@ -140,6 +140,10 @@
       "required": false
     },
     {
+      "id": "#create:crushed_raw_materials",
+      "required": false
+    },
+    {
       "id": "#twilightforest:wip",
       "required": false
     },
@@ -249,11 +253,7 @@
       "required": false
     },
     {
-      "id": "anvilcraft:capacitor",
-      "required": false
-    },
-    {
-      "id": "anvilcraft:supercapacitor",
+      "id": "anvilcraft:ruins_block",
       "required": false
     },
     {
@@ -262,6 +262,18 @@
     },
     {
       "id": "anvilcraft:resentful_amber_block",
+      "required": false
+    },
+    {
+      "id": "anvilcraft:sturdy_deepslate",
+      "required": false
+    },
+    {
+      "id": "anvilcraft:guide_book",
+      "required": false
+    },
+    {
+      "id": "anvilcraft:glass_pipe",
       "required": false
     },
     {
@@ -286,6 +298,18 @@
     },
     {
       "id": "anvilcraft:creative_generator",
+      "required": false
+    },
+    {
+      "id": "anvilcraft:creative_crate",
+      "required": false
+    },
+    {
+      "id": "anvilcraft:creative_fluid_tank",
+      "required": false
+    },
+    {
+      "id": "anvilcraft:creative_laser",
       "required": false
     },
     {
@@ -926,6 +950,10 @@
     },
     {
       "id": "kaleidoscope_cookery:suspicious_stir_fry",
+      "required": false
+    },
+    {
+      "id": "ageratum:guidebook",
       "required": false
     }
   ]

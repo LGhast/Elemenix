@@ -1,0 +1,9 @@
+{
+  "type": "elemenix:germinating",
+  "template": { "item": "farmersdelight:onion" },
+  "products": [
+    { "id": "farmersdelight:onion", "count": 1 },
+    { "id": "farmersdelight:wild_onions", "count": 1 },
+    { "id": "minecraft:allium", "count": 1 }
+  ]
+}
