@@ -135,6 +135,8 @@
   "gui.elemenix.analysis_terminal.enable_deconstruct": "開啟解析",
   "gui.elemenix.analysis_terminal.allow_memory": "允許記憶",
   "gui.elemenix.analysis_terminal.allow_transfer": "允許轉移",
+  "gui.elemenix.transformer.toggle_transform": "開啟轉化",
+  "gui.elemenix.transformer.toggle_enrich": "開啟富集",
   "gui.elemenix.mode_switch.to_transforming": "轉化模式",
   "gui.elemenix.mode_switch.to_mineralizing": "成礦模式",
   "gui.elemenix.mode_switch.to_germinating": "蕃育模式",

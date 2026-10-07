@@ -135,6 +135,8 @@
   "gui.elemenix.analysis_terminal.enable_deconstruct": "Decon.",
   "gui.elemenix.analysis_terminal.allow_memory": "Memory",
   "gui.elemenix.analysis_terminal.allow_transfer": "Transfer",
+  "gui.elemenix.transformer.toggle_transform": "Enable Transforming",
+  "gui.elemenix.transformer.toggle_enrich": "Enable Enriching",
   "gui.elemenix.mode_switch.to_germinating": "Germinating Mode",
   "gui.elemenix.mode_switch.to_transforming": "Transforming Mode",
   "gui.elemenix.mode_switch.to_mineralizing": "Mineralizing Mode",

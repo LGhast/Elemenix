@@ -1,0 +1,10 @@
+{
+  "type": "elemenix:germinating",
+  "template": { "item": "deep_aether:sunroot_sapling" },
+  "products": [
+    { "id": "deep_aether:sunroot_sapling", "count": 1 },
+    { "id": "deep_aether:sunroot_log", "count": 1 },
+    { "id": "deep_aether:sunroot_leaves", "count": 1 },
+    { "id": "deep_aether:sunroot_hanger", "count": 1 }
+  ]
+}

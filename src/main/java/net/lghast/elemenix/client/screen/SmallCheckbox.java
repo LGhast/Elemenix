@@ -35,6 +35,10 @@ public class SmallCheckbox extends AbstractWidget {
         return selected;
     }
 
+    public void setSelected(boolean selected) {
+        this.selected = selected;
+    }
+
     @Override
     public void onClick(double mouseX, double mouseY) {
         this.selected = !this.selected;

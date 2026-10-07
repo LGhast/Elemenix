@@ -1,0 +1,8 @@
+{
+  "type": "elemenix:germinating",
+  "template": { "item": "kaleidoscope_cookery:tomato" },
+  "products": [
+    { "id": "kaleidoscope_cookery:tomato", "count": 1 },
+    { "id": "kaleidoscope_cookery:tomato_seed", "count": 1 }
+  ]
+}

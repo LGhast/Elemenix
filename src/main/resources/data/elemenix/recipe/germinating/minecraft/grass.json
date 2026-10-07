@@ -1,8 +1,8 @@
 {
   "type": "elemenix:germinating",
-  "template": { "item": "minecraft:grass" },
+  "template": { "item": "minecraft:short_grass" },
   "products": [
-    { "id": "minecraft:grass", "count": 1 },
+    { "id": "minecraft:short_grass", "count": 1 },
     { "id": "minecraft:tall_grass", "count": 1 },
     { "id": "minecraft:wheat_seeds", "count": 1 }
   ]

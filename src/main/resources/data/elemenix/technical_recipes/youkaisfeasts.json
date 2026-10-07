@@ -1,0 +1,623 @@
+{
+  "mod_id": "youkaisfeasts",
+  "load_after": ["farmersdelight"],
+  "recipes": [
+    {
+      "output": "youkaisfeasts:tarte_lune_slice",
+      "count": 4,
+      "inputs": [
+        { "id": "youkaisfeasts:tarte_lune", "count": 1 }
+      ]
+    },
+    {
+      "preset": "food_unit",
+      "output": "youkaisfeasts:bowl_of_heart_throbbing_surprise",
+      "source": "youkaisfeasts:chest_of_heart_throbbing_surprise",
+      "container": "minecraft:bowl",
+      "offcuts": [
+        { "id": "minecraft:bowl", "count": 1 },
+        { "id": "minecraft:chest", "count": 1 }
+      ]
+    },
+    {
+      "preset": "mob_bucket",
+      "output": "youkaisfeasts:lamprey_bucket",
+      "mob_item": "youkaisfeasts:raw_lamprey"
+    },
+    {
+      "preset": "mob_bucket",
+      "output": "youkaisfeasts:crab_bucket",
+      "mob_item": "youkaisfeasts:crab"
+    },
+    {
+      "output": "youkaisfeasts:tuna_bucket",
+      "count": 1,
+      "inputs": [
+        { "id": "minecraft:water_bucket", "count": 1 },
+        { "id": "youkaisfeasts:raw_tuna", "count": 6 }
+      ]
+    },
+    {
+      "output": "youkaisfeasts:soy_sauce_bottle",
+      "count": 1,
+      "inputs": [
+        { "id": "youkaisfeasts:soybean", "count": 1 },
+        { "id": "minecraft:glass_bottle", "count": 1 }
+      ],
+      "additions": [
+        { "type": "flumix", "value": 4 }
+      ]
+    },
+    {
+      "output": "youkaisfeasts:soy_sauce_flask",
+      "count": 1,
+      "inputs": [
+        { "id": "youkaisfeasts:soybean", "count": 4 },
+        { "id": "youkaisfeasts:sake_bottle", "count": 1 }
+      ],
+      "additions": [
+        { "type": "flumix", "value": 4 }
+      ]
+    },
+    {
+      "output": "youkaisfeasts:daiginjo",
+      "count": 4,
+      "inputs": [
+        { "id": "farmersdelight:rice", "count": 3 },
+        { "id": "minecraft:bowl", "count": 4 },
+        { "id": "minecraft:nether_wart", "count": 1 },
+        { "id": "minecraft:blaze_powder", "count": 1 }
+      ]
+    },
+    {
+      "output": "youkaisfeasts:dassai",
+      "count": 4,
+      "inputs": [
+        { "id": "farmersdelight:rice", "count": 3 },
+        { "id": "minecraft:bowl", "count": 4 },
+        { "id": "minecraft:nether_wart", "count": 1 },
+        { "id": "minecraft:nautilus_shell", "count": 1 }
+      ]
+    },
+    {
+      "output": "youkaisfeasts:apple_basket",
+      "count": 1,
+      "inputs": [
+        { "id": "minecraft:apple", "count": 11 },
+        { "id": "youkaisfeasts:short_basket", "count": 1 }
+      ]
+    },
+    {
+      "output": "youkaisfeasts:golden_apple_basket",
+      "count": 1,
+      "inputs": [
+        { "id": "minecraft:golden_apple", "count": 11 },
+        { "id": "youkaisfeasts:short_basket", "count": 1 }
+      ]
+    },
+    {
+      "output": "youkaisfeasts:carrot_basket",
+      "count": 1,
+      "inputs": [
+        { "id": "minecraft:carrot", "count": 11 },
+        { "id": "youkaisfeasts:short_basket", "count": 1 }
+      ]
+    },
+    {
+      "output": "youkaisfeasts:golden_carrot_basket",
+      "count": 1,
+      "inputs": [
+        { "id": "minecraft:golden_carrot", "count": 11 },
+        { "id": "youkaisfeasts:short_basket", "count": 1 }
+      ]
+    },
+    {
+      "output": "youkaisfeasts:cabbage_basket",
+      "count": 1,
+      "inputs": [
+        { "id": "farmersdelight:cabbage", "count": 11 },
+        { "id": "youkaisfeasts:short_basket", "count": 1 }
+      ]
+    },
+    {
+      "output": "youkaisfeasts:cucumber_basket",
+      "count": 1,
+      "inputs": [
+        { "id": "youkaisfeasts:cucumber", "count": 11 },
+        { "id": "youkaisfeasts:short_basket", "count": 1 }
+      ]
+    },
+    {
+      "output": "youkaisfeasts:mayonnaise_flask",
+      "count": 1,
+      "inputs": [
+        { "id": "youkaisfeasts:mayonnaise_bottle", "count": 4 },
+        { "id": "youkaisfeasts:sake_bottle", "count": 1 }
+      ],
+      "offcuts": [
+        { "id": "minecraft:glass_bottle", "count": 4 }
+      ]
+    },
+    {
+      "output": "youkaisfeasts:red_grape_juice",
+      "count": 1,
+      "inputs": [
+        { "id": "youkaisfeasts:red_grape", "count": 5 },
+        { "id": "minecraft:glass_bottle", "count": 1 }
+      ]
+    },
+    {
+      "output": "youkaisfeasts:white_grape_juice",
+      "count": 1,
+      "inputs": [
+        { "id": "youkaisfeasts:white_grape", "count": 5 },
+        { "id": "minecraft:glass_bottle", "count": 1 }
+      ]
+    },
+    {
+      "output": "youkaisfeasts:black_grape_juice",
+      "count": 1,
+      "inputs": [
+        { "id": "youkaisfeasts:black_grape", "count": 5 },
+        { "id": "minecraft:glass_bottle", "count": 1 }
+      ]
+    },
+    {
+      "preset": "same",
+      "output": "youkaisfeasts:red_wine",
+      "input": "youkaisfeasts:red_grape_juice"
+    },
+    {
+      "preset": "same",
+      "output": "youkaisfeasts:white_wine",
+      "input": "youkaisfeasts:white_grape_juice"
+    },
+    {
+      "output": "youkaisfeasts:red_wine_bottle",
+      "count": 1,
+      "inputs": [
+        { "id": "youkaisfeasts:red_grape_juice", "count": 4 },
+        { "id": "youkaisfeasts:sake_bottle", "count": 1 }
+      ],
+      "offcuts": [
+        { "id": "minecraft:glass_bottle", "count": 4 }
+      ]
+    },
+    {
+      "output": "youkaisfeasts:white_wine_bottle",
+      "count": 1,
+      "inputs": [
+        { "id": "youkaisfeasts:white_grape_juice", "count": 4 },
+        { "id": "youkaisfeasts:sake_bottle", "count": 1 }
+      ],
+      "offcuts": [
+        { "id": "minecraft:glass_bottle", "count": 4 }
+      ]
+    },
+    {
+      "output": "youkaisfeasts:burgundy",
+      "count": 4,
+      "inputs": [
+        { "id": "youkaisfeasts:black_grape_juice", "count": 4 },
+        { "id": "minecraft:sweet_berries", "count": 1 },
+        { "id": "minecraft:glass_bottle", "count": 4 }
+      ],
+      "offcuts": [
+        { "id": "minecraft:glass_bottle", "count": 4 }
+      ]
+    },
+    {
+      "output": "youkaisfeasts:burgundy_bottle",
+      "count": 1,
+      "inputs": [
+        { "id": "youkaisfeasts:black_grape_juice", "count": 4 },
+        { "id": "minecraft:sweet_berries", "count": 1 },
+        { "id": "youkaisfeasts:sake_bottle", "count": 1 }
+      ],
+      "offcuts": [
+        { "id": "minecraft:glass_bottle", "count": 4 }
+      ]
+    },
+    {
+      "output": "youkaisfeasts:champagne",
+      "count": 4,
+      "inputs": [
+        { "id": "youkaisfeasts:white_grape_juice", "count": 4 },
+        { "id": "minecraft:sweet_berries", "count": 1 },
+        { "id": "minecraft:sugar", "count": 1 },
+        { "id": "minecraft:glass_bottle", "count": 4 }
+      ],
+      "offcuts": [
+        { "id": "minecraft:glass_bottle", "count": 4 }
+      ]
+    },
+    {
+      "output": "youkaisfeasts:champagne_bottle",
+      "count": 1,
+      "inputs": [
+        { "id": "youkaisfeasts:white_grape_juice", "count": 4 },
+        { "id": "minecraft:sweet_berries", "count": 1 },
+        { "id": "minecraft:sugar", "count": 1 },
+        { "id": "youkaisfeasts:sake_bottle", "count": 1 }
+      ],
+      "offcuts": [
+        { "id": "minecraft:glass_bottle", "count": 4 }
+      ]
+    },
+    {
+      "output": "youkaisfeasts:van_allen",
+      "count": 4,
+      "inputs": [
+        { "id": "youkaisfeasts:red_grape_juice", "count": 4 },
+        { "id": "minecraft:sweet_berries", "count": 1 },
+        { "id": "minecraft:glass_bottle", "count": 4 }
+      ],
+      "offcuts": [
+        { "id": "minecraft:glass_bottle", "count": 4 }
+      ]
+    },
+    {
+      "output": "youkaisfeasts:van_allen_bottle",
+      "count": 1,
+      "inputs": [
+        { "id": "youkaisfeasts:red_grape_juice", "count": 4 },
+        { "id": "minecraft:sweet_berries", "count": 1 },
+        { "id": "youkaisfeasts:sake_bottle", "count": 1 }
+      ],
+      "offcuts": [
+        { "id": "minecraft:glass_bottle", "count": 4 }
+      ]
+    },
+    {
+      "output": "youkaisfeasts:green_tea",
+      "count": 1,
+      "inputs": [
+        { "id": "youkaisfeasts:green_tea_leaves", "count": 1 },
+        { "id": "minecraft:glass_bottle", "count": 1 }
+      ],
+      "additions": [
+        { "type": "flumix", "value": 2 }
+      ]
+    },
+    {
+      "output": "youkaisfeasts:dark_tea",
+      "count": 1,
+      "inputs": [
+        { "id": "youkaisfeasts:dark_tea_leaves", "count": 1 },
+        { "id": "minecraft:glass_bottle", "count": 1 }
+      ],
+      "additions": [
+        { "type": "flumix", "value": 2 }
+      ]
+    },
+    {
+      "output": "youkaisfeasts:yellow_tea",
+      "count": 1,
+      "inputs": [
+        { "id": "youkaisfeasts:yellow_tea_leaves", "count": 1 },
+        { "id": "minecraft:glass_bottle", "count": 1 }
+      ],
+      "additions": [
+        { "type": "flumix", "value": 2 }
+      ]
+    },
+    {
+      "output": "youkaisfeasts:oolong_tea",
+      "count": 1,
+      "inputs": [
+        { "id": "youkaisfeasts:oolong_tea_leaves", "count": 1 },
+        { "id": "minecraft:glass_bottle", "count": 1 }
+      ],
+      "additions": [
+        { "type": "flumix", "value": 2 }
+      ]
+    },
+    {
+      "output": "youkaisfeasts:white_tea",
+      "count": 1,
+      "inputs": [
+        { "id": "youkaisfeasts:white_tea_leaves", "count": 1 },
+        { "id": "minecraft:glass_bottle", "count": 1 }
+      ],
+      "additions": [
+        { "type": "flumix", "value": 2 }
+      ]
+    },
+    {
+      "output": "youkaisfeasts:black_tea",
+      "count": 1,
+      "inputs": [
+        { "id": "youkaisfeasts:black_tea_leaves", "count": 1 },
+        { "id": "minecraft:glass_bottle", "count": 1 }
+      ],
+      "additions": [
+        { "type": "flumix", "value": 2 }
+      ]
+    },
+    {
+      "output": "youkaisfeasts:cornflower_tea",
+      "count": 1,
+      "inputs": [
+        { "id": "minecraft:cornflower", "count": 1 },
+        { "id": "minecraft:glass_bottle", "count": 1 }
+      ],
+      "additions": [
+        { "type": "flumix", "value": 2 }
+      ]
+    },
+    {
+      "output": "youkaisfeasts:sakura_honey_tea",
+      "count": 4,
+      "inputs": [
+        { "id": "minecraft:cherry_leaves", "count": 2 },
+        { "id": "minecraft:honey_bottle", "count": 1 },
+        { "id": "minecraft:glass_bottle", "count": 4 }
+      ],
+      "offcuts": [
+        { "id": "minecraft:glass_bottle", "count": 1 }
+      ],
+      "additions": [
+        { "type": "flumix", "value": 2 }
+      ]
+    },
+    {
+      "output": "youkaisfeasts:tea_mocha",
+      "count": 4,
+      "inputs": [
+        { "id": "youkaisfeasts:black_tea_leaves", "count": 2 },
+        { "id": "minecraft:cocoa_beans", "count": 1 },
+        { "id": "farmersdelight:milk_bottle", "count": 1 },
+        { "id": "minecraft:glass_bottle", "count": 4 }
+      ],
+      "offcuts": [
+        { "id": "minecraft:glass_bottle", "count": 1 }
+      ],
+      "additions": [
+        { "type": "flumix", "value": 2 }
+      ]
+    },
+    {
+      "output": "youkaisfeasts:green_water",
+      "count": 1,
+      "inputs": [
+        { "id": "farmersdelight:cabbage_leaf", "count": 1 },
+        { "id": "minecraft:glass_bottle", "count": 1 }
+      ],
+      "additions": [
+        { "type": "flumix", "value": 2 }
+      ]
+    },
+    {
+      "output": "youkaisfeasts:genmai_tea",
+      "count": 4,
+      "inputs": [
+        { "id": "youkaisfeasts:green_tea_leaves", "count": 2 },
+        { "id": "farmersdelight:rice", "count": 2 },
+        { "id": "minecraft:glass_bottle", "count": 4 }
+      ],
+      "additions": [
+        { "type": "flumix", "value": 2 }
+      ]
+    },
+    {
+      "output": "youkaisfeasts:saidi_tea",
+      "count": 4,
+      "inputs": [
+        { "id": "youkaisfeasts:black_tea_leaves", "count": 2 },
+        { "id": "minecraft:sugar", "count": 1 },
+        { "id": "minecraft:glass_bottle", "count": 4 }
+      ],
+      "additions": [
+        { "type": "flumix", "value": 2 }
+      ]
+    },
+    {
+      "output": "youkaisfeasts:han_palace",
+      "count": 2,
+      "inputs": [
+        { "id": "youkaisfeasts:raw_lamprey", "count": 1 },
+        { "id": "youkaisfeasts:tofu", "count": 2 },
+        { "id": "minecraft:bowl", "count": 2 }
+      ]
+    },
+    {
+      "output": "youkaisfeasts:tofu_crab_stew",
+      "count": 2,
+      "inputs": [
+        { "id": "youkaisfeasts:crab", "count": 1 },
+        { "id": "youkaisfeasts:tofu", "count": 1 },
+        { "id": "youkaisfeasts:crab_meat", "count": 1 },
+        { "id": "minecraft:bowl", "count": 2 }
+      ]
+    },
+    {
+      "output": "youkaisfeasts:shirayuki",
+      "count": 2,
+      "inputs": [
+        { "id": "minecraft:kelp", "count": 1 },
+        { "id": "youkaisfeasts:tofu", "count": 1 },
+        { "id": "farmersdelight:onion", "count": 1 },
+        { "id": "minecraft:pufferfish", "count": 1 },
+        { "id": "youkaisfeasts:raw_lamprey_fillet", "count": 1 },
+        { "id": "minecraft:bowl", "count": 2 }
+      ]
+    },
+    {
+      "output": "youkaisfeasts:tobiko_gunkan",
+      "count": 2,
+      "inputs": [
+        { "id": "minecraft:dried_kelp", "count": 1 },
+        { "id": "youkaisfeasts:roe", "count": 1 },
+        { "id": "farmersdelight:rice", "count": 1 }
+      ]
+    },
+    {
+      "output": "youkaisfeasts:nattou_gunkan",
+      "count": 2,
+      "inputs": [
+        { "id": "minecraft:dried_kelp", "count": 1 },
+        { "id": "youkaisfeasts:nattou", "count": 1 },
+        { "id": "farmersdelight:rice", "count": 1 }
+      ]
+    },
+    {
+      "output": "youkaisfeasts:seagrass_gunkan",
+      "count": 2,
+      "inputs": [
+        { "id": "minecraft:dried_kelp", "count": 1 },
+        { "id": "minecraft:seagrass", "count": 1 },
+        { "id": "farmersdelight:rice", "count": 1 }
+      ]
+    },
+    {
+      "output": "youkaisfeasts:egg_nigiri",
+      "count": 2,
+      "inputs": [
+        { "id": "minecraft:dried_kelp", "count": 1 },
+        { "id": "youkaisfeasts:tamagoyaki", "count": 1 },
+        { "id": "farmersdelight:rice", "count": 1 }
+      ]
+    },
+    {
+      "output": "youkaisfeasts:lorelei_nigiri",
+      "count": 2,
+      "inputs": [
+        { "id": "minecraft:dried_kelp", "count": 1 },
+        { "id": "youkaisfeasts:kabayaki", "count": 1 },
+        { "id": "farmersdelight:rice", "count": 1 }
+      ]
+    },
+    {
+      "output": "youkaisfeasts:tuna_nigiri",
+      "count": 2,
+      "inputs": [
+        { "id": "minecraft:dried_kelp", "count": 1 },
+        { "id": "youkaisfeasts:raw_tuna_slice", "count": 1 },
+        { "id": "farmersdelight:rice", "count": 1 }
+      ]
+    },
+    {
+      "output": "youkaisfeasts:otoro_nigiri",
+      "count": 2,
+      "inputs": [
+        { "id": "minecraft:dried_kelp", "count": 1 },
+        { "id": "youkaisfeasts:otoro", "count": 1 },
+        { "id": "farmersdelight:rice", "count": 1 }
+      ]
+    },
+    {
+      "output": "youkaisfeasts:shinnko_maki",
+      "count": 1,
+      "inputs": [
+        { "id": "minecraft:dried_kelp", "count": 1 },
+        { "id": "minecraft:beetroot", "count": 1 },
+        { "id": "youkaisfeasts:soy_sauce_bottle", "count": 1 },
+        { "id": "farmersdelight:rice", "count": 1 }
+      ],
+      "offcuts": [
+        { "id": "minecraft:glass_bottle", "count": 1 }
+      ]
+    },
+    {
+      "output": "youkaisfeasts:kappa_maki",
+      "count": 1,
+      "inputs": [
+        { "id": "minecraft:dried_kelp", "count": 1 },
+        { "id": "youkaisfeasts:cucumber_slice", "count": 1 },
+        { "id": "youkaisfeasts:soy_sauce_bottle", "count": 1 },
+        { "id": "farmersdelight:rice", "count": 1 }
+      ],
+      "offcuts": [
+        { "id": "minecraft:glass_bottle", "count": 1 }
+      ]
+    },
+    {
+      "output": "youkaisfeasts:tekka_maki",
+      "count": 1,
+      "inputs": [
+        { "id": "minecraft:dried_kelp", "count": 1 },
+        { "id": "youkaisfeasts:raw_tuna_slice", "count": 1 },
+        { "id": "youkaisfeasts:soy_sauce_bottle", "count": 1 },
+        { "id": "farmersdelight:rice", "count": 1 }
+      ],
+      "offcuts": [
+        { "id": "minecraft:glass_bottle", "count": 1 }
+      ]
+    },
+    {
+      "output": "youkaisfeasts:egg_futomaki",
+      "count": 1,
+      "inputs": [
+        { "id": "minecraft:dried_kelp", "count": 1 },
+        { "id": "youkaisfeasts:tamagoyaki_slice", "count": 3 },
+        { "id": "youkaisfeasts:soy_sauce_bottle", "count": 1 },
+        { "id": "farmersdelight:rice", "count": 2 }
+      ],
+      "offcuts": [
+        { "id": "minecraft:glass_bottle", "count": 1 }
+      ]
+    },
+    {
+      "output": "youkaisfeasts:salmon_futomaki",
+      "count": 1,
+      "inputs": [
+        { "id": "minecraft:dried_kelp", "count": 1 },
+        { "id": "youkaisfeasts:cucumber_slice", "count": 1 },
+        { "id": "minecraft:beetroot", "count": 1 },
+        { "id": "youkaisfeasts:imitation_crab", "count": 1 },
+        { "id": "farmersdelight:raw_salmon_slice", "count": 1 },
+        { "id": "youkaisfeasts:soy_sauce_bottle", "count": 1 },
+        { "id": "farmersdelight:rice", "count": 2 }
+      ],
+      "offcuts": [
+        { "id": "minecraft:glass_bottle", "count": 1 }
+      ]
+    },
+    {
+      "output": "youkaisfeasts:rainbow_futomaki",
+      "count": 1,
+      "inputs": [
+        { "id": "minecraft:dried_kelp", "count": 1 },
+        { "id": "youkaisfeasts:cucumber_slice", "count": 1 },
+        { "id": "minecraft:beetroot", "count": 1 },
+        { "id": "youkaisfeasts:imitation_crab", "count": 1 },
+        { "id": "farmersdelight:raw_salmon_slice", "count": 1 },
+        { "id": "youkaisfeasts:tamagoyaki_slice", "count": 1 },
+        { "id": "youkaisfeasts:soy_sauce_bottle", "count": 1 },
+        { "id": "farmersdelight:rice", "count": 2 }
+      ],
+      "offcuts": [
+        { "id": "minecraft:glass_bottle", "count": 1 }
+      ]
+    },
+    {
+      "output": "youkaisfeasts:raw_tutu_congee",
+      "count": 1,
+      "inputs": [
+        { "id": "minecraft:bamboo", "count": 1 },
+        { "id": "farmersdelight:rice", "count": 1 }
+      ]
+    },
+    {
+      "output": "youkaisfeasts:raw_rice_powder_pork",
+      "count": 1,
+      "inputs": [
+        { "id": "minecraft:bamboo", "count": 1 },
+        { "id": "youkaisfeasts:soybean", "count": 1 },
+        { "id": "farmersdelight:raw_bacon", "count": 1 },
+        { "id": "farmersdelight:rice", "count": 1 }
+      ]
+    },
+    {
+      "output": "youkaisfeasts:raw_kaguya_hime",
+      "count": 1,
+      "inputs": [
+        { "id": "minecraft:bamboo", "count": 1 },
+        { "id": "minecraft:carrot", "count": 1 },
+        { "id": "minecraft:brown_mushroom", "count": 1 },
+        { "id": "farmersdelight:onion", "count": 1 },
+        { "id": "farmersdelight:rice", "count": 1 }
+      ]
+    }
+  ]
+}

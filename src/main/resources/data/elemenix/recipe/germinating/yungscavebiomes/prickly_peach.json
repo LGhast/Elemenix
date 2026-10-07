@@ -1,0 +1,8 @@
+{
+  "type": "elemenix:germinating",
+  "template": { "item": "yungscavebiomes:prickly_peach" },
+  "products": [
+    { "id": "yungscavebiomes:prickly_peach", "count": 1 },
+    { "id": "yungscavebiomes:prickly_peach_cactus", "count": 1 }
+  ]
+}

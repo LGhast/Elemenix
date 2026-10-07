@@ -77,6 +77,11 @@ public class RecipeHelper {
                 RECIPE_TYPES_WITH_CONTAINER.add("youkaishomecoming:kettle");
                 RECIPE_TYPES_NORMAL.add("youkaishomecoming:steaming");
             }
+
+            if(ModUtils.hasServerMod("youkaisfeasts")){
+                RECIPE_TYPES_WITH_CONTAINER.add("youkaisfeasts:moka_pot");
+                RECIPE_TYPES_NORMAL.add("youkaisfeasts:steaming");
+            }
         }
         if(ANVILCRAFT_LOADED){
             RECIPE_TYPES_NORMAL.add("anvilcraft:jewel_crafting");

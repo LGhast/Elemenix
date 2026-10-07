@@ -1,4 +1,4 @@
-package net.lghast.elemenix.network;
+package net.lghast.elemenix.network.open;
 
 import net.lghast.elemenix.common.system.menu.MemorizerBoxMenu;
 import net.lghast.elemenix.register.content.ModItems;

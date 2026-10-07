@@ -1,0 +1,8 @@
+{
+  "type": "elemenix:germinating",
+  "template": { "item": "deep_aether:aether_cattails" },
+  "products": [
+    { "id": "deep_aether:aether_cattails", "count": 1 },
+    { "id": "deep_aether:tall_aether_cattails", "count": 1 }
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "type": "elemenix:germinating",
+  "template": { "item": "deep_aether:yagroot_sapling" },
+  "products": [
+    { "id": "deep_aether:yagroot_sapling", "count": 1 },
+    { "id": "deep_aether:yagroot_log", "count": 1 },
+    { "id": "deep_aether:yagroot_leaves", "count": 1 },
+    { "id": "deep_aether:yagroot_roots", "count": 1 },
+    { "id": "deep_aether:yagroot_vine", "count": 1 }
+  ]
+}

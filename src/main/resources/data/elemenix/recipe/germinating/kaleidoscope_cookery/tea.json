@@ -1,0 +1,8 @@
+{
+  "type": "elemenix:germinating",
+  "template": { "item": "kaleidoscope_cookery:fresh_tea_leaves" },
+  "products": [
+    { "id": "kaleidoscope_cookery:fresh_tea_leaves", "count": 1 },
+    { "id": "kaleidoscope_cookery:tea_seed", "count": 1 }
+  ]
+}

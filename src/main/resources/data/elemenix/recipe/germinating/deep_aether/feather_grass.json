@@ -1,0 +1,9 @@
+{
+  "type": "elemenix:germinating",
+  "template": { "item": "deep_aether:feather_grass" },
+  "products": [
+    { "id": "deep_aether:feather_grass", "count": 1 },
+    { "id": "deep_aether:tall_feather_grass", "count": 1 },
+    { "id": "deep_aether:cloudbloom_bouquet", "count": 1 }
+  ]
+}

@@ -6,6 +6,7 @@ import net.lghast.elemenix.common.content.blockentity.TransformerBlockEntity;
 import net.lghast.elemenix.common.system.menu.TransformerMenu;
 import net.lghast.elemenix.common.system.recipe.MineralizingRecipe;
 import net.lghast.elemenix.network.transformer.TransformerSwitchPagePayload;
+import net.lghast.elemenix.network.transformer.TransformerTogglePayload;
 import net.lghast.elemenix.utils.ModUtils;
 import net.lghast.elemenix.utils.elemenix.Elemenix;
 import net.minecraft.client.gui.GuiGraphics;
@@ -19,6 +20,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 import net.neoforged.neoforge.network.PacketDistributor;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
 import javax.annotation.ParametersAreNonnullByDefault;
@@ -49,12 +51,18 @@ public class TransformerScreen extends AbstractContainerScreen<TransformerMenu> 
     private static final int PROGRESS_X2 = 155;
     private static final int PROGRESS_Y = 56;
 
+    private static final int TOGGLE_X = 156;
+    private static final int TOGGLE_TRANSFORM_Y = 62;
+    private static final int TOGGLE_ENRICH_Y = 74;
+
     private static final ResourceLocation MINERALIZING_TEXTURE =
             ResourceLocation.fromNamespaceAndPath("elemenix", "textures/gui/geological_simulator_mineralizing.png");
 
     private final ResourceLocation guiTexture;
 
     private ModeSwitchButton modeButton;
+    private SmallCheckbox transformCheckbox;
+    private SmallCheckbox enrichCheckbox;
 
     public TransformerScreen(TransformerMenu menu, Inventory inventory, Component title) {
         super(menu, inventory, title);
@@ -69,7 +77,6 @@ public class TransformerScreen extends AbstractContainerScreen<TransformerMenu> 
     @Override
     protected void init() {
         super.init();
-
         if (menu.getPageCount() >= 2) {
             modeButton = new ModeSwitchButton(leftPos + GUI_WIDTH - 20, topPos + 4, button -> {
                 int next = (menu.getMode() + 1) % menu.getPageCount();
@@ -77,6 +84,25 @@ public class TransformerScreen extends AbstractContainerScreen<TransformerMenu> 
             });
             this.addRenderableWidget(modeButton);
         }
+        transformCheckbox = new SmallCheckbox(leftPos + TOGGLE_X, topPos + TOGGLE_TRANSFORM_Y,
+                Component.empty(), this.font, menu.isTransformEnabled(),
+                (checkbox, selected) -> PacketDistributor.sendToServer(
+                        new TransformerTogglePayload(TransformerTogglePayload.OPTION_TRANSFORM)));
+        this.addRenderableWidget(transformCheckbox);
+        enrichCheckbox = new SmallCheckbox(leftPos + TOGGLE_X, topPos + TOGGLE_ENRICH_Y,
+                Component.empty(), this.font, menu.isEnrichEnabled(),
+                (checkbox, selected) -> PacketDistributor.sendToServer(
+                        new TransformerTogglePayload(TransformerTogglePayload.OPTION_ENRICH)));
+        this.addRenderableWidget(enrichCheckbox);
+        updateCheckboxVisibility();
+    }
+
+    @Override
+    public void containerTick() {
+        super.containerTick();
+        if (transformCheckbox != null) transformCheckbox.setSelected(menu.isTransformEnabled());
+        if (enrichCheckbox != null) enrichCheckbox.setSelected(menu.isEnrichEnabled());
+        updateCheckboxVisibility();
     }
 
     @Override
@@ -101,6 +127,30 @@ public class TransformerScreen extends AbstractContainerScreen<TransformerMenu> 
             graphics.blit(guiTexture, x, y, 0, 0, this.imageWidth, this.imageHeight, this.imageWidth, this.imageHeight);
             renderElemenixValues(graphics, x, y);
         }
+    }
+
+    @Override
+    public void render(GuiGraphics graphics, int mouseX, int mouseY, float partialTick) {
+        this.renderBackground(graphics, mouseX, mouseY, partialTick);
+        super.render(graphics, mouseX, mouseY, partialTick);
+        if (modeButton != null && modeButton.isHovered()) {
+            Component tip = getModeSwitchTooltips();
+            graphics.renderTooltip(this.font, tip, mouseX, mouseY);
+        }
+        if (transformCheckbox != null && transformCheckbox.visible && transformCheckbox.isHovered()) {
+            graphics.renderTooltip(this.font, Component.translatable("gui.elemenix.transformer.toggle_transform"), mouseX, mouseY);
+        }
+        if (enrichCheckbox != null && enrichCheckbox.visible && enrichCheckbox.isHovered()) {
+            graphics.renderTooltip(this.font, Component.translatable("gui.elemenix.transformer.toggle_enrich"), mouseX, mouseY);
+        }
+        this.renderTooltip(graphics, mouseX, mouseY);
+    }
+
+    @Override
+    protected void renderLabels(GuiGraphics graphics, int mouseX, int mouseY) {
+        int titleWidth = this.font.width(this.title);
+        int centeredX = (this.imageWidth - titleWidth) / 2;
+        graphics.drawString(this.font, this.title, centeredX, TITLE_Y, 0x404040, false);
     }
 
     private void renderGerminatingPage(GuiGraphics graphics, int x, int y) {
@@ -218,33 +268,25 @@ public class TransformerScreen extends AbstractContainerScreen<TransformerMenu> 
         graphics.drawString(this.font, textC, x + 77, y + 68, block.getOutputElemenix().getColor(), false);
     }
 
-    @Override
-    protected void renderLabels(GuiGraphics graphics, int mouseX, int mouseY) {
-        int titleWidth = this.font.width(this.title);
-        int centeredX = (this.imageWidth - titleWidth) / 2;
-        graphics.drawString(this.font, this.title, centeredX, TITLE_Y, 0x404040, false);
+    @NotNull
+    private Component getModeSwitchTooltips() {
+        Component tip;
+        if (menu.isGerminalPage()) {
+            tip = menu.getMode() == TransformerBlockEntity.MODE_MINERALIZING
+                    ? Component.translatable("gui.elemenix.mode_switch.to_transforming")
+                    : Component.translatable("gui.elemenix.mode_switch.to_germinating");
+        } else {
+            tip = menu.getMode() == TransformerBlockEntity.MODE_MINERALIZING
+                    ? Component.translatable("gui.elemenix.mode_switch.to_transforming")
+                    : Component.translatable("gui.elemenix.mode_switch.to_mineralizing");
+        }
+        return tip;
     }
 
-    @Override
-    public void render(GuiGraphics graphics, int mouseX, int mouseY, float partialTick) {
-        this.renderBackground(graphics, mouseX, mouseY, partialTick);
-        super.render(graphics, mouseX, mouseY, partialTick);
-
-        if (modeButton != null && modeButton.isHovered()) {
-            Component tip;
-            if (menu.isGerminalPage()) {
-                tip = menu.getMode() == TransformerBlockEntity.MODE_MINERALIZING
-                        ? Component.translatable("gui.elemenix.mode_switch.to_transforming")
-                        : Component.translatable("gui.elemenix.mode_switch.to_germinating");
-            } else {
-                tip = menu.getMode() == TransformerBlockEntity.MODE_MINERALIZING
-                        ? Component.translatable("gui.elemenix.mode_switch.to_transforming")
-                        : Component.translatable("gui.elemenix.mode_switch.to_mineralizing");
-            }
-            graphics.renderTooltip(this.font, tip, mouseX, mouseY);
-        }
-
-        this.renderTooltip(graphics, mouseX, mouseY);
+    private void updateCheckboxVisibility() {
+        boolean showToggles = menu.getMode() == TransformerBlockEntity.MODE_TRANSFORMING;
+        if (transformCheckbox != null) transformCheckbox.visible = showToggles;
+        if (enrichCheckbox != null) enrichCheckbox.visible = showToggles;
     }
 
     private static class ModeSwitchButton extends Button {

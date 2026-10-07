@@ -1,0 +1,9 @@
+{
+  "type": "elemenix:germinating",
+  "template": { "item": "kaleidoscope_cookery:rice_panicle" },
+  "products": [
+    { "id": "kaleidoscope_cookery:rice_panicle", "count": 1 },
+    { "id": "kaleidoscope_cookery:rice", "count": 1 },
+    { "id": "kaleidoscope_cookery:wild_rice", "count": 1 }
+  ]
+}

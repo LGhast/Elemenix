@@ -1,0 +1,8 @@
+{
+  "type": "elemenix:germinating",
+  "template": { "item": "deep_aether:aerlavender" },
+  "products": [
+    { "id": "deep_aether:aerlavender", "count": 1 },
+    { "id": "deep_aether:tall_aerlavender", "count": 1 }
+  ]
+}

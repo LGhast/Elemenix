@@ -82,10 +82,11 @@ public class TransformerMenu extends AbstractContainerMenu {
                     case 2 -> blockEntity.getOutputC();
                     case 3 -> blockEntity.getMode();
                     case 4 -> blockEntity.getGerminatingProgress();
+                    case 5 -> blockEntity.isTransformEnabled() ? 1 : 0;
+                    case 6 -> blockEntity.isEnrichEnabled() ? 1 : 0;
                     default -> 0;
                 };
             }
-
             @Override
             public void set(int index, int value) {
                 switch (index) {
@@ -94,14 +95,16 @@ public class TransformerMenu extends AbstractContainerMenu {
                     case 2 -> blockEntity.setOutputC(value);
                     case 3 -> blockEntity.setMode(value);
                     case 4 -> blockEntity.setGerminatingProgress(value);
+                    case 5 -> blockEntity.setTransformEnabled(value != 0);
+                    case 6 -> blockEntity.setEnrichEnabled(value != 0);
                 }
             }
-
             @Override
             public int getCount() {
-                return 5;
+                return 7;
             }
         };
+        checkContainerDataCount(data, 7);
 
         checkContainerDataCount(data, 5);
         addSlots(playerInventory);
@@ -130,6 +133,10 @@ public class TransformerMenu extends AbstractContainerMenu {
         if (page < 0 || page >= getPageCount()) return;
         if (blockEntity.getMode() == page) return;
         blockEntity.setMode(page);
+        if (page == TransformerBlockEntity.MODE_MINERALIZING && isGerminalPage()) {
+            blockEntity.setTransformEnabled(false);
+            blockEntity.setEnrichEnabled(false);
+        }
         refreshResultSlot();
         broadcastChanges();
     }
@@ -178,18 +185,18 @@ public class TransformerMenu extends AbstractContainerMenu {
         previewContainer.setItem(0, preview);
     }
 
-    private void consumeCraft(MineralizingRecipe recipe, int amount) {
+    private void consumeCraft(MineralizingRecipe recipe) {
         ItemStack mineral = blockEntity.getItem(MINERAL_SLOT);
         ItemStack medium = blockEntity.getItem(MEDIUM_SLOT);
-        if (mineral.isEmpty() || medium.isEmpty() || amount <= 0) return;
+        if (mineral.isEmpty() || medium.isEmpty()) return;
         int flumixCost = recipe.getFlumixCost(mineral);
-        mineral.shrink(amount);
-        medium.shrink(amount);
+        mineral.shrink(1);
+        medium.shrink(1);
         blockEntity.setItem(MINERAL_SLOT, mineral);
         blockEntity.setItem(MEDIUM_SLOT, medium);
         if (flumixCost > 0) {
             long flumix = blockEntity.getInputB();
-            blockEntity.setInputB((int) Math.max(0, flumix - (long) flumixCost * amount));
+            blockEntity.setInputB((int) Math.max(0, flumix - (long) flumixCost));
             blockEntity.setChanged();
         }
     }
@@ -209,6 +216,19 @@ public class TransformerMenu extends AbstractContainerMenu {
 
     public int getGerminatingProgress() {
         return blockEntity.getGerminatingProgress();
+    }
+
+    public boolean isTransformEnabled() {
+        return blockEntity.isTransformEnabled();
+    }
+    public boolean isEnrichEnabled() {
+        return blockEntity.isEnrichEnabled();
+    }
+    public void toggleTransform() {
+        blockEntity.toggleTransform();
+    }
+    public void toggleEnrich() {
+        blockEntity.toggleEnrich();
     }
 
     public boolean isGerminatingTemplate(ItemStack stack) {
@@ -365,7 +385,7 @@ public class TransformerMenu extends AbstractContainerMenu {
             public void onTake(Player player, ItemStack stack) {
                 MineralizingRecipe recipe = getCurrentRecipe();
                 if (recipe != null) {
-                    consumeCraft(recipe, 1);
+                    consumeCraft(recipe);
                 }
                 refreshResultSlot();
                 broadcastChanges();
@@ -399,7 +419,6 @@ public class TransformerMenu extends AbstractContainerMenu {
         });
 
         for (int i = 0; i < PRODUCT_SLOT_COUNT; i++) {
-            final int productIndex = i;
             this.addSlot(new Slot(blockEntity, PRODUCT_SLOT_FIRST + i, 49 + i * 18, SLOT_Y_PRODUCT) {
                 @Override
                 public boolean isActive() {
@@ -449,7 +468,7 @@ public class TransformerMenu extends AbstractContainerMenu {
                         }
                     }
                 } else {
-                    Slot slotA = this.slots.get(TRANSFORM_IN_A);
+                    Slot slotA = this.slots.getFirst();
                     if (slotA.mayPlace(slotStack) && !slotA.hasItem()) {
                         moved = this.moveItemStackTo(slotStack, TRANSFORM_IN_A, TRANSFORM_IN_A + 1, false);
                     }
@@ -545,7 +564,7 @@ public class TransformerMenu extends AbstractContainerMenu {
         if (!toMove.isEmpty()) return ItemStack.EMPTY;
 
         result.set(ItemStack.EMPTY);
-        consumeCraft(recipe, 1);
+        consumeCraft(recipe);
         refreshResultSlot();
         broadcastChanges();
         return crafted;

@@ -1,0 +1,9 @@
+{
+  "type": "elemenix:germinating",
+  "template": { "item": "aether:blue_berry" },
+  "products": [
+    { "id": "aether:blue_berry", "count": 1 },
+    { "id": "aether:berry_bush_stem", "count": 1 },
+    { "id": "aether:berry_bush", "count": 1 }
+  ]
+}

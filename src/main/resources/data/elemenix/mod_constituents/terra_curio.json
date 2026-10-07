@@ -29,6 +29,7 @@
     { "id": "terra_curio:energy_bar", "constituents": [800, 0, 0, 0, 30, 0] },
     { "id": "terra_curio:radar", "constituents": [0, 0, 0, 500, 30, 0] },
     { "id": "terra_curio:depth_meter", "constituents": [0, 0, 0, 500, 30, 0] },
+    { "id": "terra_curio:dps_meter", "constituents": [0, 0, 0, 500, 30, 0] },
     { "id": "terra_curio:compass", "constituents": [0, 200, 0, 300, 30, 0] },
     { "id": "terra_curio:stopwatch", "constituents": [0, 200, 0, 300, 30, 0] },
     { "id": "terra_curio:tally_counter", "constituents": [0, 0, 0, 500, 30, 0] },

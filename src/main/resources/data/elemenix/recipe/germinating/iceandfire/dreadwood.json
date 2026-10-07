@@ -1,0 +1,9 @@
+{
+  "type": "elemenix:germinating",
+  "template": { "item": "iceandfire:dreadwood_sapling" },
+  "products": [
+    { "id": "iceandfire:dreadwood_sapling", "count": 1 },
+    { "id": "iceandfire:dreadwood_log", "count": 1 },
+    { "id": "iceandfire:dreadwood_leaves", "count": 1 }
+  ]
+}

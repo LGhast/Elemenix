@@ -6,11 +6,14 @@ import net.lghast.elemenix.network.analyzer.ReconstructionPayload;
 import net.lghast.elemenix.network.burner.*;
 import net.lghast.elemenix.network.infuser.InfuserDataUpdatePayload;
 import net.lghast.elemenix.network.infuser.RequestInfuserUpdatePayload;
+import net.lghast.elemenix.network.open.OpenAnalyzerPayload;
+import net.lghast.elemenix.network.open.OpenMemorizerBoxPayload;
 import net.lghast.elemenix.network.terminal.TerminalCarriedDeconstructPayload;
 import net.lghast.elemenix.network.terminal.TerminalMemorizerSelectPayload;
 import net.lghast.elemenix.network.terminal.TerminalFlagsPayload;
 import net.lghast.elemenix.network.terminal.TerminalReconstructPayload;
 import net.lghast.elemenix.network.transformer.TransformerSwitchPagePayload;
+import net.lghast.elemenix.network.transformer.TransformerTogglePayload;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
@@ -124,6 +127,12 @@ public class NetworkPayloadHandler {
                 TransformerSwitchPagePayload.TYPE,
                 TransformerSwitchPagePayload.STREAM_CODEC,
                 TransformerSwitchPagePayload::handle
+        );
+
+        registrar.playToServer(
+                TransformerTogglePayload.TYPE,
+                TransformerTogglePayload.STREAM_CODEC,
+                TransformerTogglePayload::handle
         );
     }
 }

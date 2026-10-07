@@ -260,6 +260,16 @@
       ]
     },
     {
+      "output": "confluence:carved_white_pumpkin",
+      "count": 1,
+      "inputs": [
+        { "id": "confluence:white_pumpkin", "count": 1 }
+      ],
+      "offcuts": [
+        { "id": "confluence:white_pumpkin_seed", "count": 4 }
+      ]
+    },
+    {
       "preset": "bucket_elemenix",
       "output": "confluence:honey_bucket",
       "elemenix_type": "organix",

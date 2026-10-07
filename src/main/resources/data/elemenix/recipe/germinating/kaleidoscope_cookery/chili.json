@@ -1,0 +1,9 @@
+{
+  "type": "elemenix:germinating",
+  "template": { "item": "kaleidoscope_cookery:red_chili" },
+  "products": [
+    { "id": "kaleidoscope_cookery:red_chili", "count": 1 },
+    { "id": "kaleidoscope_cookery:green_chili", "count": 1 },
+    { "id": "kaleidoscope_cookery:chili_seed", "count": 1 }
+  ]
+}

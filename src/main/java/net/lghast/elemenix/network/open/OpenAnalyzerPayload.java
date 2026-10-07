@@ -1,4 +1,4 @@
-package net.lghast.elemenix.network;
+package net.lghast.elemenix.network.open;
 
 import net.lghast.elemenix.common.content.item.AnalyzerItem;
 import net.lghast.elemenix.common.system.menu.AnalyzerMenu;

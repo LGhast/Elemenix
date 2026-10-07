@@ -32,7 +32,6 @@ import java.util.List;
 public class TransformerBlockEntity extends BaseContainerBlockEntity {
     public static final int MODE_TRANSFORMING = 0;
     public static final int MODE_MINERALIZING = 1;
-
     public static final int TEMPLATE_SLOT = 3;
     public static final int PRODUCT_SLOT_FIRST = 4;
     public static final int PRODUCT_SLOT_COUNT = 6;
@@ -40,12 +39,13 @@ public class TransformerBlockEntity extends BaseContainerBlockEntity {
     private int inputA = 0;
     private int inputB = 0;
     private int outputC = 0;
-
     private int dcTimer = 0;
     private int rcTimer = 0;
-
     private int mode = MODE_TRANSFORMING;
     private int germinatingProgress = 0;
+
+    private boolean transformEnabled = false;
+    private boolean enrichEnabled = false;
 
     private NonNullList<ItemStack> items = NonNullList.withSize(10, ItemStack.EMPTY);
 
@@ -81,49 +81,73 @@ public class TransformerBlockEntity extends BaseContainerBlockEntity {
         this.germinatingProgress = germinatingProgress;
     }
 
+    public boolean isTransformEnabled() {
+        return transformEnabled;
+    }
+
+    public boolean isEnrichEnabled() {
+        return enrichEnabled;
+    }
+
+    public void setTransformEnabled(boolean transformEnabled) {
+        this.transformEnabled = transformEnabled;
+    }
+
+    public void setEnrichEnabled(boolean enrichEnabled) {
+        this.enrichEnabled = enrichEnabled;
+    }
+
+    public void toggleTransform() {
+        transformEnabled = !transformEnabled;
+        setChanged();
+    }
+
+    public void toggleEnrich() {
+        enrichEnabled = !enrichEnabled;
+        setChanged();
+    }
+
     public static void tick(Level level, BlockPos pos, BlockState state, TransformerBlockEntity blockEntity) {
         if (level.isClientSide) return;
         if (!Elemenics.started) return;
-
         TransformerBlock block = (TransformerBlock) state.getBlock();
-
         if (blockEntity.mode != MODE_TRANSFORMING && block.getPageCount() > 1) {
             block.tickSecondPage(level, pos, state, blockEntity);
         } else if (blockEntity.germinatingProgress != 0) {
             blockEntity.setGerminatingProgress(0);
         }
-
         boolean suppressConsumption = block.shouldSuppressTransformingConsumption(blockEntity);
-        boolean isWorking = blockEntity.tickTransforming(level, pos, state, block, suppressConsumption);
-
+        boolean isWorking = blockEntity.tickTransforming(block, suppressConsumption);
         if (state.getValue(TransformerBlock.WORKING) != isWorking) {
             level.setBlock(pos, state.setValue(TransformerBlock.WORKING, isWorking), 3);
         }
     }
 
-    private boolean tickTransforming(Level level, BlockPos pos, BlockState state, TransformerBlock block, boolean suppressConsumption) {
+    private boolean tickTransforming(TransformerBlock block, boolean suppressConsumption) {
         dcTimer++;
         if (dcTimer >= block.getDcInterval()) {
             dcTimer = 0;
             deconstructInput(block);
         }
-
         if (!suppressConsumption) {
             rcTimer++;
             if (rcTimer >= block.getRcInterval()) {
                 rcTimer = 0;
-                generateOutput(block);
+                if (transformEnabled) {
+                    convertInput(block);
+                }
+                if (enrichEnabled) {
+                    enrichOutput(block);
+                }
             }
         }
-
-        return outputC > block.getRcRequirement() ||
-                (inputA >= block.getConsumptionA() && inputB >= block.getConsumptionB());
+        return (transformEnabled && inputA >= block.getConsumptionA() && inputB >= block.getConsumptionB())
+                || (enrichEnabled && outputC >= block.getRcRequirement());
     }
 
     private void deconstructInput(TransformerBlock block) {
         ItemStack inputStackA = items.get(0);
         ItemStack inputStackB = items.get(1);
-
         if (!inputStackA.isEmpty() && !ElemenixInfo.isUnreconstructable(inputStackA)) {
             Constituents constituents = ElemenixInfo.getDiscountAppliedConstituents(inputStackA);
             if (constituents.isPure(block.getInputElemenixA())) {
@@ -132,7 +156,6 @@ public class TransformerBlockEntity extends BaseContainerBlockEntity {
                 setChanged();
             }
         }
-
         if (!inputStackB.isEmpty() && !ElemenixInfo.isUnreconstructable(inputStackB)) {
             Constituents constituents = ElemenixInfo.getDiscountAppliedConstituents(inputStackB);
             if (constituents.isPure(block.getInputElemenixB())) {
@@ -143,14 +166,16 @@ public class TransformerBlockEntity extends BaseContainerBlockEntity {
         }
     }
 
-    private void generateOutput(TransformerBlock block) {
+    private void convertInput(TransformerBlock block) {
         if (inputA >= block.getConsumptionA() && inputB >= block.getConsumptionB()) {
             inputA -= block.getConsumptionA();
             inputB -= block.getConsumptionB();
             outputC += block.getProduction();
             setChanged();
         }
+    }
 
+    private void enrichOutput(TransformerBlock block) {
         if (outputC >= block.getRcRequirement() && canOutput(block)) {
             outputC -= block.getRcRequirement();
             ItemStack outputStack = new ItemStack(block.getOutputItem());
@@ -195,7 +220,9 @@ public class TransformerBlockEntity extends BaseContainerBlockEntity {
     }
 
     public int getInputA() { return inputA; }
+
     public int getInputB() { return inputB; }
+
     public int getOutputC() { return outputC; }
 
     public static TransformerBlockEntity getBlockEntity(Level level, BlockPos pos) {
@@ -299,6 +326,8 @@ public class TransformerBlockEntity extends BaseContainerBlockEntity {
         tag.putInt("OutputTimer", rcTimer);
         tag.putInt("Mode", mode);
         tag.putInt("GerminatingProgress", germinatingProgress);
+        tag.putBoolean("TransformEnabled", transformEnabled);
+        tag.putBoolean("EnrichEnabled", enrichEnabled);
         ContainerHelper.saveAllItems(tag, items, provider);
     }
 
@@ -312,6 +341,8 @@ public class TransformerBlockEntity extends BaseContainerBlockEntity {
         rcTimer = tag.getInt("OutputTimer");
         mode = tag.getInt("Mode");
         germinatingProgress = tag.getInt("GerminatingProgress");
+        transformEnabled = tag.getBoolean("TransformEnabled");
+        enrichEnabled = tag.getBoolean("EnrichEnabled");
         ContainerHelper.loadAllItems(tag, items, provider);
     }
 
@@ -321,7 +352,6 @@ public class TransformerBlockEntity extends BaseContainerBlockEntity {
             TransformerBlock block = getTransformerBlock();
             if (block == null) return false;
             if (ElemenixInfo.isUndeconstructable(stack) || stack.is(ModTags.IGNORED_BY_DECONSTRUCTOR_INPUT)) return false;
-
             Elemenix requiredType = (slot == 0) ? block.getInputElemenixA() : block.getInputElemenixB();
             Constituents constituents = ElemenixInfo.getConstituents(stack);
             return constituents.isPure(requiredType);

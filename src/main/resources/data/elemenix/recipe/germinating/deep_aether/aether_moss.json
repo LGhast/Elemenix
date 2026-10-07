@@ -1,0 +1,8 @@
+{
+  "type": "elemenix:germinating",
+  "template": { "item": "deep_aether:aether_moss_block" },
+  "products": [
+    { "id": "deep_aether:aether_moss_block", "count": 1 },
+    { "id": "deep_aether:aether_moss_carpet", "count": 1 }
+  ]
+}

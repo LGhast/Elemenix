@@ -1,0 +1,8 @@
+{
+  "type": "elemenix:germinating",
+  "template": { "item": "twilightforest:fiddlehead" },
+  "products": [
+    { "id": "twilightforest:fiddlehead", "count": 1 },
+    { "id": "twilightdelight:fiddlehead_clump", "count": 1 }
+  ]
+}

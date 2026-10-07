@@ -1,0 +1,10 @@
+{
+  "type": "elemenix:germinating",
+  "template": { "item": "deep_aether:blue_squash" },
+  "products": [
+    { "id": "deep_aether:blue_squash", "count": 1 },
+    { "id": "deep_aether:green_squash", "count": 1 },
+    { "id": "deep_aether:purple_squash", "count": 1 },
+    { "id": "deep_aether:squash_seeds", "count": 1 }
+  ]
+}

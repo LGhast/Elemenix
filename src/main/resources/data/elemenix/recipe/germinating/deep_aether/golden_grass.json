@@ -1,0 +1,11 @@
+{
+  "type": "elemenix:germinating",
+  "template": { "item": "deep_aether:medium_golden_grass" },
+  "products": [
+    { "id": "deep_aether:medium_golden_grass", "count": 1 },
+    { "id": "deep_aether:tall_golden_grass", "count": 1 },
+    { "id": "deep_aether:short_golden_grass", "count": 1 },
+    { "id": "deep_aether:mini_golden_grass", "count": 1 },
+    { "id": "deep_aether:golden_grass_seeds", "count": 1 }
+  ]
+}

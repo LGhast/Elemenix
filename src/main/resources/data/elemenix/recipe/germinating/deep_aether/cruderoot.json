@@ -1,0 +1,9 @@
+{
+  "type": "elemenix:germinating",
+  "template": { "item": "deep_aether:cruderoot_sapling" },
+  "products": [
+    { "id": "deep_aether:cruderoot_sapling", "count": 1 },
+    { "id": "deep_aether:cruderoot_log", "count": 1 },
+    { "id": "deep_aether:cruderoot_leaves", "count": 1 }
+  ]
+}

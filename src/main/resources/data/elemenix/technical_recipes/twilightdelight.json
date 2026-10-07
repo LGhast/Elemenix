@@ -3,10 +3,22 @@
   "load_after": ["twilightforest", "farmersdelight"],
   "recipes": [
     {
+      "preset": "same",
+      "output": "twilightdelight:twilight_rich_soil_farmland",
+      "input": "twilightdelight:twilight_rich_soil"
+    },
+    {
       "output": "twilightdelight:raw_tomahawk_smeak",
       "count": 1,
       "inputs": [
         { "id": "twilightforest:raw_meef", "count": 4 }
+      ]
+    },
+    {
+      "output": "twilightdelight:fiddlehead_clump",
+      "count": 1,
+      "inputs": [
+        { "id": "twilightforest:fiddlehead", "count": 5 }
       ]
     },
     {
