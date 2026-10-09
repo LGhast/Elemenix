@@ -49,7 +49,7 @@ public class MemorizerCommand {
     public static void register(RegisterCommandsEvent event) {
         CommandDispatcher<CommandSourceStack> dispatcher = event.getDispatcher();
         LiteralArgumentBuilder<CommandSourceStack> command = Commands.literal("memorizer")
-                .requires(source -> source.hasPermission(0))
+                .requires(source -> source.hasPermission(Commands.LEVEL_GAMEMASTERS))
                 .then(Commands.literal("readonly")
                         .then(Commands.literal("on")
                                 .executes(ctx -> readonlyOn(ctx, null))
@@ -80,7 +80,6 @@ public class MemorizerCommand {
             return 0;
         }
         if (ownerArg == null) {
-            // 缺省：无设置者，永久只读（斧无法解除）
             stack.set(ModDataComponents.WAXED.get(), new Waxed(true, Optional.empty(), Optional.empty()));
             context.getSource().sendSuccess(
                     () -> Component.translatable("command.elemenix.memorizer.readonly.on.permanent"), false);
@@ -164,7 +163,7 @@ public class MemorizerCommand {
             context.getSource().sendFailure(Component.translatable("command.elemenix.memorizer.add.full"));
             return 0;
         }
-        // 无视只读，直接写入
+
         List<ResourceLocation> newMemories = new ArrayList<>(memories);
         newMemories.add(id);
         stack.set(ModDataComponents.MEMORY_DATA.get(), memoryData.withResolvedItems(newMemories));
@@ -178,17 +177,20 @@ public class MemorizerCommand {
             context.getSource().sendFailure(Component.translatable("command.elemenix.memorizer.player_only"));
             return 0;
         }
+
         ItemStack stack = player.getMainHandItem();
         if (!(stack.getItem() instanceof MemorizerItem)) {
             context.getSource().sendFailure(Component.translatable("command.elemenix.memorizer.not_holding"));
             return 0;
         }
+
         String itemId = StringArgumentType.getString(context, "item");
         Item item = ModUtils.getItemFromString(itemId);
         if (item == null) {
             context.getSource().sendFailure(Component.translatable("command.elemenix.memorizer.invalid_item", itemId));
             return 0;
         }
+
         ResourceLocation id = BuiltInRegistries.ITEM.getKey(item);
         MemoryData memoryData = MemorizerItem.getOrCreateMemories(stack);
         List<ResourceLocation> memories = memoryData.resolvedItems();
@@ -196,6 +198,7 @@ public class MemorizerCommand {
             context.getSource().sendFailure(Component.translatable("command.elemenix.memorizer.remove.missing"));
             return 0;
         }
+
         List<ResourceLocation> newMemories = new ArrayList<>(memories);
         newMemories.remove(id);
         stack.set(ModDataComponents.MEMORY_DATA.get(), memoryData.withResolvedItems(newMemories));
