@@ -13,8 +13,6 @@
     { "id": "create:andesite_alloy", "constituents": [0, 28, 0, 8, 0, 0] },
     { "id": "create:cinder_flour", "constituents": [10, 0, 0, 0, 1, 0] },
     { "id": "create:experience_nugget", "constituents": [0, 0, 0, 0, 2, 2] },
-    { "id": "create:bar_of_chocolate", "constituents": [39, 0, 5, 0, 0, 0] },
-    { "id": "create:builders_tea", "constituents": [3, 8, 6, 0, 2, 0] },
     { "id": "create:asurine", "constituents": [0, 20, 0, 4, 0, 0] },
     { "id": "create:crimsite", "constituents": [0, 20, 0, 4, 0, 0] },
     { "id": "create:ochrum", "constituents": [0, 20, 0, 4, 0, 0] },

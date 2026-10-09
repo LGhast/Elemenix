@@ -239,6 +239,9 @@
     { "id": "minecraft:piglin_banner_pattern", "constituents": [200, 0, 0, 0, 50, 50] },
     { "id": "minecraft:flow_banner_pattern", "constituents": [200, 0, 120, 0, 0, 50] },
     { "id": "minecraft:guster_banner_pattern", "constituents": [200, 0, 120, 0, 0, 50] },
+    { "id": "&minecraft:water", "elemenix": "flumix", "value": 2 },
+    { "id": "&minecraft:lava", "elemenix": "terrix", "value": 30 },
+    { "id": "&minecraft:milk", "constituents": [1, 0, 1, 0, 0, 0] },
     { "id": "minecraft:air", "unanalysable": true }
   ]
 }

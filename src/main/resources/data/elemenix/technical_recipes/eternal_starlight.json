@@ -98,12 +98,9 @@
       ]
     },
     {
-      "preset": "bucket_constituents",
+      "preset": "bucket_fluid",
       "output": "eternal_starlight:ether_bucket",
-      "constituents": [
-        { "type": "flumix", "value": 20 },
-        { "type": "energix", "value": 20 }
-      ]
+      "fluid": "&eternal_starlight:ether"
     },
     {
       "preset": "mob_bucket",

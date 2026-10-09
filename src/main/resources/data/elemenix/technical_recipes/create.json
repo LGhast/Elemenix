@@ -3,6 +3,55 @@
   "load_after": ["minecraft"],
   "recipes": [
     {
+      "output": "&create:honey",
+      "count": 1,
+      "inputs": [
+        { "id": "minecraft:honey_bottle", "count": 1 }
+      ],
+      "offcuts": [
+        { "id": "minecraft:glass_bottle", "count": 1 }
+      ]
+    },
+    {
+      "output": "&create:chocolate",
+      "count": 1,
+      "inputs": [
+        { "id": "&minecraft:milk", "count": 1 },
+        { "id": "minecraft:cocoa_beans", "count": 1 },
+        { "id": "minecraft:sugar", "count": 1 }
+      ],
+      "removed_elemenix": "flumix"
+    },
+    {
+      "output": "&create:tea",
+      "count": 2,
+      "inputs": [
+        { "id": "&minecraft:water", "count": 1 },
+        { "id": "&minecraft:milk", "count": 1 },
+        { "id": "minecraft:oak_leaves", "count": 1 }
+      ]
+    },
+    {
+      "output": "&create:chocolate",
+      "count": 1,
+      "inputs": [
+        { "id": "&minecraft:milk", "count": 1 },
+        { "id": "minecraft:cocoa_beans", "count": 1 },
+        { "id": "minecraft:sugar", "count": 1 }
+      ],
+      "removed_elemenix": "flumix"
+    },
+    {
+      "preset": "bucket_fluid",
+      "output": "create:honey_bucket",
+      "fluid": "&create:honey"
+    },
+    {
+      "preset": "bucket_fluid",
+      "output": "create:chocolate_bucket",
+      "fluid": "&create:chocolate"
+    },
+    {
       "output": "create:andesite_casing",
       "count": 1,
       "inputs": [
@@ -129,14 +178,6 @@
       ]
     },
     {
-      "output": "create:blaze_cake",
-      "count": 4,
-      "inputs": [
-        { "id": "create:blaze_cake_base", "count": 4 },
-        { "id": "minecraft:obsidian", "count": 1 }
-      ]
-    },
-    {
       "output": "create:cardboard_block",
       "count": 1,
       "inputs": [
@@ -149,22 +190,6 @@
       "inputs": [
         { "id": "create:cardboard_block", "count": 1 },
         { "id": "minecraft:string", "count": 1 }
-      ]
-    },
-    {
-      "output": "create:chocolate_bucket",
-      "count": 1,
-      "inputs": [
-        { "id": "create:chocolate_bar", "count": 4 },
-        { "id": "minecraft:bucket", "count": 1 }
-      ]
-    },
-    {
-      "output": "create:chocolate_glazed_berries",
-      "count": 1,
-      "inputs": [
-        { "id": "create:chocolate_bar", "count": 1 },
-        { "id": "minecraft:swear_berries", "count": 1 }
       ]
     },
     {
@@ -183,32 +208,6 @@
       "inputs": [
         { "id": "create:zinc_nugget", "count": 2 },
         { "id": "minecraft:stone_slab", "count": 1 }
-      ]
-    },
-    {
-      "output": "create:sweet_roll",
-      "count": 1,
-      "inputs": [
-        { "id": "minecraft:bread", "count": 1 }
-      ]
-    },
-    {
-      "output": "create:honey_bucket",
-      "count": 1,
-      "inputs": [
-        { "id": "minecraft:honey_block", "count": 1 },
-        { "id": "minecraft:bucket", "count": 1 }
-      ]
-    },
-    {
-      "output": "create:honeyed_apple",
-      "count": 1,
-      "inputs": [
-        { "id": "minecraft:apple", "count": 1 },
-        { "id": "minecraft:honey_bottle", "count": 1 }
-      ],
-      "offcuts": [
-        { "id": "minecraft:glass_bottle", "count": 1 }
       ]
     },
     {

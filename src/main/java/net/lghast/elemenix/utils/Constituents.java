@@ -10,6 +10,10 @@ import net.minecraft.world.item.ItemStack;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * Fixed-size container of the six elemenix values, clamped to [0, MAX];
+ * carries an unanalysable flag that freezes its contents.
+ */
 public class Constituents {
     private static final int MAX = 20_0000_0000;
     public static volatile double DISCOUNT = 1.0;
@@ -31,17 +35,21 @@ public class Constituents {
         set(type, value);
     }
 
+    /**
+     * Creates an instance whose unanalysable flag is set directly.
+     *
+     * @param unanalysable when true, all mutation methods become no-ops
+     */
     public Constituents(boolean unanalysable){
         clear();
         this.unanalysable = unanalysable;
     }
 
-    private boolean isValidIndex(int index){
-        return index>=0 && index<constituents.length;
-    }
-
-    private int clampValue(int value) {
-        return Math.max(0, Math.min(value, MAX));
+    public Constituents copy() {
+        Constituents copy = new Constituents();
+        System.arraycopy(this.constituents, 0, copy.constituents, 0, this.constituents.length);
+        copy.unanalysable = this.unanalysable;
+        return copy;
     }
 
     public void clear(){
@@ -86,19 +94,6 @@ public class Constituents {
         constituents[index] = Math.max(constituents[index] - deduction, 0);
     }
 
-    private void multiplyInternal(double multiplier, boolean useCeil) {
-        if (multiplier < 0) return;
-        for (int i = 0; i < constituents.length; i++) {
-            double raw = constituents[i] * multiplier;
-            int newVal = useCeil ? (int) Math.ceil(raw) : (int) Math.floor(raw);
-            constituents[i] = clampValue(newVal);
-        }
-    }
-
-    public void multiply(double multiplier) {
-        multiplyInternal(multiplier, false);
-    }
-
     public void multiply(int factor) {
         if(factor < 0) return;
         for(int i = 0; i < constituents.length; i++){
@@ -107,6 +102,16 @@ public class Constituents {
         }
     }
 
+    /**
+     * Scales all values by a double factor, rounding down; negative factors are ignored.
+     */
+    public void multiply(double multiplier) {
+        multiplyInternal(multiplier, false);
+    }
+
+    /**
+     * Same as {@link #multiply(double)} but rounds up instead of down.
+     */
     public void multiplyCeil(double multiplier) {
         multiplyInternal(multiplier, true);
     }
@@ -125,6 +130,9 @@ public class Constituents {
         }
     }
 
+    /**
+     * Total of all six values; Long.MAX_VALUE when unanalysable.
+     */
     public long getSum(){
         if(unanalysable) return Long.MAX_VALUE;
         long sum = 0;
@@ -138,6 +146,12 @@ public class Constituents {
         return unanalysable;
     }
 
+    /**
+     * True when {@code pureElemenix} is the only type with a positive value
+     * and that value is non-zero.
+     *
+     * @param pureElemenix the single type allowed to be present
+     */
     public boolean isPure(Elemenix pureElemenix){
         if(unanalysable) return false;
         if(pureElemenix == null) return false;
@@ -153,13 +167,11 @@ public class Constituents {
         return true;
     }
 
-    public Constituents copy() {
-        Constituents copy = new Constituents();
-        System.arraycopy(this.constituents, 0, copy.constituents, 0, this.constituents.length);
-        copy.unanalysable = this.unanalysable;
-        return copy;
-    }
-
+    /**
+     * Sums the constituents of a stack list, multiplying each by its count.
+     *
+     * @return a fresh Constituents; a frozen one when any stack is unanalysable
+     */
     public static Constituents sumConstituents(List<ItemStack> stacks){
         if(stacks == null || stacks.isEmpty()) return new Constituents();
 
@@ -183,18 +195,27 @@ public class Constituents {
         return result;
     }
 
+    /**
+     * Applies the global deconstruction discount, rounded up (ceiling).
+     */
     public static Constituents getDiscountApplied(Constituents original){
         Constituents discounted = original.copy();
         discounted.multiplyCeil(DISCOUNT);
         return discounted;
     }
 
+    /**
+     * Applies the global reconstruction premium, rounded down (floor).
+     */
     public static Constituents getPremiumApplied(Constituents original){
         Constituents premiumApplied = original.copy();
         premiumApplied.multiply(1 + PREMIUM);
         return premiumApplied;
     }
 
+    /**
+     * Reloads DISCOUNT / PREMIUM from the common config.
+     */
     public static void loadFromConfig(){
         DISCOUNT = CommonConfig.DC_DISCOUNT.get();
         PREMIUM = CommonConfig.RC_PREMIUM.get();
@@ -265,5 +286,22 @@ public class Constituents {
 
     public static Constituents flowerLarge(){
         return new Constituents(36, 0, 16, 0, 0, 0);
+    }
+
+    private boolean isValidIndex(int index){
+        return index>=0 && index<constituents.length;
+    }
+
+    private int clampValue(int value) {
+        return Math.max(0, Math.min(value, MAX));
+    }
+
+    private void multiplyInternal(double multiplier, boolean useCeil) {
+        if (multiplier < 0) return;
+        for (int i = 0; i < constituents.length; i++) {
+            double raw = constituents[i] * multiplier;
+            int newVal = useCeil ? (int) Math.ceil(raw) : (int) Math.floor(raw);
+            constituents[i] = clampValue(newVal);
+        }
     }
 }

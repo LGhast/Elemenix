@@ -184,6 +184,8 @@ public class JsonTRecipeLoader {
             case "bucket_constituents" -> createBucketWithConstituents(obj);
             case "food_unit" -> createFoodUnitRecipes(obj);
             case "food_unit_bowl" -> createFoodUnitBowlRecipe(obj);
+            case "bucket_fluid" -> createBucketFluidRecipe(obj);
+            case "bottle_fluid" -> createBottleFluidRecipe(obj);
             default -> {
                 LOGGER.warn("Unknown preset: {}", preset);
                 yield Collections.emptyList();
@@ -372,6 +374,54 @@ public class JsonTRecipeLoader {
         recipe.setContainer("minecraft:bowl");
         recipe.addOffcut("minecraft:bowl", 1);
 
+        return Collections.singletonList(recipe);
+    }
+
+    private static List<TechnicalRecipe> createBucketFluidRecipe(JsonObject obj) {
+        if (!obj.has("output") || !obj.has("fluid")) {
+            LOGGER.warn("Bucket fluid preset missing 'output' or 'fluid'");
+            return Collections.emptyList();
+        }
+
+        String outputId = obj.get("output").getAsString();
+        String fluidId = obj.get("fluid").getAsString();
+        if (outputId.startsWith("&")) {
+            LOGGER.warn("Bucket fluid preset 'output' must be an item id: {}", outputId);
+            return Collections.emptyList();
+        }
+
+        if (!fluidId.startsWith("&")) {
+            LOGGER.warn("Bucket fluid preset 'fluid' must be a fluid id with '&' prefix: {}", fluidId);
+            return Collections.emptyList();
+        }
+
+        TechnicalRecipe recipe = new TechnicalRecipe(outputId, 1);
+        recipe.addInput(fluidId, 4);
+        recipe.addInput("minecraft:bucket", 1);
+        return Collections.singletonList(recipe);
+    }
+
+    private static List<TechnicalRecipe> createBottleFluidRecipe(JsonObject obj) {
+        if (!obj.has("output") || !obj.has("fluid")) {
+            LOGGER.warn("Bottle fluid preset missing 'output' or 'fluid'");
+            return Collections.emptyList();
+        }
+
+        String outputId = obj.get("output").getAsString();
+        String fluidId = obj.get("fluid").getAsString();
+        if (outputId.startsWith("&")) {
+            LOGGER.warn("Bottle fluid preset 'output' must be an item id: {}", outputId);
+            return Collections.emptyList();
+        }
+
+        if (!fluidId.startsWith("&")) {
+            LOGGER.warn("Bottle fluid preset 'fluid' must be a fluid id with '&' prefix: {}", fluidId);
+            return Collections.emptyList();
+        }
+
+        TechnicalRecipe recipe = new TechnicalRecipe(outputId, 1);
+        recipe.addInput(fluidId, 1);
+        recipe.addInput("minecraft:glass_bottle", 1);
         return Collections.singletonList(recipe);
     }
 

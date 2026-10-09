@@ -20,11 +20,35 @@
     "minecraft:end_portal_frame",
     "minecraft:reinforced_deepslate",
     {
+      "id": "#elemenix:spawn_eggs",
+      "required": false
+    },
+    {
       "id": "farmersdelight:debug_pumpkin_pie",
       "required": false
     },
     {
       "id": "#eternal_starlight:wip",
+      "required": false
+    },
+    {
+      "id": "eternal_starlight:lunar_monstrosity_spawner",
+      "required": false
+    },
+    {
+      "id": "eternal_starlight:mechanical_spawner",
+      "required": false
+    },
+    {
+      "id": "eternal_starlight:permafrost_spawner",
+      "required": false
+    },
+    {
+      "id": "eternal_starlight:starlight_golem_spawner",
+      "required": false
+    },
+    {
+      "id": "eternal_starlight:the_gatekeeper_spawner",
       "required": false
     },
     {
@@ -168,6 +192,42 @@
       "required": false
     },
     {
+      "id": "twilightforest:alpha_yeti_boss_spawner",
+      "required": false
+    },
+    {
+      "id": "twilightforest:hydra_boss_spawner",
+      "required": false
+    },
+    {
+      "id": "twilightforest:knight_phantom_boss_spawner",
+      "required": false
+    },
+    {
+      "id": "twilightforest:lich_boss_spawner",
+      "required": false
+    },
+    {
+      "id": "twilightforest:minoshroom_boss_spawner",
+      "required": false
+    },
+    {
+      "id": "twilightforest:naga_boss_spawner",
+      "required": false
+    },
+    {
+      "id": "twilightforest:sinister_spawner",
+      "required": false
+    },
+    {
+      "id": "twilightforest:snow_queen_boss_spawner",
+      "required": false
+    },
+    {
+      "id": "twilightforest:ur_ghast_boss_spawner",
+      "required": false
+    },
+    {
       "id": "#elemenix:filled_maps",
       "required": false
     },
@@ -218,6 +278,10 @@
     },
     {
       "id": "iceandfire:dreadwood_planks_lock",
+      "required": false
+    },
+    {
+      "id": "iceandfire:dread_spawner",
       "required": false
     },
     {
@@ -434,6 +498,10 @@
     },
     {
       "id": "ars_nouveau:familiar_wixie",
+      "required": false
+    },
+    {
+      "id": "cataclysm:boss_respawner",
       "required": false
     },
     {

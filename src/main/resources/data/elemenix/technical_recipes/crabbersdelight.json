@@ -25,7 +25,7 @@
       "count": 1,
       "inputs": [
         { "id": "crabbersdelight:note", "count": 1 },
-        { "id": "minecraft:bottle", "count": 1 }
+        { "id": "minecraft:glass_bottle", "count": 1 }
       ]
     },
     {
@@ -33,7 +33,27 @@
       "count": 1,
       "inputs": [
         { "id": "crabbersdelight:note", "count": 1 },
-        { "id": "minecraft:bottle", "count": 1 }
+        { "id": "minecraft:glass_bottle", "count": 1 }
+      ]
+    },
+    {
+      "output": "&crabbersdelight:coconut_milk",
+      "count": 1,
+      "inputs": [
+        { "id": "crabbersdelight:coconut_milk", "count": 1 }
+      ],
+      "offcuts": [
+        { "id": "minecraft:glass_bottle", "count": 1 }
+      ]
+    },
+    {
+      "output": "&crabbersdelight:sea_pickle_juice",
+      "count": 1,
+      "inputs": [
+        { "id": "crabbersdelight:sea_pickle_juice", "count": 1 }
+      ],
+      "offcuts": [
+        { "id": "minecraft:glass_bottle", "count": 1 }
       ]
     }
   ]

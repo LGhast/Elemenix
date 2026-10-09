@@ -51,6 +51,11 @@
       ]
     },
     {
+      "preset": "bucket_fluid",
+      "output": "undergarden:virulent_mix_bucket",
+      "fluid": "&undergarden:virulent_mix_source"
+    },
+    {
       "output": "undergarden:carved_gloomgourd",
       "count": 1,
       "inputs": [

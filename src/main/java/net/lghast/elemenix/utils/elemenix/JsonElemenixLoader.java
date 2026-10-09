@@ -12,6 +12,7 @@ import net.neoforged.neoforgespi.language.IModFileInfo;
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
 
+import javax.annotation.Nullable;
 import java.io.IOException;
 import java.io.Reader;
 import java.nio.charset.StandardCharsets;
@@ -28,6 +29,9 @@ public class JsonElemenixLoader {
 
     public static Map<String, Constituents> loadAllMappings() {
         Map<String, Constituents> result = new LinkedHashMap<>();
+
+        FluidElemenixInfo.clearAll();
+
         IModFileInfo modFileInfo = ModList.get().getModFileById(Elemenics.MOD_ID);
         if (modFileInfo == null) return result;
 
@@ -74,41 +78,63 @@ public class JsonElemenixLoader {
                 JsonObject obj = elem.getAsJsonObject();
                 String id = obj.get("id").getAsString();
 
-                if (obj.has("unanalysable") && obj.get("unanalysable").getAsBoolean()) {
-                    map.put(id, new Constituents(true));
-                    continue;
-                }
+                Constituents constituents = parseEntryValue(obj, id);
+                if (constituents == null) continue;
 
-                if (obj.has("preset")) {
-                    String preset = obj.get("preset").getAsString();
-                    Constituents constituents = resolvePreset(preset, obj);
-                    if (constituents != null) {
-                        map.put(id, constituents);
+                if (id.startsWith("&")) {
+                    String fluidId = id.substring(1);
+                    if (fluidId.startsWith("#")) {
+                        FluidElemenixInfo.putDirectTag(fluidId.substring(1), constituents);
                     } else {
-                        LOGGER.warn("Unknown preset '{}' for item {}", preset, id);
+                        FluidElemenixInfo.putDirect(fluidId, constituents);
                     }
-                    continue;
+                } else {
+                    map.put(id, constituents);
                 }
-
-                if (obj.has("elemenix")) {
-                    String typeName = obj.get("elemenix").getAsString().toUpperCase();
-                    Elemenix type = Elemenix.valueOf(typeName);
-                    int value = obj.get("value").getAsInt();
-                    map.put(id, new Constituents(type, value));
-                    continue;
-                }
-
-                JsonArray arr = obj.getAsJsonArray("constituents");
-                int o = arr.get(0).getAsInt();
-                int t = arr.get(1).getAsInt();
-                int f = arr.get(2).getAsInt();
-                int m = arr.get(3).getAsInt();
-                int e = arr.get(4).getAsInt();
-                int a = arr.get(5).getAsInt();
-                map.put(id, new Constituents(o, t, f, m, e, a));
             }
         }
         return map;
+    }
+
+    @Nullable
+    private static Constituents parseEntryValue(JsonObject obj, String id) {
+        if (obj.has("unanalysable") && obj.get("unanalysable").getAsBoolean()) {
+            return new Constituents(true);
+        }
+
+        if (obj.has("preset")) {
+            String preset = obj.get("preset").getAsString();
+            Constituents constituents = resolvePreset(preset, obj);
+            if (constituents == null) {
+                LOGGER.warn("Unknown preset '{}' for entry {}", preset, id);
+            }
+            return constituents;
+        }
+
+        if (obj.has("elemenix")) {
+            String typeName = obj.get("elemenix").getAsString().toUpperCase();
+            try {
+                Elemenix type = Elemenix.valueOf(typeName);
+                int value = obj.get("value").getAsInt();
+                return new Constituents(type, value);
+            } catch (IllegalArgumentException e) {
+                LOGGER.warn("Invalid elemenix type '{}' for entry {}", typeName, id);
+                return null;
+            }
+        }
+
+        JsonArray arr = obj.getAsJsonArray("constituents");
+        if (arr == null) {
+            LOGGER.warn("Entry {} has no recognizable format", id);
+            return null;
+        }
+        int o = arr.get(0).getAsInt();
+        int t = arr.get(1).getAsInt();
+        int f = arr.get(2).getAsInt();
+        int m = arr.get(3).getAsInt();
+        int e = arr.get(4).getAsInt();
+        int a = arr.get(5).getAsInt();
+        return new Constituents(o, t, f, m, e, a);
     }
 
     private static Constituents resolvePreset(String preset, JsonObject obj) {

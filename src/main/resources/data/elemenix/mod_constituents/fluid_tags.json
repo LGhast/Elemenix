@@ -1,0 +1,10 @@
+{
+  "mod_id": "elemenix",
+  "entries": [
+    { "id": "&#c:water", "elemenix": "flumix", "value": 2 },
+    { "id": "&#c:lava", "elemenix": "terrix", "value": 30 },
+    { "id": "&#c:cement", "elemenix": "terrix", "value": 15 },
+    { "id": "&#c:milk", "constituents": [1, 0, 1, 0, 0, 0] },
+    { "id": "&#c:experience", "constituents": [0, 0, 0, 0, 8, 5] }
+  ]
+}

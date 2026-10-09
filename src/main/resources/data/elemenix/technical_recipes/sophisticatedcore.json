@@ -1,0 +1,11 @@
+{
+  "mod_id": "sophisticatedcore",
+  "load_after": ["sophisticatedcore"],
+  "recipes": [
+    {
+      "preset": "bucket_fluid",
+      "output": "sophisticatedcore:xp_bucket",
+      "fluid": "&sophisticatedcore:xp_still"
+    }
+  ]
+}

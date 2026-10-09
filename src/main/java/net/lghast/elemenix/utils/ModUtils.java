@@ -22,7 +22,17 @@ import top.theillusivec4.curios.api.type.capability.ICuriosItemHandler;
 import javax.annotation.Nullable;
 import java.util.Optional;
 
+/**
+ * Shared static helpers
+ */
 public class ModUtils {
+
+    /**
+     * Parses and looks up an item by id.
+     *
+     * @param itemId item id, possibly invalid
+     * @return the item, or null when the id is unknown or malformed
+     */
     public static Item getItemFromString(String itemId) {
         try {
             ResourceLocation resourceLocation = ResourceLocation.parse(itemId);
@@ -34,10 +44,16 @@ public class ModUtils {
 
     public static void spawnParticles(ServerLevel serverLevel, ParticleOptions particle, double x, double y, double z,
                                       double dx, double dy, double dz, int count, double speed) {
-
         serverLevel.sendParticles(particle, x, y, z, count, dx, dy, dz, speed);
     }
 
+    /**
+     * Fits text into maxWidth by binary-searching the longest prefix and appending an ellipsis.
+     *
+     * @param font     font used for width measurement
+     * @param text     original text
+     * @param maxWidth available width in pixels
+     */
     public static String truncateToWidth(Font font, String text, int maxWidth) {
         if (font.width(text) <= maxWidth) {
             return text;
@@ -75,6 +91,9 @@ public class ModUtils {
         return text.substring(0, bestPos).trim() + ellipsis;
     }
 
+    /**
+     * Saturating addition: returns Long.MAX_VALUE instead of throwing on overflow.
+     */
     public static long safeAdd(long a, long b) {
         try {
             return Math.addExact(a, b);
@@ -83,6 +102,11 @@ public class ModUtils {
         }
     }
 
+    /**
+     * Formats a value using the configured grouping:
+     * four-digit units (W=ten-thousand, Y=hundred-million, Z=trillion, J=ten-quadrillion)
+     * or three-digit units (K, M, B, T, Q).
+     */
     public static String formatNumber(long value) {
         boolean useFourGroups;
         if (FMLEnvironment.dist.isClient()) {
@@ -179,6 +203,13 @@ public class ModUtils {
         return ModList.get().isLoaded(modId);
     }
 
+    /**
+     * Finds an item of the given type inside a Curios slot.
+     *
+     * @param slotId Curios slot identifier
+     * @param item   item type to search for
+     * @return the found stack, or ItemStack.EMPTY when absent or Curios is unavailable
+     */
     public static ItemStack findItemInCuriosSlot(Player player, String slotId, Item item) {
         Optional<ICuriosItemHandler> optional = CuriosApi.getCuriosInventory(player);
         if (optional.isEmpty()) {

@@ -10,25 +10,16 @@
       ]
     },
     {
+      "preset": "bottle_fluid",
       "output": "iss_magicfromtheeast:bottle_of_souls",
-      "count": 1,
-      "inputs": [
-        { "id": "minecraft:glass_bottle", "count": 1 }
-      ],
-      "additions": [
-        { "type": "flumix", "value": 24 },
-        { "type": "arcanix", "value": 5 }
-      ]
+      "fluid": "&iss_magicfromtheeast:soul"
     },
     {
       "output": "iss_magicfromtheeast:crystallized_soul",
       "count": 1,
       "inputs": [
         { "id": "minecraft:echo_shard", "count": 1 },
-        { "id": "iss_magicfromtheeast:bottle_of_souls", "count": 4 }
-      ],
-      "offcuts": [
-        { "id": "minecraft:glass_bottle", "count": 4 }
+        { "id": "&iss_magicfromtheeast:soul", "count": 4 }
       ]
     }
   ]

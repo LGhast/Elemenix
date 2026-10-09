@@ -125,14 +125,6 @@
       ]
     },
     {
-      "output": "minecraft:lava_bucket",
-      "count": 1,
-      "inputs": [
-        { "id": "minecraft:bucket", "count": 1 },
-        { "id": "minecraft:obsidian", "count": 1 }
-      ]
-    },
-    {
       "output": "minecraft:carved_pumpkin",
       "count": 1,
       "inputs": [
@@ -286,10 +278,14 @@
       ]
     },
     {
-      "preset": "bucket_elemenix",
+      "preset": "bucket_fluid",
       "output": "minecraft:water_bucket",
-      "elemenix_type": "flumix",
-      "value": 4
+      "fluid": "&minecraft:water"
+    },
+    {
+      "preset": "bucket_fluid",
+      "output": "minecraft:lava_bucket",
+      "fluid": "&minecraft:lava"
     },
     {
       "preset": "bucket_elemenix",
@@ -301,8 +297,8 @@
       "preset": "bucket_constituents",
       "output": "minecraft:milk_bucket",
       "constituents": [
-        { "type": "organix", "value": 5 },
-        { "type": "flumix", "value": 6 }
+        { "type": "organix", "value": 4 },
+        { "type": "flumix", "value": 4 }
       ]
     },
     {

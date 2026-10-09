@@ -10,12 +10,9 @@
       ]
     },
     {
-      "preset": "bucket_constituents",
+      "preset": "bucket_fluid",
       "output": "deep_aether:poison_bucket",
-      "constituents": [
-        { "type": "organix", "value": 8 },
-        { "type": "flumix", "value": 8 }
-      ]
+      "fluid": "&deep_aether:poison_fluid"
     },
     {
       "preset": "bucket_elemenix",

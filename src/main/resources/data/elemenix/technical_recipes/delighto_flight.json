@@ -50,6 +50,16 @@
       "preset": "food_unit_bowl",
       "output": "delighto_flight:lotus_leaf_rice",
       "source": "delighto_flight:lotus_leaf_rice_block"
+    },
+    {
+      "output": "&delighto_flight:charged_rose_tea",
+      "count": 1,
+      "inputs": [
+        { "id": "delighto_flight:charged_rose_tea", "count": 1 }
+      ],
+      "offcuts": [
+        { "id": "minecraft:glass_bottle", "count": 1 }
+      ]
     }
   ]
 }

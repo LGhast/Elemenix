@@ -3,6 +3,11 @@
   "load_after": ["minecraft"],
   "recipes": [
     {
+      "preset": "bucket_fluid",
+      "output": "farmersdelight:milk_bottle",
+      "fluid": "&minecraft:milk"
+    },
+    {
       "output": "farmersdelight:rope",
       "count": 2,
       "inputs": [

@@ -60,6 +60,7 @@
     { "id": "deep_aether:music_disc_himininn", "constituents": [0, 0, 1500, 0, 0, 400] },
     { "id": "deep_aether:music_disc_naburoo", "constituents": [0, 0, 0, 600, 0, 400] },
     { "id": "deep_aether:brass_dungeon_key", "constituents": [0, 0, 0, 420, 0, 500] },
-    { "id": "deep_aether:nimbus_stone", "constituents": [0, 24, 12, 0, 0, 0] }
+    { "id": "deep_aether:nimbus_stone", "constituents": [0, 24, 12, 0, 0, 0] },
+    { "id": "&deep_aether:poison_fluid", "constituents": [2, 0, 2, 0, 0, 0] }
   ]
 }

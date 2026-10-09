@@ -4,6 +4,7 @@ import net.lghast.elemenix.register.system.ModRecipes;
 import net.lghast.elemenix.utils.Constituents;
 import net.lghast.elemenix.utils.elemenix.ElemenixInfo;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.NonNullList;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.Level;
@@ -62,6 +63,11 @@ public record MineralizingRecipe(Ingredient mineral, Ingredient medium, ItemStac
     @Override
     public boolean canCraftInDimensions(int width, int height) {
         return true;
+    }
+
+    @Override
+    public @NotNull NonNullList<Ingredient> getIngredients() {
+        return NonNullList.of(Ingredient.EMPTY, mineral, medium);
     }
 
     @Override

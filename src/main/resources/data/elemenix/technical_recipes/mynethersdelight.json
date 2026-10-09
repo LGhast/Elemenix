@@ -32,6 +32,19 @@
       "input": "mynethersdelight:letios_compost"
     },
     {
+      "output": "mynethersdelight:magma_cake_block",
+      "count": 1,
+      "inputs": [
+        { "id": "minecraft:magma_cream", "count": 3 },
+        { "id": "farmersdelight:straw", "count": 3 },
+        { "id": "mynethersdelight:pepper_powder", "count": 2 },
+        { "id": "mynethersdelight:hot_cream", "count": 1 }
+      ],
+      "offcuts": [
+        { "id": "minecraft:bucket", "count": 1 }
+      ]
+    },
+    {
       "output": "mynethersdelight:magma_cake_slice",
       "count": 7,
       "inputs": [

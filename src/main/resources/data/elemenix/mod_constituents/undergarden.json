@@ -58,6 +58,7 @@
     { "id": "undergarden:music_disc_relict", "constituents": [0, 600, 0, 0, 0, 300] },
     { "id": "undergarden:music_disc_gloomper_secret", "constituents": [0, 1200, 0, 0, 0, 800] },
     { "id": "undergarden:music_disc_limax_maximus", "constituents": [0, 600, 0, 0, 0, 300] },
-    { "id": "undergarden:music_disc_mammoth", "constituents": [0, 600, 0, 0, 0, 300] }
+    { "id": "undergarden:music_disc_mammoth", "constituents": [0, 600, 0, 0, 0, 300] },
+    { "id": "&undergarden:virulent_mix_source", "constituents": [2, 0, 2, 0, 0, 0] }
   ]
 }

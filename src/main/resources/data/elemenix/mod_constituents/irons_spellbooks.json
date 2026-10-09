@@ -11,10 +11,8 @@
     { "id": "irons_spellbooks:pyrium_ingot", "constituents": [0, 40000, 0, 60000, 0, 4500] },
     { "id": "irons_spellbooks:frozen_bone", "constituents": [6, 24, 8, 0, 0, 0] },
     { "id": "irons_spellbooks:icy_fang", "constituents": [12, 20, 12, 0, 0, 5] },
-    { "id": "irons_spellbooks:ice_venom_vial", "constituents": [12, 28, 16, 0, 0, 5] },
     { "id": "irons_spellbooks:dragonskin", "constituents": [1000, 0, 0, 0, 500, 500] },
     { "id": "irons_spellbooks:ruined_book", "constituents": [1840, 0, 0, 0, 320, 120] },
-    { "id": "irons_spellbooks:timeless_slurry", "constituents": [0, 18, 12, 0, 120, 32] },
     { "id": "irons_spellbooks:divine_soulshard", "constituents": [0, 32, 1200, 0, 0, 1000] },
     { "id": "irons_spellbooks:ancient_knowledge_fragment", "constituents": [6, 2, 0, 0, 0, 2] },
     { "id": "irons_spellbooks:permafrost_shard", "constituents": [0, 0, 120, 0, 0, 200] },
@@ -48,6 +46,9 @@
     { "id": "irons_spellbooks:bone_key", "constituents": [50, 700, 0, 0, 0, 800] },
     { "id": "irons_spellbooks:wicked_bone_ring", "constituents": [45, 500, 0, 0, 0, 450] },
     { "id": "irons_spellbooks:dead_king_phylactery_shard", "constituents": [200, 2400, 0, 0, 520, 400] },
-    { "id": "irons_spellbooks:tincture_of_forgetfulness", "constituents": [0, 8, 500, 0, 120, 800] }
+    { "id": "irons_spellbooks:tincture_of_forgetfulness", "constituents": [0, 8, 500, 0, 120, 800] },
+    { "id": "&irons_spellbooks:blood", "constituents": [16, 0, 24, 0, 0, 2] },
+    { "id": "&irons_spellbooks:timeless_slurry", "constituents": [0, 10, 12, 0, 120, 32] },
+    { "id": "&irons_spellbooks:common_ink", "constituents": [0, 16, 10, 0, 0, 4] }
   ]
 }

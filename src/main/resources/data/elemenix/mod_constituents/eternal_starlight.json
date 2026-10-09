@@ -228,6 +228,7 @@
     { "id": "eternal_starlight:glistering_greatsword", "constituents": [0, 0, 0, 4320, 500, 400] },
     { "id": "eternal_starlight:glistering_morning_star", "constituents": [0, 0, 0, 3456, 400, 335] },
     { "id": "eternal_starlight:coldsnap", "constituents": [0, 0, 1200, 600, 0, 80] },
-    { "id": "eternal_starlight:blossom_of_stars", "constituents": [25, 0, 0, 0, 500, 600] }
+    { "id": "eternal_starlight:blossom_of_stars", "constituents": [25, 0, 0, 0, 500, 600] },
+    { "id": "&eternal_starlight:ether", "constituents": [0, 0, 5, 0, 5, 0] }
   ]
 }

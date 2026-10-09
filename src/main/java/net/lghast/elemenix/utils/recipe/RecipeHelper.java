@@ -2,11 +2,14 @@ package net.lghast.elemenix.utils.recipe;
 
 import net.lghast.elemenix.Elemenics;
 import net.lghast.elemenix.register.content.ModItems;
+import net.lghast.elemenix.register.system.ModRecipes;
 import net.lghast.elemenix.register.system.ModTags;
 import net.lghast.elemenix.utils.Constituents;
 import net.lghast.elemenix.utils.elemenix.Elemenix;
 import net.lghast.elemenix.utils.elemenix.ElemenixInfo;
 import net.lghast.elemenix.utils.ModUtils;
+import net.lghast.elemenix.utils.elemenix.FluidElemenixInfo;
+import net.minecraft.core.Holder;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -16,8 +19,13 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.material.Fluid;
+import net.neoforged.neoforge.fluids.FluidStack;
+import net.neoforged.neoforge.fluids.crafting.FluidIngredient;
+import net.neoforged.neoforge.fluids.crafting.SizedFluidIngredient;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
 
@@ -27,6 +35,10 @@ import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Function;
 
+/**
+ * Derives item constituents from recipes; among all valid recipes for an item,
+ * the one with the smallest total input constituents defines its composition.
+ */
 public class RecipeHelper {
     private static final Map<ResourceLocation, Item> RECIPE_OUTPUT_CACHE = new ConcurrentHashMap<>();
     private static final Set<ResourceLocation> RECIPE_IGNORED_CACHE = ConcurrentHashMap.newKeySet();
@@ -34,6 +46,7 @@ public class RecipeHelper {
 
     private static final List<String> RECIPE_TYPES_NORMAL = new ArrayList<>();
     private static final List<String> RECIPE_TYPES_WITH_CONTAINER = new ArrayList<>();
+    private static final List<String> RECIPE_TYPES_WITH_FLUIDS = new ArrayList<>();
     private static final List<String> RECIPE_TYPES_BREWING_LIKE = new ArrayList<>();
     private static final List<String> RECIPE_TYPES_GLODIUM = new ArrayList<>();
     private static final List<String> RECIPE_TYPES_GLODIUMS = new ArrayList<>();
@@ -63,21 +76,17 @@ public class RecipeHelper {
 
         if(FARMERS_DELIGHT_LOADED){
             RECIPE_TYPES_WITH_CONTAINER.add("farmersdelight:cooking");
-
             if(ModUtils.hasServerMod("dungeonsdelight")){
                 RECIPE_TYPES_WITH_CONTAINER.add("dungeonsdelight:monster_cooking");
             }
-
             if(ModUtils.hasServerMod("minersdelight")){
                 RECIPE_TYPES_WITH_CONTAINER.add("minersdelight:cooking");
             }
-
             if(ModUtils.hasServerMod("youkaishomecoming")){
                 RECIPE_TYPES_WITH_CONTAINER.add("youkaishomecoming:moka_pot");
                 RECIPE_TYPES_WITH_CONTAINER.add("youkaishomecoming:kettle");
                 RECIPE_TYPES_NORMAL.add("youkaishomecoming:steaming");
             }
-
             if(ModUtils.hasServerMod("youkaisfeasts")){
                 RECIPE_TYPES_WITH_CONTAINER.add("youkaisfeasts:moka_pot");
                 RECIPE_TYPES_NORMAL.add("youkaisfeasts:steaming");
@@ -89,11 +98,9 @@ public class RecipeHelper {
         if(AE2_LOADED){
             RECIPE_TYPES_NORMAL.add("ae2:inscriber");
             RECIPE_TYPES_NORMAL.add("ae2:charger");
-
             if(ModUtils.hasServerMod("extendedae")){
                 RECIPE_TYPES_GLODIUM.add("extendedae:circuit_cutter");
                 RECIPE_TYPES_GLODIUMS.add("extendedae:crystal_assembler");
-
             }
             if(ModUtils.hasServerMod("advanced_ae")){
                 RECIPE_TYPES_GLODIUMS.add("advanced_ae:reaction");
@@ -102,7 +109,6 @@ public class RecipeHelper {
         if(AETHER_LOADED){
             RECIPE_TYPES_NORMAL.add("aether:enchanting");
             RECIPE_TYPES_NORMAL.add("aether:freezing");
-
             if(ModUtils.hasServerMod("deep_aether")){
                 RECIPE_TYPES_NORMAL.add("deep_aether:combining");
             }
@@ -127,7 +133,6 @@ public class RecipeHelper {
             RECIPE_TYPES_WITH_CONTAINER.add("confluence:alchemy_table");
             RECIPE_TYPES_WITH_CONTAINER.add("confluence:cooking_pot");
         }
-
         if(ModUtils.hasServerMod("twilightforest")){
             RECIPE_TYPES_NORMAL.add("twilightforest:drying");
         }
@@ -136,7 +141,12 @@ public class RecipeHelper {
             RECIPE_TYPES_NORMAL.add("create:mechanical_crafting");
             RECIPE_TYPES_NORMAL.add("create:sandpaper_polishing");
             RECIPE_TYPES_NORMAL.add("create:mixing");
+            RECIPE_TYPES_NORMAL.add("create:filling");
             RECIPE_TYPES_NORMAL.add("create:compacting");
+
+            RECIPE_TYPES_WITH_FLUIDS.add("create:mixing");
+            RECIPE_TYPES_WITH_FLUIDS.add("create:filling");
+            RECIPE_TYPES_WITH_FLUIDS.add("create:compacting");
         }
         if(ModUtils.hasServerMod("ars_nouveau")){
             RECIPE_TYPES_NORMAL.add("ars_nouveau:enchanting_apparatus");
@@ -149,7 +159,6 @@ public class RecipeHelper {
         if(ModUtils.hasServerMod("terra_curio")){
             RECIPE_TYPES_NORMAL.add("terra_curio:workshop");
         }
-
     }
 
     public static void clearCache() {
@@ -177,6 +186,12 @@ public class RecipeHelper {
         return level.getRecipeManager().getRecipeIds().findAny().isPresent();
     }
 
+    /**
+     * Scans every loaded recipe and caches valid ones per output item;
+     * runs once per world start or recipe reload.
+     *
+     * @param level world whose recipe manager is scanned
+     */
     public static void precomputeRecipes(@Nullable Level level) {
         if(!Elemenics.started) return;
 
@@ -194,6 +209,8 @@ public class RecipeHelper {
             LOGGER.warn("Cannot precompute recipes: the recipe manager is empty, recipes have not been loaded yet");
             return;
         }
+
+        TRecipeHelper.ensureHandled();
 
         long startTime = System.currentTimeMillis();
         precomputing = true;
@@ -227,14 +244,18 @@ public class RecipeHelper {
             }
 
             initialized = true;
-            LOGGER.info("RecipeHelper precomputed {} recipes in {} ms",
-                    RECIPE_MAP.size(), System.currentTimeMillis() - startTime);
+            ElemenixInfo.logRecursionSummary();
+            LOGGER.info("RecipeHelper precomputed {} recipes in {} ms", RECIPE_MAP.size(), System.currentTimeMillis() - startTime);
         } finally {
             precomputing = false;
             precomputingThread = null;
         }
     }
 
+    /**
+     * Normalizes ingredient items whose NBT variety would skew values:
+     * potions -> NULLVOID, tipped arrows -> arrow, enchanted books -> book
+     */
     private static ItemStack replacedStack(RecipeType<?> type, ItemStack stack) {
         Item item = stack.getItem();
 
@@ -263,6 +284,9 @@ public class RecipeHelper {
         return stack;
     }
 
+    /**
+     * Tries vanilla getIngredients(), then falls back to reflection
+     */
     private static List<Ingredient> getRecipeIngredients(Recipe<?> recipe) {
         try {
             NonNullList<Ingredient> ingredients = recipe.getIngredients();
@@ -305,6 +329,31 @@ public class RecipeHelper {
         return Collections.emptyList();
     }
 
+    private static @NotNull Optional<List<FluidStack>> convertToList(Object obj) {
+        List<FluidStack> stacks = convertToFluidStacks(obj);
+        return (stacks != null && !stacks.isEmpty()) ? Optional.of(stacks) : Optional.empty();
+    }
+
+    /**
+     * Extracts fluid inputs via reflection on common mod getter names and fields.
+     */
+    private static @NotNull List<FluidStack> getFluidStacks(Recipe<?> recipe) {
+        if (recipe == null) return Collections.emptyList();
+        Optional<List<FluidStack>> fromMethod = tryInvokeMethods(recipe,
+                RecipeHelper::convertToList,
+                "getFluidIngredients", "getInputFluids", "getFluids",
+                "getRequiredFluid", "getInputFluid", "getFluidIngredient", "getFluid");
+        if (fromMethod.isPresent()) return fromMethod.get();
+        Optional<List<FluidStack>> fromField = tryGetFields(recipe,
+                RecipeHelper::convertToList,
+                "fluidIngredients", "inputFluids", "inputFluid", "fluidIngredient",
+                "fluidStack", "inputFluidStack", "fluid", "fluids");
+        return fromField.orElse(Collections.emptyList());
+    }
+
+    /**
+     * Tries vanilla getResultItem(), then reflected getters/fields for mod recipes.
+     */
     private static ItemStack getRecipeResultItem(Recipe<?> recipe, @Nullable HolderLookup.Provider registryAccess) {
         if (registryAccess == null) return ItemStack.EMPTY;
 
@@ -325,6 +374,9 @@ public class RecipeHelper {
         return fromField.orElse(ItemStack.EMPTY);
     }
 
+    /**
+     * Resolves the container item composing the output for certain recipe types, via reflection.
+     */
     private static ItemStack getRecipeContainer(Recipe<?> recipe) {
         Optional<ItemStack> fromMethod = tryInvokeMethods(recipe,
                 RecipeHelper::tryExtractItemStack,
@@ -337,6 +389,9 @@ public class RecipeHelper {
         return fromField.orElse(ItemStack.EMPTY);
     }
 
+    /**
+     * Serves cached recipes for an item; falls back to a full manager scan when uninitialized.
+     */
     private static List<RecipeInfo> getRecipesForItem(Item targetItem, @Nullable Level level) {
         if (initialized && RECIPE_MAP.containsKey(targetItem)) {
             return new ArrayList<>(RECIPE_MAP.get(targetItem));
@@ -386,6 +441,11 @@ public class RecipeHelper {
         return recipes;
     }
 
+    /**
+     * Picks the representative recipe for an item; null when none is usable.
+     *
+     * @return the cheapest valid RecipeInfo, or null
+     */
     private static RecipeInfo getBestRecipeForItem(Item targetItem, @Nullable Level level) {
         if(ElemenixInfo.isUnanalysableStrictly(targetItem)){
             return null;
@@ -406,6 +466,10 @@ public class RecipeHelper {
         return bestRecipe;
     }
 
+    /**
+     * Smallest input sum wins; ties broken by fewer items.
+     * Unanalysable and complex recipes are skipped.
+     */
     private static RecipeInfo findBestRecipeInfo(List<RecipeInfo> recipes) {
         RecipeInfo bestRecipe = recipes.getFirst();
 
@@ -424,19 +488,55 @@ public class RecipeHelper {
         return bestRecipe;
     }
 
+    /**
+     * Picks the candidate with the smallest mapped constituents as the representative fluid.
+     */
+    private static List<FluidStack> getBestFluid(@Nullable List<FluidStack> candidates) {
+        if (candidates == null || candidates.isEmpty()) return Collections.emptyList();
+        FluidStack best = null;
+        long bestSum = Long.MAX_VALUE;
+
+        for (FluidStack candidate : candidates) {
+            if (candidate == null || candidate.isEmpty()) continue;
+            Constituents mapped = FluidElemenixInfo.getMappedConstituents(candidate.getFluid());
+            if (mapped == null || mapped.isUnanalysable()) continue;
+            long sum = mapped.getSum();
+            if (sum < bestSum) {
+                bestSum = sum;
+                best = candidate;
+            }
+        }
+
+        if (best != null) return Collections.singletonList(best);
+
+        for (FluidStack candidate : candidates) {
+            if (candidate != null && !candidate.isEmpty()) {
+                return Collections.singletonList(candidate);
+            }
+        }
+
+        return Collections.emptyList();
+    }
+
+    /**
+     * Entry point used by ElemenixInfo: constituents of the representative recipe.
+     */
     public static Constituents getRecipeConstituents(Item item, @Nullable Level level) {
         RecipeInfo recipeInfo = getBestRecipeForItem(item, level);
         if(recipeInfo == null) return null;
         return recipeInfo.getConstituents();
     }
 
+    /**
+     * Whitelist gate: vanilla types plus mod recipe types handled by the is* checks.
+     */
     private static boolean isValidRecipeType(Recipe<?> recipe) {
         RecipeType<?> type = recipe.getType();
-
         return type == RecipeType.CRAFTING ||
                 type == RecipeType.SMELTING ||
                 type == RecipeType.SMOKING ||
                 type == RecipeType.STONECUTTING ||
+                type == ModRecipes.MINERALIZING.get() ||
                 recipe instanceof SmithingTransformRecipe ||
                 isNormalModRecipe(recipe) ||
                 isRecipeWithContainer(recipe) ||
@@ -449,6 +549,9 @@ public class RecipeHelper {
                 isKaleidoscopeCookeryPotRecipe(recipe);
     }
 
+    /**
+     * Dispatches to the matching handler to fill a RecipeInfo with ingredients and flags.
+     */
     private static RecipeInfo getInfo(RecipeHolder<?> holder, Recipe<?> recipe, @Nullable Level level, ItemStack result) {
         RecipeInfo info = new RecipeInfo();
         if(level == null) return info;
@@ -478,7 +581,7 @@ public class RecipeHelper {
             handleGlodiumsRecipe(recipe, info);
         } else if(isKaleidoscopeCookeryPotRecipe(recipe)){
             handleKaleidoscopeCookeryPotRecipe(recipe, info);
-        }else {
+        } else {
             List<Ingredient> ingredients = getRecipeIngredients(recipe);
             for (Ingredient ingredient : ingredients) {
                 if (ingredient != Ingredient.EMPTY) {
@@ -496,10 +599,18 @@ public class RecipeHelper {
             }
         }
 
+        if (shouldConsiderFluids(recipe)) {
+            addFluidConstituents(recipe, info);
+        }
+
         info.sum = info.getConstituents().getSum();
         return info;
     }
 
+    /**
+     * Chooses the matching item with the smallest total constituents
+     * as the ingredient's representative stack.
+     */
     private static ItemStack findBestItemStack(RecipeType<?> type, ItemStack[] matchingItems) {
         if (matchingItems.length == 1) {
             return replacedStack(type, matchingItems[0]);
@@ -514,6 +625,7 @@ public class RecipeHelper {
             if (ElemenixInfo.isUnanalysable(replacedStack)) {
                 continue;
             }
+
             long currentSum = getConstituentsSum(replacedStack);
             if (currentSum < minSum) {
                 minSum = currentSum;
@@ -573,6 +685,15 @@ public class RecipeHelper {
         try {
             RecipeType<?> type = recipe.getType();
             return RECIPE_TYPES_WITH_CONTAINER.contains(type.toString());
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    private static boolean shouldConsiderFluids(Recipe<?> recipe) {
+        try {
+            RecipeType<?> type = recipe.getType();
+            return RECIPE_TYPES_WITH_FLUIDS.contains(type.toString());
         } catch (Exception e) {
             return false;
         }
@@ -674,6 +795,9 @@ public class RecipeHelper {
         }
     }
 
+    /**
+     * Stores the output container for later addition, otherwise identical to the generic handler.
+     */
     private static void handleRecipeWithContainer(Recipe<?> recipe, RecipeInfo info) {
         List<Ingredient> ingredients = getRecipeIngredients(recipe);
         if (ingredients.isEmpty()) {
@@ -702,6 +826,9 @@ public class RecipeHelper {
         }
     }
 
+    /**
+     * Only a single 100%-chance result is accepted; anything else marks the recipe complex.
+     */
     private static void handleCuttingBoardRecipe(Recipe<?> recipe, RecipeInfo info) {
         Optional<List<?>> rollableResultsOpt = tryInvokeMethods(recipe,
                 obj -> obj instanceof List<?> list ? Optional.of(list) : Optional.empty(),
@@ -897,6 +1024,10 @@ public class RecipeHelper {
         info.amount += bestAddition.getCount();
     }
 
+    /**
+     * Converts a glodium-style ingredient stack (getIngredient/getAmount)
+     * into a counted ItemStack.
+     */
     private static void handleGlodiumRecipe(Recipe<?> recipe, RecipeInfo info) {
         Optional<Object> ingredientStackOpt = tryInvokeMethods(recipe,
                 obj -> obj != null ? Optional.of(obj) : Optional.empty(),
@@ -967,6 +1098,38 @@ public class RecipeHelper {
         }
     }
 
+    /**
+     * Sums fluid contributions, scaling each by amount / 250 mB.
+     */
+    private static void addFluidConstituents(Recipe<?> recipe, RecipeInfo info) {
+        List<FluidStack> fluidStacks = getFluidStacks(recipe);
+
+        for (FluidStack fluidStack : fluidStacks) {
+            if (fluidStack == null || fluidStack.isEmpty()) continue;
+
+            long rawUnits = fluidStack.getAmount() / FluidElemenixInfo.FLUID_UNIT;
+            if (rawUnits <= 0) continue;
+
+            int units = (int) rawUnits;
+            Constituents mapped = FluidElemenixInfo.getMappedConstituents(fluidStack.getFluid());
+            if (mapped == null) continue;
+
+            if (mapped.isUnanalysable()) {
+                info.hasUnanalysable = true;
+                return;
+            }
+
+            if (mapped.getSum() <= 0) continue;
+
+            Constituents scaled = mapped.copy();
+            scaled.multiply(units);
+            info.additions.add(scaled);
+        }
+    }
+
+    /**
+     * Internal per-recipe analysis result: ingredients, output, flags and precomputed sums.
+     */
     public static class RecipeInfo {
         public ResourceLocation recipeId;
         public List<ItemStack> ingredients;
@@ -980,6 +1143,8 @@ public class RecipeHelper {
         public boolean isBrewingStandRecipe = false;
         public ItemStack container = ItemStack.EMPTY;
 
+        public Constituents additions = new Constituents();
+
         public long getSum() {
             if(hasUnanalysable || isComplex){
                 return Long.MAX_VALUE;
@@ -987,6 +1152,12 @@ public class RecipeHelper {
             return sum;
         }
 
+        /**
+         * Aggregates ingredient constituents, subtracts crafting remainders,
+         * divides by output count, then applies the special-case corrections:
+         * smelting/smoking (flumix cleared, or x0.2 + energix for foods),
+         * eggshells (terrix removed), aether freezing/enchanting bonuses, and the output container.
+         */
         public Constituents getConstituents(){
             Constituents constituents = Constituents.sumConstituents(ingredients);
 
@@ -1026,6 +1197,8 @@ public class RecipeHelper {
                     }
                 }
             }
+
+            constituents.add(additions);
 
             constituents.multiply(1.0 / resultAmount);
 
@@ -1188,5 +1361,70 @@ public class RecipeHelper {
         } catch (Exception e) {
             return ItemStack.EMPTY;
         }
+    }
+
+    @Nullable
+    private static List<FluidStack> convertToFluidStacks(Object obj) {
+        return convertToFluidStacks(obj, 0);
+    }
+
+    /**
+     * Converts arbitrary objects (FluidStack, Fluid, Holder, lists, arrays,
+     * SizedFluidIngredient, ...) into a flat FluidStack list, recursing up to depth 3.
+     */
+    @Nullable
+    private static List<FluidStack> convertToFluidStacks(Object obj, int depth) {
+        if (obj == null) return Collections.emptyList();
+        if (depth > 3) return null;
+        if (obj instanceof Optional<?> optional) {
+            return optional.isEmpty() ? Collections.emptyList() : convertToFluidStacks(optional.get(), depth + 1);
+        }
+        if (obj instanceof FluidStack stack) {
+            return stack.isEmpty() ? Collections.emptyList() : Collections.singletonList(stack);
+        }
+        if (obj instanceof Fluid fluid) {
+            return Collections.singletonList(new FluidStack(fluid, FluidElemenixInfo.FLUID_UNIT * 4));
+        }
+        if (obj instanceof Holder<?> holder && holder.value() instanceof Fluid fluid) {
+            return Collections.singletonList(new FluidStack(fluid, FluidElemenixInfo.FLUID_UNIT * 4));
+        }
+        if (obj instanceof SizedFluidIngredient sized) {
+            List<FluidStack> candidates = convertToFluidStacks(sized.getFluids(), depth + 1);
+            if (candidates == null) return null;
+            return getBestFluid(candidates);
+        }
+        if (obj instanceof FluidIngredient ingredient) {
+            List<FluidStack> candidates = convertToFluidStacks(ingredient.getStacks(), depth + 1);
+            if (candidates == null) return null;
+            return getBestFluid(candidates);
+        }
+        if (obj instanceof List<?> list) {
+            List<FluidStack> result = new ArrayList<>();
+            for (Object element : list) {
+                List<FluidStack> converted = convertToFluidStacks(element, depth + 1);
+                if (converted == null) return null;
+                result.addAll(converted);
+            }
+            return result;
+        }
+        if (obj instanceof Collection<?> collection) {
+            List<FluidStack> result = new ArrayList<>();
+            for (Object element : collection) {
+                List<FluidStack> converted = convertToFluidStacks(element, depth + 1);
+                if (converted == null) return null;
+                result.addAll(converted);
+            }
+            return result;
+        }
+        if (obj instanceof Object[] array) {
+            List<FluidStack> result = new ArrayList<>();
+            for (Object element : array) {
+                List<FluidStack> converted = convertToFluidStacks(element, depth + 1);
+                if (converted == null) return null;
+                result.addAll(converted);
+            }
+            return result;
+        }
+        return null;
     }
 }

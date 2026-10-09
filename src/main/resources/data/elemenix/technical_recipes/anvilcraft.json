@@ -3,6 +3,26 @@
   "load_after": ["minecraft"],
   "recipes": [
     {
+      "output": "&minecraft:powder_snow",
+      "count": 1,
+      "inputs": [
+        { "id": "minecraft:powder_snow_bucket", "count": 1 }
+      ],
+      "offcuts": [
+        { "id": "minecraft:bucket", "count": 1 }
+      ]
+    },
+    {
+      "output": "&anvilcraft:honey",
+      "count": 1,
+      "inputs": [
+        { "id": "minecraft:honey_bottle", "count": 1 }
+      ],
+      "offcuts": [
+        { "id": "minecraft:glass_bottle", "count": 1 }
+      ]
+    },
+    {
       "preset": "same",
       "output": "anvilcraft:hardend_resin",
       "input": "anvilcraft:resin"
@@ -53,22 +73,6 @@
       "count": 1,
       "inputs": [
         { "id": "minecraft:shulker_box", "count": 4 }
-      ]
-    },
-    {
-      "preset": "bucket_constituents",
-      "output": "anvilcraft:exp_bucket",
-      "constituents": [
-        { "type": "energix", "value": 16 },
-        { "type": "arcanix", "value": 32 }
-      ]
-    },
-    {
-      "preset": "bucket_constituents",
-      "output": "anvilcraft:oil_bucket",
-      "constituents": [
-        { "type": "organix", "value": 1600 },
-        { "type": "energix", "value": 800 }
       ]
     },
     {
@@ -445,6 +449,136 @@
         { "id": "anvilcraft:giant_anvil", "count": 1 },
         { "id": "anvilcraft:spacetime_supercomputer", "count": 1 }
       ]
+    },
+    {
+      "preset": "bucket_fluid",
+      "output": "anvilcraft:white_cement_bucket",
+      "fluid": "&anvilcraft:white_cement"
+    },
+    {
+      "preset": "bucket_fluid",
+      "output": "anvilcraft:orange_cement_bucket",
+      "fluid": "&anvilcraft:orange_cement"
+    },
+    {
+      "preset": "bucket_fluid",
+      "output": "anvilcraft:magenta_cement_bucket",
+      "fluid": "&anvilcraft:magenta_cement"
+    },
+    {
+      "preset": "bucket_fluid",
+      "output": "anvilcraft:light_blue_cement_bucket",
+      "fluid": "&anvilcraft:light_blue_cement"
+    },
+    {
+      "preset": "bucket_fluid",
+      "output": "anvilcraft:yellow_cement_bucket",
+      "fluid": "&anvilcraft:yellow_cement"
+    },
+    {
+      "preset": "bucket_fluid",
+      "output": "anvilcraft:lime_cement_bucket",
+      "fluid": "&anvilcraft:lime_cement"
+    },
+    {
+      "preset": "bucket_fluid",
+      "output": "anvilcraft:pink_cement_bucket",
+      "fluid": "&anvilcraft:pink_cement"
+    },
+    {
+      "preset": "bucket_fluid",
+      "output": "anvilcraft:gray_cement_bucket",
+      "fluid": "&anvilcraft:gray_cement"
+    },
+    {
+      "preset": "bucket_fluid",
+      "output": "anvilcraft:light_gray_cement_bucket",
+      "fluid": "&anvilcraft:light_gray_cement"
+    },
+    {
+      "preset": "bucket_fluid",
+      "output": "anvilcraft:cyan_cement_bucket",
+      "fluid": "&anvilcraft:cyan_cement"
+    },
+    {
+      "preset": "bucket_fluid",
+      "output": "anvilcraft:purple_cement_bucket",
+      "fluid": "&anvilcraft:purple_cement"
+    },
+    {
+      "preset": "bucket_fluid",
+      "output": "anvilcraft:blue_cement_bucket",
+      "fluid": "&anvilcraft:blue_cement"
+    },
+    {
+      "preset": "bucket_fluid",
+      "output": "anvilcraft:brown_cement_bucket",
+      "fluid": "&anvilcraft:brown_cement"
+    },
+    {
+      "preset": "bucket_fluid",
+      "output": "anvilcraft:green_cement_bucket",
+      "fluid": "&anvilcraft:green_cement"
+    },
+    {
+      "preset": "bucket_fluid",
+      "output": "anvilcraft:red_cement_bucket",
+      "fluid": "&anvilcraft:red_cement"
+    },
+    {
+      "preset": "bucket_fluid",
+      "output": "anvilcraft:black_cement_bucket",
+      "fluid": "&anvilcraft:black_cement"
+    },
+    {
+      "preset": "bucket_fluid",
+      "output": "anvilcraft:exp_bucket",
+      "fluid": "&anvilcraft:exp_fluid"
+    },
+    {
+      "preset": "bucket_fluid",
+      "output": "anvilcraft:honey_bucket",
+      "fluid": "&anvilcraft:honey"
+    },
+    {
+      "preset": "bucket_fluid",
+      "output": "anvilcraft:oil_bucket",
+      "fluid": "&anvilcraft:oil"
+    },
+    {
+      "preset": "bucket_fluid",
+      "output": "anvilcraft:hydrogen_bucket",
+      "fluid": "&anvilcraft:hydrogen"
+    },
+    {
+      "preset": "bucket_fluid",
+      "output": "anvilcraft:deuterium_bucket",
+      "fluid": "&anvilcraft:deuterium"
+    },
+    {
+      "preset": "bucket_fluid",
+      "output": "anvilcraft:oxygen_bucket",
+      "fluid": "&anvilcraft:oxygen"
+    },
+    {
+      "preset": "bucket_fluid",
+      "output": "anvilcraft:helium_bucket",
+      "fluid": "&anvilcraft:helium"
+    },
+    {
+      "preset": "bucket_fluid",
+      "output": "anvilcraft:krypton_bucket",
+      "fluid": "&anvilcraft:krypton"
+    },
+    {
+      "preset": "bucket_fluid",
+      "output": "anvilcraft:xenon_bucket",
+      "fluid": "&anvilcraft:xenon"
+    },
+    {
+      "preset": "bucket_fluid",
+      "output": "anvilcraft:primordial_matter_bucket",
+      "fluid": "&anvilcraft:primordial_matter"
     }
   ]
 }
