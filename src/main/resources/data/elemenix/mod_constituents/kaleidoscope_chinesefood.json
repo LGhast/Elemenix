@@ -1,0 +1,8 @@
+{
+  "mod_id": "kaleidoscope_chinesefood",
+  "entries": [
+    { "id": "kaleidoscope_chinesefood:eggplant_seed", "elemenix": "organix", "value": 4 },
+    { "id": "kaleidoscope_chinesefood:yellow_croaker", "preset": "rawFish", "hunger": 5 },
+    { "id": "kaleidoscope_chinesefood:eggplant", "constituents": [26, 0, 8, 0, 0, 0] }
+  ]
+}

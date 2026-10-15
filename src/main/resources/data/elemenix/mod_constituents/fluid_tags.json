@@ -5,6 +5,8 @@
     { "id": "&#c:lava", "elemenix": "terrix", "value": 30 },
     { "id": "&#c:cement", "elemenix": "terrix", "value": 15 },
     { "id": "&#c:milk", "constituents": [1, 0, 1, 0, 0, 0] },
-    { "id": "&#c:experience", "constituents": [0, 0, 0, 0, 8, 5] }
+    { "id": "&#c:experience", "constituents": [0, 0, 0, 0, 8, 5] },
+    { "id": "&#c:dyes", "constituents": [18, 0, 2, 0, 0, 0] },
+    { "id": "&#c:dragon_breath", "constituents": [0, 0, 60, 0, 10, 50] }
   ]
 }

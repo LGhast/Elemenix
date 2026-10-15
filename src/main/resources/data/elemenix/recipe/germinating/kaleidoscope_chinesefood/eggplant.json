@@ -1,0 +1,8 @@
+{
+  "type": "elemenix:germinating",
+  "template": { "item": "kaleidoscope_chinesefood:eggplant" },
+  "products": [
+    { "id": "kaleidoscope_chinesefood:eggplant", "count": 1 },
+    { "id": "kaleidoscope_chinesefood:eggplant_seed", "count": 1 }
+  ]
+}

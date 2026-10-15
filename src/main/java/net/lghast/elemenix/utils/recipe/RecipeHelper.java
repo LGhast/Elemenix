@@ -117,6 +117,10 @@ public class RecipeHelper {
             RECIPE_TYPES_NORMAL.add("kaleidoscope_cookery:chopping_board");
             RECIPE_TYPES_NORMAL.add("kaleidoscope_cookery:millstone");
             RECIPE_TYPES_NORMAL.add("kaleidoscope_cookery:steamer");
+
+            if(ModUtils.hasServerMod("kaleidoscope_chinesefood")){
+                RECIPE_TYPES_NORMAL.add("kaleidoscope_chinesefood:pickle_jar");
+            }
         }
         if(CONFLUENCE_LOADED){
             RECIPE_TYPES_NORMAL.add("confluence:heavy_work_bench");

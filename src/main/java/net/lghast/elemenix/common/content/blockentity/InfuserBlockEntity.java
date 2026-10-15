@@ -12,18 +12,18 @@ import net.lghast.elemenix.register.content.ModBlockEntities;
 import net.lghast.elemenix.register.system.ModDataComponents;
 import net.lghast.elemenix.register.system.ModTags;
 import net.lghast.elemenix.utils.Constituents;
+import net.lghast.elemenix.utils.SidedInvHandler;
 import net.lghast.elemenix.utils.elemenix.Elemenix;
 import net.lghast.elemenix.utils.elemenix.ElemenixInfo;
 import net.lghast.elemenix.utils.ModUtils;
-import net.minecraft.core.BlockPos;
-import net.minecraft.core.GlobalPos;
-import net.minecraft.core.HolderLookup;
-import net.minecraft.core.NonNullList;
+import net.minecraft.core.*;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.Container;
 import net.minecraft.world.ContainerHelper;
+import net.minecraft.world.WorldlyContainer;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerData;
@@ -32,6 +32,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BaseContainerBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.neoforged.neoforge.items.IItemHandler;
 import net.neoforged.neoforge.network.PacketDistributor;
 import org.jetbrains.annotations.NotNull;
 
@@ -40,7 +41,7 @@ import java.util.Arrays;
 import java.util.Objects;
 
 @ParametersAreNonnullByDefault
-public class InfuserBlockEntity extends BaseContainerBlockEntity {
+public class InfuserBlockEntity extends BaseContainerBlockEntity implements WorldlyContainer {
     private static final int STORAGE_SLOT = 0;
     private static final int INPUT_SLOT = 1;
     private static final int SLOT_COUNT = 2;
@@ -254,6 +255,33 @@ public class InfuserBlockEntity extends BaseContainerBlockEntity {
             return !ElemenixInfo.isUndeconstructable(stack) && !stack.is(ModTags.IGNORED_BY_DECONSTRUCTOR_INPUT);
         }
         return false;
+    }
+
+    @Override
+    public int @NotNull [] getSlotsForFace(Direction side) {
+        return side == Direction.DOWN ? new int[0] : new int[]{INPUT_SLOT};
+    }
+
+    @Override
+    public boolean canPlaceItemThroughFace(int index, ItemStack stack, @org.jetbrains.annotations.Nullable Direction direction) {
+        if (direction == null || direction == Direction.DOWN) {
+            return false;
+        }
+        return index == INPUT_SLOT && canPlaceItem(index, stack);
+    }
+
+    @Override
+    public boolean canTakeItemThroughFace(int index, ItemStack stack, Direction direction) {
+        return false;
+    }
+
+    @Override
+    public boolean canTakeItem(Container target, int slot, ItemStack stack) {
+        return false;
+    }
+
+    public IItemHandler getItemHandler(@org.jetbrains.annotations.Nullable Direction side) {
+        return new SidedInvHandler(this, side);
     }
 
     @Override

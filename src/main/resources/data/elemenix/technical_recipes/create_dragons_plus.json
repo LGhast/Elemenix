@@ -1,0 +1,99 @@
+{
+  "mod_id": "create_dragons_plus",
+  "load_after": ["minecraft", "create"],
+  "recipes": [
+    {
+      "output": "create_dragons_plus:blaze_upgrade_smithing_template",
+      "count": 1,
+      "inputs": [
+        { "id": "minecraft:netherrack", "count": 1 },
+        { "id": "minecraft:blaze_rod", "count": 7 }
+      ]
+    },
+    {
+      "preset": "bucket_fluid",
+      "output": "create_dragons_plus:dragon_breath_bucket",
+      "fluid": "&create_dragons_plus:dragon_breath"
+    },
+    {
+      "preset": "bucket_fluid",
+      "output": "create_dragons_plus:white_dye_bucket",
+      "fluid": "&create_dragons_plus:white_dye"
+    },
+    {
+      "preset": "bucket_fluid",
+      "output": "create_dragons_plus:orange_dye_bucket",
+      "fluid": "&create_dragons_plus:orange_dye"
+    },
+    {
+      "preset": "bucket_fluid",
+      "output": "create_dragons_plus:magenta_dye_bucket",
+      "fluid": "&create_dragons_plus:magenta_dye"
+    },
+    {
+      "preset": "bucket_fluid",
+      "output": "create_dragons_plus:light_blue_dye_bucket",
+      "fluid": "&create_dragons_plus:light_blue_dye"
+    },
+    {
+      "preset": "bucket_fluid",
+      "output": "create_dragons_plus:yellow_dye_bucket",
+      "fluid": "&create_dragons_plus:yellow_dye"
+    },
+    {
+      "preset": "bucket_fluid",
+      "output": "create_dragons_plus:lime_dye_bucket",
+      "fluid": "&create_dragons_plus:lime_dye"
+    },
+    {
+      "preset": "bucket_fluid",
+      "output": "create_dragons_plus:pink_dye_bucket",
+      "fluid": "&create_dragons_plus:pink_dye"
+    },
+    {
+      "preset": "bucket_fluid",
+      "output": "create_dragons_plus:gray_dye_bucket",
+      "fluid": "&create_dragons_plus:gray_dye"
+    },
+    {
+      "preset": "bucket_fluid",
+      "output": "create_dragons_plus:light_gray_dye_bucket",
+      "fluid": "&create_dragons_plus:light_gray_dye"
+    },
+    {
+      "preset": "bucket_fluid",
+      "output": "create_dragons_plus:cyan_dye_bucket",
+      "fluid": "&create_dragons_plus:cyan_dye"
+    },
+    {
+      "preset": "bucket_fluid",
+      "output": "create_dragons_plus:purple_dye_bucket",
+      "fluid": "&create_dragons_plus:purple_dye"
+    },
+    {
+      "preset": "bucket_fluid",
+      "output": "create_dragons_plus:blue_dye_bucket",
+      "fluid": "&create_dragons_plus:blue_dye"
+    },
+    {
+      "preset": "bucket_fluid",
+      "output": "create_dragons_plus:brown_dye_bucket",
+      "fluid": "&create_dragons_plus:brown_dye"
+    },
+    {
+      "preset": "bucket_fluid",
+      "output": "create_dragons_plus:green_dye_bucket",
+      "fluid": "&create_dragons_plus:green_dye"
+    },
+    {
+      "preset": "bucket_fluid",
+      "output": "create_dragons_plus:red_dye_bucket",
+      "fluid": "&create_dragons_plus:red_dye"
+    },
+    {
+      "preset": "bucket_fluid",
+      "output": "create_dragons_plus:black_dye_bucket",
+      "fluid": "&create_dragons_plus:black_dye"
+    }
+  ]
+}

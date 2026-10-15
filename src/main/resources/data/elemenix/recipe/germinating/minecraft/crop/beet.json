@@ -1,5 +1,6 @@
 {
   "type": "elemenix:germinating",
+  "template": { "item": "minecraft:beetroot" },
   "neoforge:conditions": [
     {
       "type": "neoforge:not",

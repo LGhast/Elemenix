@@ -1,0 +1,55 @@
+{
+  "mod_id": "kaleidoscope_chinesefood",
+  "load_after": ["kaleidoscope_cookery"],
+  "recipes": [
+    {
+      "preset": "same",
+      "output": "kaleidoscope_chinesefood:raw_mooncake",
+      "input": "kaleidoscope_cookery:stuffed_dough_food"
+    },
+    {
+      "output": "kaleidoscope_chinesefood:salt_bucket",
+      "count": 1,
+      "inputs": [
+        { "id": "kaleidoscope_chinesefood:salt", "count": 3 },
+        { "id": "minecraft:bucket", "count": 1 }
+      ]
+    },
+    {
+      "output": "kaleidoscope_chinesefood:freezer",
+      "count": 1,
+      "inputs": [
+        { "id": "minecraft:iron_ingot", "count": 7 },
+        { "id": "minecraft:chest", "count": 2 }
+      ]
+    },
+    {
+      "output": "kaleidoscope_chinesefood:dianhong_tea",
+      "count": 12,
+      "inputs": [
+        { "id": "kaleidoscope_chinesefood:dianhong_tea_bag", "count": 1 },
+        { "id": "kaleidoscope_cookery:empty_cup", "count": 12 }
+      ],
+      "additions": [
+        { "type": "flumix", "value": 2 }
+      ]
+    },
+    {
+      "output": "kaleidoscope_chinesefood:hk_milk_tea",
+      "count": 12,
+      "inputs": [
+        { "id": "kaleidoscope_chinesefood:dianhong_tea_bag", "count": 1 },
+        { "id": "kaleidoscope_cookery:empty_cup", "count": 12 }
+      ],
+      "additions": [
+        { "type": "flumix", "value": 1 },
+        { "type": "organix", "value": 1 }
+      ]
+    },
+    {
+      "preset": "mob_bucket",
+      "output": "kaleidoscope_chinesefood:yellow_croaker_bucket",
+      "mob_item": "kaleidoscope_chinesefood:yellow_croaker"
+    }
+  ]
+}

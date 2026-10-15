@@ -226,6 +226,11 @@
       "input": "create:white_sail"
     },
     {
+      "preset": "same",
+      "output": "create:stressometer",
+      "input": "create:speedometer"
+    },
+    {
       "output": "create:haunted_bell",
       "count": 1,
       "inputs": [

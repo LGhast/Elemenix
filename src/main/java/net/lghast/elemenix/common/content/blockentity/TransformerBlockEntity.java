@@ -1,21 +1,25 @@
 package net.lghast.elemenix.common.content.blockentity;
 
 import net.lghast.elemenix.Elemenics;
+import net.lghast.elemenix.common.content.block.GerminalAcceleratorBlock;
 import net.lghast.elemenix.common.content.block.TransformerBlock;
 import net.lghast.elemenix.common.system.menu.TransformerMenu;
 import net.lghast.elemenix.common.system.recipe.GerminatingRecipe;
 import net.lghast.elemenix.register.content.ModBlockEntities;
 import net.lghast.elemenix.register.system.ModTags;
 import net.lghast.elemenix.utils.Constituents;
+import net.lghast.elemenix.utils.SidedInvHandler;
 import net.lghast.elemenix.utils.elemenix.Elemenix;
 import net.lghast.elemenix.utils.elemenix.ElemenixInfo;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.Container;
 import net.minecraft.world.ContainerHelper;
+import net.minecraft.world.WorldlyContainer;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
@@ -23,13 +27,15 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BaseContainerBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.neoforged.neoforge.items.IItemHandler;
 import org.jetbrains.annotations.NotNull;
 
-import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.List;
 
-@ParametersAreNonnullByDefault
-public class TransformerBlockEntity extends BaseContainerBlockEntity {
+public class TransformerBlockEntity extends BaseContainerBlockEntity implements WorldlyContainer {
+    public static final int TRANSFORM_IN_A = 0;
+    public static final int TRANSFORM_IN_B = 1;
+    public static final int TRANSFORM_OUT = 2;
     public static final int MODE_TRANSFORMING = 0;
     public static final int MODE_MINERALIZING = 1;
     public static final int TEMPLATE_SLOT = 3;
@@ -251,12 +257,12 @@ public class TransformerBlockEntity extends BaseContainerBlockEntity {
     }
 
     @Override
-    protected void setItems(NonNullList<ItemStack> nonNullList) {
+    protected void setItems(@NotNull NonNullList<ItemStack> nonNullList) {
         items = nonNullList;
     }
 
     @Override
-    protected @NotNull AbstractContainerMenu createMenu(int containerId, Inventory playerInventory) {
+    protected @NotNull AbstractContainerMenu createMenu(int containerId, @NotNull Inventory playerInventory) {
         return new TransformerMenu(containerId, playerInventory, this);
     }
 
@@ -290,7 +296,7 @@ public class TransformerBlockEntity extends BaseContainerBlockEntity {
     }
 
     @Override
-    public void setItem(int slot, ItemStack stack) {
+    public void setItem(int slot, @NotNull ItemStack stack) {
         items.set(slot, stack);
         if (stack.getCount() > getMaxStackSize()) {
             stack.setCount(getMaxStackSize());
@@ -299,7 +305,7 @@ public class TransformerBlockEntity extends BaseContainerBlockEntity {
     }
 
     @Override
-    public boolean stillValid(Player player) {
+    public boolean stillValid(@NotNull Player player) {
         if (level == null || level.getBlockEntity(worldPosition) != this) {
             return false;
         }
@@ -317,7 +323,7 @@ public class TransformerBlockEntity extends BaseContainerBlockEntity {
     }
 
     @Override
-    protected void saveAdditional(CompoundTag tag, HolderLookup.Provider provider) {
+    protected void saveAdditional(@NotNull CompoundTag tag, HolderLookup.@NotNull Provider provider) {
         super.saveAdditional(tag, provider);
         tag.putLong("InputA", inputA);
         tag.putLong("InputB", inputB);
@@ -332,7 +338,7 @@ public class TransformerBlockEntity extends BaseContainerBlockEntity {
     }
 
     @Override
-    public void loadAdditional(CompoundTag tag, HolderLookup.Provider provider) {
+    public void loadAdditional(@NotNull CompoundTag tag, HolderLookup.@NotNull Provider provider) {
         super.loadAdditional(tag, provider);
         inputA = tag.getInt("InputA");
         inputB = tag.getInt("InputB");
@@ -347,7 +353,7 @@ public class TransformerBlockEntity extends BaseContainerBlockEntity {
     }
 
     @Override
-    public boolean canPlaceItem(int slot, ItemStack stack) {
+    public boolean canPlaceItem(int slot, @NotNull ItemStack stack) {
         if (slot < 2) {
             TransformerBlock block = getTransformerBlock();
             if (block == null) return false;
@@ -363,12 +369,65 @@ public class TransformerBlockEntity extends BaseContainerBlockEntity {
     }
 
     @Override
-    public boolean canTakeItem(Container target, int slot, ItemStack stack) {
-        return slot == 2;
+    public boolean canTakeItem(@NotNull Container target, int slot, @NotNull ItemStack stack) {
+        TransformerBlock block = getTransformerBlock();
+        if (block == null) return false;
+        if (slot == TRANSFORM_OUT) return true;
+
+        if (block instanceof GerminalAcceleratorBlock) {
+            return slot >= PRODUCT_SLOT_FIRST && slot < PRODUCT_SLOT_FIRST + PRODUCT_SLOT_COUNT;
+        }
+
+        return false;
     }
 
     @Override
     public void setRemoved() {
         super.setRemoved();
+    }
+
+    @Override
+    public int @NotNull [] getSlotsForFace(@NotNull Direction side) {
+        if (side == Direction.DOWN) {
+            TransformerBlock block = getTransformerBlock();
+            if (block instanceof GerminalAcceleratorBlock && getMode() != MODE_TRANSFORMING) {
+                int[] products = new int[PRODUCT_SLOT_COUNT];
+                for (int i = 0; i < PRODUCT_SLOT_COUNT; i++) {
+                    products[i] = PRODUCT_SLOT_FIRST + i;
+                }
+                return products;
+            }
+
+            return new int[]{TRANSFORM_OUT};
+        }
+        return new int[]{TRANSFORM_IN_A, TRANSFORM_IN_B};
+    }
+
+    @Override
+    public boolean canPlaceItemThroughFace(int index, @NotNull ItemStack stack, Direction direction) {
+        if (direction == null || direction == Direction.DOWN) return false;
+        if (index != TRANSFORM_IN_A && index != TRANSFORM_IN_B) return false;
+        return canPlaceItem(index, stack);
+    }
+
+    @Override
+    public boolean canTakeItemThroughFace(int index, @NotNull ItemStack stack, @NotNull Direction direction) {
+        if (direction != Direction.DOWN) return false;
+
+        TransformerBlock block = getTransformerBlock();
+        if (block == null) return false;
+
+        if (block instanceof GerminalAcceleratorBlock) {
+            if (getMode() == MODE_TRANSFORMING) {
+                return index == TRANSFORM_OUT;
+            }
+            return index >= PRODUCT_SLOT_FIRST && index < PRODUCT_SLOT_FIRST + PRODUCT_SLOT_COUNT;
+        }
+
+        return index == TRANSFORM_OUT;
+    }
+
+    public IItemHandler getItemHandler(@org.jetbrains.annotations.Nullable Direction side) {
+        return new SidedInvHandler(this, side);
     }
 }

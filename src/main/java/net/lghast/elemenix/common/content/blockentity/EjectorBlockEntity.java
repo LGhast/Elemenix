@@ -9,15 +9,18 @@ import net.lghast.elemenix.register.content.ModBlockEntities;
 import net.lghast.elemenix.register.content.ModItems;
 import net.lghast.elemenix.register.system.ModTags;
 import net.lghast.elemenix.utils.Constituents;
+import net.lghast.elemenix.utils.SidedInvHandler;
 import net.lghast.elemenix.utils.elemenix.Elemenix;
 import net.lghast.elemenix.utils.elemenix.ElemenixInfo;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.Container;
 import net.minecraft.world.ContainerHelper;
+import net.minecraft.world.WorldlyContainer;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerData;
@@ -26,6 +29,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BaseContainerBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.neoforged.neoforge.items.IItemHandler;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.ParametersAreNonnullByDefault;
@@ -35,7 +39,7 @@ import java.util.List;
 import java.util.Random;
 
 @ParametersAreNonnullByDefault
-public class EjectorBlockEntity extends BaseContainerBlockEntity {
+public class EjectorBlockEntity extends BaseContainerBlockEntity implements WorldlyContainer {
     private static final int INPUT_SLOT = 6;
     private static final int VALVE_SLOT = 7;
     private static final int STRAIGHTENER_SLOT = 8;
@@ -387,5 +391,35 @@ public class EjectorBlockEntity extends BaseContainerBlockEntity {
     @Override
     public boolean canTakeItem(Container target, int slot, ItemStack stack) {
         return slot >= 0 && slot < INPUT_SLOT;
+    }
+
+    @Override
+    public int @NotNull [] getSlotsForFace(Direction side) {
+        if (side == Direction.DOWN) {
+            int[] outputs = new int[INPUT_SLOT];
+            for (int i = 0; i < INPUT_SLOT; i++) {
+                outputs[i] = i;
+            }
+            return outputs;
+        }
+        return new int[]{INPUT_SLOT, VALVE_SLOT, STRAIGHTENER_SLOT};
+    }
+
+    @Override
+    public boolean canPlaceItemThroughFace(int index, ItemStack stack, @org.jetbrains.annotations.Nullable Direction direction) {
+        if (direction == null || direction == Direction.DOWN) {
+            return false;
+        }
+        return (index == INPUT_SLOT || index == VALVE_SLOT || index == STRAIGHTENER_SLOT)
+                && canPlaceItem(index, stack);
+    }
+
+    @Override
+    public boolean canTakeItemThroughFace(int index, ItemStack stack, Direction direction) {
+        return direction == Direction.DOWN && index >= 0 && index < INPUT_SLOT;
+    }
+
+    public IItemHandler getItemHandler(@org.jetbrains.annotations.Nullable Direction side) {
+        return new SidedInvHandler(this, side);
     }
 }
