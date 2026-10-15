@@ -267,6 +267,9 @@
   "command.elemenix.memorizer.add.full": "Failed to add: the memorizer is full",
   "command.elemenix.memorizer.remove.success": "Removed %s from the held Elemenic Memorizer",
   "command.elemenix.memorizer.remove.missing": "Failed to remove: the memorizer does not contain this item",
+  "command.elemenix.spawneggs.success": "Found %s spawn eggs not in the tag, written to %s",
+  "command.elemenix.spawneggs.failed": "Failed to write file: %s",
+  "command.elemenix.spawneggs.empty": "No spawn eggs found that need to be added.",
 
   "config.elemenix.digit_grouping_by_fours": "Four-digit Grouping",
   "config.elemenix.show_constituent_tooltips": "Show Constituents",

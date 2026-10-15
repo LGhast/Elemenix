@@ -121,4 +121,9 @@ public class ModTags {
             Registries.ITEM,
             ResourceLocation.parse("elemenix:arcanix_materials")
     );
+
+    public static final TagKey<Item> SPAWN_EGGS = TagKey.create(
+            Registries.ITEM,
+            ResourceLocation.parse("elemenix:spawn_eggs")
+    );
 }

@@ -58,6 +58,7 @@ public class RecipeHelper {
     private static final boolean AETHER_LOADED;
     private static final boolean CONFLUENCE_LOADED;
     private static final boolean KALEIDOSCOPE_LOADED;
+    private static final boolean IRONS_SPELLBOOKS_LOADED;
 
     private static volatile boolean initialized = false;
     private static volatile boolean precomputing = false;
@@ -73,6 +74,7 @@ public class RecipeHelper {
         AETHER_LOADED = ModUtils.hasServerMod("aether");
         CONFLUENCE_LOADED = ModUtils.hasServerMod("confluence");
         KALEIDOSCOPE_LOADED = ModUtils.hasServerMod("kaleidoscope_cookery");
+        IRONS_SPELLBOOKS_LOADED = ModUtils.hasServerMod("irons_spellbooks");
 
         if(FARMERS_DELIGHT_LOADED){
             RECIPE_TYPES_WITH_CONTAINER.add("farmersdelight:cooking");
@@ -162,6 +164,9 @@ public class RecipeHelper {
         }
         if(ModUtils.hasServerMod("terra_curio")){
             RECIPE_TYPES_NORMAL.add("terra_curio:workshop");
+        }
+        if(ModUtils.hasServerMod("farmers_spell")){
+            RECIPE_TYPES_WITH_CONTAINER.add("farmers_spell:alchemist_cooking");
         }
     }
 
@@ -274,15 +279,20 @@ public class RecipeHelper {
             return new ItemStack(Items.BOOK, stack.getCount());
         }
 
-        if(!AE2_LOADED){
-            return stack;
+        if(AE2_LOADED){
+            String itemId = BuiltInRegistries.ITEM.getKey(item).toString();
+            if(type.toString().equals("ae2:inscriber") && (itemId.equals("ae2:calculation_processor_press")
+                    || itemId.equals("ae2:engineering_processor_press") || itemId.equals("ae2:logic_processor_press")
+                    || itemId.equals("ae2:silicon_press"))){
+                return new ItemStack(ModItems.NULLVOID.asItem(), stack.getCount());
+            }
         }
 
-        String itemId = BuiltInRegistries.ITEM.getKey(item).toString();
-        if(type.toString().equals("ae2:inscriber") && (itemId.equals("ae2:calculation_processor_press")
-                || itemId.equals("ae2:engineering_processor_press") || itemId.equals("ae2:logic_processor_press")
-                || itemId.equals("ae2:silicon_press"))){
-            return new ItemStack(ModItems.NULLVOID.asItem(), stack.getCount());
+        if(IRONS_SPELLBOOKS_LOADED){
+            String itemId = BuiltInRegistries.ITEM.getKey(item).toString();
+            if(itemId.equals("irons_spellbooks:scroll")){
+                return new ItemStack(Items.PAPER, stack.getCount());
+            }
         }
 
         return stack;
@@ -546,7 +556,7 @@ public class RecipeHelper {
                 isRecipeWithContainer(recipe) ||
                 isCuttingBoardRecipe(recipe) ||
                 isMultipleToOneSmithingRecipe(recipe) ||
-                isBrewingStandRecipe(recipe) ||
+                isBrewingLikeRecipe(recipe) ||
                 isWeaponFusionRecipe(recipe) ||
                 isGlodiumRecipe(recipe) ||
                 isGlodiumsRecipe(recipe) ||
@@ -575,7 +585,7 @@ public class RecipeHelper {
             handleSmithingRecipe(recipe, info);
         } else if (isMultipleToOneSmithingRecipe(recipe)) {
             handleMultipleToOneSmithingRecipe(recipe, info);
-        } else if (isBrewingStandRecipe(recipe)){
+        } else if (isBrewingLikeRecipe(recipe)){
             handleBrewingStandRecipe(recipe, info);
         } else if (isWeaponFusionRecipe(recipe)) {
             handleWeaponFusionRecipe(recipe, info);
@@ -603,7 +613,7 @@ public class RecipeHelper {
             }
         }
 
-        if (shouldConsiderFluids(recipe)) {
+        if (isRecipeWithFluids(recipe)) {
             addFluidConstituents(recipe, info);
         }
 
@@ -676,31 +686,34 @@ public class RecipeHelper {
         }
     }
 
-    private static boolean isNormalModRecipe(Recipe<?> recipe){
-        try {
-            RecipeType<?> type = recipe.getType();
-            return RECIPE_TYPES_NORMAL.contains(type.toString());
-        } catch (Exception e) {
-            return false;
-        }
+    private static boolean isNormalModRecipe(Recipe<?> recipe) {
+        ResourceLocation id = getRecipeTypeId(recipe);
+        return id != null && RECIPE_TYPES_NORMAL.contains(id.toString());
     }
 
     private static boolean isRecipeWithContainer(Recipe<?> recipe) {
-        try {
-            RecipeType<?> type = recipe.getType();
-            return RECIPE_TYPES_WITH_CONTAINER.contains(type.toString());
-        } catch (Exception e) {
-            return false;
-        }
+        ResourceLocation id = getRecipeTypeId(recipe);
+        return id != null && RECIPE_TYPES_WITH_CONTAINER.contains(id.toString());
     }
 
-    private static boolean shouldConsiderFluids(Recipe<?> recipe) {
-        try {
-            RecipeType<?> type = recipe.getType();
-            return RECIPE_TYPES_WITH_FLUIDS.contains(type.toString());
-        } catch (Exception e) {
-            return false;
-        }
+    private static boolean isRecipeWithFluids(Recipe<?> recipe) {
+        ResourceLocation id = getRecipeTypeId(recipe);
+        return id != null && RECIPE_TYPES_WITH_FLUIDS.contains(id.toString());
+    }
+
+    private static boolean isBrewingLikeRecipe(Recipe<?> recipe) {
+        ResourceLocation id = getRecipeTypeId(recipe);
+        return id != null && RECIPE_TYPES_BREWING_LIKE.contains(id.toString());
+    }
+
+    private static boolean isGlodiumRecipe(Recipe<?> recipe) {
+        ResourceLocation id = getRecipeTypeId(recipe);
+        return id != null && RECIPE_TYPES_GLODIUM.contains(id.toString());
+    }
+
+    private static boolean isGlodiumsRecipe(Recipe<?> recipe) {
+        ResourceLocation id = getRecipeTypeId(recipe);
+        return id != null && RECIPE_TYPES_GLODIUMS.contains(id.toString());
     }
 
     private static boolean isCuttingBoardRecipe(Recipe<?> recipe) {
@@ -723,15 +736,6 @@ public class RecipeHelper {
             RecipeType<?> type = recipe.getType();
             return type.toString().contains("anvilcraft:multiple_to_one_smithing") || type.toString().contains("anvilcraft:two_to_one_smithing") ||
                     type.toString().contains("anvilcraft:four_to_one_smithing") || type.toString().contains("anvilcraft:eight_to_one_smithing");
-        } catch (Exception e) {
-            return false;
-        }
-    }
-
-    private static boolean isBrewingStandRecipe(Recipe<?> recipe) {
-        try {
-            RecipeType<?> type = recipe.getType();
-            return RECIPE_TYPES_BREWING_LIKE.contains(type.toString());
         } catch (Exception e) {
             return false;
         }
@@ -781,22 +785,24 @@ public class RecipeHelper {
         }
     }
 
-    private static boolean isGlodiumRecipe(Recipe<?> recipe) {
+    @Nullable
+    private static ResourceLocation getRecipeTypeId(Recipe<?> recipe) {
         try {
-            RecipeType<?> type = recipe.getType();
-            return RECIPE_TYPES_GLODIUM.contains(type.toString());
-        } catch (Exception e) {
-            return false;
-        }
-    }
+            ResourceLocation typeKey = BuiltInRegistries.RECIPE_TYPE.getKey(recipe.getType());
+            if (typeKey != null) return typeKey;
+        } catch (Exception ignored) {}
 
-    private static boolean isGlodiumsRecipe(Recipe<?> recipe) {
         try {
-            RecipeType<?> type = recipe.getType();
-            return RECIPE_TYPES_GLODIUMS.contains(type.toString());
-        } catch (Exception e) {
-            return false;
-        }
+            ResourceLocation serializerKey = BuiltInRegistries.RECIPE_SERIALIZER.getKey(recipe.getSerializer());
+            if (serializerKey != null) return serializerKey;
+        } catch (Exception ignored) {}
+
+        try {
+            ResourceLocation parsed = ResourceLocation.tryParse(recipe.getType().toString());
+            if (parsed != null) return parsed;
+        } catch (Exception ignored) {}
+
+        return null;
     }
 
     /**

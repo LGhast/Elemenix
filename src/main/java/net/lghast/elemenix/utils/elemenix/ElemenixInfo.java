@@ -7,11 +7,15 @@ import net.lghast.elemenix.utils.Constituents;
 import net.lghast.elemenix.utils.ModUtils;
 import net.lghast.elemenix.utils.recipe.RecipeHelper;
 import net.lghast.elemenix.utils.recipe.TRecipeHelper;
+import net.minecraft.core.Holder;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.enchantment.Enchantment;
+import net.minecraft.world.item.enchantment.ItemEnchantments;
 import net.minecraft.world.level.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -230,10 +234,15 @@ public class ElemenixInfo {
     }
 
     public static Constituents getConstituents(ItemStack stack, @Nullable Level level) {
+        Constituents result;
         if (!stack.isDamaged()) {
-            return getConstituents(stack.getItem(), level);
+            result = getConstituents(stack.getItem(), level);
+        } else {
+            result = getConstituentsForDamagedStack(stack, level);
         }
-        return getConstituentsForDamagedStack(stack, level);
+
+        result = modifyOminousBottle(stack, result);
+        return modifyEnchantedStack(stack, result);
     }
 
     /**
@@ -247,6 +256,65 @@ public class ElemenixInfo {
 
         constituents.multiply(damageMultiple);
         return constituents;
+    }
+
+    /**
+     * Adds (enchantmentTypes - 1) * 5 + totalLevels * 10 arcanix for enchanted stacks.
+     */
+    private static Constituents modifyEnchantedStack(ItemStack stack, Constituents constituents) {
+        if (constituents == null || constituents.isUnanalysable()) {
+            return constituents;
+        }
+
+        ItemEnchantments normal = stack.getOrDefault(DataComponents.ENCHANTMENTS, ItemEnchantments.EMPTY);
+        ItemEnchantments stored = stack.getOrDefault(DataComponents.STORED_ENCHANTMENTS, ItemEnchantments.EMPTY);
+        if (normal.isEmpty() && stored.isEmpty()) {
+            return constituents;
+        }
+
+        ItemEnchantments.Mutable merged = new ItemEnchantments.Mutable(normal);
+        for (Holder<Enchantment> enchantment : stored.keySet()) {
+            merged.upgrade(enchantment, stored.getLevel(enchantment));
+        }
+
+        int enchantmentTypes = 0;
+        int totalLevels = 0;
+        for (Holder<Enchantment> enchantment : merged.keySet()) {
+            enchantmentTypes++;
+            totalLevels += merged.getLevel(enchantment);
+        }
+
+        int bonus = (enchantmentTypes - 1) * 5 + totalLevels * 10;
+        if (bonus <= 0) {
+            return constituents;
+        }
+
+        Constituents result = constituents.copy();
+        result.add(Elemenix.ARCANIX, bonus);
+        return result;
+    }
+
+    /**
+     * Adds 20 energix and 20 arcanix per amplifier level on ominous bottles.
+     */
+    private static Constituents modifyOminousBottle(ItemStack stack, Constituents constituents) {
+        if (constituents == null || constituents.isUnanalysable()) {
+            return constituents;
+        }
+
+        if (!stack.has(DataComponents.OMINOUS_BOTTLE_AMPLIFIER)) {
+            return constituents;
+        }
+
+        int amplifier = stack.getOrDefault(DataComponents.OMINOUS_BOTTLE_AMPLIFIER, 0);
+        if (amplifier <= 0) {
+            return constituents;
+        }
+
+        Constituents scaled = constituents.copy();
+        scaled.add(Elemenix.ENERGIX, amplifier * 20);
+        scaled.add(Elemenix.ARCANIX, amplifier * 20);
+        return scaled;
     }
 
     /**

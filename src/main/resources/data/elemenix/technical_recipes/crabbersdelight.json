@@ -37,6 +37,23 @@
       ]
     },
     {
+      "output": "crabbersdelight:coconut_milk",
+      "count": 1,
+      "inputs": [
+        { "id": "crabbersdelight:coconut", "count": 1 },
+        { "id": "minecraft:glass_bottle", "count": 1 }
+      ]
+    },
+    {
+      "output": "crabbersdelight:sea_pickle_juice",
+      "count": 1,
+      "inputs": [
+        { "id": "minecraft:sugar", "count": 1 },
+        { "id": "minecraft:sea_pickle", "count": 1 },
+        { "id": "minecraft:glass_bottle", "count": 1 }
+      ]
+    },
+    {
       "output": "&crabbersdelight:coconut_milk",
       "count": 1,
       "inputs": [

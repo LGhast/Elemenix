@@ -122,6 +122,114 @@
       "preset": "bottle_fluid",
       "output": "irons_spellbooks:legendary_ink",
       "fluid": "&irons_spellbooks:legendary_ink"
+    },
+    {
+      "output": "&irons_spellbooks:evasion_elixir",
+      "count": 1,
+      "inputs": [
+        { "id": "&minecraft:water", "count": 4 },
+        { "id": "minecraft:nether_wart", "count": 4 },
+        { "id": "irons_spellbooks:arcane_essence", "count": 4 },
+        { "id": "minecraft:glowstone_dust", "count": 4 },
+        { "id": "minecraft:amethyst_shard", "count": 4 },
+        { "id": "minecraft:ender_pearl", "count": 1 }
+      ]
+    },
+    {
+      "output": "&irons_spellbooks:greater_evasion_elixir",
+      "count": 1,
+      "inputs": [
+        { "id": "&irons_spellbooks:evasion_elixir", "count": 1 },
+        { "id": "minecraft:dragon_breath", "count": 1 }
+      ],
+      "offcuts": [
+        { "id": "minecraft:glass_bottle", "count": 1 }
+      ]
+    },
+    {
+      "preset": "bottle_fluid",
+      "output": "irons_spellbooks:evasion_elixir",
+      "fluid": "&irons_spellbooks:evasion_elixir"
+    },
+    {
+      "preset": "bottle_fluid",
+      "output": "irons_spellbooks:greater_evasion_elixir",
+      "fluid": "&irons_spellbooks:greater_evasion_elixir"
+    },
+    {
+      "output": "&irons_spellbooks:oakskin_elixir",
+      "count": 1,
+      "inputs": [
+        { "id": "&minecraft:water", "count": 2 },
+        { "id": "minecraft:nether_wart", "count": 2 },
+        { "id": "minecraft:glistering_melon_slice", "count": 2 },
+        { "id": "minecraft:glowstone_dust", "count": 2 },
+        { "id": "minecraft:oak_log", "count": 1 }
+      ]
+    },
+    {
+      "output": "&irons_spellbooks:greater_oakskin_elixir",
+      "count": 1,
+      "inputs": [
+        { "id": "&irons_spellbooks:oakskin_elixir", "count": 2 },
+        { "id": "minecraft:amethyst_shard", "count": 1 }
+      ]
+    },
+    {
+      "preset": "bottle_fluid",
+      "output": "irons_spellbooks:oakskin_elixir",
+      "fluid": "&irons_spellbooks:oakskin_elixir"
+    },
+    {
+      "preset": "bottle_fluid",
+      "output": "irons_spellbooks:greater_oakskin_elixir",
+      "fluid": "&irons_spellbooks:greater_oakskin_elixir"
+    },
+    {
+      "output": "&irons_spellbooks:invisibility_elixir",
+      "count": 1,
+      "inputs": [
+        { "id": "&minecraft:water", "count": 4 },
+        { "id": "minecraft:nether_wart", "count": 4 },
+        { "id": "minecraft:golden_carrot", "count": 4 },
+        { "id": "minecraft:redstone", "count": 4 },
+        { "id": "minecraft:fermented_spider_eye", "count": 4 },
+        { "id": "irons_spellbooks:shriving_stone", "count": 1 }
+      ]
+    },
+    {
+      "output": "&irons_spellbooks:greater_invisibility_elixir",
+      "count": 1,
+      "inputs": [
+        { "id": "&irons_spellbooks:invisibility_elixir", "count": 1 },
+        { "id": "minecraft:amethyst_cluster", "count": 1 }
+      ]
+    },
+    {
+      "preset": "bottle_fluid",
+      "output": "irons_spellbooks:invisibility_elixir",
+      "fluid": "&irons_spellbooks:invisibility_elixir"
+    },
+    {
+      "preset": "bottle_fluid",
+      "output": "irons_spellbooks:greater_invisibility_elixir",
+      "fluid": "&irons_spellbooks:greater_invisibility_elixir"
+    },
+    {
+      "output": "&irons_spellbooks:greater_healing_elixir",
+      "count": 1,
+      "inputs": [
+        { "id": "&minecraft:water", "count": 4 },
+        { "id": "minecraft:nether_wart", "count": 4 },
+        { "id": "minecraft:glistering_melon_slice", "count": 4 },
+        { "id": "minecraft:glowstone_dust", "count": 4 },
+        { "id": "minecraft:amethyst_shard", "count": 1 }
+      ]
+    },
+    {
+      "preset": "bottle_fluid",
+      "output": "irons_spellbooks:greater_healing_potion",
+      "fluid": "&irons_spellbooks:greater_healing_elixir"
     }
   ]
 }

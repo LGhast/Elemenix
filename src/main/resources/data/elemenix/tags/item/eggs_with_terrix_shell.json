@@ -1,6 +1,6 @@
 {
   "values": [
-    "#forge:eggs",
+    "#c:eggs",
     "minecraft:dragon_egg",
     {
       "id": "mynethersdelight:strider_egg",

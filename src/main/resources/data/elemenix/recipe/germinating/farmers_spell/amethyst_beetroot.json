@@ -1,0 +1,8 @@
+{
+  "type": "elemenix:germinating",
+  "template": { "item": "farmers_spell:amethyst_beetroot" },
+  "products": [
+    { "id": "farmers_spell:amethyst_beetroot", "count": 1 },
+    { "id": "farmers_spell:amethyst_beetroot_seeds", "count": 1 }
+  ]
+}

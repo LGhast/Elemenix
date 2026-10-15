@@ -973,11 +973,23 @@
       "required": false
     },
     {
+      "id": "block_factorys_bosses:boss_spawner",
+      "required": false
+    },
+    {
+      "id": "block_factorys_bosses:kraken_spawner",
+      "required": false
+    },
+    {
       "id": "exposure:chromatic_sheet",
       "required": false
     },
     {
       "id": "dungeonsdelight:logo_item",
+      "required": false
+    },
+    {
+      "id": "dungeonsdelight:rotten_spawner",
       "required": false
     },
     {
@@ -990,6 +1002,10 @@
     },
     {
       "id": "irons_patreon_lib:transmog_table",
+      "required": false
+    },
+    {
+      "id": "farmers_spell:bowl_of_dragon_skin_aspic",
       "required": false
     },
     {

@@ -232,6 +232,9 @@
   "command.elemenix.memorizer.add.full": "追加失敗：記憶ディスクが満杯です",
   "command.elemenix.memorizer.remove.success": "手持ちの元質記憶ディスクからアイテムを削除しました：%s",
   "command.elemenix.memorizer.remove.missing": "削除失敗：記憶ディスクにこのアイテムがありません",
+  "command.elemenix.spawneggs.success": "タグに含まれていないスポーンエッグを %s 個見つけました。%s に書き込みました",
+  "command.elemenix.spawneggs.failed": "ファイルの書き込みに失敗しました: %s",
+  "command.elemenix.spawneggs.empty": "追加する必要のあるスポーンエッグは見つかりませんでした。",
 
   "tag.item.elemenix.essences": "元質純質",
   "tag.item.elemenix.equilibrium": "元質均衡体",

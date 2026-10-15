@@ -1,0 +1,25 @@
+{
+  "mod_id": "farmers_spell",
+  "entries": [
+    { "id": "farmers_spell:amethyst_beetroot_seeds", "elemenix": "terrix", "value": 6 },
+    { "id": "farmers_spell:icy_egg", "constituents": [30, 0, 25, 0, 0, 10] },
+    { "id": "farmers_spell:goodberry", "constituents": [42, 0, 0, 0, 32, 10] },
+    { "id": "farmers_spell:amethyst_beetroot", "constituents": [0, 132, 0, 0, 0, 2] },
+    { "id": "farmers_spell:decrepit_scrap", "constituents": [0, 120, 0, 225, 5, 0] },
+    { "id": "farmers_spell:foodgeist_seasoning", "constituents": [450, 8, 280, 0, 0, 100] },
+    { "id": "farmers_spell:foodgeist_cheese", "constituents": [800, 0, 0, 0, 0, 250] },
+    { "id": "farmers_spell:wheat_book", "constituents": [800, 0, 0, 0, 0, 300] },
+    { "id": "farmers_spell:tiramisu", "constituents": [2400, 0, 0, 0, 600, 500] },
+    { "id": "farmers_spell:boreal_knife", "constituents": [12, 0, 120, 7000, 0, 450] },
+    { "id": "farmers_spell:echoing_knife", "constituents": [0, 6000, 0, 1200, 0, 450] },
+    { "id": "farmers_spell:hell_knife", "constituents": [0, 200, 0, 9000, 200, 450] },
+    { "id": "farmers_spell:twilight_blade", "constituents": [0, 25, 0, 8000, 200, 450] },
+    { "id": "farmers_spell:cinderoous_ham", "constituents": [5000, 240, 240, 0, 2400, 600] },
+    { "id": "farmers_spell:eden_baked_apple", "constituents": [120, 0, 42, 0, 0, 12] },
+    { "id": "farmers_spell:frosted_shaved_ice", "constituents": [0, 8, 42, 0, 0, 15] },
+    { "id": "farmers_spell:holy_milkshake", "constituents": [120, 8, 80, 0, 0, 15] },
+    { "id": "farmers_spell:icebergcream_sandwich", "constituents": [60, 0, 80, 0, 0, 12] },
+    { "id": "farmers_spell:ink_beer", "constituents": [0, 24, 80, 0, 0, 12] },
+    { "id": "farmers_spell:vex_ginger", "constituents": [200, 0, 36, 0, 0, 30] }
+  ]
+}

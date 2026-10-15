@@ -1,0 +1,96 @@
+{
+  "mod_id": "farmers_spell",
+  "load_after": ["minecraft", "farmersdelight", "irons_spellbooks"],
+  "recipes": [
+    {
+      "output": "&farmers_spell:original_nectar",
+      "count": 1,
+      "inputs": [
+        { "id": "&irons_spellbooks:timeless_slurry", "count": 1 },
+        { "id": "farmers_spell:foodgeist_seasoning", "count": 1 }
+      ],
+      "offcuts": [
+        { "id": "minecraft:glass_bottle", "count": 1 }
+      ]
+    },
+    {
+      "output": "&farmers_spell:ice_venom_wine",
+      "count": 1,
+      "inputs": [
+        { "id": "&irons_spellbooks:ice_venom", "count": 1 },
+        { "id": "farmers_spell:icy_egg", "count": 1 }
+      ]
+    },
+    {
+      "output": "&farmers_spell:catacombs_wine",
+      "count": 1,
+      "inputs": [
+        { "id": "&irons_spellbooks:blood", "count": 1 },
+        { "id": "farmers_spell:amethyst_beetroot", "count": 1 }
+      ]
+    },
+    {
+      "output": "&farmers_spell:amethyst_tequila",
+      "count": 1,
+      "inputs": [
+        { "id": "&minecraft:water", "count": 2 },
+        { "id": "minecraft:nether_wart", "count": 2 },
+        { "id": "irons_spellbooks:arcane_essence", "count": 2 },
+        { "id": "farmers_spell:amethyst_beetroot", "count": 1 }
+      ]
+    },
+    {
+      "preset": "bottle_fluid",
+      "output": "farmers_spell:original_nectar",
+      "fluid": "&farmers_spell:original_nectar"
+    },
+    {
+      "preset": "bottle_fluid",
+      "output": "farmers_spell:ice_venom_wine",
+      "fluid": "&farmers_spell:ice_venom_wine"
+    },
+    {
+      "preset": "bottle_fluid",
+      "output": "farmers_spell:catacombs_wine",
+      "fluid": "&farmers_spell:catacombs_wine"
+    },
+    {
+      "preset": "bottle_fluid",
+      "output": "farmers_spell:amethyst_tequila",
+      "fluid": "&farmers_spell:amethyst_tequila"
+    },
+    {
+      "preset": "food_unit_bowl",
+      "output": "farmers_spell:bowl_of_pumpkin_soup",
+      "source": "farmers_spell:pumpkin_soup"
+    },
+    {
+      "preset": "food_unit_bowl",
+      "output": "farmers_spell:bowl_of_saingezi_chicken",
+      "source": "farmers_spell:saingezi_chicken"
+    },
+    {
+      "preset": "food_unit_bowl",
+      "output": "farmers_spell:bowl_of_glutton_hotchpotch",
+      "source": "farmers_spell:glutton_hotchpotch"
+    },
+    {
+      "preset": "food_unit",
+      "output": "farmers_spell:bowl_of_glutton_hotchpotch",
+      "source": "farmers_spell:glutton_hotchpotch",
+      "count": 4,
+      "container": "minecraft:bowl",
+      "offcuts": [
+        {
+          "id": "farmersdelight:cooking_pot",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "preset": "same",
+      "output": "farmers_spell:chiseled_ember_block",
+      "input": "farmers_spell:glyphed_ember_block"
+    }
+  ]
+}

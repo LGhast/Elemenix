@@ -266,6 +266,9 @@
   "command.elemenix.memorizer.add.full": "添加失败：记忆碟已满",
   "command.elemenix.memorizer.remove.success": "已从手中的元质记忆碟移除物品：%s",
   "command.elemenix.memorizer.remove.missing": "移除失败：记忆碟中没有该物品",
+  "command.elemenix.spawneggs.success": "共 %s 个不在标签中的刷怪蛋，已写入 %s",
+  "command.elemenix.spawneggs.failed": "写入文件失败：%s",
+  "command.elemenix.spawneggs.empty": "未找到需要补充的刷怪蛋。",
 
   "config.elemenix.digit_grouping_by_fours": "四位分节法",
   "config.elemenix.show_constituent_tooltips": "显示元质成分",

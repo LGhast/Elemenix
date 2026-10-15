@@ -3,9 +3,15 @@
   "load_after": ["minecraft"],
   "recipes": [
     {
-      "preset": "bucket_fluid",
       "output": "farmersdelight:milk_bottle",
-      "fluid": "&minecraft:milk"
+      "count": 1,
+      "inputs": [
+        { "id": "minecraft:glass_bottle", "count": 1 }
+      ],
+      "additions": [
+        { "type": "organix", "value": 1 },
+        { "type": "flumix", "value": 1 }
+      ]
     },
     {
       "output": "farmersdelight:rope",

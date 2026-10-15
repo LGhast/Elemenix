@@ -232,6 +232,9 @@
   "command.elemenix.memorizer.add.full": "Échec de l'ajout : le mémorisateur est plein",
   "command.elemenix.memorizer.remove.success": "Objet retiré du Mémorisateur d'Élémentium tenu : %s",
   "command.elemenix.memorizer.remove.missing": "Échec du retrait : cet objet n'est pas dans le mémorisateur",
+  "command.elemenix.spawneggs.success": "Trouvé %s œufs d'apparition hors du tag, écrits dans %s",
+  "command.elemenix.spawneggs.failed": "Échec de l'écriture du fichier : %s",
+  "command.elemenix.spawneggs.empty": "Aucun œuf d'apparition à ajouter n'a été trouvé.",
 
   "tag.item.elemenix.essences": "Essences d'Élémentium",
   "tag.item.elemenix.equilibrium": "Équilibre Élémentaire",

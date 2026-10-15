@@ -1,7 +1,7 @@
 plugins {
     id 'java-library'
     id 'maven-publish'
-    id 'net.neoforged.moddev' version '2.0.115'
+    id 'net.neoforged.moddev' version '2.0.122'
     id 'idea'
 }
 
@@ -12,7 +12,20 @@ tasks.named('wrapper', Wrapper).configure {
 version = mod_version
 group = mod_group_id
 
+repositories.clear()
 repositories {
+    maven {
+        url "https://maven.aliyun.com/repository/public"
+    }
+    maven {
+        url "https://libraries.minecraft.net/"
+    }
+    maven {
+        url "https://neoforged.forgecdn.net/releases"
+    }
+    maven {
+        url "https://neoforged.forgecdn.net/mojang-meta"
+    }
     maven {
         url "https://maven.blamejared.com/"
     }

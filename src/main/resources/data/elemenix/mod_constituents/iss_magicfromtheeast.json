@@ -1,6 +1,7 @@
 {
   "mod_id": "iss_magicfromtheeast",
   "entries": [
+    { "id": "iss_magicfromtheeast:jade", "elemenix": "terrix", "value": 300 },
     { "id": "iss_magicfromtheeast:vase_rice_wine", "constituents": [16, 24, 48, 0, 0, 0] },
     { "id": "iss_magicfromtheeast:rice_wine_bottle", "constituents": [26, 0, 24, 0, 0, 0] },
     { "id": "iss_magicfromtheeast:ritual_orihon", "constituents": [2500, 0, 0, 0, 600, 800] },

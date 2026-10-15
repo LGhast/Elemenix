@@ -232,6 +232,9 @@
   "command.elemenix.memorizer.add.full": "Не удалось добавить: меморизатор заполнен",
   "command.elemenix.memorizer.remove.success": "Предмет удалён из Меморизатора Элеменции в руке: %s",
   "command.elemenix.memorizer.remove.missing": "Не удалось удалить: этого предмета нет в меморизаторе",
+  "command.elemenix.spawneggs.success": "Найдено %s яиц призыва вне тега, записано в %s",
+  "command.elemenix.spawneggs.failed": "Не удалось записать файл: %s",
+  "command.elemenix.spawneggs.empty": "Не найдено яиц призыва, которые нужно добавить.",
 
   "tag.item.elemenix.essences": "Эссенции Элеменции",
   "tag.item.elemenix.equilibrium": "Элементное Равновесие",

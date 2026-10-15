@@ -266,6 +266,9 @@
   "command.elemenix.memorizer.add.full": "新增失敗：記憶碟已滿",
   "command.elemenix.memorizer.remove.success": "已從手中的元質記憶碟移除物品：%s",
   "command.elemenix.memorizer.remove.missing": "移除失敗：記憶碟中沒有該物品",
+  "command.elemenix.spawneggs.success": "共 %s 個不在標籤中的生怪蛋，已寫入 %s",
+  "command.elemenix.spawneggs.failed": "寫入檔案失敗：%s",
+  "command.elemenix.spawneggs.empty": "未找到需要補充的生怪蛋。",
 
   "config.elemenix.digit_grouping_by_fours": "四位分節法",
   "config.elemenix.show_constituent_tooltips": "顯示元質成分",
