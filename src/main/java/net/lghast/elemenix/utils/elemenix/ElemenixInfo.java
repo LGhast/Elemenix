@@ -96,6 +96,24 @@ public class ElemenixInfo {
         }
     }
 
+    /**
+     * True when every cache is warm and queries return final values.
+     */
+    public static boolean isReady() {
+        return initialized && !RecipeHelper.isPrecomputing() && TRecipeHelper.isHandled();
+    }
+
+    /**
+     * True while the game runs but constituents are still being computed.
+     */
+    public static boolean isCalculating() {
+        return Elemenics.started && !isReady();
+    }
+
+    public static boolean isCalculating(Item item) {
+        return CALCULATING_ITEMS.contains(item);
+    }
+
     private static void applyMappings(Map<String, Constituents> mappings) {
         if (mappings.isEmpty()) {
             return;
@@ -223,7 +241,7 @@ public class ElemenixInfo {
             CALCULATING_ITEMS.remove(item);
         }
 
-        if(Elemenics.started && TRecipeHelper.isHandled()) {
+        if(Elemenics.started && TRecipeHelper.isHandled() && !RecipeHelper.isTransientFailure()) {
             UNANALYSABLE_CACHE.add(item);
         }
         return new Constituents(true);

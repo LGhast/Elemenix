@@ -1,0 +1,232 @@
+{
+  "mod_id": "goety",
+  "load_after": ["minecraft"],
+  "recipes": [
+    {
+      "preset": "bucket_fluid",
+      "output": "goety:void_bucket",
+      "fluid": "&goety:void"
+    },
+    {
+      "preset": "bottle_fluid",
+      "output": "goety:void_bottle",
+      "fluid": "&goety:void"
+    },
+    {
+      "preset": "bucket_fluid",
+      "output": "goety:end_mud_bucket",
+      "fluid": "&goety:end_mud"
+    },
+    {
+      "preset": "bottle_fluid",
+      "output": "goety:end_mud_bottle",
+      "fluid": "&goety:end_mud"
+    },
+    {
+      "output": "goety:magic_emerald",
+      "count": 1,
+      "inputs": [
+        { "id": "minecraft:emerald", "count": 1 }
+      ],
+      "additions": [
+        { "type": "arcanix", "value": 10 }
+      ]
+    },
+    {
+      "output": "goety:ice_cube",
+      "count": 4,
+      "inputs": [
+        { "id": "minecraft:ice", "count": 1 }
+      ]
+    },
+    {
+      "output": "goety:spent_totem",
+      "count": 1,
+      "inputs": [
+        { "id": "goety:totem_of_souls", "count": 1 }
+      ],
+      "offcuts": [
+        { "id": "minecraft:soul_lantern", "count": 1 }
+      ]
+    },
+    {
+      "output": "goety:void_major_spread",
+      "count": 4,
+      "inputs": [
+        { "id": "goety:void_block", "count": 1 }
+      ]
+    },
+    {
+      "output": "goety:snap_fungus",
+      "count": 1,
+      "inputs": [
+        { "id": "goety:snap_warts", "count": 4 }
+      ]
+    },
+    {
+      "output": "goety:berserk_fungus",
+      "count": 3,
+      "inputs": [
+        { "id": "goety:snap_fungus", "count": 3 },
+        { "id": "minecraft:lily_of_the_valley", "count": 1 }
+      ]
+    },
+    {
+      "output": "goety:cursed_knight_helmet",
+      "count": 1,
+      "inputs": [
+        { "id": "goety:cursed_ingot", "count": 5 }
+      ]
+    },
+    {
+      "output": "goety:cursed_knight_chestplate",
+      "count": 1,
+      "inputs": [
+        { "id": "goety:cursed_ingot", "count": 8 }
+      ]
+    },
+    {
+      "output": "goety:cursed_knight_leggings",
+      "count": 1,
+      "inputs": [
+        { "id": "goety:cursed_ingot", "count": 7 }
+      ]
+    },
+    {
+      "output": "goety:cursed_knight_boots",
+      "count": 1,
+      "inputs": [
+        { "id": "goety:cursed_ingot", "count": 4 }
+      ]
+    },
+    {
+      "output": "goety:fell_blade",
+      "count": 1,
+      "inputs": [
+        { "id": "goety:cursed_ingot", "count": 2 },
+        { "id": "minecraft:stick", "count": 1 }
+      ]
+    },
+    {
+      "output": "goety:cursed_paladin_helmet",
+      "count": 1,
+      "inputs": [
+        { "id": "goety:cursed_ingot", "count": 6 }
+      ]
+    },
+    {
+      "output": "goety:cursed_paladin_chestplate",
+      "count": 1,
+      "inputs": [
+        { "id": "goety:cursed_ingot", "count": 9 }
+      ]
+    },
+    {
+      "output": "goety:cursed_paladin_leggings",
+      "count": 1,
+      "inputs": [
+        { "id": "goety:cursed_ingot", "count": 8 }
+      ]
+    },
+    {
+      "output": "goety:cursed_paladin_boots",
+      "count": 1,
+      "inputs": [
+        { "id": "goety:cursed_ingot", "count": 5 }
+      ]
+    },
+    {
+      "preset": "same",
+      "output": "goety:witch_hat_hedge",
+      "input": "goety:witch_hat"
+    },
+    {
+      "preset": "same",
+      "output": "goety:witch_robe_hedge",
+      "input": "goety:witch_robe"
+    },
+    {
+      "output": "goety:crone_hat",
+      "count": 1,
+      "inputs": [
+        { "id": "goety:witch_hat", "count": 1 }
+      ],
+      "additions": [
+        { "type": "arcanix", "value": 50 }
+      ]
+    },
+    {
+      "preset": "same",
+      "output": "goety:unholy_hat_halo",
+      "input": "goety:unholy_hat"
+    },
+    {
+      "preset": "same",
+      "output": "goety:dark_robe_fancy",
+      "input": "goety:dark_robe"
+    },
+    {
+      "preset": "same",
+      "output": "goety:illusion_robe_mirror",
+      "input": "goety:illusion_robe"
+    },
+    {
+      "preset": "same",
+      "output": "goety:frost_robe_cryo",
+      "input": "goety:frost_robe"
+    },
+    {
+      "preset": "same",
+      "output": "goety:nether_robe_warped",
+      "input": "goety:nether_robe"
+    },
+    {
+      "preset": "same",
+      "output": "goety:warlock_robe_dark",
+      "input": "goety:warlock_robe"
+    },
+    {
+      "preset": "same",
+      "output": "goety:night_beacon",
+      "input": "minecraft:beacon"
+    },
+    {
+      "output": "goety:refuse_bottle",
+      "count": 1,
+      "inputs": [
+        { "id": "minecraft:glass_bottle", "count": 1 }
+      ],
+      "additions": [
+        { "type": "flumix", "value": 5 },
+        { "type": "arcanix", "value": 2 }
+      ]
+    },
+    {
+      "preset": "same",
+      "output": "goety:chipped_dark_anvil",
+      "input": "goety:dark_anvil",
+      "multiplier": 0.7
+    },
+    {
+      "preset": "same",
+      "output": "goety:damaged_dark_anvil",
+      "input": "goety:dark_anvil",
+      "multiplier": 0.5
+    },
+    {
+      "output": "goety:gold_trapdoor",
+      "count": 1,
+      "inputs": [
+        { "id": "minecraft:gold_ingot", "count": 2 }
+      ]
+    },
+    {
+      "output": "goety:crypt_bookshelf",
+      "count": 1,
+      "inputs": [
+        { "id": "minecraft:book", "count": 3 },
+        { "id": "goety:crypt_tiles", "count": 6 }
+      ]
+    }
+  ]
+}

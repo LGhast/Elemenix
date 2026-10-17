@@ -26,6 +26,10 @@
     {
       "id": "ars_nouveau:air_essence",
       "required": false
+    },
+    {
+      "id": "goety:ice_cube",
+      "required": false
     }
   ]
 }

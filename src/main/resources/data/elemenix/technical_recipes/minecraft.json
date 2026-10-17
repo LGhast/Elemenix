@@ -19,26 +19,6 @@
     },
     {
       "preset": "same",
-      "output": "minecraft:brick",
-      "input": "minecraft:clay_ball"
-    },
-    {
-      "preset": "same",
-      "output": "minecraft:nether_brick",
-      "input": "minecraft:netherrack"
-    },
-    {
-      "preset": "same",
-      "output": "minecraft:chiseled_sandstone",
-      "input": "minecraft:sandstone"
-    },
-    {
-      "preset": "same",
-      "output": "minecraft:chiseled_red_sandstone",
-      "input": "minecraft:red_sandstone"
-    },
-    {
-      "preset": "same",
       "output": "minecraft:purpur_pillar",
       "input": "minecraft:purpur_block"
     },
@@ -46,20 +26,6 @@
       "preset": "same",
       "output": "minecraft:quartz_pillar",
       "input": "minecraft:quartz_block"
-    },
-    {
-      "output": "minecraft:bread",
-      "count": 1,
-      "inputs": [
-        { "id": "minecraft:wheat", "count": 3 }
-      ]
-    },
-    {
-      "output": "minecraft:minecart",
-      "count": 1,
-      "inputs": [
-        { "id": "minecraft:iron_ingot", "count": 5 }
-      ]
     },
     {
       "output": "minecraft:melon_slice",
@@ -73,21 +39,6 @@
       "count": 9,
       "inputs": [
         { "id": "minecraft:music_disc_5", "count": 1 }
-      ]
-    },
-    {
-      "output": "minecraft:bricks",
-      "count": 1,
-      "inputs": [
-        { "id": "minecraft:brick", "count": 4 }
-      ]
-    },
-    {
-      "output": "minecraft:cookie",
-      "count": 8,
-      "inputs": [
-        { "id": "minecraft:wheat", "count": 2 },
-        { "id": "minecraft:cocoa_beans", "count": 1 }
       ]
     },
     {
@@ -239,22 +190,6 @@
       "inputs": [
         { "id": "minecraft:leather", "count": 1 },
         { "id": "minecraft:string", "count": 1 }
-      ]
-    },
-    {
-      "output": "minecraft:golden_apple",
-      "count": 1,
-      "inputs": [
-        { "id": "minecraft:gold_ingot", "count": 8 },
-        { "id": "minecraft:apple", "count": 1 }
-      ]
-    },
-    {
-      "output": "minecraft:golden_carrot",
-      "count": 1,
-      "inputs": [
-        { "id": "minecraft:gold_nugget", "count": 8 },
-        { "id": "minecraft:carrot", "count": 1 }
       ]
     },
     {

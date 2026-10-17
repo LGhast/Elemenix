@@ -1039,6 +1039,58 @@
     {
       "id": "ageratum:guidebook",
       "required": false
+    },
+    {
+      "id": "goety:void_spawner",
+      "required": false
+    },
+    {
+      "id": "goety:void_vault",
+      "required": false
+    },
+    {
+      "id": "goety:void_frame",
+      "required": false
+    },
+    {
+      "id": "goety:void_shrine",
+      "required": false
+    },
+    {
+      "id": "goety:spider_mother_den",
+      "required": false
+    },
+    {
+      "id": "goety:whirling_cage",
+      "required": false
+    },
+    {
+      "id": "goety:soul_jar",
+      "required": false
+    },
+    {
+      "id": "goety:treasure_pouch",
+      "required": false
+    },
+    {
+      "id": "goety:pedestal_dummy",
+      "required": false
+    },
+    {
+      "id": "goety:bone_shard",
+      "required": false
+    },
+    {
+      "id": "goety:cooking_ladle",
+      "required": false
+    },
+    {
+      "id": "goety:eternal_cauldron",
+      "required": false
+    },
+    {
+      "id": "goety:jei_dummy/sacrifice",
+      "required": false
     }
   ]
 }

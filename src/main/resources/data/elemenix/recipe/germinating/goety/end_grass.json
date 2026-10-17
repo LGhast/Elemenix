@@ -1,0 +1,9 @@
+{
+  "type": "elemenix:germinating",
+  "template": { "item": "goety:end_grass" },
+  "products": [
+    { "id": "goety:end_grass", "count": 1 },
+    { "id": "goety:end_grass_sprout", "count": 1 },
+    { "id": "goety:tall_end_grass", "count": 1 }
+  ]
+}

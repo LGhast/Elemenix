@@ -1,0 +1,8 @@
+{
+  "type": "elemenix:germinating",
+  "template": { "item": "goety:nightshade_blossom" },
+  "products": [
+    { "id": "goety:nightshade_blossom", "count": 1 },
+    { "id": "goety:nightshade_seeds", "count": 1 }
+  ]
+}

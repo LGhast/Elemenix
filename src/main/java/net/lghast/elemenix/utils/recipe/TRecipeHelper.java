@@ -157,7 +157,7 @@ public class TRecipeHelper {
             if (containerCons != null) result.add(containerCons);
         }
 
-        if (!result.isUnanalysable()) {
+        if (!result.isUnanalysable() && result.getSum() > 0) {
             ElemenixInfo.addCache(output.getItem(), result);
             return true;
         }

@@ -1191,6 +1191,714 @@
     {
       "id": "yungscavebiomes:sand_snapper_spawn_egg",
       "required": false
+    },
+    {
+      "id": "goety:apostle_spawn_egg",
+      "required": false
+    },
+    {
+      "id": "goety:bear_servant_spawn_egg",
+      "required": false
+    },
+    {
+      "id": "goety:black_beast_spawn_egg",
+      "required": false
+    },
+    {
+      "id": "goety:black_wolf_spawn_egg",
+      "required": false
+    },
+    {
+      "id": "goety:blackguard_servant_spawn_egg",
+      "required": false
+    },
+    {
+      "id": "goety:blackguard_variant_servant_spawn_egg",
+      "required": false
+    },
+    {
+      "id": "goety:blastling_servant_spawn_egg",
+      "required": false
+    },
+    {
+      "id": "goety:blastling_spawn_egg",
+      "required": false
+    },
+    {
+      "id": "goety:blaze_servant_spawn_egg",
+      "required": false
+    },
+    {
+      "id": "goety:bone_spider_servant_spawn_egg",
+      "required": false
+    },
+    {
+      "id": "goety:bone_spider_spawn_egg",
+      "required": false
+    },
+    {
+      "id": "goety:border_wraith_servant_spawn_egg",
+      "required": false
+    },
+    {
+      "id": "goety:border_wraith_spawn_egg",
+      "required": false
+    },
+    {
+      "id": "goety:bound_cryologer_spawn_egg",
+      "required": false
+    },
+    {
+      "id": "goety:bound_evoker_spawn_egg",
+      "required": false
+    },
+    {
+      "id": "goety:bound_geomancer_spawn_egg",
+      "required": false
+    },
+    {
+      "id": "goety:bound_iceologer_spawn_egg",
+      "required": false
+    },
+    {
+      "id": "goety:bound_storm_caster_spawn_egg",
+      "required": false
+    },
+    {
+      "id": "goety:bound_wind_caller_spawn_egg",
+      "required": false
+    },
+    {
+      "id": "goety:breeze_servant_spawn_egg",
+      "required": false
+    },
+    {
+      "id": "goety:brood_mother_servant_spawn_egg",
+      "required": false
+    },
+    {
+      "id": "goety:brood_mother_spawn_egg",
+      "required": false
+    },
+    {
+      "id": "goety:cairn_necromancer_servant_spawn_egg",
+      "required": false
+    },
+    {
+      "id": "goety:cairn_necromancer_spawn_egg",
+      "required": false
+    },
+    {
+      "id": "goety:carrion_fly_spawn_egg",
+      "required": false
+    },
+    {
+      "id": "goety:carrion_maggot_spawn_egg",
+      "required": false
+    },
+    {
+      "id": "goety:cave_spider_servant_spawn_egg",
+      "required": false
+    },
+    {
+      "id": "goety:cerberus_spawn_egg",
+      "required": false
+    },
+    {
+      "id": "goety:conquillager_spawn_egg",
+      "required": false
+    },
+    {
+      "id": "goety:crone_spawn_egg",
+      "required": false
+    },
+    {
+      "id": "goety:crusher_servant_spawn_egg",
+      "required": false
+    },
+    {
+      "id": "goety:crusher_spawn_egg",
+      "required": false
+    },
+    {
+      "id": "goety:cryologer_servant_spawn_egg",
+      "required": false
+    },
+    {
+      "id": "goety:cryologer_spawn_egg",
+      "required": false
+    },
+    {
+      "id": "goety:crypt_slime_servant_spawn_egg",
+      "required": false
+    },
+    {
+      "id": "goety:crypt_slime_spawn_egg",
+      "required": false
+    },
+    {
+      "id": "goety:drowned_necromancer_servant_spawn_egg",
+      "required": false
+    },
+    {
+      "id": "goety:drowned_servant_spawn_egg",
+      "required": false
+    },
+    {
+      "id": "goety:elder_guardian_servant_spawn_egg",
+      "required": false
+    },
+    {
+      "id": "goety:ender_keeper_spawn_egg",
+      "required": false
+    },
+    {
+      "id": "goety:endersent_spawn_egg",
+      "required": false
+    },
+    {
+      "id": "goety:envioker_spawn_egg",
+      "required": false
+    },
+    {
+      "id": "goety:evoker_servant_spawn_egg",
+      "required": false
+    },
+    {
+      "id": "goety:frayed_servant_spawn_egg",
+      "required": false
+    },
+    {
+      "id": "goety:frayed_spawn_egg",
+      "required": false
+    },
+    {
+      "id": "goety:frozen_zombie_servant_spawn_egg",
+      "required": false
+    },
+    {
+      "id": "goety:geomancer_servant_spawn_egg",
+      "required": false
+    },
+    {
+      "id": "goety:ghast_servant_spawn_egg",
+      "required": false
+    },
+    {
+      "id": "goety:gnasher_spawn_egg",
+      "required": false
+    },
+    {
+      "id": "goety:grave_golem_spawn_egg",
+      "required": false
+    },
+    {
+      "id": "goety:gray_warg_spawn_egg",
+      "required": false
+    },
+    {
+      "id": "goety:guardian_servant_spawn_egg",
+      "required": false
+    },
+    {
+      "id": "goety:haunt_spawn_egg",
+      "required": false
+    },
+    {
+      "id": "goety:haunted_armor_spawn_egg",
+      "required": false
+    },
+    {
+      "id": "goety:haunted_skull_spawn_egg",
+      "required": false
+    },
+    {
+      "id": "goety:hellhound_spawn_egg",
+      "required": false
+    },
+    {
+      "id": "goety:heresiarch_spawn_egg",
+      "required": false
+    },
+    {
+      "id": "goety:heretic_servant_spawn_egg",
+      "required": false
+    },
+    {
+      "id": "goety:heretic_spawn_egg",
+      "required": false
+    },
+    {
+      "id": "goety:hoglin_servant_spawn_egg",
+      "required": false
+    },
+    {
+      "id": "goety:hostile_black_wolf_spawn_egg",
+      "required": false
+    },
+    {
+      "id": "goety:hostile_redstone_golem_spawn_egg",
+      "required": false
+    },
+    {
+      "id": "goety:hostile_redstone_monstrosity_spawn_egg",
+      "required": false
+    },
+    {
+      "id": "goety:hostile_warg_spawn_egg",
+      "required": false
+    },
+    {
+      "id": "goety:hurricane_servant_spawn_egg",
+      "required": false
+    },
+    {
+      "id": "goety:hurricane_spawn_egg",
+      "required": false
+    },
+    {
+      "id": "goety:husk_servant_spawn_egg",
+      "required": false
+    },
+    {
+      "id": "goety:ice_golem_spawn_egg",
+      "required": false
+    },
+    {
+      "id": "goety:iceologer_servant_spawn_egg",
+      "required": false
+    },
+    {
+      "id": "goety:icy_spider_servant_spawn_egg",
+      "required": false
+    },
+    {
+      "id": "goety:icy_spider_spawn_egg",
+      "required": false
+    },
+    {
+      "id": "goety:inferno_spawn_egg",
+      "required": false
+    },
+    {
+      "id": "goety:inquillager_spawn_egg",
+      "required": false
+    },
+    {
+      "id": "goety:irk_servant_spawn_egg",
+      "required": false
+    },
+    {
+      "id": "goety:irk_spawn_egg",
+      "required": false
+    },
+    {
+      "id": "goety:jungle_zombie_servant_spawn_egg",
+      "required": false
+    },
+    {
+      "id": "goety:leapleaf_spawn_egg",
+      "required": false
+    },
+    {
+      "id": "goety:magma_cube_servant_spawn_egg",
+      "required": false
+    },
+    {
+      "id": "goety:malghast_spawn_egg",
+      "required": false
+    },
+    {
+      "id": "goety:maverick_servant_spawn_egg",
+      "required": false
+    },
+    {
+      "id": "goety:maverick_spawn_egg",
+      "required": false
+    },
+    {
+      "id": "goety:mini_ghast_spawn_egg",
+      "required": false
+    },
+    {
+      "id": "goety:minister_spawn_egg",
+      "required": false
+    },
+    {
+      "id": "goety:mossy_necromancer_servant_spawn_egg",
+      "required": false
+    },
+    {
+      "id": "goety:mossy_necromancer_spawn_egg",
+      "required": false
+    },
+    {
+      "id": "goety:mossy_skeleton_servant_spawn_egg",
+      "required": false
+    },
+    {
+      "id": "goety:mountaineer_servant_spawn_egg",
+      "required": false
+    },
+    {
+      "id": "goety:muck_wraith_servant_spawn_egg",
+      "required": false
+    },
+    {
+      "id": "goety:muck_wraith_spawn_egg",
+      "required": false
+    },
+    {
+      "id": "goety:necromancer_servant_spawn_egg",
+      "required": false
+    },
+    {
+      "id": "goety:necromancer_spawn_egg",
+      "required": false
+    },
+    {
+      "id": "goety:neollager_spawn_egg",
+      "required": false
+    },
+    {
+      "id": "goety:obsidian_monolith_spawn_egg",
+      "required": false
+    },
+    {
+      "id": "goety:phantom_servant_spawn_egg",
+      "required": false
+    },
+    {
+      "id": "goety:piker_servant_spawn_egg",
+      "required": false
+    },
+    {
+      "id": "goety:piker_spawn_egg",
+      "required": false
+    },
+    {
+      "id": "goety:pillager_servant_spawn_egg",
+      "required": false
+    },
+    {
+      "id": "goety:poison_anemone_spawn_egg",
+      "required": false
+    },
+    {
+      "id": "goety:poison_quill_vine_spawn_egg",
+      "required": false
+    },
+    {
+      "id": "goety:polar_bear_servant_spawn_egg",
+      "required": false
+    },
+    {
+      "id": "goety:preacher_spawn_egg",
+      "required": false
+    },
+    {
+      "id": "goety:prisoner_spawn_egg",
+      "required": false
+    },
+    {
+      "id": "goety:quick_growing_kelp_spawn_egg",
+      "required": false
+    },
+    {
+      "id": "goety:quick_growing_vine_spawn_egg",
+      "required": false
+    },
+    {
+      "id": "goety:rattled_servant_spawn_egg",
+      "required": false
+    },
+    {
+      "id": "goety:rattled_spawn_egg",
+      "required": false
+    },
+    {
+      "id": "goety:ravaged_spawn_egg",
+      "required": false
+    },
+    {
+      "id": "goety:ravager_servant_spawn_egg",
+      "required": false
+    },
+    {
+      "id": "goety:reaper_servant_spawn_egg",
+      "required": false
+    },
+    {
+      "id": "goety:reaper_spawn_egg",
+      "required": false
+    },
+    {
+      "id": "goety:redstone_cube_spawn_egg",
+      "required": false
+    },
+    {
+      "id": "goety:redstone_golem_spawn_egg",
+      "required": false
+    },
+    {
+      "id": "goety:redstone_ministrosity_spawn_egg",
+      "required": false
+    },
+    {
+      "id": "goety:redstone_monstrosity_spawn_egg",
+      "required": false
+    },
+    {
+      "id": "goety:reprobate_servant_spawn_egg",
+      "required": false
+    },
+    {
+      "id": "goety:reprobate_spawn_egg",
+      "required": false
+    },
+    {
+      "id": "goety:ripper_servant_spawn_egg",
+      "required": false
+    },
+    {
+      "id": "goety:ripper_spawn_egg",
+      "required": false
+    },
+    {
+      "id": "goety:royal_guard_servant_spawn_egg",
+      "required": false
+    },
+    {
+      "id": "goety:signaler_servant_spawn_egg",
+      "required": false
+    },
+    {
+      "id": "goety:skeletal_warg_spawn_egg",
+      "required": false
+    },
+    {
+      "id": "goety:skeleton_pillager_servant_spawn_egg",
+      "required": false
+    },
+    {
+      "id": "goety:skeleton_servant_spawn_egg",
+      "required": false
+    },
+    {
+      "id": "goety:skeleton_wolf_spawn_egg",
+      "required": false
+    },
+    {
+      "id": "goety:skull_lord_spawn_egg",
+      "required": false
+    },
+    {
+      "id": "goety:slime_servant_spawn_egg",
+      "required": false
+    },
+    {
+      "id": "goety:snapper_spawn_egg",
+      "required": false
+    },
+    {
+      "id": "goety:snareling_servant_spawn_egg",
+      "required": false
+    },
+    {
+      "id": "goety:snareling_spawn_egg",
+      "required": false
+    },
+    {
+      "id": "goety:sorcerer_spawn_egg",
+      "required": false
+    },
+    {
+      "id": "goety:spider_servant_spawn_egg",
+      "required": false
+    },
+    {
+      "id": "goety:sprite_spawn_egg",
+      "required": false
+    },
+    {
+      "id": "goety:squall_golem_spawn_egg",
+      "required": false
+    },
+    {
+      "id": "goety:stone_ministrosity_spawn_egg",
+      "required": false
+    },
+    {
+      "id": "goety:storm_caster_servant_spawn_egg",
+      "required": false
+    },
+    {
+      "id": "goety:storm_caster_spawn_egg",
+      "required": false
+    },
+    {
+      "id": "goety:storm_warg_spawn_egg",
+      "required": false
+    },
+    {
+      "id": "goety:stormhound_spawn_egg",
+      "required": false
+    },
+    {
+      "id": "goety:stray_servant_spawn_egg",
+      "required": false
+    },
+    {
+      "id": "goety:sunken_skeleton_servant_spawn_egg",
+      "required": false
+    },
+    {
+      "id": "goety:tormentor_spawn_egg",
+      "required": false
+    },
+    {
+      "id": "goety:trampler_servant_spawn_egg",
+      "required": false
+    },
+    {
+      "id": "goety:trampler_spawn_egg",
+      "required": false
+    },
+    {
+      "id": "goety:tropical_slime_servant_spawn_egg",
+      "required": false
+    },
+    {
+      "id": "goety:twilight_goat_spawn_egg",
+      "required": false
+    },
+    {
+      "id": "goety:vanguard_servant_spawn_egg",
+      "required": false
+    },
+    {
+      "id": "goety:vex_servant_spawn_egg",
+      "required": false
+    },
+    {
+      "id": "goety:vindicator_chef_servant_spawn_egg",
+      "required": false
+    },
+    {
+      "id": "goety:vindicator_servant_spawn_egg",
+      "required": false
+    },
+    {
+      "id": "goety:vizier_spawn_egg",
+      "required": false
+    },
+    {
+      "id": "goety:warg_spawn_egg",
+      "required": false
+    },
+    {
+      "id": "goety:warlock_servant_spawn_egg",
+      "required": false
+    },
+    {
+      "id": "goety:warlock_spawn_egg",
+      "required": false
+    },
+    {
+      "id": "goety:wartling_spawn_egg",
+      "required": false
+    },
+    {
+      "id": "goety:watchling_servant_spawn_egg",
+      "required": false
+    },
+    {
+      "id": "goety:watchling_spawn_egg",
+      "required": false
+    },
+    {
+      "id": "goety:wavewhisperer_spawn_egg",
+      "required": false
+    },
+    {
+      "id": "goety:web_spider_servant_spawn_egg",
+      "required": false
+    },
+    {
+      "id": "goety:web_spider_spawn_egg",
+      "required": false
+    },
+    {
+      "id": "goety:whisperer_spawn_egg",
+      "required": false
+    },
+    {
+      "id": "goety:wight_spawn_egg",
+      "required": false
+    },
+    {
+      "id": "goety:wildfire_servant_spawn_egg",
+      "required": false
+    },
+    {
+      "id": "goety:wind_caller_servant_spawn_egg",
+      "required": false
+    },
+    {
+      "id": "goety:winter_warg_spawn_egg",
+      "required": false
+    },
+    {
+      "id": "goety:winter_wolf_spawn_egg",
+      "required": false
+    },
+    {
+      "id": "goety:witch_servant_spawn_egg",
+      "required": false
+    },
+    {
+      "id": "goety:wither_necromancer_servant_spawn_egg",
+      "required": false
+    },
+    {
+      "id": "goety:wither_necromancer_spawn_egg",
+      "required": false
+    },
+    {
+      "id": "goety:wither_skeleton_servant_spawn_egg",
+      "required": false
+    },
+    {
+      "id": "goety:wraith_servant_spawn_egg",
+      "required": false
+    },
+    {
+      "id": "goety:wraith_spawn_egg",
+      "required": false
+    },
+    {
+      "id": "goety:zombie_ravager_servant_spawn_egg",
+      "required": false
+    },
+    {
+      "id": "goety:zombie_servant_spawn_egg",
+      "required": false
+    },
+    {
+      "id": "goety:zombie_villager_servant_spawn_egg",
+      "required": false
+    },
+    {
+      "id": "goety:zombie_vindicator_servant_spawn_egg",
+      "required": false
+    },
+    {
+      "id": "goety:zpiglin_brute_servant_spawn_egg",
+      "required": false
+    },
+    {
+      "id": "goety:zpiglin_servant_spawn_egg",
+      "required": false
     }
   ]
 }

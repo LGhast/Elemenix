@@ -1,0 +1,8 @@
+{
+  "type": "elemenix:germinating",
+  "template": { "item": "goety:sienna_fern" },
+  "products": [
+    { "id": "goety:sienna_fern", "count": 1 },
+    { "id": "goety:large_sienna_fern", "count": 1 }
+  ]
+}

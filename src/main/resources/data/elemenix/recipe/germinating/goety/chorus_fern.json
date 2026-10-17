@@ -1,0 +1,9 @@
+{
+  "type": "elemenix:germinating",
+  "template": { "item": "goety:chorus_fern" },
+  "products": [
+    { "id": "goety:chorus_fern", "count": 1 },
+    { "id": "goety:chorus_fern_sprout", "count": 1 },
+    { "id": "goety:large_chorus_fern", "count": 1 }
+  ]
+}

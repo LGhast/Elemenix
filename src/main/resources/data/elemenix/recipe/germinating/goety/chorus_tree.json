@@ -1,0 +1,12 @@
+{
+  "type": "elemenix:germinating",
+  "template": { "item": "goety:chorus_sapling" },
+  "products": [
+    { "id": "goety:chorus_sapling", "count": 1 },
+    { "id": "goety:chorus_log", "count": 1 },
+    { "id": "goety:chorus_leaves", "count": 1 },
+    { "id": "goety:chorus_blossom_leaves", "count": 1 },
+    { "id": "goety:chorus_blossom_vines", "count": 1 },
+    { "id": "goety:chorus_blossom_vines_pruned", "count": 1 }
+  ]
+}

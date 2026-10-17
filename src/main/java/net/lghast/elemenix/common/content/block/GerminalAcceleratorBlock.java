@@ -120,8 +120,9 @@ public class GerminalAcceleratorBlock extends TransformerBlock {
 
     @Override
     public void tickSecondPage(Level level, BlockPos pos, BlockState state, TransformerBlockEntity blockEntity) {
-        GerminatingRecipe recipe = GerminatingRecipe.findRecipe(level,
-                blockEntity.getItem(TransformerBlockEntity.TEMPLATE_SLOT));
+        if (ElemenixInfo.isCalculating()) return;
+
+        GerminatingRecipe recipe = GerminatingRecipe.findRecipe(level, blockEntity.getItem(TransformerBlockEntity.TEMPLATE_SLOT));
 
         if (recipe == null) {
             if (blockEntity.getGerminatingProgress() != 0) {

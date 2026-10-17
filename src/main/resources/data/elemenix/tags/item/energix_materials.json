@@ -13,6 +13,10 @@
     {
       "id": "kaleidoscope_nether:blaze_heart",
       "required": false
+    },
+    {
+      "id": "goety:blazing_helm",
+      "required": false
     }
   ]
 }

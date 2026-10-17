@@ -1,0 +1,9 @@
+{
+  "type": "elemenix:germinating",
+  "template": { "item": "goety:pine_sapling" },
+  "products": [
+    { "id": "goety:pine_sapling", "count": 1 },
+    { "id": "goety:pine_log", "count": 1 },
+    { "id": "goety:pine_leaves", "count": 1 }
+  ]
+}

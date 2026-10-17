@@ -1,5 +1,6 @@
 package net.lghast.elemenix.common.system.commond;
 
+import com.mojang.brigadier.Command;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.arguments.IntegerArgumentType;
 import com.mojang.brigadier.arguments.StringArgumentType;
@@ -65,56 +66,68 @@ public class ElemenixCommand {
                 .then(Commands.literal("show")
                         .then(Commands.argument("item", StringArgumentType.greedyString())
                                 .suggests(ITEM_ID_SUGGESTIONS)
-                                .executes(ElemenixCommand::showItem)))
+                                .executes(guarded(ElemenixCommand::showItem))))
                 .then(Commands.literal("all")
-                        .executes(ctx -> listItems(ctx, null, 1))
+                        .executes(guarded(ctx -> listItems(ctx, null, 1)))
                         .then(Commands.argument("page", IntegerArgumentType.integer(1))
-                                .executes(ctx -> listItems(ctx, null, IntegerArgumentType.getInteger(ctx, "page"))))
+                                .executes(guarded(ctx -> listItems(ctx, null, IntegerArgumentType.getInteger(ctx, "page")))))
                         .then(Commands.argument("modid", StringArgumentType.string())
                                 .suggests(MOD_ID_SUGGESTIONS)
-                                .executes(ctx -> listItems(ctx, StringArgumentType.getString(ctx, "modid"), 1))
+                                .executes(guarded(ctx -> listItems(ctx, StringArgumentType.getString(ctx, "modid"), 1)))
                                 .then(Commands.argument("page", IntegerArgumentType.integer(1))
-                                        .executes(ctx -> listItems(ctx, StringArgumentType.getString(ctx, "modid"),
-                                                IntegerArgumentType.getInteger(ctx, "page"))))))
+                                        .executes(guarded(ctx -> listItems(ctx, StringArgumentType.getString(ctx, "modid"),
+                                                IntegerArgumentType.getInteger(ctx, "page")))))))
                 .then(Commands.literal("unanalysable")
-                        .executes(ctx -> listUnanalysableItems(ctx, null, 1))
+                        .executes(guarded(ctx -> listUnanalysableItems(ctx, null, 1)))
                         .then(Commands.argument("page", IntegerArgumentType.integer(1))
-                                .executes(ctx -> listUnanalysableItems(ctx, null, IntegerArgumentType.getInteger(ctx, "page"))))
+                                .executes(guarded(ctx -> listUnanalysableItems(ctx, null, IntegerArgumentType.getInteger(ctx, "page")))))
                         .then(Commands.argument("modid", StringArgumentType.string())
                                 .suggests(MOD_ID_SUGGESTIONS)
-                                .executes(ctx -> listUnanalysableItems(ctx, StringArgumentType.getString(ctx, "modid"), 1))
+                                .executes(guarded(ctx -> listUnanalysableItems(ctx, StringArgumentType.getString(ctx, "modid"), 1)))
                                 .then(Commands.argument("page", IntegerArgumentType.integer(1))
-                                        .executes(ctx -> listUnanalysableItems(ctx, StringArgumentType.getString(ctx, "modid"),
-                                                IntegerArgumentType.getInteger(ctx, "page"))))));
+                                        .executes(guarded(ctx -> listUnanalysableItems(ctx, StringArgumentType.getString(ctx, "modid"),
+                                                IntegerArgumentType.getInteger(ctx, "page")))))));
+
         LiteralArgumentBuilder<CommandSourceStack> fluidCommand = Commands.literal("fluid")
                 .then(Commands.literal("show")
                         .then(Commands.argument("fluid", StringArgumentType.greedyString())
                                 .suggests(FLUID_ID_SUGGESTIONS)
-                                .executes(ElemenixCommand::showFluid)))
+                                .executes(guarded(ElemenixCommand::showFluid))))
                 .then(Commands.literal("all")
-                        .executes(ctx -> listFluids(ctx, null, 1))
+                        .executes(guarded(ctx -> listFluids(ctx, null, 1)))
                         .then(Commands.argument("page", IntegerArgumentType.integer(1))
-                                .executes(ctx -> listFluids(ctx, null, IntegerArgumentType.getInteger(ctx, "page"))))
+                                .executes(guarded(ctx -> listFluids(ctx, null, IntegerArgumentType.getInteger(ctx, "page")))))
                         .then(Commands.argument("modid", StringArgumentType.string())
                                 .suggests(MOD_ID_SUGGESTIONS)
-                                .executes(ctx -> listFluids(ctx, StringArgumentType.getString(ctx, "modid"), 1))
+                                .executes(guarded(ctx -> listFluids(ctx, StringArgumentType.getString(ctx, "modid"), 1)))
                                 .then(Commands.argument("page", IntegerArgumentType.integer(1))
-                                        .executes(ctx -> listFluids(ctx, StringArgumentType.getString(ctx, "modid"),
-                                                IntegerArgumentType.getInteger(ctx, "page"))))))
+                                        .executes(guarded(ctx -> listFluids(ctx, StringArgumentType.getString(ctx, "modid"),
+                                                IntegerArgumentType.getInteger(ctx, "page")))))))
                 .then(Commands.literal("unanalysable")
-                        .executes(ctx -> listUnanalysableFluids(ctx, null, 1))
+                        .executes(guarded(ctx -> listUnanalysableFluids(ctx, null, 1)))
                         .then(Commands.argument("page", IntegerArgumentType.integer(1))
-                                .executes(ctx -> listUnanalysableFluids(ctx, null, IntegerArgumentType.getInteger(ctx, "page"))))
+                                .executes(guarded(ctx -> listUnanalysableFluids(ctx, null, IntegerArgumentType.getInteger(ctx, "page")))))
                         .then(Commands.argument("modid", StringArgumentType.string())
                                 .suggests(MOD_ID_SUGGESTIONS)
-                                .executes(ctx -> listUnanalysableFluids(ctx, StringArgumentType.getString(ctx, "modid"), 1))
+                                .executes(guarded(ctx -> listUnanalysableFluids(ctx, StringArgumentType.getString(ctx, "modid"), 1)))
                                 .then(Commands.argument("page", IntegerArgumentType.integer(1))
-                                        .executes(ctx -> listUnanalysableFluids(ctx, StringArgumentType.getString(ctx, "modid"),
-                                                IntegerArgumentType.getInteger(ctx, "page"))))));
+                                        .executes(guarded(ctx -> listUnanalysableFluids(ctx, StringArgumentType.getString(ctx, "modid"),
+                                                IntegerArgumentType.getInteger(ctx, "page")))))));
+
         dispatcher.register(Commands.literal("elemenix")
                 .requires(source -> source.hasPermission(0))
                 .then(itemCommand)
                 .then(fluidCommand));
+    }
+
+    private static Command<CommandSourceStack> guarded(Command<CommandSourceStack> command) {
+        return context -> {
+            if (ElemenixInfo.isCalculating()) {
+                context.getSource().sendFailure(Component.translatable("command.elemenix.calculating"));
+                return 0;
+            }
+            return command.run(context);
+        };
     }
 
     private static int showItem(CommandContext<CommandSourceStack> context) {

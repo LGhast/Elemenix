@@ -1,0 +1,8 @@
+{
+  "type": "elemenix:germinating",
+  "template": { "item": "goety:haunted_sapling" },
+  "products": [
+    { "id": "goety:haunted_sapling", "count": 1 },
+    { "id": "goety:haunted_log", "count": 1 }
+  ]
+}

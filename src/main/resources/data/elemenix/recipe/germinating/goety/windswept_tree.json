@@ -1,0 +1,9 @@
+{
+  "type": "elemenix:germinating",
+  "template": { "item": "goety:windswept_sapling" },
+  "products": [
+    { "id": "goety:windswept_sapling", "count": 1 },
+    { "id": "goety:windswept_log", "count": 1 },
+    { "id": "goety:windswept_leaves", "count": 1 }
+  ]
+}

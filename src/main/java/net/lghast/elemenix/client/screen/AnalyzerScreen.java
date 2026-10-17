@@ -158,6 +158,10 @@ public class AnalyzerScreen extends AbstractContainerScreen<AnalyzerMenu> {
 
         Optional<ResourceLocation> hoveredOptional = memoryListWidget.getHoveredItemId(mouseX, mouseY);
         if (hoveredOptional.isPresent()) {
+            if (ElemenixInfo.isCalculating()) {
+                return;
+            }
+
             ItemStack hoveredStack = new ItemStack(BuiltInRegistries.ITEM.get(hoveredOptional.get()));
             if(!hoveredStack.isEmpty()) {
                 Constituents constituents = ElemenixInfo.getPremiumAppliedConstituents(hoveredStack);

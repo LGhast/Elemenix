@@ -109,11 +109,11 @@
   "elemenix.elemenix.energix": "激發質",
   "elemenix.elemenix.arcanix": "神秘質",
 
-  "gui.elemenix.analyzer": "元質分析器",
+  "gui.elemenix.analyzer": "元質解析器",
   "gui.elemenix.deconstruct": "元質解構",
   "gui.elemenix.item_list": "可重構物品",
   "gui.elemenix.no_resolved_items": "暫無已解析物品",
-  "gui.elemenix.no_analyzer": "分析儀未放入",
+  "gui.elemenix.no_analyzer": "解析器未放入",
   "gui.elemenix.invalid_item": "無效物品",
   "gui.elemenix.memorizer_box": "記憶碟收納盒",
   "gui.elemenix.memory_burner": "刻錄筆",
@@ -159,6 +159,7 @@
   "tooltip.elemenix.undeconstructable": "不可解構",
   "tooltip.elemenix.unreconstructable": "不可重構",
   "tooltip.elemenix.analyzer_storage": "元質儲量：",
+  "tooltip.elemenix.calculating": "計算中...",
   "tooltip.elemenix.memories": "已記憶物品: %d",
   "tooltip.elemenix.readonly.owner": "唯讀（設定者：%s）",
   "tooltip.elemenix.readonly.permanent": "唯讀（永久）",
@@ -269,6 +270,7 @@
   "command.elemenix.spawneggs.success": "共 %s 個不在標籤中的生怪蛋，已寫入 %s",
   "command.elemenix.spawneggs.failed": "寫入檔案失敗：%s",
   "command.elemenix.spawneggs.empty": "未找到需要補充的生怪蛋。",
+  "command.elemenix.calculating": "元質成分計算中，請稍後再試。",
 
   "config.elemenix.digit_grouping_by_fours": "四位分節法",
   "config.elemenix.show_constituent_tooltips": "顯示元質成分",
@@ -350,5 +352,5 @@
   "ftbquests.task.elemenix.count": "累計數量",
 
   "curios.identifier.memorizer_box": "记忆碟收纳盒",
-  "curios.identifier.analyzer": "記憶碟收納盒"
+  "curios.identifier.analyzer": "元質解析器"
 }

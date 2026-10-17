@@ -38,36 +38,36 @@ public class ClientEventHandler {
         if(!Elemenics.started) return;
 
         ItemStack stack = event.getItemStack();
-
         if(ClientConfig.SHOW_CONSTITUENT_TOOLTIPS_WHEN_SHIFT.get() && !Screen.hasShiftDown()) {
             return;
         }
 
         List<Component> tooltip = event.getToolTip();
         int insertIndex = findInsertIndex(tooltip);
-
         if(ClientConfig.SHOW_CONSTITUENT_TOOLTIPS.get() && !stack.is(ModItems.ELEMENIC_ANALYZER)) {
-            Constituents constituents = ElemenixInfo.getConstituents(stack);
+            if (ElemenixInfo.isCalculating()) {
+                tooltip.add(insertIndex, Component.translatable("tooltip.elemenix.calculating").withStyle(ChatFormatting.GRAY));
+                insertIndex++;
+            } else {
+                Constituents constituents = ElemenixInfo.getConstituents(stack);
+                if(constituents == null) return;
+                if(constituents.isUnanalysable() && !ClientConfig.SHOW_UNANALYSABLE_TOOLTIPS.get()) return;
 
-            if(constituents == null) return;
-            if(constituents.isUnanalysable() && !ClientConfig.SHOW_UNANALYSABLE_TOOLTIPS.get()) return;
+                tooltip.add(insertIndex, Component.translatable("tooltip.elemenix.constituents").withStyle(ChatFormatting.GRAY));
+                insertIndex++;
 
-            tooltip.add(insertIndex, Component.translatable("tooltip.elemenix.constituents").withStyle(ChatFormatting.GRAY));
-            insertIndex++;
-
-            if(Screen.hasAltDown()){
-                tooltip.add(insertIndex, constituents.toComponentFormerWhole());
-
-                if (!constituents.isUnanalysable()) {
-                    insertIndex++;
-                    tooltip.add(insertIndex, constituents.toComponentLatterWhole());
-                }
-            }else {
-                tooltip.add(insertIndex, constituents.toComponentFormer());
-
-                if (!constituents.isUnanalysable()) {
-                    insertIndex++;
-                    tooltip.add(insertIndex, constituents.toComponentLatter());
+                if(Screen.hasAltDown()){
+                    tooltip.add(insertIndex, constituents.toComponentFormerWhole());
+                    if (!constituents.isUnanalysable()) {
+                        insertIndex++;
+                        tooltip.add(insertIndex, constituents.toComponentLatterWhole());
+                    }
+                }else {
+                    tooltip.add(insertIndex, constituents.toComponentFormer());
+                    if (!constituents.isUnanalysable()) {
+                        insertIndex++;
+                        tooltip.add(insertIndex, constituents.toComponentLatter());
+                    }
                 }
             }
         }
@@ -76,6 +76,7 @@ public class ClientEventHandler {
             insertIndex++;
             tooltip.add(insertIndex,Component.translatable("tooltip.elemenix.undeconstructable").withStyle(ChatFormatting.DARK_GRAY));
         }
+
         if(stack.is(ModTags.UNRECONSTRUCTABLE)){
             insertIndex++;
             tooltip.add(insertIndex,Component.translatable("tooltip.elemenix.unreconstructable").withStyle(ChatFormatting.DARK_GRAY));

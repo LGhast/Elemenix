@@ -1,0 +1,9 @@
+{
+  "type": "elemenix:germinating",
+  "template": { "item": "goety:rotten_sapling" },
+  "products": [
+    { "id": "goety:rotten_sapling", "count": 1 },
+    { "id": "goety:rotten_log", "count": 1 },
+    { "id": "goety:rotten_leaves", "count": 1 }
+  ]
+}

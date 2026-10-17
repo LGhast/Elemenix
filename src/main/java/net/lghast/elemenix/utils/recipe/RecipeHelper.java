@@ -59,10 +59,14 @@ public class RecipeHelper {
     private static final boolean CONFLUENCE_LOADED;
     private static final boolean KALEIDOSCOPE_LOADED;
     private static final boolean IRONS_SPELLBOOKS_LOADED;
+    private static final boolean GOETY_LOADED;
 
     private static volatile boolean initialized = false;
     private static volatile boolean precomputing = false;
+
     private static volatile Thread precomputingThread = null;
+    private static final ThreadLocal<Integer> BEST_RECIPE_DEPTH = ThreadLocal.withInitial(() -> 0);
+    private static final ThreadLocal<Boolean> TRANSIENT_FAILURE = ThreadLocal.withInitial(() -> false);
 
     private static final Logger LOGGER = LogManager.getLogger();
 
@@ -75,6 +79,7 @@ public class RecipeHelper {
         CONFLUENCE_LOADED = ModUtils.hasServerMod("confluence");
         KALEIDOSCOPE_LOADED = ModUtils.hasServerMod("kaleidoscope_cookery");
         IRONS_SPELLBOOKS_LOADED = ModUtils.hasServerMod("irons_spellbooks");
+        GOETY_LOADED = ModUtils.hasServerMod("goety");
 
         if(FARMERS_DELIGHT_LOADED){
             RECIPE_TYPES_WITH_CONTAINER.add("farmersdelight:cooking");
@@ -123,6 +128,10 @@ public class RecipeHelper {
             if(ModUtils.hasServerMod("kaleidoscope_chinesefood")){
                 RECIPE_TYPES_NORMAL.add("kaleidoscope_chinesefood:pickle_jar");
             }
+        }
+        if(GOETY_LOADED){
+            RECIPE_TYPES_NORMAL.add("goety:brazier");
+            RECIPE_TYPES_WITH_CONTAINER.add("goety:cauldron");
         }
         if(CONFLUENCE_LOADED){
             RECIPE_TYPES_NORMAL.add("confluence:heavy_work_bench");
@@ -295,6 +304,13 @@ public class RecipeHelper {
             }
         }
 
+        if(GOETY_LOADED){
+            String itemId = BuiltInRegistries.ITEM.getKey(item).toString();
+            if(itemId.equals("goety:totem_of_souls") || itemId.equals("goety:totem_of_roots")){
+                return new ItemStack(ModItems.NULLVOID.asItem(), stack.getCount());
+            }
+        }
+
         return stack;
     }
 
@@ -394,12 +410,12 @@ public class RecipeHelper {
     private static ItemStack getRecipeContainer(Recipe<?> recipe) {
         Optional<ItemStack> fromMethod = tryInvokeMethods(recipe,
                 RecipeHelper::tryExtractItemStack,
-                "getOutputContainer", "getContainerOverride", "getBase");
+                "getOutputContainer", "getContainerOverride", "getBase", "getTakeWith");
         if (fromMethod.isPresent()) return fromMethod.get();
 
         Optional<ItemStack> fromField = tryGetFields(recipe,
                 RecipeHelper::tryExtractItemStack,
-                "container", "outputContainer", "containerItem", "base");
+                "container", "outputContainer", "containerItem", "base", "takeWith");
         return fromField.orElse(ItemStack.EMPTY);
     }
 
@@ -464,42 +480,56 @@ public class RecipeHelper {
         if(ElemenixInfo.isUnanalysableStrictly(targetItem)){
             return null;
         }
-
-        List<RecipeInfo> recipes = getRecipesForItem(targetItem, level);
-
-        if (recipes.isEmpty()) {
-            LOGGER.info("Fail to calculate: recipes of " + targetItem.getDescription().getString() + " not found");
-            return null;
+        Integer depth = BEST_RECIPE_DEPTH.get();
+        BEST_RECIPE_DEPTH.set(depth + 1);
+        if (depth == 0) {
+            TRANSIENT_FAILURE.set(false);
         }
-
-        RecipeInfo bestRecipe = findBestRecipeInfo(recipes);
-
-        if(bestRecipe.sum == 0 || bestRecipe.sum == Long.MAX_VALUE){
-            return null;
-        }
-        return bestRecipe;
-    }
-
-    /**
-     * Smallest input sum wins; ties broken by fewer items.
-     * Unanalysable and complex recipes are skipped.
-     */
-    private static RecipeInfo findBestRecipeInfo(List<RecipeInfo> recipes) {
-        RecipeInfo bestRecipe = recipes.getFirst();
-
-        for (int i = 1; i < recipes.size(); i++) {
-            RecipeInfo current = recipes.get(i);
-            if(current.hasUnanalysable) continue;
-            if(current.isComplex) continue;
-            if (current.getSum() < bestRecipe.getSum()) {
-                bestRecipe = current;
-            } else if (current.getSum() == bestRecipe.getSum()) {
-                if (current.amount < bestRecipe.amount) {
+        try {
+            List<RecipeInfo> recipes = getRecipesForItem(targetItem, level);
+            if (recipes.isEmpty()) {
+                LOGGER.info("Fail to calculate: recipes of " + targetItem.getDescription().getString() + " not found");
+                return null;
+            }
+            RecipeInfo bestRecipe = null;
+            long bestSum = Long.MAX_VALUE;
+            int bestAmount = Integer.MAX_VALUE;
+            for (RecipeInfo current : recipes) {
+                if (current.hasUnanalysable || current.isComplex) {
+                    continue;
+                }
+                if (hasInProgressIngredients(current)) {
+                    TRANSIENT_FAILURE.set(true);
+                    continue;
+                }
+                Constituents constituents = current.getConstituents();
+                long currentSum = constituents.getSum();
+                if (currentSum <= 0 || currentSum == Long.MAX_VALUE) {
+                    continue;
+                }
+                if (currentSum < bestSum || (currentSum == bestSum && current.amount < bestAmount)) {
                     bestRecipe = current;
+                    bestSum = currentSum;
+                    bestAmount = current.amount;
                 }
             }
+            return bestRecipe;
+        } finally {
+            BEST_RECIPE_DEPTH.set(depth);
         }
-        return bestRecipe;
+    }
+
+    private static boolean hasInProgressIngredients(RecipeInfo info) {
+        for (ItemStack stack : info.ingredients) {
+            if (stack != null && !stack.isEmpty() && ElemenixInfo.isCalculating(stack.getItem())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public static boolean isTransientFailure() {
+        return TRANSIENT_FAILURE.get();
     }
 
     /**
@@ -560,7 +590,8 @@ public class RecipeHelper {
                 isWeaponFusionRecipe(recipe) ||
                 isGlodiumRecipe(recipe) ||
                 isGlodiumsRecipe(recipe) ||
-                isKaleidoscopeCookeryPotRecipe(recipe);
+                isKaleidoscopeCookeryPotRecipe(recipe) ||
+                isRitualRecipe(recipe);
     }
 
     /**
@@ -595,6 +626,8 @@ public class RecipeHelper {
             handleGlodiumsRecipe(recipe, info);
         } else if(isKaleidoscopeCookeryPotRecipe(recipe)){
             handleKaleidoscopeCookeryPotRecipe(recipe, info);
+        } else if (isRitualRecipe(recipe)) {
+            handleRitualRecipe(recipe, info);
         } else {
             List<Ingredient> ingredients = getRecipeIngredients(recipe);
             for (Ingredient ingredient : ingredients) {
@@ -616,8 +649,6 @@ public class RecipeHelper {
         if (isRecipeWithFluids(recipe)) {
             addFluidConstituents(recipe, info);
         }
-
-        info.sum = info.getConstituents().getSum();
         return info;
     }
 
@@ -780,6 +811,18 @@ public class RecipeHelper {
         try {
             RecipeType<?> type = recipe.getType();
             return type.toString().equals("kaleidoscope_cookery:pot") || type.toString().equals("kaleidoscope_cookery:stockpot");
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    private static boolean isRitualRecipe(Recipe<?> recipe) {
+        if (!GOETY_LOADED) {
+            return false;
+        }
+        try {
+            ResourceLocation id = getRecipeTypeId(recipe);
+            return id != null && id.toString().equals("goety:ritual");
         } catch (Exception e) {
             return false;
         }
@@ -1108,6 +1151,37 @@ public class RecipeHelper {
         }
     }
 
+    private static void handleRitualRecipe(Recipe<?> recipe, RecipeInfo info) {
+        RecipeType<?> type = recipe.getType();
+        Optional<Ingredient> activationOpt = tryInvokeMethods(recipe,
+                obj -> obj instanceof Ingredient ing && ing != Ingredient.EMPTY ? Optional.of(ing) : Optional.empty(),
+                "getActivationItem");
+        activationOpt.ifPresent(ing -> {
+            ItemStack best = extractBestFromIngredient(ing, type);
+            if (best == null || best.isEmpty()) {
+                info.hasUnanalysable = true;
+            } else {
+                info.ingredients.add(best);
+                info.amount += best.getCount();
+            }
+        });
+        for (Ingredient ingredient : getRecipeIngredients(recipe)) {
+            if (ingredient == null || ingredient == Ingredient.EMPTY) {
+                continue;
+            }
+            ItemStack best = extractBestFromIngredient(ingredient, type);
+            if (best == null || best.isEmpty()) {
+                info.hasUnanalysable = true;
+            } else {
+                info.ingredients.add(best);
+                info.amount += best.getCount();
+            }
+        }
+        if (info.ingredients.isEmpty()) {
+            info.hasUnanalysable = true;
+        }
+    }
+
     /**
      * Sums fluid contributions, scaling each by amount / 250 mB.
      */
@@ -1147,20 +1221,12 @@ public class RecipeHelper {
         public RecipeType<?> type;
         public int resultAmount = 1;
         public int amount = 0;
-        public long sum = 0;
         public boolean hasUnanalysable = false;
         public boolean isComplex = false;
         public boolean isBrewingStandRecipe = false;
         public ItemStack container = ItemStack.EMPTY;
 
         public Constituents additions = new Constituents();
-
-        public long getSum() {
-            if(hasUnanalysable || isComplex){
-                return Long.MAX_VALUE;
-            }
-            return sum;
-        }
 
         /**
          * Aggregates ingredient constituents, subtracts crafting remainders,

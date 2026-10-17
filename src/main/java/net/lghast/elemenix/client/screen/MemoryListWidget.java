@@ -165,7 +165,11 @@ public class MemoryListWidget extends AbstractWidget {
         String displayName = stackToRender.getHoverName().getString();
         int maxWidth = getWidth() - itemSize - ITEM_NAME_OFFSET - ITEM_NAME_RIGHT_PADDING;
         int nameWidth = minecraft.font.width(displayName);
-        int color = ElemenixInfo.isUnreconstructable(stackToRender) ? 0xFF3333 : 0xFFFFFF;
+
+        int color = 0xFFFFFF;
+        if (!ElemenixInfo.isCalculating() && ElemenixInfo.isUnreconstructable(stackToRender)) {
+            color = 0xFF3333;
+        }
 
         if (nameWidth <= maxWidth) {
             graphics.drawString(minecraft.font, displayName, textX, textY, color, false);

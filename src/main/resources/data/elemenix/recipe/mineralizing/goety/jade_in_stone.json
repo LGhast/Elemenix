@@ -1,0 +1,6 @@
+{
+  "type": "elemenix:mineralizing",
+  "mineral": { "item": "goety:jade" },
+  "medium": { "item": "minecraft:stone" },
+  "result": { "id": "goety:jade_ore", "count": 1 }
+}

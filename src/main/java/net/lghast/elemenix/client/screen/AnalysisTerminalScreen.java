@@ -384,27 +384,26 @@ public class AnalysisTerminalScreen extends AbstractContainerScreen<AnalysisTerm
     }
 
     private void renderPreviews(GuiGraphics graphics, int mouseX, int mouseY) {
+        if (ElemenixInfo.isCalculating()) return;
+
         int hovered = getHoveredCell(mouseX, mouseY);
-        if (hovered < 0 || hovered >= visibleItems.size()) {
-            return;
-        }
+        if (hovered < 0 || hovered >= visibleItems.size()) return;
+
         ItemStack stack = new ItemStack(BuiltInRegistries.ITEM.get(visibleItems.get(hovered)));
-        if (stack.isEmpty()) {
-            return;
-        }
+        if (stack.isEmpty()) return;
+
         Constituents required = ElemenixInfo.getPremiumAppliedConstituents(stack);
-        if (required.isUnanalysable()) {
-            return;
-        }
+        if (required.isUnanalysable()) return;
+
         LongContainerData containerData = menu.getLongContainerData();
         for (int row = 0; row < 2; row++) {
             int y = topPos + (row == 0 ? ELEMENIX_ROW1_Y : ELEMENIX_ROW2_Y);
+
             for (int col = 0; col < 3; col++) {
                 Elemenix type = ESSENCE_ROWS[row][col];
                 int amount = required.get(type);
-                if (amount <= 0) {
-                    continue;
-                }
+                if (amount <= 0) continue;
+
                 String valueText = ModUtils.formatNumber(containerData.getLong(type.getIndex()));
                 int x = leftPos + ELEMENIX_X0 + col * ELEMENIX_SPAN
                         + this.font.width(valueText) + PREVIEW_OFFSET;
@@ -457,10 +456,12 @@ public class AnalysisTerminalScreen extends AbstractContainerScreen<AnalysisTerm
         if (ElemenixInfo.isUnreconstructable(stack)) {
             return "0";
         }
+
         Constituents required = ElemenixInfo.getPremiumAppliedConstituents(stack);
         if (required.isUnanalysable()) {
             return "0";
         }
+
         LongContainerData containerData = menu.getLongContainerData();
         long max = Long.MAX_VALUE;
         for (Elemenix type : Elemenix.values()) {
@@ -470,6 +471,7 @@ public class AnalysisTerminalScreen extends AbstractContainerScreen<AnalysisTerm
                 max = Math.min(max, available / req);
             }
         }
+
         if (max > 999) {
             return "999+";
         }
@@ -502,10 +504,10 @@ public class AnalysisTerminalScreen extends AbstractContainerScreen<AnalysisTerm
         if (hovered < 0 || hovered >= visibleItems.size()) {
             return;
         }
+
         ItemStack stack = new ItemStack(BuiltInRegistries.ITEM.get(visibleItems.get(hovered)));
-        if (stack.isEmpty()) {
-            return;
-        }
+        if (stack.isEmpty()) return;
+
         graphics.renderTooltip(
                 this.font,
                 this.getTooltipFromContainerItem(stack),
@@ -559,6 +561,7 @@ public class AnalysisTerminalScreen extends AbstractContainerScreen<AnalysisTerm
             scrollOffset = 0;
             return;
         }
+
         int trackY = topPos + SCROLL_Y;
         int thumbHeight = Math.max(MIN_THUMB_HEIGHT, SCROLL_H * ROWS / getTotalRows());
         double usable = SCROLL_H - thumbHeight;

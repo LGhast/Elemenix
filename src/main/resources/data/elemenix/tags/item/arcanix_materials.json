@@ -16,6 +16,10 @@
     {
       "id": "anvilcraft:void_matter",
       "required": false
+    },
+    {
+      "id": "goety:shadow_essence",
+      "required": false
     }
   ]
 }

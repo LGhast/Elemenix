@@ -1,0 +1,9 @@
+{
+  "type": "elemenix:germinating",
+  "template": { "item": "goety:chorus_stalk" },
+  "products": [
+    { "id": "goety:chorus_stalk", "count": 1 },
+    { "id": "goety:chorus_sprout", "count": 1 },
+    { "id": "goety:large_chorus_stalk", "count": 1 }
+  ]
+}

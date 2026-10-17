@@ -1,0 +1,8 @@
+{
+  "type": "elemenix:germinating",
+  "template": { "item": "goety:sienna_grass" },
+  "products": [
+    { "id": "goety:sienna_grass", "count": 1 },
+    { "id": "goety:tall_sienna_grass", "count": 1 }
+  ]
+}

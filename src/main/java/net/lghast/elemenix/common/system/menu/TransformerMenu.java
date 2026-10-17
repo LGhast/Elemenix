@@ -176,7 +176,7 @@ public class TransformerMenu extends AbstractContainerMenu {
 
     private void refreshResultSlot() {
         ItemStack preview = ItemStack.EMPTY;
-        if (getMode() == TransformerBlockEntity.MODE_MINERALIZING && !isGerminalPage()) {
+        if (!ElemenixInfo.isCalculating() && getMode() == TransformerBlockEntity.MODE_MINERALIZING && !isGerminalPage()) {
             MineralizingRecipe recipe = getCurrentRecipe();
             if (recipe != null) {
                 preview = recipe.result().copy();
@@ -210,6 +210,8 @@ public class TransformerMenu extends AbstractContainerMenu {
 
     @Nullable
     public int[] getGerminatingCost() {
+        if (ElemenixInfo.isCalculating()) return null;
+
         GerminatingRecipe recipe = getCurrentGerminatingRecipe();
         return recipe != null ? recipe.getCost() : null;
     }
@@ -376,8 +378,11 @@ public class TransformerMenu extends AbstractContainerMenu {
 
             @Override
             public boolean mayPickup(Player player) {
+                if (ElemenixInfo.isCalculating()) return false;
+
                 MineralizingRecipe recipe = getCurrentRecipe();
                 if (recipe == null || !hasItem()) return false;
+
                 return blockEntity.getInputB() >= recipe.getFlumixCost(blockEntity.getItem(MINERAL_SLOT));
             }
 

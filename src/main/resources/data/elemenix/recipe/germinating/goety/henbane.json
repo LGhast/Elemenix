@@ -1,0 +1,8 @@
+{
+  "type": "elemenix:germinating",
+  "template": { "item": "goety:henbane_flower" },
+  "products": [
+    { "id": "goety:henbane_flower", "count": 1 },
+    { "id": "goety:henbane_seeds", "count": 1 }
+  ]
+}
