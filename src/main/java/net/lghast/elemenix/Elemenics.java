@@ -14,10 +14,8 @@ import net.lghast.elemenix.register.system.*;
 import net.lghast.elemenix.utils.elemenix.ElemenixInfo;
 import net.lghast.elemenix.utils.ModUtils;
 import net.lghast.elemenix.utils.recipe.RecipeHelper;
-import net.lghast.elemenix.utils.recipe.TRecipeHelper;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.world.level.Level;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.fml.config.ModConfig;
@@ -34,7 +32,6 @@ import net.neoforged.neoforge.event.entity.player.PlayerEvent;
 import net.neoforged.neoforge.event.server.ServerStartedEvent;
 import net.neoforged.neoforge.event.server.ServerStartingEvent;
 import net.neoforged.neoforge.event.server.ServerStoppedEvent;
-import net.neoforged.neoforge.event.tick.ServerTickEvent;
 
 import javax.annotation.Nullable;
 
@@ -98,10 +95,8 @@ public class Elemenics {
         currentServerLevel = event.getServer().overworld();
         started = true;
         ElemenixInfo.clearCaches();
-
         if (RecipeHelper.areRecipesLoaded(currentServerLevel)) {
             ElemenixInfo.initialize();
-            RecipeHelper.precomputeRecipes(currentServerLevel);
         }
     }
 

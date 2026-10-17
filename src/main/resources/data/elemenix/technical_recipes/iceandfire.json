@@ -1,6 +1,6 @@
 {
   "mod_id": "iceandfire",
-  "load_after": [],
+  "load_after": ["minecraft"],
   "recipes": [
     {
       "preset": "same",

@@ -38,8 +38,11 @@ public class ElemenixInfo {
     private static final Map<String, Integer> RECURSION_PREVENTED = new ConcurrentHashMap<>();
 
     private static final Set<Item> UNANALYSABLE_CACHE = ConcurrentHashMap.newKeySet();
-    private static final Set<Item> CALCULATING_ITEMS = ConcurrentHashMap.newKeySet();
     private static final Set<Item> STRICTLY_UNANALYSABLE_ITEMS = ConcurrentHashMap.newKeySet();
+
+    private static final ThreadLocal<Set<Item>> CALCULATING_ITEMS = ThreadLocal.withInitial(ConcurrentHashMap::newKeySet);
+    private static final ThreadLocal<Set<Item>> FAILED_ITEMS = ThreadLocal.withInitial(ConcurrentHashMap::newKeySet);
+    private static final ThreadLocal<Integer> QUERY_DEPTH = ThreadLocal.withInitial(() -> 0);
 
     private static final Object INIT_LOCK = new Object();
     private static volatile boolean initialized = false;
@@ -50,13 +53,11 @@ public class ElemenixInfo {
      * Loads config/JSON mappings and T-recipes once; no-op while another thread initializes.
      */
     public static void initialize() {
-        if (initialized || initializing) {
-            return;
-        }
+        if (initialized || initializing) return;
+
         synchronized (INIT_LOCK) {
-            if (initialized || initializing) {
-                return;
-            }
+            if (initialized || initializing) return;
+
             initializingThread = Thread.currentThread();
             initializing = true;
 
@@ -68,8 +69,17 @@ public class ElemenixInfo {
                 loadJsonMappings();
                 applyMappings(CONFIG_MAPPINGS);
 
+                Level level = Elemenics.getCurrentLevel();
+                if (RecipeHelper.areRecipesLoaded(level)) {
+                    RecipeHelper.precomputeRecipes(level);
+                }
+
                 TRecipeHelper.initialize();
                 initialized = true;
+
+                if (RecipeHelper.areRecipesLoaded(level)) {
+                    RecipeHelper.warmUpConstituents(level);
+                }
 
                 LOGGER.info("ElemenixInfo Class has been initialized.");
             } finally {
@@ -82,16 +92,15 @@ public class ElemenixInfo {
     public static void clearCaches() {
         synchronized (INIT_LOCK) {
             initialized = false;
-
             ITEM_CACHE.clear();
-            CALCULATING_ITEMS.clear();
+            CALCULATING_ITEMS.remove();
             UNANALYSABLE_CACHE.clear();
             STRICTLY_UNANALYSABLE_ITEMS.clear();
             RECURSION_PREVENTED.clear();
-
+            FAILED_ITEMS.remove();
+            QUERY_DEPTH.remove();
             RecipeHelper.clearCache();
             TRecipeHelper.clear();
-
             LOGGER.info("ElemenixInfo Cache has been cleared.");
         }
     }
@@ -111,7 +120,7 @@ public class ElemenixInfo {
     }
 
     public static boolean isCalculating(Item item) {
-        return CALCULATING_ITEMS.contains(item);
+        return CALCULATING_ITEMS.get().contains(item);
     }
 
     private static void applyMappings(Map<String, Constituents> mappings) {
@@ -210,7 +219,7 @@ public class ElemenixInfo {
             return tagConstituents.copy();
         }
 
-        if (CALCULATING_ITEMS.contains(item)) {
+        if (CALCULATING_ITEMS.get().contains(item)) {
             countRecursionPrevented(item);
             return new Constituents(true);
         }
@@ -219,12 +228,22 @@ public class ElemenixInfo {
             return new Constituents(true);
         }
 
+        if (FAILED_ITEMS.get().contains(item)) {
+            return new Constituents(true);
+        }
+
         if (RecipeHelper.isPrecomputing() && Thread.currentThread() != RecipeHelper.getPrecomputingThread()) {
             return new Constituents(true);
         }
 
+        Integer queryDepth = QUERY_DEPTH.get();
+        QUERY_DEPTH.set(queryDepth + 1);
+        if (queryDepth == 0) {
+            FAILED_ITEMS.get().clear();
+        }
+
         try {
-            CALCULATING_ITEMS.add(item);
+            CALCULATING_ITEMS.get().add(item);
             Constituents recipeConstituents = RecipeHelper.getRecipeConstituents(item, level);
             if (recipeConstituents != null) {
                 if (TRecipeHelper.isHandled()) {
@@ -234,11 +253,13 @@ public class ElemenixInfo {
                 }
                 return recipeConstituents.copy();
             }
+            FAILED_ITEMS.get().add(item);
             if(initialized) {
-                LOGGER.info("Fail to calculate constituents for " + item.getDescription().getString());
+                LOGGER.debug("Fail to calculate constituents for " + item.getDescription().getString());
             }
         } finally {
-            CALCULATING_ITEMS.remove(item);
+            CALCULATING_ITEMS.get().remove(item);
+            QUERY_DEPTH.set(queryDepth);
         }
 
         if(Elemenics.started && TRecipeHelper.isHandled() && !RecipeHelper.isTransientFailure()) {

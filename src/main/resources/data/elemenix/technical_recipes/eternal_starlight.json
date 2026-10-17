@@ -1,6 +1,6 @@
 {
   "mod_id": "eternal_starlight",
-  "load_after": [],
+  "load_after": ["minecraft"],
   "recipes": [
     {
       "output": "eternal_starlight:ashen_snow",

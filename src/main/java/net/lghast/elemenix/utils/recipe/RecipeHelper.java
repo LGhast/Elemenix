@@ -42,7 +42,14 @@ import java.util.function.Function;
 public class RecipeHelper {
     private static final Map<ResourceLocation, Item> RECIPE_OUTPUT_CACHE = new ConcurrentHashMap<>();
     private static final Set<ResourceLocation> RECIPE_IGNORED_CACHE = ConcurrentHashMap.newKeySet();
-    private static final Map<Item, List<RecipeInfo>> RECIPE_MAP = new ConcurrentHashMap<>();
+    private static final Map<Item, List<RecipeEntry>> RECIPE_MAP = new ConcurrentHashMap<>();
+    private static final Map<RecipeType<?>, Boolean> RECIPE_TYPE_VALIDITY_CACHE = new ConcurrentHashMap<>();
+    private static final Map<ResourceLocation, RecipeInfo> INFO_CACHE = new ConcurrentHashMap<>();
+
+    private static final ThreadLocal<Integer> BEST_RECIPE_DEPTH = ThreadLocal.withInitial(() -> 0);
+    private static final ThreadLocal<Integer> IN_PROGRESS_DEPTH = ThreadLocal.withInitial(() -> 0);
+    private static final ThreadLocal<Boolean> IN_PROGRESS_SEEN = ThreadLocal.withInitial(() -> false);
+    private static final ThreadLocal<Boolean> TRANSIENT_FAILURE = ThreadLocal.withInitial(() -> false);
 
     private static final List<String> RECIPE_TYPES_NORMAL = new ArrayList<>();
     private static final List<String> RECIPE_TYPES_WITH_CONTAINER = new ArrayList<>();
@@ -61,12 +68,9 @@ public class RecipeHelper {
     private static final boolean IRONS_SPELLBOOKS_LOADED;
     private static final boolean GOETY_LOADED;
 
-    private static volatile boolean initialized = false;
+    private static volatile boolean indexed = false;
     private static volatile boolean precomputing = false;
-
     private static volatile Thread precomputingThread = null;
-    private static final ThreadLocal<Integer> BEST_RECIPE_DEPTH = ThreadLocal.withInitial(() -> 0);
-    private static final ThreadLocal<Boolean> TRANSIENT_FAILURE = ThreadLocal.withInitial(() -> false);
 
     private static final Logger LOGGER = LogManager.getLogger();
 
@@ -183,9 +187,11 @@ public class RecipeHelper {
         RECIPE_OUTPUT_CACHE.clear();
         RECIPE_IGNORED_CACHE.clear();
         RECIPE_MAP.clear();
+        RECIPE_TYPE_VALIDITY_CACHE.clear();
+        INFO_CACHE.clear();
         METHOD_CACHE.clear();
         FIELD_CACHE.clear();
-        initialized = false;
+        indexed = false;
     }
 
     public static boolean isPrecomputing() {
@@ -210,8 +216,12 @@ public class RecipeHelper {
      *
      * @param level world whose recipe manager is scanned
      */
-    public static void precomputeRecipes(@Nullable Level level) {
+    public static synchronized void precomputeRecipes(@Nullable Level level) {
         if(!Elemenics.started) return;
+
+        if (indexed) {
+            return;
+        }
 
         if (level == null) {
             LOGGER.warn("Cannot precompute recipes: level is null");
@@ -228,8 +238,6 @@ public class RecipeHelper {
             return;
         }
 
-        TRecipeHelper.ensureHandled();
-
         long startTime = System.currentTimeMillis();
         precomputing = true;
         precomputingThread = Thread.currentThread();
@@ -240,6 +248,9 @@ public class RecipeHelper {
             RECIPE_MAP.clear();
             RECIPE_OUTPUT_CACHE.clear();
             RECIPE_IGNORED_CACHE.clear();
+            RECIPE_TYPE_VALIDITY_CACHE.clear();
+            INFO_CACHE.clear();
+            indexed = false;
 
             for (RecipeHolder<?> holder : recipeManager.getRecipes()) {
                 ResourceLocation recipeId = holder.id();
@@ -252,8 +263,7 @@ public class RecipeHelper {
                 Item resultItem = result.getItem();
 
                 if (isValidRecipeType(recipe)) {
-                    RecipeInfo info = getInfo(holder, recipe, level, result);
-                    RECIPE_MAP.computeIfAbsent(resultItem, k -> new ArrayList<>()).add(info);
+                    RECIPE_MAP.computeIfAbsent(resultItem, k -> new ArrayList<>()).add(new RecipeEntry(holder, recipe, result));
                     RECIPE_OUTPUT_CACHE.put(recipeId, resultItem);
                     continue;
                 }
@@ -261,12 +271,50 @@ public class RecipeHelper {
                 RECIPE_IGNORED_CACHE.add(recipeId);
             }
 
-            initialized = true;
+            indexed = true;
+
+            TRecipeHelper.ensureHandled();
             ElemenixInfo.logRecursionSummary();
-            LOGGER.info("RecipeHelper precomputed {} recipes in {} ms", RECIPE_MAP.size(), System.currentTimeMillis() - startTime);
+            LOGGER.info("RecipeHelper indexed {} recipes in {} ms", RECIPE_OUTPUT_CACHE.size(), System.currentTimeMillis() - startTime);
         } finally {
             precomputing = false;
             precomputingThread = null;
+        }
+    }
+
+    public static void warmUpConstituents(@Nullable Level level) {
+        if (level == null) return;
+
+        long startTime = System.currentTimeMillis();
+        int resolved = 0;
+        List<Item> pending = new ArrayList<>(RECIPE_MAP.keySet());
+
+        for (int pass = 0; pass < 2; pass++) {
+            List<Item> next = new ArrayList<>();
+            for (Item item : pending) {
+                if (ElemenixInfo.hasCache(item)) continue;
+
+                ElemenixInfo.getConstituents(item, level);
+                if (ElemenixInfo.hasCache(item)) {
+                    resolved++;
+                } else {
+                    next.add(item);
+                }
+            }
+            pending = next;
+            if (pending.isEmpty()) {
+                break;
+            }
+        }
+
+        if (pending.isEmpty()) {
+            LOGGER.info("RecipeHelper warmed up constituents for {} items in {} ms", resolved, System.currentTimeMillis() - startTime);
+        } else {
+            List<String> names = new ArrayList<>();
+            for (Item item : pending) {
+                names.add(item.getDescription().getString());
+            }
+            LOGGER.info("RecipeHelper warmed up constituents for {} items in {} ms, {} unresolved: {}", resolved, System.currentTimeMillis() - startTime, pending.size(), names);
         }
     }
 
@@ -423,51 +471,56 @@ public class RecipeHelper {
      * Serves cached recipes for an item; falls back to a full manager scan when uninitialized.
      */
     private static List<RecipeInfo> getRecipesForItem(Item targetItem, @Nullable Level level) {
-        if (initialized && RECIPE_MAP.containsKey(targetItem)) {
-            return new ArrayList<>(RECIPE_MAP.get(targetItem));
-        }
+        if (indexed) {
+            if (level == null) {
+                return Collections.emptyList();
+            }
 
+            List<RecipeEntry> entries = RECIPE_MAP.get(targetItem);
+            if (entries == null || entries.isEmpty()) {
+                return Collections.emptyList();
+            }
+
+            List<RecipeInfo> infos = new ArrayList<>(entries.size());
+            for (RecipeEntry entry : entries) {
+                RecipeInfo info = INFO_CACHE.get(entry.holder().id());
+                if (info == null) {
+                    info = getInfo(entry.holder(), entry.recipe(), level, entry.result());
+                    if (!info.isTransient) {
+                        INFO_CACHE.put(entry.holder().id(), info);
+                    }
+                }
+                infos.add(info);
+            }
+            return infos;
+        }
         if(level == null){
             return Collections.emptyList();
         }
 
         List<RecipeInfo> recipes = new ArrayList<>();
         RecipeManager recipeManager = level.getRecipeManager();
-
         for (RecipeHolder<?> recipeHolder : recipeManager.getRecipes()) {
             ResourceLocation recipeId = recipeHolder.id();
-
             Item cachedOutput = RECIPE_OUTPUT_CACHE.get(recipeId);
-            if (cachedOutput != null && cachedOutput != targetItem) {
-                continue;
-            }
+            if (cachedOutput != null && cachedOutput != targetItem) continue;
 
             Recipe<?> recipe = recipeHolder.value();
             ItemStack result = getRecipeResultItem(recipe, level.registryAccess());
-
-            //noinspection ConstantConditions
             if(result == null) continue;
             if(result.isEmpty()) continue;
 
             Item resultItem = result.getItem();
             RECIPE_OUTPUT_CACHE.put(recipeId, resultItem);
-
-            if (resultItem != targetItem) {
-                continue;
-            }
-
-            if(RECIPE_IGNORED_CACHE.contains(recipeId)){
-                continue;
-            }
+            if (resultItem != targetItem) continue;
+            if(RECIPE_IGNORED_CACHE.contains(recipeId)) continue;
 
             if (!isValidRecipeType(recipe)) {
                 RECIPE_IGNORED_CACHE.add(recipeId);
                 continue;
             }
-
             recipes.add(getInfo(recipeHolder, recipe, level, result));
         }
-
         return recipes;
     }
 
@@ -480,11 +533,13 @@ public class RecipeHelper {
         if(ElemenixInfo.isUnanalysableStrictly(targetItem)){
             return null;
         }
+
         Integer depth = BEST_RECIPE_DEPTH.get();
         BEST_RECIPE_DEPTH.set(depth + 1);
         if (depth == 0) {
             TRANSIENT_FAILURE.set(false);
         }
+
         try {
             List<RecipeInfo> recipes = getRecipesForItem(targetItem, level);
             if (recipes.isEmpty()) {
@@ -495,11 +550,18 @@ public class RecipeHelper {
             long bestSum = Long.MAX_VALUE;
             int bestAmount = Integer.MAX_VALUE;
             for (RecipeInfo current : recipes) {
-                if (current.hasUnanalysable || current.isComplex) {
+                if (current.isComplex) {
                     continue;
                 }
                 if (hasInProgressIngredients(current)) {
                     TRANSIENT_FAILURE.set(true);
+                    continue;
+                }
+                if (current.isTransient) {
+                    TRANSIENT_FAILURE.set(true);
+                    continue;
+                }
+                if (current.hasUnanalysable) {
                     continue;
                 }
                 Constituents constituents = current.getConstituents();
@@ -575,13 +637,21 @@ public class RecipeHelper {
      * Whitelist gate: vanilla types plus mod recipe types handled by the is* checks.
      */
     private static boolean isValidRecipeType(Recipe<?> recipe) {
+        if (recipe instanceof SmithingTransformRecipe) {
+            return true;
+        }
+
         RecipeType<?> type = recipe.getType();
-        return type == RecipeType.CRAFTING ||
+        Boolean cached = RECIPE_TYPE_VALIDITY_CACHE.get(type);
+        if (cached != null) {
+            return cached;
+        }
+
+        boolean valid = type == RecipeType.CRAFTING ||
                 type == RecipeType.SMELTING ||
                 type == RecipeType.SMOKING ||
                 type == RecipeType.STONECUTTING ||
                 type == ModRecipes.MINERALIZING.get() ||
-                recipe instanceof SmithingTransformRecipe ||
                 isNormalModRecipe(recipe) ||
                 isRecipeWithContainer(recipe) ||
                 isCuttingBoardRecipe(recipe) ||
@@ -592,6 +662,9 @@ public class RecipeHelper {
                 isGlodiumsRecipe(recipe) ||
                 isKaleidoscopeCookeryPotRecipe(recipe) ||
                 isRitualRecipe(recipe);
+
+        RECIPE_TYPE_VALIDITY_CACHE.put(type, valid);
+        return valid;
     }
 
     /**
@@ -601,83 +674,98 @@ public class RecipeHelper {
         RecipeInfo info = new RecipeInfo();
         if(level == null) return info;
 
-        info.recipeId = holder.id();
-        info.type = recipe.getType();
-        info.ingredients = new ArrayList<>();
-        info.result = result;
-        info.resultAmount = info.result.getCount();
-        info.amount = 0;
+        Integer depth = IN_PROGRESS_DEPTH.get();
+        IN_PROGRESS_DEPTH.set(depth + 1);
 
-        if (isRecipeWithContainer(recipe)) {
-            handleRecipeWithContainer(recipe, info);
-        } else if (isCuttingBoardRecipe(recipe)) {
-            handleCuttingBoardRecipe(recipe, info);
-        } else if (recipe.getType() == RecipeType.SMITHING) {
-            handleSmithingRecipe(recipe, info);
-        } else if (isMultipleToOneSmithingRecipe(recipe)) {
-            handleMultipleToOneSmithingRecipe(recipe, info);
-        } else if (isBrewingLikeRecipe(recipe)){
-            handleBrewingStandRecipe(recipe, info);
-        } else if (isWeaponFusionRecipe(recipe)) {
-            handleWeaponFusionRecipe(recipe, info);
-        } else if(isGlodiumRecipe(recipe)){
-            handleGlodiumRecipe(recipe, info);
-        } else if(isGlodiumsRecipe(recipe)){
-            handleGlodiumsRecipe(recipe, info);
-        } else if(isKaleidoscopeCookeryPotRecipe(recipe)){
-            handleKaleidoscopeCookeryPotRecipe(recipe, info);
-        } else if (isRitualRecipe(recipe)) {
-            handleRitualRecipe(recipe, info);
-        } else {
-            List<Ingredient> ingredients = getRecipeIngredients(recipe);
-            for (Ingredient ingredient : ingredients) {
-                if (ingredient != Ingredient.EMPTY) {
-                    ItemStack[] matchingItems = ingredient.getItems();
-                    if (matchingItems.length > 0) {
-                        ItemStack bestItemStack = findBestItemStack(recipe.getType(), matchingItems);
-                        if(bestItemStack == null || bestItemStack.isEmpty()){
-                            info.hasUnanalysable = true;
-                        }else {
-                            info.ingredients.add(bestItemStack);
-                            info.amount += bestItemStack.getCount();
+        if (depth == 0) {
+            IN_PROGRESS_SEEN.set(false);
+        }
+
+        try {
+            info.recipeId = holder.id();
+            info.type = recipe.getType();
+            info.ingredients = new ArrayList<>();
+            info.result = result;
+            info.resultAmount = info.result.getCount();
+            info.amount = 0;
+
+            if (isRecipeWithContainer(recipe)) {
+                handleRecipeWithContainer(recipe, info);
+            } else if (isCuttingBoardRecipe(recipe)) {
+                handleCuttingBoardRecipe(recipe, info);
+            } else if (recipe.getType() == RecipeType.SMITHING) {
+                handleSmithingRecipe(recipe, info);
+            } else if (isMultipleToOneSmithingRecipe(recipe)) {
+                handleMultipleToOneSmithingRecipe(recipe, info);
+            } else if (isBrewingLikeRecipe(recipe)){
+                handleBrewingStandRecipe(recipe, info);
+            } else if (isWeaponFusionRecipe(recipe)) {
+                handleWeaponFusionRecipe(recipe, info);
+            } else if(isGlodiumRecipe(recipe)){
+                handleGlodiumRecipe(recipe, info);
+            } else if(isGlodiumsRecipe(recipe)){
+                handleGlodiumsRecipe(recipe, info);
+            } else if(isKaleidoscopeCookeryPotRecipe(recipe)){
+                handleKaleidoscopeCookeryPotRecipe(recipe, info);
+            } else if (isRitualRecipe(recipe)) {
+                handleRitualRecipe(recipe, info);
+            } else {
+                List<Ingredient> ingredients = getRecipeIngredients(recipe);
+                for (Ingredient ingredient : ingredients) {
+                    if (ingredient != Ingredient.EMPTY) {
+                        ItemStack[] matchingItems = ingredient.getItems();
+                        if (matchingItems.length > 0) {
+                            ItemStack bestItemStack = findBestItemStack(recipe.getType(), matchingItems);
+                            if(bestItemStack == null || bestItemStack.isEmpty()){
+                                info.hasUnanalysable = true;
+                            }else {
+                                info.ingredients.add(bestItemStack);
+                                info.amount += bestItemStack.getCount();
+                            }
                         }
                     }
                 }
             }
+            if (isRecipeWithFluids(recipe)) {
+                addFluidConstituents(recipe, info);
+            }
+            if (info.hasUnanalysable && IN_PROGRESS_SEEN.get()) {
+                info.hasUnanalysable = false;
+                info.isTransient = true;
+            }
+            return info;
+        } finally {
+            IN_PROGRESS_DEPTH.set(depth);
         }
-
-        if (isRecipeWithFluids(recipe)) {
-            addFluidConstituents(recipe, info);
-        }
-        return info;
     }
 
-    /**
-     * Chooses the matching item with the smallest total constituents
-     * as the ingredient's representative stack.
-     */
     private static ItemStack findBestItemStack(RecipeType<?> type, ItemStack[] matchingItems) {
         if (matchingItems.length == 1) {
-            return replacedStack(type, matchingItems[0]);
+            ItemStack replacedStack = replacedStack(type, matchingItems[0]);
+            if (ElemenixInfo.isCalculating(replacedStack.getItem())) {
+                IN_PROGRESS_SEEN.set(true);
+                return ItemStack.EMPTY;
+            }
+            return replacedStack;
         }
 
         ItemStack bestItemStack = ItemStack.EMPTY;
         long minSum = Long.MAX_VALUE;
-
         for (ItemStack matchingItem : matchingItems) {
             ItemStack replacedStack = replacedStack(type, matchingItem);
-
+            if (ElemenixInfo.isCalculating(replacedStack.getItem())) {
+                IN_PROGRESS_SEEN.set(true);
+                continue;
+            }
             if (ElemenixInfo.isUnanalysable(replacedStack)) {
                 continue;
             }
-
             long currentSum = getConstituentsSum(replacedStack);
             if (currentSum < minSum) {
                 minSum = currentSum;
                 bestItemStack = replacedStack;
             }
         }
-
         return bestItemStack;
     }
 
@@ -1211,6 +1299,8 @@ public class RecipeHelper {
         }
     }
 
+    private record RecipeEntry(RecipeHolder<?> holder, Recipe<?> recipe, ItemStack result) {}
+
     /**
      * Internal per-recipe analysis result: ingredients, output, flags and precomputed sums.
      */
@@ -1222,6 +1312,7 @@ public class RecipeHelper {
         public int resultAmount = 1;
         public int amount = 0;
         public boolean hasUnanalysable = false;
+        public boolean isTransient = false;
         public boolean isComplex = false;
         public boolean isBrewingStandRecipe = false;
         public ItemStack container = ItemStack.EMPTY;

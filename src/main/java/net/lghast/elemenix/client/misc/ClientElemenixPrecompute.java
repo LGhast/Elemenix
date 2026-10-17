@@ -41,17 +41,16 @@ public class ClientElemenixPrecompute {
         }
         EXECUTOR.execute(() -> {
             try {
-                warmUp(level);
+                warmUp();
             } finally {
                 WARM_UP_SCHEDULED.set(false);
             }
         });
     }
 
-    private static void warmUp(Level level) {
+    private static void warmUp() {
         try {
             ElemenixInfo.initialize();
-            RecipeHelper.precomputeRecipes(level);
         } catch (Throwable t) {
             LOGGER.error("Client-side elemenix precomputation failed", t);
         }

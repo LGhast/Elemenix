@@ -1,6 +1,6 @@
 {
   "mod_id": "sophisticatedcore",
-  "load_after": ["sophisticatedcore"],
+  "load_after": ["minecraft"],
   "recipes": [
     {
       "preset": "bucket_fluid",
