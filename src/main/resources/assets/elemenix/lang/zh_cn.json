@@ -39,6 +39,12 @@
   "advancements.elemenix.obtain_scanning_storage.description": "制作扫描式储存器，一键式解构容器中的物品",
   "advancements.elemenix.obtain_analysis_terminal.title": "善始善终",
   "advancements.elemenix.obtain_analysis_terminal.description": "制作一台元质解析终端",
+  "advancements.elemenix.mineralize.title": "返璞归真",
+  "advancements.elemenix.mineralize.description": "在地质模拟仪中完成一次成矿",
+  "advancements.elemenix.germinate.title": "原始汤",
+  "advancements.elemenix.germinate.description": "在蕃孕加速仪中完成一次蕃育",
+  "advancements.elemenix.imitforge.title": "以假乱真",
+  "advancements.elemenix.imitforge.description": "在激化锻冶仪中完成一次摹锻",
 
   "creativetab.elemenix.elemenix": "元质学",
 
@@ -245,6 +251,8 @@
   "stat.elemenix.ejector_interactions": "与元质射流塔互动次数",
   "stat.elemenix.scanner_scans": "元质扫描器扫描容器次数",
   "stat.elemenix.scanning_storage_scans": "扫描式储存器扫描容器次数",
+  "stat.elemenix.mineralizing_count": "成矿次数",
+  "stat.elemenix.imitforging_count": "摹锻次数",
 
   "command.elemenix.item.show.invalid": "无效的物品ID：%s",
   "command.elemenix.item.show.result": "%s：[%s]",

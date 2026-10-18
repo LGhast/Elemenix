@@ -1,7 +1,10 @@
-// 1.21.1	2026-10-18T15:16:25.5845325	Advancements
+// 1.21.1	2026-10-18T16:44:50.3275219	Advancements
 7724742343425fbcec62a73af143b0f5a1c56e55 data/elemenix/advancement/elemenics/close_throttle_valve.json
 54c0956b2363a41f801b7e649a074e5a9eea2c18 data/elemenix/advancement/elemenics/enrich_equilibrium.json
 5425a98304ed9b6f1f6d4775ea6804d771a7a9c3 data/elemenix/advancement/elemenics/enrich_essence.json
+cc6953efa4f56202536a616119a05fbbd5520d7e data/elemenix/advancement/elemenics/germinate.json
+b12886584fce3fa8d5691c6dde8afb71a9ff90e7 data/elemenix/advancement/elemenics/imitforge.json
+3bb019e116215372063733d02e73b075fab13a1c data/elemenix/advancement/elemenics/mineralize.json
 199d7853d7a10aaad505097e13e69b2e871011a4 data/elemenix/advancement/elemenics/obtain_all_transformers.json
 24e643cf482722b4dca936a0267c85c9f6c7cf1e data/elemenix/advancement/elemenics/obtain_analysis_terminal.json
 3c599fcbdf6e12071706b363bef6c0a1c901d402 data/elemenix/advancement/elemenics/obtain_burner.json

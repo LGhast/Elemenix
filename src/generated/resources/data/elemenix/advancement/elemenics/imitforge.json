@@ -1,0 +1,26 @@
+{
+  "parent": "elemenix:elemenics/obtain_transformer",
+  "criteria": {
+    "imitforge": {
+      "trigger": "elemenix:imitforge"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.elemenix.imitforge.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "elemenix:metallurgical_activator"
+    },
+    "title": {
+      "translate": "advancements.elemenix.imitforge.title"
+    }
+  },
+  "requirements": [
+    [
+      "imitforge"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

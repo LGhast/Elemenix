@@ -5,16 +5,21 @@ import net.lghast.elemenix.common.content.block.GerminalAcceleratorBlock;
 import net.lghast.elemenix.common.content.block.MetallurgicalActivatorBlock;
 import net.lghast.elemenix.common.content.block.TransformerBlock;
 import net.lghast.elemenix.common.content.blockentity.TransformerBlockEntity;
+import net.lghast.elemenix.common.system.advancement.GerminateTrigger;
+import net.lghast.elemenix.common.system.advancement.ImitforgeTrigger;
+import net.lghast.elemenix.common.system.advancement.MineralizeTrigger;
 import net.lghast.elemenix.common.system.recipe.GerminatingRecipe;
 import net.lghast.elemenix.common.system.recipe.MineralizingRecipe;
 import net.lghast.elemenix.register.system.ModMenus;
 import net.lghast.elemenix.register.system.ModRecipes;
+import net.lghast.elemenix.register.system.ModStats;
 import net.lghast.elemenix.register.system.ModTags;
 import net.lghast.elemenix.utils.Constituents;
 import net.lghast.elemenix.utils.imitforge.Imitforging;
 import net.lghast.elemenix.utils.elemenix.ElemenixInfo;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.Container;
@@ -44,7 +49,7 @@ public class TransformerMenu extends AbstractContainerMenu {
 
     public static final int MINERAL_SLOT = 3;
     public static final int MEDIUM_SLOT = 4;
-    public static final int ORE_SLOT = 5;
+    public static final int SPECIAL_OUTPUT_SLOT = 5;
 
     public static final int GENE_TEMPLATE_SLOT = 3;
     public static final int GERMINATING_PRODUCT_SLOT_FIRST = 4;
@@ -328,7 +333,7 @@ public class TransformerMenu extends AbstractContainerMenu {
             if (isImitforgingPage()) {
                 return quickMoveFroImitforging(player, index);
             }
-            if (index == ORE_SLOT) {
+            if (index == SPECIAL_OUTPUT_SLOT) {
                 return quickMoveForMineralizing(player);
             }
         }
@@ -342,7 +347,7 @@ public class TransformerMenu extends AbstractContainerMenu {
 
             boolean moved = false;
 
-            if (index < 3 || (getMode() == TransformerBlockEntity.MODE_SPECIAL && index <= ORE_SLOT)) {
+            if (index < 3 || (getMode() == TransformerBlockEntity.MODE_SPECIAL && index <= SPECIAL_OUTPUT_SLOT)) {
                 moved = this.moveItemStackTo(slotStack, playerInvStart, playerInvStart + 36, true);
             } else {
                 if (getMode() == TransformerBlockEntity.MODE_SPECIAL) {
@@ -527,6 +532,10 @@ public class TransformerMenu extends AbstractContainerMenu {
                 if (recipe != null) {
                     consumeMineralizingCraft(recipe, player);
                 }
+                player.awardStat(ModStats.MINERALIZING_COUNT.get());
+                if (player instanceof ServerPlayer serverPlayer) {
+                    MineralizeTrigger.TRIGGER.get().trigger(serverPlayer);
+                }
                 refreshResultSlot();
                 broadcastChanges();
                 super.onTake(player, stack);
@@ -536,7 +545,7 @@ public class TransformerMenu extends AbstractContainerMenu {
 
     private ItemStack quickMoveForMineralizing(Player player) {
         MineralizingRecipe recipe = getCurrentMineralizingRecipe();
-        Slot result = this.slots.get(ORE_SLOT);
+        Slot result = this.slots.get(SPECIAL_OUTPUT_SLOT);
         if (recipe == null || !result.hasItem() || !result.mayPickup(player)) return ItemStack.EMPTY;
 
         ItemStack crafted = result.getItem().copy();
@@ -548,6 +557,12 @@ public class TransformerMenu extends AbstractContainerMenu {
 
         result.set(ItemStack.EMPTY);
         consumeMineralizingCraft(recipe, player);
+        player.awardStat(ModStats.MINERALIZING_COUNT.get());
+
+        if (player instanceof ServerPlayer serverPlayer) {
+            MineralizeTrigger.TRIGGER.get().trigger(serverPlayer);
+        }
+
         refreshResultSlot();
         broadcastChanges();
         return crafted;
@@ -624,6 +639,14 @@ public class TransformerMenu extends AbstractContainerMenu {
                 public boolean mayPlace(ItemStack stack) {
                     return false;
                 }
+
+                @Override
+                public void onTake(Player player, ItemStack stack) {
+                    if (player instanceof ServerPlayer serverPlayer) {
+                        GerminateTrigger.TRIGGER.get().trigger(serverPlayer);
+                    }
+                    super.onTake(player, stack);
+                }
             });
         }
     }
@@ -639,6 +662,9 @@ public class TransformerMenu extends AbstractContainerMenu {
             boolean moved;
             if (index >= GENE_TEMPLATE_SLOT && index < playerInvStart) {
                 moved = this.moveItemStackTo(slotStack, playerInvStart, playerInvStart + 36, true);
+                if (moved && slotStack.isEmpty() && index > GENE_TEMPLATE_SLOT && player instanceof ServerPlayer serverPlayer) {
+                    GerminateTrigger.TRIGGER.get().trigger(serverPlayer);
+                }
             } else {
                 Slot template = this.slots.get(GENE_TEMPLATE_SLOT);
                 if (template.mayPlace(slotStack) && !template.hasItem()) {
@@ -826,7 +852,14 @@ public class TransformerMenu extends AbstractContainerMenu {
 
             @Override
             public void onTake(Player player, ItemStack stack) {
+                boolean removal = TransformerMenu.this.isImitforgingRemoval();
                 TransformerMenu.this.consumeImitforging(player);
+                if (!removal) {
+                    player.awardStat(ModStats.IMITFORGING_COUNT.get());
+                    if (player instanceof ServerPlayer serverPlayer) {
+                        ImitforgeTrigger.TRIGGER.get().trigger(serverPlayer);
+                    }
+                }
                 refreshResultSlot();
                 broadcastChanges();
                 super.onTake(player, stack);
@@ -843,32 +876,52 @@ public class TransformerMenu extends AbstractContainerMenu {
 
         ItemStack slotStack = slot.getItem();
         originalStack = slotStack.copy();
-        if (index == ORE_SLOT) {
+        if (index == SPECIAL_OUTPUT_SLOT) {
             if (!slot.mayPickup(player)) return ItemStack.EMPTY;
+
             ItemStack crafted = slot.getItem().copy();
             if (crafted.getCount() != 1) return ItemStack.EMPTY;
+
             ItemStack toMove = crafted.copy();
             if (!this.moveItemStackTo(toMove, playerInvStart, playerInvStart + 36, false)) return ItemStack.EMPTY;
             if (!toMove.isEmpty()) return ItemStack.EMPTY;
+
+            boolean removal = isImitforgingRemoval();
             slot.set(ItemStack.EMPTY);
             consumeImitforging(player);
+
+            if (!removal) {
+                player.awardStat(ModStats.IMITFORGING_COUNT.get());
+                if (player instanceof ServerPlayer serverPlayer) {
+                    ImitforgeTrigger.TRIGGER.get().trigger(serverPlayer);
+                }
+            }
+
             refreshResultSlot();
             broadcastChanges();
             return crafted;
         }
 
         boolean moved = false;
-        if (index >= IMITFORGING_TARGET_SLOT && index <= ORE_SLOT) {
+        if (index >= IMITFORGING_TARGET_SLOT && index <= SPECIAL_OUTPUT_SLOT) {
             moved = this.moveItemStackTo(slotStack, playerInvStart, playerInvStart + 36, true);
         } else {
             Slot targetSlot = this.slots.get(IMITFORGING_TARGET_SLOT);
             if (targetSlot.mayPlace(slotStack) && !targetSlot.hasItem()) {
-                moved = this.moveItemStackTo(slotStack, IMITFORGING_TARGET_SLOT, IMITFORGING_TARGET_SLOT + 1, false);
+                moved = this.moveItemStackTo(slotStack,
+                        IMITFORGING_TARGET_SLOT,
+                        IMITFORGING_TARGET_SLOT + 1,
+                        false
+                );
             }
             if (!moved) {
                 Slot appearanceSlot = this.slots.get(IMITFORGING_APPEARANCE_SLOT);
                 if (appearanceSlot.mayPlace(slotStack) && !appearanceSlot.hasItem()) {
-                    moved = this.moveItemStackTo(slotStack, IMITFORGING_APPEARANCE_SLOT, IMITFORGING_APPEARANCE_SLOT + 1, false);
+                    moved = this.moveItemStackTo(slotStack,
+                            IMITFORGING_APPEARANCE_SLOT,
+                            IMITFORGING_APPEARANCE_SLOT + 1,
+                            false
+                    );
                 }
             }
             if (!moved) {

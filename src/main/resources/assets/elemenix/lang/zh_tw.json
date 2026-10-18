@@ -39,6 +39,12 @@
   "advancements.elemenix.obtain_scanning_storage.description": "製作掃描式儲存器，一鍵式解構容器中的物品",
   "advancements.elemenix.obtain_analysis_terminal.title": "善始善終",
   "advancements.elemenix.obtain_analysis_terminal.description": "製作一台元質解析終端",
+  "advancements.elemenix.mineralize.title": "返璞歸真",
+  "advancements.elemenix.mineralize.description": "在地質模擬儀中完成一次成礦",
+  "advancements.elemenix.germinate.title": "原始湯",
+  "advancements.elemenix.germinate.description": "在蕃孕加速儀中完成一次蕃育",
+  "advancements.elemenix.imitforge.title": "以假亂真",
+  "advancements.elemenix.imitforge.description": "在激化鍛冶儀中完成一次摹鍛",
 
   "creativetab.elemenix.elemenix": "元質學",
 
@@ -245,6 +251,8 @@
   "stat.elemenix.ejector_interactions": "使用元質射流塔次數",
   "stat.elemenix.scanner_scans": "元質掃描器掃描容器次數",
   "stat.elemenix.scanning_storage_scans": "掃描式儲存器掃描容器次數",
+  "stat.elemenix.mineralizing_count": "成礦次數",
+  "stat.elemenix.imitforging_count": "摹鍛次數",
 
   "command.elemenix.item.show.invalid": "無效的物品ID：%s",
   "command.elemenix.item.show.result": "%s：[%s]",

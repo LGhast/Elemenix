@@ -87,6 +87,12 @@ public class ModStats {
     public static final DeferredHolder<ResourceLocation, ResourceLocation> SCANNING_STORAGE_SCANS =
             makeStat("scanning_storage_scans");
 
+    public static final DeferredHolder<ResourceLocation, ResourceLocation> MINERALIZING_COUNT =
+            makeStat("mineralizing_count");
+
+    public static final DeferredHolder<ResourceLocation, ResourceLocation> IMITFORGING_COUNT =
+            makeStat("imitforging_count");
+
     private static DeferredHolder<ResourceLocation, ResourceLocation> makeStat(String key) {
         ResourceLocation resourceLocation = ResourceLocation.fromNamespaceAndPath(Elemenics.MOD_ID, key);
         STAT_SETUP.add(() -> Stats.CUSTOM.get(resourceLocation, StatFormatter.DEFAULT));

@@ -15,8 +15,8 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.Optional;
 
+@SuppressWarnings("OptionalUsedAsFieldOrParameterType")
 public class ValveTrigger extends SimpleCriterionTrigger<ValveTrigger.Instance> {
-
     public static class Instance implements SimpleCriterionTrigger.SimpleInstance {
         private final Optional<ContextAwarePredicate> playerPredicate;
         private final Optional<Integer> openness; 
@@ -49,7 +49,7 @@ public class ValveTrigger extends SimpleCriterionTrigger<ValveTrigger.Instance> 
     }
 
     @Override
-    public Codec<Instance> codec() {
+    public @NotNull Codec<Instance> codec() {
         return Instance.CODEC;
     }
     

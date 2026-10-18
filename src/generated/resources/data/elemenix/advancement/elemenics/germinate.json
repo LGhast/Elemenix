@@ -1,0 +1,26 @@
+{
+  "parent": "elemenix:elemenics/obtain_transformer",
+  "criteria": {
+    "germinate": {
+      "trigger": "elemenix:germinate"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.elemenix.germinate.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "elemenix:germinal_accelerator"
+    },
+    "title": {
+      "translate": "advancements.elemenix.germinate.title"
+    }
+  },
+  "requirements": [
+    [
+      "germinate"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

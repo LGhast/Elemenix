@@ -1,9 +1,6 @@
 package net.lghast.elemenix.datagen;
 
-import net.lghast.elemenix.common.system.advancement.ScanTrigger;
-import net.lghast.elemenix.common.system.advancement.ValveTrigger;
-import net.lghast.elemenix.common.system.advancement.WaxOffTrigger;
-import net.lghast.elemenix.common.system.advancement.WaxOnTrigger;
+import net.lghast.elemenix.common.system.advancement.*;
 import net.lghast.elemenix.register.content.ModBlocks;
 import net.lghast.elemenix.register.content.ModItems;
 import net.lghast.elemenix.register.system.ModTags;
@@ -378,6 +375,51 @@ public class ModAdvancementProvider extends AdvancementProvider {
                             ItemPredicate.Builder.item().of(ModItems.ANALYSIS_TERMINAL.get()).build()
                     ))
                     .save(saver, ResourceLocation.parse("elemenix:elemenics/obtain_analysis_terminal"), existingFileHelper);
+
+            AdvancementHolder mineralize = Advancement.Builder.advancement()
+                    .parent(obtainTransformer)
+                    .display(
+                            ModBlocks.GEOLOGICAL_SIMULATOR,
+                            Component.translatable("advancements.elemenix.mineralize.title"),
+                            Component.translatable("advancements.elemenix.mineralize.description"),
+                            null,
+                            AdvancementType.TASK,
+                            true,
+                            true,
+                            false
+                    )
+                    .addCriterion("mineralize", MineralizeTrigger.mineralize())
+                    .save(saver, ResourceLocation.parse("elemenix:elemenics/mineralize"), existingFileHelper);
+
+            AdvancementHolder germinate = Advancement.Builder.advancement()
+                    .parent(obtainTransformer)
+                    .display(
+                            ModBlocks.GERMINAL_ACCELERATOR,
+                            Component.translatable("advancements.elemenix.germinate.title"),
+                            Component.translatable("advancements.elemenix.germinate.description"),
+                            null,
+                            AdvancementType.TASK,
+                            true,
+                            true,
+                            false
+                    )
+                    .addCriterion("germinate", GerminateTrigger.germinate())
+                    .save(saver, ResourceLocation.parse("elemenix:elemenics/germinate"), existingFileHelper);
+
+            AdvancementHolder imitforge = Advancement.Builder.advancement()
+                    .parent(obtainTransformer)
+                    .display(
+                            ModBlocks.METALLURGICAL_ACTIVATOR,
+                            Component.translatable("advancements.elemenix.imitforge.title"),
+                            Component.translatable("advancements.elemenix.imitforge.description"),
+                            null,
+                            AdvancementType.TASK,
+                            true,
+                            true,
+                            false
+                    )
+                    .addCriterion("imitforge", ImitforgeTrigger.imitforge())
+                    .save(saver, ResourceLocation.parse("elemenix:elemenics/imitforge"), existingFileHelper);
         }
     }
 }

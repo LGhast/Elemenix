@@ -15,8 +15,8 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.Optional;
 
+@SuppressWarnings("OptionalUsedAsFieldOrParameterType")
 public class ScanTrigger extends SimpleCriterionTrigger<ScanTrigger.Instance> {
-
     public static class Instance implements SimpleInstance {
         private final Optional<ContextAwarePredicate> playerPredicate;
 

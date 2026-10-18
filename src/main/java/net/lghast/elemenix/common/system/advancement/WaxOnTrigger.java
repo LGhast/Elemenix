@@ -15,8 +15,8 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.Optional;
 
+@SuppressWarnings("OptionalUsedAsFieldOrParameterType")
 public class WaxOnTrigger extends SimpleCriterionTrigger<WaxOnTrigger.Instance> {
-
     public static class Instance implements SimpleCriterionTrigger.SimpleInstance {
         private final Optional<ContextAwarePredicate> playerPredicate;
 

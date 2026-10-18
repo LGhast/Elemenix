@@ -1,0 +1,26 @@
+{
+  "parent": "elemenix:elemenics/obtain_transformer",
+  "criteria": {
+    "mineralize": {
+      "trigger": "elemenix:mineralize"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.elemenix.mineralize.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "elemenix:geological_simulator"
+    },
+    "title": {
+      "translate": "advancements.elemenix.mineralize.title"
+    }
+  },
+  "requirements": [
+    [
+      "mineralize"
+    ]
+  ],
+  "sends_telemetry_event": true
+}
