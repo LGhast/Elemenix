@@ -29,6 +29,16 @@ public class ModRecipeProvider extends RecipeProvider {
                 .unlockedBy("has_diamond", has(Items.DIAMOND))
                 .save(recipeOutput);
 
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ModItems.TRANSFORMING_CHIP.get(), 1)
+                .pattern("AR ")
+                .pattern("RN ")
+                .pattern("   ")
+                .define('A', ModItems.ANALYZING_CHIP)
+                .define('N', Items.NETHERITE_SCRAP)
+                .define('R', Items.REDSTONE)
+                .unlockedBy("has_analyzing_chip", has(ModItems.ANALYZING_CHIP))
+                .save(recipeOutput);
+
         ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ModItems.ELEMENIC_ANALYZER.get(), 1)
                 .pattern("ABC")
                 .pattern(" D ")
@@ -220,12 +230,12 @@ public class ModRecipeProvider extends RecipeProvider {
                 .save(recipeOutput, "elemenic_analyzer_from_equilibrium");
 
         ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ModBlocks.GEOLOGICAL_SIMULATOR.get(), 1)
-                .pattern("IRI")
+                .pattern(" G ")
                 .pattern("ABC")
-                .pattern("INI")
+                .pattern("ITI")
                 .define('I', Items.IRON_INGOT)
-                .define('R', Items.REDSTONE)
-                .define('N', Items.NETHERITE_SCRAP)
+                .define('G', Items.GLASS)
+                .define('T', ModItems.TRANSFORMING_CHIP)
                 .define('A', ModItems.METALLIX_ESSENCE)
                 .define('B', ModItems.TERRIX_ESSENCE)
                 .define('C', ModItems.FLUMIX_ESSENCE)
@@ -233,12 +243,12 @@ public class ModRecipeProvider extends RecipeProvider {
                 .save(recipeOutput);
 
         ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ModBlocks.METALLURGICAL_ACTIVATOR.get(), 1)
-                .pattern("IRI")
+                .pattern(" G ")
                 .pattern("ABC")
-                .pattern("INI")
+                .pattern("ITI")
                 .define('I', Items.IRON_INGOT)
-                .define('R', Items.REDSTONE)
-                .define('N', Items.NETHERITE_SCRAP)
+                .define('G', Items.GLASS)
+                .define('T', ModItems.TRANSFORMING_CHIP)
                 .define('A', ModItems.TERRIX_ESSENCE)
                 .define('B', ModItems.METALLIX_ESSENCE)
                 .define('C', ModItems.ENERGIX_ESSENCE)
@@ -246,12 +256,12 @@ public class ModRecipeProvider extends RecipeProvider {
                 .save(recipeOutput);
 
         ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ModBlocks.GERMINAL_ACCELERATOR.get(), 1)
-                .pattern("IRI")
+                .pattern(" G ")
                 .pattern("ABC")
-                .pattern("INI")
+                .pattern("ITI")
                 .define('I', Items.IRON_INGOT)
-                .define('R', Items.REDSTONE)
-                .define('N', Items.NETHERITE_SCRAP)
+                .define('G', Items.GLASS)
+                .define('T', ModItems.TRANSFORMING_CHIP)
                 .define('A', ModItems.TERRIX_ESSENCE)
                 .define('B', ModItems.ORGANIX_ESSENCE)
                 .define('C', ModItems.FLUMIX_ESSENCE)
@@ -259,12 +269,12 @@ public class ModRecipeProvider extends RecipeProvider {
                 .save(recipeOutput);
 
         ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ModBlocks.TRANSPIRING_INCINERATOR.get(), 1)
-                .pattern("IRI")
+                .pattern(" G ")
                 .pattern("ABC")
-                .pattern("INI")
+                .pattern("ITI")
                 .define('I', Items.IRON_INGOT)
-                .define('R', Items.REDSTONE)
-                .define('N', Items.NETHERITE_SCRAP)
+                .define('G', Items.GLASS)
+                .define('T', ModItems.TRANSFORMING_CHIP)
                 .define('A', ModItems.ORGANIX_ESSENCE)
                 .define('B', ModItems.FLUMIX_ESSENCE)
                 .define('C', ModItems.ENERGIX_ESSENCE)
@@ -272,12 +282,12 @@ public class ModRecipeProvider extends RecipeProvider {
                 .save(recipeOutput);
 
         ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ModBlocks.OPTICAL_CAPTURER.get(), 1)
-                .pattern("IRI")
+                .pattern(" D ")
                 .pattern("ABC")
-                .pattern("INI")
+                .pattern("ITI")
                 .define('I', Items.IRON_INGOT)
-                .define('R', Items.DAYLIGHT_DETECTOR)
-                .define('N', Items.NETHERITE_SCRAP)
+                .define('D', Items.DAYLIGHT_DETECTOR)
+                .define('T', ModItems.TRANSFORMING_CHIP)
                 .define('A', ModItems.ORGANIX_ESSENCE)
                 .define('B', ModItems.ENERGIX_ESSENCE)
                 .define('C', ModItems.FLUMIX_ESSENCE)

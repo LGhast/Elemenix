@@ -21,7 +21,6 @@ public class ModCreativeTabs {
             ()-> CreativeModeTab.builder().icon(()->new ItemStack(ModItems.ELEMENIC_ANALYZER.get()))
                     .title(Component.translatable("creativetab.elemenix.elemenix"))
                     .displayItems((itemDisplayParameters,output)->{
-                        output.accept(ModItems.ANALYZING_CHIP);
                         output.accept(ModItems.ELEMENIC_ANALYZER);
                         output.accept(ModItems.ELEMENIC_MEMORIZER);
                         output.accept(ModItems.FONDANT_CAKE);
@@ -34,6 +33,8 @@ public class ModCreativeTabs {
                         output.accept(ModItems.ANALYSIS_TERMINAL);
                         output.accept(ModItems.THROTTLE_VALVE);
                         output.accept(ModItems.FLOW_STRAIGHTENER);
+                        output.accept(ModItems.ANALYZING_CHIP);
+                        output.accept(ModItems.TRANSFORMING_CHIP);
                         output.accept(ModItems.ORGANIX_ESSENCE);
                         output.accept(ModItems.TERRIX_ESSENCE);
                         output.accept(ModItems.FLUMIX_ESSENCE);

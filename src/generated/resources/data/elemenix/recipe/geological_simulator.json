@@ -11,20 +11,20 @@
     "C": {
       "item": "elemenix:flumix_essence"
     },
+    "G": {
+      "item": "minecraft:glass"
+    },
     "I": {
       "item": "minecraft:iron_ingot"
     },
-    "N": {
-      "item": "minecraft:netherite_scrap"
-    },
-    "R": {
-      "item": "minecraft:redstone"
+    "T": {
+      "item": "elemenix:transforming_chip"
     }
   },
   "pattern": [
-    "IRI",
+    " G ",
     "ABC",
-    "INI"
+    "ITI"
   ],
   "result": {
     "count": 1,

@@ -11,20 +11,20 @@
     "C": {
       "item": "elemenix:flumix_essence"
     },
+    "D": {
+      "item": "minecraft:daylight_detector"
+    },
     "I": {
       "item": "minecraft:iron_ingot"
     },
-    "N": {
-      "item": "minecraft:netherite_scrap"
-    },
-    "R": {
-      "item": "minecraft:daylight_detector"
+    "T": {
+      "item": "elemenix:transforming_chip"
     }
   },
   "pattern": [
-    "IRI",
+    " D ",
     "ABC",
-    "INI"
+    "ITI"
   ],
   "result": {
     "count": 1,

@@ -7,7 +7,6 @@ import net.neoforged.neoforge.client.model.generators.ItemModelProvider;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
 
 public class ModItemModelProvider extends ItemModelProvider {
-
     public ModItemModelProvider(PackOutput output, ExistingFileHelper existingFileHelper) {
         super(output, Elemenics.MOD_ID, existingFileHelper);
     }
@@ -36,6 +35,7 @@ public class ModItemModelProvider extends ItemModelProvider {
         basicItem(ModItems.MEMORY_BURNER.get());
         basicItem(ModItems.ELEMENIC_SCANNER.get());
         basicItem(ModItems.ANALYZING_CHIP.get());
+        basicItem(ModItems.TRANSFORMING_CHIP.get());
         basicItem(ModItems.NULLVOID.get());
         basicItem(ModItems.ELEMENIC_CHAOS.get());
         basicItem(ModItems.ANALYSIS_TERMINAL.get());

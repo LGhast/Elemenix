@@ -105,7 +105,7 @@ public class ModAdvancementProvider extends AdvancementProvider {
             AdvancementHolder obtainTransformer = Advancement.Builder.advancement()
                     .parent(enrichEssence)
                     .display(
-                            ModBlocks.GEOLOGICAL_SIMULATOR,
+                            ModItems.TRANSFORMING_CHIP,
                             Component.translatable("advancements.elemenix.obtain_transformer.title"),
                             Component.translatable("advancements.elemenix.obtain_transformer.description"),
                             null,
@@ -122,7 +122,7 @@ public class ModAdvancementProvider extends AdvancementProvider {
             AdvancementHolder obtainAllTransformers = Advancement.Builder.advancement()
                     .parent(obtainTransformer)
                     .display(
-                            ModBlocks.GERMINAL_ACCELERATOR,
+                            ModItems.TRANSFORMING_CHIP,
                             Component.translatable("advancements.elemenix.obtain_all_transformers.title"),
                             Component.translatable("advancements.elemenix.obtain_all_transformers.description"),
                             null,

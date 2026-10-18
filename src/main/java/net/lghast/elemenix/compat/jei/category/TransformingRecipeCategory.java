@@ -9,7 +9,7 @@ import mezz.jei.api.recipe.RecipeIngredientRole;
 import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.category.IRecipeCategory;
 import net.lghast.elemenix.compat.jei.recipe.TransformingRecipe;
-import net.lghast.elemenix.register.content.ModBlocks;
+import net.lghast.elemenix.register.content.ModItems;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
@@ -52,7 +52,7 @@ public class TransformingRecipeCategory implements IRecipeCategory<TransformingR
                 .setTextureSize(WIDTH, HEIGHT)
                 .build();
 
-        this.icon = guiHelper.createDrawableItemStack(new ItemStack(ModBlocks.GEOLOGICAL_SIMULATOR.get()));
+        this.icon = guiHelper.createDrawableItemStack(new ItemStack(ModItems.TRANSFORMING_CHIP.get()));
         this.localizedName = Component.translatable("jei.category.elemenix.transforming");
     }
 
