@@ -3,6 +3,7 @@ package net.lghast.elemenix.register.system;
 import com.mojang.serialization.Codec;
 import net.lghast.elemenix.Elemenics;
 import net.lghast.elemenix.common.system.datacomponent.*;
+import net.lghast.elemenix.utils.imitforge.ImitforgedAppearance;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.RegistryFriendlyByteBuf;
@@ -121,6 +122,18 @@ public class ModDataComponents {
             REGISTRAR.registerComponentType("remote_storage_binding", builder ->
                     builder.persistent(REMOTE_STORAGE_BINDING_CODEC)
                             .networkSynchronized(REMOTE_STORAGE_BINDING_STREAM_CODEC)
+            );
+
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<ResourceLocation>> IMITFORGED_ORIGIN =
+            REGISTRAR.registerComponentType("imitforged_origin", builder ->
+                    builder.persistent(ResourceLocation.CODEC)
+                            .networkSynchronized(ResourceLocation.STREAM_CODEC)
+            );
+
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<ImitforgedAppearance>> IMITFORGED_APPEARANCE =
+            REGISTRAR.registerComponentType("imitforged_appearance", builder ->
+                    builder.persistent(ImitforgedAppearance.CODEC)
+                            .networkSynchronized(ImitforgedAppearance.STREAM_CODEC)
             );
 
     public static void register(IEventBus eventBus) {

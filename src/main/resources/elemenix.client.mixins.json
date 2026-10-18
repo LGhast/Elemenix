@@ -2,11 +2,10 @@
   "required": true,
   "package": "net.lghast.elemenix.mixin",
   "compatibilityLevel": "JAVA_21",
-  "mixins": [],
+  "client": [
+    "ItemRendererMixin"
+  ],
   "injectors": {
     "defaultRequire": 1
-  },
-  "overwrites": {
-    "requireAnnotations": true
   }
 }

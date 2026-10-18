@@ -1,6 +1,7 @@
 package net.lghast.elemenix.client.screen;
 
 import net.lghast.elemenix.common.content.block.GerminalAcceleratorBlock;
+import net.lghast.elemenix.common.content.block.MetallurgicalActivatorBlock;
 import net.lghast.elemenix.common.content.block.TransformerBlock;
 import net.lghast.elemenix.common.content.blockentity.TransformerBlockEntity;
 import net.lghast.elemenix.common.system.menu.TransformerMenu;
@@ -32,13 +33,18 @@ public class TransformerScreen extends AbstractContainerScreen<TransformerMenu> 
     private static final int GUI_HEIGHT = 170;
     private static final int TITLE_X = 6;
     private static final int TITLE_Y = 6;
+    private static final int INVENTORY_LABEL_Y_SPECIAL = GUI_HEIGHT - 96 + 2;
 
-    private static final int FLUMIX_VALUE_X = 62;
-    private static final int FLUMIX_VALUE_Y = 21;
+    private static final int TOGGLE_X = 156;
+    private static final int TOGGLE_TRANSFORM_Y = 62;
+    private static final int TOGGLE_ENRICH_Y = 74;
+
+    private static final int ELEMENIX_VALUE_X = 62;
+    private static final int ELEMENIX_VALUE_Y = 21;
 
     private static final int MINERAL_LABEL_X = 26;
     private static final int MEDIUM_LABEL_X = 134;
-    private static final int SLOT_LABEL_Y = 36;
+    private static final int MINERALIZING_LABEL_Y = 36;
 
     private static final int TEMPLATE_LABEL_X = 54;
     private static final int TEMPLATE_LABEL_Y = 19;
@@ -51,11 +57,10 @@ public class TransformerScreen extends AbstractContainerScreen<TransformerMenu> 
     private static final int PROGRESS_X2 = 155;
     private static final int PROGRESS_Y = 56;
 
-    private static final int TOGGLE_X = 156;
-    private static final int TOGGLE_TRANSFORM_Y = 62;
-    private static final int TOGGLE_ENRICH_Y = 74;
+    private static final int IMITFORGING_ERROR_Y = 34;
+    private static final int IMITFORGING_ERROR_MAX_WIDTH = GUI_WIDTH - 16;
 
-    private static final ResourceLocation MINERALIZING_TEXTURE =
+    private static final ResourceLocation DEFAULT_SECOND_TEXTURE =
             ResourceLocation.fromNamespaceAndPath("elemenix", "textures/gui/geological_simulator_mineralizing.png");
 
     private final ResourceLocation guiTexture;
@@ -84,11 +89,13 @@ public class TransformerScreen extends AbstractContainerScreen<TransformerMenu> 
             });
             this.addRenderableWidget(modeButton);
         }
+
         transformCheckbox = new SmallCheckbox(leftPos + TOGGLE_X, topPos + TOGGLE_TRANSFORM_Y,
                 Component.empty(), this.font, menu.isTransformEnabled(),
                 (checkbox, selected) -> PacketDistributor.sendToServer(
                         new TransformerTogglePayload(TransformerTogglePayload.OPTION_TRANSFORM)));
         this.addRenderableWidget(transformCheckbox);
+
         enrichCheckbox = new SmallCheckbox(leftPos + TOGGLE_X, topPos + TOGGLE_ENRICH_Y,
                 Component.empty(), this.font, menu.isEnrichEnabled(),
                 (checkbox, selected) -> PacketDistributor.sendToServer(
@@ -110,15 +117,18 @@ public class TransformerScreen extends AbstractContainerScreen<TransformerMenu> 
         int x = (this.width - this.imageWidth) / 2;
         int y = (this.height - this.imageHeight) / 2;
 
-        if (menu.getMode() == TransformerBlockEntity.MODE_MINERALIZING) {
+        if (menu.getMode() == TransformerBlockEntity.MODE_SPECIAL) {
             TransformerBlock block = menu.getBlockEntity().getTransformerBlock();
             ResourceLocation secondTexture = block != null ? block.getSecondaryGuiTexture() : null;
-            if (secondTexture == null) secondTexture = MINERALIZING_TEXTURE;
+            if (secondTexture == null) secondTexture = DEFAULT_SECOND_TEXTURE;
 
             graphics.blit(secondTexture, x, y, 0, 0, this.imageWidth, this.imageHeight, this.imageWidth, this.imageHeight);
 
             if (block instanceof GerminalAcceleratorBlock) {
                 renderGerminatingPage(graphics, x, y);
+            } else if (block instanceof MetallurgicalActivatorBlock) {
+                renderImitforgingEnergix(graphics, x, y);
+                renderImitforgingError(graphics, x, y);
             } else {
                 renderFlumix(graphics, x, y);
                 renderMineralizingLabels(graphics, x, y);
@@ -151,6 +161,11 @@ public class TransformerScreen extends AbstractContainerScreen<TransformerMenu> 
         int titleWidth = this.font.width(this.title);
         int centeredX = (this.imageWidth - titleWidth) / 2;
         graphics.drawString(this.font, this.title, centeredX, TITLE_Y, 0x404040, false);
+        if (menu.getMode() == TransformerBlockEntity.MODE_SPECIAL
+                && (menu.isMineralizingPage() || menu.isImitforgingPage())) {
+            graphics.drawString(this.font, this.playerInventoryTitle, this.inventoryLabelX,
+                    INVENTORY_LABEL_Y_SPECIAL, 0x404040, false);
+        }
     }
 
     private void renderGerminatingPage(GuiGraphics graphics, int x, int y) {
@@ -164,7 +179,7 @@ public class TransformerScreen extends AbstractContainerScreen<TransformerMenu> 
 
         int organixColor = Elemenix.ORGANIX.getColor();
         graphics.fill(x + PROGRESS_X1, y + PROGRESS_Y, x + PROGRESS_X2, y + PROGRESS_Y + 3,
-                darkenColor(organixColor, 0.35F));
+                darkenColor(organixColor));
         int progress = menu.getGerminatingProgress();
         if (progress > 0) {
             int interval = getGerminationInterval();
@@ -196,9 +211,9 @@ public class TransformerScreen extends AbstractContainerScreen<TransformerMenu> 
 
     private void renderFlumix(GuiGraphics graphics, int x, int y) {
         String valueText = ModUtils.formatNumber(menu.getInputB());
-        graphics.drawString(this.font, valueText, x + FLUMIX_VALUE_X, y + FLUMIX_VALUE_Y,
+        graphics.drawString(this.font, valueText, x + ELEMENIX_VALUE_X, y + ELEMENIX_VALUE_Y,
                 Elemenix.FLUMIX.getColor(), false);
-        MineralizingRecipe recipe = menu.getCurrentRecipe();
+        MineralizingRecipe recipe = menu.getCurrentMineralizingRecipe();
         if (recipe == null) return;
         ItemStack mineral = menu.getBlockEntity().getItem(TransformerMenu.MINERAL_SLOT);
         ItemStack medium = menu.getBlockEntity().getItem(TransformerMenu.MEDIUM_SLOT);
@@ -209,18 +224,56 @@ public class TransformerScreen extends AbstractContainerScreen<TransformerMenu> 
         if (totalCost > 0) {
             String previewText = ModUtils.formatNumber(totalCost, "-%s");
             graphics.drawString(this.font, previewText,
-                    x + FLUMIX_VALUE_X + this.font.width(valueText) + 4,
-                    y + FLUMIX_VALUE_Y, 0xFF3333, false);
+                    x + ELEMENIX_VALUE_X + this.font.width(valueText) + 4,
+                    y + ELEMENIX_VALUE_Y, 0xFF3333, false);
         }
     }
 
     private void renderMineralizingLabels(GuiGraphics graphics, int x, int y) {
         drawCenteredLabel(graphics,
                 Component.translatable("gui.elemenix.mineralizing.mineral"),
-                x + MINERAL_LABEL_X + 8, y + SLOT_LABEL_Y);
+                x + MINERAL_LABEL_X + 8, y + MINERALIZING_LABEL_Y);
         drawCenteredLabel(graphics,
                 Component.translatable("gui.elemenix.mineralizing.medium"),
-                x + MEDIUM_LABEL_X + 8, y + SLOT_LABEL_Y);
+                x + MEDIUM_LABEL_X + 8, y + MINERALIZING_LABEL_Y);
+    }
+
+    private void renderImitforgingEnergix(GuiGraphics graphics, int x, int y) {
+        String valueText = ModUtils.formatNumber(menu.getInputB());
+        graphics.drawString(this.font, valueText, x + ELEMENIX_VALUE_X, y + ELEMENIX_VALUE_Y,
+                Elemenix.ENERGIX.getColor(), false);
+
+        int cost = menu.getImitforgingCost();
+        if (cost <= 0) return;
+        String previewText = ModUtils.formatNumber(cost, "-%s");
+        graphics.drawString(this.font, previewText,
+                x + ELEMENIX_VALUE_X + this.font.width(valueText) + 4,
+                y + ELEMENIX_VALUE_Y, 0xFF3333, false);
+    }
+
+    private void renderImitforgingError(GuiGraphics graphics, int x, int y) {
+        Component error = menu.getImitforgingError();
+        if (error == null) return;
+
+        drawFitCenteredLabel(graphics, error, x + GUI_WIDTH / 2, y + IMITFORGING_ERROR_Y
+        );
+    }
+
+    private void drawFitCenteredLabel(GuiGraphics graphics, Component label, int centerX, int textY) {
+        String text = label.getString();
+        int textWidth = this.font.width(text);
+        if (textWidth <= TransformerScreen.IMITFORGING_ERROR_MAX_WIDTH) {
+            graphics.drawString(this.font, text, centerX - textWidth / 2, textY, 0xFF3333, false);
+            return;
+        }
+
+        float scale = (float) TransformerScreen.IMITFORGING_ERROR_MAX_WIDTH / textWidth;
+        graphics.pose().pushPose();
+        graphics.pose().translate(centerX, textY, 0.0F);
+        graphics.pose().scale(scale, scale, 1.0F);
+        graphics.pose().translate(-textWidth / 2.0F, 0.0F, 0.0F);
+        graphics.drawString(this.font, text, 0, 0, 0xFF3333, false);
+        graphics.pose().popPose();
     }
 
     private void drawCenteredLabel(GuiGraphics graphics, Component label, int centerX, int textY) {
@@ -240,10 +293,10 @@ public class TransformerScreen extends AbstractContainerScreen<TransformerMenu> 
         graphics.pose().popPose();
     }
 
-    private static int darkenColor(int color, float factor) {
-        int r = (int) ((color >> 16 & 0xFF) * factor);
-        int g = (int) ((color >> 8 & 0xFF) * factor);
-        int b = (int) ((color & 0xFF) * factor);
+    private static int darkenColor(int color) {
+        int r = (int) ((color >> 16 & 0xFF) * (float) 0.35);
+        int g = (int) ((color >> 8 & 0xFF) * (float) 0.35);
+        int b = (int) ((color & 0xFF) * (float) 0.35);
         return 0xFF000000 | (r << 16) | (g << 8) | b;
     }
 
@@ -271,12 +324,16 @@ public class TransformerScreen extends AbstractContainerScreen<TransformerMenu> 
     @NotNull
     private Component getModeSwitchTooltips() {
         Component tip;
-        if (menu.isGerminalPage()) {
-            tip = menu.getMode() == TransformerBlockEntity.MODE_MINERALIZING
+        if (menu.isGerminatingPage()) {
+            tip = menu.getMode() == TransformerBlockEntity.MODE_SPECIAL
                     ? Component.translatable("gui.elemenix.mode_switch.to_transforming")
                     : Component.translatable("gui.elemenix.mode_switch.to_germinating");
+        } else if (menu.isImitforgingPage()) {
+            tip = menu.getMode() == TransformerBlockEntity.MODE_SPECIAL
+                    ? Component.translatable("gui.elemenix.mode_switch.to_transforming")
+                    : Component.translatable("gui.elemenix.mode_switch.to_imitforging");
         } else {
-            tip = menu.getMode() == TransformerBlockEntity.MODE_MINERALIZING
+            tip = menu.getMode() == TransformerBlockEntity.MODE_SPECIAL
                     ? Component.translatable("gui.elemenix.mode_switch.to_transforming")
                     : Component.translatable("gui.elemenix.mode_switch.to_mineralizing");
         }

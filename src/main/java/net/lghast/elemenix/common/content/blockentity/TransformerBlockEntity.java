@@ -37,7 +37,7 @@ public class TransformerBlockEntity extends BaseContainerBlockEntity implements 
     public static final int TRANSFORM_IN_B = 1;
     public static final int TRANSFORM_OUT = 2;
     public static final int MODE_TRANSFORMING = 0;
-    public static final int MODE_MINERALIZING = 1;
+    public static final int MODE_SPECIAL = 1;
     public static final int TEMPLATE_SLOT = 3;
     public static final int PRODUCT_SLOT_FIRST = 4;
     public static final int PRODUCT_SLOT_COUNT = 6;

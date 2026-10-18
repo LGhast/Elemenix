@@ -1,0 +1,16 @@
+{
+  "values": [
+    "#c:tools",
+    "#c:armors",
+    "minecraft:firework_rocket",
+    "minecraft:elytra",
+    "minecraft:elytra",
+    "minecraft:goat_horn",
+    "minecraft:totem_of_undying",
+    "minecraft:carrot_on_a_stick",
+    "minecraft:warped_fungus_on_a_stick",
+    "elemenix:elemenic_analyzer",
+    "elemenix:elemenic_scanner",
+    "elemenix:analysis_terminal"
+  ]
+}

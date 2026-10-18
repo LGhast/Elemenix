@@ -6,6 +6,7 @@ import net.lghast.elemenix.conifig.ClientConfig;
 import net.lghast.elemenix.network.open.OpenAnalyzerPayload;
 import net.lghast.elemenix.network.open.OpenMemorizerBoxPayload;
 import net.lghast.elemenix.register.content.ModItems;
+import net.lghast.elemenix.register.system.ModDataComponents;
 import net.lghast.elemenix.register.system.ModMenus;
 import net.lghast.elemenix.register.system.ModTags;
 import net.lghast.elemenix.utils.Constituents;
@@ -14,8 +15,11 @@ import net.lghast.elemenix.utils.ModUtils;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
@@ -35,14 +39,22 @@ import java.util.Objects;
 public class ClientEventHandler {
     @SubscribeEvent
     public static void onItemTooltip(ItemTooltipEvent event) {
-        if(!Elemenics.started) return;
-
         ItemStack stack = event.getItemStack();
+        List<Component> tooltip = event.getToolTip();
+
+        ResourceLocation imitforgedOrigin = stack.get(ModDataComponents.IMITFORGED_ORIGIN.get());
+        if (imitforgedOrigin != null) {
+            Item originItem = BuiltInRegistries.ITEM.get(imitforgedOrigin);
+            tooltip.add(Math.min(2, tooltip.size()),
+                    Component.translatable("tooltip.elemenix.imitforged_from").withStyle(ChatFormatting.GRAY));
+            tooltip.add(Math.min(3, tooltip.size()),
+                    Component.literal(new ItemStack(originItem).getHoverName().getString()).withStyle(ChatFormatting.DARK_GRAY));
+        }
+
         if(ClientConfig.SHOW_CONSTITUENT_TOOLTIPS_WHEN_SHIFT.get() && !Screen.hasShiftDown()) {
             return;
         }
 
-        List<Component> tooltip = event.getToolTip();
         int insertIndex = findInsertIndex(tooltip);
         if(ClientConfig.SHOW_CONSTITUENT_TOOLTIPS.get() && !stack.is(ModItems.ELEMENIC_ANALYZER)) {
             if (ElemenixInfo.isCalculating()) {
@@ -51,8 +63,8 @@ public class ClientEventHandler {
             } else {
                 Constituents constituents = ElemenixInfo.getConstituents(stack);
                 if(constituents == null) return;
-                if(constituents.isUnanalysable() && !ClientConfig.SHOW_UNANALYSABLE_TOOLTIPS.get()) return;
 
+                if(constituents.isUnanalysable() && !ClientConfig.SHOW_UNANALYSABLE_TOOLTIPS.get()) return;
                 tooltip.add(insertIndex, Component.translatable("tooltip.elemenix.constituents").withStyle(ChatFormatting.GRAY));
                 insertIndex++;
 

@@ -30,6 +30,8 @@ public class CommonConfig {
     public static ModConfigSpec.IntValue MA_PRODUCTION;
     public static ModConfigSpec.IntValue MA_DC_INTERVAL;
     public static ModConfigSpec.IntValue MA_RC_INTERVAL;
+    public static ModConfigSpec.BooleanValue DISABLE_IMITFORGING;
+    public static ModConfigSpec.DoubleValue IMITFORGING_ENERGIX_COST_RATIO;
 
     public static ModConfigSpec.IntValue GA_CONSUMPTION;
     public static ModConfigSpec.IntValue GA_PRODUCTION;
@@ -206,6 +208,18 @@ public class CommonConfig {
                         "Time interval (in ticks) for the Metallurgical Activator to reconstruct output items")
                 .translation(CONFIG_PREFIX + "metallurgical_activator_rc_interval")
                 .defineInRange("metallurgical_activator_rc_interval", 15, 1, Integer.MAX_VALUE);
+
+        DISABLE_IMITFORGING = BUILDER
+                .comment("是否禁用激化锻冶仪的摹锻功能。禁用后无法进行新的摹锻操作，已经摹锻的物品不受影响。",
+                        "Whether to disable the Imitforging function of the Metallurgical Activator. When disabled, no new Imitforging operations can be performed, and already Imitforged items are unaffected.")
+                .translation(CONFIG_PREFIX + "disable_imitforging")
+                .define("disable_imitforging", false);
+
+        IMITFORGING_ENERGIX_COST_RATIO = BUILDER
+                .comment("摹锻消耗的激发质 = 被摹锻物品元质总量 × 该比例",
+                        "The Energix consumed by Imitforging = the target item's total constituents × this ratio")
+                .translation(CONFIG_PREFIX + "imitforging_energix_cost_ratio")
+                .defineInRange("imitforging_energix_cost_ratio", 0.15, 0.0, 1.0);
 
         GA_CONSUMPTION = BUILDER
                 .comment("蕃孕加速仪每次消耗输入元质的量",

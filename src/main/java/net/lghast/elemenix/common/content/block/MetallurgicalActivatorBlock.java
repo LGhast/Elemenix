@@ -96,4 +96,14 @@ public class MetallurgicalActivatorBlock extends TransformerBlock {
     public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
         return new TransformerBlockEntity(pos, state);
     }
+
+    @Override
+    public int getPageCount() {
+        return 2;
+    }
+
+    @Override
+    public ResourceLocation getSecondaryGuiTexture() {
+        return ResourceLocation.fromNamespaceAndPath("elemenix", "textures/gui/metallurgical_activator_imitforging.png");
+    }
 }

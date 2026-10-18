@@ -126,4 +126,14 @@ public class ModTags {
             Registries.ITEM,
             ResourceLocation.parse("elemenix:spawn_eggs")
     );
+
+    public static final TagKey<Item> IMITFORGABLE = TagKey.create(
+            Registries.ITEM,
+            ResourceLocation.parse("elemenix:imitforgable")
+    );
+
+    public static final TagKey<Item> IMITFORGING_APPEARANCE_FORBIDDEN = TagKey.create(
+            Registries.ITEM,
+            ResourceLocation.parse("elemenix:imitforging_appearance_forbidden")
+    );
 }
