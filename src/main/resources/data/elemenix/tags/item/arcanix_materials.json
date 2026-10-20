@@ -20,6 +20,14 @@
     {
       "id": "goety:shadow_essence",
       "required": false
+    },
+    {
+      "id": "avaritia:neutron_pile",
+      "required": false
+    },
+    {
+      "id": "avaritia:neutron_nugget",
+      "required": false
     }
   ]
 }

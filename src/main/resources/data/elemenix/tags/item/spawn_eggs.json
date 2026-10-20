@@ -97,6 +97,26 @@
       "required": false
     },
     {
+      "id": "minecraft:camel_husk_spawn_egg",
+      "required": false
+    },
+    {
+      "id": "minecraft:copper_golem_spawn_egg",
+      "required": false
+    },
+    {
+      "id": "minecraft:nautilus_spawn_egg",
+      "required": false
+    },
+    {
+      "id": "minecraft:parched_spawn_egg",
+      "required": false
+    },
+    {
+      "id": "minecraft:zombie_nautilus_spawn_egg",
+      "required": false
+    },
+    {
       "id": "irons_spellbooks:apothecarist_spawn_egg",
       "required": false
     },

@@ -131,6 +131,10 @@
     {
       "id": "create:wheat_flour",
       "required": false
+    },
+    {
+      "id": "twilightdelight:antler",
+      "required": false
     }
   ]
 }

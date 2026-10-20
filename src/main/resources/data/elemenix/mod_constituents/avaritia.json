@@ -1,0 +1,7 @@
+{
+  "mod_id": "avaritia",
+  "entries": [
+    { "id": "avaritia:neutron_pile",  "elemenix": "arcanix", "value": 9 },
+    { "id": "avaritia:record_fragment", "constituents": [138, 0, 0, 0, 0, 75] }
+  ]
+}

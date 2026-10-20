@@ -5,6 +5,7 @@
     "minecraft:quartz",
     "minecraft:amethyst_shard",
     "minecraft:emerald",
+    "minecraft:nautilus_shell",
     {
       "id": "#elemenix:normal_gems",
       "required": false

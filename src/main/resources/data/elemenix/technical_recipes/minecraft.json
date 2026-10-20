@@ -169,6 +169,42 @@
       ]
     },
     {
+      "output": "minecraft:copper_horse_armor",
+      "count": 1,
+      "inputs": [
+        { "id": "minecraft:copper_ingot", "count": 6 },
+        { "id": "minecraft:leather", "count": 1 }
+      ]
+    },
+    {
+      "output": "minecraft:iron_nautilus_armor",
+      "count": 1,
+      "inputs": [
+        { "id": "minecraft:iron_ingot", "count": 6 }
+      ]
+    },
+    {
+      "output": "minecraft:golden_nautilus_armor",
+      "count": 1,
+      "inputs": [
+        { "id": "minecraft:gold_ingot", "count": 6 }
+      ]
+    },
+    {
+      "output": "minecraft:diamond_nautilus_armor",
+      "count": 1,
+      "inputs": [
+        { "id": "minecraft:diamond", "count": 6 }
+      ]
+    },
+    {
+      "output": "minecraft:copper_nautilus_armor",
+      "count": 1,
+      "inputs": [
+        { "id": "minecraft:copper_ingot", "count": 6 }
+      ]
+    },
+    {
       "output": "minecraft:firework_star",
       "count": 1,
       "inputs": [
@@ -296,6 +332,36 @@
       "preset": "copper_oxidizing",
       "input": "minecraft:copper_trapdoor",
       "output_prefix": "minecraft:copper_trapdoor"
+    },
+    {
+      "preset": "copper_oxidizing",
+      "input": "minecraft:copper_chest",
+      "output_prefix": "minecraft:copper_chest"
+    },
+    {
+      "preset": "copper_oxidizing",
+      "input": "minecraft:copper_golem_statue",
+      "output_prefix": "minecraft:copper_golem_statue"
+    },
+    {
+      "preset": "copper_oxidizing",
+      "input": "minecraft:lightning_rod",
+      "output_prefix": "minecraft:lightning_rod"
+    },
+    {
+      "preset": "copper_oxidizing",
+      "input": "minecraft:copper_lantern",
+      "output_prefix": "minecraft:copper_lantern"
+    },
+    {
+      "preset": "copper_oxidizing",
+      "input": "minecraft:copper_bars",
+      "output_prefix": "minecraft:copper_bars"
+    },
+    {
+      "preset": "copper_oxidizing",
+      "input": "minecraft:copper_chain",
+      "output_prefix": "minecraft:copper_chain"
     },
     {
       "preset": "template",

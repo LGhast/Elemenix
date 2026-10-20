@@ -181,6 +181,9 @@ public class RecipeHelper {
         if(ModUtils.hasServerMod("farmers_spell")){
             RECIPE_TYPES_WITH_CONTAINER.add("farmers_spell:alchemist_cooking");
         }
+        if(ModUtils.hasServerMod("avaritia")){
+            RECIPE_TYPES_NORMAL.add("avaritia:crafting_table_recipe");
+        }
     }
 
     public static void clearCache() {
