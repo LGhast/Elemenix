@@ -1,4 +1,4 @@
-// 1.21.1	2026-10-18T15:21:49.4926758	Recipes
+// 1.21.1	2026-10-23T21:08:56.4078598	Recipes
 a5972f5f16b8d08a054c46ca513dcaaf6dbf21ea data/elemenix/advancement/recipes/food/fondant_cake.json
 15593e0138eb4aed9fd0b227ee0733cd0b0d6289 data/elemenix/advancement/recipes/misc/analysis_terminal.json
 fd61a8d55280e7ed7976d1df32b06297bbf29bc7 data/elemenix/advancement/recipes/misc/analyzing_chip.json
@@ -29,6 +29,7 @@ c363edc99077959b513d91d11c08753fba4f18c0 data/elemenix/advancement/recipes/misc/
 ec9878fe92f446d049bdbb37652ef72a7cdf3a89 data/elemenix/advancement/recipes/misc/throttle_valve.json
 155cd18e71ccd7bd85d500746f330156a7599c3f data/elemenix/advancement/recipes/misc/transforming_chip.json
 7832b1f3540b28dfdc9e50f1e34d1644bc03741c data/elemenix/advancement/recipes/misc/transpiring_incinerator.json
+219b03e0fb3fd38a46dcfa91b805f7e3191d9788 data/elemenix/advancement/recipes/misc/witchcraft_memorizer.json
 7cccd6ebe90e1e4c9733c858174bd9347061f619 data/elemenix/recipe/analysis_terminal.json
 707cc492c76c746d004d9a853dde6b2666d8a652 data/elemenix/recipe/analyzing_chip.json
 1f7e80137ac41b087936f2d2545d0a8e3e17f6d6 data/elemenix/recipe/arcanix_essenplex.json
@@ -59,6 +60,7 @@ ffb8c4c73dfcd49832f593da912cd42af60f14ca data/elemenix/recipe/scanning_storage.j
 1aed89553cdea1f4b9ade83dd74aa97e732533c6 data/elemenix/recipe/throttle_valve.json
 80b49d241968a7a0b9ae755fe5e5ffc6999d58eb data/elemenix/recipe/transforming_chip.json
 58e195f36b0ef5cdc8b9f8fb071ae278fb303b7f data/elemenix/recipe/transpiring_incinerator.json
+be55cf864bd21641ac5d2ad211d3b907349e94b2 data/elemenix/recipe/witchcraft_memorizer.json
 24ed752f845dd1a9f7a5e1f79a54d6d2129b3403 data/minecraft/advancement/recipes/misc/elemenic_analyzer_from_equilibrium.json
 4aa7321424e9cf2a9a0bfbee030dfe18427346b8 data/minecraft/advancement/recipes/misc/elemenic_analyzer_from_essences.json
 441eb0513cc8b13a6d68864ea047c918fd497ed9 data/minecraft/advancement/recipes/misc/elemenic_equiliplex.json

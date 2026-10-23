@@ -5,6 +5,7 @@ import net.lghast.elemenix.common.content.blockentity.InfuserBlockEntity;
 import net.lghast.elemenix.common.content.item.*;
 import net.lghast.elemenix.common.system.datacomponent.ElemenicStorage;
 import net.lghast.elemenix.common.system.datacomponent.MemoryData;
+import net.lghast.elemenix.common.system.datacomponent.PotionMemoryData;
 import net.lghast.elemenix.common.system.datacomponent.RemoteStorageBinding;
 import net.lghast.elemenix.common.system.datacomponent.UuidData;
 import net.lghast.elemenix.compat.ftbquests.util.AnalyzerTaskHelper;
@@ -18,8 +19,11 @@ import net.lghast.elemenix.utils.LongContainerData;
 import net.lghast.elemenix.utils.elemenix.Elemenix;
 import net.lghast.elemenix.utils.elemenix.ElemenixInfo;
 import net.minecraft.core.GlobalPos;
+import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -30,7 +34,10 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ClickType;
 import net.minecraft.world.inventory.Slot;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.alchemy.Potion;
+import net.minecraft.world.item.alchemy.PotionContents;
 import net.minecraft.world.item.component.ItemContainerContents;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import org.jetbrains.annotations.NotNull;
@@ -177,7 +184,7 @@ public class AnalysisTerminalMenu extends AbstractContainerMenu {
         List<ItemStack> memorizers = new ArrayList<>();
         for (int i = 0; i < BOX_SLOTS; i++) {
             ItemStack stack = boxContainer.getItem(i);
-            if (stack.getItem() instanceof MemorizerItem) {
+            if (stack.getItem() instanceof MemorizerItem || stack.getItem() instanceof WitchcraftMemorizerItem) {
                 memorizers.add(stack);
             }
         }
@@ -195,11 +202,38 @@ public class AnalysisTerminalMenu extends AbstractContainerMenu {
             if (selectedMemorizer >= memorizers.size()) {
                 return List.of();
             }
-            return MemorizerItem.getOrCreateMemories(memorizers.get(selectedMemorizer)).resolvedItems();
+            ItemStack memorizer = memorizers.get(selectedMemorizer);
+            if (memorizer.getItem() instanceof MemorizerItem) {
+                return MemorizerItem.getOrCreateMemories(memorizer).resolvedItems();
+            }
+            return List.of();
         }
         LinkedHashSet<ResourceLocation> merged = new LinkedHashSet<>();
         for (ItemStack memorizer : memorizers) {
-            merged.addAll(MemorizerItem.getOrCreateMemories(memorizer).resolvedItems());
+            if (memorizer.getItem() instanceof MemorizerItem) {
+                merged.addAll(MemorizerItem.getOrCreateMemories(memorizer).resolvedItems());
+            }
+        }
+        return new ArrayList<>(merged);
+    }
+
+    public List<PotionMemoryData.Entry> getVisiblePotionMemories() {
+        List<ItemStack> memorizers = getMemorizerStacks();
+        if (selectedMemorizer >= 0) {
+            if (selectedMemorizer >= memorizers.size()) {
+                return List.of();
+            }
+            ItemStack memorizer = memorizers.get(selectedMemorizer);
+            if (memorizer.getItem() instanceof WitchcraftMemorizerItem) {
+                return WitchcraftMemorizerItem.getOrCreateMemories(memorizer).entries();
+            }
+            return List.of();
+        }
+        LinkedHashSet<PotionMemoryData.Entry> merged = new LinkedHashSet<>();
+        for (ItemStack memorizer : memorizers) {
+            if (memorizer.getItem() instanceof WitchcraftMemorizerItem) {
+                merged.addAll(WitchcraftMemorizerItem.getOrCreateMemories(memorizer).entries());
+            }
         }
         return new ArrayList<>(merged);
     }
@@ -559,20 +593,21 @@ public class AnalysisTerminalMenu extends AbstractContainerMenu {
         if (!allowMemory) {
             return;
         }
+        boolean isPotion = inputStack.is(ModTags.POTIONLIKE);
         if (selectedMemorizer >= 0) {
             int slotIndex = findMemorizerSlot(selectedMemorizer);
             if (slotIndex >= 0) {
                 ItemStack memorizer = boxContainer.getItem(slotIndex);
-                if (canRecordInto(memorizer, inputStack)) {
-                    recordInto(slotIndex, memorizer, inputStack);
+                if (canRecordInto(memorizer, inputStack, isPotion)) {
+                    recordInto(slotIndex, memorizer, inputStack, isPotion);
                 }
             }
             return;
         }
         for (int i = 0; i < BOX_SLOTS; i++) {
             ItemStack memorizer = boxContainer.getItem(i);
-            if (memorizer.getItem() instanceof MemorizerItem && canRecordInto(memorizer, inputStack)) {
-                recordInto(i, memorizer, inputStack);
+            if (canRecordInto(memorizer, inputStack, isPotion)) {
+                recordInto(i, memorizer, inputStack, isPotion);
                 return;
             }
         }
@@ -581,7 +616,8 @@ public class AnalysisTerminalMenu extends AbstractContainerMenu {
     private int findMemorizerSlot(int memorizerIndex) {
         int found = -1;
         for (int i = 0; i < BOX_SLOTS; i++) {
-            if (boxContainer.getItem(i).getItem() instanceof MemorizerItem) {
+            Item item = boxContainer.getItem(i).getItem();
+            if (item instanceof MemorizerItem || item instanceof WitchcraftMemorizerItem) {
                 found++;
                 if (found == memorizerIndex) {
                     return i;
@@ -591,11 +627,29 @@ public class AnalysisTerminalMenu extends AbstractContainerMenu {
         return -1;
     }
 
-    private boolean canRecordInto(ItemStack memorizer, ItemStack inputStack) {
+    private boolean canRecordInto(ItemStack memorizer, ItemStack inputStack, boolean isPotion) {
         if (memorizer.isEmpty() || inputStack.isEmpty()) {
             return false;
         }
         if (inputStack.is(ModTags.ANALYZER_UNRECORDABLE)) {
+            return false;
+        }
+        if (isPotion) {
+            if (!(memorizer.getItem() instanceof WitchcraftMemorizerItem)) {
+                return false;
+            }
+            if (WitchcraftMemorizerItem.isReadonly(memorizer) || !WitchcraftMemorizerItem.isNotFull(memorizer)) {
+                return false;
+            }
+            ResourceLocation potionId = getPotionId(inputStack.get(DataComponents.POTION_CONTENTS));
+            if (potionId == null) {
+                return false;
+            }
+            ResourceLocation itemId = BuiltInRegistries.ITEM.getKey(inputStack.getItem());
+            return !WitchcraftMemorizerItem.getOrCreateMemories(memorizer).entries()
+                    .contains(new PotionMemoryData.Entry(itemId, potionId));
+        }
+        if (!(memorizer.getItem() instanceof MemorizerItem)) {
             return false;
         }
         if (MemorizerItem.isReadonly(memorizer) || !MemorizerItem.isNotFull(memorizer)) {
@@ -605,17 +659,43 @@ public class AnalysisTerminalMenu extends AbstractContainerMenu {
         return !MemorizerItem.getOrCreateMemories(memorizer).resolvedItems().contains(itemId);
     }
 
-    private void recordInto(int slotIndex, ItemStack memorizer, ItemStack inputStack) {
+    private void recordInto(int slotIndex, ItemStack memorizer, ItemStack inputStack, boolean isPotion) {
         ResourceLocation itemId = BuiltInRegistries.ITEM.getKey(inputStack.getItem());
-        MemoryData current = MemorizerItem.getOrCreateMemories(memorizer);
-        List<ResourceLocation> newMemories = new ArrayList<>(current.resolvedItems());
-        newMemories.add(itemId);
-        memorizer.set(ModDataComponents.MEMORY_DATA.get(), current.withResolvedItems(newMemories));
+
+        if (isPotion) {
+            ResourceLocation potionId = getPotionId(inputStack.get(DataComponents.POTION_CONTENTS));
+            PotionMemoryData current = WitchcraftMemorizerItem.getOrCreateMemories(memorizer);
+            List<PotionMemoryData.Entry> newEntries = new ArrayList<>(current.entries());
+            newEntries.add(new PotionMemoryData.Entry(itemId, potionId));
+            memorizer.set(ModDataComponents.POTION_MEMORY_DATA.get(), current.withEntries(newEntries));
+        } else {
+            MemoryData current = MemorizerItem.getOrCreateMemories(memorizer);
+            List<ResourceLocation> newMemories = new ArrayList<>(current.resolvedItems());
+            newMemories.add(itemId);
+            memorizer.set(ModDataComponents.MEMORY_DATA.get(), current.withResolvedItems(newMemories));
+        }
+
         player.awardStat(ModStats.MEMORIZER_RECORDS_ADDED.get());
         if (Elemenics.isFtbQuestsLoaded() && player instanceof ServerPlayer serverPlayer) {
             AnalyzerTaskHelper.handleMemorizeProgress(serverPlayer, inputStack.copy());
         }
         slots.get(slotIndex).setChanged();
+    }
+
+    @Nullable
+    private static ResourceLocation getPotionId(PotionContents contents) {
+        if (contents == null) {
+            return null;
+        }
+        Optional<Holder<Potion>> potion = contents.potion();
+        if (potion.isEmpty()) {
+            return null;
+        }
+        ResourceLocation id = potion.get().unwrapKey().map(ResourceKey::location).orElse(null);
+        if (id == null) {
+            id = BuiltInRegistries.POTION.getKey(potion.get().value());
+        }
+        return id;
     }
 
     public void reconstructItem(ResourceLocation itemId, boolean shiftClick) {
@@ -624,6 +704,74 @@ public class AnalysisTerminalMenu extends AbstractContainerMenu {
             return;
         }
         ItemStack resultStack = new ItemStack(BuiltInRegistries.ITEM.get(itemId));
+        if (resultStack.isEmpty() || ElemenixInfo.isUnreconstructable(resultStack)) {
+            return;
+        }
+        if (!getCarried().isEmpty() && !getCarried().is(resultStack.getItem())) {
+            return;
+        }
+        Constituents required = ElemenixInfo.getPremiumAppliedConstituents(resultStack);
+        if (required.isUnanalysable()) {
+            return;
+        }
+        int maxStackSize = resultStack.getMaxStackSize();
+
+        int maxAmount = shiftClick ? maxStackSize : 1;
+        for (Elemenix type : Elemenix.values()) {
+            int req = required.get(type);
+            if (req > 0) {
+                long available = data.getLong(type.getIndex()) & 0xFFFFFFFFL;
+                maxAmount = (int) Math.min(maxAmount, available / req);
+            }
+        }
+        if (maxAmount <= 0) {
+            return;
+        }
+
+        int actualAmount = maxAmount;
+        if (!getCarried().isEmpty()) {
+            int room = maxStackSize - getCarried().getCount();
+            if (room <= 0) {
+                return;
+            }
+            actualAmount = Math.min(actualAmount, room);
+        }
+
+        for (Elemenix type : Elemenix.values()) {
+            int consumption = required.get(type) * actualAmount;
+            if (consumption > 0) {
+                long current = data.getLong(type.getIndex());
+                data.setLong(type.getIndex(), Math.max(0, current - consumption));
+            }
+        }
+
+        resultStack.setCount(actualAmount);
+        if (!getCarried().isEmpty() && ItemStack.isSameItemSameComponents(getCarried(), resultStack)) {
+            getCarried().grow(actualAmount);
+            setCarried(getCarried());
+        } else {
+            setCarried(resultStack);
+        }
+
+        player.awardStat(ModStats.RECONSTRUCTED_ITEMS.get(), actualAmount);
+        if (Elemenics.isFtbQuestsLoaded() && player instanceof ServerPlayer serverPlayer) {
+            AnalyzerTaskHelper.handleReconstructProgress(serverPlayer, resultStack.copy(), actualAmount);
+        }
+        saveAnalyzerStorage();
+        broadcastChanges();
+    }
+
+    public void reconstructPotion(ResourceLocation itemId, ResourceLocation potionId, boolean shiftClick) {
+        List<PotionMemoryData.Entry> visible = getVisiblePotionMemories();
+        if (!visible.contains(new PotionMemoryData.Entry(itemId, potionId))) {
+            return;
+        }
+        Item item = BuiltInRegistries.ITEM.get(itemId);
+        Optional<Holder.Reference<Potion>> potionHolder = BuiltInRegistries.POTION.getHolder(ResourceKey.create(Registries.POTION, potionId));
+        if (potionHolder.isEmpty()) {
+            return;
+        }
+        ItemStack resultStack = PotionContents.createItemStack(item, potionHolder.get());
         if (resultStack.isEmpty() || ElemenixInfo.isUnreconstructable(resultStack)) {
             return;
         }

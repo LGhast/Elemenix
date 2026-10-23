@@ -14,6 +14,8 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.alchemy.Potion;
+import net.minecraft.world.item.alchemy.PotionContents;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.ItemEnchantments;
 import net.minecraft.world.level.Level;
@@ -75,6 +77,8 @@ public class ElemenixInfo {
                 }
 
                 TRecipeHelper.initialize();
+                JsonPotionlikeLoader.loadAll();
+                PotionElemenixInfo.initialize();
                 initialized = true;
 
                 if (RecipeHelper.areRecipesLoaded(level)) {
@@ -101,6 +105,8 @@ public class ElemenixInfo {
             QUERY_DEPTH.remove();
             RecipeHelper.clearCache();
             TRecipeHelper.clear();
+            JsonPotionlikeLoader.clear();
+            PotionElemenixInfo.clear();
             LOGGER.info("ElemenixInfo Cache has been cleared.");
         }
     }
@@ -281,7 +287,8 @@ public class ElemenixInfo {
         }
 
         result = modifyOminousBottle(stack, result);
-        return modifyEnchantedStack(stack, result);
+        result = modifyEnchantedStack(stack, result);
+        return modifyPotionContent(stack, result);
     }
 
     /**
@@ -354,6 +361,45 @@ public class ElemenixInfo {
         scaled.add(Elemenix.ENERGIX, amplifier * 20);
         scaled.add(Elemenix.ARCANIX, amplifier * 20);
         return scaled;
+    }
+
+    /**
+     * Adds the constituents of a potion's content, scaled by the item's
+     * content ratio. Potions without a resolvable potion type (custom potions)
+     * are frozen as unanalysable.
+     */
+    private static Constituents modifyPotionContent(ItemStack stack, Constituents constituents) {
+        if (constituents == null || constituents.isUnanalysable()) {
+            return constituents;
+        }
+
+        if (!stack.is(ModTags.POTIONLIKE)) {
+            return constituents;
+        }
+
+        PotionContents contents = stack.get(DataComponents.POTION_CONTENTS);
+        if (contents == null) {
+            // Bare stack (e.g. a technical-recipe input without content): container only.
+            return constituents;
+        }
+
+        Optional<Holder<Potion>> potion = contents.potion();
+        if (potion.isEmpty()) {
+            return new Constituents(true);
+        }
+
+        Constituents potionConstituents = PotionElemenixInfo.getConstituents(potion.get());
+        if (potionConstituents.isUnanalysable()) {
+            return new Constituents(true);
+        }
+
+        double ratio = JsonPotionlikeLoader.getContentRatio(stack.getItem());
+
+        Constituents result = constituents.copy();
+        potionConstituents = potionConstituents.copy();
+        potionConstituents.multiply(ratio);
+        result.add(potionConstituents);
+        return result;
     }
 
     /**

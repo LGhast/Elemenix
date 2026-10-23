@@ -18,7 +18,6 @@ import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.core.GlobalPos;
-import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
@@ -156,13 +155,13 @@ public class AnalyzerScreen extends AbstractContainerScreen<AnalyzerMenu> {
         int x = (this.width - this.imageWidth) / 2;
         int y = (this.height - this.imageHeight) / 2;
 
-        Optional<ResourceLocation> hoveredOptional = memoryListWidget.getHoveredItemId(mouseX, mouseY);
+        Optional<ItemStack> hoveredOptional = memoryListWidget.getHoveredItemStack(mouseX, mouseY);
         if (hoveredOptional.isPresent()) {
             if (ElemenixInfo.isCalculating()) {
                 return;
             }
 
-            ItemStack hoveredStack = new ItemStack(BuiltInRegistries.ITEM.get(hoveredOptional.get()));
+            ItemStack hoveredStack = hoveredOptional.get();
             if(!hoveredStack.isEmpty()) {
                 Constituents constituents = ElemenixInfo.getPremiumAppliedConstituents(hoveredStack);
                 Elemenix[] types = Elemenix.values();
@@ -276,7 +275,7 @@ public class AnalyzerScreen extends AbstractContainerScreen<AnalyzerMenu> {
             return;
         }
         
-        if (menu.canRecordInputItem(inputStack, memorizerStack)) {
+        if (menu.canRecordInputItem(inputStack, memorizerStack) || menu.canRecordPotionItem(inputStack, memorizerStack)) {
             int slotX = x + 52;
             int slotY = y + 130;
             graphics.fill(slotX, slotY, slotX + 16, slotY + 16, 0x4000FF00);

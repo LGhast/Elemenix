@@ -32,6 +32,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 @ParametersAreNonnullByDefault
 public class MemorizerItem extends Item{
@@ -196,9 +197,10 @@ public class MemorizerItem extends Item{
 
         if (!waxedData.isOwnedBy(player)) {
             if (waxedData.hasOwner()) {
+                Waxed finalWaxedData = waxedData;
                 player.displayClientMessage(
                         Component.translatable("message.elemenix.memorizer.wax_off_owner_only",
-                                waxedData.ownerName().orElse(waxedData.ownerUuid().get().toString())), true);
+                                waxedData.ownerName().orElseGet(() -> finalWaxedData.ownerUuid().map(UUID::toString).orElse("?"))), true);
             } else {
                 player.displayClientMessage(
                         Component.translatable("message.elemenix.memorizer.wax_off_permanent"), true);

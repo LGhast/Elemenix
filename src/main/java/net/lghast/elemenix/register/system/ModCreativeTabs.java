@@ -23,6 +23,7 @@ public class ModCreativeTabs {
                     .displayItems((itemDisplayParameters,output)->{
                         output.accept(ModItems.ELEMENIC_ANALYZER);
                         output.accept(ModItems.ELEMENIC_MEMORIZER);
+                        output.accept(ModItems.WITCHCRAFT_MEMORIZER);
                         output.accept(ModItems.FONDANT_CAKE);
                         output.accept(ModItems.ELEMENIC_SCANNER);
                         output.accept(ModItems.ELEMENIC_STORAGE);
@@ -35,6 +36,7 @@ public class ModCreativeTabs {
                         output.accept(ModItems.FLOW_STRAIGHTENER);
                         output.accept(ModItems.ANALYZING_CHIP);
                         output.accept(ModItems.TRANSFORMING_CHIP);
+                        output.accept(ModItems.WITCHCRAFT_TROVE);
                         output.accept(ModItems.ORGANIX_ESSENCE);
                         output.accept(ModItems.TERRIX_ESSENCE);
                         output.accept(ModItems.FLUMIX_ESSENCE);

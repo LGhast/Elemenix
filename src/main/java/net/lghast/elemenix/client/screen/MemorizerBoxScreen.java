@@ -1,19 +1,27 @@
 package net.lghast.elemenix.client.screen;
 
 import net.lghast.elemenix.common.content.item.MemorizerItem;
+import net.lghast.elemenix.common.content.item.WitchcraftMemorizerItem;
 import net.lghast.elemenix.common.system.datacomponent.MemoryData;
+import net.lghast.elemenix.common.system.datacomponent.PotionMemoryData;
 import net.lghast.elemenix.common.system.menu.MemorizerBoxMenu;
 import net.lghast.elemenix.register.content.ModItems;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.Slot;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.alchemy.PotionContents;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 
+import javax.annotation.Nullable;
 import javax.annotation.ParametersAreNonnullByDefault;
 
 @OnlyIn(Dist.CLIENT)
@@ -54,29 +62,43 @@ public class MemorizerBoxScreen extends AbstractContainerScreen<MemorizerBoxMenu
             Slot slot = this.menu.getSlot(i);
             if (slot.hasItem()) {
                 ItemStack stack = slot.getItem();
+                ItemStack memoryItem = ItemStack.EMPTY;
 
                 if (stack.is(ModItems.ELEMENIC_MEMORIZER)) {
                     MemoryData memoryData = MemorizerItem.getOrCreateMemories(stack);
-                    ItemStack memoryItem = memoryData.firstItem();
+                    memoryItem = memoryData.firstItem();
+                } else if (stack.is(ModItems.WITCHCRAFT_MEMORIZER)) {
+                    PotionMemoryData memoryData = WitchcraftMemorizerItem.getOrCreateMemories(stack);
+                    memoryItem = firstPotionItem(memoryData);
+                }
 
-                    if (!memoryItem.isEmpty()) {
-                        int slotX = guiLeft + slot.x;
-                        int slotY = guiTop + slot.y;
+                if (!memoryItem.isEmpty()) {
+                    int slotX = guiLeft + slot.x;
+                    int slotY = guiTop + slot.y;
 
-                        graphics.pose().pushPose();
+                    graphics.pose().pushPose();
 
-                        graphics.pose().translate(slotX, slotY, 0);
-                        graphics.pose().translate(8, 8, 0);
-                        graphics.pose().scale(ITEM_SCALE, ITEM_SCALE, 1.0f);
-                        graphics.pose().translate(0, ITEM_Y_OFFSET / ITEM_SCALE, 0);
-                        graphics.pose().translate(-8, -8, 0);
-                        graphics.renderItem(memoryItem, 0, 0);
+                    graphics.pose().translate(slotX, slotY, 0);
+                    graphics.pose().translate(8, 8, 0);
+                    graphics.pose().scale(ITEM_SCALE, ITEM_SCALE, 1.0f);
+                    graphics.pose().translate(0, ITEM_Y_OFFSET / ITEM_SCALE, 0);
+                    graphics.pose().translate(-8, -8, 0);
+                    graphics.renderItem(memoryItem, 0, 0);
 
-                        graphics.pose().popPose();
-                    }
+                    graphics.pose().popPose();
                 }
             }
         }
+    }
+
+    private static ItemStack firstPotionItem(@Nullable PotionMemoryData data) {
+        if (data == null || data.entries().isEmpty()) {
+            return ItemStack.EMPTY;
+        }
+        PotionMemoryData.Entry entry = data.entries().getFirst();
+        Item item = BuiltInRegistries.ITEM.get(entry.itemId());
+        var holder = BuiltInRegistries.POTION.getHolder(ResourceKey.create(Registries.POTION, entry.potionId()));
+        return holder.map(potionReference -> PotionContents.createItemStack(item, potionReference)).orElseGet(() -> new ItemStack(item));
     }
 
     @Override

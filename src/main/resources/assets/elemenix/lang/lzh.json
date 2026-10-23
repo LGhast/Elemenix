@@ -45,6 +45,10 @@
   "advancements.elemenix.germinate.description": "毓於蕃毓爐",
   "advancements.elemenix.imitforge.title": "以假亂真",
   "advancements.elemenix.imitforge.description": "摹鍛於煉鍛爐",
+  "advancements.elemenix.obtain_witchcraft_trove.title": "巫價之寶",
+  "advancements.elemenix.obtain_witchcraft_trove.description": "斃巫以取其琛",
+  "advancements.elemenix.obtain_witchcraft_memorizer.title": "化为巫有",
+  "advancements.elemenix.obtain_witchcraft_memorizer.description": "以巫之琛製銘元楪",
 
   "creativetab.elemenix.elemenix": "元學",
 
@@ -59,6 +63,8 @@
 
   "item.elemenix.elemenic_analyzer": "析元儀",
   "item.elemenix.elemenic_memorizer": "銘元楪",
+  "item.elemenix.witchcraft_memorizer": "銘巫楪",
+  "item.elemenix.witchcraft_trove": "巫之琛",
   "item.elemenix.elemenic_storage": "元敦",
   "item.elemenix.remote_elemenic_storage": "靈犀元敦",
   "item.elemenix.elemenic_memorizer.style.white": "白",
@@ -120,6 +126,7 @@
   "gui.elemenix.deconstruct": "離",
   "gui.elemenix.item_list": "可合之物",
   "gui.elemenix.no_resolved_items": "物無既析者",
+  "gui.elemenix.memorizer_type_mismatch": "楪之属不相合",
   "gui.elemenix.no_analyzer": "未置析元儀",
   "gui.elemenix.invalid_item": "誤銘之物",
   "gui.elemenix.memorizer_box": "楪槅",
@@ -203,6 +210,7 @@
   "key.elemenix.open_memorizer_box": "啟楪槅",
   "key.elemenix.open_analyzer": "啟析元儀",
 
+  "tag.item.elemenix.potionlike": "藥水類",
   "tag.item.elemenix.essences": "元精",
   "tag.item.elemenix.equilibrium": "協元",
   "tag.item.elemenix.vinyl_discs": "黑膠留聲盤",

@@ -3,10 +3,13 @@ package net.lghast.elemenix.common;
 import net.lghast.elemenix.Elemenics;
 import net.lghast.elemenix.client.misc.ClientElemenixPrecompute;
 import net.lghast.elemenix.utils.elemenix.ElemenixInfo;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.alchemy.Potions;
 import net.minecraft.world.level.Level;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.client.event.RecipesUpdatedEvent;
+import net.neoforged.neoforge.event.brewing.RegisterBrewingRecipesEvent;
 
 @SuppressWarnings("unused")
 @EventBusSubscriber(modid = Elemenics.MOD_ID)
@@ -24,5 +27,10 @@ public class CommonEventHandler {
         } else {
             ElemenixInfo.initialize();
         }
+    }
+
+    @SubscribeEvent
+    public static void onRegisterBrewingRecipes(RegisterBrewingRecipesEvent event) {
+        event.getBuilder().addMix(Potions.THICK, Items.RABBIT_FOOT, Potions.LUCK);
     }
 }

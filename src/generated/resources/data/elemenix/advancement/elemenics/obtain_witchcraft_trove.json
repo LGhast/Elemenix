@@ -1,0 +1,33 @@
+{
+  "parent": "elemenix:elemenics/root",
+  "criteria": {
+    "get_witchcraft_trove": {
+      "conditions": {
+        "items": [
+          {
+            "items": "elemenix:witchcraft_trove"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.elemenix.obtain_witchcraft_trove.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "elemenix:witchcraft_trove"
+    },
+    "title": {
+      "translate": "advancements.elemenix.obtain_witchcraft_trove.title"
+    }
+  },
+  "requirements": [
+    [
+      "get_witchcraft_trove"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

@@ -1,4 +1,4 @@
-// 1.21.1	2026-10-18T16:44:50.3275219	Advancements
+// 1.21.1	2026-10-23T21:46:25.9267955	Advancements
 7724742343425fbcec62a73af143b0f5a1c56e55 data/elemenix/advancement/elemenics/close_throttle_valve.json
 54c0956b2363a41f801b7e649a074e5a9eea2c18 data/elemenix/advancement/elemenics/enrich_equilibrium.json
 5425a98304ed9b6f1f6d4775ea6804d771a7a9c3 data/elemenix/advancement/elemenics/enrich_essence.json
@@ -18,6 +18,8 @@ da9bfeb2f5548a4da45608fdfc4262b86502e2c2 data/elemenix/advancement/elemenics/obt
 14f371a12153f21c5aa7e5c59832bf680c7115f2 data/elemenix/advancement/elemenics/obtain_scanning_storage.json
 677856fe8ce1edc78f0879be1dd82db94a87308d data/elemenix/advancement/elemenics/obtain_storage.json
 2fe33b2c5c68be44ff7fc1e29fdd616e1f2abc78 data/elemenix/advancement/elemenics/obtain_transformer.json
+f4483536f2e4e3941bfd167254bd89417405430d data/elemenix/advancement/elemenics/obtain_witchcraft_memorizer.json
+50f7095a2db1a246bad6489b79ffd417ca32cea9 data/elemenix/advancement/elemenics/obtain_witchcraft_trove.json
 cacc54c92f822d85bc8b62e6691c7ec8b7cf7bb1 data/elemenix/advancement/elemenics/root.json
 1961d24367350eff2430e9e97060d86b87655a0e data/elemenix/advancement/elemenics/scan_container.json
 33604b9892bcd4f917bdaefc6ce5e359c0fcbc51 data/elemenix/advancement/elemenics/wax_off_memorizer.json

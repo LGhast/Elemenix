@@ -457,6 +457,43 @@
       "preset": "template",
       "output": "minecraft:bolt_armor_trim_smithing_template",
       "material": "minecraft:copper_block"
+    },
+    {
+      "preset": "same",
+      "output": "minecraft:potion",
+      "input": "minecraft:glass_bottle"
+    },
+    {
+      "output": "minecraft:splash_potion",
+      "count": 3,
+      "inputs": [
+        { "id": "minecraft:glass_bottle", "count": 3 },
+        { "id": "minecraft:gunpowder", "count": 1 }
+      ]
+    },
+    {
+      "output": "minecraft:lingering_potion",
+      "count": 3,
+      "inputs": [
+        { "id": "minecraft:glass_bottle", "count": 3 },
+        { "id": "minecraft:gunpowder", "count": 1 },
+        { "id": "minecraft:dragon_breath", "count": 1 }
+      ],
+      "offcuts": [
+        { "id": "minecraft:glass_bottle", "count": 1 }
+      ]
+    },
+    {
+      "output": "minecraft:tipped_arrow",
+      "count": 24,
+      "inputs": [
+        { "id": "minecraft:arrow", "count": 24 },
+        { "id": "minecraft:gunpowder", "count": 1 },
+        { "id": "minecraft:dragon_breath", "count": 1 }
+      ],
+      "offcuts": [
+        { "id": "minecraft:glass_bottle", "count": 1 }
+      ]
     }
   ]
 }

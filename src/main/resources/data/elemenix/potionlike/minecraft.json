@@ -1,0 +1,9 @@
+{
+  "mod_id": "minecraft",
+  "entries": [
+    { "item": "minecraft:potion", "content_ratio": 1.0 },
+    { "item": "minecraft:splash_potion", "content_ratio": 1.0 },
+    { "item": "minecraft:lingering_potion", "content_ratio": 1.0 },
+    { "item": "minecraft:tipped_arrow", "content_ratio": 0.125 }
+  ]
+}

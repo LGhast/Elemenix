@@ -1,4 +1,4 @@
-// 1.21.1	2026-10-18T15:16:25.577505	Item Models: elemenix
+// 1.21.1	2026-10-23T21:08:56.4046848	Item Models: elemenix
 cc7808202ff871ca29ad706b9d0840b748efb902 assets/elemenix/models/item/analysis_terminal.json
 66c294ec535325e8f2011c6a82e6d10595c0200c assets/elemenix/models/item/analyzing_chip.json
 55ec9ca706d0943e1a8bd9ddababba73cf6cfada assets/elemenix/models/item/arcanix_essence.json
@@ -25,3 +25,4 @@ beb1d267575b319e0962d29e213bf6280d9410a8 assets/elemenix/models/item/metallix_es
 aba492367bc2c4c430b276a352ad466c7bc2829c assets/elemenix/models/item/terrix_essenplex.json
 91be8020b97ebeb1a208ed1de538b75111fd44eb assets/elemenix/models/item/throttle_valve.json
 8438c6f9ac5734783a0685db8823b0d7cf26d4bd assets/elemenix/models/item/transforming_chip.json
+ee7b65d50e0642219e6b2fd5fdf29a02a5e8d59b assets/elemenix/models/item/witchcraft_trove.json

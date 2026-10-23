@@ -1,8 +1,9 @@
-// 1.21.1	2026-10-18T15:16:25.5830087	Tags for minecraft:item mod id elemenix
+// 1.21.1	2026-10-23T21:46:25.9267955	Tags for minecraft:item mod id elemenix
 19ded44dec005812482659ad1389b3044c247f12 data/elemenix/tags/item/elemenic_deconstructors.json
 fcb8476625195d2351238f217849450d2e531edf data/elemenix/tags/item/elemenic_transformers.json
 ffb3c9a2182075e6ca072c435f4d1b178c3830cb data/elemenix/tags/item/equilibrium.json
 f87f77226de93815712346dc3d0667caadf84128 data/elemenix/tags/item/essences.json
-a4d5e3a9a5926aaccca55b8077a24912d77b1c5b data/elemenix/tags/item/ignored_by_deconstructor_input.json
-5fbe6e160420eee36b2c377873862a576f51173c data/elemenix/tags/item/ignored_by_scanning.json
-17e4db66c0c4a67ed62b5d6738584e74d830d749 data/elemenix/tags/item/memorizer_slot_placeable.json
+d869881aac5fa8f76590079f647aea3810928778 data/elemenix/tags/item/ignored_by_deconstructor_input.json
+5f1a6e83df12c4fd60f9fde31eeeeae8e5fd68a7 data/elemenix/tags/item/ignored_by_scanning.json
+a0e706c410e093675b07001a2857a7f535cc0de0 data/elemenix/tags/item/memorizer_slot_placeable.json
+0b6f4746bf1e68df79a48f03f4575f1430f0e4e0 data/elemenix/tags/item/potionlike.json

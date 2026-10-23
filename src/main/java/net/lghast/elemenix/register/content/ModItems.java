@@ -20,6 +20,12 @@ public class ModItems {
     public static final DeferredItem<Item> ELEMENIC_MEMORIZER = ITEMS.register("elemenic_memorizer",
             ()-> new MemorizerItem(new Item.Properties()));
 
+    public static final DeferredItem<Item> WITCHCRAFT_MEMORIZER = ITEMS.register("witchcraft_memorizer",
+            ()-> new WitchcraftMemorizerItem(new Item.Properties()));
+
+    public static final DeferredItem<Item> WITCHCRAFT_TROVE = ITEMS.register("witchcraft_trove",
+            ()-> new Item(new Item.Properties()));
+
     public static final DeferredItem<Item> REMOTE_ELEMENIC_STORAGE = ITEMS.register("remote_elemenic_storage",
             ()-> new RemoteStorageItem(new Item.Properties()));
 

@@ -1,7 +1,9 @@
 package net.lghast.elemenix.client.screen;
 
 import com.mojang.blaze3d.vertex.PoseStack;
+import net.lghast.elemenix.common.system.datacomponent.PotionMemoryData;
 import net.lghast.elemenix.common.system.menu.AnalyzerMenu;
+import net.lghast.elemenix.network.analyzer.PotionReconstructionPayload;
 import net.lghast.elemenix.network.analyzer.ReconstructionPayload;
 import net.lghast.elemenix.register.content.ModItems;
 import net.lghast.elemenix.utils.elemenix.ElemenixInfo;
@@ -12,7 +14,9 @@ import net.minecraft.client.gui.components.AbstractWidget;
 import net.minecraft.client.gui.narration.NarratedElementType;
 import net.minecraft.client.gui.narration.NarrationElementOutput;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
@@ -27,7 +31,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Supplier;
-import java.util.stream.Collectors;
 
 import static net.minecraft.client.gui.screens.Screen.hasShiftDown;
 
@@ -40,13 +43,14 @@ public class MemoryListWidget extends AbstractWidget {
     protected static final int ITEM_NAME_OFFSET = 8;
     protected static final int ITEM_NAME_RIGHT_PADDING = 6;
 
-    protected List<ResourceLocation> items = new ArrayList<>();
-    protected final List<ItemStack> itemStacks = new ArrayList<>();
+    protected final List<ItemStack> displayStacks = new ArrayList<>();
+    protected final List<ResourceLocation> itemIds = new ArrayList<>();
+    protected final List<ResourceLocation> potionIds = new ArrayList<>();
     protected final float itemScale;
     protected int currentPage = 0;
     protected Runnable onPageChange;
     protected boolean needsUpdate = true;
-    private List<ResourceLocation> lastMemories = new ArrayList<>();
+    private List<String> lastSignatures = new ArrayList<>();
 
     private static final List<Supplier<Item>> DEFAULT_ITEMS = List.of(
             ModItems.ORGANIX_ESSENCE,
@@ -83,6 +87,10 @@ public class MemoryListWidget extends AbstractWidget {
         this.onPageChange = onPageChange;
     }
 
+    protected String getEmptyText() {
+        return Component.translatable("gui.elemenix.no_resolved_items").getString();
+    }
+
     protected boolean isMenuWrong(){
         Minecraft minecraft = Minecraft.getInstance();
         if (minecraft.player == null) return true;
@@ -100,7 +108,7 @@ public class MemoryListWidget extends AbstractWidget {
         }
 
         int startIndex = currentPage * ITEMS_PER_PAGE;
-        if (startIndex >= itemStacks.size() && currentPage > 0) {
+        if (startIndex >= displayStacks.size() && currentPage > 0) {
             resetToFirstPage();
             return;
         }
@@ -109,8 +117,8 @@ public class MemoryListWidget extends AbstractWidget {
             return;
         }
 
-        if (itemStacks.isEmpty()) {
-            String text = Component.translatable("gui.elemenix.no_resolved_items").getString();
+        if (displayStacks.isEmpty()) {
+            String text = getEmptyText();
             int textWidth = minecraft.font.width(text);
             graphics.drawString(minecraft.font, text,
                     getX() + (width - textWidth) / 2,
@@ -119,7 +127,7 @@ public class MemoryListWidget extends AbstractWidget {
             return;
         }
 
-        int endIndex = Math.min(startIndex + ITEMS_PER_PAGE, itemStacks.size());
+        int endIndex = Math.min(startIndex + ITEMS_PER_PAGE, displayStacks.size());
         int hoveredIndex = getHoveredItemIndex(mouseX, mouseY);
 
         for (int i = startIndex; i < endIndex; i++) {
@@ -133,7 +141,7 @@ public class MemoryListWidget extends AbstractWidget {
                         displayIndex % 2 == 0 ? 0x22000000 : 0x11FFFFFF);
             }
 
-            ItemStack stackToRender = itemStacks.get(i);
+            ItemStack stackToRender = displayStacks.get(i);
             renderItemAndName(graphics, minecraft, itemY, stackToRender);
         }
     }
@@ -199,58 +207,89 @@ public class MemoryListWidget extends AbstractWidget {
         }
 
         ItemStack memorizerStack = menu.getMemorizerItem();
-        List<ResourceLocation> currentMemories;
+
+        List<ResourceLocation> newItemIds = new ArrayList<>();
+        List<ResourceLocation> newPotionIds = new ArrayList<>();
+        List<ItemStack> newStacks = new ArrayList<>();
 
         if (memorizerStack.isEmpty()) {
-            currentMemories = DEFAULT_ITEMS.stream()
+            for (ResourceLocation id : DEFAULT_ITEMS.stream()
                     .map(supplier -> BuiltInRegistries.ITEM.getKey(supplier.get()))
-                    .collect(Collectors.toList());
+                    .toList()) {
+                Item item = BuiltInRegistries.ITEM.get(id);
+                ItemStack stack = new ItemStack(item);
+                newItemIds.add(id);
+                newPotionIds.add(null);
+                newStacks.add(stack);
+            }
+        } else if (memorizerStack.is(ModItems.WITCHCRAFT_MEMORIZER)) {
+            List<PotionMemoryData.Entry> entries = menu.getPotionMemories();
+            if (entries != null) {
+                for (PotionMemoryData.Entry entry : entries) {
+                    newItemIds.add(entry.itemId());
+                    newPotionIds.add(entry.potionId());
+                    newStacks.add(createPotionStack(entry.itemId(), entry.potionId()));
+                }
+            }
         } else {
-            if(menu.getMemories() != null) {
-                currentMemories = menu.getMemories();
-            }else{
-                currentMemories = new ArrayList<>();
+            List<ResourceLocation> memories = menu.getMemories();
+            if (memories != null) {
+                for (ResourceLocation id : memories) {
+                    Item item = BuiltInRegistries.ITEM.get(id);
+                    ItemStack stack = new ItemStack(item);
+                    newItemIds.add(id);
+                    newPotionIds.add(null);
+                    newStacks.add(stack);
+                }
             }
         }
 
+        List<String> currentSignatures = buildSignatures(newItemIds, newPotionIds);
+
         boolean isJustAppended = false;
-        if (lastMemories != null && currentMemories.size() == lastMemories.size() + 1) {
+        if (currentSignatures.size() == lastSignatures.size() + 1) {
             isJustAppended = true;
-            for (int i = 0; i < lastMemories.size(); i++) {
-                if (!lastMemories.get(i).equals(currentMemories.get(i))) {
+            for (int i = 0; i < lastSignatures.size(); i++) {
+                if (!lastSignatures.get(i).equals(currentSignatures.get(i))) {
                     isJustAppended = false;
                     break;
                 }
             }
         }
 
-        boolean memorizerChanged = !currentMemories.equals(lastMemories) && !isJustAppended;
+        boolean changed = !currentSignatures.equals(lastSignatures) && !isJustAppended;
 
-        if (memorizerChanged) {
+        if (changed) {
             currentPage = 0;
-            lastMemories = new ArrayList<>(currentMemories);
         }
+        lastSignatures = new ArrayList<>(currentSignatures);
 
-        if (isJustAppended) {
-            lastMemories = new ArrayList<>(currentMemories);
-        }
-
-        if (currentMemories.equals(this.items) && !memorizerChanged) {
-            return;
-        }
-
-        this.items = new ArrayList<>(currentMemories);
-        this.itemStacks.clear();
-
-        for (ResourceLocation itemId : items) {
-            Item item = BuiltInRegistries.ITEM.get(itemId);
-            ItemStack stack = new ItemStack(item);
-            itemStacks.add(stack.isEmpty() ? ItemStack.EMPTY : stack);
-        }
+        this.itemIds.clear();
+        this.potionIds.clear();
+        this.displayStacks.clear();
+        this.itemIds.addAll(newItemIds);
+        this.potionIds.addAll(newPotionIds);
+        this.displayStacks.addAll(newStacks);
 
         if (onPageChange != null) {
             onPageChange.run();
         }
+    }
+
+    private static List<String> buildSignatures(List<ResourceLocation> items, List<ResourceLocation> potions) {
+        List<String> signatures = new ArrayList<>(items.size());
+        for (int i = 0; i < items.size(); i++) {
+            ResourceLocation potion = potions.get(i);
+            signatures.add(potion == null ? "i:" + items.get(i) : "p:" + items.get(i) + "|" + potion);
+        }
+        return signatures;
+    }
+
+    protected static ItemStack createPotionStack(ResourceLocation itemId, ResourceLocation potionId) {
+        Item item = BuiltInRegistries.ITEM.get(itemId);
+
+        var potionHolder = BuiltInRegistries.POTION.getHolder(ResourceKey.create(Registries.POTION, potionId));
+        return potionHolder.map(potionReference -> net.minecraft.world.item.alchemy.PotionContents.createItemStack(item, potionReference)).orElseGet(() -> new ItemStack(item));
     }
 
     @Override
@@ -263,11 +302,15 @@ public class MemoryListWidget extends AbstractWidget {
         if (displayIndex >= 0 && displayIndex < ITEMS_PER_PAGE) {
             int itemIndex = currentPage * ITEMS_PER_PAGE + displayIndex;
 
-            if (itemIndex >= 0 && itemIndex < items.size()) {
-                ResourceLocation itemId = items.get(itemIndex);
+            if (itemIndex >= 0 && itemIndex < itemIds.size()) {
                 boolean shiftClick = hasShiftDown();
+                ResourceLocation potionId = potionIds.get(itemIndex);
 
-                PacketDistributor.sendToServer(new ReconstructionPayload(itemId, shiftClick));
+                if (potionId != null) {
+                    PacketDistributor.sendToServer(new PotionReconstructionPayload(itemIds.get(itemIndex), potionId, shiftClick));
+                } else {
+                    PacketDistributor.sendToServer(new ReconstructionPayload(itemIds.get(itemIndex), shiftClick));
+                }
                 this.needsUpdate = true;
                 return true;
             }
@@ -286,17 +329,17 @@ public class MemoryListWidget extends AbstractWidget {
 
         if (displayIndex >= 0 && displayIndex < ITEMS_PER_PAGE) {
             int itemIndex = currentPage * ITEMS_PER_PAGE + displayIndex;
-            if (itemIndex >= 0 && itemIndex < items.size()) {
+            if (itemIndex >= 0 && itemIndex < itemIds.size()) {
                 return itemIndex;
             }
         }
         return -1;
     }
 
-    public Optional<ResourceLocation> getHoveredItemId(double mouseX, double mouseY) {
+    public Optional<ItemStack> getHoveredItemStack(double mouseX, double mouseY) {
         int index = getHoveredItemIndex(mouseX, mouseY);
-        if (index >= 0 && index < items.size()) {
-            return Optional.of(items.get(index));
+        if (index >= 0 && index < displayStacks.size()) {
+            return Optional.of(displayStacks.get(index));
         }
         return Optional.empty();
     }
@@ -326,11 +369,11 @@ public class MemoryListWidget extends AbstractWidget {
     }
 
     private int getTotalPages() {
-        return Math.max(1, (int) Math.ceil((double) items.size() / ITEMS_PER_PAGE));
+        return Math.max(1, (int) Math.ceil((double) itemIds.size() / ITEMS_PER_PAGE));
     }
 
     public int getItemCount() {
-        return items.size();
+        return itemIds.size();
     }
 
     public void resetToFirstPage() {

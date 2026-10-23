@@ -1,12 +1,15 @@
 package net.lghast.elemenix.client.screen;
 
 import net.lghast.elemenix.common.content.item.MemorizerItem;
+import net.lghast.elemenix.common.content.item.WitchcraftMemorizerItem;
 import net.lghast.elemenix.common.system.datacomponent.MemoryData;
+import net.lghast.elemenix.common.system.datacomponent.PotionMemoryData;
 import net.lghast.elemenix.common.system.menu.AnalysisTerminalMenu;
 import net.lghast.elemenix.compat.jech.JechCompat;
 import net.lghast.elemenix.network.terminal.TerminalCarriedDeconstructPayload;
 import net.lghast.elemenix.network.terminal.TerminalMemorizerSelectPayload;
 import net.lghast.elemenix.network.terminal.TerminalFlagsPayload;
+import net.lghast.elemenix.network.terminal.TerminalPotionReconstructPayload;
 import net.lghast.elemenix.network.terminal.TerminalReconstructPayload;
 import net.lghast.elemenix.utils.Constituents;
 import net.lghast.elemenix.utils.LongContainerData;
@@ -20,10 +23,14 @@ import net.minecraft.client.gui.components.EditBox;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.alchemy.PotionContents;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 import net.neoforged.neoforge.network.PacketDistributor;
@@ -34,7 +41,6 @@ import java.util.*;
 
 @OnlyIn(Dist.CLIENT)
 public class AnalysisTerminalScreen extends AbstractContainerScreen<AnalysisTerminalMenu> {
-
     private static final ResourceLocation TEXTURE =
             ResourceLocation.fromNamespaceAndPath("elemenix", "textures/gui/analysis_terminal.png");
 
@@ -103,11 +109,12 @@ public class AnalysisTerminalScreen extends AbstractContainerScreen<AnalysisTerm
     private Button nextButton;
     private Button allButton;
 
-    private int selectedDisk = -1;
+    private int selectedMemorizer = -1;
     private final List<ItemStack> memorizers = new ArrayList<>();
     private final List<ResourceLocation> visibleItems = new ArrayList<>();
+    private final List<ResourceLocation> visiblePotions = new ArrayList<>();
     private Object pinyinSearcher = null;
-    private List<ResourceLocation> pinyinIndexedItems = null;
+    private List<ItemStack> pinyinIndexedStacks = null;
     private int scrollOffset = 0;
     private boolean scrollbarDragging = false;
 
@@ -162,7 +169,7 @@ public class AnalysisTerminalScreen extends AbstractContainerScreen<AnalysisTerm
         this.nextButton = Button.builder(Component.literal("→"), b -> pressNext())
                 .bounds(leftPos + NEXT_X, topPos + MEM_BTN_Y, MEM_BTN_SIZE, MEM_BTN_SIZE).build();
         this.allButton = Button.builder(Component.translatable("gui.elemenix.analysis_terminal.all"),
-                        b -> selectDisk(-1))
+                        b -> selectMemorizer(-1))
                 .bounds(leftPos + ALL_BTN_X, topPos + ALL_BTN_Y, ALL_BTN_W, ALL_BTN_H).build();
         this.addRenderableWidget(this.prevButton);
         this.addRenderableWidget(this.nextButton);
@@ -194,48 +201,46 @@ public class AnalysisTerminalScreen extends AbstractContainerScreen<AnalysisTerm
         memorizers.clear();
         for (int i = 0; i < 18; i++) {
             ItemStack stack = menu.getBoxItem(i);
-            if (stack.getItem() instanceof MemorizerItem) {
+            if (stack.getItem() instanceof MemorizerItem || stack.getItem() instanceof WitchcraftMemorizerItem) {
                 memorizers.add(stack);
             }
         }
-        if (selectedDisk >= memorizers.size()) {
-            selectedDisk = -1;
+        if (selectedMemorizer >= memorizers.size()) {
+            selectedMemorizer = -1;
         }
         updateVisibleItems();
         updateButtonStates();
     }
 
     private void updateVisibleItems() {
-        List<ResourceLocation> fullList = new ArrayList<>();
-        if (selectedDisk >= 0 && selectedDisk < memorizers.size()) {
-            fullList.addAll(MemorizerItem.getOrCreateMemories(memorizers.get(selectedDisk)).resolvedItems());
-        } else {
-            LinkedHashSet<ResourceLocation> merged = new LinkedHashSet<>();
-            for (ItemStack disk : memorizers) {
-                merged.addAll(MemorizerItem.getOrCreateMemories(disk).resolvedItems());
-            }
-            fullList.addAll(merged);
-        }
+        List<ResourceLocation> fullItemIds = new ArrayList<>();
+        List<ResourceLocation> fullPotionIds = new ArrayList<>();
+        List<ItemStack> fullStacks = new ArrayList<>();
+
+        collectVisible(fullItemIds, fullPotionIds, fullStacks);
 
         String rawQuery = searchBox.getValue().trim();
         String query = rawQuery.toLowerCase(Locale.ROOT);
 
         visibleItems.clear();
+        visiblePotions.clear();
         if (query.isEmpty()) {
-            visibleItems.addAll(fullList);
+            visibleItems.addAll(fullItemIds);
+            visiblePotions.addAll(fullPotionIds);
             pinyinSearcher = null;
-            pinyinIndexedItems = null;
+            pinyinIndexedStacks = null;
             clampScroll();
             return;
         }
 
         if (JechCompat.isAvailable()) {
-            ensurePinyinIndex(fullList);
+            ensurePinyinIndex(fullStacks);
             Set<Object> matched = JechCompat.searchValues(pinyinSearcher, rawQuery);
             if (matched != null && !matched.isEmpty()) {
-                for (ResourceLocation itemId : fullList) {
-                    if (matched.contains(itemId)) {
-                        visibleItems.add(itemId);
+                for (int i = 0; i < fullStacks.size(); i++) {
+                    if (matched.contains(i)) {
+                        visibleItems.add(fullItemIds.get(i));
+                        visiblePotions.add(fullPotionIds.get(i));
                     }
                 }
                 clampScroll();
@@ -243,30 +248,91 @@ public class AnalysisTerminalScreen extends AbstractContainerScreen<AnalysisTerm
             }
         }
 
-        for (ResourceLocation itemId : fullList) {
-            ItemStack stack = new ItemStack(BuiltInRegistries.ITEM.get(itemId));
+        for (int i = 0; i < fullStacks.size(); i++) {
+            ItemStack stack = fullStacks.get(i);
             if (!stack.isEmpty()
                     && stack.getHoverName().getString().toLowerCase(Locale.ROOT).contains(query)) {
-                visibleItems.add(itemId);
+                visibleItems.add(fullItemIds.get(i));
+                visiblePotions.add(fullPotionIds.get(i));
             }
         }
         clampScroll();
     }
 
-    private void ensurePinyinIndex(List<ResourceLocation> fullList) {
-        if (pinyinSearcher != null && pinyinIndexedItems != null && pinyinIndexedItems.equals(fullList)) {
+    private void collectVisible(List<ResourceLocation> itemIds, List<ResourceLocation> potionIds, List<ItemStack> stacks) {
+        if (selectedMemorizer >= 0 && selectedMemorizer < memorizers.size()) {
+            ItemStack disk = memorizers.get(selectedMemorizer);
+            if (disk.getItem() instanceof WitchcraftMemorizerItem) {
+                for (PotionMemoryData.Entry entry : WitchcraftMemorizerItem.getOrCreateMemories(disk).entries()) {
+                    itemIds.add(entry.itemId());
+                    potionIds.add(entry.potionId());
+                    stacks.add(createPotionStack(entry.itemId(), entry.potionId()));
+                }
+            } else {
+                for (ResourceLocation id : MemorizerItem.getOrCreateMemories(disk).resolvedItems()) {
+                    itemIds.add(id);
+                    potionIds.add(null);
+                    stacks.add(new ItemStack(BuiltInRegistries.ITEM.get(id)));
+                }
+            }
             return;
         }
-        pinyinSearcher = JechCompat.createSearcher();
-        pinyinIndexedItems = new ArrayList<>(fullList);
-        if (pinyinSearcher == null) return;
 
-        for (ResourceLocation itemId : fullList) {
-            ItemStack stack = new ItemStack(BuiltInRegistries.ITEM.get(itemId));
-            if (!stack.isEmpty()) {
-                JechCompat.putEntry(pinyinSearcher, stack.getHoverName().getString(), itemId);
+        LinkedHashSet<ResourceLocation> mergedItems = new LinkedHashSet<>();
+        LinkedHashSet<PotionMemoryData.Entry> mergedPotions = new LinkedHashSet<>();
+        for (ItemStack disk : memorizers) {
+            if (disk.getItem() instanceof WitchcraftMemorizerItem) {
+                mergedPotions.addAll(WitchcraftMemorizerItem.getOrCreateMemories(disk).entries());
+            } else {
+                mergedItems.addAll(MemorizerItem.getOrCreateMemories(disk).resolvedItems());
             }
         }
+
+        for (ResourceLocation id : mergedItems) {
+            itemIds.add(id);
+            potionIds.add(null);
+            stacks.add(new ItemStack(BuiltInRegistries.ITEM.get(id)));
+        }
+
+        for (PotionMemoryData.Entry entry : mergedPotions) {
+            itemIds.add(entry.itemId());
+            potionIds.add(entry.potionId());
+            stacks.add(createPotionStack(entry.itemId(), entry.potionId()));
+        }
+    }
+
+    private void ensurePinyinIndex(List<ItemStack> fullStacks) {
+        if (pinyinSearcher != null && pinyinIndexedStacks != null && pinyinIndexedStacks.equals(fullStacks)) {
+            return;
+        }
+
+        pinyinSearcher = JechCompat.createSearcher();
+        pinyinIndexedStacks = new ArrayList<>(fullStacks);
+        if (pinyinSearcher == null) return;
+
+        for (int i = 0; i < fullStacks.size(); i++) {
+            ItemStack stack = fullStacks.get(i);
+            if (!stack.isEmpty()) {
+                JechCompat.putEntry(pinyinSearcher, stack.getHoverName().getString(), i);
+            }
+        }
+    }
+
+    private static ItemStack createPotionStack(ResourceLocation itemId, ResourceLocation potionId) {
+        Item item = BuiltInRegistries.ITEM.get(itemId);
+        var holder = BuiltInRegistries.POTION.getHolder(ResourceKey.create(Registries.POTION, potionId));
+        return holder.map(p -> PotionContents.createItemStack(item, p)).orElseGet(() -> new ItemStack(item));
+    }
+
+    private ItemStack getVisibleStack(int index) {
+        if (index < 0 || index >= visibleItems.size()) {
+            return ItemStack.EMPTY;
+        }
+        ResourceLocation potionId = visiblePotions.get(index);
+        if (potionId != null) {
+            return createPotionStack(visibleItems.get(index), potionId);
+        }
+        return new ItemStack(BuiltInRegistries.ITEM.get(visibleItems.get(index)));
     }
 
     private void updateButtonStates() {
@@ -276,11 +342,11 @@ public class AnalysisTerminalScreen extends AbstractContainerScreen<AnalysisTerm
         boolean hasDisks = !memorizers.isEmpty();
         prevButton.active = hasDisks;
         nextButton.active = hasDisks;
-        allButton.active = selectedDisk != -1;
+        allButton.active = selectedMemorizer != -1;
     }
 
-    private void selectDisk(int index) {
-        this.selectedDisk = index;
+    private void selectMemorizer(int index) {
+        this.selectedMemorizer = index;
         PacketDistributor.sendToServer(new TerminalMemorizerSelectPayload(index));
         updateLists();
     }
@@ -290,7 +356,7 @@ public class AnalysisTerminalScreen extends AbstractContainerScreen<AnalysisTerm
         if (count == 0) {
             return;
         }
-        selectDisk(selectedDisk < 0 ? count - 1 : (selectedDisk - 1 + count) % count);
+        selectMemorizer(selectedMemorizer < 0 ? count - 1 : (selectedMemorizer - 1 + count) % count);
     }
 
     private void pressNext() {
@@ -298,7 +364,7 @@ public class AnalysisTerminalScreen extends AbstractContainerScreen<AnalysisTerm
         if (count == 0) {
             return;
         }
-        selectDisk(selectedDisk < 0 ? 0 : (selectedDisk + 1) % count);
+        selectMemorizer(selectedMemorizer < 0 ? 0 : (selectedMemorizer + 1) % count);
     }
 
     private void sendFlags() {
@@ -334,10 +400,13 @@ public class AnalysisTerminalScreen extends AbstractContainerScreen<AnalysisTerm
     private void renderMemoryInfo(GuiGraphics graphics) {
         String name;
         int nameColor = 0xFFFFFF;
-        if (selectedDisk >= 0 && selectedDisk < memorizers.size()) {
-            ItemStack disk = memorizers.get(selectedDisk);
+        if (selectedMemorizer >= 0 && selectedMemorizer < memorizers.size()) {
+            ItemStack disk = memorizers.get(selectedMemorizer);
             name = disk.getHoverName().getString();
-            if (MemorizerItem.isReadonly(disk)) {
+            boolean readonly = disk.getItem() instanceof WitchcraftMemorizerItem
+                    ? WitchcraftMemorizerItem.isReadonly(disk)
+                    : MemorizerItem.isReadonly(disk);
+            if (readonly) {
                 nameColor = 0xFFAA00;
             }
         } else {
@@ -361,8 +430,8 @@ public class AnalysisTerminalScreen extends AbstractContainerScreen<AnalysisTerm
             graphics.pose().popPose();
         }
 
-        if (selectedDisk >= 0 && selectedDisk < memorizers.size()) {
-            graphics.renderItem(memorizers.get(selectedDisk), leftPos + MEM_ICON_X, topPos + MEM_ICON_Y);
+        if (selectedMemorizer >= 0 && selectedMemorizer < memorizers.size()) {
+            graphics.renderItem(memorizers.get(selectedMemorizer), leftPos + MEM_ICON_X, topPos + MEM_ICON_Y);
         } else {
             graphics.blit(MEMORIZER_ICON_TEXTURE,
                     leftPos + MEM_ICON_X, topPos + MEM_ICON_Y,
@@ -389,7 +458,7 @@ public class AnalysisTerminalScreen extends AbstractContainerScreen<AnalysisTerm
         int hovered = getHoveredCell(mouseX, mouseY);
         if (hovered < 0 || hovered >= visibleItems.size()) return;
 
-        ItemStack stack = new ItemStack(BuiltInRegistries.ITEM.get(visibleItems.get(hovered)));
+        ItemStack stack = getVisibleStack(hovered);
         if (stack.isEmpty()) return;
 
         Constituents required = ElemenixInfo.getPremiumAppliedConstituents(stack);
@@ -423,8 +492,7 @@ public class AnalysisTerminalScreen extends AbstractContainerScreen<AnalysisTerm
                 if (index >= visibleItems.size()) {
                     continue;
                 }
-                ResourceLocation itemId = visibleItems.get(index);
-                ItemStack stack = new ItemStack(BuiltInRegistries.ITEM.get(itemId));
+                ItemStack stack = getVisibleStack(index);
                 if (stack.isEmpty()) {
                     continue;
                 }
@@ -505,7 +573,7 @@ public class AnalysisTerminalScreen extends AbstractContainerScreen<AnalysisTerm
             return;
         }
 
-        ItemStack stack = new ItemStack(BuiltInRegistries.ITEM.get(visibleItems.get(hovered)));
+        ItemStack stack = getVisibleStack(hovered);
         if (stack.isEmpty()) return;
 
         graphics.renderTooltip(
@@ -579,10 +647,17 @@ public class AnalysisTerminalScreen extends AbstractContainerScreen<AnalysisTerm
             return;
         }
         Component line;
-        if (selectedDisk >= 0 && selectedDisk < memorizers.size()) {
-            MemoryData memoryData = MemorizerItem.getOrCreateMemories(memorizers.get(selectedDisk));
-            line = Component.literal(memoryData.resolvedItems().size() + "/" + MemoryData.MAX)
-                    .withStyle(memoryData.isFull() ? ChatFormatting.RED : ChatFormatting.GRAY);
+        if (selectedMemorizer >= 0 && selectedMemorizer < memorizers.size()) {
+            ItemStack disk = memorizers.get(selectedMemorizer);
+            if (disk.getItem() instanceof WitchcraftMemorizerItem) {
+                PotionMemoryData data = WitchcraftMemorizerItem.getOrCreateMemories(disk);
+                line = Component.literal(data.entries().size() + "/" + PotionMemoryData.MAX)
+                        .withStyle(data.isFull() ? ChatFormatting.RED : ChatFormatting.GRAY);
+            } else {
+                MemoryData memoryData = MemorizerItem.getOrCreateMemories(disk);
+                line = Component.literal(memoryData.resolvedItems().size() + "/" + MemoryData.MAX)
+                        .withStyle(memoryData.isFull() ? ChatFormatting.RED : ChatFormatting.GRAY);
+            }
         } else {
             line = Component.translatable("tooltip.elemenix.memorizers", memorizers.size());
         }
@@ -607,8 +682,15 @@ public class AnalysisTerminalScreen extends AbstractContainerScreen<AnalysisTerm
             int cell = getHoveredCell((int) mouseX, (int) mouseY);
             if (cell >= 0) {
                 if (button == 0) {
-                    PacketDistributor.sendToServer(
-                            new TerminalReconstructPayload(visibleItems.get(cell), Screen.hasShiftDown()));
+                    boolean shift = Screen.hasShiftDown();
+                    ResourceLocation potionId = visiblePotions.get(cell);
+                    if (potionId != null) {
+                        PacketDistributor.sendToServer(
+                                new TerminalPotionReconstructPayload(visibleItems.get(cell), potionId, shift));
+                    } else {
+                        PacketDistributor.sendToServer(
+                                new TerminalReconstructPayload(visibleItems.get(cell), shift));
+                    }
                     return true;
                 }
                 if (!menu.getCarried().isEmpty() && deconstructCheckbox.selected()) {

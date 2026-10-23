@@ -57,6 +57,7 @@ public class Elemenics {
         ModAdvancementTriggers.register(modEventBus);
         ModRecipes.register(modEventBus);
         ModStats.register(modEventBus);
+        ModLootModifiers.register(modEventBus);
 
         if (isFtbQuestsLoaded) {
             ModTaskTypes.init();

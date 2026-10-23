@@ -1,6 +1,7 @@
 {
   "values": [
     "minecraft:ender_pearl",
+    "elemenix:witchcraft_trove",
     {
       "id": "anvilcraft:void_matter",
       "required": false

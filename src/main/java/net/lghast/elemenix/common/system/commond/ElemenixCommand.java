@@ -12,17 +12,23 @@ import net.lghast.elemenix.utils.Constituents;
 import net.lghast.elemenix.utils.ModUtils;
 import net.lghast.elemenix.utils.elemenix.ElemenixInfo;
 import net.lghast.elemenix.utils.elemenix.FluidElemenixInfo;
+import net.lghast.elemenix.utils.elemenix.PotionElemenixInfo;
 import net.minecraft.ChatFormatting;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
 import net.minecraft.commands.SharedSuggestionProvider;
+import net.minecraft.core.Holder;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.ClickEvent;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.alchemy.Potion;
+import net.minecraft.world.item.alchemy.PotionContents;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.Fluids;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -54,6 +60,13 @@ public class ElemenixCommand {
 
     private static final SuggestionProvider<CommandSourceStack> FLUID_ID_SUGGESTIONS = (context, builder) -> {
         List<String> ids = BuiltInRegistries.FLUID.keySet().stream()
+                .map(ResourceLocation::toString)
+                .collect(Collectors.toList());
+        return SharedSuggestionProvider.suggest(ids, builder);
+    };
+
+    private static final SuggestionProvider<CommandSourceStack> POTION_ID_SUGGESTIONS = (context, builder) -> {
+        List<String> ids = BuiltInRegistries.POTION.keySet().stream()
                 .map(ResourceLocation::toString)
                 .collect(Collectors.toList());
         return SharedSuggestionProvider.suggest(ids, builder);
@@ -114,10 +127,37 @@ public class ElemenixCommand {
                                         .executes(guarded(ctx -> listUnanalysableFluids(ctx, StringArgumentType.getString(ctx, "modid"),
                                                 IntegerArgumentType.getInteger(ctx, "page")))))));
 
+        LiteralArgumentBuilder<CommandSourceStack> potionCommand = Commands.literal("potion")
+                .then(Commands.literal("show")
+                        .then(Commands.argument("potion", StringArgumentType.greedyString())
+                                .suggests(POTION_ID_SUGGESTIONS)
+                                .executes(guarded(ElemenixCommand::showPotion))))
+                .then(Commands.literal("all")
+                        .executes(guarded(ctx -> listPotions(ctx, null, 1)))
+                        .then(Commands.argument("page", IntegerArgumentType.integer(1))
+                                .executes(guarded(ctx -> listPotions(ctx, null, IntegerArgumentType.getInteger(ctx, "page")))))
+                        .then(Commands.argument("modid", StringArgumentType.string())
+                                .suggests(MOD_ID_SUGGESTIONS)
+                                .executes(guarded(ctx -> listPotions(ctx, StringArgumentType.getString(ctx, "modid"), 1)))
+                                .then(Commands.argument("page", IntegerArgumentType.integer(1))
+                                        .executes(guarded(ctx -> listPotions(ctx, StringArgumentType.getString(ctx, "modid"),
+                                                IntegerArgumentType.getInteger(ctx, "page")))))))
+                .then(Commands.literal("unanalysable")
+                        .executes(guarded(ctx -> listUnanalysablePotions(ctx, null, 1)))
+                        .then(Commands.argument("page", IntegerArgumentType.integer(1))
+                                .executes(guarded(ctx -> listUnanalysablePotions(ctx, null, IntegerArgumentType.getInteger(ctx, "page")))))
+                        .then(Commands.argument("modid", StringArgumentType.string())
+                                .suggests(MOD_ID_SUGGESTIONS)
+                                .executes(guarded(ctx -> listUnanalysablePotions(ctx, StringArgumentType.getString(ctx, "modid"), 1)))
+                                .then(Commands.argument("page", IntegerArgumentType.integer(1))
+                                        .executes(guarded(ctx -> listUnanalysablePotions(ctx, StringArgumentType.getString(ctx, "modid"),
+                                                IntegerArgumentType.getInteger(ctx, "page")))))));
+
         dispatcher.register(Commands.literal("elemenix")
                 .requires(source -> source.hasPermission(0))
                 .then(itemCommand)
-                .then(fluidCommand));
+                .then(fluidCommand)
+                .then(potionCommand));
     }
 
     private static Command<CommandSourceStack> guarded(Command<CommandSourceStack> command) {
@@ -430,6 +470,161 @@ public class ElemenixCommand {
             context.getSource().sendSuccess(() -> hint, false);
         }
         return 1;
+    }
+
+    private static int showPotion(CommandContext<CommandSourceStack> context) {
+        String potionId = StringArgumentType.getString(context, "potion");
+        ResourceLocation id = ResourceLocation.parse(potionId);
+        Optional<Holder.Reference<Potion>> holder = BuiltInRegistries.POTION.getHolder(ResourceKey.create(Registries.POTION, id));
+        if (holder.isEmpty()) {
+            context.getSource().sendFailure(Component.translatable("command.elemenix.potion.show.invalid", potionId));
+            return 0;
+        }
+        Constituents constituents = PotionElemenixInfo.getConstituents(holder.get());
+        String potionName = getPotionDisplayName(holder.get());
+        context.getSource().sendSuccess(
+                () -> Component.translatable("command.elemenix.potion.show.result", potionName, constituents.toString()),
+                false);
+        return 1;
+    }
+
+    private static int listPotions(CommandContext<CommandSourceStack> context, String modId, int page) {
+        List<Holder.Reference<Potion>> potions = new ArrayList<>();
+        for (Potion potion : BuiltInRegistries.POTION) {
+            ResourceLocation id = BuiltInRegistries.POTION.getKey(potion);
+            if(id == null || modId == null) continue;
+            if (!id.getNamespace().equals(modId)) continue;
+            BuiltInRegistries.POTION.getHolder(ResourceKey.create(Registries.POTION, id)).ifPresent(potions::add);
+        }
+
+        potions.sort(Comparator.comparing(h -> h.key().location().toString()));
+        if (potions.isEmpty()) {
+            context.getSource().sendSuccess(() -> Component.translatable("command.elemenix.potion.all.empty"), false);
+            return 1;
+        }
+
+        int total = potions.size();
+        int totalPages = (total + PAGE_SIZE - 1) / PAGE_SIZE;
+        if (page > totalPages) {
+            context.getSource().sendFailure(
+                    Component.translatable("command.elemenix.potion.all.page_out_of_range", totalPages));
+            return 0;
+        }
+
+        int start = (page - 1) * PAGE_SIZE;
+        int end = Math.min(start + PAGE_SIZE, total);
+        List<Holder.Reference<Potion>> pagePotions = potions.subList(start, end);
+        Map<String, List<Holder.Reference<Potion>>> grouped = pagePotions.stream()
+                .collect(Collectors.groupingBy(
+                        h -> h.key().location().getNamespace(),
+                        LinkedHashMap::new,
+                        Collectors.toList()
+                ));
+
+        context.getSource().sendSuccess(() -> Component.translatable("command.elemenix.potion.all.header", total), false);
+        for (Map.Entry<String, List<Holder.Reference<Potion>>> entry : grouped.entrySet()) {
+            String namespace = entry.getKey();
+            context.getSource().sendSuccess(() -> Component.literal(namespace + "："), false);
+            for (Holder.Reference<Potion> holder : entry.getValue()) {
+                String potionName = getPotionDisplayName(holder);
+                String potionPath = holder.key().location().getPath();
+                String constituentsStr = PotionElemenixInfo.getConstituents(holder).toString();
+                context.getSource().sendSuccess(
+                        () -> Component.translatable("command.elemenix.potion.all.entry",
+                                potionName, potionPath, constituentsStr),
+                        false);
+            }
+        }
+
+        context.getSource().sendSuccess(
+                () -> Component.translatable("command.elemenix.potion.all.page_info", page, totalPages), false);
+        if (page < totalPages) {
+            String nextCommand = modId == null
+                    ? "/elemenix potion all " + (page + 1)
+                    : "/elemenix potion all " + modId + " " + (page + 1);
+            Component hint = Component.translatable("command.elemenix.potion.all.next_page_hint")
+                    .withStyle(style -> style.withClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, nextCommand)))
+                    .withStyle(ChatFormatting.BLUE).withStyle(ChatFormatting.ITALIC);
+            context.getSource().sendSuccess(() -> hint, false);
+        }
+        return 1;
+    }
+
+    private static int listUnanalysablePotions(CommandContext<CommandSourceStack> context, String modId, int page) {
+        List<Holder.Reference<Potion>> potions = new ArrayList<>();
+        for (Potion potion : BuiltInRegistries.POTION) {
+            ResourceLocation id = BuiltInRegistries.POTION.getKey(potion);
+            if(id == null || modId == null) continue;
+            if (!id.getNamespace().equals(modId)) continue;
+
+            Optional<Holder.Reference<Potion>> holderOpt = BuiltInRegistries.POTION.getHolder(ResourceKey.create(Registries.POTION, id));
+            if (holderOpt.isEmpty()) continue;
+            if (PotionElemenixInfo.getConstituents(holderOpt.get()).isUnanalysable()) {
+                potions.add(holderOpt.get());
+            }
+        }
+
+        potions.sort(Comparator.comparing(h -> h.key().location().toString()));
+        if (potions.isEmpty()) {
+            context.getSource().sendSuccess(() -> Component.translatable("command.elemenix.potion.unanalysable.empty"), false);
+            return 1;
+        }
+
+        int total = potions.size();
+        int totalPages = (total + PAGE_SIZE - 1) / PAGE_SIZE;
+        if (page > totalPages) {
+            context.getSource().sendFailure(
+                    Component.translatable("command.elemenix.potion.unanalysable.page_out_of_range", totalPages));
+            return 0;
+        }
+
+        int start = (page - 1) * PAGE_SIZE;
+        int end = Math.min(start + PAGE_SIZE, total);
+        List<Holder.Reference<Potion>> pagePotions = potions.subList(start, end);
+        Map<String, List<Holder.Reference<Potion>>> grouped = pagePotions.stream()
+                .collect(Collectors.groupingBy(
+                        h -> h.key().location().getNamespace(),
+                        LinkedHashMap::new,
+                        Collectors.toList()
+                ));
+        context.getSource().sendSuccess(
+                () -> Component.translatable("command.elemenix.potion.unanalysable.header", total), false);
+        for (Map.Entry<String, List<Holder.Reference<Potion>>> entry : grouped.entrySet()) {
+            String namespace = entry.getKey();
+            context.getSource().sendSuccess(() -> Component.literal(namespace + "："), false);
+            for (Holder.Reference<Potion> holder : entry.getValue()) {
+                String potionName = getPotionDisplayName(holder);
+                String potionPath = holder.key().location().getPath();
+                context.getSource().sendSuccess(
+                        () -> Component.translatable("command.elemenix.potion.unanalysable.entry",
+                                potionName, potionPath),
+                        false);
+            }
+        }
+
+        context.getSource().sendSuccess(
+                () -> Component.translatable("command.elemenix.potion.unanalysable.page_info", page, totalPages), false);
+        if (page < totalPages) {
+            String nextCommand = modId == null
+                    ? "/elemenix potion unanalysable " + (page + 1)
+                    : "/elemenix potion unanalysable " + modId + " " + (page + 1);
+            Component hint = Component.translatable("command.elemenix.potion.unanalysable.next_page_hint")
+                    .withStyle(style -> style.withClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, nextCommand)))
+                    .withStyle(ChatFormatting.BLUE).withStyle(ChatFormatting.ITALIC);
+            context.getSource().sendSuccess(() -> hint, false);
+        }
+        return 1;
+    }
+
+    private static String getPotionDisplayName(Holder<Potion> holder) {
+        try {
+            ItemStack stack = PotionContents.createItemStack(Items.POTION, holder);
+            String name = stack.getHoverName().getString();
+            if (!name.isEmpty()) {
+                return name;
+            }
+        } catch (Exception ignored) {}
+        return holder.unwrapKey().map(ResourceKey::location).map(ResourceLocation::toString).orElse("?");
     }
 
     private static String getFluidDisplayName(Fluid fluid) {

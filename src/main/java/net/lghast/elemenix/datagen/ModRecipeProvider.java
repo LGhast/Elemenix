@@ -108,6 +108,16 @@ public class ModRecipeProvider extends RecipeProvider {
                 .unlockedBy("has_redstone_comparator", has(Items.COMPARATOR))
                 .save(recipeOutput);
 
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ModItems.WITCHCRAFT_MEMORIZER.get(), 1)
+                .pattern("A A")
+                .pattern("CRC")
+                .pattern("CCC")
+                .define('A', ModItems.WITCHCRAFT_TROVE)
+                .define('R', Items.COMPARATOR)
+                .define('C', Items.COPPER_INGOT)
+                .unlockedBy("has_witchcraft_trove", has(ModItems.WITCHCRAFT_TROVE))
+                .save(recipeOutput);
+
         ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ModItems.MEMORIZER_BOX.get(), 1)
                 .pattern("ISI")
                 .pattern("CIC")

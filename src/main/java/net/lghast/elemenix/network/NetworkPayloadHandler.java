@@ -2,6 +2,7 @@ package net.lghast.elemenix.network;
 
 import net.lghast.elemenix.Elemenics;
 import net.lghast.elemenix.network.analyzer.DeconstructionPayload;
+import net.lghast.elemenix.network.analyzer.PotionReconstructionPayload;
 import net.lghast.elemenix.network.analyzer.ReconstructionPayload;
 import net.lghast.elemenix.network.burner.*;
 import net.lghast.elemenix.network.infuser.InfuserDataUpdatePayload;
@@ -11,6 +12,7 @@ import net.lghast.elemenix.network.open.OpenMemorizerBoxPayload;
 import net.lghast.elemenix.network.terminal.TerminalCarriedDeconstructPayload;
 import net.lghast.elemenix.network.terminal.TerminalMemorizerSelectPayload;
 import net.lghast.elemenix.network.terminal.TerminalFlagsPayload;
+import net.lghast.elemenix.network.terminal.TerminalPotionReconstructPayload;
 import net.lghast.elemenix.network.terminal.TerminalReconstructPayload;
 import net.lghast.elemenix.network.transformer.TransformerSwitchPagePayload;
 import net.lghast.elemenix.network.transformer.TransformerTogglePayload;
@@ -37,6 +39,12 @@ public class NetworkPayloadHandler {
                 ReconstructionPayload.TYPE,
                 ReconstructionPayload.STREAM_CODEC,
                 ReconstructionPayload::handle
+        );
+
+        registrar.playToServer(
+                PotionReconstructionPayload.TYPE,
+                PotionReconstructionPayload.STREAM_CODEC,
+                PotionReconstructionPayload::handle
         );
 
         registrar.playToServer(
@@ -103,6 +111,12 @@ public class NetworkPayloadHandler {
                 TerminalReconstructPayload.TYPE,
                 TerminalReconstructPayload.STREAM_CODEC,
                 TerminalReconstructPayload::handle
+        );
+
+        registrar.playToServer(
+                TerminalPotionReconstructPayload.TYPE,
+                TerminalPotionReconstructPayload.STREAM_CODEC,
+                TerminalPotionReconstructPayload::handle
         );
 
         registrar.playToServer(

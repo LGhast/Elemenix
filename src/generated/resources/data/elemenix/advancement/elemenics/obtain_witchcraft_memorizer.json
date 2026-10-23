@@ -1,0 +1,33 @@
+{
+  "parent": "elemenix:elemenics/obtain_witchcraft_trove",
+  "criteria": {
+    "get_witchcraft_memorizer": {
+      "conditions": {
+        "items": [
+          {
+            "items": "elemenix:witchcraft_memorizer"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.elemenix.obtain_witchcraft_memorizer.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "elemenix:witchcraft_memorizer"
+    },
+    "title": {
+      "translate": "advancements.elemenix.obtain_witchcraft_memorizer.title"
+    }
+  },
+  "requirements": [
+    [
+      "get_witchcraft_memorizer"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

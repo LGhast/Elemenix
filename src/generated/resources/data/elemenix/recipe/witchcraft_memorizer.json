@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "A": {
+      "item": "elemenix:witchcraft_trove"
+    },
+    "C": {
+      "item": "minecraft:copper_ingot"
+    },
+    "R": {
+      "item": "minecraft:comparator"
+    }
+  },
+  "pattern": [
+    "A A",
+    "CRC",
+    "CCC"
+  ],
+  "result": {
+    "count": 1,
+    "id": "elemenix:witchcraft_memorizer"
+  }
+}

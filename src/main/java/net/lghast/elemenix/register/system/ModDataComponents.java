@@ -88,6 +88,12 @@ public class ModDataComponents {
                             .networkSynchronized(MEMORY_DATA_STREAM_CODEC)
             );
 
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<PotionMemoryData>> POTION_MEMORY_DATA =
+            REGISTRAR.registerComponentType("potion_memory_data", builder ->
+                    builder.persistent(PotionMemoryData.CODEC)
+                            .networkSynchronized(PotionMemoryData.STREAM_CODEC)
+            );
+
     public static final DeferredHolder<DataComponentType<?>, DataComponentType<Waxed>> WAXED =
             REGISTRAR.registerComponentType("waxed", builder ->
                     builder.persistent(WAXED_CODEC)

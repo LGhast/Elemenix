@@ -21,6 +21,7 @@
     { "id": "elemenix:metallix_essence", "elemenix": "metallix", "value": 486 },
     { "id": "elemenix:energix_essence", "elemenix": "energix", "value": 486 },
     { "id": "elemenix:arcanix_essence", "elemenix": "arcanix", "value": 486 },
+    { "id": "elemenix:witchcraft_trove", "elemenix": "arcanix", "value": 50 },
     { "id": "elemenix:nullvoid", "constituents": [0, 0, 0, 0, 0, 0] }
   ]
 }

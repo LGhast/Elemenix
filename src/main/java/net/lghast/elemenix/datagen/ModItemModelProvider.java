@@ -36,6 +36,7 @@ public class ModItemModelProvider extends ItemModelProvider {
         basicItem(ModItems.ELEMENIC_SCANNER.get());
         basicItem(ModItems.ANALYZING_CHIP.get());
         basicItem(ModItems.TRANSFORMING_CHIP.get());
+        basicItem(ModItems.WITCHCRAFT_TROVE.get());
         basicItem(ModItems.NULLVOID.get());
         basicItem(ModItems.ELEMENIC_CHAOS.get());
         basicItem(ModItems.ANALYSIS_TERMINAL.get());

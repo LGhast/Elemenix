@@ -88,6 +88,8 @@ public class JsonElemenixLoader {
                     } else {
                         FluidElemenixInfo.putDirect(fluidId, constituents);
                     }
+                } else if (id.startsWith("@")) {
+                    PotionElemenixInfo.putDirect(id.substring(1), constituents);
                 } else {
                     map.put(id, constituents);
                 }

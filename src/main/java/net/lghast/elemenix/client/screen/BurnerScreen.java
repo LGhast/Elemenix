@@ -1,16 +1,15 @@
 package net.lghast.elemenix.client.screen;
 
 import net.lghast.elemenix.common.content.item.MemorizerItem;
+import net.lghast.elemenix.common.content.item.WitchcraftMemorizerItem;
 import net.lghast.elemenix.common.system.menu.BurnerMenu;
 import net.lghast.elemenix.network.burner.*;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
-import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
@@ -20,8 +19,7 @@ import javax.annotation.ParametersAreNonnullByDefault;
 
 @OnlyIn(Dist.CLIENT)
 @ParametersAreNonnullByDefault
-public class BurnerScreen extends AbstractContainerScreen<BurnerMenu>
-{
+public class BurnerScreen extends AbstractContainerScreen<BurnerMenu> {
     private static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath("elemenix", "textures/gui/memory_burner.png");
 
     private static final int GUI_WIDTH = 256;
@@ -103,7 +101,7 @@ public class BurnerScreen extends AbstractContainerScreen<BurnerMenu>
                 button -> {
                     menu.cycleMode();
                     updateModeText();
-                    clearSelection();
+                    stopSelection();
                 }
         ).bounds(
                 leftPos + MODE_AREA_X + (MODE_AREA_WIDTH - 60) / 2,
@@ -145,7 +143,10 @@ public class BurnerScreen extends AbstractContainerScreen<BurnerMenu>
             actionButton.setMessage(Component.translatable(key));
 
             if (mode == BurnerMode.CONCATENATE) {
-                actionButton.active = MemorizerItem.isNotFull(menu.getPrimaryMemorizer());
+                ItemStack primary = menu.getPrimaryMemorizer();
+                actionButton.active = menu.isPrimaryPotionMemorizer()
+                        ? WitchcraftMemorizerItem.isNotFull(primary)
+                        : MemorizerItem.isNotFull(primary);
             }else{
                 actionButton.active = true;
             }
@@ -181,42 +182,38 @@ public class BurnerScreen extends AbstractContainerScreen<BurnerMenu>
 
     private void handleSwapSelection(int itemIndex) {
         if (currentSelectedMode != BurnerMode.SWAP || selectedItemIndex == -1) {
-            clearSelection();
+            stopSelection();
             currentSelectedMode = BurnerMode.SWAP;
         }
 
         if (selectedItemIndex == -1) {
             selectedItemIndex = itemIndex;
-            ResourceLocation itemId = menu.getMemoryItem(itemIndex);
-            if (itemId != null) {
-                Item item = BuiltInRegistries.ITEM.get(itemId);
-                selectedItem = new ItemStack(item);
+            selectedItem = menu.getMemoryItemStack(itemIndex);
+            if (!selectedItem.isEmpty()) {
                 selectedItemText = Component.translatable("gui.elemenix.mode.selected");
                 hasSelectedItem = true;
                 currentSelectedMode = BurnerMode.SWAP;
             }
         } else {
             if (selectedItemIndex == itemIndex) {
-                clearSelection();
+                stopSelection();
             } else {
                 PacketDistributor.sendToServer(new BurnerSwapPayload(selectedItemIndex, itemIndex));
-                clearSelection();
+                stopSelection();
             }
         }
     }
 
     private void handleDeleteSelection(int itemIndex) {
         if (currentSelectedMode != BurnerMode.DELETE || selectedItemIndex == -1) {
-            clearSelection();
+            stopSelection();
             currentSelectedMode = BurnerMode.DELETE;
         }
 
         if (selectedItemIndex == -1) {
             selectedItemIndex = itemIndex;
-            ResourceLocation itemId = menu.getMemoryItem(itemIndex);
-            if (itemId != null) {
-                Item item = BuiltInRegistries.ITEM.get(itemId);
-                selectedItem = new ItemStack(item);
+            selectedItem = menu.getMemoryItemStack(itemIndex);
+            if (!selectedItem.isEmpty()) {
                 selectedItemText = Component.translatable("gui.elemenix.mode.selected");
                 hasSelectedItem = true;
                 currentSelectedMode = BurnerMode.DELETE;
@@ -224,13 +221,11 @@ public class BurnerScreen extends AbstractContainerScreen<BurnerMenu>
         } else {
             if (selectedItemIndex == itemIndex) {
                 PacketDistributor.sendToServer(new BurnerDeletePayload(itemIndex));
-                clearSelection();
+                stopSelection();
             } else {
                 selectedItemIndex = itemIndex;
-                ResourceLocation itemId = menu.getMemoryItem(itemIndex);
-                if (itemId != null) {
-                    Item item = BuiltInRegistries.ITEM.get(itemId);
-                    selectedItem = new ItemStack(item);
+                selectedItem = menu.getMemoryItemStack(itemIndex);
+                if (!selectedItem.isEmpty()) {
                     selectedItemText = Component.translatable("gui.elemenix.mode.selected");
                     hasSelectedItem = true;
                     currentSelectedMode = BurnerMode.DELETE;
@@ -241,26 +236,24 @@ public class BurnerScreen extends AbstractContainerScreen<BurnerMenu>
 
     private void handleInsertBeforeSelection(int itemIndex) {
         if (currentSelectedMode != BurnerMode.INSERT_BEFORE || selectedItemIndex == -1) {
-            clearSelection();
+            stopSelection();
             currentSelectedMode = BurnerMode.INSERT_BEFORE;
         }
 
         if (selectedItemIndex == -1) {
             selectedItemIndex = itemIndex;
-            ResourceLocation itemId = menu.getMemoryItem(itemIndex);
-            if (itemId != null) {
-                Item item = BuiltInRegistries.ITEM.get(itemId);
-                selectedItem = new ItemStack(item);
+            selectedItem = menu.getMemoryItemStack(itemIndex);
+            if (!selectedItem.isEmpty()) {
                 selectedItemText = Component.translatable("gui.elemenix.mode.selected");
                 hasSelectedItem = true;
                 currentSelectedMode = BurnerMode.INSERT_BEFORE;
             }
         } else {
             if (selectedItemIndex == itemIndex) {
-                clearSelection();
+                stopSelection();
             } else {
                 PacketDistributor.sendToServer(new BurnerInsertBeforePayload(selectedItemIndex, itemIndex));
-                clearSelection();
+                stopSelection();
             }
         }
     }
@@ -271,7 +264,7 @@ public class BurnerScreen extends AbstractContainerScreen<BurnerMenu>
         hasSelectedItem = false;
     }
 
-    public void clearSelection() {
+    public void stopSelection() {
         selectedItemIndex = -1;
         clearSelectedItem();
         currentSelectedMode = null;
@@ -332,11 +325,11 @@ public class BurnerScreen extends AbstractContainerScreen<BurnerMenu>
 
         BurnerMode currentMode = menu.getMode();
         if (currentSelectedMode != null && currentSelectedMode != currentMode) {
-            clearSelection();
+            stopSelection();
         }
 
         if (menu.isPrimaryMemorizerChanged()) {
-            clearSelection();
+            stopSelection();
             menu.resetPrimaryChangedFlag();
         }
 

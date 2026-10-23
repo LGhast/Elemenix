@@ -6,8 +6,10 @@ import net.lghast.elemenix.common.content.item.AnalyzerItem;
 import net.lghast.elemenix.common.content.item.MemorizerItem;
 import net.lghast.elemenix.common.content.item.RemoteStorageItem;
 import net.lghast.elemenix.common.content.item.StorageItem;
+import net.lghast.elemenix.common.content.item.WitchcraftMemorizerItem;
 import net.lghast.elemenix.common.system.datacomponent.ElemenicStorage;
 import net.lghast.elemenix.common.system.datacomponent.MemoryData;
+import net.lghast.elemenix.common.system.datacomponent.PotionMemoryData;
 import net.lghast.elemenix.common.system.datacomponent.RemoteStorageBinding;
 import net.lghast.elemenix.common.system.datacomponent.UuidData;
 import net.lghast.elemenix.compat.ftbquests.util.AnalyzerTaskHelper;
@@ -22,9 +24,12 @@ import net.lghast.elemenix.utils.elemenix.Elemenix;
 import net.lghast.elemenix.utils.elemenix.ElemenixInfo;
 import net.lghast.elemenix.utils.LongContainerData;
 import net.minecraft.core.GlobalPos;
+import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.network.protocol.game.ClientboundContainerSetSlotPacket;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -36,10 +41,13 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.alchemy.Potion;
+import net.minecraft.world.item.alchemy.PotionContents;
 import net.minecraft.world.item.component.ItemContainerContents;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import org.jetbrains.annotations.NotNull;
 
+import javax.annotation.Nullable;
 import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.ArrayList;
 import java.util.List;
@@ -139,7 +147,7 @@ public class AnalyzerMenu extends AbstractContainerMenu {
     }
 
     private static boolean isMemorizerSlotPlaceable(ItemStack stack) {
-        return stack.is(ModItems.ELEMENIC_MEMORIZER);
+        return stack.is(ModTags.MEMORIZER_SLOT_PLACEABLE);
     }
 
     private void loadMemorizerItem(ItemStack analyzerStack) {
@@ -449,6 +457,15 @@ public class AnalyzerMenu extends AbstractContainerMenu {
 
     private void recordToMemorizer(ItemStack inputStack) {
         ItemStack memorizerStack = getMemorizerItem();
+
+        if (inputStack.is(ModTags.POTIONLIKE)) {
+            recordPotionToWitchcraftMemorizer(inputStack, memorizerStack);
+        } else {
+            recordItemToMemorizer(inputStack, memorizerStack);
+        }
+    }
+
+    private void recordItemToMemorizer(ItemStack inputStack, ItemStack memorizerStack) {
         if (canRecordInputItem(inputStack, memorizerStack)) {
             ResourceLocation itemId = BuiltInRegistries.ITEM.getKey(inputStack.getItem());
             MemoryData currentMemoryData = MemorizerItem.getOrCreateMemories(memorizerStack);
@@ -467,8 +484,41 @@ public class AnalyzerMenu extends AbstractContainerMenu {
         }
     }
 
+    private void recordPotionToWitchcraftMemorizer(ItemStack inputStack, ItemStack memorizerStack) {
+        if (!canRecordPotionItem(inputStack, memorizerStack)) return;
+
+        PotionContents contents = inputStack.get(DataComponents.POTION_CONTENTS);
+        if(contents == null) return;
+
+        ResourceLocation potionId = getPotionId(contents);
+        if (potionId == null) return;
+
+        ResourceLocation itemId = BuiltInRegistries.ITEM.getKey(inputStack.getItem());
+        PotionMemoryData current = WitchcraftMemorizerItem.getOrCreateMemories(memorizerStack);
+        List<PotionMemoryData.Entry> currentEntries = current.entries();
+        List<PotionMemoryData.Entry> newEntries = new ArrayList<>(currentEntries);
+
+        newEntries.add(new PotionMemoryData.Entry(itemId, potionId));
+        player.awardStat(ModStats.MEMORIZER_RECORDS_ADDED.get());
+        memorizerStack.set(ModDataComponents.POTION_MEMORY_DATA.get(), current.withEntries(newEntries));
+
+        if (Elemenics.isFtbQuestsLoaded() && player instanceof ServerPlayer serverPlayer) {
+            AnalyzerTaskHelper.handleMemorizeProgress(serverPlayer, inputStack.copy());
+        }
+
+        slots.get(MEMORIZER_SLOT).setChanged();
+    }
+
     public boolean canRecordInputItem(ItemStack inputStack, ItemStack memorizerStack) {
         if (inputStack.isEmpty() || inputStack.is(ModTags.ANALYZER_UNRECORDABLE)) {
+            return false;
+        }
+
+        if (inputStack.is(ModTags.POTIONLIKE)) {
+            return false;
+        }
+
+        if (!memorizerStack.is(ModItems.ELEMENIC_MEMORIZER)) {
             return false;
         }
 
@@ -480,6 +530,42 @@ public class AnalyzerMenu extends AbstractContainerMenu {
         List<ResourceLocation> memories = MemorizerItem.getOrCreateMemories(memorizerStack).resolvedItems();
 
         return !MemorizerItem.isReadonly(memorizerStack) && MemorizerItem.isNotFull(memorizerStack) && !memories.contains(itemId);
+    }
+
+    public boolean canRecordPotionItem(ItemStack inputStack, ItemStack memorizerStack) {
+        if (inputStack.isEmpty()) return false;
+        if (!memorizerStack.is(ModItems.WITCHCRAFT_MEMORIZER)) return false;
+        if (!inputStack.is(ModTags.POTIONLIKE)) return false;
+
+        if (!CommonConfig.ALLOW_NON_CREATIVE_RECORDING.get() && !player.getAbilities().instabuild) {
+            return false;
+        }
+
+        PotionContents contents = inputStack.get(DataComponents.POTION_CONTENTS);
+        if(contents == null) return false;
+
+        ResourceLocation potionId = getPotionId(contents);
+        if (potionId == null) return false;
+
+        ResourceLocation itemId = BuiltInRegistries.ITEM.getKey(inputStack.getItem());
+        List<PotionMemoryData.Entry> entries = WitchcraftMemorizerItem.getOrCreateMemories(memorizerStack).entries();
+
+        return !WitchcraftMemorizerItem.isReadonly(memorizerStack)
+                && WitchcraftMemorizerItem.isNotFull(memorizerStack)
+                && !entries.contains(new PotionMemoryData.Entry(itemId, potionId));
+    }
+
+    @Nullable
+    private static ResourceLocation getPotionId(PotionContents contents) {
+        Optional<Holder<Potion>> potion = contents.potion();
+        if (potion.isEmpty()) {
+            return null;
+        }
+        ResourceLocation id = potion.get().unwrapKey().map(ResourceKey::location).orElse(null);
+        if (id == null) {
+            id = BuiltInRegistries.POTION.getKey(potion.get().value());
+        }
+        return id;
     }
 
     public void reconstructItem(ResourceLocation itemId, boolean shiftClick) {
@@ -528,11 +614,69 @@ public class AnalyzerMenu extends AbstractContainerMenu {
         broadcastChanges();
     }
 
+    public void reconstructPotion(ResourceLocation itemId, ResourceLocation potionId, boolean shiftClick) {
+        Item item = BuiltInRegistries.ITEM.get(itemId);
+
+        Optional<Holder.Reference<Potion>> potionHolder = BuiltInRegistries.POTION.getHolder(ResourceKey.create(Registries.POTION, potionId));
+        if (potionHolder.isEmpty()) return;
+
+        if (!getCarried().isEmpty() && !getCarried().is(item)) return;
+
+        ItemStack resultStack = PotionContents.createItemStack(item, potionHolder.get());
+        if (resultStack.isEmpty() || ElemenixInfo.isUnreconstructable(resultStack)) return;
+
+        Constituents required = ElemenixInfo.getPremiumAppliedConstituents(resultStack);
+        if (required.isUnanalysable()) return;
+
+        int maxStackSize = resultStack.getMaxStackSize();
+
+        int maxAmount = shiftClick ? maxStackSize : 1;
+        for (Elemenix type : Elemenix.values()) {
+            int req = required.get(type);
+            if (req > 0) {
+                long available = data.getLong(type.getIndex()) & 0xFFFFFFFFL;
+                maxAmount = (int) Math.min(maxAmount, available / req);
+            }
+        }
+
+        if (maxAmount <= 0) return;
+
+        for (Elemenix type : Elemenix.values()) {
+            int consumption = required.get(type) * maxAmount;
+            if (consumption > 0) {
+                long current = data.getLong(type.getIndex());
+                data.setLong(type.getIndex(), Math.max(0, current - consumption));
+            }
+        }
+
+        resultStack.setCount(maxAmount);
+        if (!getCarried().isEmpty() && ItemStack.isSameItemSameComponents(getCarried(), resultStack)) {
+            getCarried().grow(maxAmount);
+        } else {
+            setCarried(resultStack);
+        }
+        player.awardStat(ModStats.RECONSTRUCTED_ITEMS.get(), maxAmount);
+        if(Elemenics.isFtbQuestsLoaded() && player instanceof ServerPlayer serverPlayer) {
+            AnalyzerTaskHelper.handleReconstructProgress(serverPlayer, resultStack.copy(), maxAmount);
+        }
+
+        saveStorageAndMemoryData();
+        broadcastChanges();
+    }
+
     public List<ResourceLocation> getMemories() {
         ItemStack memorizer = getMemorizerItem();
         if (memorizer.is(ModItems.ELEMENIC_MEMORIZER)) {
             MemoryData memoryDate = MemorizerItem.getOrCreateMemories(memorizer);
             return memoryDate.resolvedItems();
+        }
+        return null;
+    }
+
+    public List<PotionMemoryData.Entry> getPotionMemories() {
+        ItemStack memorizer = getMemorizerItem();
+        if (memorizer.is(ModItems.WITCHCRAFT_MEMORIZER)) {
+            return WitchcraftMemorizerItem.getOrCreateMemories(memorizer).entries();
         }
         return null;
     }

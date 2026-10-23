@@ -420,6 +420,40 @@ public class ModAdvancementProvider extends AdvancementProvider {
                     )
                     .addCriterion("imitforge", ImitforgeTrigger.imitforge())
                     .save(saver, ResourceLocation.parse("elemenix:elemenics/imitforge"), existingFileHelper);
+
+            AdvancementHolder obtainWitchcraftTrove = Advancement.Builder.advancement()
+                    .parent(rootAdvancement)
+                    .display(
+                            ModItems.WITCHCRAFT_TROVE,
+                            Component.translatable("advancements.elemenix.obtain_witchcraft_trove.title"),
+                            Component.translatable("advancements.elemenix.obtain_witchcraft_trove.description"),
+                            null,
+                            AdvancementType.TASK,
+                            true,
+                            true,
+                            false
+                    )
+                    .addCriterion("get_witchcraft_trove", InventoryChangeTrigger.TriggerInstance.hasItems(
+                            ItemPredicate.Builder.item().of(ModItems.WITCHCRAFT_TROVE.get()).build()
+                    ))
+                    .save(saver, ResourceLocation.parse("elemenix:elemenics/obtain_witchcraft_trove"), existingFileHelper);
+
+            AdvancementHolder obtainWitchcraftMemorizer = Advancement.Builder.advancement()
+                    .parent(obtainWitchcraftTrove)
+                    .display(
+                            ModItems.WITCHCRAFT_MEMORIZER,
+                            Component.translatable("advancements.elemenix.obtain_witchcraft_memorizer.title"),
+                            Component.translatable("advancements.elemenix.obtain_witchcraft_memorizer.description"),
+                            null,
+                            AdvancementType.TASK,
+                            true,
+                            true,
+                            false
+                    )
+                    .addCriterion("get_witchcraft_memorizer", InventoryChangeTrigger.TriggerInstance.hasItems(
+                            ItemPredicate.Builder.item().of(ModItems.WITCHCRAFT_MEMORIZER.get()).build()
+                    ))
+                    .save(saver, ResourceLocation.parse("elemenix:elemenics/obtain_witchcraft_memorizer"), existingFileHelper);
         }
     }
 }

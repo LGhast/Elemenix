@@ -67,6 +67,11 @@ public class ModTags {
             ResourceLocation.parse("elemenix:memorizer_slot_placeable")
     );
 
+    public static final TagKey<Item> POTIONLIKE = TagKey.create(
+            Registries.ITEM,
+            ResourceLocation.parse("elemenix:potionlike")
+    );
+
     public static final TagKey<Item> IGNORED_BY_DECONSTRUCTOR_INPUT = TagKey.create(
             Registries.ITEM,
             ResourceLocation.parse("elemenix:ignored_by_deconstructor_input")

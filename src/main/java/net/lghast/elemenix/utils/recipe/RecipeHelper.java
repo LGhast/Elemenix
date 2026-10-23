@@ -265,6 +265,11 @@ public class RecipeHelper {
                 }
                 Item resultItem = result.getItem();
 
+                if (result.is(ModTags.POTIONLIKE)) {
+                    RECIPE_IGNORED_CACHE.add(recipeId);
+                    continue;
+                }
+
                 if (isValidRecipeType(recipe)) {
                     RECIPE_MAP.computeIfAbsent(resultItem, k -> new ArrayList<>()).add(new RecipeEntry(holder, recipe, result));
                     RECIPE_OUTPUT_CACHE.put(recipeId, resultItem);
@@ -323,17 +328,10 @@ public class RecipeHelper {
 
     /**
      * Normalizes ingredient items whose NBT variety would skew values:
-     * potions -> NULLVOID, tipped arrows -> arrow, enchanted books -> book
+     * enchanted books -> book
      */
     private static ItemStack replacedStack(RecipeType<?> type, ItemStack stack) {
         Item item = stack.getItem();
-
-        if (item == Items.POTION || item == Items.SPLASH_POTION || item == Items.LINGERING_POTION) {
-            return new ItemStack(ModItems.NULLVOID.asItem(), stack.getCount());
-        }
-        if (item == Items.TIPPED_ARROW) {
-            return new ItemStack(Items.ARROW, stack.getCount());
-        }
 
         if (item == Items.ENCHANTED_BOOK) {
             return new ItemStack(Items.BOOK, stack.getCount());
