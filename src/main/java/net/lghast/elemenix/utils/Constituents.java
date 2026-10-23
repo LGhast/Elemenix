@@ -1,6 +1,6 @@
 package net.lghast.elemenix.utils;
 
-import net.lghast.elemenix.conifig.CommonConfig;
+import net.lghast.elemenix.config.CommonConfig;
 import net.lghast.elemenix.utils.elemenix.Elemenix;
 import net.lghast.elemenix.utils.elemenix.ElemenixInfo;
 import net.minecraft.ChatFormatting;

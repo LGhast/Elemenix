@@ -14,41 +14,6 @@
       ]
     },
     {
-      "output": "farmersdelight:rope",
-      "count": 2,
-      "inputs": [
-        { "id": "farmersdelight:straw", "count": 1 }
-      ]
-    },
-    {
-      "output": "farmersdelight:canvas",
-      "count": 1,
-      "inputs": [
-        { "id": "farmersdelight:straw", "count": 4 }
-      ]
-    },
-    {
-      "output": "farmersdelight:full_tatami_mat",
-      "count": 2,
-      "inputs": [
-        { "id": "farmersdelight:tatami", "count": 1 }
-      ]
-    },
-    {
-      "output": "farmersdelight:half_tatami_mat",
-      "count": 2,
-      "inputs": [
-        { "id": "farmersdelight:full_tatami_mat", "count": 1 }
-      ]
-    },
-    {
-      "output": "farmersdelight:pumpkin_slice",
-      "count": 4,
-      "inputs": [
-        { "id": "minecraft:pumpkin", "count": 1 }
-      ]
-    },
-    {
       "preset": "same",
       "output": "farmersdelight:rich_soil",
       "input": "farmersdelight:organic_compost"
@@ -57,56 +22,6 @@
       "preset": "same",
       "output": "farmersdelight:rich_soil_farmland",
       "input": "farmersdelight:organic_compost"
-    },
-    {
-      "output": "farmersdelight:canvas_rug",
-      "count": 2,
-      "inputs": [
-        { "id": "farmersdelight:canvas", "count": 1 }
-      ]
-    },
-    {
-      "output": "farmersdelight:cake_slice",
-      "count": 7,
-      "inputs": [
-        { "id": "minecraft:cake", "count": 1 }
-      ]
-    },
-    {
-      "output": "farmersdelight:apple_pie_slice",
-      "count": 4,
-      "inputs": [
-        { "id": "farmersdelight:apple_pie", "count": 1 }
-      ]
-    },
-    {
-      "output": "farmersdelight:chocolate_pie_slice",
-      "count": 4,
-      "inputs": [
-        { "id": "farmersdelight:chocolate_pie", "count": 1 }
-      ]
-    },
-    {
-      "output": "farmersdelight:sweet_berry_cheesecake_slice",
-      "count": 4,
-      "inputs": [
-        { "id": "farmersdelight:sweet_berry_cheesecake", "count": 1 }
-      ]
-    },
-    {
-      "output": "farmersdelight:pumpkin_pie_slice",
-      "count": 4,
-      "inputs": [
-        { "id": "minecraft:pumpkin_pie", "count": 1 }
-      ]
-    },
-    {
-      "output": "farmersdelight:tatami",
-      "count": 1,
-      "inputs": [
-        { "id": "minecraft:straw", "count": 1 },
-        { "id": "minecraft:canvas", "count": 1 }
-      ]
     },
     {
       "output": "farmersdelight:wheat_dough",

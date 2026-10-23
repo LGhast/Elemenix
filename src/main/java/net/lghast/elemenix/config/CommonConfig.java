@@ -1,4 +1,4 @@
-package net.lghast.elemenix.conifig;
+package net.lghast.elemenix.config;
 
 import net.neoforged.neoforge.common.ModConfigSpec;
 

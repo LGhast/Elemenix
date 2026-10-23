@@ -3,7 +3,7 @@ package net.lghast.elemenix.common.content.block;
 import com.mojang.serialization.MapCodec;
 import net.lghast.elemenix.common.content.blockentity.TransformerBlockEntity;
 import net.lghast.elemenix.common.system.recipe.GerminatingRecipe;
-import net.lghast.elemenix.conifig.CommonConfig;
+import net.lghast.elemenix.config.CommonConfig;
 import net.lghast.elemenix.register.content.ModItems;
 import net.lghast.elemenix.utils.elemenix.Elemenix;
 import net.lghast.elemenix.utils.elemenix.ElemenixInfo;

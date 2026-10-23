@@ -3,7 +3,7 @@ package net.lghast.elemenix.utils;
 import net.lghast.elemenix.common.content.item.StorageItem;
 import net.lghast.elemenix.common.system.advancement.ScanTrigger;
 import net.lghast.elemenix.common.system.datacomponent.ElemenicStorage;
-import net.lghast.elemenix.conifig.CommonConfig;
+import net.lghast.elemenix.config.CommonConfig;
 import net.lghast.elemenix.register.system.ModDataComponents;
 import net.lghast.elemenix.register.system.ModStats;
 import net.lghast.elemenix.register.system.ModTags;

@@ -10,7 +10,12 @@
     { "id": "twilightdelight:ironwood_log", "constituents": [72, 0, 0, 544, 0, 400] },
     { "id": "twilightdelight:ironwood_sapling", "constituents": [72, 0, 0, 544, 0, 400] },
     { "id": "twilightdelight:ironwood_leaves", "constituents": [72, 0, 12, 800, 0, 0] },
-    { "id": "twilightdelight:raw_naga_meat", "constituents": [4000, 0, 0, 0, 0, 400] },
-    { "id": "twilightdelight:raw_naga_piece", "constituents": [1800, 0, 0, 0, 0, 180] }
+    { "id": "twilightdelight:raw_naga_meat", "constituents": [4000, 0, 0, 0, 0, 300] },
+    { "id": "twilightdelight:raw_naga_piece", "constituents": [1800, 0, 0, 0, 0, 180] },
+    { "id": "twilightdelight:helmet_crab_claw", "constituents": [50, 0, 15, 0, 0, 0] },
+    { "id": "twilightdelight:phantom_bone", "constituents": [0, 640, 320, 0, 0, 60] },
+    { "id": "twilightdelight:raw_tomahawk_smeaxe", "constituents": [12000, 1500, 0, 0, 0, 500] },
+    { "id": "twilightdelight:omazeo", "constituents": [180, 0, 0, 0, 20, 5] },
+    { "id": "twilightdelight:redcanp", "constituents": [320, 0, 20, 0, 80, 100] }
   ]
 }

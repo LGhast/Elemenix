@@ -2,7 +2,7 @@ package net.lghast.elemenix.common.content.item;
 
 import net.lghast.elemenix.common.system.advancement.ValveTrigger;
 import net.lghast.elemenix.common.system.datacomponent.ValveOpenness;
-import net.lghast.elemenix.conifig.ClientConfig;
+import net.lghast.elemenix.config.ClientConfig;
 import net.lghast.elemenix.register.system.ModDataComponents;
 import net.lghast.elemenix.register.system.ModStats;
 import net.minecraft.ChatFormatting;

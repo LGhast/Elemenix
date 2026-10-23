@@ -22,27 +22,6 @@
       ]
     },
     {
-      "output": "twilightdelight:twilight_cake_slice",
-      "count": 7,
-      "inputs": [
-        { "id": "twilightdelight:twilight_cake", "count": 1 }
-      ]
-    },
-    {
-      "output": "twilightdelight:aurora_pie_slice",
-      "count": 4,
-      "inputs": [
-        { "id": "twilightdelight:aurora_pie", "count": 1 }
-      ]
-    },
-    {
-      "output": "twilightdelight:torchberry_pie_slice",
-      "count": 4,
-      "inputs": [
-        { "id": "twilightdelight:torchberry_pie", "count": 1 }
-      ]
-    },
-    {
       "preset": "food_unit_bowl",
       "output": "twilightdelight:plate_of_fiery_snakes",
       "source": "twilightdelight:fiery_snakes_block"
@@ -56,6 +35,11 @@
       "preset": "food_unit_bowl",
       "output": "twilightdelight:plate_of_saucy_grilled_naga",
       "source": "twilightdelight:saucy_grilled_naga_block"
+    },
+    {
+      "preset": "food_unit_bowl",
+      "output": "twilightdelight:bowl_of_ghastling_mousse_cake",
+      "source": "twilightdelight:ghastling_mousse_cake"
     },
     {
       "preset": "food_unit",
@@ -74,6 +58,15 @@
       "container": "minecraft:bowl",
       "offcuts": [
         { "id": "twilightforest:lich_trophy", "count": 1 }
+      ]
+    },
+    {
+      "preset": "food_unit",
+      "output": "twilightdelight:plate_of_delicious_in_maze",
+      "source": "twilightdelight:delicious_in_maze",
+      "container": "minecraft:bowl",
+      "offcuts": [
+        { "id": "twilightforest:phantom_helmet", "count": 1 }
       ]
     }
   ]

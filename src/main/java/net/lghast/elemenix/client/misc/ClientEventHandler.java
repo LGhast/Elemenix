@@ -2,7 +2,7 @@ package net.lghast.elemenix.client.misc;
 
 import net.lghast.elemenix.Elemenics;
 import net.lghast.elemenix.client.screen.*;
-import net.lghast.elemenix.conifig.ClientConfig;
+import net.lghast.elemenix.config.ClientConfig;
 import net.lghast.elemenix.network.open.OpenAnalyzerPayload;
 import net.lghast.elemenix.network.open.OpenMemorizerBoxPayload;
 import net.lghast.elemenix.register.content.ModItems;

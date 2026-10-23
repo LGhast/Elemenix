@@ -11,7 +11,7 @@ import net.lghast.elemenix.common.system.datacomponent.MemoryData;
 import net.lghast.elemenix.common.system.datacomponent.RemoteStorageBinding;
 import net.lghast.elemenix.common.system.datacomponent.UuidData;
 import net.lghast.elemenix.compat.ftbquests.util.AnalyzerTaskHelper;
-import net.lghast.elemenix.conifig.CommonConfig;
+import net.lghast.elemenix.config.CommonConfig;
 import net.lghast.elemenix.register.content.ModItems;
 import net.lghast.elemenix.register.system.ModDataComponents;
 import net.lghast.elemenix.register.system.ModMenus;

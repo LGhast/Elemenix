@@ -1,7 +1,7 @@
 package net.lghast.elemenix.common.content.item;
 
 import net.lghast.elemenix.common.system.datacomponent.ElemenicStorage;
-import net.lghast.elemenix.conifig.ClientConfig;
+import net.lghast.elemenix.config.ClientConfig;
 import net.lghast.elemenix.register.system.ModDataComponents;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;

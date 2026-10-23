@@ -5,7 +5,7 @@ import net.lghast.elemenix.common.system.advancement.WaxOnTrigger;
 import net.lghast.elemenix.common.system.datacomponent.MemoryData;
 import net.lghast.elemenix.common.system.datacomponent.Style;
 import net.lghast.elemenix.common.system.datacomponent.Waxed;
-import net.lghast.elemenix.conifig.ClientConfig;
+import net.lghast.elemenix.config.ClientConfig;
 import net.lghast.elemenix.register.content.ModItems;
 import net.lghast.elemenix.register.system.ModDataComponents;
 import net.lghast.elemenix.register.system.ModStats;

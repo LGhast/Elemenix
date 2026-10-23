@@ -1,4 +1,4 @@
-package net.lghast.elemenix.conifig;
+package net.lghast.elemenix.config;
 
 import net.lghast.elemenix.Elemenics;
 import net.lghast.elemenix.utils.Constituents;

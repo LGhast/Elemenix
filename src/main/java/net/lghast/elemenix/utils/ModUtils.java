@@ -1,6 +1,6 @@
 package net.lghast.elemenix.utils;
 
-import net.lghast.elemenix.conifig.ClientConfig;
+import net.lghast.elemenix.config.ClientConfig;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.core.particles.ParticleOptions;

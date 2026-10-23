@@ -1,7 +1,7 @@
 package net.lghast.elemenix.common.content.item;
 
 import net.lghast.elemenix.compat.lootr.LootrCompat;
-import net.lghast.elemenix.conifig.CommonConfig;
+import net.lghast.elemenix.config.CommonConfig;
 import net.lghast.elemenix.utils.*;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
