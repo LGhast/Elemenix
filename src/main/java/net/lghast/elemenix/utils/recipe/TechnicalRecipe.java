@@ -1,8 +1,8 @@
 package net.lghast.elemenix.utils.recipe;
 
-import net.lghast.elemenix.utils.Constituents;
+import net.lghast.elemenix.utils.elemenix.Constituents;
 import net.lghast.elemenix.utils.elemenix.Elemenix;
-import net.lghast.elemenix.utils.ModUtils;
+import net.lghast.elemenix.utils.misc.ModUtils;
 import net.lghast.elemenix.utils.elemenix.FluidElemenixInfo;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;

@@ -1,4 +1,4 @@
-package net.lghast.elemenix.utils;
+package net.lghast.elemenix.utils.misc;
 
 import net.lghast.elemenix.common.content.item.StorageItem;
 import net.lghast.elemenix.common.system.advancement.ScanTrigger;
@@ -7,6 +7,7 @@ import net.lghast.elemenix.config.CommonConfig;
 import net.lghast.elemenix.register.system.ModDataComponents;
 import net.lghast.elemenix.register.system.ModStats;
 import net.lghast.elemenix.register.system.ModTags;
+import net.lghast.elemenix.utils.elemenix.Constituents;
 import net.lghast.elemenix.utils.elemenix.Elemenix;
 import net.lghast.elemenix.utils.elemenix.ElemenixInfo;
 import net.minecraft.core.BlockPos;

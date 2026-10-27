@@ -3,7 +3,6 @@ package net.lghast.elemenix.utils.elemenix;
 import javax.annotation.Nullable;
 import javax.annotation.ParametersAreNonnullByDefault;
 
-import net.lghast.elemenix.utils.Constituents;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceKey;

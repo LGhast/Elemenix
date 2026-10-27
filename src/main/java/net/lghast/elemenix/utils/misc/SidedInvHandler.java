@@ -1,4 +1,4 @@
-package net.lghast.elemenix.utils;
+package net.lghast.elemenix.utils.misc;
 
 import net.minecraft.core.Direction;
 import net.minecraft.world.WorldlyContainer;

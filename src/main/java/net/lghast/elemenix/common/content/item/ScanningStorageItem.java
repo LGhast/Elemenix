@@ -2,7 +2,7 @@ package net.lghast.elemenix.common.content.item;
 
 import net.lghast.elemenix.compat.lootr.LootrCompat;
 import net.lghast.elemenix.config.CommonConfig;
-import net.lghast.elemenix.utils.*;
+import net.lghast.elemenix.utils.misc.ScanHelper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
@@ -21,7 +21,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.Objects;
 
-import static net.lghast.elemenix.utils.ScanHelper.scanContainer;
+import static net.lghast.elemenix.utils.misc.ScanHelper.scanContainer;
 
 public class ScanningStorageItem extends StorageItem{
     public ScanningStorageItem(Properties properties) {

@@ -3,7 +3,7 @@ package net.lghast.elemenix.utils.imitforge;
 import net.lghast.elemenix.config.CommonConfig;
 import net.lghast.elemenix.register.system.ModDataComponents;
 import net.lghast.elemenix.register.system.ModTags;
-import net.lghast.elemenix.utils.Constituents;
+import net.lghast.elemenix.utils.elemenix.Constituents;
 import net.lghast.elemenix.utils.elemenix.ElemenixInfo;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;

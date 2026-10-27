@@ -10,7 +10,6 @@ import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.category.IRecipeCategory;
 import net.lghast.elemenix.common.system.recipe.MineralizingRecipe;
 import net.lghast.elemenix.register.content.ModBlocks;
-import net.lghast.elemenix.utils.ModUtils;
 import net.lghast.elemenix.utils.elemenix.Elemenix;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;

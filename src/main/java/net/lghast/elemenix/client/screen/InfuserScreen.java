@@ -4,7 +4,7 @@ import net.lghast.elemenix.common.content.block.InfuserBlock;
 import net.lghast.elemenix.common.content.blockentity.InfuserBlockEntity;
 import net.lghast.elemenix.common.system.menu.InfuserMenu;
 import net.lghast.elemenix.utils.elemenix.Elemenix;
-import net.lghast.elemenix.utils.ModUtils;
+import net.lghast.elemenix.utils.misc.ModUtils;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.network.chat.Component;

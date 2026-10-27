@@ -1,7 +1,7 @@
 package net.lghast.elemenix.common.system.recipe;
 
 import net.lghast.elemenix.register.system.ModRecipes;
-import net.lghast.elemenix.utils.Constituents;
+import net.lghast.elemenix.utils.elemenix.Constituents;
 import net.lghast.elemenix.utils.elemenix.ElemenixInfo;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;

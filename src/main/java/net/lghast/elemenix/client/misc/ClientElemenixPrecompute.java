@@ -1,7 +1,7 @@
 package net.lghast.elemenix.client.misc;
 
 import net.lghast.elemenix.Elemenics;
-import net.lghast.elemenix.utils.ModUtils;
+import net.lghast.elemenix.utils.misc.ModUtils;
 import net.lghast.elemenix.utils.elemenix.ElemenixInfo;
 import net.lghast.elemenix.utils.recipe.RecipeHelper;
 import net.minecraft.world.level.Level;

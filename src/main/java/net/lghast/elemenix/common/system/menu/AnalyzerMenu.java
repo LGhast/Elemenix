@@ -19,10 +19,11 @@ import net.lghast.elemenix.register.system.ModDataComponents;
 import net.lghast.elemenix.register.system.ModMenus;
 import net.lghast.elemenix.register.system.ModStats;
 import net.lghast.elemenix.register.system.ModTags;
-import net.lghast.elemenix.utils.Constituents;
+import net.lghast.elemenix.utils.elemenix.Constituents;
 import net.lghast.elemenix.utils.elemenix.Elemenix;
 import net.lghast.elemenix.utils.elemenix.ElemenixInfo;
-import net.lghast.elemenix.utils.LongContainerData;
+import net.lghast.elemenix.utils.misc.ElemenixItemStorage;
+import net.lghast.elemenix.utils.misc.LongContainerData;
 import net.minecraft.core.GlobalPos;
 import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponents;
@@ -315,8 +316,8 @@ public class AnalyzerMenu extends AbstractContainerMenu {
             return;
         }
 
-        if (inputStack.is(ModItems.ELEMENIC_STORAGE) || inputStack.is(ModItems.SCANNING_STORAGE)) {
-            ElemenicStorage storageData = StorageItem.getOrCreateData(inputStack);
+        if (inputStack.is(ModItems.ELEMENIC_STORAGE) || inputStack.is(ModItems.SCANNING_STORAGE) || ElemenixItemStorage.isTank(inputStack)) {
+            ElemenicStorage storageData = new ElemenicStorage(ElemenixItemStorage.getStored(inputStack));
 
             if (storageData.isEmpty()) {
                 regularlyDeconstruct(inputStack);
@@ -382,7 +383,7 @@ public class AnalyzerMenu extends AbstractContainerMenu {
         }
 
         if (anyTransferred) {
-            storageStack.set(ModDataComponents.ELEMENIC_STORAGE.get(), new ElemenicStorage(storageElemenix));
+            ElemenixItemStorage.setStored(storageStack, storageElemenix);
             player.awardStat(ModStats.STORAGE_TRANSFERS.get());
 
             getSlot(INPUT_SLOT).setChanged();

@@ -2,7 +2,7 @@ package net.lghast.elemenix.utils.recipe;
 
 import net.lghast.elemenix.Elemenics;
 import net.lghast.elemenix.register.system.ModTags;
-import net.lghast.elemenix.utils.Constituents;
+import net.lghast.elemenix.utils.elemenix.Constituents;
 import net.lghast.elemenix.utils.elemenix.Elemenix;
 import net.lghast.elemenix.utils.elemenix.ElemenixInfo;
 import net.lghast.elemenix.utils.elemenix.FluidElemenixInfo;

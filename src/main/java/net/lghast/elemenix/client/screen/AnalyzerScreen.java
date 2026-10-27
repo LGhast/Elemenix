@@ -2,7 +2,6 @@ package net.lghast.elemenix.client.screen;
 
 import net.lghast.elemenix.client.misc.ClientInfuserDataCache;
 import net.lghast.elemenix.common.content.item.RemoteStorageItem;
-import net.lghast.elemenix.common.content.item.StorageItem;
 import net.lghast.elemenix.common.system.datacomponent.ElemenicStorage;
 import net.lghast.elemenix.common.system.datacomponent.RemoteStorageBinding;
 import net.lghast.elemenix.common.system.menu.AnalyzerMenu;
@@ -10,9 +9,12 @@ import net.lghast.elemenix.network.analyzer.DeconstructionPayload;
 import net.lghast.elemenix.network.infuser.RequestInfuserUpdatePayload;
 import net.lghast.elemenix.register.content.ModItems;
 import net.lghast.elemenix.register.system.ModDataComponents;
-import net.lghast.elemenix.utils.*;
+import net.lghast.elemenix.utils.elemenix.Constituents;
 import net.lghast.elemenix.utils.elemenix.Elemenix;
 import net.lghast.elemenix.utils.elemenix.ElemenixInfo;
+import net.lghast.elemenix.utils.misc.ElemenixItemStorage;
+import net.lghast.elemenix.utils.misc.LongContainerData;
+import net.lghast.elemenix.utils.misc.ModUtils;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
@@ -184,8 +186,8 @@ public class AnalyzerScreen extends AbstractContainerScreen<AnalyzerMenu> {
                 } else {
                     renderRegularItemPreview(graphics, inputStack, x, y);
                 }
-            } else if (inputStack.is(ModItems.ELEMENIC_STORAGE) || inputStack.is(ModItems.SCANNING_STORAGE)) {
-                ElemenicStorage storageData = StorageItem.getOrCreateData(inputStack);
+            } else if (inputStack.is(ModItems.ELEMENIC_STORAGE) || inputStack.is(ModItems.SCANNING_STORAGE) || ElemenixItemStorage.isTank(inputStack)) {
+                ElemenicStorage storageData = new ElemenicStorage(ElemenixItemStorage.getStored(inputStack));
 
                 if (storageData.isEmpty()) {
                     renderRegularItemPreview(graphics, inputStack, x, y);
@@ -271,7 +273,8 @@ public class AnalyzerScreen extends AbstractContainerScreen<AnalyzerMenu> {
 
         if(inputStack.is(ModItems.ELEMENIC_STORAGE) ||
                 inputStack.is(ModItems.REMOTE_ELEMENIC_STORAGE) ||
-                inputStack.is(ModItems.SCANNING_STORAGE)){
+                inputStack.is(ModItems.SCANNING_STORAGE) ||
+                ElemenixItemStorage.isTank(inputStack)){
             return;
         }
         

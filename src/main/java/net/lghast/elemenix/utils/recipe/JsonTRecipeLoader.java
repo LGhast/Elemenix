@@ -1,8 +1,8 @@
 package net.lghast.elemenix.utils.recipe;
 
 import com.google.gson.*;
-import net.lghast.elemenix.utils.Constituents;
-import net.lghast.elemenix.utils.ModUtils;
+import net.lghast.elemenix.utils.elemenix.Constituents;
+import net.lghast.elemenix.utils.misc.ModUtils;
 import net.lghast.elemenix.utils.elemenix.Elemenix;
 import net.neoforged.fml.ModList;
 import net.neoforged.neoforgespi.language.IModFileInfo;

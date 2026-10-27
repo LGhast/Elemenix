@@ -8,7 +8,7 @@ import net.lghast.elemenix.config.ClientConfig;
 import net.lghast.elemenix.register.content.ModItems;
 import net.lghast.elemenix.register.system.ModDataComponents;
 import net.lghast.elemenix.register.system.ModStats;
-import net.lghast.elemenix.utils.ModUtils;
+import net.lghast.elemenix.utils.misc.ModUtils;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;

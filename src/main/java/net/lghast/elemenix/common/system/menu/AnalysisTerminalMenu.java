@@ -14,10 +14,11 @@ import net.lghast.elemenix.register.system.ModDataComponents;
 import net.lghast.elemenix.register.system.ModMenus;
 import net.lghast.elemenix.register.system.ModStats;
 import net.lghast.elemenix.register.system.ModTags;
-import net.lghast.elemenix.utils.Constituents;
-import net.lghast.elemenix.utils.LongContainerData;
+import net.lghast.elemenix.utils.elemenix.Constituents;
+import net.lghast.elemenix.utils.misc.LongContainerData;
 import net.lghast.elemenix.utils.elemenix.Elemenix;
 import net.lghast.elemenix.utils.elemenix.ElemenixInfo;
+import net.lghast.elemenix.utils.misc.ElemenixItemStorage;
 import net.minecraft.core.GlobalPos;
 import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponents;
@@ -380,8 +381,8 @@ public class AnalysisTerminalMenu extends AbstractContainerMenu {
             }
             return;
         }
-        if (stack.is(ModItems.ELEMENIC_STORAGE) || stack.is(ModItems.SCANNING_STORAGE)) {
-            ElemenicStorage storageData = StorageItem.getOrCreateData(stack);
+        if (stack.is(ModItems.ELEMENIC_STORAGE) || stack.is(ModItems.SCANNING_STORAGE) || ElemenixItemStorage.isTank(stack)) {
+            ElemenicStorage storageData = new ElemenicStorage(ElemenixItemStorage.getStored(stack));
             if (!storageData.isEmpty()) {
                 if (allowTransfer) {
                     transferStorageFromSlot(slot, storageData);
@@ -434,8 +435,8 @@ public class AnalysisTerminalMenu extends AbstractContainerMenu {
             }
             return;
         }
-        if (carried.is(ModItems.ELEMENIC_STORAGE) || carried.is(ModItems.SCANNING_STORAGE)) {
-            ElemenicStorage storageData = StorageItem.getOrCreateData(carried);
+        if (carried.is(ModItems.ELEMENIC_STORAGE) || carried.is(ModItems.SCANNING_STORAGE) || ElemenixItemStorage.isTank(carried)) {
+            ElemenicStorage storageData = new ElemenicStorage(ElemenixItemStorage.getStored(carried));
             if (!storageData.isEmpty()) {
                 if (allowTransfer) {
                     transferStorageFromCarried(carried, storageData);
@@ -517,7 +518,7 @@ public class AnalysisTerminalMenu extends AbstractContainerMenu {
     private void transferStorageFromSlot(Slot slot, ElemenicStorage storageData) {
         long[] elemenix = storageData.elemenix().clone();
         if (transferIntoAnalyzer(elemenix)) {
-            slot.getItem().set(ModDataComponents.ELEMENIC_STORAGE.get(), new ElemenicStorage(elemenix));
+            ElemenixItemStorage.setStored(slot.getItem(), elemenix);
             slot.setChanged();
             player.awardStat(ModStats.STORAGE_TRANSFERS.get());
             saveAnalyzerStorage();
@@ -528,7 +529,7 @@ public class AnalysisTerminalMenu extends AbstractContainerMenu {
     private void transferStorageFromCarried(ItemStack carried, ElemenicStorage storageData) {
         long[] elemenix = storageData.elemenix().clone();
         if (transferIntoAnalyzer(elemenix)) {
-            carried.set(ModDataComponents.ELEMENIC_STORAGE.get(), new ElemenicStorage(elemenix));
+            ElemenixItemStorage.setStored(carried, elemenix);
             setCarried(carried);
             player.awardStat(ModStats.STORAGE_TRANSFERS.get());
             saveAnalyzerStorage();

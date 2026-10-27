@@ -2,7 +2,7 @@ package net.lghast.elemenix.common.content.item;
 
 import net.lghast.elemenix.common.system.menu.AnalysisTerminalMenu;
 import net.lghast.elemenix.register.content.ModItems;
-import net.lghast.elemenix.utils.ModUtils;
+import net.lghast.elemenix.utils.misc.ModUtils;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;

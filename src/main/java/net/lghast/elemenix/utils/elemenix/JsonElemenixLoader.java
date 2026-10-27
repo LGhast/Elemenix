@@ -6,7 +6,6 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import net.lghast.elemenix.Elemenics;
-import net.lghast.elemenix.utils.Constituents;
 import net.neoforged.fml.ModList;
 import net.neoforged.neoforgespi.language.IModFileInfo;
 import org.apache.logging.log4j.Logger;

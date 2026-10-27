@@ -7,7 +7,7 @@ import net.lghast.elemenix.network.analyzer.PotionReconstructionPayload;
 import net.lghast.elemenix.network.analyzer.ReconstructionPayload;
 import net.lghast.elemenix.register.content.ModItems;
 import net.lghast.elemenix.utils.elemenix.ElemenixInfo;
-import net.lghast.elemenix.utils.ModUtils;
+import net.lghast.elemenix.utils.misc.ModUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.AbstractWidget;

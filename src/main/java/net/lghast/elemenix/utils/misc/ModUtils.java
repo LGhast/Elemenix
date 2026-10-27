@@ -1,4 +1,4 @@
-package net.lghast.elemenix.utils;
+package net.lghast.elemenix.utils.misc;
 
 import net.lghast.elemenix.config.ClientConfig;
 import net.minecraft.client.Minecraft;

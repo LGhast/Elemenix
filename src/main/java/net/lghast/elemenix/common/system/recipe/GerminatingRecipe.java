@@ -1,7 +1,7 @@
 package net.lghast.elemenix.common.system.recipe;
 
 import net.lghast.elemenix.register.system.ModRecipes;
-import net.lghast.elemenix.utils.Constituents;
+import net.lghast.elemenix.utils.elemenix.Constituents;
 import net.lghast.elemenix.utils.elemenix.ElemenixInfo;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.world.item.ItemStack;
@@ -13,6 +13,7 @@ import javax.annotation.Nullable;
 import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.List;
 
+@SuppressWarnings("DataFlowIssue")
 @ParametersAreNonnullByDefault
 public record GerminatingRecipe(Ingredient template, List<ItemStack> products) implements Recipe<RecipeInput> {
     public static final int MAX_PRODUCTS = 6;

@@ -14,7 +14,7 @@ import net.lghast.elemenix.register.system.ModMenus;
 import net.lghast.elemenix.register.system.ModRecipes;
 import net.lghast.elemenix.register.system.ModStats;
 import net.lghast.elemenix.register.system.ModTags;
-import net.lghast.elemenix.utils.Constituents;
+import net.lghast.elemenix.utils.elemenix.Constituents;
 import net.lghast.elemenix.utils.imitforge.Imitforging;
 import net.lghast.elemenix.utils.elemenix.ElemenixInfo;
 import net.minecraft.network.chat.Component;

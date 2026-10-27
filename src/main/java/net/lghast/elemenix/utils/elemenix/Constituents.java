@@ -1,8 +1,7 @@
-package net.lghast.elemenix.utils;
+package net.lghast.elemenix.utils.elemenix;
 
 import net.lghast.elemenix.config.CommonConfig;
-import net.lghast.elemenix.utils.elemenix.Elemenix;
-import net.lghast.elemenix.utils.elemenix.ElemenixInfo;
+import net.lghast.elemenix.utils.misc.ModUtils;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;

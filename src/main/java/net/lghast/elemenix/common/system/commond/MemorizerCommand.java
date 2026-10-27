@@ -11,7 +11,7 @@ import net.lghast.elemenix.common.system.datacomponent.MemoryData;
 import net.lghast.elemenix.common.system.datacomponent.Waxed;
 import net.lghast.elemenix.register.system.ModDataComponents;
 import net.lghast.elemenix.register.system.ModTags;
-import net.lghast.elemenix.utils.ModUtils;
+import net.lghast.elemenix.utils.misc.ModUtils;
 import net.lghast.elemenix.utils.elemenix.ElemenixInfo;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;

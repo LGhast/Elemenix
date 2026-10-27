@@ -8,7 +8,7 @@ import net.lghast.elemenix.common.system.menu.TransformerMenu;
 import net.lghast.elemenix.common.system.recipe.MineralizingRecipe;
 import net.lghast.elemenix.network.transformer.TransformerSwitchPagePayload;
 import net.lghast.elemenix.network.transformer.TransformerTogglePayload;
-import net.lghast.elemenix.utils.ModUtils;
+import net.lghast.elemenix.utils.misc.ModUtils;
 import net.lghast.elemenix.utils.elemenix.Elemenix;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;

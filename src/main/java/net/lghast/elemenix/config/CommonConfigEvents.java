@@ -1,9 +1,9 @@
 package net.lghast.elemenix.config;
 
 import net.lghast.elemenix.Elemenics;
-import net.lghast.elemenix.utils.Constituents;
+import net.lghast.elemenix.utils.elemenix.Constituents;
 import net.lghast.elemenix.utils.elemenix.ElemenixInfo;
-import net.lghast.elemenix.utils.ScanHelper;
+import net.lghast.elemenix.utils.misc.ScanHelper;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.event.config.ModConfigEvent;
