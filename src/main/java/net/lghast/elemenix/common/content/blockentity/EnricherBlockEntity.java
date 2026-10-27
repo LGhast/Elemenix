@@ -5,9 +5,8 @@ import net.lghast.elemenix.common.content.block.EnricherBlock;
 import net.lghast.elemenix.common.system.menu.EnricherMenu;
 import net.lghast.elemenix.register.content.ModBlockEntities;
 import net.lghast.elemenix.register.content.ModItems;
-import net.lghast.elemenix.register.system.ModTags;
-import net.lghast.elemenix.utils.Constituents;
-import net.lghast.elemenix.utils.SidedInvHandler;
+import net.lghast.elemenix.utils.misc.ElemenixHolder;
+import net.lghast.elemenix.utils.misc.SidedInvHandler;
 import net.lghast.elemenix.utils.elemenix.Elemenix;
 import net.lghast.elemenix.utils.elemenix.ElemenixInfo;
 import net.minecraft.core.BlockPos;
@@ -34,19 +33,17 @@ import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.Arrays;
 
 @ParametersAreNonnullByDefault
-public class EnricherBlockEntity extends BaseContainerBlockEntity implements WorldlyContainer {
-    private static final int INPUT_SLOT = 6;
-    private static final int SLOT_COUNT = 7;
+public class EnricherBlockEntity extends BaseContainerBlockEntity implements WorldlyContainer, ElemenixHolder {
+    private static final int SLOT_COUNT = 6;
 
     private final static String TAG_STORAGE = "ElemenixStorage";
-    private final String TAG_DC_TIMER = "DeconstructionTimer";
     private final String TAG_ENRICHING_TIMER = "EnrichingTimer";
 
     private NonNullList<ItemStack> items = NonNullList.withSize(SLOT_COUNT, ItemStack.EMPTY);
     private final int[] elemenixStorage = new int[6];
 
-    private int deconstructionTimer = 0;
     private int enrichingTimer = 0;
+    private int workGrace = 0;
 
     private final ContainerData dataAccess = new ContainerData() {
         @Override
@@ -100,7 +97,6 @@ public class EnricherBlockEntity extends BaseContainerBlockEntity implements Wor
             System.arraycopy(stored, 0, elemenixStorage, 0, Math.min(stored.length, 6));
         }
 
-        deconstructionTimer = tag.getInt(TAG_DC_TIMER);
         enrichingTimer = tag.getInt(TAG_ENRICHING_TIMER);
     }
 
@@ -111,7 +107,6 @@ public class EnricherBlockEntity extends BaseContainerBlockEntity implements Wor
 
         tag.putIntArray(TAG_STORAGE, elemenixStorage);
 
-        tag.putInt(TAG_DC_TIMER, deconstructionTimer);
         tag.putInt(TAG_ENRICHING_TIMER, enrichingTimer);
     }
 
@@ -120,74 +115,51 @@ public class EnricherBlockEntity extends BaseContainerBlockEntity implements Wor
         if(!Elemenics.started) return;
 
         boolean wasWorking = state.getValue(EnricherBlock.WORKING);
+        boolean wasDisabled = state.getValue(EnricherBlock.DISABLED);
+        boolean disabled = level.hasNeighborSignal(pos);
         boolean isWorking = false;
 
-        if (canDeconstruct()) {
-            deconstructionTimer++;
-            EnricherBlock block = getEnricherBlock();
-
-            if (deconstructionTimer >= block.getDcInterval()) {
-                deconstructItem();
-                deconstructionTimer = 0;
-            }
-            isWorking = true;
-        } else {
-            deconstructionTimer = 0;
-        }
-
-        boolean anyCanEnrich = false;
-        for(int i = 0; i < elemenixStorage.length; i++) {
-            if (canEnrich(i)) {
-                anyCanEnrich = true;
-                break;
-            }
-        }
-
-        if (anyCanEnrich) {
-            enrichingTimer++;
-            isWorking = true;
-
-            EnricherBlock block = getEnricherBlock();
-            if (enrichingTimer >= block.getEnrichingInterval()) {
-                for(int i = 0; i < elemenixStorage.length; i++) {
-                    if (canEnrich(i)) {
-                        enrichElemenix(i);
-                    }
+        if (!disabled) {
+            boolean anyCanEnrich = false;
+            for(int i = 0; i < elemenixStorage.length; i++) {
+                if (canEnrich(i)) {
+                    anyCanEnrich = true;
+                    break;
                 }
+            }
+
+            if (anyCanEnrich) {
+                enrichingTimer++;
+                isWorking = true;
+
+                EnricherBlock block = getEnricherBlock();
+                if (enrichingTimer >= block.getEnrichingInterval()) {
+                    for(int i = 0; i < elemenixStorage.length; i++) {
+                        if (canEnrich(i)) {
+                            enrichElemenix(i);
+                        }
+                    }
+                    enrichingTimer = 0;
+                }
+            } else {
                 enrichingTimer = 0;
             }
         } else {
             enrichingTimer = 0;
         }
 
-        if (wasWorking != isWorking) {
-            level.setBlock(pos, state.setValue(EnricherBlock.WORKING, isWorking), Block.UPDATE_ALL);
+        if (isWorking) {
+            workGrace = 20;
+        } else if (workGrace > 0) {
+            workGrace--;
+            isWorking = true;
+        }
+
+        if (wasWorking != isWorking || wasDisabled != disabled) {
+            level.setBlock(pos, state.setValue(EnricherBlock.WORKING, isWorking).setValue(EnricherBlock.DISABLED, disabled), Block.UPDATE_ALL);
         }
 
         setChanged(level, pos, state);
-    }
-
-    private boolean canDeconstruct() {
-        ItemStack inputStack = getItem(INPUT_SLOT);
-        return !inputStack.isEmpty() && !ElemenixInfo.isUndeconstructable(inputStack);
-    }
-
-    private void deconstructItem() {
-        ItemStack inputStack = getItem(INPUT_SLOT);
-        if (inputStack.isEmpty()) return;
-
-        Constituents constituents = ElemenixInfo.getDiscountAppliedConstituents(inputStack);
-        if (constituents.isUnanalysable()) return;
-
-        for (Elemenix elemenix : Elemenix.values()) {
-            int value = constituents.get(elemenix);
-            if (value > 0) {
-                addElemenix(elemenix, value);
-            }
-        }
-
-        inputStack.shrink(1);
-        setChanged();
     }
 
     private boolean canEnrich(int index) {
@@ -248,9 +220,6 @@ public class EnricherBlockEntity extends BaseContainerBlockEntity implements Wor
 
     @Override
     public boolean canPlaceItem(int slot, ItemStack stack) {
-        if (slot == INPUT_SLOT) {
-            return !ElemenixInfo.isUndeconstructable(stack) && !stack.is(ModTags.IGNORED_BY_DECONSTRUCTOR_INPUT);
-        }
         return false;
     }
 
@@ -269,32 +238,54 @@ public class EnricherBlockEntity extends BaseContainerBlockEntity implements Wor
 
     @Override
     public boolean canTakeItem(Container target, int slot, ItemStack stack) {
-        return slot >= 0 && slot < INPUT_SLOT;
+        return slot >= 0 && slot < SLOT_COUNT;
     }
 
     @Override
     public int @NotNull [] getSlotsForFace(Direction side) {
         if (side == Direction.DOWN) {
-            int[] outputs = new int[INPUT_SLOT];
-            for (int i = 0; i < INPUT_SLOT; i++) {
+            int[] outputs = new int[SLOT_COUNT];
+            for (int i = 0; i < SLOT_COUNT; i++) {
                 outputs[i] = i;
             }
             return outputs;
         }
-        return new int[]{INPUT_SLOT};
+        return new int[0];
     }
 
     @Override
     public boolean canPlaceItemThroughFace(int index, ItemStack stack, @org.jetbrains.annotations.Nullable Direction direction) {
-        if (direction == null || direction == Direction.DOWN) {
-            return false;
-        }
-        return index == INPUT_SLOT && canPlaceItem(index, stack);
+        return false;
     }
 
     @Override
     public boolean canTakeItemThroughFace(int index, ItemStack stack, Direction direction) {
-        return direction == Direction.DOWN && index >= 0 && index < INPUT_SLOT;
+        return direction == Direction.DOWN && index >= 0 && index < SLOT_COUNT;
+    }
+
+    @Override
+    public long getStored(Elemenix type) {
+        return elemenixStorage[type.getIndex()];
+    }
+
+    @Override
+    public boolean canExtract(Elemenix type) {
+        return false;
+    }
+
+    @Override
+    public boolean canReceive(Elemenix type) {
+        return true;
+    }
+
+    @Override
+    public void extract(Elemenix type, long amount) {
+        // no-op: the enricher is a target only
+    }
+
+    @Override
+    public void receive(Elemenix type, long amount) {
+        addElemenix(type, (int) amount);
     }
 
     public IItemHandler getItemHandler(@org.jetbrains.annotations.Nullable Direction side) {

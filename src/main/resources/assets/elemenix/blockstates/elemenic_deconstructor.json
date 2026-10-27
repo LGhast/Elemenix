@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "disabled=true": { "model": "elemenix:block/elemenic_deconstructor_disabled" },
+    "disabled=false,working=true": { "model": "elemenix:block/elemenic_deconstructor_working" },
+    "disabled=false,working=false": { "model": "elemenix:block/elemenic_deconstructor" }
+  }
+}

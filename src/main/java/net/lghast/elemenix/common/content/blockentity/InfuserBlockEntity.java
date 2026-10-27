@@ -10,12 +10,10 @@ import net.lghast.elemenix.common.system.menu.InfuserMenu;
 import net.lghast.elemenix.network.infuser.InfuserDataUpdatePayload;
 import net.lghast.elemenix.register.content.ModBlockEntities;
 import net.lghast.elemenix.register.system.ModDataComponents;
-import net.lghast.elemenix.register.system.ModTags;
-import net.lghast.elemenix.utils.Constituents;
-import net.lghast.elemenix.utils.SidedInvHandler;
+import net.lghast.elemenix.utils.misc.ElemenixHolder;
+import net.lghast.elemenix.utils.misc.SidedInvHandler;
 import net.lghast.elemenix.utils.elemenix.Elemenix;
-import net.lghast.elemenix.utils.elemenix.ElemenixInfo;
-import net.lghast.elemenix.utils.ModUtils;
+import net.lghast.elemenix.utils.misc.ModUtils;
 import net.minecraft.core.*;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -41,20 +39,18 @@ import java.util.Arrays;
 import java.util.Objects;
 
 @ParametersAreNonnullByDefault
-public class InfuserBlockEntity extends BaseContainerBlockEntity implements WorldlyContainer {
+public class InfuserBlockEntity extends BaseContainerBlockEntity implements WorldlyContainer, ElemenixHolder {
     private static final int STORAGE_SLOT = 0;
-    private static final int INPUT_SLOT = 1;
-    private static final int SLOT_COUNT = 2;
+    private static final int SLOT_COUNT = 1;
 
     private final static String TAG_STORAGE = "ElemenixStorage";
-    private final String TAG_DC_TIMER = "DeconstructionTimer";
     private final String TAG_INFUSION_TIMER = "InfusionTimer";
 
     private NonNullList<ItemStack> items = NonNullList.withSize(SLOT_COUNT, ItemStack.EMPTY);
     private final int[] elemenixStorage = new int[6];
 
-    private int deconstructionTimer = 0;
     private int infusionTimer = 0;
+    private int workGrace = 0;
 
     private final ContainerData dataAccess = new ContainerData() {
         @Override
@@ -108,7 +104,6 @@ public class InfuserBlockEntity extends BaseContainerBlockEntity implements Worl
             System.arraycopy(stored, 0, elemenixStorage, 0, Math.min(stored.length, 6));
         }
 
-        deconstructionTimer = tag.getInt(TAG_DC_TIMER);
         infusionTimer = tag.getInt(TAG_INFUSION_TIMER);
     }
 
@@ -119,7 +114,6 @@ public class InfuserBlockEntity extends BaseContainerBlockEntity implements Worl
 
         tag.putIntArray(TAG_STORAGE, elemenixStorage);
 
-        tag.putInt(TAG_DC_TIMER, deconstructionTimer);
         tag.putInt(TAG_INFUSION_TIMER, infusionTimer);
     }
 
@@ -128,22 +122,13 @@ public class InfuserBlockEntity extends BaseContainerBlockEntity implements Worl
         if(!Elemenics.started) return;
 
         boolean wasWorking = state.getValue(InfuserBlock.WORKING);
+        boolean wasDisabled = state.getValue(InfuserBlock.DISABLED);
+        boolean disabled = level.hasNeighborSignal(pos);
         boolean isWorking = false;
 
-        if (canDeconstruct()) {
-            deconstructionTimer++;
-            InfuserBlock block = getInfuserBlock();
-
-            if (deconstructionTimer >= block.getDcInterval()) {
-                deconstructItem();
-                deconstructionTimer = 0;
-            }
-            isWorking = true;
-        } else {
-            deconstructionTimer = 0;
-        }
-
-        if (canInfuse()) {
+        if (disabled) {
+            infusionTimer = 0;
+        } else if (canInfuse()) {
             infusionTimer++;
             InfuserBlock block = getInfuserBlock();
 
@@ -156,34 +141,18 @@ public class InfuserBlockEntity extends BaseContainerBlockEntity implements Worl
             infusionTimer = 0;
         }
 
-        if (wasWorking != isWorking) {
-            level.setBlock(pos, state.setValue(InfuserBlock.WORKING, isWorking), Block.UPDATE_ALL);
+        if (isWorking) {
+            workGrace = 20;
+        } else if (workGrace > 0) {
+            workGrace--;
+            isWorking = true;
+        }
+
+        if (wasWorking != isWorking || wasDisabled != disabled) {
+            level.setBlock(pos, state.setValue(InfuserBlock.WORKING, isWorking).setValue(InfuserBlock.DISABLED, disabled), Block.UPDATE_ALL);
         }
 
         setChanged(level, pos, state);
-    }
-
-    private boolean canDeconstruct() {
-        ItemStack inputStack = getItem(INPUT_SLOT);
-        return !inputStack.isEmpty() && !ElemenixInfo.isUndeconstructable(inputStack);
-    }
-
-    private void deconstructItem() {
-        ItemStack inputStack = getItem(INPUT_SLOT);
-        if (inputStack.isEmpty()) return;
-
-        Constituents constituents = ElemenixInfo.getDiscountAppliedConstituents(inputStack);
-        if (constituents.isUnanalysable()) return;
-
-        for (Elemenix elemenix : Elemenix.values()) {
-            int value = constituents.get(elemenix);
-            if (value > 0) {
-                addElemenix(elemenix, value);
-            }
-        }
-
-        inputStack.shrink(1);
-        setChanged();
     }
 
     private boolean canInfuse() {
@@ -249,25 +218,17 @@ public class InfuserBlockEntity extends BaseContainerBlockEntity implements Worl
 
     @Override
     public boolean canPlaceItem(int slot, ItemStack stack) {
-        if (slot == STORAGE_SLOT) {
-            return stack.getItem() instanceof StorageItem;
-        } else if (slot == INPUT_SLOT) {
-            return !ElemenixInfo.isUndeconstructable(stack) && !stack.is(ModTags.IGNORED_BY_DECONSTRUCTOR_INPUT);
-        }
-        return false;
+        return slot == STORAGE_SLOT && stack.getItem() instanceof StorageItem;
     }
 
     @Override
     public int @NotNull [] getSlotsForFace(Direction side) {
-        return side == Direction.DOWN ? new int[0] : new int[]{INPUT_SLOT};
+        return new int[0];
     }
 
     @Override
     public boolean canPlaceItemThroughFace(int index, ItemStack stack, @org.jetbrains.annotations.Nullable Direction direction) {
-        if (direction == null || direction == Direction.DOWN) {
-            return false;
-        }
-        return index == INPUT_SLOT && canPlaceItem(index, stack);
+        return false;
     }
 
     @Override
@@ -278,6 +239,31 @@ public class InfuserBlockEntity extends BaseContainerBlockEntity implements Worl
     @Override
     public boolean canTakeItem(Container target, int slot, ItemStack stack) {
         return false;
+    }
+
+    @Override
+    public long getStored(Elemenix type) {
+        return elemenixStorage[type.getIndex()];
+    }
+
+    @Override
+    public boolean canExtract(Elemenix type) {
+        return false;
+    }
+
+    @Override
+    public boolean canReceive(Elemenix type) {
+        return true;
+    }
+
+    @Override
+    public void extract(Elemenix type, long amount) {
+        // no-op: the infuser is a target only
+    }
+
+    @Override
+    public void receive(Elemenix type, long amount) {
+        addElemenix(type, (int) amount);
     }
 
     public IItemHandler getItemHandler(@org.jetbrains.annotations.Nullable Direction side) {

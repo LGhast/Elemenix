@@ -1,5 +1,9 @@
 {
   "type": "elemenix:mineralizing",
+  "neoforge:conditions": [
+    { "type": "neoforge:mod_loaded", "modid": "aether" },
+    { "type": "neoforge:mod_loaded", "modid": "deep_aether" }
+  ],
   "mineral": { "item": "deep_aether:skyjade" },
   "medium": { "item": "aether:holystone" },
   "result": { "id": "deep_aether:skyjade_ore", "count": 1 }

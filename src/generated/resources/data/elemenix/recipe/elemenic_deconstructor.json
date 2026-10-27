@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "C": {
+      "item": "elemenix:analyzing_chip"
+    },
+    "I": {
+      "item": "minecraft:iron_ingot"
+    },
+    "R": {
+      "item": "minecraft:redstone_lamp"
+    },
+    "T": {
+      "item": "elemenix:elemenic_tank"
+    }
+  },
+  "pattern": [
+    "III",
+    "RCR",
+    "ITI"
+  ],
+  "result": {
+    "count": 1,
+    "id": "elemenix:elemenic_deconstructor"
+  }
+}

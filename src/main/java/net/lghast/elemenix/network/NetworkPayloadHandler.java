@@ -9,6 +9,7 @@ import net.lghast.elemenix.network.infuser.InfuserDataUpdatePayload;
 import net.lghast.elemenix.network.infuser.RequestInfuserUpdatePayload;
 import net.lghast.elemenix.network.open.OpenAnalyzerPayload;
 import net.lghast.elemenix.network.open.OpenMemorizerBoxPayload;
+import net.lghast.elemenix.network.outlet.OutletPercentPayload;
 import net.lghast.elemenix.network.terminal.TerminalCarriedDeconstructPayload;
 import net.lghast.elemenix.network.terminal.TerminalMemorizerSelectPayload;
 import net.lghast.elemenix.network.terminal.TerminalFlagsPayload;
@@ -147,6 +148,12 @@ public class NetworkPayloadHandler {
                 TransformerTogglePayload.TYPE,
                 TransformerTogglePayload.STREAM_CODEC,
                 TransformerTogglePayload::handle
+        );
+
+        registrar.playToServer(
+                OutletPercentPayload.TYPE,
+                OutletPercentPayload.STREAM_CODEC,
+                OutletPercentPayload::handle
         );
     }
 }

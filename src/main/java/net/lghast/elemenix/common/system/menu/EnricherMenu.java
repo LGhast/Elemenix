@@ -1,10 +1,7 @@
 package net.lghast.elemenix.common.system.menu;
 
-import net.lghast.elemenix.common.content.block.EnricherBlock;
 import net.lghast.elemenix.common.content.blockentity.EnricherBlockEntity;
 import net.lghast.elemenix.register.system.ModMenus;
-import net.lghast.elemenix.register.system.ModTags;
-import net.lghast.elemenix.utils.elemenix.ElemenixInfo;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
@@ -44,16 +41,6 @@ public class EnricherMenu extends AbstractContainerMenu {
             });
         }
 
-        this.addSlot(new Slot(blockEntity, 6, 142, 20) {
-            @Override
-            public boolean mayPlace(ItemStack stack) {
-                EnricherBlock block = blockEntity.getEnricherBlock();
-                if (block == null) return false;
-
-                return isValidForInputSlot(stack);
-            }
-        });
-
         for(int i = 0; i < 3; ++i) {
             for(int j = 0; j < 9; ++j) {
                 this.addSlot(new Slot(playerInventory, j + i * 9 + 9, 8 + j * 18, 94 + i * 18));
@@ -74,32 +61,18 @@ public class EnricherMenu extends AbstractContainerMenu {
             ItemStack slotStack = slot.getItem();
             originalStack = slotStack.copy();
 
-            if (index < 7) {
-                if (!this.moveItemStackTo(slotStack, 7, 43, true)) {
+            if (index < 6) {
+                if (!this.moveItemStackTo(slotStack, 6, 42, true)) {
                     return ItemStack.EMPTY;
                 }
             } else {
-                if (isValidForInputSlot(slotStack)) {
-                    if (!this.moveItemStackTo(slotStack, 6, 7, false)) {
-                        if (index < 34) {
-                            if (!this.moveItemStackTo(slotStack, 34, 43, false)) {
-                                return ItemStack.EMPTY;
-                            }
-                        } else {
-                            if (!this.moveItemStackTo(slotStack, 7, 34, false)) {
-                                return ItemStack.EMPTY;
-                            }
-                        }
+                if (index < 33) {
+                    if (!this.moveItemStackTo(slotStack, 33, 42, false)) {
+                        return ItemStack.EMPTY;
                     }
                 } else {
-                    if (index < 34) {
-                        if (!this.moveItemStackTo(slotStack, 34, 43, false)) {
-                            return ItemStack.EMPTY;
-                        }
-                    } else {
-                        if (!this.moveItemStackTo(slotStack, 7, 34, false)) {
-                            return ItemStack.EMPTY;
-                        }
+                    if (!this.moveItemStackTo(slotStack, 6, 33, false)) {
+                        return ItemStack.EMPTY;
                     }
                 }
             }
@@ -118,10 +91,6 @@ public class EnricherMenu extends AbstractContainerMenu {
         }
 
         return originalStack;
-    }
-
-    private boolean isValidForInputSlot(ItemStack stack) {
-        return !ElemenixInfo.isUndeconstructable(stack) && !stack.is(ModTags.IGNORED_BY_DECONSTRUCTOR_INPUT);
     }
 
     @Override

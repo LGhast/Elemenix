@@ -1,5 +1,8 @@
 {
   "type": "elemenix:germinating",
+  "neoforge:conditions": [
+    { "type": "neoforge:mod_loaded", "modid": "farmersdelight" }
+  ],
   "template": { "item": "farmersdelight:onion" },
   "products": [
     { "id": "farmersdelight:onion", "count": 1 },

@@ -1,10 +1,7 @@
 {
   "variants": {
-    "working=false": {
-      "model": "elemenix:block/elemenic_infuser"
-    },
-    "working=true": {
-      "model": "elemenix:block/elemenic_infuser_working"
-    }
+    "disabled=true": { "model": "elemenix:block/elemenic_infuser_disabled" },
+    "disabled=false,working=true": { "model": "elemenix:block/elemenic_infuser_working" },
+    "disabled=false,working=false": { "model": "elemenix:block/elemenic_infuser" }
   }
 }

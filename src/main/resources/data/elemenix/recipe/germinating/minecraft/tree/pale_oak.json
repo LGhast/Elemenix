@@ -1,5 +1,8 @@
 {
   "type": "elemenix:germinating",
+  "neoforge:conditions": [
+    { "type": "neoforge:mod_loaded", "modid": "vanillabackport" }
+  ],
   "template": { "item": "minecraft:pale_oak_sapling" },
   "products": [
     { "id": "minecraft:pale_oak_sapling", "count": 1 },

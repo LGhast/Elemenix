@@ -1,5 +1,8 @@
 {
   "type": "elemenix:mineralizing",
+  "neoforge:conditions": [
+    { "type": "neoforge:mod_loaded", "modid": "create" }
+  ],
   "mineral": { "item": "create:zinc_ingot" },
   "medium": { "item": "minecraft:deepslate" },
   "result": { "id": "create:deepslate_zinc_ore", "count": 1 }

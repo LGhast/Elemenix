@@ -1,5 +1,8 @@
 {
   "type": "elemenix:germinating",
+  "neoforge:conditions": [
+    { "type": "neoforge:mod_loaded", "modid": "kaleidoscope_cookery" }
+  ],
   "template": { "item": "kaleidoscope_cookery:rice_panicle" },
   "products": [
     { "id": "kaleidoscope_cookery:rice_panicle", "count": 1 },

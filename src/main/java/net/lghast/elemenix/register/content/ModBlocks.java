@@ -40,6 +40,18 @@ public class ModBlocks {
     public static final DeferredBlock<Block> ELEMENIC_EJECTOR = registerBlock("elemenic_ejector",
             ()-> new EjectorBlock(BlockBehaviour.Properties.of()));
 
+    public static final DeferredBlock<Block> ELEMENIC_OUTLET = registerBlock("elemenic_outlet",
+            ()-> new OutletBlock(BlockBehaviour.Properties.of()));
+
+    public static final DeferredBlock<Block> ELEMENIC_CHANNEL = registerBlock("elemenic_channel",
+            ()-> new ChannelBlock(BlockBehaviour.Properties.of()));
+
+    public static final DeferredBlock<Block> ELEMENIC_DECONSTRUCTOR = registerBlock("elemenic_deconstructor",
+            ()-> new DeconstructorBlock(BlockBehaviour.Properties.of()));
+
+    public static final DeferredBlock<Block> ELEMENIC_TANK = registerBlock("elemenic_tank",
+            ()-> new TankBlock(BlockBehaviour.Properties.of()));
+
     private static <T extends Block> DeferredBlock<T> registerBlock(String name, Supplier<T> block){
         DeferredBlock<T> toReturn = BLOCKS.register(name,block);
         registerBlockItem(name,toReturn);

@@ -9,9 +9,9 @@ import net.lghast.elemenix.register.content.ModItems;
 import net.lghast.elemenix.register.system.ModDataComponents;
 import net.lghast.elemenix.register.system.ModMenus;
 import net.lghast.elemenix.register.system.ModTags;
-import net.lghast.elemenix.utils.Constituents;
+import net.lghast.elemenix.utils.elemenix.Constituents;
 import net.lghast.elemenix.utils.elemenix.ElemenixInfo;
-import net.lghast.elemenix.utils.ModUtils;
+import net.lghast.elemenix.utils.misc.ModUtils;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.Screen;
@@ -124,6 +124,9 @@ public class ClientEventHandler {
         event.register(ModMenus.INFUSER_MENU.get(), InfuserScreen::new);
         event.register(ModMenus.ENRICHER_MENU.get(), EnricherScreen::new);
         event.register(ModMenus.EJECTOR_MENU.get(), EjectorScreen::new);
+        event.register(ModMenus.DECONSTRUCTOR_MENU.get(), DeconstructorScreen::new);
+        event.register(ModMenus.TANK_MENU.get(), TankScreen::new);
+        event.register(ModMenus.OUTLET_MENU.get(), OutletScreen::new);
     }
 
     @SubscribeEvent

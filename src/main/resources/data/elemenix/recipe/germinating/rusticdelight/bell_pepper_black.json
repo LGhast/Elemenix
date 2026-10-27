@@ -1,5 +1,8 @@
 {
   "type": "elemenix:germinating",
+  "neoforge:conditions": [
+    { "type": "neoforge:mod_loaded", "modid": "rusticdelight" }
+  ],
   "template": { "item": "rusticdelight:bell_pepper_black" },
   "products": [
     { "id": "rusticdelight:bell_pepper_black", "count": 1 },

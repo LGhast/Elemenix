@@ -1,5 +1,8 @@
 {
   "type": "elemenix:germinating",
+  "neoforge:conditions": [
+    { "type": "neoforge:mod_loaded", "modid": "ars_nouveau" }
+  ],
   "template": { "item": "ars_nouveau:green_archwood_sapling" },
   "products": [
     { "id": "ars_nouveau:green_archwood_sapling", "count": 1 },

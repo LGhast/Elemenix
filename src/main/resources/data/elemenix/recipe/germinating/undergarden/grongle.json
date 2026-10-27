@@ -1,5 +1,8 @@
 {
   "type": "elemenix:germinating",
+  "neoforge:conditions": [
+    { "type": "neoforge:mod_loaded", "modid": "undergarden" }
+  ],
   "template": { "item": "undergarden:grongle_sapling" },
   "products": [
     { "id": "undergarden:grongle_sapling", "count": 1 },

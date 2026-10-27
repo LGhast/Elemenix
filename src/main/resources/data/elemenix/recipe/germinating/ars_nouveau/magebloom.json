@@ -1,5 +1,8 @@
 {
   "type": "elemenix:germinating",
+  "neoforge:conditions": [
+    { "type": "neoforge:mod_loaded", "modid": "ars_nouveau" }
+  ],
   "template": { "item": "ars_nouveau:magebloom" },
   "products": [
     { "id": "ars_nouveau:magebloom", "count": 1 },

@@ -1,0 +1,22 @@
+{
+  "variants": {
+    "facing=up,disabled=true": { "model": "elemenix:block/outlet_disabled" },
+    "facing=up,disabled=false,working=true": { "model": "elemenix:block/outlet_working" },
+    "facing=up,disabled=false,working=false": { "model": "elemenix:block/outlet" },
+    "facing=down,disabled=true": { "model": "elemenix:block/outlet_disabled", "x": 180 },
+    "facing=down,disabled=false,working=true": { "model": "elemenix:block/outlet_working", "x": 180 },
+    "facing=down,disabled=false,working=false": { "model": "elemenix:block/outlet", "x": 180 },
+    "facing=north,disabled=true": { "model": "elemenix:block/outlet_disabled", "x": 90 },
+    "facing=north,disabled=false,working=true": { "model": "elemenix:block/outlet_working", "x": 90 },
+    "facing=north,disabled=false,working=false": { "model": "elemenix:block/outlet", "x": 90 },
+    "facing=south,disabled=true": { "model": "elemenix:block/outlet_disabled", "x": 90, "y": 180 },
+    "facing=south,disabled=false,working=true": { "model": "elemenix:block/outlet_working", "x": 90, "y": 180 },
+    "facing=south,disabled=false,working=false": { "model": "elemenix:block/outlet", "x": 90, "y": 180 },
+    "facing=east,disabled=true": { "model": "elemenix:block/outlet_disabled", "x": 90, "y": 90 },
+    "facing=east,disabled=false,working=true": { "model": "elemenix:block/outlet_working", "x": 90, "y": 90 },
+    "facing=east,disabled=false,working=false": { "model": "elemenix:block/outlet", "x": 90, "y": 90 },
+    "facing=west,disabled=true": { "model": "elemenix:block/outlet_disabled", "x": 90, "y": 270 },
+    "facing=west,disabled=false,working=true": { "model": "elemenix:block/outlet_working", "x": 90, "y": 270 },
+    "facing=west,disabled=false,working=false": { "model": "elemenix:block/outlet", "x": 90, "y": 270 }
+  }
+}

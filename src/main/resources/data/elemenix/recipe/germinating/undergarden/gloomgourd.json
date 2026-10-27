@@ -1,5 +1,8 @@
 {
   "type": "elemenix:germinating",
+  "neoforge:conditions": [
+    { "type": "neoforge:mod_loaded", "modid": "undergarden" }
+  ],
   "template": { "item": "undergarden:gloomgourd" },
   "products": [
     { "id": "undergarden:gloomgourd", "count": 1 },

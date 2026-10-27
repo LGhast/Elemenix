@@ -1,5 +1,8 @@
 {
   "type": "elemenix:germinating",
+  "neoforge:conditions": [
+    { "type": "neoforge:mod_loaded", "modid": "delighto_flight" }
+  ],
   "template": { "item": "delighto_flight:thunder_cloudshroom" },
   "products": [
     { "id": "delighto_flight:clear_cloudshroom", "count": 1 },

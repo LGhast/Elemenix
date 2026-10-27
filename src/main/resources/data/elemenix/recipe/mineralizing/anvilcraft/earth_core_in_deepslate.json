@@ -1,5 +1,8 @@
 {
   "type": "elemenix:mineralizing",
+  "neoforge:conditions": [
+    { "type": "neoforge:mod_loaded", "modid": "anvilcraft" }
+  ],
   "mineral": { "item": "anvilcraft:earth_core_shard" },
   "medium": { "item": "minecraft:deepslate" },
   "result": { "id": "anvilcraft:earth_core_shard_ore", "count": 1 }

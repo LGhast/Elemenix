@@ -1,5 +1,8 @@
 {
   "type": "elemenix:germinating",
+  "neoforge:conditions": [
+    { "type": "neoforge:mod_loaded", "modid": "eternal_starlight" }
+  ],
   "template": { "item": "eternal_starlight:lunaris_cactus" },
   "products": [
     { "id": "eternal_starlight:lunaris_cactus", "count": 1 },

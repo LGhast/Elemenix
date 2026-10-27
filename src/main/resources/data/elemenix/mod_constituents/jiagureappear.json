@@ -5,6 +5,7 @@
     { "id": "jiagureappear:shadow_berries", "constituents": [8, 0, 4, 0, 0, 2] },
     { "id": "jiagureappear:turtle_plastron", "constituents": [12, 0, 64, 0, 0, 0] },
     { "id": "jiagureappear:yolime", "constituents": [35, 0, 10, 0, 0, 10] },
-    { "id": "jiagureappear:zucchini", "constituents": [72, 0, 68, 0, 0, 0] }
+    { "id": "jiagureappear:zucchini", "constituents": [72, 0, 68, 0, 0, 0] },
+    { "id": "jiagureappear:parasite_spore", "constituents": [32, 0, 15, 0, 0, 0] }
   ]
 }

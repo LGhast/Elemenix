@@ -1,5 +1,8 @@
 {
   "type": "elemenix:germinating",
+  "neoforge:conditions": [
+    { "type": "neoforge:mod_loaded", "modid": "eternal_starlight" }
+  ],
   "template": { "item": "eternal_starlight:pungency_fruit" },
   "products": [
     { "id": "eternal_starlight:pungency_fruit", "count": 1 },

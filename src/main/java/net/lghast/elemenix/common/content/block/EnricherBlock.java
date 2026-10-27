@@ -7,8 +7,11 @@ import net.lghast.elemenix.register.content.ModBlockEntities;
 import net.lghast.elemenix.register.system.ModStats;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.Containers;
+import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.ItemInteractionResult;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
@@ -36,6 +39,7 @@ import javax.annotation.ParametersAreNonnullByDefault;
 public class EnricherBlock extends BaseEntityBlock {
     public static final MapCodec<EnricherBlock> CODEC = simpleCodec(EnricherBlock::new);
     public static final BooleanProperty WORKING = BooleanProperty.create("working");
+    public static final BooleanProperty DISABLED = BooleanProperty.create("disabled");
 
     private static final VoxelShape COLLISION_SHAPE = Shapes.or(
             Block.box(0.0, 0.0, 0.0, 16.0, 16.0, 16.0)
@@ -43,8 +47,8 @@ public class EnricherBlock extends BaseEntityBlock {
 
     public EnricherBlock(Properties properties) {
         super(properties.mapColor(MapColor.METAL).sound(SoundType.METAL).strength(3.5f).requiresCorrectToolForDrops()
-                .lightLevel(state -> state.getValue(WORKING) ? 6 : 0));
-        this.registerDefaultState(this.stateDefinition.any().setValue(WORKING, false));
+                .lightLevel(state -> state.getValue(WORKING) || state.getValue(DISABLED) ? 6 : 0));
+        this.registerDefaultState(this.stateDefinition.any().setValue(WORKING, false).setValue(DISABLED, false));
     }
 
     @Override
@@ -54,12 +58,12 @@ public class EnricherBlock extends BaseEntityBlock {
 
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-        builder.add(WORKING);
+        builder.add(WORKING, DISABLED);
     }
 
     @Override
     public BlockState getStateForPlacement(BlockPlaceContext context) {
-        return this.defaultBlockState().setValue(WORKING, false);
+        return this.defaultBlockState().setValue(WORKING, false).setValue(DISABLED, false);
     }
 
     @Override
@@ -75,6 +79,14 @@ public class EnricherBlock extends BaseEntityBlock {
     @Override
     public @NotNull RenderShape getRenderShape(BlockState state) {
         return RenderShape.MODEL;
+    }
+
+    @Override
+    protected @NotNull ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
+        if (ChannelBlock.shouldPlaceOver(state, stack)) {
+            return ItemInteractionResult.SKIP_DEFAULT_BLOCK_INTERACTION;
+        }
+        return super.useItemOn(stack, state, level, pos, player, hand, hitResult);
     }
 
     @Override
@@ -120,10 +132,6 @@ public class EnricherBlock extends BaseEntityBlock {
     protected static <E extends BlockEntity, A extends BlockEntity> BlockEntityTicker<A> createTickerHelper(
             BlockEntityType<A> type, BlockEntityType<E> targetType, BlockEntityTicker<? super E> ticker) {
         return targetType == type ? (BlockEntityTicker<A>) ticker : null;
-    }
-
-    public int getDcInterval(){
-        return CommonConfig.ENRICHER_DC_INTERVAL.get();
     }
 
     public int getEnrichingInterval(){

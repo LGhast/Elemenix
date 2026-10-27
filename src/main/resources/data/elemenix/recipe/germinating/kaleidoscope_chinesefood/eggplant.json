@@ -1,5 +1,8 @@
 {
   "type": "elemenix:germinating",
+  "neoforge:conditions": [
+    { "type": "neoforge:mod_loaded", "modid": "kaleidoscope_chinesefood" }
+  ],
   "template": { "item": "kaleidoscope_chinesefood:eggplant" },
   "products": [
     { "id": "kaleidoscope_chinesefood:eggplant", "count": 1 },

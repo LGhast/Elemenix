@@ -1,5 +1,8 @@
 {
   "type": "elemenix:germinating",
+  "neoforge:conditions": [
+    { "type": "neoforge:mod_loaded", "modid": "aether" }
+  ],
   "template": { "item": "aether:skyroot_sapling" },
   "products": [
     { "id": "aether:skyroot_sapling", "count": 1 },

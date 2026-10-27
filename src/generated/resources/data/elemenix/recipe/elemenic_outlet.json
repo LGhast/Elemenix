@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "C": {
+      "item": "elemenix:elemenic_channel"
+    },
+    "R": {
+      "item": "minecraft:redstone"
+    },
+    "S": {
+      "item": "elemenix:flow_straightener"
+    },
+    "V": {
+      "item": "elemenix:throttle_valve"
+    }
+  },
+  "pattern": [
+    "RVR",
+    " S ",
+    " C "
+  ],
+  "result": {
+    "count": 1,
+    "id": "elemenix:elemenic_outlet"
+  }
+}

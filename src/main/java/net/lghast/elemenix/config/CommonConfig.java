@@ -49,16 +49,16 @@ public class CommonConfig {
     public static ModConfigSpec.IntValue OC_DC_INTERVAL;
     public static ModConfigSpec.IntValue OC_RC_INTERVAL;
 
-    public static ModConfigSpec.IntValue INFUSER_DC_INTERVAL;
+    public static ModConfigSpec.IntValue DECONSTRUCTOR_DC_INTERVAL;
     public static ModConfigSpec.IntValue INFUSION_INTERVAL;
     public static ModConfigSpec.IntValue MAX_INFUSION;
 
-    public static ModConfigSpec.IntValue ENRICHER_DC_INTERVAL;
     public static ModConfigSpec.IntValue ENRICHER_ENRICHING_INTERVAL;
 
     public static ModConfigSpec.IntValue EJECTOR_DC_INTERVAL;
     public static ModConfigSpec.IntValue EJECTOR_ENRICHING_INTERVAL;
     public static ModConfigSpec.IntValue EJECTING_INTERVAL;
+    public static ModConfigSpec.IntValue OUTLET_MAX_OUTPUT_PER_TYPE;
 
     public static ModConfigSpec.BooleanValue SHOW_SCANNER_PARTICLES;
     public static ModConfigSpec.BooleanValue SHOW_SCANNING_STORAGE_PARTICLES;
@@ -159,19 +159,19 @@ public class CommonConfig {
 
         BUILDER.pop();
 
-        BUILDER.push("元质转换仪 Elemenic Transformers");
+        BUILDER.push("元质转化仪 Elemenic Transformers");
 
         GS_CONSUMPTION = BUILDER
                 .comment("地质模拟仪每次消耗输入元质的量",
                         "Amount of input elemenix consumed per operation by the Geological Simulator")
                 .translation(CONFIG_PREFIX + "geological_simulator_consumption")
-                .defineInRange("geological_simulator_consumption", 90, 1, Integer.MAX_VALUE);
+                .defineInRange("geological_simulator_consumption", 100, 1, Integer.MAX_VALUE);
 
         GS_PRODUCTION = BUILDER
                 .comment("地质模拟仪每次转化产生元质的量",
                         "Amount of elemenix produced per transformation by the Geological Simulator")
                 .translation(CONFIG_PREFIX + "geological_simulator_production")
-                .defineInRange("geological_simulator_production", 90, 1, Integer.MAX_VALUE);
+                .defineInRange("geological_simulator_production", 100, 1, Integer.MAX_VALUE);
 
         GS_DC_INTERVAL = BUILDER
                 .comment("地质模拟仪解构输入物品的时间间隔（刻）",
@@ -189,13 +189,13 @@ public class CommonConfig {
                 .comment("激化锻冶仪每次消耗输入元质的量",
                         "Amount of input elemenix consumed per operation by the Metallurgical Activator")
                 .translation(CONFIG_PREFIX + "metallurgical_activator_consumption")
-                .defineInRange("metallurgical_activator_consumption", 90, 1, Integer.MAX_VALUE);
+                .defineInRange("metallurgical_activator_consumption", 100, 1, Integer.MAX_VALUE);
 
         MA_PRODUCTION = BUILDER
                 .comment("激化锻冶仪每次转化产生元质的量",
                         "Amount of elemenix produced per transformation by the Metallurgical Activator")
                 .translation(CONFIG_PREFIX + "metallurgical_activator_production")
-                .defineInRange("metallurgical_activator_production", 90, 1, Integer.MAX_VALUE);
+                .defineInRange("metallurgical_activator_production", 100, 1, Integer.MAX_VALUE);
 
         MA_DC_INTERVAL = BUILDER
                 .comment("激化锻冶仪解构输入物品的时间间隔（刻）",
@@ -225,13 +225,13 @@ public class CommonConfig {
                 .comment("蕃孕加速仪每次消耗输入元质的量",
                         "Amount of input elemenix consumed per operation by the Germinal Accelerator")
                 .translation(CONFIG_PREFIX + "germinal_accelerator_consumption")
-                .defineInRange("germinal_accelerator_consumption", 90, 1, Integer.MAX_VALUE);
+                .defineInRange("germinal_accelerator_consumption", 100, 1, Integer.MAX_VALUE);
 
         GA_PRODUCTION = BUILDER
                 .comment("蕃孕加速仪每次转化产生元质的量",
                         "Amount of elemenix produced per transformation by the Germinal Accelerator")
                 .translation(CONFIG_PREFIX + "germinal_accelerator_production")
-                .defineInRange("germinal_accelerator_production", 90, 1, Integer.MAX_VALUE);
+                .defineInRange("germinal_accelerator_production", 100, 1, Integer.MAX_VALUE);
 
         GA_DC_INTERVAL = BUILDER
                 .comment("蕃孕加速仪解构输入物品的时间间隔（刻）",
@@ -249,19 +249,19 @@ public class CommonConfig {
                 .comment("蕃孕加速仪完成一次蕃育所需的时间间隔（刻）",
                         "Time interval (in ticks) for the Germinal Accelerator to complete one germination")
                 .translation(CONFIG_PREFIX + "germinal_accelerator_germination_interval")
-                .defineInRange("germinal_accelerator_germination_interval", 120, 1, Integer.MAX_VALUE);
+                .defineInRange("germinal_accelerator_germination_interval", 100, 1, Integer.MAX_VALUE);
 
         TI_CONSUMPTION = BUILDER
                 .comment("蒸腾焚化仪每次消耗输入元质的量",
                         "Amount of input elemenix consumed per operation by the Transpiring Incinerator")
                 .translation(CONFIG_PREFIX + "transpiring_incinerator_consumption")
-                .defineInRange("transpiring_incinerator_consumption", 90, 1, Integer.MAX_VALUE);
+                .defineInRange("transpiring_incinerator_consumption", 100, 1, Integer.MAX_VALUE);
 
         TI_PRODUCTION = BUILDER
                 .comment("蒸腾焚化仪每次转化产生元质的量",
                         "Amount of elemenix produced per transformation by the Transpiring Incinerator")
                 .translation(CONFIG_PREFIX + "transpiring_incinerator_production")
-                .defineInRange("transpiring_incinerator_production", 90, 1, Integer.MAX_VALUE);
+                .defineInRange("transpiring_incinerator_production", 100, 1, Integer.MAX_VALUE);
 
         TI_DC_INTERVAL = BUILDER
                 .comment("蒸腾焚化仪解构输入物品的时间间隔（刻）",
@@ -279,13 +279,13 @@ public class CommonConfig {
                 .comment("光能捕获仪每次消耗输入元质的量",
                         "Amount of input elemenix consumed per operation by the Optical Capturer")
                 .translation(CONFIG_PREFIX + "optical_capturer_consumption")
-                .defineInRange("optical_capturer_consumption", 90, 1, Integer.MAX_VALUE);
+                .defineInRange("optical_capturer_consumption", 100, 1, Integer.MAX_VALUE);
 
         OC_PRODUCTION = BUILDER
                 .comment("光能捕获仪每次转化产生元质的量",
                         "Amount of elemenix produced per transformation by the Optical Capturer")
                 .translation(CONFIG_PREFIX + "optical_capturer_production")
-                .defineInRange("optical_capturer_production", 90, 1, Integer.MAX_VALUE);
+                .defineInRange("optical_capturer_production", 100, 1, Integer.MAX_VALUE);
 
         OC_DC_INTERVAL = BUILDER
                 .comment("光能捕获仪解构输入物品的时间间隔（刻）",
@@ -297,35 +297,29 @@ public class CommonConfig {
                 .comment("光能捕获仪重构输出物品的时间间隔（刻）",
                         "Time interval (in ticks) for the Optical Capturer to reconstruct output items")
                 .translation(CONFIG_PREFIX + "optical_capturer_rc_interval")
-                .defineInRange("optical_capturer_rc_interval", 20, 1, Integer.MAX_VALUE);
+                .defineInRange("optical_capturer_rc_interval", 15, 1, Integer.MAX_VALUE);
 
         BUILDER.pop();
 
-        BUILDER.push("元质解构塔 Elemenic Deconstructors");
+        BUILDER.push("其他元质机器 Other Elemenic Machines");
 
-        INFUSER_DC_INTERVAL = BUILDER
-                .comment("元质注入塔解构输入物品的时间间隔（刻）",
-                        "Time interval (in ticks) for the Elemenic Infuser to deconstruct input items")
-                .translation(CONFIG_PREFIX + "infuser_dc_interval")
-                .defineInRange("infuser_dc_interval", 8, 1, Integer.MAX_VALUE);
+        DECONSTRUCTOR_DC_INTERVAL = BUILDER
+                .comment("元质解构塔解构输入物品的时间间隔（刻）",
+                        "Time interval (in ticks) for the Elemenic Deconstructor to deconstruct input items")
+                .translation(CONFIG_PREFIX + "deconstructor_dc_interval")
+                .defineInRange("deconstructor_dc_interval", 8, 1, Integer.MAX_VALUE);
 
         INFUSION_INTERVAL = BUILDER
                 .comment("元质注入塔注入元质的时间间隔（刻）",
                         "Time interval (in ticks) for the Elemenic Infuser to infuse elemenix")
                 .translation(CONFIG_PREFIX + "infusion_interval")
-                .defineInRange("infusion_interval", 15, 1, Integer.MAX_VALUE);
+                .defineInRange("infusion_interval", 20, 1, Integer.MAX_VALUE);
 
         MAX_INFUSION = BUILDER
                 .comment("元质注入塔每次注入元质的最大值",
                         "Maximum amount of elemenix infused per operation by the Elemenic Infuser")
                 .translation(CONFIG_PREFIX + "max_infusion")
                 .defineInRange("max_infusion", 7776, 1, Integer.MAX_VALUE);
-
-        ENRICHER_DC_INTERVAL = BUILDER
-                .comment("元质富集塔解构输入物品的时间间隔（刻）",
-                        "Time interval (in ticks) for the Elemenic Enricher to deconstruct input items")
-                .translation(CONFIG_PREFIX + "enricher_dc_interval")
-                .defineInRange("enricher_dc_interval", 8, 1, Integer.MAX_VALUE);
 
         ENRICHER_ENRICHING_INTERVAL = BUILDER
                 .comment("元质富集塔生产纯质的时间间隔（刻）",
@@ -350,6 +344,12 @@ public class CommonConfig {
                         "Time interval (in ticks) for the Elemenic Ejector to eject essence")
                 .translation(CONFIG_PREFIX + "ejecting_interval")
                 .defineInRange("ejecting_interval", 15, 1, Integer.MAX_VALUE);
+
+        OUTLET_MAX_OUTPUT_PER_TYPE = BUILDER
+                .comment("元质输出口每秒每种元质的最大输出量",
+                        "Maximum amount of each elemenix type output per second by the Elemenic Outlet")
+                .translation(CONFIG_PREFIX + "outlet_max_output_per_type")
+                .defineInRange("outlet_max_output_per_type", 500, 1, Integer.MAX_VALUE);
 
         BUILDER.pop();
 

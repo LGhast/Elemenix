@@ -1,5 +1,8 @@
 {
   "type": "elemenix:germinating",
+  "neoforge:conditions": [
+    { "type": "neoforge:mod_loaded", "modid": "deep_aether" }
+  ],
   "template": { "item": "deep_aether:cruderoot_sapling" },
   "products": [
     { "id": "deep_aether:cruderoot_sapling", "count": 1 },

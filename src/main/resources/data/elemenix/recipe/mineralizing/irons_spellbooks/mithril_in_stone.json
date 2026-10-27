@@ -1,5 +1,8 @@
 {
   "type": "elemenix:mineralizing",
+  "neoforge:conditions": [
+    { "type": "neoforge:mod_loaded", "modid": "irons_spellbooks" }
+  ],
   "mineral": { "item": "irons_spellbooks:mithril_scrap" },
   "medium": { "item": "minecraft:stone" },
   "result": { "id": "irons_spellbooks:mithril_ore", "count": 1 }

@@ -116,38 +116,42 @@ public class ModAdvancementProvider extends AdvancementProvider {
                     ))
                     .save(saver, ResourceLocation.parse("elemenix:elemenics/obtain_transformer"), existingFileHelper);
 
-            AdvancementHolder obtainAllTransformers = Advancement.Builder.advancement()
-                    .parent(obtainTransformer)
+            AdvancementHolder obtainTank = Advancement.Builder.advancement()
+                    .parent(rootAdvancement)
                     .display(
-                            ModItems.TRANSFORMING_CHIP,
-                            Component.translatable("advancements.elemenix.obtain_all_transformers.title"),
-                            Component.translatable("advancements.elemenix.obtain_all_transformers.description"),
+                            ModBlocks.ELEMENIC_TANK,
+                            Component.translatable("advancements.elemenix.obtain_tank.title"),
+                            Component.translatable("advancements.elemenix.obtain_tank.description"),
                             null,
-                            AdvancementType.CHALLENGE,
+                            AdvancementType.TASK,
                             true,
                             true,
                             false
                     )
-                    .addCriterion("get_geological_simulator", InventoryChangeTrigger.TriggerInstance.hasItems(
-                            ItemPredicate.Builder.item().of(ModBlocks.GEOLOGICAL_SIMULATOR).build()
+                    .addCriterion("get_tank", InventoryChangeTrigger.TriggerInstance.hasItems(
+                            ItemPredicate.Builder.item().of(ModBlocks.ELEMENIC_TANK).build()
                     ))
-                    .addCriterion("get_metallurgical_activator", InventoryChangeTrigger.TriggerInstance.hasItems(
-                            ItemPredicate.Builder.item().of(ModBlocks.METALLURGICAL_ACTIVATOR).build()
-                    ))
-                    .addCriterion("get_germinal_accelerator", InventoryChangeTrigger.TriggerInstance.hasItems(
-                            ItemPredicate.Builder.item().of(ModBlocks.GERMINAL_ACCELERATOR).build()
-                    ))
-                    .addCriterion("get_transpiring_incinerator", InventoryChangeTrigger.TriggerInstance.hasItems(
-                            ItemPredicate.Builder.item().of(ModBlocks.TRANSPIRING_INCINERATOR).build()
-                    ))
-                    .addCriterion("get_optical_capturer", InventoryChangeTrigger.TriggerInstance.hasItems(
-                            ItemPredicate.Builder.item().of(ModBlocks.OPTICAL_CAPTURER).build()
-                    ))
-                    .save(saver, ResourceLocation.parse("elemenix:elemenics/obtain_all_transformers"), existingFileHelper);
+                    .save(saver, ResourceLocation.parse("elemenix:elemenics/obtain_tank"), existingFileHelper);
 
+            AdvancementHolder obtainDeconstructor = Advancement.Builder.advancement()
+                    .parent(obtainTank)
+                    .display(
+                            ModBlocks.ELEMENIC_DECONSTRUCTOR,
+                            Component.translatable("advancements.elemenix.obtain_deconstructor.title"),
+                            Component.translatable("advancements.elemenix.obtain_deconstructor.description"),
+                            null,
+                            AdvancementType.TASK,
+                            true,
+                            true,
+                            false
+                    )
+                    .addCriterion("get_deconstructor", InventoryChangeTrigger.TriggerInstance.hasItems(
+                            ItemPredicate.Builder.item().of(ModBlocks.ELEMENIC_DECONSTRUCTOR).build()
+                    ))
+                    .save(saver, ResourceLocation.parse("elemenix:elemenics/obtain_deconstructor"), existingFileHelper);
 
             AdvancementHolder obtainInfuser = Advancement.Builder.advancement()
-                    .parent(rootAdvancement)
+                    .parent(obtainDeconstructor)
                     .display(
                             ModBlocks.ELEMENIC_INFUSER,
                             Component.translatable("advancements.elemenix.obtain_infuser.title"),
@@ -198,7 +202,7 @@ public class ModAdvancementProvider extends AdvancementProvider {
                     .save(saver, ResourceLocation.parse("elemenix:elemenics/obtain_ejector"), existingFileHelper);
 
             AdvancementHolder obtainStraightener = Advancement.Builder.advancement()
-                    .parent(obtainEjector)
+                    .parent(rootAdvancement)
                     .display(
                             ModItems.FLOW_STRAIGHTENER,
                             Component.translatable("advancements.elemenix.obtain_flow_straightener.title"),
@@ -245,7 +249,7 @@ public class ModAdvancementProvider extends AdvancementProvider {
                     .save(saver, ResourceLocation.parse("elemenix:elemenics/wax_off_memorizer"), existingFileHelper);
 
             AdvancementHolder closeValve = Advancement.Builder.advancement()
-                    .parent(obtainEjector)
+                    .parent(obtainStraightener)
                     .display(
                             ModItems.THROTTLE_VALVE,
                             Component.translatable("advancements.elemenix.close_throttle_valve.title"),

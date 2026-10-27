@@ -1,5 +1,8 @@
 {
   "type": "elemenix:mineralizing",
+  "neoforge:conditions": [
+    { "type": "neoforge:mod_loaded", "modid": "aether" }
+  ],
   "mineral": { "item": "aether:enchanted_gravitite" },
   "medium": { "item": "aether:holystone" },
   "result": { "id": "aether:gravitite_ore", "count": 1 }

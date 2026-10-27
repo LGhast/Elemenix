@@ -1,6 +1,8 @@
 {
   "values": [
-    "#elemenix:elemenic_deconstructors",
-    "#elemenix:elemenic_transformers"
+    "#elemenix:elemenix_outputs",
+    "#elemenix:elemenix_inputs",
+    "elemenix:elemenic_outlet",
+    "elemenix:elemenic_channel"
   ]
 }

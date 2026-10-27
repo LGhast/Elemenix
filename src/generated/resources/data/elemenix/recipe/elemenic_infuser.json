@@ -2,26 +2,17 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "C": {
-      "item": "elemenix:analyzing_chip"
-    },
     "H": {
       "item": "minecraft:hopper"
     },
-    "I": {
-      "item": "minecraft:iron_ingot"
-    },
-    "N": {
-      "item": "minecraft:netherite_scrap"
-    },
     "R": {
-      "item": "minecraft:redstone_lamp"
+      "item": "elemenix:elemenic_deconstructor"
     }
   },
   "pattern": [
-    "IHI",
-    "RCR",
-    "INI"
+    " H ",
+    " R ",
+    "   "
   ],
   "result": {
     "count": 1,

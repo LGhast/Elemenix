@@ -1,0 +1,33 @@
+{
+  "parent": "elemenix:elemenics/obtain_tank",
+  "criteria": {
+    "get_deconstructor": {
+      "conditions": {
+        "items": [
+          {
+            "items": "elemenix:elemenic_deconstructor"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.elemenix.obtain_deconstructor.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "elemenix:elemenic_deconstructor"
+    },
+    "title": {
+      "translate": "advancements.elemenix.obtain_deconstructor.title"
+    }
+  },
+  "requirements": [
+    [
+      "get_deconstructor"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

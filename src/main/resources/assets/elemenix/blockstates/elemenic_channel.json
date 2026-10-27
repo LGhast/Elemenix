@@ -1,0 +1,40 @@
+{
+  "variants": {
+    "facing=up,input=down": { "model": "elemenix:block/channel" },
+    "facing=down,input=up": { "model": "elemenix:block/channel", "x": 180 },
+    "facing=north,input=south": { "model": "elemenix:block/channel", "x": 90 },
+    "facing=south,input=north": { "model": "elemenix:block/channel", "x": 270 },
+    "facing=east,input=west": { "model": "elemenix:block/channel", "x": 90, "y": 90 },
+    "facing=west,input=east": { "model": "elemenix:block/channel", "x": 90, "y": 270 },
+
+    "facing=north,input=down": { "model": "elemenix:block/channel_elbow" },
+    "facing=east,input=down": { "model": "elemenix:block/channel_elbow", "y": 90 },
+    "facing=south,input=down": { "model": "elemenix:block/channel_elbow", "y": 180 },
+    "facing=west,input=down": { "model": "elemenix:block/channel_elbow", "y": 270 },
+
+    "facing=down,input=south": { "model": "elemenix:block/channel_elbow", "x": 90 },
+    "facing=down,input=west": { "model": "elemenix:block/channel_elbow", "x": 90, "y": 90 },
+    "facing=down,input=north": { "model": "elemenix:block/channel_elbow", "x": 90, "y": 180 },
+    "facing=down,input=east": { "model": "elemenix:block/channel_elbow", "x": 90, "y": 270 },
+
+    "facing=south,input=up": { "model": "elemenix:block/channel_elbow", "x": 180 },
+    "facing=west,input=up": { "model": "elemenix:block/channel_elbow", "x": 180, "y": 90 },
+    "facing=north,input=up": { "model": "elemenix:block/channel_elbow", "x": 180, "y": 180 },
+    "facing=east,input=up": { "model": "elemenix:block/channel_elbow", "x": 180, "y": 270 },
+
+    "facing=up,input=north": { "model": "elemenix:block/channel_elbow", "x": 270 },
+    "facing=up,input=east": { "model": "elemenix:block/channel_elbow", "x": 270, "y": 90 },
+    "facing=up,input=south": { "model": "elemenix:block/channel_elbow", "x": 270, "y": 180 },
+    "facing=up,input=west": { "model": "elemenix:block/channel_elbow", "x": 270, "y": 270 },
+
+    "facing=east,input=south": { "model": "elemenix:block/channel_elbow_sn" },
+    "facing=south,input=west": { "model": "elemenix:block/channel_elbow_sn", "y": 90 },
+    "facing=west,input=north": { "model": "elemenix:block/channel_elbow_sn", "y": 180 },
+    "facing=north,input=east": { "model": "elemenix:block/channel_elbow_sn", "y": 270 },
+
+    "facing=north,input=west": { "model": "elemenix:block/channel_elbow_wn" },
+    "facing=west,input=south": { "model": "elemenix:block/channel_elbow_wn", "y": 270 },
+    "facing=south,input=east": { "model": "elemenix:block/channel_elbow_wn", "y": 180 },
+    "facing=east,input=north": { "model": "elemenix:block/channel_elbow_wn", "y": 90 }
+  }
+}

@@ -1,5 +1,8 @@
 {
   "type": "elemenix:germinating",
+  "neoforge:conditions": [
+    { "type": "neoforge:mod_loaded", "modid": "delighto_flight" }
+  ],
   "template": { "item": "delighto_flight:lotus_flower" },
   "products": [
     { "id": "delighto_flight:lotus_flower", "count": 1 },

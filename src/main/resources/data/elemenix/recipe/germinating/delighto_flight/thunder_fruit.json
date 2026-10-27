@@ -1,5 +1,8 @@
 {
   "type": "elemenix:germinating",
+  "neoforge:conditions": [
+    { "type": "neoforge:mod_loaded", "modid": "delighto_flight" }
+  ],
   "template": { "item": "delighto_flight:thunder_fruit" },
   "products": [
     { "id": "delighto_flight:thunder_fruit", "count": 1 },

@@ -8,8 +8,9 @@ import net.lghast.elemenix.common.system.menu.EjectorMenu;
 import net.lghast.elemenix.register.content.ModBlockEntities;
 import net.lghast.elemenix.register.content.ModItems;
 import net.lghast.elemenix.register.system.ModTags;
-import net.lghast.elemenix.utils.Constituents;
-import net.lghast.elemenix.utils.SidedInvHandler;
+import net.lghast.elemenix.utils.elemenix.Constituents;
+import net.lghast.elemenix.utils.misc.ElemenixHolder;
+import net.lghast.elemenix.utils.misc.SidedInvHandler;
 import net.lghast.elemenix.utils.elemenix.Elemenix;
 import net.lghast.elemenix.utils.elemenix.ElemenixInfo;
 import net.minecraft.core.BlockPos;
@@ -39,7 +40,7 @@ import java.util.List;
 import java.util.Random;
 
 @ParametersAreNonnullByDefault
-public class EjectorBlockEntity extends BaseContainerBlockEntity implements WorldlyContainer {
+public class EjectorBlockEntity extends BaseContainerBlockEntity implements WorldlyContainer, ElemenixHolder {
     private static final int INPUT_SLOT = 6;
     private static final int VALVE_SLOT = 7;
     private static final int STRAIGHTENER_SLOT = 8;
@@ -58,6 +59,7 @@ public class EjectorBlockEntity extends BaseContainerBlockEntity implements Worl
     private int enrichingTimer = 0;
     private int ejectingTimer = 0;
     private int ejectedIndex = 0;
+    private int workGrace = 0;
 
     private final ContainerData dataAccess = new ContainerData() {
         @Override
@@ -135,63 +137,79 @@ public class EjectorBlockEntity extends BaseContainerBlockEntity implements Worl
         if(!Elemenics.started) return;
 
         boolean wasWorking = state.getValue(EjectorBlock.WORKING);
+        boolean wasDisabled = state.getValue(EjectorBlock.DISABLED);
+        boolean disabled = level.hasNeighborSignal(pos);
         boolean isWorking = false;
-        boolean enrichingDone = false;
 
-        if (canDeconstruct()) {
-            deconstructionTimer++;
-            EjectorBlock block = getEjectorBlock();
+        if (disabled) {
+            deconstructionTimer = 0;
+            enrichingTimer = 0;
+            ejectingTimer = 0;
+        } else {
+            boolean enrichingDone = false;
 
-            if (deconstructionTimer >= block.getDcInterval()) {
-                deconstructItem();
+            if (canDeconstruct()) {
+                deconstructionTimer++;
+                EjectorBlock block = getEjectorBlock();
+
+                if (deconstructionTimer >= block.getDcInterval()) {
+                    deconstructItem();
+                    deconstructionTimer = 0;
+                }
+                isWorking = true;
+            } else {
                 deconstructionTimer = 0;
             }
-            isWorking = true;
-        } else {
-            deconstructionTimer = 0;
-        }
 
-        boolean anyCanEnrich = false;
-        for(int i = 0; i < elemenixStorage.length; i++) {
-            if (canEnrich(i)) {
-                anyCanEnrich = true;
-                break;
-            }
-        }
-
-        if (anyCanEnrich) {
-            enrichingTimer++;
-            isWorking = true;
-
-            EjectorBlock block = getEjectorBlock();
-            if (enrichingTimer >= block.getEnrichingInterval()) {
-                for(int i = 0; i < elemenixStorage.length; i++) {
-                    if (canEnrich(i)) {
-                        enrichElemenix(i);
-                    }
+            boolean anyCanEnrich = false;
+            for(int i = 0; i < elemenixStorage.length; i++) {
+                if (canEnrich(i)) {
+                    anyCanEnrich = true;
+                    break;
                 }
-                enrichingTimer = 0;
-                enrichingDone = true;
             }
-        } else {
-            enrichingTimer = 0;
-        }
 
-        if((!enrichingDone || hasStraightener()) && canEject()){
-            ejectingTimer++;
-            EjectorBlock block = getEjectorBlock();
+            if (anyCanEnrich) {
+                enrichingTimer++;
+                isWorking = true;
 
-            if(ejectingTimer >= block.getEjectingInterval()){
-                ejectItem();
+                EjectorBlock block = getEjectorBlock();
+                if (enrichingTimer >= block.getEnrichingInterval()) {
+                    for(int i = 0; i < elemenixStorage.length; i++) {
+                        if (canEnrich(i)) {
+                            enrichElemenix(i);
+                        }
+                    }
+                    enrichingTimer = 0;
+                    enrichingDone = true;
+                }
+            } else {
+                enrichingTimer = 0;
+            }
+
+            if((!enrichingDone || hasStraightener()) && canEject()){
+                ejectingTimer++;
+                EjectorBlock block = getEjectorBlock();
+
+                if(ejectingTimer >= block.getEjectingInterval()){
+                    ejectItem();
+                    ejectingTimer = 0;
+                }
+                isWorking = true;
+            }else{
                 ejectingTimer = 0;
             }
-            isWorking = true;
-        }else{
-            ejectingTimer = 0;
         }
 
-        if (wasWorking != isWorking) {
-            level.setBlock(pos, state.setValue(EjectorBlock.WORKING, isWorking), Block.UPDATE_ALL);
+        if (isWorking) {
+            workGrace = 20;
+        } else if (workGrace > 0) {
+            workGrace--;
+            isWorking = true;
+        }
+
+        if (wasWorking != isWorking || wasDisabled != disabled) {
+            level.setBlock(pos, state.setValue(EjectorBlock.WORKING, isWorking).setValue(EjectorBlock.DISABLED, disabled), Block.UPDATE_ALL);
         }
 
         setChanged(level, pos, state);
@@ -417,6 +435,31 @@ public class EjectorBlockEntity extends BaseContainerBlockEntity implements Worl
     @Override
     public boolean canTakeItemThroughFace(int index, ItemStack stack, Direction direction) {
         return direction == Direction.DOWN && index >= 0 && index < INPUT_SLOT;
+    }
+
+    @Override
+    public long getStored(Elemenix type) {
+        return elemenixStorage[type.getIndex()];
+    }
+
+    @Override
+    public boolean canExtract(Elemenix type) {
+        return false;
+    }
+
+    @Override
+    public boolean canReceive(Elemenix type) {
+        return true;
+    }
+
+    @Override
+    public void extract(Elemenix type, long amount) {
+        // no-op: the ejector is a target only
+    }
+
+    @Override
+    public void receive(Elemenix type, long amount) {
+        addElemenix(type, (int) amount);
     }
 
     public IItemHandler getItemHandler(@org.jetbrains.annotations.Nullable Direction side) {

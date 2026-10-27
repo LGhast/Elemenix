@@ -65,12 +65,6 @@ public class ModItemTagProvider extends ItemTagsProvider {
                 .add(ModBlocks.OPTICAL_CAPTURER.asItem())
         ;
 
-        tag(ModTags.ELEMENIC_DECONSTRUCTORS)
-                .add(ModBlocks.ELEMENIC_INFUSER.asItem())
-                .add(ModBlocks.ELEMENIC_ENRICHER.asItem())
-                .add(ModBlocks.ELEMENIC_EJECTOR.asItem())
-        ;
-
         tag(ModTags.IGNORED_BY_DECONSTRUCTOR_INPUT)
                 .add(ModItems.ELEMENIC_STORAGE.asItem())
                 .add(ModItems.ELEMENIC_ANALYZER.asItem())

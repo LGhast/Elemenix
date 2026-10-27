@@ -1,5 +1,8 @@
 {
   "type": "elemenix:germinating",
+  "neoforge:conditions": [
+    { "type": "neoforge:mod_loaded", "modid": "twilightforest" }
+  ],
   "template": { "item": "twilightforest:mangrove_sapling" },
   "products": [
     { "id": "twilightforest:mangrove_sapling", "count": 1 },

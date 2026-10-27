@@ -53,14 +53,18 @@ public class ModCreativeTabs {
                         output.accept(ModItems.ELEMENIC_EQUILIPLEX);
                         output.accept(ModItems.ELEMENIC_CHAOS);
                         output.accept(ModItems.NULLVOID);
+                        output.accept(ModBlocks.ELEMENIC_CHANNEL);
+                        output.accept(ModBlocks.ELEMENIC_OUTLET);
+                        output.accept(ModBlocks.ELEMENIC_TANK);
+                        output.accept(ModBlocks.ELEMENIC_DECONSTRUCTOR);
+                        output.accept(ModBlocks.ELEMENIC_INFUSER);
+                        output.accept(ModBlocks.ELEMENIC_ENRICHER);
+                        output.accept(ModBlocks.ELEMENIC_EJECTOR);
                         output.accept(ModBlocks.GEOLOGICAL_SIMULATOR);
                         output.accept(ModBlocks.METALLURGICAL_ACTIVATOR);
                         output.accept(ModBlocks.GERMINAL_ACCELERATOR);
                         output.accept(ModBlocks.TRANSPIRING_INCINERATOR);
                         output.accept(ModBlocks.OPTICAL_CAPTURER);
-                        output.accept(ModBlocks.ELEMENIC_INFUSER);
-                        output.accept(ModBlocks.ELEMENIC_ENRICHER);
-                        output.accept(ModBlocks.ELEMENIC_EJECTOR);
                     }).build());
 
     public static void register(IEventBus eventBus){

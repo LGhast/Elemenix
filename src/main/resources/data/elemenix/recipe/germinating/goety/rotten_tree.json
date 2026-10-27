@@ -1,5 +1,8 @@
 {
   "type": "elemenix:germinating",
+  "neoforge:conditions": [
+    { "type": "neoforge:mod_loaded", "modid": "goety" }
+  ],
   "template": { "item": "goety:rotten_sapling" },
   "products": [
     { "id": "goety:rotten_sapling", "count": 1 },

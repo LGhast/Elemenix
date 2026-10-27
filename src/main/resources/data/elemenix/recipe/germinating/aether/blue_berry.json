@@ -1,5 +1,8 @@
 {
   "type": "elemenix:germinating",
+  "neoforge:conditions": [
+    { "type": "neoforge:mod_loaded", "modid": "aether" }
+  ],
   "template": { "item": "aether:blue_berry" },
   "products": [
     { "id": "aether:blue_berry", "count": 1 },

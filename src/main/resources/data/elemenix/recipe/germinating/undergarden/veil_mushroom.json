@@ -1,5 +1,8 @@
 {
   "type": "elemenix:germinating",
+  "neoforge:conditions": [
+    { "type": "neoforge:mod_loaded", "modid": "undergarden" }
+  ],
   "template": { "item": "undergarden:veil_mushroom" },
   "products": [
     { "id": "undergarden:veil_mushroom", "count": 1 },

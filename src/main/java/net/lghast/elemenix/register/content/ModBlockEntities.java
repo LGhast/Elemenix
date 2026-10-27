@@ -1,9 +1,12 @@
 package net.lghast.elemenix.register.content;
 
 import net.lghast.elemenix.Elemenics;
+import net.lghast.elemenix.common.content.blockentity.DeconstructorBlockEntity;
 import net.lghast.elemenix.common.content.blockentity.EjectorBlockEntity;
 import net.lghast.elemenix.common.content.blockentity.EnricherBlockEntity;
 import net.lghast.elemenix.common.content.blockentity.InfuserBlockEntity;
+import net.lghast.elemenix.common.content.blockentity.OutletBlockEntity;
+import net.lghast.elemenix.common.content.blockentity.TankBlockEntity;
 import net.lghast.elemenix.common.content.blockentity.TransformerBlockEntity;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -12,6 +15,7 @@ import net.neoforged.neoforge.registries.DeferredRegister;
 
 import java.util.function.Supplier;
 
+@SuppressWarnings("DataFlowIssue")
 public class ModBlockEntities {
     public static final DeferredRegister<BlockEntityType<?>> BLOCK_ENTITY_TYPES =
             DeferredRegister.create(Registries.BLOCK_ENTITY_TYPE, Elemenics.MOD_ID);
@@ -52,6 +56,33 @@ public class ModBlockEntities {
             () -> BlockEntityType.Builder.of(
                             EjectorBlockEntity::new,
                             ModBlocks.ELEMENIC_EJECTOR.get()
+                    )
+                    .build(null)
+    );
+
+    public static final Supplier<BlockEntityType<OutletBlockEntity>> OUTLET = BLOCK_ENTITY_TYPES.register(
+            "elemenic_outlet",
+            () -> BlockEntityType.Builder.of(
+                            OutletBlockEntity::new,
+                            ModBlocks.ELEMENIC_OUTLET.get()
+                    )
+                    .build(null)
+    );
+
+    public static final Supplier<BlockEntityType<DeconstructorBlockEntity>> DECONSTRUCTOR = BLOCK_ENTITY_TYPES.register(
+            "elemenic_deconstructor",
+            () -> BlockEntityType.Builder.of(
+                            DeconstructorBlockEntity::new,
+                            ModBlocks.ELEMENIC_DECONSTRUCTOR.get()
+                    )
+                    .build(null)
+    );
+
+    public static final Supplier<BlockEntityType<TankBlockEntity>> TANK = BLOCK_ENTITY_TYPES.register(
+            "elemenic_tank",
+            () -> BlockEntityType.Builder.of(
+                            TankBlockEntity::new,
+                            ModBlocks.ELEMENIC_TANK.get()
                     )
                     .build(null)
     );

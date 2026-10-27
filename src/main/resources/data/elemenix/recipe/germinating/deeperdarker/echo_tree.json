@@ -1,5 +1,8 @@
 {
   "type": "elemenix:germinating",
+  "neoforge:conditions": [
+    { "type": "neoforge:mod_loaded", "modid": "deeperdarker" }
+  ],
   "template": { "item": "deeperdarker:echo_sapling" },
   "products": [
     { "id": "deeperdarker:echo_sapling", "count": 1 },

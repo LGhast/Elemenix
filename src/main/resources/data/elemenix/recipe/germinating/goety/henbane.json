@@ -1,5 +1,8 @@
 {
   "type": "elemenix:germinating",
+  "neoforge:conditions": [
+    { "type": "neoforge:mod_loaded", "modid": "goety" }
+  ],
   "template": { "item": "goety:henbane_flower" },
   "products": [
     { "id": "goety:henbane_flower", "count": 1 },

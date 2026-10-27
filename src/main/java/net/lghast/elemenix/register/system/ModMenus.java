@@ -1,9 +1,12 @@
 package net.lghast.elemenix.register.system;
 
 import net.lghast.elemenix.Elemenics;
+import net.lghast.elemenix.common.content.blockentity.DeconstructorBlockEntity;
 import net.lghast.elemenix.common.content.blockentity.EjectorBlockEntity;
 import net.lghast.elemenix.common.content.blockentity.EnricherBlockEntity;
 import net.lghast.elemenix.common.content.blockentity.InfuserBlockEntity;
+import net.lghast.elemenix.common.content.blockentity.OutletBlockEntity;
+import net.lghast.elemenix.common.content.blockentity.TankBlockEntity;
 import net.lghast.elemenix.common.content.blockentity.TransformerBlockEntity;
 import net.lghast.elemenix.common.system.menu.*;
 import net.minecraft.core.registries.Registries;
@@ -58,6 +61,21 @@ public class ModMenus {
             MENUS.register("ejector_menu", () ->
                     IMenuTypeExtension.create((windowId, inv, data) ->
                             new EjectorMenu(windowId, inv, (EjectorBlockEntity) inv.player.level().getBlockEntity(data.readBlockPos()))));
+
+    public static final Supplier<MenuType<DeconstructorMenu>> DECONSTRUCTOR_MENU =
+            MENUS.register("deconstructor_menu", () ->
+                    IMenuTypeExtension.create((windowId, inv, data) ->
+                            new DeconstructorMenu(windowId, inv, (DeconstructorBlockEntity) inv.player.level().getBlockEntity(data.readBlockPos()))));
+
+    public static final Supplier<MenuType<TankMenu>> TANK_MENU =
+            MENUS.register("tank_menu", () ->
+                    IMenuTypeExtension.create((windowId, inv, data) ->
+                            new TankMenu(windowId, (TankBlockEntity) inv.player.level().getBlockEntity(data.readBlockPos()))));
+
+    public static final Supplier<MenuType<OutletMenu>> OUTLET_MENU =
+            MENUS.register("outlet_menu", () ->
+                    IMenuTypeExtension.create((windowId, inv, data) ->
+                            new OutletMenu(windowId, (OutletBlockEntity) inv.player.level().getBlockEntity(data.readBlockPos()))));
 
     public static void register(IEventBus eventBus) {
         MENUS.register(eventBus);

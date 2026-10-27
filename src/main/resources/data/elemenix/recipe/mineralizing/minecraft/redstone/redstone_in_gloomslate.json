@@ -1,5 +1,8 @@
 {
   "type": "elemenix:mineralizing",
+  "neoforge:conditions": [
+    { "type": "neoforge:mod_loaded", "modid": "deeperdarker" }
+  ],
   "mineral": { "item": "minecraft:redstone" },
   "medium": { "item": "deeperdarker:gloomslate" },
   "result": { "id": "deeperdarker:gloomslate_redstone_ore", "count": 1 }

@@ -1,5 +1,8 @@
 {
   "type": "elemenix:mineralizing",
+  "neoforge:conditions": [
+    { "type": "neoforge:mod_loaded", "modid": "undergarden" }
+  ],
   "mineral": { "item": "undergarden:utheric_cluster" },
   "medium": { "item": "undergarden:shiverstone" },
   "result": { "id": "undergarden:shiverstone_utherium_ore", "count": 1 }

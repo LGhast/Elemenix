@@ -1,5 +1,8 @@
 {
   "type": "elemenix:germinating",
+  "neoforge:conditions": [
+    { "type": "neoforge:mod_loaded", "modid": "crabbersdelight" }
+  ],
   "template": { "item": "crabbersdelight:coconut" },
   "products": [
     { "id": "crabbersdelight:coconut", "count": 1 },

@@ -1,6 +1,12 @@
 {
   "values": [
     "#elemenix:elemenic_transformers",
-    "#elemenix:elemenic_deconstructors"
+    "elemenix:elemenic_deconstructor",
+    "elemenix:elemenic_infuser",
+    "elemenix:elemenic_enricher",
+    "elemenix:elemenic_ejector",
+    "elemenix:elemenic_outlet",
+    "elemenix:elemenic_channel",
+    "elemenix:elemenic_tank"
   ]
 }

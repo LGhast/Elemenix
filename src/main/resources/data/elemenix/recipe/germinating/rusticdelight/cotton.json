@@ -1,5 +1,8 @@
 {
   "type": "elemenix:germinating",
+  "neoforge:conditions": [
+    { "type": "neoforge:mod_loaded", "modid": "rusticdelight" }
+  ],
   "template": { "item": "rusticdelight:cotton_boll" },
   "products": [
     { "id": "rusticdelight:cotton_boll", "count": 1 },

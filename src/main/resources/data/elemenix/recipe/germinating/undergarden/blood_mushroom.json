@@ -1,5 +1,8 @@
 {
   "type": "elemenix:germinating",
+  "neoforge:conditions": [
+    { "type": "neoforge:mod_loaded", "modid": "undergarden" }
+  ],
   "template": { "item": "undergarden:blood_mushroom" },
   "products": [
     { "id": "undergarden:blood_mushroom", "count": 1 },

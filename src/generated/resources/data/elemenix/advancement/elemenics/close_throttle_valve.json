@@ -1,5 +1,5 @@
 {
-  "parent": "elemenix:elemenics/obtain_ejector",
+  "parent": "elemenix:elemenics/obtain_flow_straightener",
   "criteria": {
     "close_valve": {
       "conditions": {

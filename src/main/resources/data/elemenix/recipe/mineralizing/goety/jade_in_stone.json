@@ -1,5 +1,8 @@
 {
   "type": "elemenix:mineralizing",
+  "neoforge:conditions": [
+    { "type": "neoforge:mod_loaded", "modid": "goety" }
+  ],
   "mineral": { "item": "goety:jade" },
   "medium": { "item": "minecraft:stone" },
   "result": { "id": "goety:jade_ore", "count": 1 }

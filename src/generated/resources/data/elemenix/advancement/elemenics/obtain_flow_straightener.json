@@ -1,5 +1,5 @@
 {
-  "parent": "elemenix:elemenics/obtain_ejector",
+  "parent": "elemenix:elemenics/root",
   "criteria": {
     "get_straightener": {
       "conditions": {

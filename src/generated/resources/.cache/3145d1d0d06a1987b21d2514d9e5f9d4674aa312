@@ -1,5 +1,6 @@
-// 1.21.1	2025-10-26T17:01:14.7082778	Tags for minecraft:block mod id elemenix
-19ded44dec005812482659ad1389b3044c247f12 data/elemenix/tags/block/elemenic_deconstructors.json
+// 1.21.1	2026-10-27T19:20:29.0937541	Tags for minecraft:block mod id elemenix
 fcb8476625195d2351238f217849450d2e531edf data/elemenix/tags/block/elemenic_transformers.json
-aabd3d7220317c072b7341035a787838487a7c98 data/minecraft/tags/block/mineable/pickaxe.json
-aabd3d7220317c072b7341035a787838487a7c98 data/minecraft/tags/block/needs_iron_tool.json
+ac95e2f29bc3bc45be2bf41cb912f60d320718e6 data/elemenix/tags/block/elemenix_inputs.json
+f2aeccb313c9a86313320d236fa2ecc1bb82e405 data/elemenix/tags/block/elemenix_outputs.json
+ed35672030ad926cc618f41e272bde690771345c data/minecraft/tags/block/mineable/pickaxe.json
+932fbb0f068cad576eca4af154bd27bc177a8458 data/minecraft/tags/block/needs_iron_tool.json

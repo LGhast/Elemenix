@@ -1,0 +1,9 @@
+{
+  "values": [
+    "elemenix:elemenic_tank",
+    "elemenix:elemenic_infuser",
+    "elemenix:elemenic_enricher",
+    "elemenix:elemenic_ejector",
+    "#elemenix:elemenic_transformers"
+  ]
+}

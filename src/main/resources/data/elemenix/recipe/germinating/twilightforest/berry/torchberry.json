@@ -1,5 +1,8 @@
 {
   "type": "elemenix:germinating",
+  "neoforge:conditions": [
+    { "type": "neoforge:mod_loaded", "modid": "twilightforest" }
+  ],
   "template": { "item": "twilightforest:torchberries" },
   "products": [
     { "id": "twilightforest:torchberries", "count": 1 },

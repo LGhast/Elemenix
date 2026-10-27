@@ -1,5 +1,8 @@
 {
   "type": "elemenix:germinating",
+  "neoforge:conditions": [
+    { "type": "neoforge:mod_loaded", "modid": "twilightforest" }
+  ],
   "template": { "item": "twilightforest:blackberry" },
   "products": [
     { "id": "twilightforest:blackberry", "count": 1 },

@@ -12,8 +12,10 @@ import net.minecraft.core.dispenser.DefaultDispenseItemBehavior;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.Containers;
+import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
@@ -45,6 +47,7 @@ import javax.annotation.ParametersAreNonnullByDefault;
 public class EjectorBlock extends BaseEntityBlock {
     public static final MapCodec<EjectorBlock> CODEC = simpleCodec(EjectorBlock::new);
     public static final BooleanProperty WORKING = BooleanProperty.create("working");
+    public static final BooleanProperty DISABLED = BooleanProperty.create("disabled");
     private static final EnumProperty<FrontAndTop> ORIENTATION = BlockStateProperties.ORIENTATION;
 
     private static final VoxelShape COLLISION_SHAPE = Shapes.or(
@@ -53,9 +56,10 @@ public class EjectorBlock extends BaseEntityBlock {
 
     public EjectorBlock(Properties properties) {
         super(properties.mapColor(MapColor.METAL).sound(SoundType.METAL).strength(3.5f).requiresCorrectToolForDrops()
-                .lightLevel(state -> state.getValue(WORKING) ? 6 : 0));
+                .lightLevel(state -> state.getValue(WORKING) || state.getValue(DISABLED) ? 6 : 0));
         this.registerDefaultState(this.stateDefinition.any().setValue(WORKING, false)
-                .setValue(ORIENTATION, FrontAndTop.NORTH_UP));
+                .setValue(ORIENTATION, FrontAndTop.NORTH_UP)
+                .setValue(DISABLED, false));
     }
 
     @Override
@@ -65,7 +69,7 @@ public class EjectorBlock extends BaseEntityBlock {
 
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-        builder.add(WORKING, ORIENTATION);
+        builder.add(WORKING, ORIENTATION, DISABLED);
     }
 
     @Override
@@ -78,7 +82,8 @@ public class EjectorBlock extends BaseEntityBlock {
         };
         return this.defaultBlockState()
                 .setValue(ORIENTATION, FrontAndTop.fromFrontAndTop(direction, direction1))
-                .setValue(WORKING, false);
+                .setValue(WORKING, false)
+                .setValue(DISABLED, false);
     }
 
     @Override
@@ -94,6 +99,14 @@ public class EjectorBlock extends BaseEntityBlock {
     @Override
     public @NotNull RenderShape getRenderShape(BlockState state) {
         return RenderShape.MODEL;
+    }
+
+    @Override
+    protected @NotNull ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
+        if (ChannelBlock.shouldPlaceOver(state, stack)) {
+            return ItemInteractionResult.SKIP_DEFAULT_BLOCK_INTERACTION;
+        }
+        return super.useItemOn(stack, state, level, pos, player, hand, hitResult);
     }
 
     @Override

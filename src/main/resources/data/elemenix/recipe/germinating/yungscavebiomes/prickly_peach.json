@@ -1,5 +1,8 @@
 {
   "type": "elemenix:germinating",
+  "neoforge:conditions": [
+    { "type": "neoforge:mod_loaded", "modid": "yungscavebiomes" }
+  ],
   "template": { "item": "yungscavebiomes:prickly_peach" },
   "products": [
     { "id": "yungscavebiomes:prickly_peach", "count": 1 },

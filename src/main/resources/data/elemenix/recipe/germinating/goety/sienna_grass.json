@@ -1,5 +1,8 @@
 {
   "type": "elemenix:germinating",
+  "neoforge:conditions": [
+    { "type": "neoforge:mod_loaded", "modid": "goety" }
+  ],
   "template": { "item": "goety:sienna_grass" },
   "products": [
     { "id": "goety:sienna_grass", "count": 1 },

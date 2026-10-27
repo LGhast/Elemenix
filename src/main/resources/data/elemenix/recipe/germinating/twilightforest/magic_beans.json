@@ -1,5 +1,8 @@
 {
   "type": "elemenix:germinating",
+  "neoforge:conditions": [
+    { "type": "neoforge:mod_loaded", "modid": "twilightforest" }
+  ],
   "template": { "item": "twilightforest:magic_beans" },
   "products": [
     { "id": "twilightforest:magic_beans", "count": 1 },

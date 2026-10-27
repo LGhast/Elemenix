@@ -305,22 +305,19 @@ public class ModRecipeProvider extends RecipeProvider {
                 .save(recipeOutput);
 
         ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ModBlocks.ELEMENIC_INFUSER.get(), 1)
-                .pattern("IHI")
-                .pattern("RCR")
-                .pattern("INI")
-                .define('I', Items.IRON_INGOT)
-                .define('R', Items.REDSTONE_LAMP)
-                .define('N', Items.NETHERITE_SCRAP)
+                .pattern(" H ")
+                .pattern(" R ")
+                .pattern("   ")
                 .define('H', Items.HOPPER)
-                .define('C', ModItems.ANALYZING_CHIP)
-                .unlockedBy("has_analyzing_chip", has(ModItems.ANALYZING_CHIP))
+                .define('R', ModBlocks.ELEMENIC_DECONSTRUCTOR)
+                .unlockedBy("has_elemenic_deconstructor", has(ModBlocks.ELEMENIC_DECONSTRUCTOR))
                 .save(recipeOutput);
 
         ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ModBlocks.ELEMENIC_ENRICHER.get(), 1)
                 .pattern(" E ")
                 .pattern(" I ")
                 .pattern(" C ")
-                .define('I', ModBlocks.ELEMENIC_INFUSER)
+                .define('I', ModBlocks.ELEMENIC_DECONSTRUCTOR)
                 .define('E', ModItems.ELEMENIC_EQUILIBRIUM)
                 .define('C', Items.CHEST)
                 .unlockedBy("has_elemenic_infuser", has(ModBlocks.ELEMENIC_INFUSER))
@@ -386,6 +383,47 @@ public class ModRecipeProvider extends RecipeProvider {
                 .define('B', Items.BLAZE_POWDER)
                 .define('S', ModItems.ELEMENIC_SCANNER)
                 .unlockedBy("has_scanning_storage", has(ModItems.ELEMENIC_SCANNER))
+                .save(recipeOutput);
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ModBlocks.ELEMENIC_CHANNEL.get(), 6)
+                .pattern(" I ")
+                .pattern(" I ")
+                .pattern(" I ")
+                .define('I', Items.IRON_INGOT)
+                .unlockedBy("has_iron_ingot", has(Items.IRON_INGOT))
+                .save(recipeOutput);
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ModBlocks.ELEMENIC_OUTLET.get(), 1)
+                .pattern("RVR")
+                .pattern(" S ")
+                .pattern(" C ")
+                .define('R', Items.REDSTONE)
+                .define('S', ModItems.FLOW_STRAIGHTENER)
+                .define('V', ModItems.THROTTLE_VALVE)
+                .define('C', ModBlocks.ELEMENIC_CHANNEL)
+                .unlockedBy("has_throttle_valve", has(ModItems.THROTTLE_VALVE))
+                .save(recipeOutput);
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ModBlocks.ELEMENIC_DECONSTRUCTOR.get(), 1)
+                .pattern("III")
+                .pattern("RCR")
+                .pattern("ITI")
+                .define('T', ModBlocks.ELEMENIC_TANK)
+                .define('I', Items.IRON_INGOT)
+                .define('R', Items.REDSTONE_LAMP)
+                .define('C', ModItems.ANALYZING_CHIP)
+                .unlockedBy("has_elemenic_tank", has(ModBlocks.ELEMENIC_TANK))
+                .save(recipeOutput);
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ModBlocks.ELEMENIC_TANK.get(), 1)
+                .pattern("RCR")
+                .pattern("CDC")
+                .pattern("ICI")
+                .define('R', Items.REDSTONE)
+                .define('C', Items.COPPER_INGOT)
+                .define('I', Items.IRON_INGOT)
+                .define('D', Items.DIAMOND)
+                .unlockedBy("has_glass", has(Items.REDSTONE))
                 .save(recipeOutput);
     }
 }

@@ -1,5 +1,8 @@
 {
   "type": "elemenix:germinating",
+  "neoforge:conditions": [
+    { "type": "neoforge:mod_loaded", "modid": "twilightforest" }
+  ],
   "template": { "item": "twilightforest:canopy_sapling" },
   "products": [
     { "id": "twilightforest:canopy_sapling", "count": 1 },

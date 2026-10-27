@@ -1,5 +1,8 @@
 {
   "type": "elemenix:germinating",
+  "neoforge:conditions": [
+    { "type": "neoforge:mod_loaded", "modid": "aether" }
+  ],
   "template": { "item": "aether:golden_oak_sapling" },
   "products": [
     { "id": "aether:golden_oak_sapling", "count": 1 },

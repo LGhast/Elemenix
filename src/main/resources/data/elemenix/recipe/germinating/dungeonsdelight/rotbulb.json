@@ -1,5 +1,8 @@
 {
   "type": "elemenix:germinating",
+  "neoforge:conditions": [
+    { "type": "neoforge:mod_loaded", "modid": "dungeonsdelight" }
+  ],
   "template": { "item": "dungeonsdelight:rotbulb" },
   "products": [
     { "id": "dungeonsdelight:rotbulb", "count": 1 },

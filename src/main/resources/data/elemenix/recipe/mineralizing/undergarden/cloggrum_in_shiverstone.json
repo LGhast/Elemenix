@@ -1,5 +1,8 @@
 {
   "type": "elemenix:mineralizing",
+  "neoforge:conditions": [
+    { "type": "neoforge:mod_loaded", "modid": "undergarden" }
+  ],
   "mineral": { "item": "undergarden:cloggrum_ingot" },
   "medium": { "item": "undergarden:shiverstone" },
   "result": { "id": "undergarden:shiverstone_cloggrum_ore", "count": 1 }

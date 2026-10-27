@@ -1091,6 +1091,34 @@
     {
       "id": "goety:jei_dummy/sacrifice",
       "required": false
+    },
+    {
+      "id": "#jiagureappear:amethyst_inscriptions",
+      "required": false
+    },
+    {
+      "id": "#jiagureappear:jiagu_lucky_blocks",
+      "required": false
+    },
+    {
+      "id": "jiagureappear:character",
+      "required": false
+    },
+    {
+      "id": "jiagureappear:prescription",
+      "required": false
+    },
+    {
+      "id": "jiagureappear:infinite_papyrus",
+      "required": false
+    },
+    {
+      "id": "jiagureappear:cangjie_jade_burin",
+      "required": false
+    },
+    {
+      "id": "jiagureappear:infinite_papyrus",
+      "required": false
     }
   ]
 }

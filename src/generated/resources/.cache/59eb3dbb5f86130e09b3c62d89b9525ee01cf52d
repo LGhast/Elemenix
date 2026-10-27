@@ -1,7 +1,11 @@
-// 1.21.1	2025-10-26T17:01:14.7102965	Loot Tables
+// 1.21.1	2026-10-27T19:07:07.8353545	Loot Tables
+c5a075952b51bf09ca9e1bc382b9d091faf269aa data/elemenix/loot_table/blocks/elemenic_channel.json
+9d6c5fb27af6e34480e3e6bbd385fc6b00330131 data/elemenix/loot_table/blocks/elemenic_deconstructor.json
 1458fcaeff6b64c4dc1219070e3056e0b7e564a9 data/elemenix/loot_table/blocks/elemenic_ejector.json
 993a64a8d7ba42ed41f88030c5ad92df8c9e34dc data/elemenix/loot_table/blocks/elemenic_enricher.json
 95372bd3c1fb0ffe3e41d7720bede4c464140cc6 data/elemenix/loot_table/blocks/elemenic_infuser.json
+27bdff206063e03df50f6da71151e50d77e82913 data/elemenix/loot_table/blocks/elemenic_outlet.json
+c965fa7ae5b1c7dd967feb96e0ed7231791ac006 data/elemenix/loot_table/blocks/elemenic_tank.json
 9401bd478ed3ee4e45d415d037449611e9611f33 data/elemenix/loot_table/blocks/geological_simulator.json
 0988cae18b9323edb7292f2622863e408d7091e7 data/elemenix/loot_table/blocks/germinal_accelerator.json
 3944fe5fe7dc4a9fd27e28c1a14badc810da0d0a data/elemenix/loot_table/blocks/metallurgical_activator.json

@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "elemenix:elemenic_outlet"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    },
+    "has_throttle_valve": {
+      "conditions": {
+        "items": [
+          {
+            "items": "elemenix:throttle_valve"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_throttle_valve"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "elemenix:elemenic_outlet"
+    ]
+  }
+}

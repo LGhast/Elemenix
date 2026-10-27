@@ -52,14 +52,14 @@ public class ModTags {
             ResourceLocation.parse("elemenix:elemenic_transformers")
     );
 
-    public static final TagKey<Item> ELEMENIC_DECONSTRUCTORS = TagKey.create(
-            Registries.ITEM,
-            ResourceLocation.parse("elemenix:elemenic_deconstructors")
+    public static final TagKey<Block> ELEMENIX_OUTPUTS = TagKey.create(
+            Registries.BLOCK,
+            ResourceLocation.parse("elemenix:elemenix_outputs")
     );
 
-    public static final TagKey<Block> ELEMENIC_DECONSTRUCTING_BLOCKS = TagKey.create(
+    public static final TagKey<Block> ELEMENIX_INPUTS = TagKey.create(
             Registries.BLOCK,
-            ResourceLocation.parse("elemenix:elemenic_deconstructors")
+            ResourceLocation.parse("elemenix:elemenix_inputs")
     );
 
     public static final TagKey<Item> MEMORIZER_SLOT_PLACEABLE = TagKey.create(

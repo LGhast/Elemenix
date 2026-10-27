@@ -1,0 +1,6 @@
+{
+  "parent": "elemenix:block/outlet",
+  "textures": {
+    "0": "elemenix:block/outlet/outlet_disabled"
+  }
+}

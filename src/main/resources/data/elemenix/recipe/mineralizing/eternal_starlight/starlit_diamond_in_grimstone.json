@@ -1,5 +1,8 @@
 {
   "type": "elemenix:mineralizing",
+  "neoforge:conditions": [
+    { "type": "neoforge:mod_loaded", "modid": "eternal_starlight" }
+  ],
   "mineral": { "item": "eternal_starlight:starlit_diamond" },
   "medium": { "item": "eternal_starlight:grimstone" },
   "result": { "id": "eternal_starlight:grimstone_starlit_diamond_ore", "count": 1 }

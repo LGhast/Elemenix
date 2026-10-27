@@ -7,8 +7,9 @@ import net.lghast.elemenix.common.system.menu.TransformerMenu;
 import net.lghast.elemenix.common.system.recipe.GerminatingRecipe;
 import net.lghast.elemenix.register.content.ModBlockEntities;
 import net.lghast.elemenix.register.system.ModTags;
-import net.lghast.elemenix.utils.Constituents;
-import net.lghast.elemenix.utils.SidedInvHandler;
+import net.lghast.elemenix.utils.elemenix.Constituents;
+import net.lghast.elemenix.utils.misc.ElemenixHolder;
+import net.lghast.elemenix.utils.misc.SidedInvHandler;
 import net.lghast.elemenix.utils.elemenix.Elemenix;
 import net.lghast.elemenix.utils.elemenix.ElemenixInfo;
 import net.minecraft.core.BlockPos;
@@ -32,7 +33,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
-public class TransformerBlockEntity extends BaseContainerBlockEntity implements WorldlyContainer {
+public class TransformerBlockEntity extends BaseContainerBlockEntity implements WorldlyContainer, ElemenixHolder {
     public static final int TRANSFORM_IN_A = 0;
     public static final int TRANSFORM_IN_B = 1;
     public static final int TRANSFORM_OUT = 2;
@@ -49,6 +50,7 @@ public class TransformerBlockEntity extends BaseContainerBlockEntity implements 
     private int rcTimer = 0;
     private int mode = MODE_TRANSFORMING;
     private int germinatingProgress = 0;
+    private int workGrace = 0;
 
     private boolean transformEnabled = false;
     private boolean enrichEnabled = false;
@@ -124,6 +126,13 @@ public class TransformerBlockEntity extends BaseContainerBlockEntity implements 
         }
         boolean suppressConsumption = block.shouldSuppressTransformingConsumption(blockEntity);
         boolean isWorking = blockEntity.tickTransforming(block, suppressConsumption);
+        if (isWorking) {
+            blockEntity.workGrace = 20;
+        } else if (blockEntity.workGrace > 0) {
+            blockEntity.workGrace--;
+            isWorking = true;
+        }
+
         if (state.getValue(TransformerBlock.WORKING) != isWorking) {
             level.setBlock(pos, state.setValue(TransformerBlock.WORKING, isWorking), 3);
         }
@@ -425,6 +434,51 @@ public class TransformerBlockEntity extends BaseContainerBlockEntity implements 
         }
 
         return index == TRANSFORM_OUT;
+    }
+
+    @Override
+    public long getStored(Elemenix type) {
+        TransformerBlock block = getTransformerBlock();
+        if (block == null) return 0;
+        if (type == block.getOutputElemenix()) return outputC;
+        if (type == block.getInputElemenixA()) return inputA;
+        if (type == block.getInputElemenixB()) return inputB;
+        return 0;
+    }
+
+    @Override
+    public boolean canExtract(Elemenix type) {
+        TransformerBlock block = getTransformerBlock();
+        return block != null && type == block.getOutputElemenix();
+    }
+
+    @Override
+    public boolean canReceive(Elemenix type) {
+        TransformerBlock block = getTransformerBlock();
+        return block != null && (type == block.getInputElemenixA() || type == block.getInputElemenixB());
+    }
+
+    @Override
+    public void extract(Elemenix type, long amount) {
+        TransformerBlock block = getTransformerBlock();
+        if (block == null) return;
+        if (type == block.getOutputElemenix()) {
+            outputC = (int) Math.max(0, outputC - amount);
+            setChanged();
+        }
+    }
+
+    @Override
+    public void receive(Elemenix type, long amount) {
+        TransformerBlock block = getTransformerBlock();
+        if (block == null) return;
+        if (type == block.getInputElemenixA()) {
+            inputA = (int) Math.min((long) inputA + amount, Integer.MAX_VALUE);
+            setChanged();
+        } else if (type == block.getInputElemenixB()) {
+            inputB = (int) Math.min((long) inputB + amount, Integer.MAX_VALUE);
+            setChanged();
+        }
     }
 
     public IItemHandler getItemHandler(@org.jetbrains.annotations.Nullable Direction side) {

@@ -1,0 +1,6 @@
+{
+  "variants": {
+    "disabled=true": { "model": "elemenix:block/elemenic_tank_disabled" },
+    "disabled=false": { "model": "elemenix:block/elemenic_tank" }
+  }
+}

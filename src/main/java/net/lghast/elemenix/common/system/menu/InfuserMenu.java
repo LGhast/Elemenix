@@ -4,8 +4,6 @@ import net.lghast.elemenix.common.content.block.InfuserBlock;
 import net.lghast.elemenix.common.content.blockentity.InfuserBlockEntity;
 import net.lghast.elemenix.common.content.item.StorageItem;
 import net.lghast.elemenix.register.system.ModMenus;
-import net.lghast.elemenix.register.system.ModTags;
-import net.lghast.elemenix.utils.elemenix.ElemenixInfo;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
@@ -46,16 +44,6 @@ public class InfuserMenu extends AbstractContainerMenu {
             }
         });
 
-        this.addSlot(new Slot(blockEntity, 1, 129, 15) {
-            @Override
-            public boolean mayPlace(ItemStack stack) {
-                InfuserBlock block = blockEntity.getInfuserBlock();
-                if (block == null) return false;
-
-                return isValidForInputSlot(stack);
-            }
-        });
-
         for(int i = 0; i < 3; ++i) {
             for(int j = 0; j < 9; ++j) {
                 this.addSlot(new Slot(playerInventory, j + i * 9 + 9, 8 + j * 18, 88 + i * 18));
@@ -76,23 +64,24 @@ public class InfuserMenu extends AbstractContainerMenu {
             ItemStack slotStack = slot.getItem();
             originalStack = slotStack.copy();
 
-            if (index < 2) {
-                if (!this.moveItemStackTo(slotStack, 2, 38, true)) {
+            if (index < 1) {
+                if (!this.moveItemStackTo(slotStack, 1, 37, true)) {
                     return ItemStack.EMPTY;
                 }
             } else {
-                if (!this.moveItemStackTo(slotStack, 0, 1, false)) {
-                    if (!this.moveItemStackTo(slotStack, 1, 2, false)) {
-                        if (index < 29) {
-                            if (!this.moveItemStackTo(slotStack, 29, 38, false)) {
-                                return ItemStack.EMPTY;
-                            }
-                        } else {
-                            if (!this.moveItemStackTo(slotStack, 2, 29, false)) {
-                                return ItemStack.EMPTY;
-                            }
-                        }
+                boolean moved = slotStack.getItem() instanceof StorageItem
+                        && this.moveItemStackTo(slotStack, 0, 1, false);
+
+                if (!moved) {
+                    if (index < 28) {
+                        moved = this.moveItemStackTo(slotStack, 28, 37, false);
+                    } else {
+                        moved = this.moveItemStackTo(slotStack, 1, 28, false);
                     }
+                }
+
+                if (!moved) {
+                    return ItemStack.EMPTY;
                 }
             }
 
@@ -123,9 +112,5 @@ public class InfuserMenu extends AbstractContainerMenu {
 
     public ContainerData getData() {
         return data;
-    }
-
-    private boolean isValidForInputSlot(ItemStack stack) {
-        return !ElemenixInfo.isUndeconstructable(stack) && !stack.is(ModTags.IGNORED_BY_DECONSTRUCTOR_INPUT);
     }
 }

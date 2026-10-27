@@ -1,0 +1,8 @@
+{
+  "parent": "block/cube_bottom_top",
+  "textures": {
+    "bottom": "elemenix:block/infuser/infuser_bottom",
+    "side": "elemenix:block/infuser/infuser_disabled",
+    "top": "elemenix:block/infuser/infuser_top"
+  }
+}

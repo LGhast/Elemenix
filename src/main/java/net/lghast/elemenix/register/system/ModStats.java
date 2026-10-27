@@ -72,6 +72,15 @@ public class ModStats {
     public static final DeferredHolder<ResourceLocation, ResourceLocation> THROTTLE_VALVE_ADJUSTMENTS =
             makeStat("throttle_valve_adjustments");
 
+    public static final DeferredHolder<ResourceLocation, ResourceLocation> TANK_INTERACTIONS =
+            makeStat("tank_interactions");
+
+    public static final DeferredHolder<ResourceLocation, ResourceLocation> OUTLET_INTERACTIONS =
+            makeStat("outlet_interactions");
+
+    public static final DeferredHolder<ResourceLocation, ResourceLocation> DECONSTRUCTOR_INTERACTIONS =
+            makeStat("deconstructor_interactions");
+
     public static final DeferredHolder<ResourceLocation, ResourceLocation> INFUSER_INTERACTIONS =
             makeStat("infuser_interactions");
 

@@ -1,5 +1,8 @@
 {
   "type": "elemenix:mineralizing",
+  "neoforge:conditions": [
+    { "type": "neoforge:mod_loaded", "modid": "undergarden" }
+  ],
   "mineral": { "item": "minecraft:diamond" },
   "medium": { "item": "undergarden:depthrock" },
   "result": { "id": "undergarden:depthrock_diamond_ore", "count": 1 }

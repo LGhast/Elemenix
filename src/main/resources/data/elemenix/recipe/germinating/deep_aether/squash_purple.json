@@ -1,5 +1,8 @@
 {
   "type": "elemenix:germinating",
+  "neoforge:conditions": [
+    { "type": "neoforge:mod_loaded", "modid": "deep_aether" }
+  ],
   "template": { "item": "deep_aether:purple_squash" },
   "products": [
     { "id": "deep_aether:purple_squash", "count": 1 },

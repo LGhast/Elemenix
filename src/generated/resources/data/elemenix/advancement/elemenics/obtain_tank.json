@@ -1,0 +1,33 @@
+{
+  "parent": "elemenix:elemenics/root",
+  "criteria": {
+    "get_tank": {
+      "conditions": {
+        "items": [
+          {
+            "items": "elemenix:elemenic_tank"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.elemenix.obtain_tank.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "elemenix:elemenic_tank"
+    },
+    "title": {
+      "translate": "advancements.elemenix.obtain_tank.title"
+    }
+  },
+  "requirements": [
+    [
+      "get_tank"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

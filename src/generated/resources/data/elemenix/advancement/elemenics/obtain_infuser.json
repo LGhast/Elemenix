@@ -1,5 +1,5 @@
 {
-  "parent": "elemenix:elemenics/root",
+  "parent": "elemenix:elemenics/obtain_deconstructor",
   "criteria": {
     "get_infuser": {
       "conditions": {

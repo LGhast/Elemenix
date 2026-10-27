@@ -1,5 +1,9 @@
 {
   "type": "elemenix:germinating",
+  "neoforge:conditions": [
+    { "type": "neoforge:mod_loaded", "modid": "twilightdelight" },
+    { "type": "neoforge:mod_loaded", "modid": "twilightforest" }
+  ],
   "template": { "item": "twilightdelight:ironwood_sapling" },
   "products": [
     { "id": "twilightdelight:ironwood_sapling", "count": 1 },

@@ -1,0 +1,8 @@
+{
+  "parent": "block/cube_bottom_top",
+  "textures": {
+    "bottom": "elemenix:block/tank/tank_bottom",
+    "side": "elemenix:block/tank/tank",
+    "top": "elemenix:block/tank/tank_top"
+  }
+}

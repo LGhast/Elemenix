@@ -1,5 +1,8 @@
 {
   "type": "elemenix:germinating",
+  "neoforge:conditions": [
+    { "type": "neoforge:mod_loaded", "modid": "vanillabackport" }
+  ],
   "template": { "item": "minecraft:bush" },
   "products": [
     { "id": "minecraft:bush", "count": 1 },

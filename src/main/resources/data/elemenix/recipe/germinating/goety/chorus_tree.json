@@ -1,5 +1,8 @@
 {
   "type": "elemenix:germinating",
+  "neoforge:conditions": [
+    { "type": "neoforge:mod_loaded", "modid": "goety" }
+  ],
   "template": { "item": "goety:chorus_sapling" },
   "products": [
     { "id": "goety:chorus_sapling", "count": 1 },

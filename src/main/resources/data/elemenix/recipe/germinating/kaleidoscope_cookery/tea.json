@@ -1,5 +1,8 @@
 {
   "type": "elemenix:germinating",
+  "neoforge:conditions": [
+    { "type": "neoforge:mod_loaded", "modid": "kaleidoscope_cookery" }
+  ],
   "template": { "item": "kaleidoscope_cookery:fresh_tea_leaves" },
   "products": [
     { "id": "kaleidoscope_cookery:fresh_tea_leaves", "count": 1 },

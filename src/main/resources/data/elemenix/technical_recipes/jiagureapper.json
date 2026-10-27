@@ -1,0 +1,16 @@
+{
+  "mod_id": "jiagureappear",
+  "load_after": ["minecraft"],
+  "recipes": [
+    {
+      "output": "jiagureappear:taoist_talisman",
+      "count": 1,
+      "inputs": [
+        { "id": "jiagureappear:yellow_paper", "count": 1 }
+      ],
+      "additions": [
+        { "type": "arcanix", "value": 10 }
+      ]
+    }
+  ]
+}
