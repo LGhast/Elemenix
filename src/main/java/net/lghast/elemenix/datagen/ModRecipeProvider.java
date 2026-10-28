@@ -425,5 +425,25 @@ public class ModRecipeProvider extends RecipeProvider {
                 .define('D', Items.DIAMOND)
                 .unlockedBy("has_glass", has(Items.REDSTONE))
                 .save(recipeOutput);
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ModItems.WRENCH.get(), 1)
+                .pattern("N N")
+                .pattern(" I ")
+                .pattern(" I ")
+                .define('N', Items.IRON_NUGGET)
+                .define('I', Items.IRON_INGOT)
+                .unlockedBy("has_elemenic_channel", has(ModBlocks.ELEMENIC_CHANNEL))
+                .save(recipeOutput);
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ModBlocks.ELEMENIC_COMPARATOR.get(), 5)
+                .pattern(" Q ")
+                .pattern("TET")
+                .pattern("SSS")
+                .define('Q', Items.QUARTZ)
+                .define('T', Items.REDSTONE_TORCH)
+                .define('S', Items.STONE)
+                .define('E', ModItems.ANALYZING_CHIP)
+                .unlockedBy("has_analyzing_chip", has(ModItems.ANALYZING_CHIP))
+                .save(recipeOutput);
     }
 }

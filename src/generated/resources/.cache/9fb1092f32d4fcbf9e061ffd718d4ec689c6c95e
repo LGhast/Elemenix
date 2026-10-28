@@ -1,4 +1,4 @@
-// 1.21.1	2026-10-27T19:34:37.4756422	Recipes
+// 1.21.1	2026-10-28T21:42:49.7620932	Recipes
 a5972f5f16b8d08a054c46ca513dcaaf6dbf21ea data/elemenix/advancement/recipes/food/fondant_cake.json
 15593e0138eb4aed9fd0b227ee0733cd0b0d6289 data/elemenix/advancement/recipes/misc/analysis_terminal.json
 fd61a8d55280e7ed7976d1df32b06297bbf29bc7 data/elemenix/advancement/recipes/misc/analyzing_chip.json
@@ -6,6 +6,7 @@ fd61a8d55280e7ed7976d1df32b06297bbf29bc7 data/elemenix/advancement/recipes/misc/
 5ff9de26ccfbbc3a5bc708e91ae8b4f198a8938b data/elemenix/advancement/recipes/misc/elemenic_analyzer.json
 3dc5d6fecdabd8e1b7a0f31cae1d203851a4647e data/elemenix/advancement/recipes/misc/elemenic_channel.json
 8be3db1f9772b50fb676d4a8c8c38d4273f5a9bc data/elemenix/advancement/recipes/misc/elemenic_chaos.json
+03937378f8b308e0e304756ce325040894d0b2ec data/elemenix/advancement/recipes/misc/elemenic_comparator.json
 f56010326ee856d9a96cddbc347fa52913e50f5e data/elemenix/advancement/recipes/misc/elemenic_deconstructor.json
 3bdfada3c7f6b35a863a9b98ee56b76548b445ab data/elemenix/advancement/recipes/misc/elemenic_ejector.json
 e64fd4234fe6bf9db38e7a3d0369d348906f0b10 data/elemenix/advancement/recipes/misc/elemenic_enricher.json
@@ -34,12 +35,14 @@ ec9878fe92f446d049bdbb37652ef72a7cdf3a89 data/elemenix/advancement/recipes/misc/
 155cd18e71ccd7bd85d500746f330156a7599c3f data/elemenix/advancement/recipes/misc/transforming_chip.json
 7832b1f3540b28dfdc9e50f1e34d1644bc03741c data/elemenix/advancement/recipes/misc/transpiring_incinerator.json
 219b03e0fb3fd38a46dcfa91b805f7e3191d9788 data/elemenix/advancement/recipes/misc/witchcraft_memorizer.json
+f79ecd7cc9a3c6c3e1343bf34f2ea4ac5ef3fdf4 data/elemenix/advancement/recipes/misc/wrench.json
 7cccd6ebe90e1e4c9733c858174bd9347061f619 data/elemenix/recipe/analysis_terminal.json
 707cc492c76c746d004d9a853dde6b2666d8a652 data/elemenix/recipe/analyzing_chip.json
 1f7e80137ac41b087936f2d2545d0a8e3e17f6d6 data/elemenix/recipe/arcanix_essenplex.json
 c275925fb8806d169e474f48e61daa9d0c36d8b5 data/elemenix/recipe/elemenic_analyzer.json
 1cb9210e5063ea653bfcc7d38fdf64ab45c1d107 data/elemenix/recipe/elemenic_channel.json
 df90feed570f662145ca0dfce8d08ea4ddbe718b data/elemenix/recipe/elemenic_chaos.json
+cff1e16737e0542d949d98516fe5767e1a3d5a74 data/elemenix/recipe/elemenic_comparator.json
 1569c930fbeb13d500ca83b11589baeb3e8bf76b data/elemenix/recipe/elemenic_deconstructor.json
 7cdd777ac45c015ee323c00edd9b959b09a40940 data/elemenix/recipe/elemenic_ejector.json
 e5b113516195e7893a5efc3b3e113865467eedaf data/elemenix/recipe/elemenic_enricher.json
@@ -69,6 +72,7 @@ ffb8c4c73dfcd49832f593da912cd42af60f14ca data/elemenix/recipe/scanning_storage.j
 80b49d241968a7a0b9ae755fe5e5ffc6999d58eb data/elemenix/recipe/transforming_chip.json
 58e195f36b0ef5cdc8b9f8fb071ae278fb303b7f data/elemenix/recipe/transpiring_incinerator.json
 be55cf864bd21641ac5d2ad211d3b907349e94b2 data/elemenix/recipe/witchcraft_memorizer.json
+756f25481ac8d8b26e2f47469eedd5234c79b4b1 data/elemenix/recipe/wrench.json
 24ed752f845dd1a9f7a5e1f79a54d6d2129b3403 data/minecraft/advancement/recipes/misc/elemenic_analyzer_from_equilibrium.json
 4aa7321424e9cf2a9a0bfbee030dfe18427346b8 data/minecraft/advancement/recipes/misc/elemenic_analyzer_from_essences.json
 441eb0513cc8b13a6d68864ea047c918fd497ed9 data/minecraft/advancement/recipes/misc/elemenic_equiliplex.json

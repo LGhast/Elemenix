@@ -7,6 +7,7 @@ import net.lghast.elemenix.common.system.datacomponent.ElemenicStorage;
 import net.lghast.elemenix.config.ClientConfig;
 import net.lghast.elemenix.register.system.ModStats;
 import net.minecraft.ChatFormatting;
+import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.world.item.Item;
@@ -165,8 +166,13 @@ public class TankBlock extends BaseEntityBlock {
             ElemenicStorage storage = new ElemenicStorage(getStoredElemenix(stack));
             if (!storage.isEmpty()) {
                 tooltipComponents.add(Component.translatable("tooltip.elemenix.analyzer_storage").withStyle(ChatFormatting.GRAY));
-                tooltipComponents.add(storage.toComponentFormer());
-                tooltipComponents.add(storage.toComponentLatter());
+                if (Screen.hasAltDown()) {
+                    tooltipComponents.add(storage.toComponentFormerWhole());
+                    tooltipComponents.add(storage.toComponentLatterWhole());
+                } else {
+                    tooltipComponents.add(storage.toComponentFormer());
+                    tooltipComponents.add(storage.toComponentLatter());
+                }
             }
         }
         super.appendHoverText(stack, context, tooltipComponents, tooltipFlag);

@@ -9,10 +9,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.LevelAccessor;
-import net.minecraft.world.level.block.BaseEntityBlock;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.RenderShape;
-import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
@@ -84,14 +81,30 @@ public class ChannelBlock extends BaseEntityBlock {
     @Override
     public BlockState getStateForPlacement(BlockPlaceContext context) {
         Direction facing = context.getClickedFace();
-        Direction input = facing.getOpposite();
         BlockPos pos = context.getClickedPos();
 
-        if (!canConnectTo(context.getLevel().getBlockState(pos.relative(facing.getOpposite())))) {
+        BlockState behindState = context.getLevel().getBlockState(pos.relative(facing.getOpposite()));
+        if (behindState.getBlock() instanceof ChannelBlock && facing == behindState.getValue(ChannelBlock.INPUT)) {
+            facing = facing.getOpposite();
+        }
+
+        Direction input = facing.getOpposite();
+
+        if (!canOutputTowards(context.getLevel().getBlockState(pos.relative(input)), input.getOpposite())) {
             for (Direction d : Direction.values()) {
-                if (d == facing || d == facing.getOpposite()) continue;
-                if (canConnectTo(context.getLevel().getBlockState(pos.relative(d)))) {
+                if (d == facing || d == input) continue;
+                if (canOutputTowards(context.getLevel().getBlockState(pos.relative(d)), d.getOpposite())) {
                     input = d;
+                    break;
+                }
+            }
+        }
+
+        if (!canReceiveFrom(context.getLevel().getBlockState(pos.relative(facing)), facing.getOpposite())) {
+            for (Direction d : Direction.values()) {
+                if (d == facing || d == input) continue;
+                if (canReceiveFrom(context.getLevel().getBlockState(pos.relative(d)), d.getOpposite())) {
+                    facing = d;
                     break;
                 }
             }
@@ -107,9 +120,12 @@ public class ChannelBlock extends BaseEntityBlock {
         Direction input = state.getValue(INPUT);
 
         if (canConnectTo(neighborState)) {
-            if (input == facing.getOpposite() && direction != facing && direction != facing.getOpposite()) {
-                boolean inputConnected = canConnectTo(level.getBlockState(pos.relative(input)));
-                boolean outputConnected = canConnectTo(level.getBlockState(pos.relative(facing)));
+            if (canReceiveFrom(neighborState, direction.getOpposite())
+                    && input == facing.getOpposite()
+                    && direction != facing
+                    && direction != facing.getOpposite()) {
+                boolean inputConnected = canOutputTowards(level.getBlockState(pos.relative(input)), input.getOpposite());
+                boolean outputConnected = canReceiveFrom(level.getBlockState(pos.relative(facing)), facing.getOpposite());
                 if (!(inputConnected && outputConnected)) {
                     facing = direction;
                 }
@@ -131,6 +147,25 @@ public class ChannelBlock extends BaseEntityBlock {
         return block instanceof ChannelBlock
                 || block instanceof OutletBlock
                 || neighbor.is(ModTags.ELEMENIX_INPUTS);
+    }
+
+    private boolean canOutputTowards(BlockState neighbor, Direction direction) {
+        Block block = neighbor.getBlock();
+        if (block instanceof OutletBlock) {
+            return neighbor.getValue(OutletBlock.FACING) == direction;
+        }
+        if (block instanceof ChannelBlock) {
+            return neighbor.getValue(ChannelBlock.FACING) == direction;
+        }
+        return false;
+    }
+
+    private boolean canReceiveFrom(BlockState neighbor, Direction direction) {
+        Block block = neighbor.getBlock();
+        if (block instanceof ChannelBlock) {
+            return neighbor.getValue(ChannelBlock.INPUT) == direction;
+        }
+        return neighbor.is(ModTags.ELEMENIX_INPUTS);
     }
 
     @Override

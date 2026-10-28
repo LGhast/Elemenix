@@ -18,12 +18,30 @@ public enum OutletProvider implements IServerDataProvider<BlockAccessor>, IBlock
     public void appendServerData(CompoundTag data, BlockAccessor accessor) {
         if (accessor.getBlockEntity() instanceof OutletBlockEntity outlet) {
             data.putInt("OutputPercent", outlet.getDataAccess().get(0));
+
+            OutletBlockEntity.OutletPath path = outlet.getPath();
+            data.putBoolean("PathValid", path.valid());
+            if (path.valid() && path.target() != null && path.source() != null) {
+                data.putString("SourceId", path.source().getDescriptionId());
+                data.putString("TargetId", path.target().getDescriptionId());
+            }
         }
     }
 
     @Override
     public void appendTooltip(ITooltip tooltip, BlockAccessor accessor, IPluginConfig config) {
         CompoundTag data = accessor.getServerData();
+
+        if (data.contains("PathValid")) {
+            if (data.getBoolean("PathValid")) {
+                Component sourceName = Component.translatable(data.getString("SourceId"));
+                Component targetName = Component.translatable(data.getString("TargetId"));
+                tooltip.add(Component.translatable("gui.elemenix.outlet_path", sourceName, targetName).withStyle(ChatFormatting.GRAY));
+            } else {
+                tooltip.add(Component.translatable("gui.elemenix.outlet_path_invalid").withStyle(ChatFormatting.RED));
+            }
+        }
+
         if (data.contains("OutputPercent")) {
             int percent = data.getInt("OutputPercent");
             tooltip.add(Component.translatable("tooltip.elemenix.valve_opening", percent + "%").withStyle(ChatFormatting.GRAY));

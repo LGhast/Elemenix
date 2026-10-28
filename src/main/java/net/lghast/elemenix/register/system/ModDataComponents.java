@@ -142,6 +142,12 @@ public class ModDataComponents {
                             .networkSynchronized(ImitforgedAppearance.STREAM_CODEC)
             );
 
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<ComparatorCriterion>> COMPARATOR_CRITERION =
+            REGISTRAR.registerComponentType("comparator_criterion", builder ->
+                    builder.persistent(ComparatorCriterion.CODEC)
+                            .networkSynchronized(ComparatorCriterion.STREAM_CODEC)
+            );
+
     public static void register(IEventBus eventBus) {
         REGISTRAR.register(eventBus);
     }

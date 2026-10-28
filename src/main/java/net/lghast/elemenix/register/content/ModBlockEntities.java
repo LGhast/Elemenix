@@ -3,6 +3,7 @@ package net.lghast.elemenix.register.content;
 import net.lghast.elemenix.Elemenics;
 import net.lghast.elemenix.common.content.blockentity.DeconstructorBlockEntity;
 import net.lghast.elemenix.common.content.blockentity.EjectorBlockEntity;
+import net.lghast.elemenix.common.content.blockentity.ElemenicComparatorBlockEntity;
 import net.lghast.elemenix.common.content.blockentity.EnricherBlockEntity;
 import net.lghast.elemenix.common.content.blockentity.InfuserBlockEntity;
 import net.lghast.elemenix.common.content.blockentity.OutletBlockEntity;
@@ -83,6 +84,15 @@ public class ModBlockEntities {
             () -> BlockEntityType.Builder.of(
                             TankBlockEntity::new,
                             ModBlocks.ELEMENIC_TANK.get()
+                    )
+                    .build(null)
+    );
+
+    public static final Supplier<BlockEntityType<ElemenicComparatorBlockEntity>> COMPARATOR = BLOCK_ENTITY_TYPES.register(
+            "elemenic_comparator",
+            () -> BlockEntityType.Builder.of(
+                            ElemenicComparatorBlockEntity::new,
+                            ModBlocks.ELEMENIC_COMPARATOR.get()
                     )
                     .build(null)
     );

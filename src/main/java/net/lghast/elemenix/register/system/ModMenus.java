@@ -3,6 +3,7 @@ package net.lghast.elemenix.register.system;
 import net.lghast.elemenix.Elemenics;
 import net.lghast.elemenix.common.content.blockentity.DeconstructorBlockEntity;
 import net.lghast.elemenix.common.content.blockentity.EjectorBlockEntity;
+import net.lghast.elemenix.common.content.blockentity.ElemenicComparatorBlockEntity;
 import net.lghast.elemenix.common.content.blockentity.EnricherBlockEntity;
 import net.lghast.elemenix.common.content.blockentity.InfuserBlockEntity;
 import net.lghast.elemenix.common.content.blockentity.OutletBlockEntity;
@@ -76,6 +77,11 @@ public class ModMenus {
             MENUS.register("outlet_menu", () ->
                     IMenuTypeExtension.create((windowId, inv, data) ->
                             new OutletMenu(windowId, (OutletBlockEntity) inv.player.level().getBlockEntity(data.readBlockPos()))));
+
+    public static final Supplier<MenuType<ElemenicComparatorMenu>> ELEMENIC_COMPARATOR_MENU =
+            MENUS.register("elemenic_comparator_menu", () ->
+                    IMenuTypeExtension.create((windowId, inv, data) ->
+                            new ElemenicComparatorMenu(windowId, (ElemenicComparatorBlockEntity) inv.player.level().getBlockEntity(data.readBlockPos()))));
 
     public static void register(IEventBus eventBus) {
         MENUS.register(eventBus);

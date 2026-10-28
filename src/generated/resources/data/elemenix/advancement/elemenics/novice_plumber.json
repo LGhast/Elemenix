@@ -1,0 +1,40 @@
+{
+  "parent": "elemenix:elemenics/close_throttle_valve",
+  "criteria": {
+    "get_equipment": {
+      "conditions": {
+        "items": [
+          {
+            "items": "elemenix:elemenic_channel"
+          },
+          {
+            "items": "elemenix:elemenic_outlet"
+          },
+          {
+            "items": "elemenix:wrench"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.elemenix.novice_plumber.description"
+    },
+    "frame": "goal",
+    "icon": {
+      "count": 1,
+      "id": "elemenix:wrench"
+    },
+    "title": {
+      "translate": "advancements.elemenix.novice_plumber.title"
+    }
+  },
+  "requirements": [
+    [
+      "get_equipment"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

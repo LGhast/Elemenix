@@ -263,6 +263,25 @@ public class ModAdvancementProvider extends AdvancementProvider {
                     .addCriterion("close_valve", ValveTrigger.valveOpen(0))
                     .save(saver, ResourceLocation.parse("elemenix:elemenics/close_throttle_valve"), existingFileHelper);
 
+            AdvancementHolder novicePlumber = Advancement.Builder.advancement()
+                    .parent(closeValve)
+                    .display(
+                            ModItems.WRENCH,
+                            Component.translatable("advancements.elemenix.novice_plumber.title"),
+                            Component.translatable("advancements.elemenix.novice_plumber.description"),
+                            null,
+                            AdvancementType.GOAL,
+                            true,
+                            true,
+                            false
+                    )
+                    .addCriterion("get_equipment", InventoryChangeTrigger.TriggerInstance.hasItems(
+                            ItemPredicate.Builder.item().of(ModBlocks.ELEMENIC_CHANNEL.get()).build(),
+                            ItemPredicate.Builder.item().of(ModBlocks.ELEMENIC_OUTLET.get()).build(),
+                            ItemPredicate.Builder.item().of(ModItems.WRENCH.get()).build()
+                    ))
+                    .save(saver, ResourceLocation.parse("elemenix:elemenics/novice_plumber"), existingFileHelper);
+
             AdvancementHolder obtainBurner = Advancement.Builder.advancement()
                     .parent(obtainMemorizer)
                     .display(

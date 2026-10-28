@@ -1,0 +1,1204 @@
+{
+	"variants": {
+		"facing=north,target=0,rule=0,powered=false": {
+			"model": "elemenix:block/comparator/comparator_o_g"
+		},
+		"facing=north,target=0,rule=0,powered=true": {
+			"model": "elemenix:block/comparator/comparator_on_o_g"
+		},
+		"facing=north,target=0,rule=1,powered=false": {
+			"model": "elemenix:block/comparator/comparator_o_l"
+		},
+		"facing=north,target=0,rule=1,powered=true": {
+			"model": "elemenix:block/comparator/comparator_on_o_l"
+		},
+		"facing=north,target=0,rule=2,powered=false": {
+			"model": "elemenix:block/comparator/comparator_o_eq"
+		},
+		"facing=north,target=0,rule=2,powered=true": {
+			"model": "elemenix:block/comparator/comparator_on_o_eq"
+		},
+		"facing=north,target=0,rule=3,powered=false": {
+			"model": "elemenix:block/comparator/comparator_o_al"
+		},
+		"facing=north,target=0,rule=3,powered=true": {
+			"model": "elemenix:block/comparator/comparator_on_o_al"
+		},
+		"facing=north,target=0,rule=4,powered=false": {
+			"model": "elemenix:block/comparator/comparator_o_am"
+		},
+		"facing=north,target=0,rule=4,powered=true": {
+			"model": "elemenix:block/comparator/comparator_on_o_am"
+		},
+		"facing=north,target=1,rule=0,powered=false": {
+			"model": "elemenix:block/comparator/comparator_t_g"
+		},
+		"facing=north,target=1,rule=0,powered=true": {
+			"model": "elemenix:block/comparator/comparator_on_t_g"
+		},
+		"facing=north,target=1,rule=1,powered=false": {
+			"model": "elemenix:block/comparator/comparator_t_l"
+		},
+		"facing=north,target=1,rule=1,powered=true": {
+			"model": "elemenix:block/comparator/comparator_on_t_l"
+		},
+		"facing=north,target=1,rule=2,powered=false": {
+			"model": "elemenix:block/comparator/comparator_t_eq"
+		},
+		"facing=north,target=1,rule=2,powered=true": {
+			"model": "elemenix:block/comparator/comparator_on_t_eq"
+		},
+		"facing=north,target=1,rule=3,powered=false": {
+			"model": "elemenix:block/comparator/comparator_t_al"
+		},
+		"facing=north,target=1,rule=3,powered=true": {
+			"model": "elemenix:block/comparator/comparator_on_t_al"
+		},
+		"facing=north,target=1,rule=4,powered=false": {
+			"model": "elemenix:block/comparator/comparator_t_am"
+		},
+		"facing=north,target=1,rule=4,powered=true": {
+			"model": "elemenix:block/comparator/comparator_on_t_am"
+		},
+		"facing=north,target=2,rule=0,powered=false": {
+			"model": "elemenix:block/comparator/comparator_f_g"
+		},
+		"facing=north,target=2,rule=0,powered=true": {
+			"model": "elemenix:block/comparator/comparator_on_f_g"
+		},
+		"facing=north,target=2,rule=1,powered=false": {
+			"model": "elemenix:block/comparator/comparator_f_l"
+		},
+		"facing=north,target=2,rule=1,powered=true": {
+			"model": "elemenix:block/comparator/comparator_on_f_l"
+		},
+		"facing=north,target=2,rule=2,powered=false": {
+			"model": "elemenix:block/comparator/comparator_f_eq"
+		},
+		"facing=north,target=2,rule=2,powered=true": {
+			"model": "elemenix:block/comparator/comparator_on_f_eq"
+		},
+		"facing=north,target=2,rule=3,powered=false": {
+			"model": "elemenix:block/comparator/comparator_f_al"
+		},
+		"facing=north,target=2,rule=3,powered=true": {
+			"model": "elemenix:block/comparator/comparator_on_f_al"
+		},
+		"facing=north,target=2,rule=4,powered=false": {
+			"model": "elemenix:block/comparator/comparator_f_am"
+		},
+		"facing=north,target=2,rule=4,powered=true": {
+			"model": "elemenix:block/comparator/comparator_on_f_am"
+		},
+		"facing=north,target=3,rule=0,powered=false": {
+			"model": "elemenix:block/comparator/comparator_m_g"
+		},
+		"facing=north,target=3,rule=0,powered=true": {
+			"model": "elemenix:block/comparator/comparator_on_m_g"
+		},
+		"facing=north,target=3,rule=1,powered=false": {
+			"model": "elemenix:block/comparator/comparator_m_l"
+		},
+		"facing=north,target=3,rule=1,powered=true": {
+			"model": "elemenix:block/comparator/comparator_on_m_l"
+		},
+		"facing=north,target=3,rule=2,powered=false": {
+			"model": "elemenix:block/comparator/comparator_m_eq"
+		},
+		"facing=north,target=3,rule=2,powered=true": {
+			"model": "elemenix:block/comparator/comparator_on_m_eq"
+		},
+		"facing=north,target=3,rule=3,powered=false": {
+			"model": "elemenix:block/comparator/comparator_m_al"
+		},
+		"facing=north,target=3,rule=3,powered=true": {
+			"model": "elemenix:block/comparator/comparator_on_m_al"
+		},
+		"facing=north,target=3,rule=4,powered=false": {
+			"model": "elemenix:block/comparator/comparator_m_am"
+		},
+		"facing=north,target=3,rule=4,powered=true": {
+			"model": "elemenix:block/comparator/comparator_on_m_am"
+		},
+		"facing=north,target=4,rule=0,powered=false": {
+			"model": "elemenix:block/comparator/comparator_e_g"
+		},
+		"facing=north,target=4,rule=0,powered=true": {
+			"model": "elemenix:block/comparator/comparator_on_e_g"
+		},
+		"facing=north,target=4,rule=1,powered=false": {
+			"model": "elemenix:block/comparator/comparator_e_l"
+		},
+		"facing=north,target=4,rule=1,powered=true": {
+			"model": "elemenix:block/comparator/comparator_on_e_l"
+		},
+		"facing=north,target=4,rule=2,powered=false": {
+			"model": "elemenix:block/comparator/comparator_e_eq"
+		},
+		"facing=north,target=4,rule=2,powered=true": {
+			"model": "elemenix:block/comparator/comparator_on_e_eq"
+		},
+		"facing=north,target=4,rule=3,powered=false": {
+			"model": "elemenix:block/comparator/comparator_e_al"
+		},
+		"facing=north,target=4,rule=3,powered=true": {
+			"model": "elemenix:block/comparator/comparator_on_e_al"
+		},
+		"facing=north,target=4,rule=4,powered=false": {
+			"model": "elemenix:block/comparator/comparator_e_am"
+		},
+		"facing=north,target=4,rule=4,powered=true": {
+			"model": "elemenix:block/comparator/comparator_on_e_am"
+		},
+		"facing=north,target=5,rule=0,powered=false": {
+			"model": "elemenix:block/comparator/comparator_a_g"
+		},
+		"facing=north,target=5,rule=0,powered=true": {
+			"model": "elemenix:block/comparator/comparator_on_a_g"
+		},
+		"facing=north,target=5,rule=1,powered=false": {
+			"model": "elemenix:block/comparator/comparator_a_l"
+		},
+		"facing=north,target=5,rule=1,powered=true": {
+			"model": "elemenix:block/comparator/comparator_on_a_l"
+		},
+		"facing=north,target=5,rule=2,powered=false": {
+			"model": "elemenix:block/comparator/comparator_a_eq"
+		},
+		"facing=north,target=5,rule=2,powered=true": {
+			"model": "elemenix:block/comparator/comparator_on_a_eq"
+		},
+		"facing=north,target=5,rule=3,powered=false": {
+			"model": "elemenix:block/comparator/comparator_a_al"
+		},
+		"facing=north,target=5,rule=3,powered=true": {
+			"model": "elemenix:block/comparator/comparator_on_a_al"
+		},
+		"facing=north,target=5,rule=4,powered=false": {
+			"model": "elemenix:block/comparator/comparator_a_am"
+		},
+		"facing=north,target=5,rule=4,powered=true": {
+			"model": "elemenix:block/comparator/comparator_on_a_am"
+		},
+		"facing=north,target=6,rule=0,powered=false": {
+			"model": "elemenix:block/comparator/comparator_s_g"
+		},
+		"facing=north,target=6,rule=0,powered=true": {
+			"model": "elemenix:block/comparator/comparator_on_s_g"
+		},
+		"facing=north,target=6,rule=1,powered=false": {
+			"model": "elemenix:block/comparator/comparator_s_l"
+		},
+		"facing=north,target=6,rule=1,powered=true": {
+			"model": "elemenix:block/comparator/comparator_on_s_l"
+		},
+		"facing=north,target=6,rule=2,powered=false": {
+			"model": "elemenix:block/comparator/comparator_s_eq"
+		},
+		"facing=north,target=6,rule=2,powered=true": {
+			"model": "elemenix:block/comparator/comparator_on_s_eq"
+		},
+		"facing=north,target=6,rule=3,powered=false": {
+			"model": "elemenix:block/comparator/comparator_s_al"
+		},
+		"facing=north,target=6,rule=3,powered=true": {
+			"model": "elemenix:block/comparator/comparator_on_s_al"
+		},
+		"facing=north,target=6,rule=4,powered=false": {
+			"model": "elemenix:block/comparator/comparator_s_am"
+		},
+		"facing=north,target=6,rule=4,powered=true": {
+			"model": "elemenix:block/comparator/comparator_on_s_am"
+		},
+		"facing=north,target=7,rule=0,powered=false": {
+			"model": "elemenix:block/comparator/comparator_n_g"
+		},
+		"facing=north,target=7,rule=0,powered=true": {
+			"model": "elemenix:block/comparator/comparator_on_n_g"
+		},
+		"facing=north,target=7,rule=1,powered=false": {
+			"model": "elemenix:block/comparator/comparator_n_l"
+		},
+		"facing=north,target=7,rule=1,powered=true": {
+			"model": "elemenix:block/comparator/comparator_on_n_l"
+		},
+		"facing=north,target=7,rule=2,powered=false": {
+			"model": "elemenix:block/comparator/comparator_n_eq"
+		},
+		"facing=north,target=7,rule=2,powered=true": {
+			"model": "elemenix:block/comparator/comparator_on_n_eq"
+		},
+		"facing=north,target=7,rule=3,powered=false": {
+			"model": "elemenix:block/comparator/comparator_n_al"
+		},
+		"facing=north,target=7,rule=3,powered=true": {
+			"model": "elemenix:block/comparator/comparator_on_n_al"
+		},
+		"facing=north,target=7,rule=4,powered=false": {
+			"model": "elemenix:block/comparator/comparator_n_am"
+		},
+		"facing=north,target=7,rule=4,powered=true": {
+			"model": "elemenix:block/comparator/comparator_on_n_am"
+		},
+		"facing=east,target=0,rule=0,powered=false": {
+			"model": "elemenix:block/comparator/comparator_o_g",
+			"y": 90
+		},
+		"facing=east,target=0,rule=0,powered=true": {
+			"model": "elemenix:block/comparator/comparator_on_o_g",
+			"y": 90
+		},
+		"facing=east,target=0,rule=1,powered=false": {
+			"model": "elemenix:block/comparator/comparator_o_l",
+			"y": 90
+		},
+		"facing=east,target=0,rule=1,powered=true": {
+			"model": "elemenix:block/comparator/comparator_on_o_l",
+			"y": 90
+		},
+		"facing=east,target=0,rule=2,powered=false": {
+			"model": "elemenix:block/comparator/comparator_o_eq",
+			"y": 90
+		},
+		"facing=east,target=0,rule=2,powered=true": {
+			"model": "elemenix:block/comparator/comparator_on_o_eq",
+			"y": 90
+		},
+		"facing=east,target=0,rule=3,powered=false": {
+			"model": "elemenix:block/comparator/comparator_o_al",
+			"y": 90
+		},
+		"facing=east,target=0,rule=3,powered=true": {
+			"model": "elemenix:block/comparator/comparator_on_o_al",
+			"y": 90
+		},
+		"facing=east,target=0,rule=4,powered=false": {
+			"model": "elemenix:block/comparator/comparator_o_am",
+			"y": 90
+		},
+		"facing=east,target=0,rule=4,powered=true": {
+			"model": "elemenix:block/comparator/comparator_on_o_am",
+			"y": 90
+		},
+		"facing=east,target=1,rule=0,powered=false": {
+			"model": "elemenix:block/comparator/comparator_t_g",
+			"y": 90
+		},
+		"facing=east,target=1,rule=0,powered=true": {
+			"model": "elemenix:block/comparator/comparator_on_t_g",
+			"y": 90
+		},
+		"facing=east,target=1,rule=1,powered=false": {
+			"model": "elemenix:block/comparator/comparator_t_l",
+			"y": 90
+		},
+		"facing=east,target=1,rule=1,powered=true": {
+			"model": "elemenix:block/comparator/comparator_on_t_l",
+			"y": 90
+		},
+		"facing=east,target=1,rule=2,powered=false": {
+			"model": "elemenix:block/comparator/comparator_t_eq",
+			"y": 90
+		},
+		"facing=east,target=1,rule=2,powered=true": {
+			"model": "elemenix:block/comparator/comparator_on_t_eq",
+			"y": 90
+		},
+		"facing=east,target=1,rule=3,powered=false": {
+			"model": "elemenix:block/comparator/comparator_t_al",
+			"y": 90
+		},
+		"facing=east,target=1,rule=3,powered=true": {
+			"model": "elemenix:block/comparator/comparator_on_t_al",
+			"y": 90
+		},
+		"facing=east,target=1,rule=4,powered=false": {
+			"model": "elemenix:block/comparator/comparator_t_am",
+			"y": 90
+		},
+		"facing=east,target=1,rule=4,powered=true": {
+			"model": "elemenix:block/comparator/comparator_on_t_am",
+			"y": 90
+		},
+		"facing=east,target=2,rule=0,powered=false": {
+			"model": "elemenix:block/comparator/comparator_f_g",
+			"y": 90
+		},
+		"facing=east,target=2,rule=0,powered=true": {
+			"model": "elemenix:block/comparator/comparator_on_f_g",
+			"y": 90
+		},
+		"facing=east,target=2,rule=1,powered=false": {
+			"model": "elemenix:block/comparator/comparator_f_l",
+			"y": 90
+		},
+		"facing=east,target=2,rule=1,powered=true": {
+			"model": "elemenix:block/comparator/comparator_on_f_l",
+			"y": 90
+		},
+		"facing=east,target=2,rule=2,powered=false": {
+			"model": "elemenix:block/comparator/comparator_f_eq",
+			"y": 90
+		},
+		"facing=east,target=2,rule=2,powered=true": {
+			"model": "elemenix:block/comparator/comparator_on_f_eq",
+			"y": 90
+		},
+		"facing=east,target=2,rule=3,powered=false": {
+			"model": "elemenix:block/comparator/comparator_f_al",
+			"y": 90
+		},
+		"facing=east,target=2,rule=3,powered=true": {
+			"model": "elemenix:block/comparator/comparator_on_f_al",
+			"y": 90
+		},
+		"facing=east,target=2,rule=4,powered=false": {
+			"model": "elemenix:block/comparator/comparator_f_am",
+			"y": 90
+		},
+		"facing=east,target=2,rule=4,powered=true": {
+			"model": "elemenix:block/comparator/comparator_on_f_am",
+			"y": 90
+		},
+		"facing=east,target=3,rule=0,powered=false": {
+			"model": "elemenix:block/comparator/comparator_m_g",
+			"y": 90
+		},
+		"facing=east,target=3,rule=0,powered=true": {
+			"model": "elemenix:block/comparator/comparator_on_m_g",
+			"y": 90
+		},
+		"facing=east,target=3,rule=1,powered=false": {
+			"model": "elemenix:block/comparator/comparator_m_l",
+			"y": 90
+		},
+		"facing=east,target=3,rule=1,powered=true": {
+			"model": "elemenix:block/comparator/comparator_on_m_l",
+			"y": 90
+		},
+		"facing=east,target=3,rule=2,powered=false": {
+			"model": "elemenix:block/comparator/comparator_m_eq",
+			"y": 90
+		},
+		"facing=east,target=3,rule=2,powered=true": {
+			"model": "elemenix:block/comparator/comparator_on_m_eq",
+			"y": 90
+		},
+		"facing=east,target=3,rule=3,powered=false": {
+			"model": "elemenix:block/comparator/comparator_m_al",
+			"y": 90
+		},
+		"facing=east,target=3,rule=3,powered=true": {
+			"model": "elemenix:block/comparator/comparator_on_m_al",
+			"y": 90
+		},
+		"facing=east,target=3,rule=4,powered=false": {
+			"model": "elemenix:block/comparator/comparator_m_am",
+			"y": 90
+		},
+		"facing=east,target=3,rule=4,powered=true": {
+			"model": "elemenix:block/comparator/comparator_on_m_am",
+			"y": 90
+		},
+		"facing=east,target=4,rule=0,powered=false": {
+			"model": "elemenix:block/comparator/comparator_e_g",
+			"y": 90
+		},
+		"facing=east,target=4,rule=0,powered=true": {
+			"model": "elemenix:block/comparator/comparator_on_e_g",
+			"y": 90
+		},
+		"facing=east,target=4,rule=1,powered=false": {
+			"model": "elemenix:block/comparator/comparator_e_l",
+			"y": 90
+		},
+		"facing=east,target=4,rule=1,powered=true": {
+			"model": "elemenix:block/comparator/comparator_on_e_l",
+			"y": 90
+		},
+		"facing=east,target=4,rule=2,powered=false": {
+			"model": "elemenix:block/comparator/comparator_e_eq",
+			"y": 90
+		},
+		"facing=east,target=4,rule=2,powered=true": {
+			"model": "elemenix:block/comparator/comparator_on_e_eq",
+			"y": 90
+		},
+		"facing=east,target=4,rule=3,powered=false": {
+			"model": "elemenix:block/comparator/comparator_e_al",
+			"y": 90
+		},
+		"facing=east,target=4,rule=3,powered=true": {
+			"model": "elemenix:block/comparator/comparator_on_e_al",
+			"y": 90
+		},
+		"facing=east,target=4,rule=4,powered=false": {
+			"model": "elemenix:block/comparator/comparator_e_am",
+			"y": 90
+		},
+		"facing=east,target=4,rule=4,powered=true": {
+			"model": "elemenix:block/comparator/comparator_on_e_am",
+			"y": 90
+		},
+		"facing=east,target=5,rule=0,powered=false": {
+			"model": "elemenix:block/comparator/comparator_a_g",
+			"y": 90
+		},
+		"facing=east,target=5,rule=0,powered=true": {
+			"model": "elemenix:block/comparator/comparator_on_a_g",
+			"y": 90
+		},
+		"facing=east,target=5,rule=1,powered=false": {
+			"model": "elemenix:block/comparator/comparator_a_l",
+			"y": 90
+		},
+		"facing=east,target=5,rule=1,powered=true": {
+			"model": "elemenix:block/comparator/comparator_on_a_l",
+			"y": 90
+		},
+		"facing=east,target=5,rule=2,powered=false": {
+			"model": "elemenix:block/comparator/comparator_a_eq",
+			"y": 90
+		},
+		"facing=east,target=5,rule=2,powered=true": {
+			"model": "elemenix:block/comparator/comparator_on_a_eq",
+			"y": 90
+		},
+		"facing=east,target=5,rule=3,powered=false": {
+			"model": "elemenix:block/comparator/comparator_a_al",
+			"y": 90
+		},
+		"facing=east,target=5,rule=3,powered=true": {
+			"model": "elemenix:block/comparator/comparator_on_a_al",
+			"y": 90
+		},
+		"facing=east,target=5,rule=4,powered=false": {
+			"model": "elemenix:block/comparator/comparator_a_am",
+			"y": 90
+		},
+		"facing=east,target=5,rule=4,powered=true": {
+			"model": "elemenix:block/comparator/comparator_on_a_am",
+			"y": 90
+		},
+		"facing=east,target=6,rule=0,powered=false": {
+			"model": "elemenix:block/comparator/comparator_s_g",
+			"y": 90
+		},
+		"facing=east,target=6,rule=0,powered=true": {
+			"model": "elemenix:block/comparator/comparator_on_s_g",
+			"y": 90
+		},
+		"facing=east,target=6,rule=1,powered=false": {
+			"model": "elemenix:block/comparator/comparator_s_l",
+			"y": 90
+		},
+		"facing=east,target=6,rule=1,powered=true": {
+			"model": "elemenix:block/comparator/comparator_on_s_l",
+			"y": 90
+		},
+		"facing=east,target=6,rule=2,powered=false": {
+			"model": "elemenix:block/comparator/comparator_s_eq",
+			"y": 90
+		},
+		"facing=east,target=6,rule=2,powered=true": {
+			"model": "elemenix:block/comparator/comparator_on_s_eq",
+			"y": 90
+		},
+		"facing=east,target=6,rule=3,powered=false": {
+			"model": "elemenix:block/comparator/comparator_s_al",
+			"y": 90
+		},
+		"facing=east,target=6,rule=3,powered=true": {
+			"model": "elemenix:block/comparator/comparator_on_s_al",
+			"y": 90
+		},
+		"facing=east,target=6,rule=4,powered=false": {
+			"model": "elemenix:block/comparator/comparator_s_am",
+			"y": 90
+		},
+		"facing=east,target=6,rule=4,powered=true": {
+			"model": "elemenix:block/comparator/comparator_on_s_am",
+			"y": 90
+		},
+		"facing=east,target=7,rule=0,powered=false": {
+			"model": "elemenix:block/comparator/comparator_n_g",
+			"y": 90
+		},
+		"facing=east,target=7,rule=0,powered=true": {
+			"model": "elemenix:block/comparator/comparator_on_n_g",
+			"y": 90
+		},
+		"facing=east,target=7,rule=1,powered=false": {
+			"model": "elemenix:block/comparator/comparator_n_l",
+			"y": 90
+		},
+		"facing=east,target=7,rule=1,powered=true": {
+			"model": "elemenix:block/comparator/comparator_on_n_l",
+			"y": 90
+		},
+		"facing=east,target=7,rule=2,powered=false": {
+			"model": "elemenix:block/comparator/comparator_n_eq",
+			"y": 90
+		},
+		"facing=east,target=7,rule=2,powered=true": {
+			"model": "elemenix:block/comparator/comparator_on_n_eq",
+			"y": 90
+		},
+		"facing=east,target=7,rule=3,powered=false": {
+			"model": "elemenix:block/comparator/comparator_n_al",
+			"y": 90
+		},
+		"facing=east,target=7,rule=3,powered=true": {
+			"model": "elemenix:block/comparator/comparator_on_n_al",
+			"y": 90
+		},
+		"facing=east,target=7,rule=4,powered=false": {
+			"model": "elemenix:block/comparator/comparator_n_am",
+			"y": 90
+		},
+		"facing=east,target=7,rule=4,powered=true": {
+			"model": "elemenix:block/comparator/comparator_on_n_am",
+			"y": 90
+		},
+		"facing=south,target=0,rule=0,powered=false": {
+			"model": "elemenix:block/comparator/comparator_o_g",
+			"y": 180
+		},
+		"facing=south,target=0,rule=0,powered=true": {
+			"model": "elemenix:block/comparator/comparator_on_o_g",
+			"y": 180
+		},
+		"facing=south,target=0,rule=1,powered=false": {
+			"model": "elemenix:block/comparator/comparator_o_l",
+			"y": 180
+		},
+		"facing=south,target=0,rule=1,powered=true": {
+			"model": "elemenix:block/comparator/comparator_on_o_l",
+			"y": 180
+		},
+		"facing=south,target=0,rule=2,powered=false": {
+			"model": "elemenix:block/comparator/comparator_o_eq",
+			"y": 180
+		},
+		"facing=south,target=0,rule=2,powered=true": {
+			"model": "elemenix:block/comparator/comparator_on_o_eq",
+			"y": 180
+		},
+		"facing=south,target=0,rule=3,powered=false": {
+			"model": "elemenix:block/comparator/comparator_o_al",
+			"y": 180
+		},
+		"facing=south,target=0,rule=3,powered=true": {
+			"model": "elemenix:block/comparator/comparator_on_o_al",
+			"y": 180
+		},
+		"facing=south,target=0,rule=4,powered=false": {
+			"model": "elemenix:block/comparator/comparator_o_am",
+			"y": 180
+		},
+		"facing=south,target=0,rule=4,powered=true": {
+			"model": "elemenix:block/comparator/comparator_on_o_am",
+			"y": 180
+		},
+		"facing=south,target=1,rule=0,powered=false": {
+			"model": "elemenix:block/comparator/comparator_t_g",
+			"y": 180
+		},
+		"facing=south,target=1,rule=0,powered=true": {
+			"model": "elemenix:block/comparator/comparator_on_t_g",
+			"y": 180
+		},
+		"facing=south,target=1,rule=1,powered=false": {
+			"model": "elemenix:block/comparator/comparator_t_l",
+			"y": 180
+		},
+		"facing=south,target=1,rule=1,powered=true": {
+			"model": "elemenix:block/comparator/comparator_on_t_l",
+			"y": 180
+		},
+		"facing=south,target=1,rule=2,powered=false": {
+			"model": "elemenix:block/comparator/comparator_t_eq",
+			"y": 180
+		},
+		"facing=south,target=1,rule=2,powered=true": {
+			"model": "elemenix:block/comparator/comparator_on_t_eq",
+			"y": 180
+		},
+		"facing=south,target=1,rule=3,powered=false": {
+			"model": "elemenix:block/comparator/comparator_t_al",
+			"y": 180
+		},
+		"facing=south,target=1,rule=3,powered=true": {
+			"model": "elemenix:block/comparator/comparator_on_t_al",
+			"y": 180
+		},
+		"facing=south,target=1,rule=4,powered=false": {
+			"model": "elemenix:block/comparator/comparator_t_am",
+			"y": 180
+		},
+		"facing=south,target=1,rule=4,powered=true": {
+			"model": "elemenix:block/comparator/comparator_on_t_am",
+			"y": 180
+		},
+		"facing=south,target=2,rule=0,powered=false": {
+			"model": "elemenix:block/comparator/comparator_f_g",
+			"y": 180
+		},
+		"facing=south,target=2,rule=0,powered=true": {
+			"model": "elemenix:block/comparator/comparator_on_f_g",
+			"y": 180
+		},
+		"facing=south,target=2,rule=1,powered=false": {
+			"model": "elemenix:block/comparator/comparator_f_l",
+			"y": 180
+		},
+		"facing=south,target=2,rule=1,powered=true": {
+			"model": "elemenix:block/comparator/comparator_on_f_l",
+			"y": 180
+		},
+		"facing=south,target=2,rule=2,powered=false": {
+			"model": "elemenix:block/comparator/comparator_f_eq",
+			"y": 180
+		},
+		"facing=south,target=2,rule=2,powered=true": {
+			"model": "elemenix:block/comparator/comparator_on_f_eq",
+			"y": 180
+		},
+		"facing=south,target=2,rule=3,powered=false": {
+			"model": "elemenix:block/comparator/comparator_f_al",
+			"y": 180
+		},
+		"facing=south,target=2,rule=3,powered=true": {
+			"model": "elemenix:block/comparator/comparator_on_f_al",
+			"y": 180
+		},
+		"facing=south,target=2,rule=4,powered=false": {
+			"model": "elemenix:block/comparator/comparator_f_am",
+			"y": 180
+		},
+		"facing=south,target=2,rule=4,powered=true": {
+			"model": "elemenix:block/comparator/comparator_on_f_am",
+			"y": 180
+		},
+		"facing=south,target=3,rule=0,powered=false": {
+			"model": "elemenix:block/comparator/comparator_m_g",
+			"y": 180
+		},
+		"facing=south,target=3,rule=0,powered=true": {
+			"model": "elemenix:block/comparator/comparator_on_m_g",
+			"y": 180
+		},
+		"facing=south,target=3,rule=1,powered=false": {
+			"model": "elemenix:block/comparator/comparator_m_l",
+			"y": 180
+		},
+		"facing=south,target=3,rule=1,powered=true": {
+			"model": "elemenix:block/comparator/comparator_on_m_l",
+			"y": 180
+		},
+		"facing=south,target=3,rule=2,powered=false": {
+			"model": "elemenix:block/comparator/comparator_m_eq",
+			"y": 180
+		},
+		"facing=south,target=3,rule=2,powered=true": {
+			"model": "elemenix:block/comparator/comparator_on_m_eq",
+			"y": 180
+		},
+		"facing=south,target=3,rule=3,powered=false": {
+			"model": "elemenix:block/comparator/comparator_m_al",
+			"y": 180
+		},
+		"facing=south,target=3,rule=3,powered=true": {
+			"model": "elemenix:block/comparator/comparator_on_m_al",
+			"y": 180
+		},
+		"facing=south,target=3,rule=4,powered=false": {
+			"model": "elemenix:block/comparator/comparator_m_am",
+			"y": 180
+		},
+		"facing=south,target=3,rule=4,powered=true": {
+			"model": "elemenix:block/comparator/comparator_on_m_am",
+			"y": 180
+		},
+		"facing=south,target=4,rule=0,powered=false": {
+			"model": "elemenix:block/comparator/comparator_e_g",
+			"y": 180
+		},
+		"facing=south,target=4,rule=0,powered=true": {
+			"model": "elemenix:block/comparator/comparator_on_e_g",
+			"y": 180
+		},
+		"facing=south,target=4,rule=1,powered=false": {
+			"model": "elemenix:block/comparator/comparator_e_l",
+			"y": 180
+		},
+		"facing=south,target=4,rule=1,powered=true": {
+			"model": "elemenix:block/comparator/comparator_on_e_l",
+			"y": 180
+		},
+		"facing=south,target=4,rule=2,powered=false": {
+			"model": "elemenix:block/comparator/comparator_e_eq",
+			"y": 180
+		},
+		"facing=south,target=4,rule=2,powered=true": {
+			"model": "elemenix:block/comparator/comparator_on_e_eq",
+			"y": 180
+		},
+		"facing=south,target=4,rule=3,powered=false": {
+			"model": "elemenix:block/comparator/comparator_e_al",
+			"y": 180
+		},
+		"facing=south,target=4,rule=3,powered=true": {
+			"model": "elemenix:block/comparator/comparator_on_e_al",
+			"y": 180
+		},
+		"facing=south,target=4,rule=4,powered=false": {
+			"model": "elemenix:block/comparator/comparator_e_am",
+			"y": 180
+		},
+		"facing=south,target=4,rule=4,powered=true": {
+			"model": "elemenix:block/comparator/comparator_on_e_am",
+			"y": 180
+		},
+		"facing=south,target=5,rule=0,powered=false": {
+			"model": "elemenix:block/comparator/comparator_a_g",
+			"y": 180
+		},
+		"facing=south,target=5,rule=0,powered=true": {
+			"model": "elemenix:block/comparator/comparator_on_a_g",
+			"y": 180
+		},
+		"facing=south,target=5,rule=1,powered=false": {
+			"model": "elemenix:block/comparator/comparator_a_l",
+			"y": 180
+		},
+		"facing=south,target=5,rule=1,powered=true": {
+			"model": "elemenix:block/comparator/comparator_on_a_l",
+			"y": 180
+		},
+		"facing=south,target=5,rule=2,powered=false": {
+			"model": "elemenix:block/comparator/comparator_a_eq",
+			"y": 180
+		},
+		"facing=south,target=5,rule=2,powered=true": {
+			"model": "elemenix:block/comparator/comparator_on_a_eq",
+			"y": 180
+		},
+		"facing=south,target=5,rule=3,powered=false": {
+			"model": "elemenix:block/comparator/comparator_a_al",
+			"y": 180
+		},
+		"facing=south,target=5,rule=3,powered=true": {
+			"model": "elemenix:block/comparator/comparator_on_a_al",
+			"y": 180
+		},
+		"facing=south,target=5,rule=4,powered=false": {
+			"model": "elemenix:block/comparator/comparator_a_am",
+			"y": 180
+		},
+		"facing=south,target=5,rule=4,powered=true": {
+			"model": "elemenix:block/comparator/comparator_on_a_am",
+			"y": 180
+		},
+		"facing=south,target=6,rule=0,powered=false": {
+			"model": "elemenix:block/comparator/comparator_s_g",
+			"y": 180
+		},
+		"facing=south,target=6,rule=0,powered=true": {
+			"model": "elemenix:block/comparator/comparator_on_s_g",
+			"y": 180
+		},
+		"facing=south,target=6,rule=1,powered=false": {
+			"model": "elemenix:block/comparator/comparator_s_l",
+			"y": 180
+		},
+		"facing=south,target=6,rule=1,powered=true": {
+			"model": "elemenix:block/comparator/comparator_on_s_l",
+			"y": 180
+		},
+		"facing=south,target=6,rule=2,powered=false": {
+			"model": "elemenix:block/comparator/comparator_s_eq",
+			"y": 180
+		},
+		"facing=south,target=6,rule=2,powered=true": {
+			"model": "elemenix:block/comparator/comparator_on_s_eq",
+			"y": 180
+		},
+		"facing=south,target=6,rule=3,powered=false": {
+			"model": "elemenix:block/comparator/comparator_s_al",
+			"y": 180
+		},
+		"facing=south,target=6,rule=3,powered=true": {
+			"model": "elemenix:block/comparator/comparator_on_s_al",
+			"y": 180
+		},
+		"facing=south,target=6,rule=4,powered=false": {
+			"model": "elemenix:block/comparator/comparator_s_am",
+			"y": 180
+		},
+		"facing=south,target=6,rule=4,powered=true": {
+			"model": "elemenix:block/comparator/comparator_on_s_am",
+			"y": 180
+		},
+		"facing=south,target=7,rule=0,powered=false": {
+			"model": "elemenix:block/comparator/comparator_n_g",
+			"y": 180
+		},
+		"facing=south,target=7,rule=0,powered=true": {
+			"model": "elemenix:block/comparator/comparator_on_n_g",
+			"y": 180
+		},
+		"facing=south,target=7,rule=1,powered=false": {
+			"model": "elemenix:block/comparator/comparator_n_l",
+			"y": 180
+		},
+		"facing=south,target=7,rule=1,powered=true": {
+			"model": "elemenix:block/comparator/comparator_on_n_l",
+			"y": 180
+		},
+		"facing=south,target=7,rule=2,powered=false": {
+			"model": "elemenix:block/comparator/comparator_n_eq",
+			"y": 180
+		},
+		"facing=south,target=7,rule=2,powered=true": {
+			"model": "elemenix:block/comparator/comparator_on_n_eq",
+			"y": 180
+		},
+		"facing=south,target=7,rule=3,powered=false": {
+			"model": "elemenix:block/comparator/comparator_n_al",
+			"y": 180
+		},
+		"facing=south,target=7,rule=3,powered=true": {
+			"model": "elemenix:block/comparator/comparator_on_n_al",
+			"y": 180
+		},
+		"facing=south,target=7,rule=4,powered=false": {
+			"model": "elemenix:block/comparator/comparator_n_am",
+			"y": 180
+		},
+		"facing=south,target=7,rule=4,powered=true": {
+			"model": "elemenix:block/comparator/comparator_on_n_am",
+			"y": 180
+		},
+		"facing=west,target=0,rule=0,powered=false": {
+			"model": "elemenix:block/comparator/comparator_o_g",
+			"y": 270
+		},
+		"facing=west,target=0,rule=0,powered=true": {
+			"model": "elemenix:block/comparator/comparator_on_o_g",
+			"y": 270
+		},
+		"facing=west,target=0,rule=1,powered=false": {
+			"model": "elemenix:block/comparator/comparator_o_l",
+			"y": 270
+		},
+		"facing=west,target=0,rule=1,powered=true": {
+			"model": "elemenix:block/comparator/comparator_on_o_l",
+			"y": 270
+		},
+		"facing=west,target=0,rule=2,powered=false": {
+			"model": "elemenix:block/comparator/comparator_o_eq",
+			"y": 270
+		},
+		"facing=west,target=0,rule=2,powered=true": {
+			"model": "elemenix:block/comparator/comparator_on_o_eq",
+			"y": 270
+		},
+		"facing=west,target=0,rule=3,powered=false": {
+			"model": "elemenix:block/comparator/comparator_o_al",
+			"y": 270
+		},
+		"facing=west,target=0,rule=3,powered=true": {
+			"model": "elemenix:block/comparator/comparator_on_o_al",
+			"y": 270
+		},
+		"facing=west,target=0,rule=4,powered=false": {
+			"model": "elemenix:block/comparator/comparator_o_am",
+			"y": 270
+		},
+		"facing=west,target=0,rule=4,powered=true": {
+			"model": "elemenix:block/comparator/comparator_on_o_am",
+			"y": 270
+		},
+		"facing=west,target=1,rule=0,powered=false": {
+			"model": "elemenix:block/comparator/comparator_t_g",
+			"y": 270
+		},
+		"facing=west,target=1,rule=0,powered=true": {
+			"model": "elemenix:block/comparator/comparator_on_t_g",
+			"y": 270
+		},
+		"facing=west,target=1,rule=1,powered=false": {
+			"model": "elemenix:block/comparator/comparator_t_l",
+			"y": 270
+		},
+		"facing=west,target=1,rule=1,powered=true": {
+			"model": "elemenix:block/comparator/comparator_on_t_l",
+			"y": 270
+		},
+		"facing=west,target=1,rule=2,powered=false": {
+			"model": "elemenix:block/comparator/comparator_t_eq",
+			"y": 270
+		},
+		"facing=west,target=1,rule=2,powered=true": {
+			"model": "elemenix:block/comparator/comparator_on_t_eq",
+			"y": 270
+		},
+		"facing=west,target=1,rule=3,powered=false": {
+			"model": "elemenix:block/comparator/comparator_t_al",
+			"y": 270
+		},
+		"facing=west,target=1,rule=3,powered=true": {
+			"model": "elemenix:block/comparator/comparator_on_t_al",
+			"y": 270
+		},
+		"facing=west,target=1,rule=4,powered=false": {
+			"model": "elemenix:block/comparator/comparator_t_am",
+			"y": 270
+		},
+		"facing=west,target=1,rule=4,powered=true": {
+			"model": "elemenix:block/comparator/comparator_on_t_am",
+			"y": 270
+		},
+		"facing=west,target=2,rule=0,powered=false": {
+			"model": "elemenix:block/comparator/comparator_f_g",
+			"y": 270
+		},
+		"facing=west,target=2,rule=0,powered=true": {
+			"model": "elemenix:block/comparator/comparator_on_f_g",
+			"y": 270
+		},
+		"facing=west,target=2,rule=1,powered=false": {
+			"model": "elemenix:block/comparator/comparator_f_l",
+			"y": 270
+		},
+		"facing=west,target=2,rule=1,powered=true": {
+			"model": "elemenix:block/comparator/comparator_on_f_l",
+			"y": 270
+		},
+		"facing=west,target=2,rule=2,powered=false": {
+			"model": "elemenix:block/comparator/comparator_f_eq",
+			"y": 270
+		},
+		"facing=west,target=2,rule=2,powered=true": {
+			"model": "elemenix:block/comparator/comparator_on_f_eq",
+			"y": 270
+		},
+		"facing=west,target=2,rule=3,powered=false": {
+			"model": "elemenix:block/comparator/comparator_f_al",
+			"y": 270
+		},
+		"facing=west,target=2,rule=3,powered=true": {
+			"model": "elemenix:block/comparator/comparator_on_f_al",
+			"y": 270
+		},
+		"facing=west,target=2,rule=4,powered=false": {
+			"model": "elemenix:block/comparator/comparator_f_am",
+			"y": 270
+		},
+		"facing=west,target=2,rule=4,powered=true": {
+			"model": "elemenix:block/comparator/comparator_on_f_am",
+			"y": 270
+		},
+		"facing=west,target=3,rule=0,powered=false": {
+			"model": "elemenix:block/comparator/comparator_m_g",
+			"y": 270
+		},
+		"facing=west,target=3,rule=0,powered=true": {
+			"model": "elemenix:block/comparator/comparator_on_m_g",
+			"y": 270
+		},
+		"facing=west,target=3,rule=1,powered=false": {
+			"model": "elemenix:block/comparator/comparator_m_l",
+			"y": 270
+		},
+		"facing=west,target=3,rule=1,powered=true": {
+			"model": "elemenix:block/comparator/comparator_on_m_l",
+			"y": 270
+		},
+		"facing=west,target=3,rule=2,powered=false": {
+			"model": "elemenix:block/comparator/comparator_m_eq",
+			"y": 270
+		},
+		"facing=west,target=3,rule=2,powered=true": {
+			"model": "elemenix:block/comparator/comparator_on_m_eq",
+			"y": 270
+		},
+		"facing=west,target=3,rule=3,powered=false": {
+			"model": "elemenix:block/comparator/comparator_m_al",
+			"y": 270
+		},
+		"facing=west,target=3,rule=3,powered=true": {
+			"model": "elemenix:block/comparator/comparator_on_m_al",
+			"y": 270
+		},
+		"facing=west,target=3,rule=4,powered=false": {
+			"model": "elemenix:block/comparator/comparator_m_am",
+			"y": 270
+		},
+		"facing=west,target=3,rule=4,powered=true": {
+			"model": "elemenix:block/comparator/comparator_on_m_am",
+			"y": 270
+		},
+		"facing=west,target=4,rule=0,powered=false": {
+			"model": "elemenix:block/comparator/comparator_e_g",
+			"y": 270
+		},
+		"facing=west,target=4,rule=0,powered=true": {
+			"model": "elemenix:block/comparator/comparator_on_e_g",
+			"y": 270
+		},
+		"facing=west,target=4,rule=1,powered=false": {
+			"model": "elemenix:block/comparator/comparator_e_l",
+			"y": 270
+		},
+		"facing=west,target=4,rule=1,powered=true": {
+			"model": "elemenix:block/comparator/comparator_on_e_l",
+			"y": 270
+		},
+		"facing=west,target=4,rule=2,powered=false": {
+			"model": "elemenix:block/comparator/comparator_e_eq",
+			"y": 270
+		},
+		"facing=west,target=4,rule=2,powered=true": {
+			"model": "elemenix:block/comparator/comparator_on_e_eq",
+			"y": 270
+		},
+		"facing=west,target=4,rule=3,powered=false": {
+			"model": "elemenix:block/comparator/comparator_e_al",
+			"y": 270
+		},
+		"facing=west,target=4,rule=3,powered=true": {
+			"model": "elemenix:block/comparator/comparator_on_e_al",
+			"y": 270
+		},
+		"facing=west,target=4,rule=4,powered=false": {
+			"model": "elemenix:block/comparator/comparator_e_am",
+			"y": 270
+		},
+		"facing=west,target=4,rule=4,powered=true": {
+			"model": "elemenix:block/comparator/comparator_on_e_am",
+			"y": 270
+		},
+		"facing=west,target=5,rule=0,powered=false": {
+			"model": "elemenix:block/comparator/comparator_a_g",
+			"y": 270
+		},
+		"facing=west,target=5,rule=0,powered=true": {
+			"model": "elemenix:block/comparator/comparator_on_a_g",
+			"y": 270
+		},
+		"facing=west,target=5,rule=1,powered=false": {
+			"model": "elemenix:block/comparator/comparator_a_l",
+			"y": 270
+		},
+		"facing=west,target=5,rule=1,powered=true": {
+			"model": "elemenix:block/comparator/comparator_on_a_l",
+			"y": 270
+		},
+		"facing=west,target=5,rule=2,powered=false": {
+			"model": "elemenix:block/comparator/comparator_a_eq",
+			"y": 270
+		},
+		"facing=west,target=5,rule=2,powered=true": {
+			"model": "elemenix:block/comparator/comparator_on_a_eq",
+			"y": 270
+		},
+		"facing=west,target=5,rule=3,powered=false": {
+			"model": "elemenix:block/comparator/comparator_a_al",
+			"y": 270
+		},
+		"facing=west,target=5,rule=3,powered=true": {
+			"model": "elemenix:block/comparator/comparator_on_a_al",
+			"y": 270
+		},
+		"facing=west,target=5,rule=4,powered=false": {
+			"model": "elemenix:block/comparator/comparator_a_am",
+			"y": 270
+		},
+		"facing=west,target=5,rule=4,powered=true": {
+			"model": "elemenix:block/comparator/comparator_on_a_am",
+			"y": 270
+		},
+		"facing=west,target=6,rule=0,powered=false": {
+			"model": "elemenix:block/comparator/comparator_s_g",
+			"y": 270
+		},
+		"facing=west,target=6,rule=0,powered=true": {
+			"model": "elemenix:block/comparator/comparator_on_s_g",
+			"y": 270
+		},
+		"facing=west,target=6,rule=1,powered=false": {
+			"model": "elemenix:block/comparator/comparator_s_l",
+			"y": 270
+		},
+		"facing=west,target=6,rule=1,powered=true": {
+			"model": "elemenix:block/comparator/comparator_on_s_l",
+			"y": 270
+		},
+		"facing=west,target=6,rule=2,powered=false": {
+			"model": "elemenix:block/comparator/comparator_s_eq",
+			"y": 270
+		},
+		"facing=west,target=6,rule=2,powered=true": {
+			"model": "elemenix:block/comparator/comparator_on_s_eq",
+			"y": 270
+		},
+		"facing=west,target=6,rule=3,powered=false": {
+			"model": "elemenix:block/comparator/comparator_s_al",
+			"y": 270
+		},
+		"facing=west,target=6,rule=3,powered=true": {
+			"model": "elemenix:block/comparator/comparator_on_s_al",
+			"y": 270
+		},
+		"facing=west,target=6,rule=4,powered=false": {
+			"model": "elemenix:block/comparator/comparator_s_am",
+			"y": 270
+		},
+		"facing=west,target=6,rule=4,powered=true": {
+			"model": "elemenix:block/comparator/comparator_on_s_am",
+			"y": 270
+		},
+		"facing=west,target=7,rule=0,powered=false": {
+			"model": "elemenix:block/comparator/comparator_n_g",
+			"y": 270
+		},
+		"facing=west,target=7,rule=0,powered=true": {
+			"model": "elemenix:block/comparator/comparator_on_n_g",
+			"y": 270
+		},
+		"facing=west,target=7,rule=1,powered=false": {
+			"model": "elemenix:block/comparator/comparator_n_l",
+			"y": 270
+		},
+		"facing=west,target=7,rule=1,powered=true": {
+			"model": "elemenix:block/comparator/comparator_on_n_l",
+			"y": 270
+		},
+		"facing=west,target=7,rule=2,powered=false": {
+			"model": "elemenix:block/comparator/comparator_n_eq",
+			"y": 270
+		},
+		"facing=west,target=7,rule=2,powered=true": {
+			"model": "elemenix:block/comparator/comparator_on_n_eq",
+			"y": 270
+		},
+		"facing=west,target=7,rule=3,powered=false": {
+			"model": "elemenix:block/comparator/comparator_n_al",
+			"y": 270
+		},
+		"facing=west,target=7,rule=3,powered=true": {
+			"model": "elemenix:block/comparator/comparator_on_n_al",
+			"y": 270
+		},
+		"facing=west,target=7,rule=4,powered=false": {
+			"model": "elemenix:block/comparator/comparator_n_am",
+			"y": 270
+		},
+		"facing=west,target=7,rule=4,powered=true": {
+			"model": "elemenix:block/comparator/comparator_on_n_am",
+			"y": 270
+		}
+	}
+}

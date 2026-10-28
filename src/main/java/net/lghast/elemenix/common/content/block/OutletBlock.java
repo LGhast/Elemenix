@@ -2,6 +2,7 @@ package net.lghast.elemenix.common.content.block;
 
 import com.mojang.serialization.MapCodec;
 import net.lghast.elemenix.common.content.blockentity.OutletBlockEntity;
+import net.lghast.elemenix.common.content.item.WrenchItem;
 import net.lghast.elemenix.register.content.ModBlockEntities;
 import net.lghast.elemenix.register.system.ModStats;
 import net.minecraft.core.BlockPos;
@@ -130,7 +131,7 @@ public class OutletBlock extends BaseEntityBlock {
 
     @Override
     protected @NotNull ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
-        if (ChannelBlock.shouldPlaceOver(state, stack)) {
+        if (ChannelBlock.shouldPlaceOver(state, stack) || stack.getItem() instanceof WrenchItem) {
             return ItemInteractionResult.SKIP_DEFAULT_BLOCK_INTERACTION;
         }
         return super.useItemOn(stack, state, level, pos, player, hand, hitResult);

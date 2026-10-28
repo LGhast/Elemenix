@@ -5,6 +5,7 @@ import net.lghast.elemenix.utils.misc.LongContainerData;
 import net.lghast.elemenix.utils.misc.ModUtils;
 import net.lghast.elemenix.utils.elemenix.Elemenix;
 import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -48,8 +49,26 @@ public class TankScreen extends AbstractContainerScreen<TankMenu> {
         LongContainerData data = menu.getData();
         if (data == null) return;
 
+        final int leftX = 25;
+        final int maxWidth = 97 - leftX;
+
         for (int i = 0; i < 6; i++) {
-            graphics.drawString(this.font, ModUtils.formatNumber(data.getLong(i)), x + 25, y + 19 + i * 14, Elemenix.values()[i].getColor(), false);
+            long value = data.getLong(i);
+            String text = Screen.hasAltDown() ? String.valueOf(value) : ModUtils.formatNumber(value);
+            int color = Elemenix.values()[i].getColor();
+            int textY = y + 19 + i * 14;
+
+            int textWidth = this.font.width(text);
+            if (textWidth <= maxWidth) {
+                graphics.drawString(this.font, text, x + leftX, textY, color, false);
+            } else {
+                float scale = (float) maxWidth / textWidth;
+                graphics.pose().pushPose();
+                graphics.pose().translate(x + leftX, textY, 0.0f);
+                graphics.pose().scale(scale, scale, 1.0f);
+                graphics.drawString(this.font, text, 0, 0, color, false);
+                graphics.pose().popPose();
+            }
         }
     }
 

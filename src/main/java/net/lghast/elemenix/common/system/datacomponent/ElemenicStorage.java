@@ -52,6 +52,18 @@ public record ElemenicStorage(long[] elemenix) {
                 .append(Component.literal(ModUtils.formatNumber(arcanix(), "A:%s")).withColor(Elemenix.ARCANIX.getColor()));
     }
 
+    public Component toComponentFormerWhole() {
+        return Component.literal(String.format("O:%d  ", organix())).withColor(Elemenix.ORGANIX.getColor())
+                .append(Component.literal(String.format("T:%d  ", terrix())).withColor(Elemenix.TERRIX.getColor()))
+                .append(Component.literal(String.format("F:%d", flumix())).withColor(Elemenix.FLUMIX.getColor()));
+    }
+
+    public Component toComponentLatterWhole() {
+        return Component.literal(String.format("M:%d  ", metallix())).withColor(Elemenix.METALLIX.getColor())
+                .append(Component.literal(String.format("E:%d  ", energix())).withColor(Elemenix.ENERGIX.getColor()))
+                .append(Component.literal(String.format("A:%d", arcanix())).withColor(Elemenix.ARCANIX.getColor()));
+    }
+
     public boolean isEmpty(){
         return Arrays.stream(elemenix).allMatch(num -> num == 0);
     }

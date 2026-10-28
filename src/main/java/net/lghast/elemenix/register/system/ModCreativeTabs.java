@@ -32,6 +32,7 @@ public class ModCreativeTabs {
                         output.accept(ModItems.MEMORIZER_BOX);
                         output.accept(ModItems.MEMORY_BURNER);
                         output.accept(ModItems.ANALYSIS_TERMINAL);
+                        output.accept(ModItems.WRENCH);
                         output.accept(ModItems.THROTTLE_VALVE);
                         output.accept(ModItems.FLOW_STRAIGHTENER);
                         output.accept(ModItems.ANALYZING_CHIP);
@@ -55,6 +56,7 @@ public class ModCreativeTabs {
                         output.accept(ModItems.NULLVOID);
                         output.accept(ModBlocks.ELEMENIC_CHANNEL);
                         output.accept(ModBlocks.ELEMENIC_OUTLET);
+                        output.accept(ModBlocks.ELEMENIC_COMPARATOR);
                         output.accept(ModBlocks.ELEMENIC_TANK);
                         output.accept(ModBlocks.ELEMENIC_DECONSTRUCTOR);
                         output.accept(ModBlocks.ELEMENIC_INFUSER);

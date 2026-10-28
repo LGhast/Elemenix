@@ -1,5 +1,6 @@
-// 1.21.1	2026-10-27T19:07:07.8353545	Loot Tables
+// 1.21.1	2026-10-28T20:08:49.5930708	Loot Tables
 c5a075952b51bf09ca9e1bc382b9d091faf269aa data/elemenix/loot_table/blocks/elemenic_channel.json
+ab8db7e50e4531ca5472377961a73c23851423c2 data/elemenix/loot_table/blocks/elemenic_comparator.json
 9d6c5fb27af6e34480e3e6bbd385fc6b00330131 data/elemenix/loot_table/blocks/elemenic_deconstructor.json
 1458fcaeff6b64c4dc1219070e3056e0b7e564a9 data/elemenix/loot_table/blocks/elemenic_ejector.json
 993a64a8d7ba42ed41f88030c5ad92df8c9e34dc data/elemenix/loot_table/blocks/elemenic_enricher.json

@@ -5,6 +5,7 @@ import net.lghast.elemenix.network.analyzer.DeconstructionPayload;
 import net.lghast.elemenix.network.analyzer.PotionReconstructionPayload;
 import net.lghast.elemenix.network.analyzer.ReconstructionPayload;
 import net.lghast.elemenix.network.burner.*;
+import net.lghast.elemenix.network.comparator.ComparatorUpdatePayload;
 import net.lghast.elemenix.network.infuser.InfuserDataUpdatePayload;
 import net.lghast.elemenix.network.infuser.RequestInfuserUpdatePayload;
 import net.lghast.elemenix.network.open.OpenAnalyzerPayload;
@@ -154,6 +155,12 @@ public class NetworkPayloadHandler {
                 OutletPercentPayload.TYPE,
                 OutletPercentPayload.STREAM_CODEC,
                 OutletPercentPayload::handle
+        );
+
+        registrar.playToServer(
+                ComparatorUpdatePayload.TYPE,
+                ComparatorUpdatePayload.STREAM_CODEC,
+                ComparatorUpdatePayload::handle
         );
     }
 }

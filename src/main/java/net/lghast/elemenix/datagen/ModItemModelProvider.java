@@ -40,5 +40,6 @@ public class ModItemModelProvider extends ItemModelProvider {
         basicItem(ModItems.NULLVOID.get());
         basicItem(ModItems.ELEMENIC_CHAOS.get());
         basicItem(ModItems.ANALYSIS_TERMINAL.get());
+        handheldItem(ModItems.WRENCH.get());
     }
 }

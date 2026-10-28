@@ -17,6 +17,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 
+import javax.annotation.Nullable;
 import javax.annotation.ParametersAreNonnullByDefault;
 
 @ParametersAreNonnullByDefault
@@ -80,7 +81,7 @@ public class OutletBlockEntity extends BlockEntity {
         } else {
             ElemenixHolder source = findSource(level);
             ElemenixHolder target = findTarget(level);
-            if (source != null && target != null && canTransfer(source, target)) {
+            if (source != null && target != null && source != target && canTransfer(source, target)) {
                 outputTimer++;
                 if (outputTimer >= OUTPUT_INTERVAL) {
                     outputTimer = 0;
@@ -151,6 +152,21 @@ public class OutletBlockEntity extends BlockEntity {
             source.extract(type, amount);
             target.receive(type, amount);
         }
+    }
+
+    public OutletPath getPath() {
+        if (level == null) {
+            return new OutletPath(null, null, false);
+        }
+        ElemenixHolder source = findSource(level);
+        ElemenixHolder target = findTarget(level);
+        if (source instanceof BlockEntity sourceBe && target instanceof BlockEntity targetBe && sourceBe != targetBe) {
+            return new OutletPath(sourceBe.getBlockState().getBlock(), targetBe.getBlockState().getBlock(), true);
+        }
+        return new OutletPath(null, null, false);
+    }
+
+    public record OutletPath(@Nullable Block source, @Nullable Block target, boolean valid) {
     }
 
     @Override

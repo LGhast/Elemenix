@@ -1,0 +1,17 @@
+{
+	"scanning": {
+		"sounds": [
+			"elemenix:scanning"
+		]
+	},
+	"wrench": {
+		"sounds": [
+			"elemenix:wrench"
+		]
+	},
+	"wrench_record": {
+		"sounds": [
+			"elemenix:wrench_record"
+		]
+	}
+}

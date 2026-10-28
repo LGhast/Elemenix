@@ -5,6 +5,7 @@ import net.lghast.elemenix.common.system.advancement.ScanTrigger;
 import net.lghast.elemenix.common.system.datacomponent.ElemenicStorage;
 import net.lghast.elemenix.config.CommonConfig;
 import net.lghast.elemenix.register.system.ModDataComponents;
+import net.lghast.elemenix.register.system.ModSounds;
 import net.lghast.elemenix.register.system.ModStats;
 import net.lghast.elemenix.register.system.ModTags;
 import net.lghast.elemenix.utils.elemenix.Constituents;
@@ -17,7 +18,6 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.Container;
 import net.minecraft.world.item.ItemStack;
@@ -82,7 +82,7 @@ public class ScanHelper {
 
     private static void showScanningEffects(ServerLevel level, BlockPos pos){
         level.playSound(null, pos.getX(), pos.getY(), pos.getZ(),
-                SoundEvents.ENCHANTMENT_TABLE_USE, SoundSource.PLAYERS, 1.1F, 1.5F);
+                ModSounds.SCANNING.get(), SoundSource.PLAYERS, 1.1F, 1.5F);
 
         if(CommonConfig.SHOW_SCANNING_STORAGE_PARTICLES.get()) {
             ModUtils.spawnParticles(level, ParticleTypes.ENCHANT,

@@ -7,5 +7,6 @@ import net.minecraft.client.renderer.RenderType;
 public class ModRenders {
     public static void setItemBlockRenders(){
         ItemBlockRenderTypes.setRenderLayer(ModBlocks.GEOLOGICAL_SIMULATOR.get(), RenderType.cutout());
+        ItemBlockRenderTypes.setRenderLayer(ModBlocks.ELEMENIC_COMPARATOR.get(), RenderType.cutout());
     }
 }

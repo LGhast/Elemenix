@@ -4,6 +4,7 @@ import net.lghast.elemenix.common.system.datacomponent.ElemenicStorage;
 import net.lghast.elemenix.config.ClientConfig;
 import net.lghast.elemenix.register.system.ModDataComponents;
 import net.minecraft.ChatFormatting;
+import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -31,8 +32,13 @@ public class StorageItem extends Item {
         if(ClientConfig.SHOW_STORAGE_TOOLTIPS.get()) {
             ElemenicStorage storage = getOrCreateData(stack);
             components.add(Component.translatable("tooltip.elemenix.analyzer_storage").withStyle(ChatFormatting.GRAY));
-            components.add(storage.toComponentFormer());
-            components.add(storage.toComponentLatter());
+            if (Screen.hasAltDown()) {
+                components.add(storage.toComponentFormerWhole());
+                components.add(storage.toComponentLatterWhole());
+            } else {
+                components.add(storage.toComponentFormer());
+                components.add(storage.toComponentLatter());
+            }
         }
         super.appendHoverText(stack, context, components, tooltipFlag);
     }
