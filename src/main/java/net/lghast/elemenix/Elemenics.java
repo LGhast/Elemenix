@@ -14,6 +14,7 @@ import net.lghast.elemenix.register.system.*;
 import net.lghast.elemenix.utils.elemenix.ElemenixInfo;
 import net.lghast.elemenix.utils.misc.ModUtils;
 import net.lghast.elemenix.utils.recipe.RecipeHelper;
+import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.level.Level;
@@ -34,11 +35,13 @@ import net.neoforged.neoforge.event.server.ServerStartingEvent;
 import net.neoforged.neoforge.event.server.ServerStoppedEvent;
 
 import javax.annotation.Nullable;
+import java.util.List;
 
 @Mod(Elemenics.MOD_ID)
 public class Elemenics {
     public static final String MOD_ID = "elemenix";
     public static boolean started = false;
+    private boolean commandIgnoredNotified = false;
     private static final boolean isFtbQuestsLoaded = ModUtils.hasServerMod("ftbquests");
 
     @Nullable
@@ -96,10 +99,12 @@ public class Elemenics {
     private void onServerStarted(ServerStartedEvent event) {
         currentServerLevel = event.getServer().overworld();
         started = true;
+        commandIgnoredNotified = false;
         ElemenixInfo.clearCaches();
         if (RecipeHelper.areRecipesLoaded(currentServerLevel)) {
             ElemenixInfo.initialize();
         }
+        tryNotifyCommandIgnoredResolved(null);
     }
 
     private void onServerStopped(ServerStoppedEvent event) {
@@ -110,7 +115,36 @@ public class Elemenics {
     private void onPlayerLogin(PlayerEvent.PlayerLoggedInEvent event) {
         if (!event.getEntity().level().isClientSide() && event.getEntity() instanceof ServerPlayer serverPlayer) {
             sendSyncStartedPacket(serverPlayer, started);
+            tryNotifyCommandIgnoredResolved(serverPlayer);
         }
+    }
+
+    private void tryNotifyCommandIgnoredResolved(@Nullable ServerPlayer player) {
+        if (commandIgnoredNotified) return;
+
+        ServerPlayer target = player;
+        if (target == null) {
+            if (currentServerLevel == null) return;
+            target = currentServerLevel.players().stream()
+                    .filter(this::isDevOrLGhast)
+                    .findFirst()
+                    .orElse(null);
+        } else if (!isDevOrLGhast(target)) {
+            return;
+        }
+
+        if (target == null) return;
+
+        List<String> resolved = ElemenixInfo.getCommandIgnoredResolved();
+        if (resolved.isEmpty()) return;
+
+        target.sendSystemMessage(Component.literal("以下物品已可解析：\n" + String.join("\n", resolved)));
+        commandIgnoredNotified = true;
+    }
+
+    private boolean isDevOrLGhast(ServerPlayer player) {
+        String name = player.getGameProfile().getName();
+        return "Dev".equalsIgnoreCase(name) || "LGhast".equalsIgnoreCase(name);
     }
 
     @Nullable

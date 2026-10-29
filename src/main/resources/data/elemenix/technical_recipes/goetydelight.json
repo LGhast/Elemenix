@@ -1,0 +1,114 @@
+{
+  "mod_id": "goetydelight",
+  "load_after": ["farmersdelight", "goety"],
+  "recipes": [
+    {
+      "preset": "same",
+      "output": "goetydelight:doll_item",
+      "input": "minecraft:white_wool"
+    },
+    {
+      "preset": "same",
+      "output": "goetydelight:custom_doll",
+      "input": "minecraft:white_wool"
+    },
+    {
+      "output": "goetydelight:viziers_cookbook",
+      "count": 1,
+      "inputs": [
+        { "id": "minecraft:paper", "count": 3 }
+      ],
+      "additions": [
+        { "type": "arcanix", "value": 30 }
+      ]
+    },
+    {
+      "output": "goetydelight:menemen_with_bread",
+      "count": 5,
+      "inputs": [
+        { "id": "minecraft:bread", "count": 5 },
+        { "id": "goetydelight:menemen_block", "count": 1 }
+      ],
+      "offcuts": [
+        { "id": "farmersdelight:cooking_pot", "count": 1 }
+      ]
+    },
+    {
+      "output": "goetydelight:ring_packed_void_gel_jelly",
+      "count": 3,
+      "inputs": [
+        { "id": "goetydelight:void_gel_jelly_block", "count": 1 }
+      ],
+      "offcuts": [
+        { "id": "minecraft:bowl", "count": 1 }
+      ],
+      "container": "minecraft:bowl"
+    },
+    {
+      "output": "goetydelight:rotten_corpse_maggot_feast",
+      "count": 3,
+      "inputs": [
+        { "id": "goetydelight:rotten_corpse_maggot_feast_block", "count": 1 }
+      ],
+      "offcuts": [
+        { "id": "minecraft:bowl", "count": 1 }
+      ],
+      "container": "minecraft:bowl"
+    },
+    {
+      "output": "goetydelight:bone_lord_ash_rice",
+      "count": 3,
+      "inputs": [
+        { "id": "goetydelight:bone_lord_ash_rice_block", "count": 1 }
+      ],
+      "offcuts": [
+        { "id": "goetydelight:cursed_ingot_pot", "count": 1 }
+      ],
+      "container": "minecraft:bowl"
+    },
+    {
+      "output": "goetydelight:lichs_chaos_stew",
+      "count": 3,
+      "inputs": [
+        { "id": "goetydelight:lichs_chaos_stew_block", "count": 1 }
+      ],
+      "offcuts": [
+        { "id": "goetydelight:cursed_ingot_pot", "count": 1 }
+      ],
+      "container": "minecraft:bowl"
+    },
+    {
+      "output": "goetydelight:night_heart_pea_soup",
+      "count": 3,
+      "inputs": [
+        { "id": "goetydelight:night_heart_pea_soup_block", "count": 1 }
+      ],
+      "offcuts": [
+        { "id": "goetydelight:cursed_ingot_pot", "count": 1 }
+      ],
+      "container": "minecraft:bowl"
+    },
+    {
+      "output": "goetydelight:snap_unholy_tripe",
+      "count": 3,
+      "inputs": [
+        { "id": "goetydelight:snap_unholy_tripe_block", "count": 1 }
+      ],
+      "offcuts": [
+        { "id": "farmersdelight:cooking_pot", "count": 1 }
+      ],
+      "container": "minecraft:bowl"
+    },
+    {
+      "output": "goetydelight:stuffed_tall_skull_rice",
+      "count": 4,
+      "inputs": [
+        { "id": "goetydelight:stuffed_tall_skull_rice_block", "count": 1 }
+      ],
+      "offcuts": [
+        { "id": "goety:tall_skull", "count": 1 }
+      ],
+      "container": "minecraft:bowl"
+    }
+  ]
+}

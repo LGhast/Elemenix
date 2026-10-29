@@ -97,6 +97,11 @@ public class ModTags {
             ResourceLocation.parse("elemenix:strictly_unanalysable")
     );
 
+    public static final TagKey<Item> COMMAND_IGNORED = TagKey.create(
+            Registries.ITEM,
+            ResourceLocation.parse("elemenix:command_ignored")
+    );
+
     public static final TagKey<Item> ORGANIX_MATERIALS = TagKey.create(
             Registries.ITEM,
             ResourceLocation.parse("elemenix:organix_materials")

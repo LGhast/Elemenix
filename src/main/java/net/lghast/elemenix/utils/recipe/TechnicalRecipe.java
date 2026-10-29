@@ -5,6 +5,8 @@ import net.lghast.elemenix.utils.elemenix.Elemenix;
 import net.lghast.elemenix.utils.misc.ModUtils;
 import net.lghast.elemenix.utils.elemenix.FluidElemenixInfo;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -24,6 +26,10 @@ import java.util.List;
 public class TechnicalRecipe{
     private static final Logger LOGGER = LogManager.getLogger();
 
+    public static final String POTION_PREFIX = "@";
+
+    public record PotionStack(ResourceLocation id, int count) {}
+
     private final List<ItemStack> inputs = new ArrayList<>();
     private final List<ItemStack> offcuts = new ArrayList<>();
     private final List<FluidStack> fluidInputs = new ArrayList<>();
@@ -32,6 +38,9 @@ public class TechnicalRecipe{
     private final ItemStack output;
     private FluidStack fluidOutput = FluidStack.EMPTY;
     private int fluidOutputCount = 0;
+    private PotionStack potionOutput;
+    private final List<PotionStack> potionInputs = new ArrayList<>();
+    private final List<PotionStack> potionOffcuts = new ArrayList<>();
     private final Constituents additions = new Constituents(0, 0, 0, 0, 0, 0);
     private final Constituents deductions = new Constituents(0, 0, 0, 0, 0, 0);
     private double multiplier = 1.0;
@@ -62,7 +71,7 @@ public class TechnicalRecipe{
     /**
      * Builds a recipe from an output id.
      *
-     * @param outputId item id; with '&' prefix it is a fluid output instead
+     * @param outputId item id; '&' prefix = fluid output, '@' prefix = potion output
      * @param count    output amount; for fluids: units of 250 mB
      */
     public TechnicalRecipe(String outputId, int count) {
@@ -71,6 +80,12 @@ public class TechnicalRecipe{
             if (fluid != null && count > 0) {
                 this.fluidOutput = new FluidStack(fluid, count * FluidElemenixInfo.FLUID_UNIT);
                 this.fluidOutputCount = count;
+            }
+            this.output = ItemStack.EMPTY;
+        } else if (outputId.startsWith(POTION_PREFIX)) {
+            ResourceLocation potionId = parsePotion(outputId.substring(POTION_PREFIX.length()));
+            if (potionId != null && count > 0) {
+                this.potionOutput = new PotionStack(potionId, count);
             }
             this.output = ItemStack.EMPTY;
         } else {
@@ -88,6 +103,11 @@ public class TechnicalRecipe{
             if (fluid != null && count > 0) {
                 fluidInputs.add(new FluidStack(fluid, count * FluidElemenixInfo.FLUID_UNIT));
             }
+        } else if (id.startsWith(POTION_PREFIX)) {
+            ResourceLocation potionId = parsePotion(id.substring(POTION_PREFIX.length()));
+            if (potionId != null && count > 0) {
+                potionInputs.add(new PotionStack(potionId, count));
+            }
         } else {
             Item item = ModUtils.getItemFromString(id);
             if (item != null && count > 0) {
@@ -104,6 +124,11 @@ public class TechnicalRecipe{
             Fluid fluid = getFluid(id.substring(1));
             if (fluid != null && count > 0) {
                 fluidOffcuts.add(new FluidStack(fluid, count * FluidElemenixInfo.FLUID_UNIT));
+            }
+        } else if (id.startsWith(POTION_PREFIX)) {
+            ResourceLocation potionId = parsePotion(id.substring(POTION_PREFIX.length()));
+            if (potionId != null && count > 0) {
+                potionOffcuts.add(new PotionStack(potionId, count));
             }
         } else {
             Item item = ModUtils.getItemFromString(id);
@@ -175,6 +200,26 @@ public class TechnicalRecipe{
         return fluidOutputCount;
     }
 
+    public boolean isPotionOutput() {
+        return potionOutput != null;
+    }
+
+    public ResourceLocation getPotionOutput() {
+        return potionOutput.id();
+    }
+
+    public int getPotionOutputCount() {
+        return potionOutput.count();
+    }
+
+    public List<PotionStack> getPotionInputs() {
+        return potionInputs;
+    }
+
+    public List<PotionStack> getPotionOffcuts() {
+        return potionOffcuts;
+    }
+
     public List<FluidStack> getFluidInputs() {
         return fluidInputs;
     }
@@ -224,6 +269,20 @@ public class TechnicalRecipe{
             return BuiltInRegistries.FLUID.get(ResourceLocation.parse(id));
         } catch (Exception e) {
             LOGGER.warn("Invalid fluid ID: {}", id);
+            return null;
+        }
+    }
+
+    private ResourceLocation parsePotion(String id) {
+        try {
+            ResourceLocation parsed = ResourceLocation.parse(id);
+            if (BuiltInRegistries.POTION.getHolder(ResourceKey.create(Registries.POTION, parsed)).isPresent()) {
+                return parsed;
+            }
+            LOGGER.warn("Unknown potion ID: {}", id);
+            return null;
+        } catch (Exception e) {
+            LOGGER.warn("Invalid potion ID: {}", id);
             return null;
         }
     }

@@ -286,7 +286,7 @@ public class ElemenixCommand {
             if (item == Items.AIR) continue;
             ResourceLocation id = BuiltInRegistries.ITEM.getKey(item);
             if (modId != null && !id.getNamespace().equals(modId)) continue;
-            if (ElemenixInfo.isUnanalysable(item) && !isStrictlyUnanalysable(item)) {
+            if (ElemenixInfo.isUnanalysable(item) && !isStrictlyUnanalysable(item) && !isCommandIgnored(item)) {
                 items.add(item);
             }
         }
@@ -492,8 +492,8 @@ public class ElemenixCommand {
         List<Holder.Reference<Potion>> potions = new ArrayList<>();
         for (Potion potion : BuiltInRegistries.POTION) {
             ResourceLocation id = BuiltInRegistries.POTION.getKey(potion);
-            if(id == null || modId == null) continue;
-            if (!id.getNamespace().equals(modId)) continue;
+            if (id == null) continue;
+            if (modId != null && !id.getNamespace().equals(modId)) continue;
             BuiltInRegistries.POTION.getHolder(ResourceKey.create(Registries.POTION, id)).ifPresent(potions::add);
         }
 
@@ -554,8 +554,8 @@ public class ElemenixCommand {
         List<Holder.Reference<Potion>> potions = new ArrayList<>();
         for (Potion potion : BuiltInRegistries.POTION) {
             ResourceLocation id = BuiltInRegistries.POTION.getKey(potion);
-            if(id == null || modId == null) continue;
-            if (!id.getNamespace().equals(modId)) continue;
+            if (id == null) continue;
+            if (modId != null && !id.getNamespace().equals(modId)) continue;
 
             Optional<Holder.Reference<Potion>> holderOpt = BuiltInRegistries.POTION.getHolder(ResourceKey.create(Registries.POTION, id));
             if (holderOpt.isEmpty()) continue;
@@ -652,5 +652,9 @@ public class ElemenixCommand {
         }
         String fullId = BuiltInRegistries.ITEM.getKey(item).toString();
         return fullId.contains("spawn_egg");
+    }
+
+    private static boolean isCommandIgnored(Item item) {
+        return new ItemStack(item).is(ModTags.COMMAND_IGNORED);
     }
 }

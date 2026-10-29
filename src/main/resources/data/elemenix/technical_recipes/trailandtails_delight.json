@@ -8,24 +8,28 @@
       "input": "trailandtales_delight:curd_block"
     },
     {
-      "output": "trailandtales_delight:cherry_cake_slice",
-      "count": 4,
-      "inputs": [
-        { "id": "trailandtales_delight:cherry_cake", "count": 1 }
-      ]
+      "preset": "same",
+      "output": "trailandtales_delight:cherry_cheese_wheel",
+      "input": "trailandtales_delight:cherry_curd_block"
     },
     {
-      "output": "trailandtales_delight:cherry_cheese_pie_slice",
-      "count": 4,
-      "inputs": [
-        { "id": "trailandtales_delight:cherry_cheese_pie", "count": 1 }
-      ]
+      "preset": "same",
+      "output": "trailandtales_delight:cherry_cheese_wheel",
+      "input": "trailandtales_delight:cherry_curd_block"
     },
     {
-      "output": "trailandtales_delight:cheese_slice",
-      "count": 4,
+      "preset": "same",
+      "output": "trailandtales_delight:cherry_cheese_wheel",
+      "input": "trailandtales_delight:cherry_curd_block"
+    },
+    {
+      "output": "trailandtales_delight:crystal_crabapple_slice",
+      "count": 2,
       "inputs": [
-        { "id": "trailandtales_delight:cheese_wheel", "count": 1 }
+        { "id": "trailandtales_delight:crystal_crabapple", "count": 1 }
+      ],
+      "offcuts": [
+        { "id": "trailandtales_delight:crystal_crabapple_seeds", "count": 1 }
       ]
     },
     {
@@ -50,9 +54,155 @@
       "preset": "food_unit",
       "output": "trailandtales_delight:stuffed_sniffer_egg",
       "source": "trailandtales_delight:stuffed_sniffer_egg_block",
-      "container": "minecraft:bowl",
+      "container": "trailandtales_delight:pottery_bowl",
       "offcuts": [
         { "id": "trailandtales_delight:sniffer_eggshell", "count": 1 }
+      ]
+    },
+    {
+      "preset": "food_unit",
+      "output": "trailandtales_delight:sniffer_egg_soup",
+      "source": "trailandtales_delight:sniffer_egg_soup_block",
+      "container": "trailandtales_delight:pottery_bowl",
+      "offcuts": [
+        { "id": "trailandtales_delight:sniffer_eggshell", "count": 1 }
+      ]
+    },
+    {
+      "preset": "food_unit",
+      "output": "trailandtales_delight:bamboo_tube_rice",
+      "source": "trailandtales_delight:bamboo_tube_rice",
+      "container": "trailandtales_delight:pottery_bowl",
+      "offcuts": [
+        { "id": "minecraft:stick", "count": 4 }
+      ]
+    },
+    {
+      "preset": "same",
+      "output": "trailandtales_delight:apple_ice_cream",
+      "input": "trailandtales_delight:apple_ice_cream_mix"
+    },
+    {
+      "preset": "same",
+      "output": "trailandtales_delight:crystal_crabapple_ice_cream",
+      "input": "trailandtales_delight:crystal_crabapple_ice_cream_mix"
+    },
+    {
+      "preset": "same",
+      "output": "trailandtales_delight:sour_crystal_crabapple_ice_cream",
+      "input": "trailandtales_delight:sour_crystal_crabapple_ice_cream_mix"
+    },
+    {
+      "preset": "same",
+      "output": "trailandtales_delight:glow_berry_ice_cream",
+      "input": "trailandtales_delight:glow_berry_ice_cream_mix"
+    },
+    {
+      "preset": "same",
+      "output": "trailandtales_delight:lantern_fruit_ice_cream",
+      "input": "trailandtales_delight:lantern_fruit_ice_cream_mix"
+    },
+    {
+      "preset": "same",
+      "output": "trailandtales_delight:milk_ice_cream",
+      "input": "trailandtales_delight:milk_ice_cream_mix"
+    },
+    {
+      "preset": "same",
+      "output": "trailandtales_delight:rice_ice_cream",
+      "input": "trailandtales_delight:rice_ice_cream_mix"
+    },
+    {
+      "preset": "same",
+      "output": "trailandtales_delight:sweet_berry_ice_cream",
+      "input": "trailandtales_delight:sweet_berry_ice_cream_mix"
+    },
+    {
+      "output": "trailandtales_delight:bucket_apple_ice_cream",
+      "count": 1,
+      "inputs": [
+        { "id": "trailandtales_delight:apple_ice_cream", "count": 1 },
+        { "id": "trailandtales_delight:ice_bucket", "count": 1 }
+      ],
+      "offcuts": [
+        { "id": "trailandtales_delight:pottery_bowl", "count": 1 }
+      ]
+    },
+    {
+      "output": "trailandtales_delight:bucket_crystal_crabapple_ice_cream",
+      "count": 1,
+      "inputs": [
+        { "id": "trailandtales_delight:crystal_crabapple_ice_cream", "count": 1 },
+        { "id": "trailandtales_delight:ice_bucket", "count": 1 }
+      ],
+      "offcuts": [
+        { "id": "trailandtales_delight:pottery_bowl", "count": 1 }
+      ]
+    },
+    {
+      "output": "trailandtales_delight:bucket_sour_crystal_crabapple_ice_cream",
+      "count": 1,
+      "inputs": [
+        { "id": "trailandtales_delight:sour_crystal_crabapple_ice_cream", "count": 1 },
+        { "id": "trailandtales_delight:ice_bucket", "count": 1 }
+      ],
+      "offcuts": [
+        { "id": "trailandtales_delight:pottery_bowl", "count": 1 }
+      ]
+    },
+    {
+      "output": "trailandtales_delight:bucket_glow_berry_ice_cream",
+      "count": 1,
+      "inputs": [
+        { "id": "trailandtales_delight:glow_berry_ice_cream", "count": 1 },
+        { "id": "trailandtales_delight:ice_bucket", "count": 1 }
+      ],
+      "offcuts": [
+        { "id": "trailandtales_delight:pottery_bowl", "count": 1 }
+      ]
+    },
+    {
+      "output": "trailandtales_delight:bucket_lantern_fruit_ice_cream",
+      "count": 1,
+      "inputs": [
+        { "id": "trailandtales_delight:lantern_fruit_ice_cream", "count": 1 },
+        { "id": "trailandtales_delight:ice_bucket", "count": 1 }
+      ],
+      "offcuts": [
+        { "id": "trailandtales_delight:pottery_bowl", "count": 1 }
+      ]
+    },
+    {
+      "output": "trailandtales_delight:bucket_milk_ice_cream",
+      "count": 1,
+      "inputs": [
+        { "id": "trailandtales_delight:milk_ice_cream", "count": 1 },
+        { "id": "trailandtales_delight:ice_bucket", "count": 1 }
+      ],
+      "offcuts": [
+        { "id": "trailandtales_delight:pottery_bowl", "count": 1 }
+      ]
+    },
+    {
+      "output": "trailandtales_delight:bucket_rice_ice_cream",
+      "count": 1,
+      "inputs": [
+        { "id": "trailandtales_delight:rice_ice_cream", "count": 1 },
+        { "id": "trailandtales_delight:ice_bucket", "count": 1 }
+      ],
+      "offcuts": [
+        { "id": "trailandtales_delight:pottery_bowl", "count": 1 }
+      ]
+    },
+    {
+      "output": "trailandtales_delight:bucket_sweet_berry_ice_cream",
+      "count": 1,
+      "inputs": [
+        { "id": "trailandtales_delight:sweet_berry_ice_cream", "count": 1 },
+        { "id": "trailandtales_delight:ice_bucket", "count": 1 }
+      ],
+      "offcuts": [
+        { "id": "trailandtales_delight:pottery_bowl", "count": 1 }
       ]
     }
   ]

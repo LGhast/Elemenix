@@ -136,7 +136,12 @@ public class JsonTRecipeLoader {
             recipe.setMultiplier(obj.get("multiplier").getAsDouble());
         }
         if (obj.has("container")) {
-            recipe.setContainer(obj.get("container").getAsString());
+            JsonElement container = obj.get("container");
+            if (container.isJsonPrimitive() && container.getAsJsonPrimitive().isString()) {
+                recipe.setContainer(container.getAsString());
+            } else {
+                LOGGER.warn("Recipe 'container' must be an item id string: {}", obj);
+            }
         }
         if (obj.has("removed_elemenix")) {
             String removed = obj.get("removed_elemenix").getAsString().toUpperCase();
@@ -354,7 +359,12 @@ public class JsonTRecipeLoader {
         }
 
         if (obj.has("container")) {
-            recipe.setContainer(obj.get("container").getAsString());
+            JsonElement container = obj.get("container");
+            if (container.isJsonPrimitive() && container.getAsJsonPrimitive().isString()) {
+                recipe.setContainer(container.getAsString());
+            } else {
+                LOGGER.warn("Recipe 'container' must be an item id string: {}", obj);
+            }
         }
 
         return Collections.singletonList(recipe);

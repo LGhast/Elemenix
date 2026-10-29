@@ -13,8 +13,10 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.alchemy.Potion;
 import net.minecraft.world.item.alchemy.PotionContents;
+import net.minecraft.world.item.alchemy.Potions;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.ItemEnchantments;
 import net.minecraft.world.level.Level;
@@ -40,6 +42,7 @@ public class ElemenixInfo {
 
     private static final Set<Item> UNANALYSABLE_CACHE = ConcurrentHashMap.newKeySet();
     private static final Set<Item> STRICTLY_UNANALYSABLE_ITEMS = ConcurrentHashMap.newKeySet();
+    private static volatile List<String> commandIgnoredResolved = null;
 
     private static final ThreadLocal<Set<Item>> CALCULATING_ITEMS = ThreadLocal.withInitial(ConcurrentHashMap::newKeySet);
     private static final ThreadLocal<Set<Item>> FAILED_ITEMS = ThreadLocal.withInitial(ConcurrentHashMap::newKeySet);
@@ -75,14 +78,24 @@ public class ElemenixInfo {
                     RecipeHelper.precomputeRecipes(level);
                 }
 
-                TRecipeHelper.initialize();
                 JsonPotionlikeLoader.loadAll();
                 PotionElemenixInfo.initialize();
+                TRecipeHelper.initialize();
+
+                boolean changed = true;
+                int guard = 16;
+                while (changed && guard-- > 0) {
+                    TRecipeHelper.clear();
+                    changed = TRecipeHelper.handleMap();
+                    changed |= PotionElemenixInfo.deriveAll();
+                }
+
                 initialized = true;
 
                 if (RecipeHelper.areRecipesLoaded(level)) {
                     RecipeHelper.warmUpConstituents(level);
                 }
+                commandIgnoredResolved = computeCommandIgnoredResolved();
 
                 LOGGER.info("ElemenixInfo Class has been initialized.");
             } finally {
@@ -106,6 +119,7 @@ public class ElemenixInfo {
             TRecipeHelper.clear();
             JsonPotionlikeLoader.clear();
             PotionElemenixInfo.clear();
+            commandIgnoredResolved = null;
             LOGGER.info("ElemenixInfo Cache has been cleared.");
         }
     }
@@ -382,12 +396,10 @@ public class ElemenixInfo {
             return constituents;
         }
 
-        Optional<Holder<Potion>> potion = contents.potion();
-        if (potion.isEmpty()) {
-            return new Constituents(true);
-        }
+        // 未指定药水效果：按水瓶处理（游戏会将其显示为不可合成药水）
+        Holder<Potion> potion = contents.potion().orElse(Potions.WATER);
 
-        Constituents potionConstituents = PotionElemenixInfo.getConstituents(potion.get());
+        Constituents potionConstituents = PotionElemenixInfo.getConstituents(potion);
         if (potionConstituents.isUnanalysable()) {
             return new Constituents(true);
         }
@@ -565,6 +577,35 @@ public class ElemenixInfo {
 
         ITEM_CACHE.put(item, constituents.copy());
         UNANALYSABLE_CACHE.remove(item);
+    }
+
+    /**
+     * Returns command_ignored-tagged items that have since become analysable.
+     * Computed once at the end of initialization; empty until then.
+     */
+    public static List<String> getCommandIgnoredResolved() {
+        if (commandIgnoredResolved == null) {
+            if (!initialized) {
+                initialize();
+            }
+            if (commandIgnoredResolved == null) {
+                commandIgnoredResolved = computeCommandIgnoredResolved();
+            }
+        }
+        return commandIgnoredResolved;
+    }
+
+    private static List<String> computeCommandIgnoredResolved() {
+        List<String> resolved = new ArrayList<>();
+        for (Item item : BuiltInRegistries.ITEM) {
+            if (item == Items.AIR) continue;
+            if (!new ItemStack(item).is(ModTags.COMMAND_IGNORED)) continue;
+            if (isUnanalysable(item)) continue;
+            ResourceLocation id = BuiltInRegistries.ITEM.getKey(item);
+            resolved.add(id.toString());
+        }
+        resolved.sort(Comparator.naturalOrder());
+        return resolved;
     }
 
     private static void countRecursionPrevented(Item item) {

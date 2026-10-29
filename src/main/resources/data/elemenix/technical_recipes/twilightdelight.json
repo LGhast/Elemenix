@@ -4,6 +4,11 @@
   "recipes": [
     {
       "preset": "same",
+      "output": "twilightdelight:twilight_rich_soil",
+      "input": "twilightforest:uberous_soil"
+    },
+    {
+      "preset": "same",
       "output": "twilightdelight:twilight_rich_soil_farmland",
       "input": "twilightdelight:twilight_rich_soil"
     },

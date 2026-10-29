@@ -2,8 +2,11 @@
   "mod_id": "trailandtales_delight",
   "entries": [
     { "id": "trailandtales_delight:lantern_fruit_seeds", "elemenix": "organix", "value" : 4 },
+    { "id": "trailandtales_delight:crystal_crabapple_seeds", "elemenix": "organix", "value" : 4 },
     { "id": "trailandtales_delight:sniffer_eggshell", "elemenix": "terrix", "value" : 32 },
     { "id": "trailandtales_delight:pitcher_taro", "constituents": [32, 0, 10, 0, 0, 0] },
-    { "id": "trailandtales_delight:lantern_fruit", "constituents": [12, 0, 6, 0, 2, 0] }
+    { "id": "trailandtales_delight:lantern_fruit", "constituents": [12, 0, 6, 0, 2, 0] },
+    { "id": "trailandtales_delight:crystal_crabapple", "constituents": [35, 0, 16, 0, 0, 0] },
+    { "id": "trailandtales_delight:unripe_crystal_crabapple", "constituents": [28, 0, 10, 0, 0, 0] }
   ]
 }

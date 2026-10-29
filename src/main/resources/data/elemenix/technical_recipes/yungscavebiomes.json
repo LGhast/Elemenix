@@ -6,6 +6,22 @@
       "preset": "template",
       "output": "yungscavebiomes:ancient_armor_trim_smithing_template",
       "material": "yungscavebiomes:ancient_sandstone"
+    },
+    {
+      "output": "@yungscavebiomes:frost",
+      "count": 3,
+      "inputs": [
+        { "id": "@minecraft:awkward", "count": 3 },
+        { "id": "yungscavebiomes:frost_lily", "count": 1 }
+      ]
+    },
+    {
+      "output": "@yungscavebiomes:strong_frost",
+      "count": 3,
+      "inputs": [
+        { "id": "@yungscavebiomes:frost", "count": 3 },
+        { "id": "minecraft:glowstone_dust", "count": 1 }
+      ]
     }
   ]
 }

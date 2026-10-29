@@ -6,6 +6,8 @@ import net.lghast.elemenix.utils.elemenix.Constituents;
 import net.lghast.elemenix.utils.elemenix.Elemenix;
 import net.lghast.elemenix.utils.elemenix.ElemenixInfo;
 import net.lghast.elemenix.utils.elemenix.FluidElemenixInfo;
+import net.lghast.elemenix.utils.elemenix.PotionElemenixInfo;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -83,11 +85,12 @@ public class TRecipeHelper {
      * Iterates recipes in strict-then-loose rounds until a fixed point,
      * so dependencies are always resolved before their consumers.
      */
-    public static void handleMap() {
-        if (handled) return;
+    public static boolean handleMap() {
+        if (handled) return false;
 
         handling = true;
         PASS_ITEM_CACHE.clear();
+        boolean anyChanged = false;
 
         try {
             if (!recipes.isEmpty()) {
@@ -98,6 +101,10 @@ public class TRecipeHelper {
                 boolean changed = true;
                 while (changed && guard-- > 0) {
                     changed = handleFluidRecipesOnce(tOutputs);
+                    anyChanged |= changed;
+                    boolean potionChanged = handlePotionRecipesOnce(tOutputs);
+                    changed = potionChanged || changed;
+                    anyChanged |= potionChanged;
 
                     for (TechnicalRecipe recipe : recipes) {
                         ItemStack output = recipe.getOutput();
@@ -112,7 +119,10 @@ public class TRecipeHelper {
                         } else {
                             applied = handleNormalRecipe(recipe, output, true, tOutputs);
                         }
-                        if (applied) changed = true;
+                        if (applied) {
+                            changed = true;
+                            anyChanged = true;
+                        }
                     }
                 }
 
@@ -123,11 +133,13 @@ public class TRecipeHelper {
                         continue;
                     }
 
+                    boolean applied;
                     if (recipe.getCopperState() != null) {
-                        handleCopperRecipe(recipe, output, false, tOutputs);
+                        applied = handleCopperRecipe(recipe, output, false, tOutputs);
                     } else {
-                        handleNormalRecipe(recipe, output, false, tOutputs);
+                        applied = handleNormalRecipe(recipe, output, false, tOutputs);
                     }
+                    anyChanged |= applied;
                 }
 
                 LOGGER.info("TRecipeHelper processed {} recipes in {} ms",
@@ -138,6 +150,7 @@ public class TRecipeHelper {
             PASS_ITEM_CACHE.clear();
             handled = true;
         }
+        return anyChanged;
     }
 
     /**
@@ -192,6 +205,28 @@ public class TRecipeHelper {
         return changed;
     }
 
+    private static boolean handlePotionRecipesOnce(Set<Item> tOutputs) {
+        boolean changed = false;
+        for (TechnicalRecipe recipe : recipes) {
+            if (!recipe.isPotionOutput()) continue;
+
+            ResourceLocation potionId = recipe.getPotionOutput();
+            if (PotionElemenixInfo.hasConstituents(potionId)) continue;
+
+            Constituents result = calculateInputConstituents(recipe, null, true, tOutputs);
+            if (result == null || result.isUnanalysable()) continue;
+
+            applyCommonAdjustments(recipe, result, recipe.getPotionOutputCount());
+
+            if (!result.isUnanalysable() && result.getSum() > 0) {
+                PotionElemenixInfo.putDerived(potionId.toString(), result);
+                PASS_ITEM_CACHE.clear();
+                changed = true;
+            }
+        }
+        return changed;
+    }
+
     private static boolean handleCopperRecipe(TechnicalRecipe recipe, ItemStack output, boolean strict, Set<Item> tOutputs) {
         Constituents totalInput = calculateInputConstituents(recipe, output, strict, tOutputs);
         if (totalInput == null || totalInput.isUnanalysable()) return false;
@@ -231,6 +266,14 @@ public class TRecipeHelper {
             perUnit = perUnit.copy();
             perUnit.multiply(units);
             result.deduct(perUnit);
+        }
+
+        for (TechnicalRecipe.PotionStack offcut : recipe.getPotionOffcuts()) {
+            Constituents offcutCons = PotionElemenixInfo.getConstituents(offcut.id());
+            if (offcutCons.isUnanalysable()) continue;
+            offcutCons = offcutCons.copy();
+            offcutCons.multiply(offcut.count());
+            result.deduct(offcutCons);
         }
 
         result.multiply(recipe.getMultiplier());
@@ -291,6 +334,17 @@ public class TRecipeHelper {
             perUnit = perUnit.copy();
             perUnit.multiply(units);
             total.add(perUnit);
+        }
+
+        for (TechnicalRecipe.PotionStack potionInput : recipe.getPotionInputs()) {
+            Constituents potionCons = PotionElemenixInfo.getConstituents(potionInput.id());
+            if (potionCons.isUnanalysable()) {
+                if (strict) return null;
+                continue;
+            }
+            potionCons = potionCons.copy();
+            potionCons.multiply(potionInput.count());
+            total.add(potionCons);
         }
 
         return total;

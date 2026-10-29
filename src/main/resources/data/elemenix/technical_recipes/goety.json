@@ -227,6 +227,22 @@
         { "id": "minecraft:book", "count": 3 },
         { "id": "goety:crypt_tiles", "count": 6 }
       ]
+    },
+    {
+      "output": "@goety:climbing",
+      "count": 3,
+      "inputs": [
+        { "id": "@minecraft:awkward", "count": 3 },
+        { "id": "goety:spider_egg", "count": 1 }
+      ]
+    },
+    {
+      "output": "@goety:long_climbing",
+      "count": 3,
+      "inputs": [
+        { "id": "@goety:climbing", "count": 3 },
+        { "id": "minecraft:redstone", "count": 1 }
+      ]
     }
   ]
 }

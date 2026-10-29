@@ -81,7 +81,6 @@ public class ElemenicComparatorScreen extends AbstractContainerScreen<ElemenicCo
         addEntryButtons(guiX, guiY, 1, () -> rule, v -> rule = v, 4);
         addEntryButtons(guiX, guiY, 3, () -> unit, v -> unit = v, 3);
 
-        // 阈值：左减1000、右加1000，以及无纹理输入框
         int row = 2;
         this.addRenderableWidget(Button.builder(Component.literal("<"), b -> {
             threshold = Mth.clamp(threshold - 1000, 0, ElemenicComparatorBlockEntity.MAX_THRESHOLD);
@@ -155,16 +154,13 @@ public class ElemenicComparatorScreen extends AbstractContainerScreen<ElemenicCo
 
     @Override
     protected void renderLabels(GuiGraphics graphics, int mouseX, int mouseY) {
-        // 标题居中
         int titleX = (this.imageWidth - this.font.width(this.title)) / 2;
         graphics.drawString(this.font, this.title, titleX, 6, 0x404040, false);
 
-        // 顶部准则显示：[目标][规则符号][数值]
         Component criterion = buildCriterion();
         int criterionX = (this.imageWidth - this.font.width(criterion)) / 2;
         graphics.drawString(this.font, criterion, criterionX, 21, 0xFFFFFF, false);
 
-        // 条目名（黑色）
         String[] entryNames = {
                 Component.translatable("gui.elemenix.comparator_target").getString(),
                 Component.translatable("gui.elemenix.comparator_rule").getString(),
@@ -185,7 +181,6 @@ public class ElemenicComparatorScreen extends AbstractContainerScreen<ElemenicCo
         int x = (this.width - this.imageWidth) / 2;
         int y = (this.height - this.imageHeight) / 2;
 
-        // 条目内容（居中）
         drawCenteredEntry(graphics, x, y, 0, targetName(), targetColor());
         drawCenteredEntry(graphics, x, y, 1, ruleName(), 0xFFFFFF);
         drawCenteredEntry(graphics, x, y, 3, unitName(), 0xFFFFFF);

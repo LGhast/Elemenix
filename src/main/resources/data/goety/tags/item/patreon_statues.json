@@ -6,6 +6,14 @@
     "goety:sculptured_statue_3",
     "goety:sculptured_statue_4",
     "goety:sculptured_statue_5",
-    "goety:sculptured_statue_6"
+    "goety:sculptured_statue_6",
+    {
+      "id": "goety:sculptured_statue_7",
+      "required": false
+    },
+    {
+      "id": "goety:sculptured_statue_8",
+      "required": false
+    }
   ]
 }

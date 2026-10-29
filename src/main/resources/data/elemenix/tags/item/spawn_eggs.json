@@ -1920,5 +1920,38 @@
       "id": "goety:zpiglin_servant_spawn_egg",
       "required": false
     }
+  ,
+    {
+      "id": "goety:enchanter_servant_spawn_egg",
+      "required": false
+    },
+    {
+      "id": "goety:extra_servant_spawn_egg",
+      "required": false
+    },
+    {
+      "id": "goety:flame_construct_spawn_egg",
+      "required": false
+    },
+    {
+      "id": "goety:imperial_guard_servant_spawn_egg",
+      "required": false
+    },
+    {
+      "id": "goety:rogueguard_servant_spawn_egg",
+      "required": false
+    },
+    {
+      "id": "goety:skeleton_pillager_spawn_egg",
+      "required": false
+    },
+    {
+      "id": "goety:zombie_vindicator_spawn_egg",
+      "required": false
+    },
+    {
+      "id": "goetydelight:ghost_farmer_spawn_egg",
+      "required": false
+    }
   ]
 }

@@ -1,0 +1,16 @@
+{
+  "mod_id": "goety",
+  "entries": [
+    { "id": "goetydelight:ectoplasmic_melon_seeds", "elemenix": "organix", "value": 6 },
+    { "id": "goetydelight:metamorphic_scent_grass_seeds", "elemenix": "organix", "value": 6 },
+    { "id": "goetydelight:bear_paw", "constituents": [50, 5, 15, 0, 0, 0] },
+    { "id": "goetydelight:biscat", "constituents": [35, 0, 0, 0, 0, 2] },
+    { "id": "goetydelight:corpse_maggot", "constituents": [16, 0, 5, 0, 0, 0] },
+    { "id": "goetydelight:metamorphic_scent_grass", "constituents": [30, 0, 0, 0, 0, 2] },
+    { "id": "goetydelight:gathering_soul_embryos", "constituents": [0, 240, 4200, 0, 0, 1200] },
+    { "id": "goetydelight:parasitized_warden", "constituents": [5000, 8000, 1500, 0, 3000, 5000] },
+    { "id": "goetydelight:the_box_of_the_dead", "constituents": [0, 520, 0, 0, 0, 320] },
+    { "id": "goetydelight:forbidden_soup_bun", "constituents": [38, 0, 30, 0, 50, 50] },
+    { "id": "goetydelight:ascension_mooncake", "constituents": [3333, 3333, 3333, 3333, 3333, 3333] }
+  ]
+}

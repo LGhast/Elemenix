@@ -1,0 +1,632 @@
+{
+  "values": [
+    {
+      "id": "goety:brew",
+      "required": false
+    },
+    {
+      "id": "goety:chorus_planks_path",
+      "required": false
+    },
+    {
+      "id": "goety:end_floating_lantern",
+      "required": false
+    },
+    {
+      "id": "goety:end_mineral_bottle",
+      "required": false
+    },
+    {
+      "id": "goety:end_mineral_bucket",
+      "required": false
+    },
+    {
+      "id": "goety:end_standing_lantern",
+      "required": false
+    },
+    {
+      "id": "goety:end_wall_lantern",
+      "required": false
+    },
+    {
+      "id": "goety:gas_brew",
+      "required": false
+    },
+    {
+      "id": "goety:lingering_brew",
+      "required": false
+    },
+    {
+      "id": "goety:splash_brew",
+      "required": false
+    },
+    {
+      "id": "goety:weathered_dark_oak_fence",
+      "required": false
+    },
+    {
+      "id": "goety:weathered_oak_fence",
+      "required": false
+    },
+    {
+      "id": "goetydelight:apocalyptium_ingot_brush",
+      "required": false
+    },
+    {
+      "id": "goetydelight:apocalyptium_knife",
+      "required": false
+    },
+    {
+      "id": "goetydelight:apocalyptium_pot",
+      "required": false
+    },
+    {
+      "id": "goetydelight:blue_marble",
+      "required": false
+    },
+    {
+      "id": "goetydelight:boat_stuffed_roasted_warden_body",
+      "required": false
+    },
+    {
+      "id": "goetydelight:boat_stuffed_roasted_warden_hand",
+      "required": false
+    },
+    {
+      "id": "goetydelight:boat_stuffed_roasted_warden_head",
+      "required": false
+    },
+    {
+      "id": "goetydelight:boat_stuffed_roasted_warden_leg",
+      "required": false
+    },
+    {
+      "id": "goetydelight:boat_stuffed_roasted_warden_soup",
+      "required": false
+    },
+    {
+      "id": "goetydelight:dripmarble_block",
+      "required": false
+    },
+    {
+      "id": "goetydelight:ectoplasmic_melon_salad",
+      "required": false
+    },
+    {
+      "id": "goetydelight:jungle_marble",
+      "required": false
+    },
+    {
+      "id": "goetydelight:marble",
+      "required": false
+    },
+    {
+      "id": "goetydelight:marble_button",
+      "required": false
+    },
+    {
+      "id": "goetydelight:marble_door",
+      "required": false
+    },
+    {
+      "id": "goetydelight:marble_fence",
+      "required": false
+    },
+    {
+      "id": "goetydelight:marble_fence_gate",
+      "required": false
+    },
+    {
+      "id": "goetydelight:marble_op_sword",
+      "required": false
+    },
+    {
+      "id": "goetydelight:marble_pressure_plate",
+      "required": false
+    },
+    {
+      "id": "goetydelight:marble_slab",
+      "required": false
+    },
+    {
+      "id": "goetydelight:marble_stairs",
+      "required": false
+    },
+    {
+      "id": "goetydelight:marble_trapdoor",
+      "required": false
+    },
+    {
+      "id": "goetydelight:marble_wall",
+      "required": false
+    },
+    {
+      "id": "goetydelight:metamorphic_scent_fruit",
+      "required": false
+    },
+    {
+      "id": "goetydelight:nether_marble",
+      "required": false
+    },
+    {
+      "id": "goetydelight:onion_pork_chop_rice",
+      "required": false
+    },
+    {
+      "id": "goetydelight:pointed_dripmarble",
+      "required": false
+    },
+    {
+      "id": "goetydelight:promotion_hard_candy",
+      "required": false
+    },
+    {
+      "id": "goetydelight:roast_laowang",
+      "required": false
+    },
+    {
+      "id": "goetydelight:roast_laowang_ear",
+      "required": false
+    },
+    {
+      "id": "goetydelight:roast_laowang_feet",
+      "required": false
+    },
+    {
+      "id": "goetydelight:roast_laowang_head",
+      "required": false
+    },
+    {
+      "id": "goetydelight:roast_laowang_leg",
+      "required": false
+    },
+    {
+      "id": "goetydelight:roast_spider_egg",
+      "required": false
+    },
+    {
+      "id": "goetydelight:silt_marble_heavy",
+      "required": false
+    },
+    {
+      "id": "goetydelight:spectre_knife",
+      "required": false
+    },
+    {
+      "id": "goetydelight:spider_egg_bubble_tea_2",
+      "required": false
+    },
+    {
+      "id": "goetydelight:ten_thousand_poison_feast",
+      "required": false
+    },
+    {
+      "id": "goetydelight:venomous_spider_knife",
+      "required": false
+    },
+    {
+      "id": "minecraft:waxed_copper_bars",
+      "required": false
+    },
+    {
+      "id": "minecraft:waxed_copper_chain",
+      "required": false
+    },
+    {
+      "id": "minecraft:waxed_copper_lantern",
+      "required": false
+    },
+    {
+      "id": "minecraft:waxed_exposed_copper_bars",
+      "required": false
+    },
+    {
+      "id": "minecraft:waxed_exposed_copper_chain",
+      "required": false
+    },
+    {
+      "id": "minecraft:waxed_exposed_copper_lantern",
+      "required": false
+    },
+    {
+      "id": "minecraft:waxed_oxidized_copper_bars",
+      "required": false
+    },
+    {
+      "id": "minecraft:waxed_oxidized_copper_chain",
+      "required": false
+    },
+    {
+      "id": "minecraft:waxed_oxidized_copper_lantern",
+      "required": false
+    },
+    {
+      "id": "minecraft:waxed_weathered_copper_bars",
+      "required": false
+    },
+    {
+      "id": "minecraft:waxed_weathered_copper_chain",
+      "required": false
+    },
+    {
+      "id": "minecraft:waxed_weathered_copper_lantern",
+      "required": false
+    },
+    {
+      "id": "cataclysm:belt_of_monstrosity",
+      "required": false
+    },
+    {
+      "id": "cataclysm:blazing_bone",
+      "required": false
+    },
+    {
+      "id": "cataclysm:blood_clot",
+      "required": false
+    },
+    {
+      "id": "cataclysm:chain_of_soul_binding",
+      "required": false
+    },
+    {
+      "id": "cataclysm:enderite_block",
+      "required": false
+    },
+    {
+      "id": "cataclysm:enderite_ingot",
+      "required": false
+    },
+    {
+      "id": "cataclysm:void_shard",
+      "required": false
+    },
+    {
+      "id": "cratedelight:beetroot_crate",
+      "required": false
+    },
+    {
+      "id": "cratedelight:carrot_crate",
+      "required": false
+    },
+    {
+      "id": "cratedelight:ground_cinnamon_bag",
+      "required": false
+    },
+    {
+      "id": "cratedelight:peanut_crate",
+      "required": false
+    },
+    {
+      "id": "cratedelight:potato_crate",
+      "required": false
+    },
+    {
+      "id": "cratedelight:salt_bag",
+      "required": false
+    },
+    {
+      "id": "deep_aether:aercloud_grass_block",
+      "required": false
+    },
+    {
+      "id": "deep_aether:aercloud_root_carpet",
+      "required": false
+    },
+    {
+      "id": "deep_aether:aercloud_roots",
+      "required": false
+    },
+    {
+      "id": "deep_aether:aerwhale_totem",
+      "required": false
+    },
+    {
+      "id": "deep_aether:blightmoss_holystone_brick_slab",
+      "required": false
+    },
+    {
+      "id": "deep_aether:blightmoss_holystone_brick_stairs",
+      "required": false
+    },
+    {
+      "id": "deep_aether:blightmoss_holystone_brick_wall",
+      "required": false
+    },
+    {
+      "id": "deep_aether:blightmoss_holystone_bricks",
+      "required": false
+    },
+    {
+      "id": "deep_aether:blightmoss_holystone_tile_slab",
+      "required": false
+    },
+    {
+      "id": "deep_aether:blightmoss_holystone_tile_stairs",
+      "required": false
+    },
+    {
+      "id": "deep_aether:blightmoss_holystone_tile_wall",
+      "required": false
+    },
+    {
+      "id": "deep_aether:blightmoss_holystone_tiles",
+      "required": false
+    },
+    {
+      "id": "deep_aether:bronze_compass",
+      "required": false
+    },
+    {
+      "id": "deep_aether:chaos_emerald",
+      "required": false
+    },
+    {
+      "id": "deep_aether:conberry_log_wall",
+      "required": false
+    },
+    {
+      "id": "deep_aether:conberry_wall",
+      "required": false
+    },
+    {
+      "id": "deep_aether:cruderoot_log_wall",
+      "required": false
+    },
+    {
+      "id": "deep_aether:cruderoot_wall",
+      "required": false
+    },
+    {
+      "id": "deep_aether:gilded_holystone_brick_slab",
+      "required": false
+    },
+    {
+      "id": "deep_aether:gilded_holystone_brick_stairs",
+      "required": false
+    },
+    {
+      "id": "deep_aether:gilded_holystone_brick_wall",
+      "required": false
+    },
+    {
+      "id": "deep_aether:gilded_holystone_bricks",
+      "required": false
+    },
+    {
+      "id": "deep_aether:gilded_holystone_tile_slab",
+      "required": false
+    },
+    {
+      "id": "deep_aether:gilded_holystone_tile_stairs",
+      "required": false
+    },
+    {
+      "id": "deep_aether:gilded_holystone_tile_wall",
+      "required": false
+    },
+    {
+      "id": "deep_aether:gilded_holystone_tiles",
+      "required": false
+    },
+    {
+      "id": "deep_aether:gold_compass",
+      "required": false
+    },
+    {
+      "id": "deep_aether:magnetic_cog",
+      "required": false
+    },
+    {
+      "id": "deep_aether:magnetic_staff",
+      "required": false
+    },
+    {
+      "id": "deep_aether:mimic_eye",
+      "required": false
+    },
+    {
+      "id": "deep_aether:moa_totem",
+      "required": false
+    },
+    {
+      "id": "deep_aether:rain_aercloud",
+      "required": false
+    },
+    {
+      "id": "deep_aether:roseroot_log_wall",
+      "required": false
+    },
+    {
+      "id": "deep_aether:roseroot_wall",
+      "required": false
+    },
+    {
+      "id": "deep_aether:sentry_alarm",
+      "required": false
+    },
+    {
+      "id": "deep_aether:silver_compass",
+      "required": false
+    },
+    {
+      "id": "deep_aether:skyjade_moa_armor",
+      "required": false
+    },
+    {
+      "id": "deep_aether:stripped_conberry_log_wall",
+      "required": false
+    },
+    {
+      "id": "deep_aether:stripped_conberry_wall",
+      "required": false
+    },
+    {
+      "id": "deep_aether:stripped_cruderoot_log_wall",
+      "required": false
+    },
+    {
+      "id": "deep_aether:stripped_cruderoot_wall",
+      "required": false
+    },
+    {
+      "id": "deep_aether:stripped_roseroot_log_wall",
+      "required": false
+    },
+    {
+      "id": "deep_aether:stripped_roseroot_wall",
+      "required": false
+    },
+    {
+      "id": "deep_aether:stripped_sunroot_log_wall",
+      "required": false
+    },
+    {
+      "id": "deep_aether:stripped_sunroot_wall",
+      "required": false
+    },
+    {
+      "id": "deep_aether:stripped_yagroot_log_wall",
+      "required": false
+    },
+    {
+      "id": "deep_aether:stripped_yagroot_wall",
+      "required": false
+    },
+    {
+      "id": "deep_aether:sun_clock",
+      "required": false
+    },
+    {
+      "id": "deep_aether:sunroot_log_wall",
+      "required": false
+    },
+    {
+      "id": "deep_aether:sunroot_wall",
+      "required": false
+    },
+    {
+      "id": "deep_aether:tall_alien_plant",
+      "required": false
+    },
+    {
+      "id": "deep_aether:yagroot_log_wall",
+      "required": false
+    },
+    {
+      "id": "deep_aether:yagroot_wall",
+      "required": false
+    },
+    {
+      "id": "deep_aether:zephyr_totem",
+      "required": false
+    },
+    {
+      "id": "dungeonsdelight:creeperilla",
+      "required": false
+    },
+    {
+      "id": "dungeonsdelight:creeperilla_squib",
+      "required": false
+    },
+    {
+      "id": "dungeonsdelight:lutefisk",
+      "required": false
+    },
+    {
+      "id": "dungeonsdelight:poi_cup",
+      "required": false
+    },
+    {
+      "id": "dungeonsdelight:rubaboo_cup",
+      "required": false
+    },
+    {
+      "id": "dungeonsdelight:salt_soaked_stew_cup",
+      "required": false
+    },
+    {
+      "id": "dungeonsdelight:sculk_catblueberry",
+      "required": false
+    },
+    {
+      "id": "dungeonsdelight:sculk_dogapple",
+      "required": false
+    },
+    {
+      "id": "dungeonsdelight:spider_salmagundi_cup",
+      "required": false
+    },
+    {
+      "id": "dungeonsdelight:stained_cleaver",
+      "required": false
+    },
+    {
+      "id": "dungeonsdelight:stained_knife",
+      "required": false
+    },
+    {
+      "id": "dungeonsdelight:steel_cleaver",
+      "required": false
+    },
+    {
+      "id": "farmers_spell:dragonskin_aspic_slice",
+      "required": false
+    },
+    {
+      "id": "goety:purpur_wall",
+      "required": false
+    },
+    {
+      "id": "goetydelight:braised_bear_paw",
+      "required": false
+    },
+    {
+      "id": "goetydelight:bream",
+      "required": false
+    },
+    {
+      "id": "goetydelight:cold_leaf_candy",
+      "required": false
+    },
+    {
+      "id": "goetydelight:cooked_bream",
+      "required": false
+    },
+    {
+      "id": "goetydelight:cooked_shark_fin",
+      "required": false
+    },
+    {
+      "id": "goetydelight:grass_cutting_focus",
+      "required": false
+    },
+    {
+      "id": "goetydelight:hoe_focus",
+      "required": false
+    },
+    {
+      "id": "goetydelight:love_and_fertility_focus",
+      "required": false
+    },
+    {
+      "id": "goetydelight:shark_fin",
+      "required": false
+    },
+    {
+      "id": "goetydelight:taiyaki",
+      "required": false
+    },
+    {
+      "id": "goetydelight:unholy_sauce",
+      "required": false
+    },
+    {
+      "id": "iss_magicfromtheeast:arcane_relics",
+      "required": false
+    },
+    {
+      "id": "iss_magicfromtheeast:dune_rune",
+      "required": false
+    }
+  ]
+}

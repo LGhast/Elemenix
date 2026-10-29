@@ -333,10 +333,6 @@ public class RecipeHelper {
     private static ItemStack replacedStack(RecipeType<?> type, ItemStack stack) {
         Item item = stack.getItem();
 
-        if (item == Items.ENCHANTED_BOOK) {
-            return new ItemStack(Items.BOOK, stack.getCount());
-        }
-
         if(AE2_LOADED){
             String itemId = BuiltInRegistries.ITEM.getKey(item).toString();
             if(type.toString().equals("ae2:inscriber") && (itemId.equals("ae2:calculation_processor_press")
@@ -356,6 +352,10 @@ public class RecipeHelper {
         if(GOETY_LOADED){
             String itemId = BuiltInRegistries.ITEM.getKey(item).toString();
             if(itemId.equals("goety:totem_of_souls") || itemId.equals("goety:totem_of_roots")){
+                return new ItemStack(ModItems.NULLVOID.asItem(), stack.getCount());
+            }
+
+            if(itemId.equals("goety:brew") || itemId.equals("goety:lingering_brew") || itemId.equals("goety:splash_brew") || itemId.equals("goety:gas_brew")){
                 return new ItemStack(ModItems.NULLVOID.asItem(), stack.getCount());
             }
         }

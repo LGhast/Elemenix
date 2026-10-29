@@ -42,6 +42,20 @@ public class PotionElemenixInfo {
         }
     }
 
+    /**
+     * Registers a TRecipe-derived potion mapping (lower priority than direct).
+     */
+    public static void putDerived(String potionId, Constituents constituents) {
+        ResourceLocation id = ResourceLocation.tryParse(potionId);
+        if (id != null && constituents != null) {
+            DERIVED_MAP.put(id, constituents.copy());
+        }
+    }
+
+    public static boolean hasConstituents(ResourceLocation id) {
+        return DIRECT_MAP.containsKey(id) || DERIVED_MAP.containsKey(id);
+    }
+
     public static void clear() {
         DIRECT_MAP.clear();
         DERIVED_MAP.clear();
@@ -76,7 +90,7 @@ public class PotionElemenixInfo {
         return id;
     }
 
-    private static Constituents getConstituents(ResourceLocation id) {
+    public static Constituents getConstituents(ResourceLocation id) {
         Constituents direct = DIRECT_MAP.get(id);
         if (direct != null) return direct.copy();
 
@@ -119,14 +133,16 @@ public class PotionElemenixInfo {
         }
     }
 
-    private static void deriveAll() {
+    public static boolean deriveAll() {
         Set<ResourceLocation> targets = new HashSet<>(MIX_BY_TO.keySet());
         targets.addAll(DIRECT_MAP.keySet());
         targets.add(WATER_POTION_ID);
 
+        int before = DERIVED_MAP.size();
         for (ResourceLocation id : targets) {
             derive(id);
         }
+        return DERIVED_MAP.size() != before;
     }
 
     private static Constituents derive(ResourceLocation id) {

@@ -1119,6 +1119,22 @@
     {
       "id": "jiagureappear:infinite_papyrus",
       "required": false
+    },
+    {
+      "id": "goetydelight:render_block",
+      "required": false
+    },
+    {
+      "id": "goetydelight:goetydelight_icon",
+      "required": false
+    },
+    {
+      "id": "goetydelight:example_item",
+      "required": false
+    },
+    {
+      "id": "goetydelight:not_anything",
+      "required": false
     }
   ]
 }
