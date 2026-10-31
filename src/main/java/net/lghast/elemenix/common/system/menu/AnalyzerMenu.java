@@ -335,7 +335,7 @@ public class AnalyzerMenu extends AbstractContainerMenu {
         if (constituents.isUnanalysable()) return;
 
         for (Elemenix type : Elemenix.values()) {
-            long amount = (long) constituents.get(type) * inputStack.getCount();
+            long amount = constituents.get(type) * inputStack.getCount();
             if (amount > 0) {
                 long current = data.getLong(type.getIndex());
                 long newValue = current + amount;
@@ -583,7 +583,7 @@ public class AnalyzerMenu extends AbstractContainerMenu {
 
         int maxAmount = shiftClick ? maxStackSize : 1;
         for (Elemenix type : Elemenix.values()) {
-            int req = required.get(type);
+            long req = required.get(type);
             if (req > 0) {
                 long available = data.getLong(type.getIndex()) & 0xFFFFFFFFL;
                 maxAmount = (int) Math.min(maxAmount, available / req);
@@ -593,7 +593,7 @@ public class AnalyzerMenu extends AbstractContainerMenu {
         if (maxAmount <= 0) return;
 
         for (Elemenix type : Elemenix.values()) {
-            int consumption = required.get(type) * maxAmount;
+            long consumption = required.get(type) * maxAmount;
             if (consumption > 0) {
                 long current = data.getLong(type.getIndex());
                 data.setLong(type.getIndex(), Math.max(0, current - consumption));
@@ -633,7 +633,7 @@ public class AnalyzerMenu extends AbstractContainerMenu {
 
         int maxAmount = shiftClick ? maxStackSize : 1;
         for (Elemenix type : Elemenix.values()) {
-            int req = required.get(type);
+            long req = required.get(type);
             if (req > 0) {
                 long available = data.getLong(type.getIndex()) & 0xFFFFFFFFL;
                 maxAmount = (int) Math.min(maxAmount, available / req);
@@ -643,7 +643,7 @@ public class AnalyzerMenu extends AbstractContainerMenu {
         if (maxAmount <= 0) return;
 
         for (Elemenix type : Elemenix.values()) {
-            int consumption = required.get(type) * maxAmount;
+            long consumption = required.get(type) * maxAmount;
             if (consumption > 0) {
                 long current = data.getLong(type.getIndex());
                 data.setLong(type.getIndex(), Math.max(0, current - consumption));

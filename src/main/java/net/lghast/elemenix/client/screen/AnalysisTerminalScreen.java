@@ -470,7 +470,7 @@ public class AnalysisTerminalScreen extends AbstractContainerScreen<AnalysisTerm
 
             for (int col = 0; col < 3; col++) {
                 Elemenix type = ESSENCE_ROWS[row][col];
-                int amount = required.get(type);
+                long amount = required.get(type);
                 if (amount <= 0) continue;
 
                 String valueText = ModUtils.formatNumber(containerData.getLong(type.getIndex()));
@@ -533,7 +533,7 @@ public class AnalysisTerminalScreen extends AbstractContainerScreen<AnalysisTerm
         LongContainerData containerData = menu.getLongContainerData();
         long max = Long.MAX_VALUE;
         for (Elemenix type : Elemenix.values()) {
-            int req = required.get(type);
+            long req = required.get(type);
             if (req > 0) {
                 long available = containerData.getLong(type.getIndex()) & 0xFFFFFFFFL;
                 max = Math.min(max, available / req);

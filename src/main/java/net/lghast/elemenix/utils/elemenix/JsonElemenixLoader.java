@@ -116,7 +116,7 @@ public class JsonElemenixLoader {
             String typeName = obj.get("elemenix").getAsString().toUpperCase();
             try {
                 Elemenix type = Elemenix.valueOf(typeName);
-                int value = obj.get("value").getAsInt();
+                long value = obj.get("value").getAsLong();
                 return new Constituents(type, value);
             } catch (IllegalArgumentException e) {
                 LOGGER.warn("Invalid elemenix type '{}' for entry {}", typeName, id);
@@ -129,12 +129,12 @@ public class JsonElemenixLoader {
             LOGGER.warn("Entry {} has no recognizable format", id);
             return null;
         }
-        int o = arr.get(0).getAsInt();
-        int t = arr.get(1).getAsInt();
-        int f = arr.get(2).getAsInt();
-        int m = arr.get(3).getAsInt();
-        int e = arr.get(4).getAsInt();
-        int a = arr.get(5).getAsInt();
+        long o = arr.get(0).getAsLong();
+        long t = arr.get(1).getAsLong();
+        long f = arr.get(2).getAsLong();
+        long m = arr.get(3).getAsLong();
+        long e = arr.get(4).getAsLong();
+        long a = arr.get(5).getAsLong();
         return new Constituents(o, t, f, m, e, a);
     }
 

@@ -168,7 +168,7 @@ public class AnalyzerScreen extends AbstractContainerScreen<AnalyzerMenu> {
                 Constituents constituents = ElemenixInfo.getPremiumAppliedConstituents(hoveredStack);
                 Elemenix[] types = Elemenix.values();
                 for (int i = 0; i < types.length; i++) {
-                    int amount = constituents.get(types[i]);
+                    long amount = constituents.get(types[i]);
                     if (amount > 0) {
                         String previewText = ModUtils.formatNumber(amount, "-%s");
                         graphics.drawString(this.font, previewText, x + PREVIEW_X, y + VALUE_START_Y + i * VALUE_SPACING,
@@ -206,7 +206,7 @@ public class AnalyzerScreen extends AbstractContainerScreen<AnalyzerMenu> {
 
         Elemenix[] types = Elemenix.values();
         for (int i = 0; i < types.length; i++) {
-            int amount = constituents.get(types[i]) * inputStack.getCount();
+            long amount = constituents.get(types[i]) * inputStack.getCount();
             if (amount > 0) {
                 String previewText = ModUtils.formatNumber(amount, "+%s");
                 graphics.drawString(this.font, previewText, x + PREVIEW_X, y + VALUE_START_Y + i * VALUE_SPACING,

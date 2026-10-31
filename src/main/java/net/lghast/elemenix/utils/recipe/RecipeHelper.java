@@ -1378,8 +1378,8 @@ public class RecipeHelper {
                 if(result.getFoodProperties(null) == null){
                     constituents.set(Elemenix.FLUMIX, 0);
                 }else{
-                    constituents.set(Elemenix.FLUMIX, (int)(constituents.get(Elemenix.FLUMIX) * 0.2));
-                    constituents.set(Elemenix.ENERGIX, constituents.get(Elemenix.ENERGIX) + (int)Math.min(10, constituents.getSum()));
+                    constituents.set(Elemenix.FLUMIX, (long)(constituents.get(Elemenix.FLUMIX) * 0.2));
+                    constituents.set(Elemenix.ENERGIX, constituents.get(Elemenix.ENERGIX) + Math.min(10, constituents.getSum()));
                 }
             }
 

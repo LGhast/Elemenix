@@ -167,7 +167,7 @@ public class JsonTRecipeLoader {
         for (JsonElement e : arr) {
             JsonObject obj = e.getAsJsonObject();
             String typeName = obj.get("type").getAsString().toUpperCase();
-            int value = obj.get("value").getAsInt();
+            long value = obj.get("value").getAsLong();
             try {
                 Elemenix type = Elemenix.valueOf(typeName);
                 cons.add(type, value);
@@ -310,7 +310,7 @@ public class JsonTRecipeLoader {
         }
         String outputId = obj.get("output").getAsString();
         String typeName = obj.get("elemenix_type").getAsString().toUpperCase();
-        int value = obj.get("value").getAsInt();
+        long value = obj.get("value").getAsLong();
         TechnicalRecipe recipe = new TechnicalRecipe(outputId, 1);
         recipe.addInput("minecraft:bucket", 1);
         try {

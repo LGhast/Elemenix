@@ -228,7 +228,7 @@ public class EjectorBlockEntity extends BaseContainerBlockEntity implements Worl
         if (constituents.isUnanalysable()) return;
 
         for (Elemenix elemenix : Elemenix.values()) {
-            int value = constituents.get(elemenix);
+            long value = constituents.get(elemenix);
             if (value > 0) {
                 addElemenix(elemenix, value);
             }
@@ -357,7 +357,7 @@ public class EjectorBlockEntity extends BaseContainerBlockEntity implements Worl
         setChanged();
     }
 
-    public void addElemenix(Elemenix elemenix, int amount) {
+    public void addElemenix(Elemenix elemenix, long amount) {
         if (amount <= 0) return;
         int index = elemenix.getIndex();
         if (index >= 0 && index < 6) {
@@ -459,7 +459,7 @@ public class EjectorBlockEntity extends BaseContainerBlockEntity implements Worl
 
     @Override
     public void receive(Elemenix type, long amount) {
-        addElemenix(type, (int) amount);
+        addElemenix(type, amount);
     }
 
     public IItemHandler getItemHandler(@org.jetbrains.annotations.Nullable Direction side) {

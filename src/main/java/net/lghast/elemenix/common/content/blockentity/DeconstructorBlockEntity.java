@@ -174,7 +174,7 @@ public class DeconstructorBlockEntity extends BaseContainerBlockEntity implement
         Constituents constituents = ElemenixInfo.getDiscountAppliedConstituents(stack);
 
         for (Elemenix elemenix : Elemenix.values()) {
-            int value = constituents.get(elemenix);
+            long value = constituents.get(elemenix);
             if (value > 0) {
                 addElemenix(elemenix, value);
             }

@@ -10,18 +10,17 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * Fixed-size container of the six elemenix values, clamped to [0, MAX];
+ * Fixed-size container of the six elemenix values, saturated to [0, Long.MAX_VALUE];
  * carries an unanalysable flag that freezes its contents.
  */
 public class Constituents {
-    private static final int MAX = 20_0000_0000;
     public static volatile double DISCOUNT = 1.0;
     public static volatile double PREMIUM = 0;
 
-    final int[] constituents = new int[6];
+    final long[] constituents = new long[6];
     boolean unanalysable = false;
 
-    public Constituents(int organix, int terrix, int flumix, int metallix, int energix, int arcanix){
+    public Constituents(long organix, long terrix, long flumix, long metallix, long energix, long arcanix){
         setAll(organix, terrix, flumix, metallix, energix, arcanix);
     }
 
@@ -29,7 +28,7 @@ public class Constituents {
         clear();
     }
 
-    public Constituents(Elemenix type, int value){
+    public Constituents(Elemenix type, long value){
         clear();
         set(type, value);
     }
@@ -52,22 +51,22 @@ public class Constituents {
     }
 
     public void clear(){
-        Arrays.fill(constituents, 0);
+        Arrays.fill(constituents, 0L);
     }
 
-    public int get(Elemenix type){
+    public long get(Elemenix type){
         int index = type.getIndex();
-        return isValidIndex(index) ? constituents[index] : 0;
+        return isValidIndex(index) ? constituents[index] : 0L;
     }
 
-    public void set(Elemenix type, int value) {
+    public void set(Elemenix type, long value) {
         if (unanalysable) return;
         int index = type.getIndex();
         if (!isValidIndex(index)) return;
         constituents[index] = clampValue(value);
     }
 
-    public void setAll(int organix, int terrix, int flumix, int metallix, int energix, int arcanix) {
+    public void setAll(long organix, long terrix, long flumix, long metallix, long energix, long arcanix) {
         if (unanalysable) return;
 
         constituents[0] = clampValue(organix);
@@ -78,26 +77,24 @@ public class Constituents {
         constituents[5] = clampValue(arcanix);
     }
 
-    public void add(Elemenix type, int addition) {
+    public void add(Elemenix type, long addition) {
         if (unanalysable || addition <= 0) return;
         int index = type.getIndex();
         if (!isValidIndex(index)) return;
-        long newValue = (long) constituents[index] + addition;
-        constituents[index] = (int) Math.min(newValue, MAX);
+        constituents[index] = saturatedAdd(constituents[index], addition);
     }
 
-    public void deduct(Elemenix type, int deduction) {
+    public void deduct(Elemenix type, long deduction) {
         if (unanalysable || deduction <= 0) return;
         int index = type.getIndex();
         if (!isValidIndex(index)) return;
-        constituents[index] = Math.max(constituents[index] - deduction, 0);
+        constituents[index] = Math.max(constituents[index] - deduction, 0L);
     }
 
     public void multiply(int factor) {
         if(factor < 0) return;
         for(int i = 0; i < constituents.length; i++){
-            long newValue = (long) constituents[i] * factor;
-            constituents[i] = clampValue((int)Math.min(newValue, MAX));
+            constituents[i] = saturatedMultiply(constituents[i], factor);
         }
     }
 
@@ -118,25 +115,25 @@ public class Constituents {
     public void add(Constituents other) {
         if (unanalysable || other == null || other.unanalysable) return;
         for (int i = 0; i < constituents.length; i++) {
-            constituents[i] = clampValue(constituents[i] + other.constituents[i]);
+            constituents[i] = saturatedAdd(constituents[i], other.constituents[i]);
         }
     }
 
     public void deduct(Constituents other) {
         if (unanalysable || other == null || other.unanalysable) return;
         for (int i = 0; i < constituents.length; i++) {
-            constituents[i] = clampValue(constituents[i] - other.constituents[i]);
+            constituents[i] = Math.max(constituents[i] - other.constituents[i], 0L);
         }
     }
 
     /**
-     * Total of all six values; Long.MAX_VALUE when unanalysable.
+     * Total of all six values, saturated to Long.MAX_VALUE; Long.MAX_VALUE when unanalysable.
      */
     public long getSum(){
         if(unanalysable) return Long.MAX_VALUE;
         long sum = 0;
-        for (int constituent : constituents) {
-            sum += constituent;
+        for (long constituent : constituents) {
+            sum = saturatedAdd(sum, constituent);
         }
         return sum;
     }
@@ -256,15 +253,15 @@ public class Constituents {
     }
 
     public static Constituents rawMeat(int hunger){
-        return new Constituents(5 * hunger, 0, hunger, 0, 0, 0);
+        return new Constituents(5L * hunger, 0, hunger, 0, 0, 0);
     }
 
     public static Constituents rawMeat(int hunger, int flumixAddition){
-        return new Constituents(5 * hunger, 0, hunger + flumixAddition, 0, 0, 0);
+        return new Constituents(5L * hunger, 0, hunger + flumixAddition, 0, 0, 0);
     }
 
     public static Constituents rawFish(int hunger){
-        return new Constituents(5 * hunger, 2, Math.max(hunger, 8), 0, 0, 0);
+        return new Constituents(5L * hunger, 2, Math.max(hunger, 8), 0, 0, 0);
     }
 
     public static Constituents stone(){
@@ -291,16 +288,38 @@ public class Constituents {
         return index>=0 && index<constituents.length;
     }
 
-    private int clampValue(int value) {
-        return Math.max(0, Math.min(value, MAX));
+    private long clampValue(long value) {
+        return Math.max(0L, value);
     }
 
     private void multiplyInternal(double multiplier, boolean useCeil) {
         if (multiplier < 0) return;
         for (int i = 0; i < constituents.length; i++) {
             double raw = constituents[i] * multiplier;
-            int newVal = useCeil ? (int) Math.ceil(raw) : (int) Math.floor(raw);
+            long newVal = useCeil ? (long) Math.ceil(raw) : (long) Math.floor(raw);
             constituents[i] = clampValue(newVal);
+        }
+    }
+
+    /**
+     * Saturating addition: caps positive overflow at Long.MAX_VALUE instead of wrapping.
+     */
+    private static long saturatedAdd(long a, long b) {
+        try {
+            return Math.addExact(a, b);
+        } catch (ArithmeticException e) {
+            return Long.MAX_VALUE;
+        }
+    }
+
+    /**
+     * Saturating multiplication: caps positive overflow at Long.MAX_VALUE instead of wrapping.
+     */
+    private static long saturatedMultiply(long a, long b) {
+        try {
+            return Math.multiplyExact(a, b);
+        } catch (ArithmeticException e) {
+            return Long.MAX_VALUE;
         }
     }
 }

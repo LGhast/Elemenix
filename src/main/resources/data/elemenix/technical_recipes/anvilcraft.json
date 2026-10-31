@@ -451,6 +451,96 @@
       ]
     },
     {
+      "output": "anvilcraft:celestial_forging_anvil",
+      "count": 1,
+      "inputs": [
+        { "id": "anvilcraft:transcendium_block", "count": 8 },
+        { "id": "anvilcraft:enchanted_gold_block", "count": 8 },
+        { "id": "anvilcraft:negative_matter_block", "count": 4 },
+        { "id": "anvilcraft:confinement_chamber", "count": 4 },
+        { "id": "anvilcraft:spacetime_supercomputer", "count": 1 },
+        { "id": "anvilcraft:mass_energy_inverter", "count": 1 }
+      ]
+    },
+    {
+      "output": "anvilcraft:hyperdimension_storage_station",
+      "count": 1,
+      "inputs": [
+        { "id": "anvilcraft:space_overcompressor", "count": 4 },
+        { "id": "anvilcraft:hypercube", "count": 16 },
+        { "id": "anvilcraft:singularity_crystal", "count": 1 },
+        { "id": "anvilcraft:shulker_container", "count": 1 }
+      ]
+    },
+    {
+      "output": "anvilcraft:monolith",
+      "count": 1,
+      "inputs": [
+        { "id": "anvilcraft:space_supercomputer", "count": 1 },
+        { "id": "minecraft:blackstone", "count": 1 },
+        { "id": "anvilcraft:mass_energy_inverter", "count": 1 }
+      ]
+    },
+    {
+      "output": "anvilcraft:legacy_essence",
+      "count": 1,
+      "inputs": [
+        { "id": "anvilcraft:monolith", "count": 1 }
+      ]
+    },
+    {
+      "output": "anvilcraft:confined_time_anvilon",
+      "count": 1,
+      "inputs": [
+        { "id": "anvilcraft:corrupted_beacon", "count": 1 },
+        { "id": "anvilcraft:confinement_chamber", "count": 1 }
+      ]
+    },
+    {
+      "output": "anvilcraft:confined_space_anvilon",
+      "count": 1,
+      "inputs": [
+        { "id": "anvilcraft:space_overcompressor", "count": 1 },
+        { "id": "anvilcraft:confinement_chamber", "count": 1 }
+      ]
+    },
+    {
+      "output": "anvilcraft:confined_mass_anvilon",
+      "count": 1,
+      "inputs": [
+        { "id": "anvilcraft:giant_anvil", "count": 1 },
+        { "id": "anvilcraft:confinement_chamber", "count": 1 }
+      ]
+    },
+    {
+      "output": "anvilcraft:confined_energy_anvilon",
+      "count": 1,
+      "inputs": [
+        { "id": "anvilcraft:giant_anvil", "count": 1 },
+        { "id": "anvilcraft:confinement_chamber", "count": 1 }
+      ],
+      "additions": [
+        { "type": "energix", "value": 12800 }
+      ]
+    },
+    {
+      "preset": "same",
+      "output": "anvilcraft:hyperdimension_uploader",
+      "input": "anvilcraft:singularity_crystal"
+    },
+    {
+      "preset": "same",
+      "output": "anvilcraft:giant_monolith_core",
+      "input": "anvilcraft:monolith_core",
+      "multiplier" : 10
+    },
+    {
+      "preset": "same",
+      "output": "anvilcraft:giant_monolith_line",
+      "input": "anvilcraft:monolith_line",
+      "multiplier" : 10
+    },
+    {
       "preset": "bucket_fluid",
       "output": "anvilcraft:white_cement_bucket",
       "fluid": "&anvilcraft:white_cement"

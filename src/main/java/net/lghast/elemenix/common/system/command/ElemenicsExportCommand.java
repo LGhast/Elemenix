@@ -1,4 +1,4 @@
-package net.lghast.elemenix.common.system.commond;
+package net.lghast.elemenix.common.system.command;
 
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.context.CommandContext;

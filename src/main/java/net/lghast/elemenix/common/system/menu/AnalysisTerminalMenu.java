@@ -475,7 +475,7 @@ public class AnalysisTerminalMenu extends AbstractContainerMenu {
 
     private boolean failToAddEssences(Constituents constituents, int count) {
         for (Elemenix type : Elemenix.values()) {
-            long amount = (long) constituents.get(type) * count;
+            long amount = constituents.get(type) * count;
             if (amount > 0) {
                 long current = data.getLong(type.getIndex());
                 if (current > Long.MAX_VALUE - amount) {
@@ -488,7 +488,7 @@ public class AnalysisTerminalMenu extends AbstractContainerMenu {
 
     private void addEssences(Constituents constituents, int count) {
         for (Elemenix type : Elemenix.values()) {
-            long amount = (long) constituents.get(type) * count;
+            long amount = constituents.get(type) * count;
             if (amount > 0) {
                 data.setLong(type.getIndex(), data.getLong(type.getIndex()) + amount);
             }
@@ -719,7 +719,7 @@ public class AnalysisTerminalMenu extends AbstractContainerMenu {
 
         int maxAmount = shiftClick ? maxStackSize : 1;
         for (Elemenix type : Elemenix.values()) {
-            int req = required.get(type);
+            long req = required.get(type);
             if (req > 0) {
                 long available = data.getLong(type.getIndex()) & 0xFFFFFFFFL;
                 maxAmount = (int) Math.min(maxAmount, available / req);
@@ -739,7 +739,7 @@ public class AnalysisTerminalMenu extends AbstractContainerMenu {
         }
 
         for (Elemenix type : Elemenix.values()) {
-            int consumption = required.get(type) * actualAmount;
+            long consumption = required.get(type) * actualAmount;
             if (consumption > 0) {
                 long current = data.getLong(type.getIndex());
                 data.setLong(type.getIndex(), Math.max(0, current - consumption));
@@ -787,7 +787,7 @@ public class AnalysisTerminalMenu extends AbstractContainerMenu {
 
         int maxAmount = shiftClick ? maxStackSize : 1;
         for (Elemenix type : Elemenix.values()) {
-            int req = required.get(type);
+            long req = required.get(type);
             if (req > 0) {
                 long available = data.getLong(type.getIndex()) & 0xFFFFFFFFL;
                 maxAmount = (int) Math.min(maxAmount, available / req);
@@ -807,7 +807,7 @@ public class AnalysisTerminalMenu extends AbstractContainerMenu {
         }
 
         for (Elemenix type : Elemenix.values()) {
-            int consumption = required.get(type) * actualAmount;
+            long consumption = required.get(type) * actualAmount;
             if (consumption > 0) {
                 long current = data.getLong(type.getIndex());
                 data.setLong(type.getIndex(), Math.max(0, current - consumption));

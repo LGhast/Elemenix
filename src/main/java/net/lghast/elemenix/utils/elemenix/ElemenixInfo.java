@@ -371,8 +371,8 @@ public class ElemenixInfo {
         }
 
         Constituents scaled = constituents.copy();
-        scaled.add(Elemenix.ENERGIX, amplifier * 20);
-        scaled.add(Elemenix.ARCANIX, amplifier * 20);
+        scaled.add(Elemenix.ENERGIX, amplifier * 20L);
+        scaled.add(Elemenix.ARCANIX, amplifier * 20L);
         return scaled;
     }
 
@@ -392,11 +392,9 @@ public class ElemenixInfo {
 
         PotionContents contents = stack.get(DataComponents.POTION_CONTENTS);
         if (contents == null) {
-            // Bare stack (e.g. a technical-recipe input without content): container only.
             return constituents;
         }
 
-        // 未指定药水效果：按水瓶处理（游戏会将其显示为不可合成药水）
         Holder<Potion> potion = contents.potion().orElse(Potions.WATER);
 
         Constituents potionConstituents = PotionElemenixInfo.getConstituents(potion);
@@ -516,12 +514,12 @@ public class ElemenixInfo {
                 }
 
                 Constituents constituents = new Constituents(
-                        Integer.parseInt(parts[1]),
-                        Integer.parseInt(parts[2]),
-                        Integer.parseInt(parts[3]),
-                        Integer.parseInt(parts[4]),
-                        Integer.parseInt(parts[5]),
-                        Integer.parseInt(parts[6])
+                        Long.parseLong(parts[1]),
+                        Long.parseLong(parts[2]),
+                        Long.parseLong(parts[3]),
+                        Long.parseLong(parts[4]),
+                        Long.parseLong(parts[5]),
+                        Long.parseLong(parts[6])
                 );
 
                 newElemenixMap.put(parts[0], constituents);

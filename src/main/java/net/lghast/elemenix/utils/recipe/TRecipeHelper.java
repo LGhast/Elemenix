@@ -232,8 +232,8 @@ public class TRecipeHelper {
         if (totalInput == null || totalInput.isUnanalysable()) return false;
 
         double rate = recipe.getCopperState().getOxidizingRate();
-        int metallix = totalInput.get(Elemenix.METALLIX);
-        int oxidized = (int) (metallix * rate);
+        long metallix = totalInput.get(Elemenix.METALLIX);
+        long oxidized = (long) (metallix * rate);
         totalInput.add(Elemenix.TERRIX, oxidized);
         totalInput.deduct(Elemenix.METALLIX, oxidized);
 

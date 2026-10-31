@@ -7,7 +7,6 @@ import net.lghast.elemenix.register.system.ModTags;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.ItemTagsProvider;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import org.jetbrains.annotations.NotNull;
@@ -48,13 +47,6 @@ public class ModItemTagProvider extends ItemTagsProvider {
                 .add(ModItems.ELEMENIC_MEMORIZER.asItem())
                 .add(ModItems.WITCHCRAFT_MEMORIZER.asItem())
                 .add(ModItems.FONDANT_CAKE.asItem())
-        ;
-
-        tag(ModTags.POTIONLIKE)
-                .add(Items.POTION)
-                .add(Items.SPLASH_POTION)
-                .add(Items.LINGERING_POTION)
-                .add(Items.TIPPED_ARROW)
         ;
 
         tag(ModTags.ELEMENIC_TRANSFORMERS)

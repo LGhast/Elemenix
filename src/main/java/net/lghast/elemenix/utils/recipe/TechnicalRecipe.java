@@ -166,7 +166,7 @@ public class TechnicalRecipe{
         this.removedElemenix = removedElemenix;
     }
 
-    public void setAddition(Elemenix elemenix, int addition){
+    public void setAddition(Elemenix elemenix, long addition){
         additions.set(elemenix, addition);
     }
 

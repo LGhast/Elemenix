@@ -121,23 +121,24 @@ public class ModUtils {
         return formatNumber((long) value);
     }
 
-    private static final String[] THREE_UNITS = {"", "K", "M", "B", "T", "Q"};
+    private static final String[] THREE_UNITS = {"", "K", "M", "G", "T", "P", "E"};
     private static final long[] THREE_VALUES = {
             1L,
-            1_000L,           // K - 千
-            1_000_000L,       // M - 百万
-            1_000_000_000L,   // B - 十亿
-            1_000_000_000_000L, // T - 万亿
-            1_000_000_000_000_000L // Q - 千兆
+            1_000L,                      // K - 千
+            1_000_000L,                  // M - 百万
+            1_000_000_000L,              // G - 十亿
+            1_000_000_000_000L,          // T - 万亿
+            1_000_000_000_000_000L,      // P - 千兆
+            1_000_000_000_000_000_000L   // E - 百京
     };
 
     private static final String[] FOUR_UNITS = {"", "W", "Y", "Z", "J"};
     private static final long[] FOUR_VALUES = {
             1L,
-            10_000L,              // W - 万
-            100_000_000L,         // Y - 亿
-            1_000_000_000_000L,   // Z - 兆
-            10_000_000_000_000_000L // J - 京
+            10_000L,                  // W - 万
+            100_000_000L,             // Y - 亿
+            1_000_000_000_000L,       // Z - 兆
+            10_000_000_000_000_000L   // J - 京
     };
 
     public static String formatByThreeGroups(long value) {
