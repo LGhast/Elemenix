@@ -32,11 +32,11 @@ public class ElemenicComparatorMenu extends AbstractContainerMenu {
     }
 
     public int getThreshold() {
-        return data.get(0);
+        return blockEntity.getThreshold();
     }
 
     public int getUnit() {
-        return data.get(1);
+        return blockEntity.getUnit();
     }
 
     public ContainerData getData() {

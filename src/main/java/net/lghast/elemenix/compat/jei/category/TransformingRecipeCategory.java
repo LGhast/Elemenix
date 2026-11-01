@@ -30,7 +30,7 @@ public class TransformingRecipeCategory implements IRecipeCategory<TransformingR
             RecipeType.create("elemenix", "transforming", TransformingRecipe.class);
 
     private static final ResourceLocation BACKGROUND_LOCATION =
-            ResourceLocation.fromNamespaceAndPath("elemenix", "textures/gui/transforming_jei.png");
+            ResourceLocation.fromNamespaceAndPath("elemenix", "textures/gui/jei/transforming_jei.png");
 
     private static final int WIDTH = 120;
     private static final int HEIGHT = 60;

@@ -1,11 +1,11 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_elemenic_enricher": {
+    "has_piston_pump": {
       "conditions": {
         "items": [
           {
-            "items": "elemenix:elemenic_enricher"
+            "items": "elemenix:piston_pump"
           }
         ]
       },
@@ -21,7 +21,7 @@
   "requirements": [
     [
       "has_the_recipe",
-      "has_elemenic_enricher"
+      "has_piston_pump"
     ]
   ],
   "rewards": {

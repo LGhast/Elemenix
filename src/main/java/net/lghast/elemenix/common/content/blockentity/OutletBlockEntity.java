@@ -3,6 +3,7 @@ package net.lghast.elemenix.common.content.blockentity;
 import net.lghast.elemenix.Elemenics;
 import net.lghast.elemenix.common.content.block.ChannelBlock;
 import net.lghast.elemenix.common.content.block.OutletBlock;
+import net.lghast.elemenix.common.content.block.TransformerBlock;
 import net.lghast.elemenix.config.CommonConfig;
 import net.lghast.elemenix.register.content.ModBlockEntities;
 import net.lghast.elemenix.utils.misc.ElemenixHolder;
@@ -134,7 +135,14 @@ public class OutletBlockEntity extends BlockEntity {
     }
 
     private boolean canTransfer(ElemenixHolder source, ElemenixHolder target) {
+        if (!isPathValid(source, target)) return false;
+
+        EjectorBlockEntity ejector = source instanceof EjectorBlockEntity e ? e : null;
+        boolean filterSingle = ejector != null && isExtractingFromFront(ejector) && ejector.getFilterIndex() != EjectorBlockEntity.FILTER_ALL;
+        int filterIndex = ejector != null ? ejector.getFilterIndex() : EjectorBlockEntity.FILTER_ALL;
+
         for (Elemenix type : Elemenix.values()) {
+            if (filterSingle && type.getIndex() != filterIndex) continue;
             if (source.canExtract(type) && target.canReceive(type) && source.getStored(type) > 0) {
                 return true;
             }
@@ -143,8 +151,18 @@ public class OutletBlockEntity extends BlockEntity {
     }
 
     private void transfer(ElemenixHolder source, ElemenixHolder target) {
-        long cap = (long) CommonConfig.OUTLET_MAX_OUTPUT_PER_TYPE.get() * outputPercent / MAX_OUTPUT_PERCENT;
+        EjectorBlockEntity ejector = source instanceof EjectorBlockEntity e ? e : null;
+        boolean ejectorFront = ejector != null && isExtractingFromFront(ejector);
+        boolean filterSingle = ejectorFront && ejector.getFilterIndex() != EjectorBlockEntity.FILTER_ALL;
+        int filterIndex = ejector != null ? ejector.getFilterIndex() : EjectorBlockEntity.FILTER_ALL;
+
+        long cap = getMaxOutputPerType();
+        if (filterSingle) {
+            cap = (long) (cap * CommonConfig.EJECTOR_FRONT_BONUS.get());
+        }
+
         for (Elemenix type : Elemenix.values()) {
+            if (filterSingle && type.getIndex() != filterIndex) continue;
             if (!source.canExtract(type) || !target.canReceive(type)) continue;
             long available = source.getStored(type);
             if (available <= 0) continue;
@@ -154,6 +172,34 @@ public class OutletBlockEntity extends BlockEntity {
         }
     }
 
+    private boolean isExtractingFromFront(EjectorBlockEntity ejector) {
+        Direction outletFacing = getBlockState().getValue(OutletBlock.FACING);
+        return outletFacing == ejector.getFront();
+    }
+
+    private boolean isPathValid(ElemenixHolder source, ElemenixHolder target) {
+        if (source instanceof EjectorBlockEntity ejector && isExtractingFromFront(ejector)) {
+            if (ejector.isDisabled()) return false;
+            int filterIndex = ejector.getFilterIndex();
+            if (filterIndex != EjectorBlockEntity.FILTER_ALL) {
+                Elemenix filterType = Elemenix.values()[filterIndex];
+                if (target instanceof TransformerBlockEntity transformer) {
+                    TransformerBlock block = transformer.getTransformerBlock();
+                    return block == null || filterType == block.getInputElemenixA() || filterType == block.getInputElemenixB();
+                }
+            }
+        }
+        return true;
+    }
+
+    public int getOutputMultiplier() {
+        return getBlockState().getBlock() instanceof OutletBlock outletBlock ? outletBlock.getOutputMultiplier() : 1;
+    }
+
+    private long getMaxOutputPerType() {
+        return (long) CommonConfig.OUTLET_MAX_OUTPUT_PER_TYPE.get() * getOutputMultiplier() * outputPercent / MAX_OUTPUT_PERCENT;
+    }
+
     public OutletPath getPath() {
         if (level == null) {
             return new OutletPath(null, null, false);
@@ -161,7 +207,7 @@ public class OutletBlockEntity extends BlockEntity {
         ElemenixHolder source = findSource(level);
         ElemenixHolder target = findTarget(level);
         if (source instanceof BlockEntity sourceBe && target instanceof BlockEntity targetBe && sourceBe != targetBe) {
-            return new OutletPath(sourceBe.getBlockState().getBlock(), targetBe.getBlockState().getBlock(), true);
+            return new OutletPath(sourceBe.getBlockState().getBlock(), targetBe.getBlockState().getBlock(), isPathValid(source, target));
         }
         return new OutletPath(null, null, false);
     }

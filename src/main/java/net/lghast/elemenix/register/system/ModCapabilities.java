@@ -1,7 +1,6 @@
 package net.lghast.elemenix.register.system;
 
 import net.lghast.elemenix.Elemenics;
-import net.lghast.elemenix.common.content.blockentity.EjectorBlockEntity;
 import net.lghast.elemenix.common.content.blockentity.EnricherBlockEntity;
 import net.lghast.elemenix.common.content.blockentity.InfuserBlockEntity;
 import net.lghast.elemenix.common.content.blockentity.TransformerBlockEntity;
@@ -30,11 +29,6 @@ public class ModCapabilities {
                 Capabilities.ItemHandler.BLOCK,
                 ModBlockEntities.ENRICHER.get(),
                 EnricherBlockEntity::getItemHandler
-        );
-        event.registerBlockEntity(
-                Capabilities.ItemHandler.BLOCK,
-                ModBlockEntities.EJECTOR.get(),
-                EjectorBlockEntity::getItemHandler
         );
     }
 }

@@ -1,5 +1,6 @@
 package net.lghast.elemenix.network.outlet;
 
+import net.lghast.elemenix.common.system.advancement.ValveTrigger;
 import net.lghast.elemenix.common.system.menu.OutletMenu;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
@@ -29,6 +30,9 @@ public record OutletPercentPayload(int percent) implements CustomPacketPayload {
         context.enqueueWork(() -> {
             if (context.player() instanceof ServerPlayer player && player.containerMenu instanceof OutletMenu menu) {
                 menu.setOutputPercent(payload.percent());
+                if (payload.percent() == 0) {
+                    ValveTrigger.TRIGGER.get().trigger(player);
+                }
             }
         });
     }

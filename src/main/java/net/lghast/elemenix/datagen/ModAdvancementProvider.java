@@ -10,9 +10,11 @@ import net.minecraft.advancements.AdvancementType;
 import net.minecraft.advancements.critereon.InventoryChangeTrigger;
 import net.minecraft.advancements.critereon.ItemPredicate;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.data.PackOutput;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.neoforged.neoforge.common.data.AdvancementProvider;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
@@ -47,6 +49,41 @@ public class ModAdvancementProvider extends AdvancementProvider {
                             ItemPredicate.Builder.item().of(ModItems.ELEMENIC_ANALYZER.get()).build()
                     ))
                     .save(saver, ResourceLocation.parse("elemenix:elemenics/root"), existingFileHelper);
+
+            AdvancementHolder obtainComparator = Advancement.Builder.advancement()
+                    .parent(rootAdvancement)
+                    .display(
+                            ModBlocks.ELEMENIC_COMPARATOR,
+                            Component.translatable("advancements.elemenix.obtain_comparator.title"),
+                            Component.translatable("advancements.elemenix.obtain_comparator.description"),
+                            null,
+                            AdvancementType.TASK,
+                            true,
+                            true,
+                            false
+                    )
+                    .addCriterion("get_comparator", InventoryChangeTrigger.TriggerInstance.hasItems(
+                            ItemPredicate.Builder.item().of(ModBlocks.ELEMENIC_COMPARATOR.get()).build()
+                    ))
+                    .save(saver, ResourceLocation.parse("elemenix:elemenics/obtain_comparator"), existingFileHelper);
+
+            ItemStack comparatorChainIcon = new ItemStack(ModBlocks.ELEMENIC_COMPARATOR.asItem());
+            comparatorChainIcon.set(DataComponents.ENCHANTMENT_GLINT_OVERRIDE, true);
+
+            AdvancementHolder overengineered = Advancement.Builder.advancement()
+                    .parent(obtainComparator)
+                    .display(
+                            comparatorChainIcon,
+                            Component.translatable("advancements.elemenix.overengineered.title"),
+                            Component.translatable("advancements.elemenix.overengineered.description"),
+                            null,
+                            AdvancementType.CHALLENGE,
+                            true,
+                            true,
+                            false
+                    )
+                    .addCriterion("chain", ComparatorChainTrigger.chain())
+                    .save(saver, ResourceLocation.parse("elemenix:elemenics/overengineered"), existingFileHelper);
 
             AdvancementHolder obtainMemorizer = Advancement.Builder.advancement()
                     .parent(rootAdvancement)
@@ -185,13 +222,13 @@ public class ModAdvancementProvider extends AdvancementProvider {
                     .save(saver, ResourceLocation.parse("elemenix:elemenics/obtain_enricher"), existingFileHelper);
 
             AdvancementHolder obtainEjector = Advancement.Builder.advancement()
-                    .parent(obtainEnricher)
+                    .parent(obtainTank)
                     .display(
                             ModBlocks.ELEMENIC_EJECTOR,
                             Component.translatable("advancements.elemenix.obtain_ejector.title"),
                             Component.translatable("advancements.elemenix.obtain_ejector.description"),
                             null,
-                            AdvancementType.GOAL,
+                            AdvancementType.TASK,
                             true,
                             true,
                             false
@@ -260,7 +297,7 @@ public class ModAdvancementProvider extends AdvancementProvider {
                             true,
                             false
                     )
-                    .addCriterion("close_valve", ValveTrigger.valveOpen(0))
+                    .addCriterion("close_outlet", ValveTrigger.outletClosed())
                     .save(saver, ResourceLocation.parse("elemenix:elemenics/close_throttle_valve"), existingFileHelper);
 
             AdvancementHolder novicePlumber = Advancement.Builder.advancement()
@@ -277,7 +314,7 @@ public class ModAdvancementProvider extends AdvancementProvider {
                     )
                     .addCriterion("get_equipment", InventoryChangeTrigger.TriggerInstance.hasItems(
                             ItemPredicate.Builder.item().of(ModBlocks.ELEMENIC_CHANNEL.get()).build(),
-                            ItemPredicate.Builder.item().of(ModBlocks.ELEMENIC_OUTLET.get()).build(),
+                            ItemPredicate.Builder.item().of(ModTags.ELEMENIC_OUTLETS).build(),
                             ItemPredicate.Builder.item().of(ModItems.WRENCH.get()).build()
                     ))
                     .save(saver, ResourceLocation.parse("elemenix:elemenics/novice_plumber"), existingFileHelper);

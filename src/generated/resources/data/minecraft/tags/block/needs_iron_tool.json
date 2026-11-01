@@ -2,6 +2,6 @@
   "values": [
     "#elemenix:elemenix_outputs",
     "#elemenix:elemenix_inputs",
-    "elemenix:elemenic_outlet"
+    "#elemenix:elemenic_outlets"
   ]
 }

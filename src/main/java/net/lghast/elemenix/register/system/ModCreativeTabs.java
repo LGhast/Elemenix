@@ -35,6 +35,7 @@ public class ModCreativeTabs {
                         output.accept(ModItems.WRENCH);
                         output.accept(ModItems.THROTTLE_VALVE);
                         output.accept(ModItems.FLOW_STRAIGHTENER);
+                        output.accept(ModItems.PISTON_PUMP);
                         output.accept(ModItems.ANALYZING_CHIP);
                         output.accept(ModItems.TRANSFORMING_CHIP);
                         output.accept(ModItems.WITCHCRAFT_TROVE);
@@ -56,6 +57,7 @@ public class ModCreativeTabs {
                         output.accept(ModItems.NULLVOID);
                         output.accept(ModBlocks.ELEMENIC_CHANNEL);
                         output.accept(ModBlocks.ELEMENIC_OUTLET);
+                        output.accept(ModBlocks.ELEMENIC_PRESSURIZED_OUTLET);
                         output.accept(ModBlocks.ELEMENIC_COMPARATOR);
                         output.accept(ModBlocks.ELEMENIC_TANK);
                         output.accept(ModBlocks.ELEMENIC_DECONSTRUCTOR);

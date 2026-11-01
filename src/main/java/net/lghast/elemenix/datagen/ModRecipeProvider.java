@@ -324,14 +324,16 @@ public class ModRecipeProvider extends RecipeProvider {
                 .save(recipeOutput);
 
         ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ModBlocks.ELEMENIC_EJECTOR.get(), 1)
-                .pattern(" C ")
-                .pattern("RER")
-                .pattern(" D ")
-                .define('E', ModBlocks.ELEMENIC_ENRICHER)
-                .define('C', Items.COMPARATOR)
-                .define('R', Items.REDSTONE)
+                .pattern("IPI")
+                .pattern("LTS")
+                .pattern("IDI")
+                .define('T', ModBlocks.ELEMENIC_TANK)
                 .define('D', Items.DISPENSER)
-                .unlockedBy("has_elemenic_enricher", has(ModBlocks.ELEMENIC_ENRICHER))
+                .define('I', Items.IRON_INGOT)
+                .define('L', Items.REDSTONE_LAMP)
+                .define('P', ModItems.PISTON_PUMP)
+                .define('S', ModItems.FLOW_STRAIGHTENER)
+                .unlockedBy("has_piston_pump", has(ModItems.PISTON_PUMP))
                 .save(recipeOutput);
 
         ShapedRecipeBuilder.shaped(RecipeCategory.FOOD, ModItems.FONDANT_CAKE.get(), 1)
@@ -364,6 +366,16 @@ public class ModRecipeProvider extends RecipeProvider {
                 .define('B', Items.BUCKET)
                 .define('R', Items.REDSTONE)
                 .unlockedBy("has_bucket", has(Items.BUCKET))
+                .save(recipeOutput);
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ModItems.PISTON_PUMP.get(), 1)
+                .pattern("III")
+                .pattern("PAP")
+                .pattern("I I")
+                .define('I', Items.IRON_INGOT)
+                .define('P', Items.PISTON)
+                .define('A', Items.REDSTONE_BLOCK)
+                .unlockedBy("has_piston", has(Items.PISTON))
                 .save(recipeOutput);
 
         ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ModItems.ELEMENIC_SCANNER.get(), 1)
@@ -444,6 +456,18 @@ public class ModRecipeProvider extends RecipeProvider {
                 .define('S', Items.STONE)
                 .define('E', ModItems.ANALYZING_CHIP)
                 .unlockedBy("has_analyzing_chip", has(ModItems.ANALYZING_CHIP))
+                .save(recipeOutput);
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ModBlocks.ELEMENIC_PRESSURIZED_OUTLET.get(), 1)
+                .pattern(" C ")
+                .pattern("ROR")
+                .pattern("IPI")
+                .define('C', ModBlocks.ELEMENIC_CHANNEL)
+                .define('O', ModBlocks.ELEMENIC_OUTLET)
+                .define('R', Items.REDSTONE_TORCH)
+                .define('I', Items.IRON_INGOT)
+                .define('P', ModItems.PISTON_PUMP)
+                .unlockedBy("has_elemenic_outlet", has(ModBlocks.ELEMENIC_OUTLET))
                 .save(recipeOutput);
     }
 }

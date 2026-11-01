@@ -31,7 +31,7 @@ public class MineralizingRecipeCategory implements IRecipeCategory<MineralizingR
             RecipeType.create("elemenix", "mineralizing", MineralizingRecipe.class);
 
     private static final ResourceLocation BACKGROUND_LOCATION =
-            ResourceLocation.fromNamespaceAndPath("elemenix", "textures/gui/mineralizing_jei.png");
+            ResourceLocation.fromNamespaceAndPath("elemenix", "textures/gui/jei/mineralizing_jei.png");
 
     private static final int WIDTH = 176;
     private static final int HEIGHT = 74;

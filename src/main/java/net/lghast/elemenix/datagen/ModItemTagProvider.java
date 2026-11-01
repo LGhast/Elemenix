@@ -57,6 +57,11 @@ public class ModItemTagProvider extends ItemTagsProvider {
                 .add(ModBlocks.OPTICAL_CAPTURER.asItem())
         ;
 
+        tag(ModTags.ELEMENIC_OUTLETS)
+                .add(ModBlocks.ELEMENIC_OUTLET.asItem())
+                .add(ModBlocks.ELEMENIC_PRESSURIZED_OUTLET.asItem())
+        ;
+
         tag(ModTags.IGNORED_BY_DECONSTRUCTOR_INPUT)
                 .add(ModItems.ELEMENIC_STORAGE.asItem())
                 .add(ModItems.ELEMENIC_ANALYZER.asItem())

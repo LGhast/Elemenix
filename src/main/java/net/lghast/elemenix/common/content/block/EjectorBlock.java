@@ -2,20 +2,18 @@ package net.lghast.elemenix.common.content.block;
 
 import com.mojang.serialization.MapCodec;
 import net.lghast.elemenix.common.content.blockentity.EjectorBlockEntity;
-import net.lghast.elemenix.config.CommonConfig;
+import net.lghast.elemenix.common.system.menu.EjectorMenu;
 import net.lghast.elemenix.register.content.ModBlockEntities;
 import net.lghast.elemenix.register.system.ModStats;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.FrontAndTop;
-import net.minecraft.core.dispenser.DefaultDispenseItemBehavior;
-import net.minecraft.sounds.SoundEvents;
-import net.minecraft.sounds.SoundSource;
-import net.minecraft.world.Containers;
+import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.ItemInteractionResult;
+import net.minecraft.world.SimpleMenuProvider;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
@@ -32,9 +30,9 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
+import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.phys.BlockHitResult;
-import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
@@ -48,6 +46,7 @@ public class EjectorBlock extends BaseEntityBlock {
     public static final MapCodec<EjectorBlock> CODEC = simpleCodec(EjectorBlock::new);
     public static final BooleanProperty WORKING = BooleanProperty.create("working");
     public static final BooleanProperty DISABLED = BooleanProperty.create("disabled");
+    public static final IntegerProperty FILTER = IntegerProperty.create("filter", 0, 6);
     private static final EnumProperty<FrontAndTop> ORIENTATION = BlockStateProperties.ORIENTATION;
 
     private static final VoxelShape COLLISION_SHAPE = Shapes.or(
@@ -59,7 +58,8 @@ public class EjectorBlock extends BaseEntityBlock {
                 .lightLevel(state -> state.getValue(WORKING) || state.getValue(DISABLED) ? 6 : 0));
         this.registerDefaultState(this.stateDefinition.any().setValue(WORKING, false)
                 .setValue(ORIENTATION, FrontAndTop.NORTH_UP)
-                .setValue(DISABLED, false));
+                .setValue(DISABLED, false)
+                .setValue(FILTER, 6));
     }
 
     @Override
@@ -69,7 +69,7 @@ public class EjectorBlock extends BaseEntityBlock {
 
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-        builder.add(WORKING, ORIENTATION, DISABLED);
+        builder.add(WORKING, ORIENTATION, DISABLED, FILTER);
     }
 
     @Override
@@ -112,23 +112,14 @@ public class EjectorBlock extends BaseEntityBlock {
     @Override
     protected @NotNull InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hitResult) {
         if (!level.isClientSide && level.getBlockEntity(pos) instanceof EjectorBlockEntity blockEntity) {
-            player.openMenu(blockEntity, pos);
+            player.openMenu(new SimpleMenuProvider(
+                    (containerId, playerInventory, playerEntity) -> new EjectorMenu(containerId, playerInventory, blockEntity),
+                    Component.translatable("container.elemenix.elemenic_ejector")
+            ), pos);
             player.awardStat(ModStats.EJECTOR_INTERACTIONS.get());
             return InteractionResult.SUCCESS;
         }
         return InteractionResult.SUCCESS;
-    }
-
-    @Override
-    protected void onRemove(BlockState state, Level level, BlockPos pos, BlockState newState, boolean movedByPiston) {
-        if (!state.is(newState.getBlock())) {
-            BlockEntity blockentity = level.getBlockEntity(pos);
-            if (blockentity instanceof EjectorBlockEntity) {
-                Containers.dropContents(level, pos, (EjectorBlockEntity)blockentity);
-                level.updateNeighbourForOutputSignal(pos, this);
-            }
-            super.onRemove(state, level, pos, newState, movedByPiston);
-        }
     }
 
     @org.jetbrains.annotations.Nullable
@@ -152,24 +143,5 @@ public class EjectorBlock extends BaseEntityBlock {
     protected static <E extends BlockEntity, A extends BlockEntity> BlockEntityTicker<A> createTickerHelper(
             BlockEntityType<A> type, BlockEntityType<E> targetType, BlockEntityTicker<? super E> ticker) {
         return targetType == type ? (BlockEntityTicker<A>) ticker : null;
-    }
-
-    public void popOutItem(Level level, BlockPos pos, BlockState state, ItemStack stack) {
-        Direction direction = state.getValue(ORIENTATION).front();
-        Vec3 spawnPos = Vec3.atCenterOf(pos).relative(direction, 0.7);
-        DefaultDispenseItemBehavior.spawnItem(level, stack, 6, direction, spawnPos);
-        level.playSound(null, pos, SoundEvents.DISPENSER_DISPENSE, SoundSource.BLOCKS);
-    }
-
-    public int getDcInterval(){
-        return CommonConfig.EJECTOR_DC_INTERVAL.get();
-    }
-
-    public int getEnrichingInterval(){
-        return CommonConfig.EJECTOR_ENRICHING_INTERVAL.get();
-    }
-
-    public int getEjectingInterval(){
-        return CommonConfig.EJECTING_INTERVAL.get();
     }
 }

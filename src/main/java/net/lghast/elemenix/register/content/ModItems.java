@@ -75,7 +75,7 @@ public class ModItems {
             ()-> new NullvoidItem(new Item.Properties()));
 
     public static final DeferredItem<Item> THROTTLE_VALVE = ITEMS.register("throttle_valve",
-            ()-> new ThrottleValveItem(new Item.Properties()));
+            ()-> new Item(new Item.Properties().stacksTo(1)));
 
     public static final DeferredItem<Item> FLOW_STRAIGHTENER = ITEMS.register("flow_straightener",
             ()-> new Item(new Item.Properties().stacksTo(1)));
@@ -109,6 +109,9 @@ public class ModItems {
 
     public static final DeferredItem<Item> WRENCH = ITEMS.register("wrench",
             ()-> new WrenchItem(new Item.Properties().stacksTo(1)));
+
+    public static final DeferredItem<Item> PISTON_PUMP = ITEMS.register("piston_pump",
+            ()-> new Item(new Item.Properties()));
 
     public static void register(IEventBus eventBus){
         ITEMS.register(eventBus);

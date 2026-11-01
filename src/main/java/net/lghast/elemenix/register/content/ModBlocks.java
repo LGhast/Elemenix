@@ -43,6 +43,9 @@ public class ModBlocks {
     public static final DeferredBlock<Block> ELEMENIC_OUTLET = registerBlock("elemenic_outlet",
             ()-> new OutletBlock(BlockBehaviour.Properties.of()));
 
+    public static final DeferredBlock<Block> ELEMENIC_PRESSURIZED_OUTLET = registerBlock("elemenic_pressurized_outlet",
+            ()-> new PressurizedOutletBlock(BlockBehaviour.Properties.of()));
+
     public static final DeferredBlock<Block> ELEMENIC_CHANNEL = registerBlock("elemenic_channel",
             ()-> new ChannelBlock(BlockBehaviour.Properties.of()));
 

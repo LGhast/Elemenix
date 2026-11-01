@@ -67,10 +67,6 @@ public class JEIPlugin implements IModPlugin {
         registration.addItemStackInfo(new ItemStack(ModBlocks.OPTICAL_CAPTURER.get()),
                 Component.translatable("jei.info.optical_capturer"));
 
-        registration.addItemStackInfo(new ItemStack(ModItems.THROTTLE_VALVE.get()),
-                Component.translatable("jei.info.throttle_valve"));
-        registration.addItemStackInfo(new ItemStack(ModItems.FLOW_STRAIGHTENER.get()),
-                Component.translatable("jei.info.flow_straightener"));
         registration.addItemStackInfo(new ItemStack(ModItems.MEMORY_BURNER.get()),
                 Component.translatable("jei.info.memory_burner"));
         registration.addItemStackInfo(new ItemStack(ModItems.ELEMENIC_STORAGE.get()),

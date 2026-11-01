@@ -1,6 +1,7 @@
 package net.lghast.elemenix.compat.jade;
 
 import net.lghast.elemenix.common.content.block.ElemenicComparatorBlock;
+import net.lghast.elemenix.common.content.block.EjectorBlock;
 import net.lghast.elemenix.common.content.block.OutletBlock;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.BaseEntityBlock;
@@ -17,12 +18,15 @@ public class ElemenixJadePlugin implements IWailaPlugin {
             ResourceLocation.fromNamespaceAndPath("elemenix", "outlet_openness");
     public static final ResourceLocation UID_COMPARATOR =
             ResourceLocation.fromNamespaceAndPath("elemenix", "elemenic_comparator");
+    public static final ResourceLocation UID_EJECTOR_FILTER =
+            ResourceLocation.fromNamespaceAndPath("elemenix", "ejector_filter");
 
     @Override
     public void register(IWailaCommonRegistration registration) {
         registration.registerBlockDataProvider(ElemenixHolderProvider.INSTANCE, BaseEntityBlock.class);
         registration.registerBlockDataProvider(OutletProvider.INSTANCE, OutletBlock.class);
         registration.registerBlockDataProvider(ComparatorProvider.INSTANCE, ElemenicComparatorBlock.class);
+        registration.registerBlockDataProvider(EjectorProvider.INSTANCE, EjectorBlock.class);
     }
 
     @Override
@@ -30,5 +34,6 @@ public class ElemenixJadePlugin implements IWailaPlugin {
         registration.registerBlockComponent(ElemenixHolderProvider.INSTANCE, BaseEntityBlock.class);
         registration.registerBlockComponent(OutletProvider.INSTANCE, OutletBlock.class);
         registration.registerBlockComponent(ComparatorProvider.INSTANCE, ElemenicComparatorBlock.class);
+        registration.registerBlockComponent(EjectorProvider.INSTANCE, EjectorBlock.class);
     }
 }

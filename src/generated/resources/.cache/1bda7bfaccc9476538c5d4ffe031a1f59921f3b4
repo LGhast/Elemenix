@@ -1,8 +1,8 @@
-// 1.21.1	2026-10-26T21:36:42.1347598	Tags for minecraft:item mod id elemenix
+// 1.21.1	2026-11-01T17:38:05.7985667	Tags for minecraft:item mod id elemenix
+45072811a2531b7dcfe7e021506711e8287f8ef0 data/elemenix/tags/item/elemenic_outlets.json
 fcb8476625195d2351238f217849450d2e531edf data/elemenix/tags/item/elemenic_transformers.json
 ffb3c9a2182075e6ca072c435f4d1b178c3830cb data/elemenix/tags/item/equilibrium.json
 f87f77226de93815712346dc3d0667caadf84128 data/elemenix/tags/item/essences.json
 d869881aac5fa8f76590079f647aea3810928778 data/elemenix/tags/item/ignored_by_deconstructor_input.json
 5f1a6e83df12c4fd60f9fde31eeeeae8e5fd68a7 data/elemenix/tags/item/ignored_by_scanning.json
 a0e706c410e093675b07001a2857a7f535cc0de0 data/elemenix/tags/item/memorizer_slot_placeable.json
-0b6f4746bf1e68df79a48f03f4575f1430f0e4e0 data/elemenix/tags/item/potionlike.json

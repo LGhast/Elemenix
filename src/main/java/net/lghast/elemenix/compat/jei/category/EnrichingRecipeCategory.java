@@ -31,33 +31,34 @@ public class EnrichingRecipeCategory implements IRecipeCategory<EnrichingRecipe>
     public static final RecipeType<EnrichingRecipe> TYPE =
             RecipeType.create("elemenix", "enriching", EnrichingRecipe.class);
 
-    private static final ResourceLocation BACKGROUND_LOCATION =
-            ResourceLocation.fromNamespaceAndPath("elemenix", "textures/gui/enriching_jei.png");
+    private static final ResourceLocation BACKGROUND_SINGLE =
+            ResourceLocation.fromNamespaceAndPath("elemenix", "textures/gui/jei/enriching_jei.png");
+    private static final ResourceLocation BACKGROUND_DOUBLE =
+            ResourceLocation.fromNamespaceAndPath("elemenix", "textures/gui/jei/enriching_jei_double.png");
 
     private static final int WIDTH = 120;
-    private static final int HEIGHT = 80;
+    private static final int HEIGHT = 59;
 
-    private static final int OUTPUT_X = 88;
-    private static final int OUTPUT_Y = 32;
+    private static final int OUTPUT_X = 90;
+    private static final int OUTPUT_Y = 23;
 
     private static final int ENRICHER_X = 16;
-    private static final int ENRICHER_Y = 14;
+    private static final int ENRICHER_Y = 13;
 
     private static final int ANALYZER_X = 16;
     private static final int ANALYZER_Y = 32;
+    private static final int ANALYZER_SINGLE_Y = 23;
 
-    private static final int EJECTOR_X = 16;
-    private static final int EJECTOR_Y = 50;
-
-    private static final int TEXT_Y = 55;
-    private static final int TEXT_X = 47;
-
-    private final IDrawable background;
+    private final IDrawable backgroundSingle;
+    private final IDrawable backgroundDouble;
     private final IDrawable icon;
     private final Component localizedName;
 
     public EnrichingRecipeCategory(IGuiHelper guiHelper) {
-        this.background = guiHelper.drawableBuilder(BACKGROUND_LOCATION, 0, 0, WIDTH, HEIGHT)
+        this.backgroundSingle = guiHelper.drawableBuilder(BACKGROUND_SINGLE, 0, 0, WIDTH, HEIGHT)
+                .setTextureSize(WIDTH, HEIGHT)
+                .build();
+        this.backgroundDouble = guiHelper.drawableBuilder(BACKGROUND_DOUBLE, 0, 0, WIDTH, HEIGHT)
                 .setTextureSize(WIDTH, HEIGHT)
                 .build();
 
@@ -104,12 +105,8 @@ public class EnrichingRecipeCategory implements IRecipeCategory<EnrichingRecipe>
             builder.addSlot(RecipeIngredientRole.INPUT, ANALYZER_X, ANALYZER_Y)
                     .addItemStack(new ItemStack(ModItems.ELEMENIC_ANALYZER.get()))
                     .setSlotName("analyzer");
-
-            builder.addSlot(RecipeIngredientRole.INPUT, EJECTOR_X, EJECTOR_Y)
-                    .addItemStack(new ItemStack(ModBlocks.ELEMENIC_EJECTOR.get()))
-                    .setSlotName("ejector");
         } else {
-            builder.addSlot(RecipeIngredientRole.INPUT, ANALYZER_X, ANALYZER_Y)
+            builder.addSlot(RecipeIngredientRole.INPUT, ANALYZER_X, ANALYZER_SINGLE_Y)
                     .addItemStack(new ItemStack(ModItems.ELEMENIC_ANALYZER.get()))
                     .setSlotName("analyzer");
         }
@@ -118,6 +115,7 @@ public class EnrichingRecipeCategory implements IRecipeCategory<EnrichingRecipe>
     @Override
     public void draw(EnrichingRecipe recipe, IRecipeSlotsView recipeSlotsView,
                      GuiGraphics guiGraphics, double mouseX, double mouseY) {
+        IDrawable background = recipe.portable() ? backgroundSingle : backgroundDouble;
         if (background != null) {
             background.draw(guiGraphics, 0, 0);
         }
@@ -125,6 +123,7 @@ public class EnrichingRecipeCategory implements IRecipeCategory<EnrichingRecipe>
         String text = recipe.elemenix().getName() + ": " + ModUtils.formatNumber(recipe.amount());
         Font font = Minecraft.getInstance().font;
 
-        guiGraphics.drawString(font, text, TEXT_X, TEXT_Y, recipe.elemenix().getColor(), false);
+        int textX = (WIDTH - font.width(text)) / 2;
+        guiGraphics.drawString(font, text, textX, 4, recipe.elemenix().getColor(), false);
     }
 }

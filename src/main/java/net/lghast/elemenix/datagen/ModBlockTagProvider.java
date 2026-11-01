@@ -20,6 +20,11 @@ public class ModBlockTagProvider extends BlockTagsProvider {
 
     @Override
     protected void addTags(HolderLookup.Provider pProvider) {
+        tag(ModTags.ELEMENIC_OUTLET_BLOCKS)
+                .add(ModBlocks.ELEMENIC_OUTLET.get())
+                .add(ModBlocks.ELEMENIC_PRESSURIZED_OUTLET.get())
+        ;
+
         tag(ModTags.ELEMENIC_TRANSFORMING_BLOCKS)
                 .add(ModBlocks.GEOLOGICAL_SIMULATOR.get())
                 .add(ModBlocks.METALLURGICAL_ACTIVATOR.get())
@@ -31,6 +36,7 @@ public class ModBlockTagProvider extends BlockTagsProvider {
         tag(ModTags.ELEMENIX_OUTPUTS)
                 .add(ModBlocks.ELEMENIC_DECONSTRUCTOR.get())
                 .add(ModBlocks.ELEMENIC_TANK.get())
+                .add(ModBlocks.ELEMENIC_EJECTOR.get())
                 .addTag(ModTags.ELEMENIC_TRANSFORMING_BLOCKS)
         ;
 
@@ -45,14 +51,14 @@ public class ModBlockTagProvider extends BlockTagsProvider {
         tag(BlockTags.MINEABLE_WITH_PICKAXE)
                 .addTag(ModTags.ELEMENIX_OUTPUTS)
                 .addTag(ModTags.ELEMENIX_INPUTS)
-                .add(ModBlocks.ELEMENIC_OUTLET.get())
+                .addTag(ModTags.ELEMENIC_OUTLET_BLOCKS)
                 .add(ModBlocks.ELEMENIC_CHANNEL.get())
         ;
 
         tag(BlockTags.NEEDS_IRON_TOOL)
                 .addTag(ModTags.ELEMENIX_OUTPUTS)
                 .addTag(ModTags.ELEMENIX_INPUTS)
-                .add(ModBlocks.ELEMENIC_OUTLET.get())
+                .addTag(ModTags.ELEMENIC_OUTLET_BLOCKS)
         ;
     }
 }

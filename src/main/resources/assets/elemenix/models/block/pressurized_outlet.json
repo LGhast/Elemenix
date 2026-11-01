@@ -1,0 +1,7 @@
+{
+  "parent": "elemenix:block/outlet",
+  "textures": {
+    "0": "elemenix:block/outlet/pressurized_outlet",
+    "particle": "elemenix:block/outlet/pressurized_outlet"
+  }
+}

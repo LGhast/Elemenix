@@ -55,9 +55,7 @@ public class CommonConfig {
 
     public static ModConfigSpec.IntValue ENRICHER_ENRICHING_INTERVAL;
 
-    public static ModConfigSpec.IntValue EJECTOR_DC_INTERVAL;
-    public static ModConfigSpec.IntValue EJECTOR_ENRICHING_INTERVAL;
-    public static ModConfigSpec.IntValue EJECTING_INTERVAL;
+    public static final ModConfigSpec.DoubleValue EJECTOR_FRONT_BONUS;
     public static ModConfigSpec.IntValue OUTLET_MAX_OUTPUT_PER_TYPE;
 
     public static ModConfigSpec.BooleanValue SHOW_SCANNER_PARTICLES;
@@ -327,29 +325,19 @@ public class CommonConfig {
                 .translation(CONFIG_PREFIX + "enricher_enriching_interval")
                 .defineInRange("enricher_enriching_interval", 15, 1, Integer.MAX_VALUE);
 
-        EJECTOR_DC_INTERVAL = BUILDER
-                .comment("元质射流塔解构输入物品的时间间隔（刻）",
-                        "Time interval (in ticks) for the Elemenic Ejector to deconstruct input items")
-                .translation(CONFIG_PREFIX + "ejector_dc_interval")
-                .defineInRange("ejector_dc_interval", 8, 1, Integer.MAX_VALUE);
-
-        EJECTOR_ENRICHING_INTERVAL = BUILDER
-                .comment("元质射流塔生产纯质的时间间隔（刻）",
-                        "Time interval (in ticks) for the Elemenic Ejector to produce essence")
-                .translation(CONFIG_PREFIX + "ejector_enriching_interval")
-                .defineInRange("ejector_enriching_interval", 15, 1, Integer.MAX_VALUE);
-
-        EJECTING_INTERVAL = BUILDER
-                .comment("元质射流塔发射纯质的时间间隔（刻）",
-                        "Time interval (in ticks) for the Elemenic Ejector to eject essence")
-                .translation(CONFIG_PREFIX + "ejecting_interval")
-                .defineInRange("ejecting_interval", 15, 1, Integer.MAX_VALUE);
+        EJECTOR_FRONT_BONUS = BUILDER
+                .comment("元质射流塔正面输出量增益：",
+                        "当输出口从元质射流塔正面输出单一元质时，输出量 = 基础输出量 × 增益",
+                        "Front output bonus of the Elemenic Ejector:",
+                        "When an Outlet draws a single type from the Ejector's front, output = base output × bonus.")
+                .translation(CONFIG_PREFIX + "ejector_front_output_bonus")
+                .defineInRange("ejector_front_output_bonus", 2.0, 1.0, 99.0);
 
         OUTLET_MAX_OUTPUT_PER_TYPE = BUILDER
-                .comment("元质输出口每秒每种元质的最大输出量",
-                        "Maximum amount of each elemenix type output per second by the Elemenic Outlet")
+                .comment("元质输出口每秒每种元质的最大输出量（上限为 int 最大值的一半，以免增压输出口翻倍后溢出）",
+                        "Maximum amount of each elemenix type output per second by the Elemenic Outlet (capped at half of int max to avoid overflow in the Pressurized Outlet)")
                 .translation(CONFIG_PREFIX + "outlet_max_output_per_type")
-                .defineInRange("outlet_max_output_per_type", 500, 1, Integer.MAX_VALUE);
+                .defineInRange("outlet_max_output_per_type", 500, 1, Integer.MAX_VALUE / 2);
 
         BUILDER.pop();
 

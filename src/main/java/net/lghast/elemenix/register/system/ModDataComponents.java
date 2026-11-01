@@ -28,8 +28,6 @@ public class ModDataComponents {
 
     public static final Codec<UuidData> BOX_UUID_CODEC = UuidData.CODEC;
 
-    public static final Codec<ValveOpenness> VALVE_OPENNESS_CODEC = ValveOpenness.CODEC;
-
     public static final Codec<Style> STYLE_CODEC = Style.CODEC;
 
     public static final Codec<RemoteStorageBinding> REMOTE_STORAGE_BINDING_CODEC = RemoteStorageBinding.CODEC;
@@ -60,9 +58,6 @@ public class ModDataComponents {
 
     public static final StreamCodec<RegistryFriendlyByteBuf, Waxed> WAXED_STREAM_CODEC =
             Waxed.STREAM_CODEC;
-
-    public static final StreamCodec<RegistryFriendlyByteBuf, ValveOpenness> VALVE_OPENNESS_STREAM_CODEC =
-            ValveOpenness.STREAM_CODEC;
 
     public static final StreamCodec<RegistryFriendlyByteBuf, Style> STYLE_STREAM_CODEC =
             Style.STREAM_CODEC;
@@ -110,12 +105,6 @@ public class ModDataComponents {
             REGISTRAR.registerComponentType("box_uuid", builder ->
                     builder.persistent(BOX_UUID_CODEC)
                             .networkSynchronized(BOX_UUID_STREAM_CODEC)
-            );
-
-    public static final DeferredHolder<DataComponentType<?>, DataComponentType<ValveOpenness>> VALVE_OPENNESS =
-            REGISTRAR.registerComponentType("valve_openness", builder ->
-                    builder.persistent(VALVE_OPENNESS_CODEC)
-                            .networkSynchronized(VALVE_OPENNESS_STREAM_CODEC)
             );
 
     public static final DeferredHolder<DataComponentType<?>, DataComponentType<Style>> STYLE =

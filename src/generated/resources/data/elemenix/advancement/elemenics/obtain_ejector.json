@@ -1,5 +1,5 @@
 {
-  "parent": "elemenix:elemenics/obtain_enricher",
+  "parent": "elemenix:elemenics/obtain_tank",
   "criteria": {
     "get_ejector": {
       "conditions": {
@@ -16,7 +16,6 @@
     "description": {
       "translate": "advancements.elemenix.obtain_ejector.description"
     },
-    "frame": "goal",
     "icon": {
       "count": 1,
       "id": "elemenix:elemenic_ejector"

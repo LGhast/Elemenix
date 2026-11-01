@@ -158,8 +158,19 @@ public class ElemenicComparatorScreen extends AbstractContainerScreen<ElemenicCo
         graphics.drawString(this.font, this.title, titleX, 6, 0x404040, false);
 
         Component criterion = buildCriterion();
-        int criterionX = (this.imageWidth - this.font.width(criterion)) / 2;
-        graphics.drawString(this.font, criterion, criterionX, 21, 0xFFFFFF, false);
+        int criterionWidth = this.font.width(criterion);
+        if (criterionWidth <= 100) {
+            int criterionX = (this.imageWidth - criterionWidth) / 2;
+            graphics.drawString(this.font, criterion, criterionX, 21, 0xFFFFFF, false);
+        } else {
+            float scale = 100.0f / criterionWidth;
+            int criterionX = Math.round((this.imageWidth - criterionWidth * scale) / 2.0f);
+            graphics.pose().pushPose();
+            graphics.pose().translate(criterionX, 21, 0.0f);
+            graphics.pose().scale(scale, scale, 1.0f);
+            graphics.drawString(this.font, criterion, 0, 0, 0xFFFFFF, false);
+            graphics.pose().popPose();
+        }
 
         String[] entryNames = {
                 Component.translatable("gui.elemenix.comparator_target").getString(),

@@ -19,31 +19,19 @@ import java.util.Optional;
 public class ValveTrigger extends SimpleCriterionTrigger<ValveTrigger.Instance> {
     public static class Instance implements SimpleCriterionTrigger.SimpleInstance {
         private final Optional<ContextAwarePredicate> playerPredicate;
-        private final Optional<Integer> openness; 
 
-        public Instance(Optional<ContextAwarePredicate> playerPredicate, Optional<Integer> openness) {
+        public Instance(Optional<ContextAwarePredicate> playerPredicate) {
             this.playerPredicate = playerPredicate;
-            this.openness = openness;
         }
 
         @Override
         public @NotNull Optional<ContextAwarePredicate> player() {
             return playerPredicate;
         }
-        
-        public Optional<Integer> getOpenness() {
-            return openness;
-        }
-
-        
-        public boolean matches(int actualOpenness) {
-            return openness.map(reqOpenness -> actualOpenness == reqOpenness).orElse(true);
-        }
 
         public static final Codec<Instance> CODEC = RecordCodecBuilder.create(instance ->
                 instance.group(
-                        EntityPredicate.ADVANCEMENT_CODEC.optionalFieldOf("player").forGetter(inst -> inst.playerPredicate),
-                        Codec.INT.optionalFieldOf("style").forGetter(Instance::getOpenness)
+                        EntityPredicate.ADVANCEMENT_CODEC.optionalFieldOf("player").forGetter(inst -> inst.playerPredicate)
                 ).apply(instance, Instance::new)
         );
     }
@@ -52,19 +40,15 @@ public class ValveTrigger extends SimpleCriterionTrigger<ValveTrigger.Instance> 
     public @NotNull Codec<Instance> codec() {
         return Instance.CODEC;
     }
-    
-    public void trigger(ServerPlayer player, int openness) {
-        this.trigger(player, instance -> instance.matches(openness));
+
+    public void trigger(ServerPlayer player) {
+        this.trigger(player, instance -> true);
     }
 
-    public static Criterion<Instance> valveOpen(int openness) {
-        return valveOpen(Optional.of(openness));
-    }
-
-    private static Criterion<Instance> valveOpen(Optional<Integer> openness) {
+    public static Criterion<Instance> outletClosed() {
         return new Criterion<>(
                 TRIGGER.get(),
-                new Instance(Optional.empty(), openness)
+                new Instance(Optional.empty())
         );
     }
 
@@ -72,5 +56,5 @@ public class ValveTrigger extends SimpleCriterionTrigger<ValveTrigger.Instance> 
             DeferredRegister.create(Registries.TRIGGER_TYPE, "elemenix");
 
     public static final DeferredHolder<CriterionTrigger<?>, ValveTrigger> TRIGGER =
-            TRIGGER_TYPES.register("valve_open", ValveTrigger::new);
+            TRIGGER_TYPES.register("outlet_closed", ValveTrigger::new);
 }

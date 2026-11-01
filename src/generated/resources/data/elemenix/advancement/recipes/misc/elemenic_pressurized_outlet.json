@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_elemenic_outlet": {
+      "conditions": {
+        "items": [
+          {
+            "items": "elemenix:elemenic_outlet"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "elemenix:elemenic_pressurized_outlet"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_elemenic_outlet"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "elemenix:elemenic_pressurized_outlet"
+    ]
+  }
+}

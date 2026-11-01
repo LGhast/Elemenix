@@ -32,7 +32,7 @@ public class GerminatingRecipeCategory implements IRecipeCategory<GerminatingRec
             RecipeType.create("elemenix", "germinating", GerminatingRecipe.class);
 
     private static final ResourceLocation BACKGROUND_LOCATION =
-            ResourceLocation.fromNamespaceAndPath("elemenix", "textures/gui/germinating_jei.png");
+            ResourceLocation.fromNamespaceAndPath("elemenix", "textures/gui/jei/germinating_jei.png");
 
     private static final int WIDTH = 176;
     private static final int HEIGHT = 74;

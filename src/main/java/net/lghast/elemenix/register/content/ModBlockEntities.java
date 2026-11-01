@@ -65,7 +65,8 @@ public class ModBlockEntities {
             "elemenic_outlet",
             () -> BlockEntityType.Builder.of(
                             OutletBlockEntity::new,
-                            ModBlocks.ELEMENIC_OUTLET.get()
+                            ModBlocks.ELEMENIC_OUTLET.get(),
+                            ModBlocks.ELEMENIC_PRESSURIZED_OUTLET.get()
                     )
                     .build(null)
     );

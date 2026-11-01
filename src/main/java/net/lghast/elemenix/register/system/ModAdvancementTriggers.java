@@ -12,5 +12,6 @@ public class ModAdvancementTriggers {
         MineralizeTrigger.TRIGGER_TYPES.register(eventBus);
         GerminateTrigger.TRIGGER_TYPES.register(eventBus);
         ImitforgeTrigger.TRIGGER_TYPES.register(eventBus);
+        ComparatorChainTrigger.TRIGGER_TYPES.register(eventBus);
     }
 }

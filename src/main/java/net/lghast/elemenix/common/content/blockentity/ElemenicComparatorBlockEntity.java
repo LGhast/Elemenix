@@ -1,6 +1,7 @@
 package net.lghast.elemenix.common.content.blockentity;
 
 import net.lghast.elemenix.common.content.block.ElemenicComparatorBlock;
+import net.lghast.elemenix.common.system.advancement.ComparatorChainTrigger;
 import net.lghast.elemenix.register.content.ModBlockEntities;
 import net.lghast.elemenix.utils.elemenix.Elemenix;
 import net.lghast.elemenix.utils.misc.ElemenixHolder;
@@ -8,6 +9,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.Mth;
 import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.level.Level;
@@ -17,6 +19,11 @@ import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.ParametersAreNonnullByDefault;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+import java.util.UUID;
 
 @ParametersAreNonnullByDefault
 public class ElemenicComparatorBlockEntity extends BlockEntity {
@@ -29,6 +36,7 @@ public class ElemenicComparatorBlockEntity extends BlockEntity {
     private int threshold = 0;
     private int unit = 0;
     private int tickCounter = 0;
+    private UUID ownerUuid = null;
 
     private final ContainerData dataAccess = new ContainerData() {
         @Override
@@ -68,6 +76,9 @@ public class ElemenicComparatorBlockEntity extends BlockEntity {
         boolean powered = state.getValue(ElemenicComparatorBlock.POWERED);
         if (passing != powered) {
             level.setBlock(pos, state.setValue(ElemenicComparatorBlock.POWERED, passing), Block.UPDATE_ALL);
+            if (passing) {
+                tryTriggerChainAdvancement(level);
+            }
         }
     }
 
@@ -86,7 +97,6 @@ public class ElemenicComparatorBlockEntity extends BlockEntity {
         BlockState state = getBlockState();
         Direction facing = state.getValue(ElemenicComparatorBlock.FACING);
 
-        // 找到链首比较器后方的储存方块
         BlockPos storage = worldPosition.relative(facing.getOpposite());
         for (int i = 0; i < 16; i++) {
             BlockEntity be = level.getBlockEntity(storage);
@@ -111,7 +121,6 @@ public class ElemenicComparatorBlockEntity extends BlockEntity {
         if (holder == null) return false;
         if (!checkCriterion(state, holder)) return false;
 
-        // 取“并”：紧邻后方的比较器也必须通过
         BlockPos behind = worldPosition.relative(facing.getOpposite());
         BlockEntity behindBe = level.getBlockEntity(behind);
         if (behindBe instanceof ElemenicComparatorBlockEntity other
@@ -189,11 +198,101 @@ public class ElemenicComparatorBlockEntity extends BlockEntity {
         return unit;
     }
 
+    public UUID getOwnerUuid() {
+        return ownerUuid;
+    }
+
+    public void setOwnerUuid(UUID ownerUuid) {
+        this.ownerUuid = ownerUuid;
+        setChanged();
+    }
+
+    /**
+     * Fires the chain advancement when this comparator turns on and the whole chain
+     * of at least five serially connected comparators uses pairwise-distinct criteria.
+     */
+    private void tryTriggerChainAdvancement(Level level) {
+        List<ElemenicComparatorBlockEntity> chain = collectChain();
+        if (chain.size() < 5) return;
+
+        for (ElemenicComparatorBlockEntity be : chain) {
+            if (be == this) continue;
+            if (!be.getBlockState().getValue(ElemenicComparatorBlock.POWERED)) return;
+        }
+
+        Set<Long> criteria = new HashSet<>();
+        for (ElemenicComparatorBlockEntity be : chain) {
+            BlockState s = be.getBlockState();
+            long key = (long) s.getValue(ElemenicComparatorBlock.TARGET) * 8 + s.getValue(ElemenicComparatorBlock.RULE);
+            criteria.add(key);
+        }
+        if (criteria.size() < 5) return;
+
+        for (ElemenicComparatorBlockEntity be : chain) {
+            UUID owner = be.getOwnerUuid();
+            if (owner == null) continue;
+
+            var server = level.getServer();
+            if (server == null) return;
+
+            ServerPlayer player = server.getPlayerList().getPlayer(owner);
+            if (player != null) {
+                ComparatorChainTrigger.TRIGGER.get().trigger(player);
+            }
+        }
+    }
+
+    private List<ElemenicComparatorBlockEntity> collectChain() {
+        Level level = this.level;
+        if (level == null) return List.of();
+        Direction facing = getBlockState().getValue(ElemenicComparatorBlock.FACING);
+        List<ElemenicComparatorBlockEntity> chain = new ArrayList<>();
+        chain.add(this);
+
+        BlockPos cursor = worldPosition.relative(facing.getOpposite());
+        for (int i = 0; i < 16; i++) {
+            BlockEntity be = level.getBlockEntity(cursor);
+            if (be instanceof ElemenicComparatorBlockEntity other && other.getBlockState().getValue(ElemenicComparatorBlock.FACING) == facing) {
+                chain.add(other);
+                cursor = cursor.relative(facing.getOpposite());
+            } else {
+                break;
+            }
+        }
+
+        cursor = worldPosition.relative(facing);
+        for (int i = 0; i < 16; i++) {
+            BlockEntity be = level.getBlockEntity(cursor);
+            if (be instanceof ElemenicComparatorBlockEntity other && other.getBlockState().getValue(ElemenicComparatorBlock.FACING) == facing) {
+                chain.add(other);
+                cursor = cursor.relative(facing);
+            } else {
+                break;
+            }
+        }
+
+        return chain;
+    }
+
+    @Override
+    public @NotNull CompoundTag getUpdateTag(HolderLookup.@NotNull Provider registries) {
+        CompoundTag tag = super.getUpdateTag(registries);
+        tag.putInt("Threshold", threshold);
+        tag.putInt("Unit", unit);
+        if (ownerUuid != null) {
+            tag.putUUID("Owner", ownerUuid);
+        }
+        return tag;
+    }
+
     @Override
     protected void saveAdditional(CompoundTag tag, HolderLookup.@NotNull Provider registries) {
         super.saveAdditional(tag, registries);
         tag.putInt("Threshold", threshold);
         tag.putInt("Unit", unit);
+        if (ownerUuid != null) {
+            tag.putUUID("Owner", ownerUuid);
+        }
     }
 
     @Override
@@ -201,5 +300,6 @@ public class ElemenicComparatorBlockEntity extends BlockEntity {
         super.loadAdditional(tag, registries);
         threshold = tag.getInt("Threshold");
         unit = tag.getInt("Unit");
+        ownerUuid = tag.hasUUID("Owner") ? tag.getUUID("Owner") : null;
     }
 }

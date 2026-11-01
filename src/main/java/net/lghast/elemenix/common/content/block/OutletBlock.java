@@ -52,6 +52,8 @@ public class OutletBlock extends BaseEntityBlock {
     public static final BooleanProperty WORKING = BooleanProperty.create("working");
     public static final BooleanProperty DISABLED = BooleanProperty.create("disabled");
 
+    private final int outputMultiplier;
+
     private static final VoxelShape SHAPE_UP = Shapes.or(
             Block.box(2.0, 0.0, 2.0, 14.0, 5.0, 14.0),
             Block.box(6.0, 5.0, 6.0, 10.0, 16.0, 10.0)
@@ -78,12 +80,21 @@ public class OutletBlock extends BaseEntityBlock {
     );
 
     public OutletBlock(Properties properties) {
+        this(properties, 1);
+    }
+
+    protected OutletBlock(Properties properties, int outputMultiplier) {
         super(properties.mapColor(MapColor.METAL).sound(SoundType.METAL).strength(2.5f).requiresCorrectToolForDrops()
                 .lightLevel(state -> state.getValue(WORKING) || state.getValue(DISABLED) ? 6 : 0));
+        this.outputMultiplier = outputMultiplier;
         this.registerDefaultState(this.stateDefinition.any()
                 .setValue(FACING, Direction.NORTH)
                 .setValue(WORKING, false)
                 .setValue(DISABLED, false));
+    }
+
+    public int getOutputMultiplier() {
+        return outputMultiplier;
     }
 
     @Override

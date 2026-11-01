@@ -88,7 +88,9 @@ public class OutletScreen extends AbstractContainerScreen<OutletMenu> {
         int x = (this.width - this.imageWidth) / 2;
         int y = (this.height - this.imageHeight) / 2;
         int percent = menu.getOutputPercent();
-        long maxOutput = (long) CommonConfig.OUTLET_MAX_OUTPUT_PER_TYPE.get() * percent / 100;
+        var blockEntity = menu.getBlockEntity();
+        int multiplier = blockEntity != null ? blockEntity.getOutputMultiplier() : 1;
+        long maxOutput = (long) CommonConfig.OUTLET_MAX_OUTPUT_PER_TYPE.get() * multiplier * percent / 100;
 
         graphics.pose().pushPose();
         graphics.pose().translate(x, y, 0.0);

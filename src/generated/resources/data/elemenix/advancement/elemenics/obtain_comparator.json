@@ -1,0 +1,33 @@
+{
+  "parent": "elemenix:elemenics/root",
+  "criteria": {
+    "get_comparator": {
+      "conditions": {
+        "items": [
+          {
+            "items": "elemenix:elemenic_comparator"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.elemenix.obtain_comparator.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "elemenix:elemenic_comparator"
+    },
+    "title": {
+      "translate": "advancements.elemenix.obtain_comparator.title"
+    }
+  },
+  "requirements": [
+    [
+      "get_comparator"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

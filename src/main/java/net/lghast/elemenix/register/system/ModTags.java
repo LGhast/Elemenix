@@ -52,6 +52,16 @@ public class ModTags {
             ResourceLocation.parse("elemenix:elemenic_transformers")
     );
 
+    public static final TagKey<Item> ELEMENIC_OUTLETS = TagKey.create(
+            Registries.ITEM,
+            ResourceLocation.parse("elemenix:elemenic_outlets")
+    );
+
+    public static final TagKey<Block> ELEMENIC_OUTLET_BLOCKS = TagKey.create(
+            Registries.BLOCK,
+            ResourceLocation.parse("elemenix:elemenic_outlets")
+    );
+
     public static final TagKey<Block> ELEMENIX_OUTPUTS = TagKey.create(
             Registries.BLOCK,
             ResourceLocation.parse("elemenix:elemenix_outputs")

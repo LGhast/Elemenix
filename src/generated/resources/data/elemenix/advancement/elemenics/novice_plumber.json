@@ -8,7 +8,7 @@
             "items": "elemenix:elemenic_channel"
           },
           {
-            "items": "elemenix:elemenic_outlet"
+            "items": "#elemenix:elemenic_outlets"
           },
           {
             "items": "elemenix:wrench"

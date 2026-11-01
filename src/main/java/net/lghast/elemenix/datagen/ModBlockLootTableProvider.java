@@ -27,6 +27,7 @@ public class ModBlockLootTableProvider extends BlockLootSubProvider {
         dropSelf(ModBlocks.ELEMENIC_ENRICHER.get());
         dropSelf(ModBlocks.ELEMENIC_EJECTOR.get());
         dropSelf(ModBlocks.ELEMENIC_OUTLET.get());
+        dropSelf(ModBlocks.ELEMENIC_PRESSURIZED_OUTLET.get());
         dropSelf(ModBlocks.ELEMENIC_CHANNEL.get());
         dropSelf(ModBlocks.ELEMENIC_DECONSTRUCTOR.get());
         dropSelf(ModBlocks.ELEMENIC_COMPARATOR.get());

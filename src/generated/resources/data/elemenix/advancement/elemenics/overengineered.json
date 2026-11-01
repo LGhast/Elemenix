@@ -1,0 +1,30 @@
+{
+  "parent": "elemenix:elemenics/obtain_comparator",
+  "criteria": {
+    "chain": {
+      "trigger": "elemenix:comparator_chain"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.elemenix.overengineered.description"
+    },
+    "frame": "challenge",
+    "icon": {
+      "components": {
+        "minecraft:enchantment_glint_override": true
+      },
+      "count": 1,
+      "id": "elemenix:elemenic_comparator"
+    },
+    "title": {
+      "translate": "advancements.elemenix.overengineered.title"
+    }
+  },
+  "requirements": [
+    [
+      "chain"
+    ]
+  ],
+  "sends_telemetry_event": true
+}
