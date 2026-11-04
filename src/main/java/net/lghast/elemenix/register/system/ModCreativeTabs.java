@@ -33,6 +33,7 @@ public class ModCreativeTabs {
                         output.accept(ModItems.MEMORY_BURNER);
                         output.accept(ModItems.ANALYSIS_TERMINAL);
                         output.accept(ModItems.WRENCH);
+                        output.accept(ModItems.ANALYTICAL_WRENCH);
                         output.accept(ModItems.THROTTLE_VALVE);
                         output.accept(ModItems.FLOW_STRAIGHTENER);
                         output.accept(ModItems.PISTON_PUMP);
@@ -64,6 +65,7 @@ public class ModCreativeTabs {
                         output.accept(ModBlocks.ELEMENIC_INFUSER);
                         output.accept(ModBlocks.ELEMENIC_ENRICHER);
                         output.accept(ModBlocks.ELEMENIC_EJECTOR);
+                        output.accept(ModBlocks.ELEMENIC_SHUNT);
                         output.accept(ModBlocks.GEOLOGICAL_SIMULATOR);
                         output.accept(ModBlocks.METALLURGICAL_ACTIVATOR);
                         output.accept(ModBlocks.GERMINAL_ACCELERATOR);

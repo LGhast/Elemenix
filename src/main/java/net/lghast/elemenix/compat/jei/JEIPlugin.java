@@ -55,6 +55,8 @@ public class JEIPlugin implements IModPlugin {
                 Component.translatable("jei.info.elemenic_enricher"));
         registration.addItemStackInfo(new ItemStack(ModBlocks.ELEMENIC_EJECTOR.get()),
                 Component.translatable("jei.info.elemenic_ejector"));
+        registration.addItemStackInfo(new ItemStack(ModBlocks.ELEMENIC_SHUNT.get()),
+                Component.translatable("jei.info.elemenic_shunt"));
 
         registration.addItemStackInfo(new ItemStack(ModBlocks.GEOLOGICAL_SIMULATOR.get()),
                 Component.translatable("jei.info.geological_simulator"));

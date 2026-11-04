@@ -23,7 +23,33 @@ public class ClientConfig {
     public static ModConfigSpec.BooleanValue SHOW_REMOTE_COORDINATES;
     public static ModConfigSpec.BooleanValue SHOW_REMOTE_CONNECTION_STATUS;
 
+    public static ModConfigSpec.IntValue ANALYTICAL_WRENCH_FADE_TICKS;
+    public static ModConfigSpec.IntValue ANALYTICAL_WRENCH_OUTLINE_COLOR;
+    public static ModConfigSpec.DoubleValue ANALYTICAL_WRENCH_TEXT_SCALE;
+
     static {
+        BUILDER.push("分析扳手 Analytical Wrench");
+
+        ANALYTICAL_WRENCH_FADE_TICKS = BUILDER
+                .comment("分析扳手边框与文本的淡出时长（刻），移开视线后淡出到消失所用的时间",
+                        "Fade duration (in ticks) for the Analytical Wrench outline and text after looking away")
+                .translation(CONFIG_PREFIX + "analytical_wrench_fade_ticks")
+                .defineInRange("analytical_wrench_fade_ticks", 15, 1, 120);
+
+        ANALYTICAL_WRENCH_OUTLINE_COLOR = BUILDER
+                .comment("分析扳手默认边框颜色（RGB 十六进制，不带 alpha 字节）",
+                        "Default outline color of the Analytical Wrench (RGB hex, without alpha byte)")
+                .translation(CONFIG_PREFIX + "analytical_wrench_outline_color")
+                .defineInRange("analytical_wrench_outline_color", 0xA1FBE8, 0x000000, 0xFFFFFF);
+
+        ANALYTICAL_WRENCH_TEXT_SCALE = BUILDER
+                .comment("分析扳手文本显示大小（相对于标准名称标签大小 0.025 的比例）",
+                        "Text display scale of the Analytical Wrench (relative to the standard nametag scale of 0.025)")
+                .translation(CONFIG_PREFIX + "analytical_wrench_text_scale")
+                .defineInRange("analytical_wrench_text_scale", 0.02, 0.005, 0.05);
+
+        BUILDER.pop();
+
         BUILDER.push("提示信息配置 Tooltip Configurations");
 
         DIGIT_GROUPING_BY_FOURS = BUILDER

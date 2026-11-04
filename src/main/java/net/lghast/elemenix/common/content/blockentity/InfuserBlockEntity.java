@@ -16,6 +16,7 @@ import net.lghast.elemenix.utils.elemenix.Elemenix;
 import net.lghast.elemenix.utils.misc.ModUtils;
 import net.minecraft.core.*;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerPlayer;
@@ -105,6 +106,26 @@ public class InfuserBlockEntity extends BaseContainerBlockEntity implements Worl
         }
 
         infusionTimer = tag.getInt(TAG_INFUSION_TIMER);
+    }
+
+    @Override
+    public @NotNull CompoundTag getUpdateTag(HolderLookup.Provider registries) {
+        CompoundTag tag = super.getUpdateTag(registries);
+        tag.putIntArray(TAG_STORAGE, elemenixStorage);
+        return tag;
+    }
+
+    @Override
+    public ClientboundBlockEntityDataPacket getUpdatePacket() {
+        return ClientboundBlockEntityDataPacket.create(this);
+    }
+
+    @Override
+    public void setChanged() {
+        super.setChanged();
+        if (level != null && !level.isClientSide) {
+            level.sendBlockUpdated(worldPosition, getBlockState(), getBlockState(), Block.UPDATE_CLIENTS);
+        }
     }
 
     @Override

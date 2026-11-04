@@ -37,6 +37,7 @@ public class ModBlockTagProvider extends BlockTagsProvider {
                 .add(ModBlocks.ELEMENIC_DECONSTRUCTOR.get())
                 .add(ModBlocks.ELEMENIC_TANK.get())
                 .add(ModBlocks.ELEMENIC_EJECTOR.get())
+                .add(ModBlocks.ELEMENIC_SHUNT.get())
                 .addTag(ModTags.ELEMENIC_TRANSFORMING_BLOCKS)
         ;
 
@@ -45,6 +46,7 @@ public class ModBlockTagProvider extends BlockTagsProvider {
                 .add(ModBlocks.ELEMENIC_INFUSER.get())
                 .add(ModBlocks.ELEMENIC_ENRICHER.get())
                 .add(ModBlocks.ELEMENIC_EJECTOR.get())
+                .add(ModBlocks.ELEMENIC_SHUNT.get())
                 .addTag(ModTags.ELEMENIC_TRANSFORMING_BLOCKS)
         ;
 

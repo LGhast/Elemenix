@@ -238,6 +238,21 @@ public class ModAdvancementProvider extends AdvancementProvider {
                     ))
                     .save(saver, ResourceLocation.parse("elemenix:elemenics/obtain_ejector"), existingFileHelper);
 
+            AdvancementHolder bindShunts = Advancement.Builder.advancement()
+                    .parent(obtainEjector)
+                    .display(
+                            ModBlocks.ELEMENIC_SHUNT,
+                            Component.translatable("advancements.elemenix.bind_shunts.title"),
+                            Component.translatable("advancements.elemenix.bind_shunts.description"),
+                            null,
+                            AdvancementType.CHALLENGE,
+                            true,
+                            true,
+                            false
+                    )
+                    .addCriterion("bind_shunts", ShuntBindTrigger.bind())
+                    .save(saver, ResourceLocation.parse("elemenix:elemenics/bind_shunts"), existingFileHelper);
+
             AdvancementHolder obtainStraightener = Advancement.Builder.advancement()
                     .parent(rootAdvancement)
                     .display(
@@ -318,6 +333,23 @@ public class ModAdvancementProvider extends AdvancementProvider {
                             ItemPredicate.Builder.item().of(ModItems.WRENCH.get()).build()
                     ))
                     .save(saver, ResourceLocation.parse("elemenix:elemenics/novice_plumber"), existingFileHelper);
+
+            AdvancementHolder obtainAnalyticalWrench = Advancement.Builder.advancement()
+                    .parent(novicePlumber)
+                    .display(
+                            ModItems.ANALYTICAL_WRENCH,
+                            Component.translatable("advancements.elemenix.obtain_analytical_wrench.title"),
+                            Component.translatable("advancements.elemenix.obtain_analytical_wrench.description"),
+                            null,
+                            AdvancementType.CHALLENGE,
+                            true,
+                            true,
+                            false
+                    )
+                    .addCriterion("get_analytical_wrench", InventoryChangeTrigger.TriggerInstance.hasItems(
+                            ItemPredicate.Builder.item().of(ModItems.ANALYTICAL_WRENCH.get()).build()
+                    ))
+                    .save(saver, ResourceLocation.parse("elemenix:elemenics/obtain_analytical_wrench"), existingFileHelper);
 
             AdvancementHolder obtainBurner = Advancement.Builder.advancement()
                     .parent(obtainMemorizer)

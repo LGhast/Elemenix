@@ -1,4 +1,5 @@
-// 1.21.1	2026-11-01T21:59:07.2716255	Advancements
+// 1.21.1	2026-11-04T23:21:42.4433814	Advancements
+d41f940be0cd7721775dbe67d5100e63656dfbe3 data/elemenix/advancement/elemenics/bind_shunts.json
 259b9308d3714144af025935120730f0326c4ab4 data/elemenix/advancement/elemenics/close_throttle_valve.json
 54c0956b2363a41f801b7e649a074e5a9eea2c18 data/elemenix/advancement/elemenics/enrich_equilibrium.json
 5425a98304ed9b6f1f6d4775ea6804d771a7a9c3 data/elemenix/advancement/elemenics/enrich_essence.json
@@ -7,6 +8,7 @@ b12886584fce3fa8d5691c6dde8afb71a9ff90e7 data/elemenix/advancement/elemenics/imi
 3bb019e116215372063733d02e73b075fab13a1c data/elemenix/advancement/elemenics/mineralize.json
 4d36b78a835f34f3a7e9bad7097b7f0d400a8158 data/elemenix/advancement/elemenics/novice_plumber.json
 24e643cf482722b4dca936a0267c85c9f6c7cf1e data/elemenix/advancement/elemenics/obtain_analysis_terminal.json
+954a4a80d40f20c807b6c27f7c3da00893ed8825 data/elemenix/advancement/elemenics/obtain_analytical_wrench.json
 3c599fcbdf6e12071706b363bef6c0a1c901d402 data/elemenix/advancement/elemenics/obtain_burner.json
 128dc3a1592cc3c2a3000001c219b815f037865b data/elemenix/advancement/elemenics/obtain_comparator.json
 212daca4191bbd8bc5052062b683390aeb9b1ab6 data/elemenix/advancement/elemenics/obtain_deconstructor.json

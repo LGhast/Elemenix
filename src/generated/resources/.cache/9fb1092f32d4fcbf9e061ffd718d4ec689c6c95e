@@ -1,6 +1,7 @@
-// 1.21.1	2026-11-01T20:57:23.4753189	Recipes
+// 1.21.1	2026-11-03T22:37:13.5881966	Recipes
 a5972f5f16b8d08a054c46ca513dcaaf6dbf21ea data/elemenix/advancement/recipes/food/fondant_cake.json
 15593e0138eb4aed9fd0b227ee0733cd0b0d6289 data/elemenix/advancement/recipes/misc/analysis_terminal.json
+782c26e0a22e206f8e5fea06bbfe48e4dc6807f2 data/elemenix/advancement/recipes/misc/analytical_wrench.json
 fd61a8d55280e7ed7976d1df32b06297bbf29bc7 data/elemenix/advancement/recipes/misc/analyzing_chip.json
 436001b848b2166f3268f565c6939d909e873f2f data/elemenix/advancement/recipes/misc/arcanix_essenplex.json
 5ff9de26ccfbbc3a5bc708e91ae8b4f198a8938b data/elemenix/advancement/recipes/misc/elemenic_analyzer.json
@@ -16,6 +17,7 @@ f3edf780482d7397285366f6cf3654b6cb6f9e58 data/elemenix/advancement/recipes/misc/
 c6379fecb4053f4532e571bbb1ae37cadae9bffa data/elemenix/advancement/recipes/misc/elemenic_outlet.json
 a34c6e2d9389d7a2baed23850ea164f9f776f922 data/elemenix/advancement/recipes/misc/elemenic_pressurized_outlet.json
 fcca78621cd4e7e96cd2d2854889eaf2884a8b9e data/elemenix/advancement/recipes/misc/elemenic_scanner.json
+c2ab43f179ebe84bca98f6d57a8e6f0e5a206695 data/elemenix/advancement/recipes/misc/elemenic_shunt.json
 d4ead87502961d6e1d6138e45195d23c981ba5fa data/elemenix/advancement/recipes/misc/elemenic_storage.json
 0fb31e0ca080d8399ce5733194bd4ebb588fc551 data/elemenix/advancement/recipes/misc/elemenic_tank.json
 b1281b99853d591615faec71fea257ec2e22a961 data/elemenix/advancement/recipes/misc/energix_essenplex.json
@@ -39,6 +41,7 @@ ec9878fe92f446d049bdbb37652ef72a7cdf3a89 data/elemenix/advancement/recipes/misc/
 219b03e0fb3fd38a46dcfa91b805f7e3191d9788 data/elemenix/advancement/recipes/misc/witchcraft_memorizer.json
 f79ecd7cc9a3c6c3e1343bf34f2ea4ac5ef3fdf4 data/elemenix/advancement/recipes/misc/wrench.json
 7cccd6ebe90e1e4c9733c858174bd9347061f619 data/elemenix/recipe/analysis_terminal.json
+aec4fbfa59dc1435c8e577a053e520fcc146399a data/elemenix/recipe/analytical_wrench.json
 707cc492c76c746d004d9a853dde6b2666d8a652 data/elemenix/recipe/analyzing_chip.json
 1f7e80137ac41b087936f2d2545d0a8e3e17f6d6 data/elemenix/recipe/arcanix_essenplex.json
 c275925fb8806d169e474f48e61daa9d0c36d8b5 data/elemenix/recipe/elemenic_analyzer.json
@@ -54,6 +57,7 @@ fc0466f2b2fc0c366213427c8829db122f745b3e data/elemenix/recipe/elemenic_infuser.j
 4f6fdc463b8f2cdd071fa2b4401a62180630d569 data/elemenix/recipe/elemenic_outlet.json
 a6a3d859d79ea7c7884c781b09172a4c3bf7b218 data/elemenix/recipe/elemenic_pressurized_outlet.json
 a35be1552b48a7a38533454555d531665a4fb75e data/elemenix/recipe/elemenic_scanner.json
+189c28901f70a3489a04c6fae88c10bbdcaf163c data/elemenix/recipe/elemenic_shunt.json
 ad32c7122b808d9857c4f963e8e9b182808258a6 data/elemenix/recipe/elemenic_storage.json
 5edae1b071e40044ab11be101f96eaafb3650e4c data/elemenix/recipe/elemenic_tank.json
 fcb071d9e5172e376dccc3309270ad01dd4085c3 data/elemenix/recipe/energix_essenplex.json

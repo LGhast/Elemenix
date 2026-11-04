@@ -7,6 +7,7 @@ import net.lghast.elemenix.common.content.blockentity.ElemenicComparatorBlockEnt
 import net.lghast.elemenix.common.content.blockentity.EnricherBlockEntity;
 import net.lghast.elemenix.common.content.blockentity.InfuserBlockEntity;
 import net.lghast.elemenix.common.content.blockentity.OutletBlockEntity;
+import net.lghast.elemenix.common.content.blockentity.ShuntBlockEntity;
 import net.lghast.elemenix.common.content.blockentity.TankBlockEntity;
 import net.lghast.elemenix.common.content.blockentity.TransformerBlockEntity;
 import net.minecraft.core.registries.Registries;
@@ -57,6 +58,15 @@ public class ModBlockEntities {
             () -> BlockEntityType.Builder.of(
                             EjectorBlockEntity::new,
                             ModBlocks.ELEMENIC_EJECTOR.get()
+                    )
+                    .build(null)
+    );
+
+    public static final Supplier<BlockEntityType<ShuntBlockEntity>> SHUNT = BLOCK_ENTITY_TYPES.register(
+            "elemenic_shunt",
+            () -> BlockEntityType.Builder.of(
+                            ShuntBlockEntity::new,
+                            ModBlocks.ELEMENIC_SHUNT.get()
                     )
                     .build(null)
     );

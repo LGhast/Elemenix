@@ -17,6 +17,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.Container;
 import net.minecraft.world.ContainerHelper;
@@ -167,7 +168,7 @@ public class TransformerBlockEntity extends BaseContainerBlockEntity implements 
             Constituents constituents = ElemenixInfo.getDiscountAppliedConstituents(inputStackA);
             if (constituents.isPure(block.getInputElemenixA())) {
                 inputStackA.shrink(1);
-                inputA += constituents.get(block.getInputElemenixA());
+                inputA += (int) constituents.get(block.getInputElemenixA());
                 setChanged();
             }
         }
@@ -175,7 +176,7 @@ public class TransformerBlockEntity extends BaseContainerBlockEntity implements 
             Constituents constituents = ElemenixInfo.getDiscountAppliedConstituents(inputStackB);
             if (constituents.isPure(block.getInputElemenixB())) {
                 inputStackB.shrink(1);
-                inputB += constituents.get(block.getInputElemenixB());
+                inputB += (int) constituents.get(block.getInputElemenixB());
                 setChanged();
             }
         }
@@ -329,6 +330,28 @@ public class TransformerBlockEntity extends BaseContainerBlockEntity implements 
     public void clearContent() {
         items.clear();
         setChanged();
+    }
+
+    @Override
+    public @NotNull CompoundTag getUpdateTag(HolderLookup.@NotNull Provider registries) {
+        CompoundTag tag = super.getUpdateTag(registries);
+        tag.putLong("InputA", inputA);
+        tag.putLong("InputB", inputB);
+        tag.putLong("OutputC", outputC);
+        return tag;
+    }
+
+    @Override
+    public ClientboundBlockEntityDataPacket getUpdatePacket() {
+        return ClientboundBlockEntityDataPacket.create(this);
+    }
+
+    @Override
+    public void setChanged() {
+        super.setChanged();
+        if (level != null && !level.isClientSide) {
+            level.sendBlockUpdated(worldPosition, getBlockState(), getBlockState(), net.minecraft.world.level.block.Block.UPDATE_CLIENTS);
+        }
     }
 
     @Override

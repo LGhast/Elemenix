@@ -40,6 +40,9 @@ public class ModBlocks {
     public static final DeferredBlock<Block> ELEMENIC_EJECTOR = registerBlock("elemenic_ejector",
             ()-> new EjectorBlock(BlockBehaviour.Properties.of()));
 
+    public static final DeferredBlock<Block> ELEMENIC_SHUNT = registerBlock("elemenic_shunt",
+            ()-> new ShuntBlock(BlockBehaviour.Properties.of()));
+
     public static final DeferredBlock<Block> ELEMENIC_OUTLET = registerBlock("elemenic_outlet",
             ()-> new OutletBlock(BlockBehaviour.Properties.of()));
 

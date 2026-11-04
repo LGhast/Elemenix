@@ -1,0 +1,27 @@
+{
+  "parent": "elemenix:elemenics/obtain_ejector",
+  "criteria": {
+    "bind_shunts": {
+      "trigger": "elemenix:shunt_bind"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.elemenix.bind_shunts.description"
+    },
+    "frame": "challenge",
+    "icon": {
+      "count": 1,
+      "id": "elemenix:elemenic_shunt"
+    },
+    "title": {
+      "translate": "advancements.elemenix.bind_shunts.title"
+    }
+  },
+  "requirements": [
+    [
+      "bind_shunts"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

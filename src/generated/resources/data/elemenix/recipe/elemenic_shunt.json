@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "E": {
+      "item": "elemenix:elemenic_ejector"
+    },
+    "Q": {
+      "item": "elemenix:elemenic_equilibrium"
+    },
+    "S": {
+      "item": "elemenix:flow_straightener"
+    }
+  },
+  "pattern": [
+    "ESE",
+    "EQE",
+    "ESE"
+  ],
+  "result": {
+    "count": 6,
+    "id": "elemenix:elemenic_shunt"
+  }
+}

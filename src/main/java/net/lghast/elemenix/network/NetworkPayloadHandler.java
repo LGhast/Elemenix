@@ -12,6 +12,9 @@ import net.lghast.elemenix.network.infuser.RequestInfuserUpdatePayload;
 import net.lghast.elemenix.network.open.OpenAnalyzerPayload;
 import net.lghast.elemenix.network.open.OpenMemorizerBoxPayload;
 import net.lghast.elemenix.network.outlet.OutletPercentPayload;
+import net.lghast.elemenix.network.scan.RequestContainerScanPayload;
+import net.lghast.elemenix.network.scan.ResponseContainerScanPayload;
+import net.lghast.elemenix.network.shunt.ShuntFilterPayload;
 import net.lghast.elemenix.network.terminal.TerminalCarriedDeconstructPayload;
 import net.lghast.elemenix.network.terminal.TerminalMemorizerSelectPayload;
 import net.lghast.elemenix.network.terminal.TerminalFlagsPayload;
@@ -168,6 +171,24 @@ public class NetworkPayloadHandler {
                 EjectorFilterPayload.TYPE,
                 EjectorFilterPayload.STREAM_CODEC,
                 EjectorFilterPayload::handle
+        );
+
+        registrar.playToServer(
+                ShuntFilterPayload.TYPE,
+                ShuntFilterPayload.STREAM_CODEC,
+                ShuntFilterPayload::handle
+        );
+
+        registrar.playToServer(
+                RequestContainerScanPayload.TYPE,
+                RequestContainerScanPayload.STREAM_CODEC,
+                RequestContainerScanPayload::handle
+        );
+
+        registrar.playToClient(
+                ResponseContainerScanPayload.TYPE,
+                ResponseContainerScanPayload.STREAM_CODEC,
+                ResponseContainerScanPayload::handle
         );
     }
 }

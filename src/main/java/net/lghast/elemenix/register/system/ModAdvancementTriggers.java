@@ -13,5 +13,6 @@ public class ModAdvancementTriggers {
         GerminateTrigger.TRIGGER_TYPES.register(eventBus);
         ImitforgeTrigger.TRIGGER_TYPES.register(eventBus);
         ComparatorChainTrigger.TRIGGER_TYPES.register(eventBus);
+        ShuntBindTrigger.TRIGGER_TYPES.register(eventBus);
     }
 }

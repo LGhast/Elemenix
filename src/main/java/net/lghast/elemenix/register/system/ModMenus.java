@@ -7,6 +7,7 @@ import net.lghast.elemenix.common.content.blockentity.ElemenicComparatorBlockEnt
 import net.lghast.elemenix.common.content.blockentity.EnricherBlockEntity;
 import net.lghast.elemenix.common.content.blockentity.InfuserBlockEntity;
 import net.lghast.elemenix.common.content.blockentity.OutletBlockEntity;
+import net.lghast.elemenix.common.content.blockentity.ShuntBlockEntity;
 import net.lghast.elemenix.common.content.blockentity.TankBlockEntity;
 import net.lghast.elemenix.common.content.blockentity.TransformerBlockEntity;
 import net.lghast.elemenix.common.system.menu.*;
@@ -62,6 +63,11 @@ public class ModMenus {
             MENUS.register("ejector_menu", () ->
                     IMenuTypeExtension.create((windowId, inv, data) ->
                             new EjectorMenu(windowId, inv, (EjectorBlockEntity) inv.player.level().getBlockEntity(data.readBlockPos()))));
+
+    public static final Supplier<MenuType<ShuntMenu>> SHUNT_MENU =
+            MENUS.register("shunt_menu", () ->
+                    IMenuTypeExtension.create((windowId, inv, data) ->
+                            new ShuntMenu(windowId, inv, (ShuntBlockEntity) inv.player.level().getBlockEntity(data.readBlockPos()))));
 
     public static final Supplier<MenuType<DeconstructorMenu>> DECONSTRUCTOR_MENU =
             MENUS.register("deconstructor_menu", () ->

@@ -4,6 +4,7 @@
     "elemenix:elemenic_infuser",
     "elemenix:elemenic_enricher",
     "elemenix:elemenic_ejector",
+    "elemenix:elemenic_shunt",
     "#elemenix:elemenic_transformers"
   ]
 }

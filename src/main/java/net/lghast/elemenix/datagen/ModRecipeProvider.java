@@ -469,5 +469,25 @@ public class ModRecipeProvider extends RecipeProvider {
                 .define('P', ModItems.PISTON_PUMP)
                 .unlockedBy("has_elemenic_outlet", has(ModBlocks.ELEMENIC_OUTLET))
                 .save(recipeOutput);
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ModBlocks.ELEMENIC_SHUNT.get(), 6)
+                .pattern("ESE")
+                .pattern("EQE")
+                .pattern("ESE")
+                .define('Q', ModItems.ELEMENIC_EQUILIBRIUM)
+                .define('E', ModBlocks.ELEMENIC_EJECTOR)
+                .define('S', ModItems.FLOW_STRAIGHTENER)
+                .unlockedBy("has_ejector", has(ModBlocks.ELEMENIC_EJECTOR))
+                .save(recipeOutput);
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ModItems.ANALYTICAL_WRENCH.get(), 1)
+                .pattern(" W ")
+                .pattern(" S ")
+                .pattern(" I ")
+                .define('W', ModItems.WRENCH)
+                .define('S', ModItems.ELEMENIC_SCANNER)
+                .define('I', Items.IRON_INGOT)
+                .unlockedBy("has_wrench", has(ModItems.WRENCH))
+                .save(recipeOutput);
     }
 }

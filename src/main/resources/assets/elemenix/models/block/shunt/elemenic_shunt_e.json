@@ -1,0 +1,12 @@
+{
+  "parent": "block/cube",
+  "textures": {
+    "down": "elemenix:block/shunt/shunt_bottom",
+    "up": "elemenix:block/shunt/shunt_top",
+    "north": "elemenix:block/shunt/shunt_front_working",
+    "south": "elemenix:block/shunt/shunt_e",
+    "west": "elemenix:block/shunt/shunt_e",
+    "east": "elemenix:block/shunt/shunt_e",
+    "particle": "elemenix:block/shunt/shunt_e"
+  }
+}

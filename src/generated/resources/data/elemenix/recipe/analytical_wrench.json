@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "I": {
+      "item": "minecraft:iron_ingot"
+    },
+    "S": {
+      "item": "elemenix:elemenic_scanner"
+    },
+    "W": {
+      "item": "elemenix:wrench"
+    }
+  },
+  "pattern": [
+    " W ",
+    " S ",
+    " I "
+  ],
+  "result": {
+    "count": 1,
+    "id": "elemenix:analytical_wrench"
+  }
+}

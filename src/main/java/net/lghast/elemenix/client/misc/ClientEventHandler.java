@@ -124,6 +124,7 @@ public class ClientEventHandler {
         event.register(ModMenus.INFUSER_MENU.get(), InfuserScreen::new);
         event.register(ModMenus.ENRICHER_MENU.get(), EnricherScreen::new);
         event.register(ModMenus.EJECTOR_MENU.get(), EjectorScreen::new);
+        event.register(ModMenus.SHUNT_MENU.get(), ShuntScreen::new);
         event.register(ModMenus.DECONSTRUCTOR_MENU.get(), DeconstructorScreen::new);
         event.register(ModMenus.TANK_MENU.get(), TankScreen::new);
         event.register(ModMenus.OUTLET_MENU.get(), OutletScreen::new);

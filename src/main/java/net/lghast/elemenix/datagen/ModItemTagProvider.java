@@ -7,6 +7,8 @@ import net.lghast.elemenix.register.system.ModTags;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.ItemTagsProvider;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.world.level.block.Block;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import org.jetbrains.annotations.NotNull;
@@ -21,6 +23,11 @@ public class ModItemTagProvider extends ItemTagsProvider {
 
     @Override
     protected void addTags(HolderLookup.@NotNull Provider pProvider) {
+        tag(ItemTags.create(ResourceLocation.fromNamespaceAndPath("c", "tools/wrench")))
+                .add(ModItems.WRENCH.asItem())
+                .add(ModItems.ANALYTICAL_WRENCH.asItem())
+        ;
+
         tag(ModTags.ESSENCES)
                 .add(ModItems.ORGANIX_ESSENCE.asItem())
                 .add(ModItems.TERRIX_ESSENCE.asItem())

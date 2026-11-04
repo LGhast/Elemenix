@@ -42,5 +42,6 @@ public class ModItemModelProvider extends ItemModelProvider {
         basicItem(ModItems.ANALYSIS_TERMINAL.get());
         basicItem(ModItems.PISTON_PUMP.get());
         handheldItem(ModItems.WRENCH.get());
+        handheldItem(ModItems.ANALYTICAL_WRENCH.get());
     }
 }

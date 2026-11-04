@@ -110,6 +110,9 @@ public class ModItems {
     public static final DeferredItem<Item> WRENCH = ITEMS.register("wrench",
             ()-> new WrenchItem(new Item.Properties().stacksTo(1)));
 
+    public static final DeferredItem<Item> ANALYTICAL_WRENCH = ITEMS.register("analytical_wrench",
+            ()-> new AnalyticalWrenchItem(new Item.Properties().stacksTo(1)));
+
     public static final DeferredItem<Item> PISTON_PUMP = ITEMS.register("piston_pump",
             ()-> new Item(new Item.Properties()));
 

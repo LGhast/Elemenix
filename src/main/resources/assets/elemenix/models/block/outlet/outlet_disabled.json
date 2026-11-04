@@ -1,5 +1,5 @@
 {
-  "parent": "elemenix:block/outlet",
+  "parent": "elemenix:block/outlet/outlet",
   "textures": {
     "0": "elemenix:block/outlet/outlet_disabled"
   }

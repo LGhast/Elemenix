@@ -3,6 +3,7 @@ package net.lghast.elemenix.common.content.blockentity;
 import net.lghast.elemenix.Elemenics;
 import net.lghast.elemenix.common.content.block.ChannelBlock;
 import net.lghast.elemenix.common.content.block.OutletBlock;
+import net.lghast.elemenix.common.content.block.ShuntBlock;
 import net.lghast.elemenix.common.content.block.TransformerBlock;
 import net.lghast.elemenix.config.CommonConfig;
 import net.lghast.elemenix.register.content.ModBlockEntities;
@@ -137,12 +138,8 @@ public class OutletBlockEntity extends BlockEntity {
     private boolean canTransfer(ElemenixHolder source, ElemenixHolder target) {
         if (!isPathValid(source, target)) return false;
 
-        EjectorBlockEntity ejector = source instanceof EjectorBlockEntity e ? e : null;
-        boolean filterSingle = ejector != null && isExtractingFromFront(ejector) && ejector.getFilterIndex() != EjectorBlockEntity.FILTER_ALL;
-        int filterIndex = ejector != null ? ejector.getFilterIndex() : EjectorBlockEntity.FILTER_ALL;
-
         for (Elemenix type : Elemenix.values()) {
-            if (filterSingle && type.getIndex() != filterIndex) continue;
+            if (!isTypeTransferable(source, target, type)) continue;
             if (source.canExtract(type) && target.canReceive(type) && source.getStored(type) > 0) {
                 return true;
             }
@@ -151,10 +148,7 @@ public class OutletBlockEntity extends BlockEntity {
     }
 
     private void transfer(ElemenixHolder source, ElemenixHolder target) {
-        EjectorBlockEntity ejector = source instanceof EjectorBlockEntity e ? e : null;
-        boolean ejectorFront = ejector != null && isExtractingFromFront(ejector);
-        boolean filterSingle = ejectorFront && ejector.getFilterIndex() != EjectorBlockEntity.FILTER_ALL;
-        int filterIndex = ejector != null ? ejector.getFilterIndex() : EjectorBlockEntity.FILTER_ALL;
+        boolean filterSingle = isFrontSingleFilter(source);
 
         long cap = getMaxOutputPerType();
         if (filterSingle) {
@@ -162,7 +156,7 @@ public class OutletBlockEntity extends BlockEntity {
         }
 
         for (Elemenix type : Elemenix.values()) {
-            if (filterSingle && type.getIndex() != filterIndex) continue;
+            if (!isTypeTransferable(source, target, type)) continue;
             if (!source.canExtract(type) || !target.canReceive(type)) continue;
             long available = source.getStored(type);
             if (available <= 0) continue;
@@ -177,11 +171,91 @@ public class OutletBlockEntity extends BlockEntity {
         return outletFacing == ejector.getFront();
     }
 
+    private boolean isExtractingFromFront(ShuntBlockEntity shunt) {
+        Direction outletFacing = getBlockState().getValue(OutletBlock.FACING);
+        return outletFacing == shunt.getFront();
+    }
+
+    private boolean isReceivingFromFront(EjectorBlockEntity ejector) {
+        Direction outletFacing = getBlockState().getValue(OutletBlock.FACING);
+        return outletFacing == ejector.getFront().getOpposite();
+    }
+
+    private boolean isReceivingFromFront(ShuntBlockEntity shunt) {
+        Direction outletFacing = getBlockState().getValue(OutletBlock.FACING);
+        return outletFacing == shunt.getFront().getOpposite();
+    }
+
+    private boolean canExtractFromEjector(EjectorBlockEntity ejector, Elemenix type) {
+        int filterIndex = ejector.getFilterIndex();
+        if (filterIndex == EjectorBlockEntity.FILTER_ALL) {
+            return true;
+        }
+        if (isExtractingFromFront(ejector)) {
+            return type.getIndex() == filterIndex;
+        }
+        return type.getIndex() != filterIndex;
+    }
+
+    private boolean canExtractFromShunt(ShuntBlockEntity shunt, Elemenix type) {
+        int filterIndex = shunt.getFilterIndex();
+        if (filterIndex == ShuntBlockEntity.FILTER_UNSPECIFIED) {
+            return false;
+        }
+        if (isExtractingFromFront(shunt)) {
+            return type.getIndex() == filterIndex;
+        }
+        return type.getIndex() != filterIndex;
+    }
+
+    private boolean canReceiveIntoEjector(EjectorBlockEntity ejector) {
+        return !isReceivingFromFront(ejector);
+    }
+
+    private boolean canReceiveIntoShunt(ShuntBlockEntity shunt) {
+        return !isReceivingFromFront(shunt);
+    }
+
+    private boolean isFrontSingleFilter(ElemenixHolder source) {
+        return source instanceof EjectorBlockEntity ejector && isExtractingFromFront(ejector)
+                && ejector.getFilterIndex() != EjectorBlockEntity.FILTER_ALL;
+    }
+
+    private boolean isTypeTransferable(ElemenixHolder source, ElemenixHolder target, Elemenix type) {
+        if (source instanceof EjectorBlockEntity ejector && !canExtractFromEjector(ejector, type)) {
+            return false;
+        }
+        if (source instanceof ShuntBlockEntity shunt && !canExtractFromShunt(shunt, type)) {
+            return false;
+        }
+        if (target instanceof EjectorBlockEntity ejector && !canReceiveIntoEjector(ejector)) {
+            return false;
+        }
+        return !(target instanceof ShuntBlockEntity shunt) || canReceiveIntoShunt(shunt);
+    }
+
     private boolean isPathValid(ElemenixHolder source, ElemenixHolder target) {
+        if (target instanceof EjectorBlockEntity ejector && isReceivingFromFront(ejector)) {
+            return false;
+        }
+        if (target instanceof ShuntBlockEntity shunt && isReceivingFromFront(shunt)) {
+            return false;
+        }
         if (source instanceof EjectorBlockEntity ejector && isExtractingFromFront(ejector)) {
             if (ejector.isDisabled()) return false;
             int filterIndex = ejector.getFilterIndex();
             if (filterIndex != EjectorBlockEntity.FILTER_ALL) {
+                Elemenix filterType = Elemenix.values()[filterIndex];
+                if (target instanceof TransformerBlockEntity transformer) {
+                    TransformerBlock block = transformer.getTransformerBlock();
+                    return block == null || filterType == block.getInputElemenixA() || filterType == block.getInputElemenixB();
+                }
+            }
+        }
+        if (source instanceof ShuntBlockEntity shunt && isExtractingFromFront(shunt)) {
+            if (shunt.getBlockState().getValue(ShuntBlock.DISABLED)) return false;
+            int filterIndex = shunt.getFilterIndex();
+            if (filterIndex != ShuntBlockEntity.FILTER_UNSPECIFIED) {
                 Elemenix filterType = Elemenix.values()[filterIndex];
                 if (target instanceof TransformerBlockEntity transformer) {
                     TransformerBlock block = transformer.getTransformerBlock();
@@ -198,6 +272,35 @@ public class OutletBlockEntity extends BlockEntity {
 
     private long getMaxOutputPerType() {
         return (long) CommonConfig.OUTLET_MAX_OUTPUT_PER_TYPE.get() * getOutputMultiplier() * outputPercent / MAX_OUTPUT_PERCENT;
+    }
+
+    public boolean[] getAllowedOutputs() {
+        boolean[] allowed = new boolean[6];
+        if (level == null) return allowed;
+        ElemenixHolder source = findSource(level);
+        ElemenixHolder target = findTarget(level);
+        if (source == null || target == null || source == target) return allowed;
+        for (Elemenix type : Elemenix.values()) {
+            if (isTypeTransferable(source, target, type)
+                    && source.canExtract(type)
+                    && target.canReceive(type)
+                    && target.getStored(type) < Integer.MAX_VALUE) {
+                allowed[type.getIndex()] = true;
+            }
+        }
+        return allowed;
+    }
+
+    public boolean[] getCurrentOutputs() {
+        boolean[] current = new boolean[6];
+        boolean[] allowed = getAllowedOutputs();
+        if (level == null) return current;
+        ElemenixHolder source = findSource(level);
+        if (source == null) return current;
+        for (Elemenix type : Elemenix.values()) {
+            current[type.getIndex()] = allowed[type.getIndex()] && source.getStored(type) > 0;
+        }
+        return current;
     }
 
     public OutletPath getPath() {
