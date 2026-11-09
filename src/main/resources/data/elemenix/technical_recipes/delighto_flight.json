@@ -8,11 +8,38 @@
       "input": "delighto_flight:weather_soil"
     },
     {
+      "output": "delighto_flight:moon_rabbish",
+      "count": 1,
+      "inputs": [
+        { "id": "minecraft:golden_carrot", "count": 1 }
+      ],
+      "additions": [
+        { "type": "arcanix", "value": 2 }
+      ]
+    },
+    {
+      "output": "delighto_flight:celestial_pudding_slice",
+      "count": 4,
+      "inputs": [
+        { "id": "delighto_flight:celestial_pudding", "count": 1 }
+      ]
+    },
+    {
       "output": "delighto_flight:phantom_wing",
       "count": 1,
       "inputs": [
         { "id": "minecraft:bone", "count": 1 },
         { "id": "minecraft:phantom_membrane", "count": 2 }
+      ]
+    },
+    {
+      "output": "delighto_flight:waning_crescent_jelly_slice",
+      "count": 1,
+      "inputs": [
+        { "id": "delighto_flight:waning_crescent_jelly_block", "count": 1 }
+      ],
+      "offcuts": [
+        { "id": "minecraft:bowl", "count": 1 }
       ]
     },
     {
@@ -23,6 +50,22 @@
       ],
       "offcuts": [
         { "id": "minecraft:bowl", "count": 1 }
+      ]
+    },
+    {
+      "output": "delighto_flight:gaint_rabbish_moon_cake",
+      "count": 1,
+      "inputs": [
+        { "id": "delighto_flight:raw_moon_cake_skin", "count": 1 },
+        { "id": "delighto_flight:rabbish_mooncake_filling", "count": 1 },
+        { "id": "farmersdelight:wheat_dough", "count": 1 }
+      ]
+    },
+    {
+      "output": "delighto_flight:gaint_rabbish_moon_cake_slice",
+      "count": 16,
+      "inputs": [
+        { "id": "delighto_flight:gaint_rabbish_moon_cake", "count": 1 }
       ]
     },
     {
@@ -50,6 +93,12 @@
       "preset": "food_unit_bowl",
       "output": "delighto_flight:lotus_leaf_rice",
       "source": "delighto_flight:lotus_leaf_rice_block"
+    },
+    {
+      "preset": "food_unit",
+      "output": "delighto_flight:waxing_crescent_egg_soup",
+      "source": "delighto_flight:waxing_crescent_egg_soup_block",
+      "container": "minecraft:bowl"
     },
     {
       "output": "&delighto_flight:charged_rose_tea",

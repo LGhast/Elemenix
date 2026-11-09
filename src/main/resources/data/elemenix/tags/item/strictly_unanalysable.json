@@ -1135,6 +1135,30 @@
     {
       "id": "goetydelight:not_anything",
       "required": false
+    },
+    {
+      "id": "delighto_flight:stardrop_heart",
+      "required": false
+    },
+    {
+      "id": "delighto_flight:hardcore_stardrop_heart",
+      "required": false
+    },
+    {
+      "id": "cobblemon:pokemon_model",
+      "required": false
+    },
+    {
+      "id": "cobblemon:npc_editor",
+      "required": false
+    },
+    {
+      "id": "cobblemon:technical_machine",
+      "required": false
+    },
+    {
+      "id": "cobblemon:habitat_block",
+      "required": false
     }
   ]
 }

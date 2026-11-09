@@ -29,6 +29,9 @@
     { "id": "#cobblemon:berries/mutation_result", "constituents": [35, 0, 16, 0, 0, 8] },
     { "id": "#cobblemon:fossils", "constituents": [1000, 20000, 0, 0, 0, 420] },
     { "id": "cobblemon:pep_up_flower", "preset": "flower" },
+    { "id": "cobblemon:lobaila", "preset": "flower" },
+    { "id": "cobblemon:pauvillea", "preset": "flower" },
+    { "id": "cobblemon:wistensu", "preset": "flower" },
     { "id": "cobblemon:vivichoke_seeds", "elemenix": "organix", "value": 15 },
     { "id": "cobblemon:lagging_tail", "elemenix": "terrix", "value": 320 },
     { "id": "cobblemon:relic_coin_pouch", "elemenix": "metallix", "value": 432 },
@@ -44,8 +47,6 @@
     { "id": "cobblemon:galarica_nuts", "constituents": [8, 0, 6, 0, 0, 0] },
     { "id": "cobblemon:hearty_grains", "constituents": [24, 0, 3, 0, 0, 0] },
     { "id": "cobblemon:tasty_tail", "constituents": [40, 0, 20, 0, 0, 0] },
-    { "id": "cobblemon:automaton_armor_trim_smithing_template", "constituents": [0, 140000, 0, 0, 0, 2800] },
-    { "id": "cobblemon:pokerod_smithing_template", "constituents": [0, 12, 0, 3024, 0, 0] },
     { "id": "cobblemon:tart_apple", "constituents": [32, 0, 15, 0, 0, 0] },
     { "id": "cobblemon:sweet_apple", "constituents": [32, 0, 15, 0, 0, 0] },
     { "id": "cobblemon:syrupy_apple", "constituents": [40, 0, 15, 0, 0, 0] },
@@ -73,8 +74,6 @@
     { "id": "cobblemon:psychic_seed", "constituents": [80, 0, 0, 0, 0, 95] },
     { "id": "cobblemon:smoke_ball", "constituents": [0, 24, 12, 0, 0, 0] },
     { "id": "cobblemon:moomoo_milk", "constituents": [10, 8, 12, 0, 0, 0] },
-    { "id": "cobblemon:exp_candy_s", "constituents": [360, 0, 0, 0, 12, 24] },
-    { "id": "cobblemon:exp_candy_l", "constituents": [324, 0, 0, 0, 108, 216] },
     { "id": "cobblemon:ability_capsule", "constituents": [1200, 0, 0, 0, 0, 120] },
     { "id": "cobblemon:ability_patch", "constituents": [9800, 0, 0, 0, 200, 800] },
     { "id": "cobblemon:dragon_scale", "constituents": [120, 0, 0, 0, 0, 32] },
@@ -89,6 +88,8 @@
     { "id": "cobblemon:scroll_of_darkness", "constituents": [1320, 0, 0, 0, 0, 100] },
     { "id": "cobblemon:scroll_of_waters", "constituents": [1200, 0, 120, 0, 0, 100] },
     { "id": "cobblemon:oval_stone", "constituents": [0, 200, 0, 0, 12, 24] },
-    { "id": "cobblemon:rare_candy", "constituents": [1944, 0, 0, 0, 648, 648] }
+    { "id": "cobblemon:rare_candy", "constituents": [1944, 0, 0, 0, 648, 648] },
+    { "id": "cobblemon:deepslate_crystal_core", "constituents": [0, 2500, 0, 0, 0, 800] },
+    { "id": "cobblemon:gimmighoul_chest", "constituents": [192, 0, 0, 120, 0, 0] }
   ]
 }

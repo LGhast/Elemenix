@@ -1,7 +1,7 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "elemenix:item/memorizer/default"
+    "layer0": "elemenix:item/elemenic_memorizer"
   },
   "overrides": [
     {"predicate": {"elemenix:style": 0.0}, "model": "elemenix:item/memorizer/default"},

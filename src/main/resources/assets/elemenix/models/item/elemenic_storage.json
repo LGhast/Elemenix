@@ -1,7 +1,7 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "elemenix:item/storage/normal"
+    "layer0": "elemenix:item/elemenic_storage"
   },
   "overrides": [
     {"predicate": {"elemenix:has_storage": 0.0}, "model": "elemenix:item/storage/normal"},

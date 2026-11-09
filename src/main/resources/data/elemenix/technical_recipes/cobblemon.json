@@ -1,0 +1,149 @@
+{
+  "mod_id": "cobblemon",
+  "load_after": ["minecraft"],
+  "recipes": [
+    {
+      "preset": "same",
+      "output": "cobblemon:damaged_monitor",
+      "input": "cobblemon:monitor"
+    },
+    {
+      "preset": "same",
+      "output": "cobblemon:ancient_origin_ball",
+      "input": "cobblemon:master_ball"
+    },
+    {
+      "preset": "same",
+      "output": "cobblemon:cherish_ball",
+      "input": "cobblemon:poke_ball"
+    },{
+      "preset": "same",
+      "output": "cobblemon:normal_gem_cluster",
+      "input": "cobblemon:normal_gem"
+    },
+    {
+      "preset": "same",
+      "output": "cobblemon:fire_gem_cluster",
+      "input": "cobblemon:fire_gem"
+    },
+    {
+      "preset": "same",
+      "output": "cobblemon:water_gem_cluster",
+      "input": "cobblemon:water_gem"
+    },
+    {
+      "preset": "same",
+      "output": "cobblemon:grass_gem_cluster",
+      "input": "cobblemon:grass_gem"
+    },
+    {
+      "preset": "same",
+      "output": "cobblemon:electric_gem_cluster",
+      "input": "cobblemon:electric_gem"
+    },
+    {
+      "preset": "same",
+      "output": "cobblemon:ice_gem_cluster",
+      "input": "cobblemon:ice_gem"
+    },
+    {
+      "preset": "same",
+      "output": "cobblemon:fighting_gem_cluster",
+      "input": "cobblemon:fighting_gem"
+    },
+    {
+      "preset": "same",
+      "output": "cobblemon:poison_gem_cluster",
+      "input": "cobblemon:poison_gem"
+    },
+    {
+      "preset": "same",
+      "output": "cobblemon:ground_gem_cluster",
+      "input": "cobblemon:ground_gem"
+    },
+    {
+      "preset": "same",
+      "output": "cobblemon:flying_gem_cluster",
+      "input": "cobblemon:flying_gem"
+    },
+    {
+      "preset": "same",
+      "output": "cobblemon:psychic_gem_cluster",
+      "input": "cobblemon:psychic_gem"
+    },
+    {
+      "preset": "same",
+      "output": "cobblemon:bug_gem_cluster",
+      "input": "cobblemon:bug_gem"
+    },
+    {
+      "preset": "same",
+      "output": "cobblemon:rock_gem_cluster",
+      "input": "cobblemon:rock_gem"
+    },
+    {
+      "preset": "same",
+      "output": "cobblemon:ghost_gem_cluster",
+      "input": "cobblemon:ghost_gem"
+    },
+    {
+      "preset": "same",
+      "output": "cobblemon:dragon_gem_cluster",
+      "input": "cobblemon:dragon_gem"
+    },
+    {
+      "preset": "same",
+      "output": "cobblemon:dark_gem_cluster",
+      "input": "cobblemon:dark_gem"
+    },
+    {
+      "preset": "same",
+      "output": "cobblemon:steel_gem_cluster",
+      "input": "cobblemon:steel_gem"
+    },
+    {
+      "preset": "same",
+      "output": "cobblemon:fairy_gem_cluster",
+      "input": "cobblemon:fairy_gem"
+    },
+    {
+      "preset": "template",
+      "output": "cobblemon:automaton_armor_trim_smithing_template",
+      "material": "minecraft:cobblestone"
+    },
+    {
+      "preset": "template",
+      "output": "cobblemon:pokerod_smithing_template",
+      "main_item": "minecraft:gold_ingot",
+      "material": "minecraft:prismarine_shard"
+    },
+    {
+      "output": "cobblemon:voltaconia",
+      "count": 1,
+      "inputs": [
+        { "id": "cobblemon:electric_seed", "count": 2 }
+      ]
+    },
+    {
+      "output": "cobblemon:verdroot",
+      "count": 1,
+      "inputs": [
+        { "id": "cobblemon:grassy_seed", "count": 2 }
+      ]
+    },
+    {
+      "output": "cobblemon:mistleaf",
+      "count": 1,
+      "inputs": [
+        { "id": "cobblemon:misty_seed", "count": 2 }
+      ]
+    },
+    {
+      "output": "cobblemon:lucibell",
+      "count": 1,
+      "inputs": [
+        { "id": "cobblemon:psychic_seed", "count": 2 }
+      ]
+    }
+  ]
+}

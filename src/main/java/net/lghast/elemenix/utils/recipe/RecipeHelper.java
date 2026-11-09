@@ -67,6 +67,7 @@ public class RecipeHelper {
     private static final boolean KALEIDOSCOPE_LOADED;
     private static final boolean IRONS_SPELLBOOKS_LOADED;
     private static final boolean GOETY_LOADED;
+    private static final boolean DELIGHTO_FLIGHT_LOADED;
 
     private static volatile boolean indexed = false;
     private static volatile boolean precomputing = false;
@@ -84,6 +85,7 @@ public class RecipeHelper {
         KALEIDOSCOPE_LOADED = ModUtils.hasServerMod("kaleidoscope_cookery");
         IRONS_SPELLBOOKS_LOADED = ModUtils.hasServerMod("irons_spellbooks");
         GOETY_LOADED = ModUtils.hasServerMod("goety");
+        DELIGHTO_FLIGHT_LOADED = ModUtils.hasServerMod("delighto_flight");
 
         if(FARMERS_DELIGHT_LOADED){
             RECIPE_TYPES_WITH_CONTAINER.add("farmersdelight:cooking");
@@ -101,6 +103,9 @@ public class RecipeHelper {
             if(ModUtils.hasServerMod("youkaisfeasts")){
                 RECIPE_TYPES_WITH_CONTAINER.add("youkaisfeasts:moka_pot");
                 RECIPE_TYPES_NORMAL.add("youkaisfeasts:steaming");
+            }
+            if(DELIGHTO_FLIGHT_LOADED){
+                RECIPE_TYPES_NORMAL.add("delighto_flight:spinning");
             }
         }
         if(ANVILCRAFT_LOADED){
@@ -173,6 +178,7 @@ public class RecipeHelper {
         }
         if(ModUtils.hasServerMod("cobblemon")){
             RECIPE_TYPES_NORMAL.add("cobblemon:cooking_pot");
+            RECIPE_TYPES_NORMAL.add("cobblemon:cooking_pot_shapeless");
             RECIPE_TYPES_BREWING_LIKE.add("cobblemon:brewing_stand");
         }
         if(ModUtils.hasServerMod("terra_curio")){
@@ -727,6 +733,10 @@ public class RecipeHelper {
                     }
                 }
             }
+            if (isDelightoFlightSpinningRecipe(recipe)) {
+                info.ingredients.add(new ItemStack(Items.STICK));
+                info.amount += 1;
+            }
             if (isRecipeWithFluids(recipe)) {
                 addFluidConstituents(recipe, info);
             }
@@ -809,6 +819,17 @@ public class RecipeHelper {
     private static boolean isNormalModRecipe(Recipe<?> recipe) {
         ResourceLocation id = getRecipeTypeId(recipe);
         return id != null && RECIPE_TYPES_NORMAL.contains(id.toString());
+    }
+
+    private static boolean isDelightoFlightSpinningRecipe(Recipe<?> recipe) {
+        if (!DELIGHTO_FLIGHT_LOADED) {
+            return false;
+        }
+        try {
+            return recipe.getType().toString().equals("delighto_flight:spinning");
+        } catch (Exception e) {
+            return false;
+        }
     }
 
     private static boolean isRecipeWithContainer(Recipe<?> recipe) {

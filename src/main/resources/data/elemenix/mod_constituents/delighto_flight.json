@@ -1,9 +1,11 @@
 {
   "mod_id": "delighto_flight",
   "entries": [
+    { "id": "delighto_flight:crescent_seeds", "elemenix": "organix", "value": 4 },
     { "id": "delighto_flight:cloud", "elemenix": "flumix", "value": 32 },
     { "id": "delighto_flight:copper_thunder_fruit", "constituents": [16, 0, 0, 24, 24, 0] },
     { "id": "delighto_flight:cloud_berries", "constituents": [8, 0, 6, 0, 0, 0] },
+    { "id": "delighto_flight:astral_berries", "constituents": [8, 0, 5, 0, 1, 0] },
     { "id": "delighto_flight:thunder_fruit_seeds", "constituents": [4, 0, 0, 0, 2, 0] },
     { "id": "delighto_flight:thunder_fruit", "constituents": [32, 0, 8, 0, 16, 0] },
     { "id": "delighto_flight:clear_cloudshroom", "constituents": [18, 0, 6, 0, 0, 0] },
@@ -20,6 +22,12 @@
     { "id": "delighto_flight:rooted_mud", "constituents": [26, 18, 10, 0, 0, 0] },
     { "id": "delighto_flight:clear_horn", "constituents": [10, 80, 0, 0, 0, 0] },
     { "id": "delighto_flight:rainy_horn", "constituents": [10, 80, 10, 0, 0, 0] },
-    { "id": "delighto_flight:thunder_horn", "constituents": [10, 80, 0, 0, 15, 0] }
+    { "id": "delighto_flight:thunder_horn", "constituents": [10, 80, 0, 0, 15, 0] },
+    { "id": "delighto_flight:waxing_crescent_slivermelon", "constituents": [72, 0, 108, 0, 0, 8] },
+    { "id": "delighto_flight:waning_crescent_slivermelon", "constituents": [72, 0, 108, 0, 0, 8] },
+    { "id": "delighto_flight:mixing_crescent_slivermelon", "constituents": [72, 0, 108, 0, 0, 8] },
+    { "id": "delighto_flight:stardrop", "constituents": [5120, 0, 240, 0, 20000, 4096] },
+    { "id": "delighto_flight:moonshade", "constituents": [18, 0, 5, 0, 0, 5] },
+    { "id": "delighto_flight:moonshade_petals", "constituents": [15, 0, 5, 0, 0, 0] }
   ]
 }

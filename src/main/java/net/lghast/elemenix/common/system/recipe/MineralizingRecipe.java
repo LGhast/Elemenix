@@ -14,8 +14,7 @@ import javax.annotation.Nullable;
 import javax.annotation.ParametersAreNonnullByDefault;
 
 @ParametersAreNonnullByDefault
-public record MineralizingRecipe(Ingredient mineral, Ingredient medium, ItemStack result, double flumixCost)
-        implements Recipe<RecipeInput> {
+public record MineralizingRecipe(Ingredient mineral, Ingredient medium, ItemStack result, double flumixCost) implements Recipe<RecipeInput> {
     public static final double DEFAULT_FLUMIX_COST = 0.1;
 
     @Nullable

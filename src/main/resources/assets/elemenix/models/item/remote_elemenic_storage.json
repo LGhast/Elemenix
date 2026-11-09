@@ -1,7 +1,7 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "elemenix:item/remote_storage/normal"
+    "layer0": "elemenix:item/remote_elemenic_storage"
   },
   "overrides": [
     {"predicate": {"elemenix:remote_bound": 0.0}, "model": "elemenix:item/remote_storage/normal"},

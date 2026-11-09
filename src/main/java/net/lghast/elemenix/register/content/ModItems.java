@@ -75,10 +75,10 @@ public class ModItems {
             ()-> new NullvoidItem(new Item.Properties()));
 
     public static final DeferredItem<Item> THROTTLE_VALVE = ITEMS.register("throttle_valve",
-            ()-> new Item(new Item.Properties().stacksTo(1)));
+            ()-> new Item(new Item.Properties()));
 
     public static final DeferredItem<Item> FLOW_STRAIGHTENER = ITEMS.register("flow_straightener",
-            ()-> new Item(new Item.Properties().stacksTo(1)));
+            ()-> new Item(new Item.Properties()));
 
     public static final DeferredItem<Item> FONDANT_CAKE = ITEMS.register("fondant_cake",
             ()-> new Item(new Item.Properties().food(ModFoodProperties.FONDANT_CAKE)));
