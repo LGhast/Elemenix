@@ -6,6 +6,7 @@ import net.lghast.elemenix.config.ClientConfig;
 import net.lghast.elemenix.common.content.block.ChannelBlock;
 import net.lghast.elemenix.common.content.block.ElemenicComparatorBlock;
 import net.lghast.elemenix.common.content.block.OutletBlock;
+import net.lghast.elemenix.common.content.blockentity.AbstractPrinterBlockEntity;
 import net.lghast.elemenix.common.content.blockentity.EjectorBlockEntity;
 import net.lghast.elemenix.common.content.blockentity.ElemenicComparatorBlockEntity;
 import net.lghast.elemenix.common.content.blockentity.OutletBlockEntity;
@@ -207,6 +208,19 @@ public class AnalyticalWrenchClientEvents {
         if (be instanceof OutletBlockEntity outlet) {
             lines.add(buildOutputLine(true, outlet.getAllowedOutputs()));
             lines.add(buildOutputLine(false, outlet.getCurrentOutputs()));
+        }
+
+        if (be instanceof AbstractPrinterBlockEntity printer) {
+            String modeName = AbstractPrinterBlockEntity.getModeName(printer.getMode());
+            lines.add(Component.translatable("tooltip.elemenix.printer_mode",
+                    Component.literal(modeName).withColor(0xFFFFFFFF)).withColor(TITLE_COLOR));
+
+            ItemStack printingStack = printer.getPrintingItemStack();
+            if (!printingStack.isEmpty()) {
+                String itemName = printingStack.getHoverName().getString();
+                lines.add(Component.translatable("tooltip.elemenix.printer_printing",
+                        Component.literal(itemName).withColor(0xFFFFFFFF)).withColor(TITLE_COLOR));
+            }
         }
 
         if (be instanceof ElemenixHolder holder) {

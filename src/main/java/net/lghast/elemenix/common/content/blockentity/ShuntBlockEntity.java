@@ -40,7 +40,6 @@ import java.util.UUID;
  */
 @ParametersAreNonnullByDefault
 public class ShuntBlockEntity extends BlockEntity implements ElemenixHolder {
-    /** Filter value meaning "unspecified" (not part of a bound group yet). */
     public static final int FILTER_UNSPECIFIED = 6;
 
     private static final String TAG_STORAGE = "ElemenixStorage";

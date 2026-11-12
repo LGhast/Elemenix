@@ -1,0 +1,12 @@
+{
+  "variants": {
+    "has_memorizer=false,disabled=false,working=false": { "model": "elemenix:block/printer/printer" },
+    "has_memorizer=false,disabled=true,working=false": { "model": "elemenix:block/printer/printer_disabled" },
+    "has_memorizer=false,disabled=false,working=true": { "model": "elemenix:block/printer/printer" },
+    "has_memorizer=false,disabled=true,working=true": { "model": "elemenix:block/printer/printer_disabled" },
+    "has_memorizer=true,disabled=false,working=false": { "model": "elemenix:block/printer/printer_with_memorizer" },
+    "has_memorizer=true,disabled=true,working=false": { "model": "elemenix:block/printer/printer_with_memorizer_disabled" },
+    "has_memorizer=true,disabled=false,working=true": { "model": "elemenix:block/printer/printer_with_memorizer_working" },
+    "has_memorizer=true,disabled=true,working=true": { "model": "elemenix:block/printer/printer_with_memorizer_disabled" }
+  }
+}

@@ -116,6 +116,9 @@ public class ModItems {
     public static final DeferredItem<Item> PISTON_PUMP = ITEMS.register("piston_pump",
             ()-> new Item(new Item.Properties()));
 
+    public static final DeferredItem<Item> PRINTER_NOZZLE = ITEMS.register("printer_nozzle",
+            ()-> new Item(new Item.Properties()));
+
     public static void register(IEventBus eventBus){
         ITEMS.register(eventBus);
     }

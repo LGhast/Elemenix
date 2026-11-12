@@ -1,0 +1,33 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "E": {
+      "item": "elemenix:analyzing_chip"
+    },
+    "G": {
+      "item": "minecraft:glass"
+    },
+    "I": {
+      "item": "minecraft:iron_ingot"
+    },
+    "N": {
+      "item": "elemenix:printer_nozzle"
+    },
+    "T": {
+      "item": "elemenix:elemenic_tank"
+    },
+    "W": {
+      "item": "elemenix:witchcraft_trove"
+    }
+  },
+  "pattern": [
+    "WNW",
+    "GEG",
+    "ITI"
+  ],
+  "result": {
+    "count": 1,
+    "id": "elemenix:witchcraft_printer"
+  }
+}

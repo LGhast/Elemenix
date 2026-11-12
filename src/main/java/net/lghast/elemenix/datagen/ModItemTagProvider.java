@@ -69,6 +69,11 @@ public class ModItemTagProvider extends ItemTagsProvider {
                 .add(ModBlocks.ELEMENIC_PRESSURIZED_OUTLET.asItem())
         ;
 
+        tag(ModTags.PRINTERS)
+                .add(ModBlocks.SUBSTANCE_PRINTER.asItem())
+                .add(ModBlocks.WITCHCRAFT_PRINTER.asItem())
+        ;
+
         tag(ModTags.IGNORED_BY_DECONSTRUCTOR_INPUT)
                 .add(ModItems.ELEMENIC_STORAGE.asItem())
                 .add(ModItems.ELEMENIC_ANALYZER.asItem())

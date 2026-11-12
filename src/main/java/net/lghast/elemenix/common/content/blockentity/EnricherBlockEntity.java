@@ -300,9 +300,7 @@ public class EnricherBlockEntity extends BaseContainerBlockEntity implements Wor
     }
 
     @Override
-    public void extract(Elemenix type, long amount) {
-        // no-op: the enricher is a target only
-    }
+    public void extract(Elemenix type, long amount) {}
 
     @Override
     public void receive(Elemenix type, long amount) {

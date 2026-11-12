@@ -334,6 +334,23 @@ public class ModAdvancementProvider extends AdvancementProvider {
                     ))
                     .save(saver, ResourceLocation.parse("elemenix:elemenics/novice_plumber"), existingFileHelper);
 
+            AdvancementHolder obtainSubstancePrinter = Advancement.Builder.advancement()
+                    .parent(novicePlumber)
+                    .display(
+                            ModBlocks.SUBSTANCE_PRINTER,
+                            Component.translatable("advancements.elemenix.obtain_substance_printer.title"),
+                            Component.translatable("advancements.elemenix.obtain_substance_printer.description"),
+                            null,
+                            AdvancementType.TASK,
+                            true,
+                            true,
+                            false
+                    )
+                    .addCriterion("get_substance_printer", InventoryChangeTrigger.TriggerInstance.hasItems(
+                            ItemPredicate.Builder.item().of(ModBlocks.SUBSTANCE_PRINTER.get()).build()
+                    ))
+                    .save(saver, ResourceLocation.parse("elemenix:elemenics/obtain_substance_printer"), existingFileHelper);
+
             AdvancementHolder obtainAnalyticalWrench = Advancement.Builder.advancement()
                     .parent(novicePlumber)
                     .display(
@@ -546,6 +563,23 @@ public class ModAdvancementProvider extends AdvancementProvider {
                             ItemPredicate.Builder.item().of(ModItems.WITCHCRAFT_MEMORIZER.get()).build()
                     ))
                     .save(saver, ResourceLocation.parse("elemenix:elemenics/obtain_witchcraft_memorizer"), existingFileHelper);
+
+            AdvancementHolder obtainWitchcraftPrinter = Advancement.Builder.advancement()
+                    .parent(obtainWitchcraftMemorizer)
+                    .display(
+                            ModBlocks.WITCHCRAFT_PRINTER,
+                            Component.translatable("advancements.elemenix.obtain_witchcraft_printer.title"),
+                            Component.translatable("advancements.elemenix.obtain_witchcraft_printer.description"),
+                            null,
+                            AdvancementType.TASK,
+                            true,
+                            true,
+                            false
+                    )
+                    .addCriterion("get_witchcraft_printer", InventoryChangeTrigger.TriggerInstance.hasItems(
+                            ItemPredicate.Builder.item().of(ModBlocks.WITCHCRAFT_PRINTER.get()).build()
+                    ))
+                    .save(saver, ResourceLocation.parse("elemenix:elemenics/obtain_witchcraft_printer"), existingFileHelper);
         }
     }
 }

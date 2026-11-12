@@ -32,6 +32,8 @@ public class ModBlockLootTableProvider extends BlockLootSubProvider {
         dropSelf(ModBlocks.ELEMENIC_CHANNEL.get());
         dropSelf(ModBlocks.ELEMENIC_DECONSTRUCTOR.get());
         dropSelf(ModBlocks.ELEMENIC_COMPARATOR.get());
+        dropSelf(ModBlocks.SUBSTANCE_PRINTER.get());
+        dropSelf(ModBlocks.WITCHCRAFT_PRINTER.get());
         add(ModBlocks.ELEMENIC_TANK.get(), LootTable.lootTable().setParamSet(LootContextParamSets.BLOCK));
     }
 

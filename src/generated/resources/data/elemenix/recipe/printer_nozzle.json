@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "C": {
+      "item": "elemenix:elemenic_channel"
+    },
+    "I": {
+      "item": "minecraft:iron_ingot"
+    },
+    "P": {
+      "item": "minecraft:piston"
+    }
+  },
+  "pattern": [
+    " C ",
+    " P ",
+    "III"
+  ],
+  "result": {
+    "count": 1,
+    "id": "elemenix:printer_nozzle"
+  }
+}

@@ -3,7 +3,9 @@ package net.lghast.elemenix.register.system;
 import net.lghast.elemenix.Elemenics;
 import net.lghast.elemenix.common.content.blockentity.EnricherBlockEntity;
 import net.lghast.elemenix.common.content.blockentity.InfuserBlockEntity;
+import net.lghast.elemenix.common.content.blockentity.SubstancePrinterBlockEntity;
 import net.lghast.elemenix.common.content.blockentity.TransformerBlockEntity;
+import net.lghast.elemenix.common.content.blockentity.WitchcraftPrinterBlockEntity;
 import net.lghast.elemenix.register.content.ModBlockEntities;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
@@ -29,6 +31,16 @@ public class ModCapabilities {
                 Capabilities.ItemHandler.BLOCK,
                 ModBlockEntities.ENRICHER.get(),
                 EnricherBlockEntity::getItemHandler
+        );
+        event.registerBlockEntity(
+                Capabilities.ItemHandler.BLOCK,
+                ModBlockEntities.SUBSTANCE_PRINTER.get(),
+                SubstancePrinterBlockEntity::getItemHandler
+        );
+        event.registerBlockEntity(
+                Capabilities.ItemHandler.BLOCK,
+                ModBlockEntities.WITCHCRAFT_PRINTER.get(),
+                WitchcraftPrinterBlockEntity::getItemHandler
         );
     }
 }

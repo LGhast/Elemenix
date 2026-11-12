@@ -1,0 +1,33 @@
+{
+  "parent": "elemenix:elemenics/novice_plumber",
+  "criteria": {
+    "get_substance_printer": {
+      "conditions": {
+        "items": [
+          {
+            "items": "elemenix:substance_printer"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.elemenix.obtain_substance_printer.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "elemenix:substance_printer"
+    },
+    "title": {
+      "translate": "advancements.elemenix.obtain_substance_printer.title"
+    }
+  },
+  "requirements": [
+    [
+      "get_substance_printer"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

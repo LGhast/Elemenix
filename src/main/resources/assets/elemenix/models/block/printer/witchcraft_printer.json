@@ -1,0 +1,7 @@
+{
+  "parent": "elemenix:block/printer/printer",
+  "textures": {
+    "0": "elemenix:block/printer/printer_witchcraft",
+    "particle": "elemenix:block/printer/printer_witchcraft"
+  }
+}

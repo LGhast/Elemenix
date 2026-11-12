@@ -41,12 +41,18 @@ public class ModBlockTagProvider extends BlockTagsProvider {
                 .addTag(ModTags.ELEMENIC_TRANSFORMING_BLOCKS)
         ;
 
+        tag(ModTags.PRINTER_BLOCKS)
+                .add(ModBlocks.SUBSTANCE_PRINTER.get())
+                .add(ModBlocks.WITCHCRAFT_PRINTER.get())
+        ;
+
         tag(ModTags.ELEMENIX_INPUTS)
                 .add(ModBlocks.ELEMENIC_TANK.get())
                 .add(ModBlocks.ELEMENIC_INFUSER.get())
                 .add(ModBlocks.ELEMENIC_ENRICHER.get())
                 .add(ModBlocks.ELEMENIC_EJECTOR.get())
                 .add(ModBlocks.ELEMENIC_SHUNT.get())
+                .addTag(ModTags.PRINTER_BLOCKS)
                 .addTag(ModTags.ELEMENIC_TRANSFORMING_BLOCKS)
         ;
 

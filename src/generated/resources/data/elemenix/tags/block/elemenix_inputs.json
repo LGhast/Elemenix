@@ -5,6 +5,7 @@
     "elemenix:elemenic_enricher",
     "elemenix:elemenic_ejector",
     "elemenix:elemenic_shunt",
+    "#elemenix:printers",
     "#elemenix:elemenic_transformers"
   ]
 }

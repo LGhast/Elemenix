@@ -42,6 +42,9 @@ public class MemoryListWidget extends AbstractWidget {
     protected static final int ITEM_OFFSET = 4;
     protected static final int ITEM_NAME_OFFSET = 8;
     protected static final int ITEM_NAME_RIGHT_PADDING = 6;
+    private static final int EMPTY_TEXT_PADDING = 4;
+    private static final float MIN_NAME_SCALE = 0.6f;
+    private static final float NON_CHINESE_NAME_SCALE = 0.8f;
 
     protected final List<ItemStack> displayStacks = new ArrayList<>();
     protected final List<ResourceLocation> itemIds = new ArrayList<>();
@@ -119,16 +122,34 @@ public class MemoryListWidget extends AbstractWidget {
 
         if (displayStacks.isEmpty()) {
             String text = getEmptyText();
+            int maxWidth = width - EMPTY_TEXT_PADDING;
             int textWidth = minecraft.font.width(text);
-            graphics.drawString(minecraft.font, text,
-                    getX() + (width - textWidth) / 2,
-                    getY() + height / 2 - 4,
-                    0xAAAAAA, false);
+
+            if (textWidth <= maxWidth) {
+                graphics.drawString(minecraft.font, text,
+                        getX() + (width - textWidth) / 2,
+                        getY() + height / 2 - 4,
+                        0xAAAAAA, false);
+                return;
+            }
+
+            float scale = (float) maxWidth / textWidth;
+            int scaledWidth = (int) (textWidth * scale);
+            int textX = getX() + (width - scaledWidth) / 2;
+            int textY = getY() + height / 2 - 4;
+
+            PoseStack poseStack = graphics.pose();
+            poseStack.pushPose();
+            poseStack.translate(textX, textY + 4.0F * (1.0F - scale), 0.0F);
+            poseStack.scale(scale, scale, 1.0F);
+            graphics.drawString(minecraft.font, text, 0, 0, 0xAAAAAA, false);
+            poseStack.popPose();
             return;
         }
 
         int endIndex = Math.min(startIndex + ITEMS_PER_PAGE, displayStacks.size());
         int hoveredIndex = getHoveredItemIndex(mouseX, mouseY);
+        float nameScale = computePageNameScale(minecraft, startIndex, endIndex);
 
         for (int i = startIndex; i < endIndex; i++) {
             int displayIndex = i - startIndex;
@@ -142,11 +163,18 @@ public class MemoryListWidget extends AbstractWidget {
             }
 
             ItemStack stackToRender = displayStacks.get(i);
-            renderItemAndName(graphics, minecraft, itemY, stackToRender);
+            renderItemAndName(graphics, minecraft, itemY, i, stackToRender, nameScale);
         }
     }
 
-    private void renderItemAndName(GuiGraphics graphics, Minecraft minecraft, int itemY, ItemStack stackToRender) {
+    protected int getItemNameColor(int index, ItemStack stack) {
+        if (!ElemenixInfo.isCalculating() && ElemenixInfo.isUnreconstructable(stack)) {
+            return 0xFF3333;
+        }
+        return 0xFFFFFF;
+    }
+
+    private void renderItemAndName(GuiGraphics graphics, Minecraft minecraft, int itemY, int index, ItemStack stackToRender, float nameScale) {
         PoseStack poseStack = graphics.pose();
         poseStack.pushPose();
 
@@ -165,36 +193,59 @@ public class MemoryListWidget extends AbstractWidget {
 
         int textX = getX() + itemSize + ITEM_NAME_OFFSET;
         int textY = itemY + (ITEM_HEIGHT - 8) / 2;
+        int color;
+        String text;
+
         if (stackToRender.isEmpty()) {
-            graphics.drawString(minecraft.font, Component.translatable("gui.elemenix.invalid_item"), textX, textY, 0xFF3333, false);
-            return;
-        }
-
-        String displayName = stackToRender.getHoverName().getString();
-        int maxWidth = getWidth() - itemSize - ITEM_NAME_OFFSET - ITEM_NAME_RIGHT_PADDING;
-        int nameWidth = minecraft.font.width(displayName);
-
-        int color = 0xFFFFFF;
-        if (!ElemenixInfo.isCalculating() && ElemenixInfo.isUnreconstructable(stackToRender)) {
             color = 0xFF3333;
-        }
-
-        if (nameWidth <= maxWidth) {
-            graphics.drawString(minecraft.font, displayName, textX, textY, color, false);
-            return;
-        }
-
-        float scale = Math.max(0.6f, (float) maxWidth / nameWidth);
-        String text = displayName;
-        if (nameWidth * scale > maxWidth) {
-            text = ModUtils.truncateToWidth(minecraft.font, displayName, (int) (maxWidth / scale));
+            text = Component.translatable("gui.elemenix.invalid_item").getString();
+        } else {
+            color = getItemNameColor(index, stackToRender);
+            text = stackToRender.getHoverName().getString();
+            int maxWidth = getMaxNameWidth();
+            int nameWidth = minecraft.font.width(text);
+            if (nameWidth * nameScale > maxWidth) {
+                text = ModUtils.truncateToWidth(minecraft.font, text, (int) (maxWidth / nameScale));
+            }
         }
 
         poseStack.pushPose();
-        poseStack.translate(textX, textY + 5.0F * (1.0F - scale), 0.0F);
-        poseStack.scale(scale, scale, 1.0F);
+        poseStack.translate(textX, textY + 5.0F * (1.0F - nameScale), 0.0F);
+        poseStack.scale(nameScale, nameScale, 1.0F);
         graphics.drawString(minecraft.font, text, 0, 0, color, false);
         poseStack.popPose();
+    }
+
+    private float computePageNameScale(Minecraft minecraft, int startIndex, int endIndex) {
+        int maxWidth = getMaxNameWidth();
+        int maxNameWidth = 0;
+        for (int i = startIndex; i < endIndex; i++) {
+            ItemStack stack = displayStacks.get(i);
+            if (stack.isEmpty()) continue;
+            maxNameWidth = Math.max(maxNameWidth, minecraft.font.width(stack.getHoverName().getString()));
+        }
+
+        float scale = getBaseNameScale();
+        if (maxNameWidth > 0 && maxNameWidth * scale > maxWidth) {
+            scale = (float) maxWidth / maxNameWidth;
+            if (scale < MIN_NAME_SCALE) {
+                scale = MIN_NAME_SCALE;
+            }
+        }
+        return scale;
+    }
+
+    private int getMaxNameWidth() {
+        int itemSize = (int) (16 * itemScale);
+        return getWidth() - itemSize - ITEM_NAME_OFFSET - ITEM_NAME_RIGHT_PADDING;
+    }
+
+    private static float getBaseNameScale() {
+        String language = Minecraft.getInstance().getLanguageManager().getSelected();
+        if ("zh_cn".equals(language) || "zh_tw".equals(language) || "lzh".equals(language)) {
+            return 1.0f;
+        }
+        return NON_CHINESE_NAME_SCALE;
     }
 
     protected void updateItemList() {
@@ -329,7 +380,7 @@ public class MemoryListWidget extends AbstractWidget {
 
         if (displayIndex >= 0 && displayIndex < ITEMS_PER_PAGE) {
             int itemIndex = currentPage * ITEMS_PER_PAGE + displayIndex;
-            if (itemIndex >= 0 && itemIndex < itemIds.size()) {
+            if (itemIndex >= 0 && itemIndex < displayStacks.size()) {
                 return itemIndex;
             }
         }
@@ -369,11 +420,11 @@ public class MemoryListWidget extends AbstractWidget {
     }
 
     private int getTotalPages() {
-        return Math.max(1, (int) Math.ceil((double) itemIds.size() / ITEMS_PER_PAGE));
+        return Math.max(1, (int) Math.ceil((double) displayStacks.size() / ITEMS_PER_PAGE));
     }
 
     public int getItemCount() {
-        return itemIds.size();
+        return displayStacks.size();
     }
 
     public void resetToFirstPage() {

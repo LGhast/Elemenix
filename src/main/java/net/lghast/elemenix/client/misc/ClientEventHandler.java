@@ -129,6 +129,7 @@ public class ClientEventHandler {
         event.register(ModMenus.TANK_MENU.get(), TankScreen::new);
         event.register(ModMenus.OUTLET_MENU.get(), OutletScreen::new);
         event.register(ModMenus.ELEMENIC_COMPARATOR_MENU.get(), ElemenicComparatorScreen::new);
+        event.register(ModMenus.PRINTER_MENU.get(), PrinterScreen::new);
     }
 
     @SubscribeEvent

@@ -489,5 +489,40 @@ public class ModRecipeProvider extends RecipeProvider {
                 .define('I', Items.IRON_INGOT)
                 .unlockedBy("has_wrench", has(ModItems.WRENCH))
                 .save(recipeOutput);
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ModItems.PRINTER_NOZZLE.get(), 1)
+                .pattern(" C ")
+                .pattern(" P ")
+                .pattern("III")
+                .define('P', Items.PISTON)
+                .define('C', ModBlocks.ELEMENIC_CHANNEL)
+                .define('I', Items.IRON_INGOT)
+                .unlockedBy("has_channel", has(ModBlocks.ELEMENIC_CHANNEL))
+                .save(recipeOutput);
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ModBlocks.SUBSTANCE_PRINTER.get(), 1)
+                .pattern("INI")
+                .pattern("GEG")
+                .pattern("ITI")
+                .define('G', Items.GLASS)
+                .define('T', ModBlocks.ELEMENIC_TANK)
+                .define('I', Items.IRON_INGOT)
+                .define('N', ModItems.PRINTER_NOZZLE)
+                .define('E', ModItems.ANALYZING_CHIP)
+                .unlockedBy("has_printer_nozzle", has(ModItems.PRINTER_NOZZLE))
+                .save(recipeOutput);
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ModBlocks.WITCHCRAFT_PRINTER.get(), 1)
+                .pattern("WNW")
+                .pattern("GEG")
+                .pattern("ITI")
+                .define('G', Items.GLASS)
+                .define('T', ModBlocks.ELEMENIC_TANK)
+                .define('I', Items.IRON_INGOT)
+                .define('N', ModItems.PRINTER_NOZZLE)
+                .define('E', ModItems.ANALYZING_CHIP)
+                .define('W', ModItems.WITCHCRAFT_TROVE)
+                .unlockedBy("has_printer_nozzle", has(ModItems.PRINTER_NOZZLE))
+                .save(recipeOutput);
     }
 }

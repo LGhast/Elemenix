@@ -14,6 +14,8 @@ public class CommonConfig {
     public static ModConfigSpec.ConfigValue<List<? extends String>> UNANALYSABLE_LIST;
     public static final ModConfigSpec.DoubleValue DC_DISCOUNT;
     public static final ModConfigSpec.DoubleValue RC_PREMIUM;
+    public static ModConfigSpec.DoubleValue PRINTER_LOSS;
+    public static ModConfigSpec.DoubleValue WITCHCRAFT_PRINTER_LOSS;
     public static ModConfigSpec.BooleanValue ALLOW_NON_CREATIVE_RECORDING;
 
     public static ModConfigSpec.BooleanValue DISABLE_SCANNER_SCANNING;
@@ -54,6 +56,9 @@ public class CommonConfig {
     public static ModConfigSpec.IntValue MAX_INFUSION;
 
     public static ModConfigSpec.IntValue ENRICHER_ENRICHING_INTERVAL;
+
+    public static ModConfigSpec.IntValue PRINTER_RECONSTRUCTION_INTERVAL;
+    public static ModConfigSpec.IntValue WITCHCRAFT_PRINTER_RECONSTRUCTION_INTERVAL;
 
     public static final ModConfigSpec.DoubleValue EJECTOR_FRONT_BONUS;
     public static ModConfigSpec.IntValue OUTLET_MAX_OUTPUT_PER_TYPE;
@@ -105,13 +110,33 @@ public class CommonConfig {
 
         RC_PREMIUM = BUILDER
                 .comment("重构溢价：",
-                        "当元质解析器重构物品时，",
+                        "当元质解析器或实物打印机重构物品时，",
                         "消耗的元质 = 原始元质 × （1 + 重构溢价）（向下取整）",
                         "Reconstruction Premium:",
-                        "When elemenic analyzer reconstructs items, ",
+                        "When the elemenic analyzer or Substance Printer reconstructs items, ",
                         "consumed constituents = original constituents × (1 + premium) (rounded down).")
                 .translation(CONFIG_PREFIX + "reconstruction_premium")
                 .defineInRange("reconstruction_premium", 0.0, 0.0, 99.0);
+
+        PRINTER_LOSS = BUILDER
+                .comment("实物打印机损耗：",
+                        "实物打印机重构物品时，在重构溢价的基础上再乘以该损耗倍率（向下取整）。",
+                        "默认 1.0，即无损耗。",
+                        "Substance Printer Loss:",
+                        "When the Substance Printer reconstructs items, the cost is additionally multiplied by this loss (rounded down).",
+                        "Default 1.0 means no loss.")
+                .translation(CONFIG_PREFIX + "printer_loss")
+                .defineInRange("printer_loss", 1.0, 0.0, 99.0);
+
+        WITCHCRAFT_PRINTER_LOSS = BUILDER
+                .comment("巫术打印机损耗：",
+                        "巫术打印机重构物品时，在重构溢价的基础上再乘以该损耗倍率（向下取整）。",
+                        "默认 1.0，即无损耗。",
+                        "Witchcraft Printer Loss:",
+                        "When the Witchcraft Printer reconstructs items, the cost is additionally multiplied by this loss (rounded down).",
+                        "Default 1.0 means no loss.")
+                .translation(CONFIG_PREFIX + "witchcraft_printer_loss")
+                .defineInRange("witchcraft_printer_loss", 1.0, 0.0, 99.0);
 
         ALLOW_NON_CREATIVE_RECORDING = BUILDER
                 .comment("是否允许非创造模式下的玩家将物品录入记忆碟。",
@@ -324,6 +349,18 @@ public class CommonConfig {
                         "Time interval (in ticks) for the Elemenic Enricher to produce essence")
                 .translation(CONFIG_PREFIX + "enricher_enriching_interval")
                 .defineInRange("enricher_enriching_interval", 15, 1, Integer.MAX_VALUE);
+
+        PRINTER_RECONSTRUCTION_INTERVAL = BUILDER
+                .comment("实物打印机进行一次重构的时间间隔（刻）",
+                        "Time interval (in ticks) for the Substance Printer to perform one reconstruction")
+                .translation(CONFIG_PREFIX + "printer_reconstruction_interval")
+                .defineInRange("printer_reconstruction_interval", 40, 1, Integer.MAX_VALUE);
+
+        WITCHCRAFT_PRINTER_RECONSTRUCTION_INTERVAL = BUILDER
+                .comment("巫术打印机进行一次重构的时间间隔（刻）",
+                        "Time interval (in ticks) for the Witchcraft Printer to perform one reconstruction")
+                .translation(CONFIG_PREFIX + "witchcraft_printer_reconstruction_interval")
+                .defineInRange("witchcraft_printer_reconstruction_interval", 40, 1, Integer.MAX_VALUE);
 
         EJECTOR_FRONT_BONUS = BUILDER
                 .comment("元质射流塔正面输出量增益：",

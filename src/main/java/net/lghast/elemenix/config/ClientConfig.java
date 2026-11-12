@@ -27,6 +27,9 @@ public class ClientConfig {
     public static ModConfigSpec.IntValue ANALYTICAL_WRENCH_OUTLINE_COLOR;
     public static ModConfigSpec.DoubleValue ANALYTICAL_WRENCH_TEXT_SCALE;
 
+    public static ModConfigSpec.DoubleValue PRINTER_ITEM_ROTATION_SPEED;
+    public static ModConfigSpec.BooleanValue SHOW_PRINTER_ITEM_PREVIEW;
+
     static {
         BUILDER.push("分析扳手 Analytical Wrench");
 
@@ -131,6 +134,22 @@ public class ClientConfig {
                         "Whether to display the connection validity status and the Elemenix storage amount at the bound location of Remote Storage")
                 .translation(CONFIG_PREFIX + "show_remote_connection_status")
                 .define("show_remote_connection_status", true);
+
+        BUILDER.pop();
+
+        BUILDER.push("打印机 Printer");
+
+        PRINTER_ITEM_ROTATION_SPEED = BUILDER
+                .comment("实物打印机和巫术打印机内渲染物品的旋转速度（度/刻）",
+                        "Rotation speed (degrees per tick) of the item rendered inside the Substance Printer and Witchcraft Printer")
+                .translation(CONFIG_PREFIX + "printer_item_rotation_speed")
+                .defineInRange("printer_item_rotation_speed", 3.0, 0.0, 30.0);
+
+        SHOW_PRINTER_ITEM_PREVIEW = BUILDER
+                .comment("是否显示实物打印机和巫术打印机内正在打印的物品预览",
+                        "Whether to render the preview of the item being printed inside the Substance Printer and Witchcraft Printer")
+                .translation(CONFIG_PREFIX + "show_printer_item_preview")
+                .define("show_printer_item_preview", true);
 
         BUILDER.pop();
 

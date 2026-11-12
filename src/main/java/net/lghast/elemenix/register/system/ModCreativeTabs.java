@@ -37,6 +37,7 @@ public class ModCreativeTabs {
                         output.accept(ModItems.THROTTLE_VALVE);
                         output.accept(ModItems.FLOW_STRAIGHTENER);
                         output.accept(ModItems.PISTON_PUMP);
+                        output.accept(ModItems.PRINTER_NOZZLE);
                         output.accept(ModItems.ANALYZING_CHIP);
                         output.accept(ModItems.TRANSFORMING_CHIP);
                         output.accept(ModItems.WITCHCRAFT_TROVE);
@@ -71,6 +72,8 @@ public class ModCreativeTabs {
                         output.accept(ModBlocks.GERMINAL_ACCELERATOR);
                         output.accept(ModBlocks.TRANSPIRING_INCINERATOR);
                         output.accept(ModBlocks.OPTICAL_CAPTURER);
+                        output.accept(ModBlocks.SUBSTANCE_PRINTER);
+                        output.accept(ModBlocks.WITCHCRAFT_PRINTER);
                     }).build());
 
     public static void register(IEventBus eventBus){

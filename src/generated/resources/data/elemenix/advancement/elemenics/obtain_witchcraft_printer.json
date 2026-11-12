@@ -1,0 +1,33 @@
+{
+  "parent": "elemenix:elemenics/obtain_witchcraft_memorizer",
+  "criteria": {
+    "get_witchcraft_printer": {
+      "conditions": {
+        "items": [
+          {
+            "items": "elemenix:witchcraft_printer"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.elemenix.obtain_witchcraft_printer.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "elemenix:witchcraft_printer"
+    },
+    "title": {
+      "translate": "advancements.elemenix.obtain_witchcraft_printer.title"
+    }
+  },
+  "requirements": [
+    [
+      "get_witchcraft_printer"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

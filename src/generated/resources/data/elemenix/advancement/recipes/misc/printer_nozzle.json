@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_channel": {
+      "conditions": {
+        "items": [
+          {
+            "items": "elemenix:elemenic_channel"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "elemenix:printer_nozzle"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_channel"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "elemenix:printer_nozzle"
+    ]
+  }
+}

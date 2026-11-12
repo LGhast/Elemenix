@@ -8,8 +8,10 @@ import net.lghast.elemenix.common.content.blockentity.EnricherBlockEntity;
 import net.lghast.elemenix.common.content.blockentity.InfuserBlockEntity;
 import net.lghast.elemenix.common.content.blockentity.OutletBlockEntity;
 import net.lghast.elemenix.common.content.blockentity.ShuntBlockEntity;
+import net.lghast.elemenix.common.content.blockentity.SubstancePrinterBlockEntity;
 import net.lghast.elemenix.common.content.blockentity.TankBlockEntity;
 import net.lghast.elemenix.common.content.blockentity.TransformerBlockEntity;
+import net.lghast.elemenix.common.content.blockentity.WitchcraftPrinterBlockEntity;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.neoforged.bus.api.IEventBus;
@@ -104,6 +106,24 @@ public class ModBlockEntities {
             () -> BlockEntityType.Builder.of(
                             ElemenicComparatorBlockEntity::new,
                             ModBlocks.ELEMENIC_COMPARATOR.get()
+                    )
+                    .build(null)
+    );
+
+    public static final Supplier<BlockEntityType<SubstancePrinterBlockEntity>> SUBSTANCE_PRINTER = BLOCK_ENTITY_TYPES.register(
+            "substance_printer",
+            () -> BlockEntityType.Builder.of(
+                            SubstancePrinterBlockEntity::new,
+                            ModBlocks.SUBSTANCE_PRINTER.get()
+                    )
+                    .build(null)
+    );
+
+    public static final Supplier<BlockEntityType<WitchcraftPrinterBlockEntity>> WITCHCRAFT_PRINTER = BLOCK_ENTITY_TYPES.register(
+            "witchcraft_printer",
+            () -> BlockEntityType.Builder.of(
+                            WitchcraftPrinterBlockEntity::new,
+                            ModBlocks.WITCHCRAFT_PRINTER.get()
                     )
                     .build(null)
     );

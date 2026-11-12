@@ -61,6 +61,12 @@ public class ModBlocks {
     public static final DeferredBlock<Block> ELEMENIC_COMPARATOR = registerBlock("elemenic_comparator",
             ()-> new ElemenicComparatorBlock(BlockBehaviour.Properties.of()));
 
+    public static final DeferredBlock<Block> SUBSTANCE_PRINTER = registerBlock("substance_printer",
+            ()-> new SubstancePrinterBlock(BlockBehaviour.Properties.of()));
+
+    public static final DeferredBlock<Block> WITCHCRAFT_PRINTER = registerBlock("witchcraft_printer",
+            ()-> new WitchcraftPrinterBlock(BlockBehaviour.Properties.of()));
+
     private static <T extends Block> DeferredBlock<T> registerBlock(String name, Supplier<T> block){
         DeferredBlock<T> toReturn = BLOCKS.register(name,block);
         registerBlockItem(name,toReturn);

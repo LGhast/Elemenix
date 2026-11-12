@@ -50,6 +50,7 @@ public class AnalyzerScreen extends AbstractContainerScreen<AnalyzerMenu> {
     private static final int LIST_WIDTH = 127;
     private static final int LIST_HEIGHT = 105;
     private static final int PREV_BUTTON_X = 110;
+    private static final int TITLE_MAX_WIDTH = PREV_BUTTON_X - TITLE_X - 4;
     private static final int PREV_BUTTON_Y = 6;
     private static final int NEXT_BUTTON_X = 110;
     private static final int NEXT_BUTTON_Y = 101;
@@ -71,6 +72,26 @@ public class AnalyzerScreen extends AbstractContainerScreen<AnalyzerMenu> {
         this.titleLabelX = TITLE_X;
 
         this.inventoryLabelY = 10000;
+    }
+
+    @Override
+    protected void renderLabels(GuiGraphics graphics, int mouseX, int mouseY) {
+        String titleText = this.title.getString();
+        int textWidth = this.font.width(titleText);
+
+        if (textWidth <= TITLE_MAX_WIDTH) {
+            graphics.drawString(this.font, titleText, TITLE_X, TITLE_Y, 0x404040, false);
+            return;
+        }
+
+        float scale = (float) TITLE_MAX_WIDTH / textWidth;
+        float verticalShift = (this.font.lineHeight * (1.0f - scale)) / 2.0f;
+
+        graphics.pose().pushPose();
+        graphics.pose().translate(TITLE_X, TITLE_Y + verticalShift, 0.0f);
+        graphics.pose().scale(scale, scale, 1.0f);
+        graphics.drawString(this.font, titleText, 0, 0, 0x404040, false);
+        graphics.pose().popPose();
     }
 
     @Override

@@ -79,6 +79,11 @@ public class JEIPlugin implements IModPlugin {
                 Component.translatable("jei.info.elemenic_scanner"));
         registration.addItemStackInfo(new ItemStack(ModItems.SCANNING_STORAGE.get()),
                 Component.translatable("jei.info.scanning_storage"));
+
+        registration.addItemStackInfo(new ItemStack(ModBlocks.SUBSTANCE_PRINTER.get()),
+                Component.translatable("jei.info.substance_printer"));
+        registration.addItemStackInfo(new ItemStack(ModBlocks.WITCHCRAFT_PRINTER.get()),
+                Component.translatable("jei.info.witchcraft_printer"));
     }
 
     private List<MineralizingRecipe> getMineralizingRecipes() {

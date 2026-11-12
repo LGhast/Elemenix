@@ -278,9 +278,7 @@ public class InfuserBlockEntity extends BaseContainerBlockEntity implements Worl
     }
 
     @Override
-    public void extract(Elemenix type, long amount) {
-        // no-op: the infuser is a target only
-    }
+    public void extract(Elemenix type, long amount) {}
 
     @Override
     public void receive(Elemenix type, long amount) {
