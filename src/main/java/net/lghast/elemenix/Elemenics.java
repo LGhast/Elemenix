@@ -1,7 +1,7 @@
 package net.lghast.elemenix;
 
 import net.lghast.elemenix.client.misc.ModItemProperties;
-import net.lghast.elemenix.client.misc.ModRenders;
+import net.lghast.elemenix.client.render.ItemBlockRenders;
 import net.lghast.elemenix.compat.ftbquests.task.ModTaskTypes;
 import net.lghast.elemenix.config.ClientConfig;
 import net.lghast.elemenix.config.CommonConfig;
@@ -82,7 +82,7 @@ public class Elemenics {
     }
 
     public void onClientSetup(FMLClientSetupEvent event) {
-        event.enqueueWork(ModRenders::setItemBlockRenders);
+        event.enqueueWork(ItemBlockRenders::setItemBlockRenders);
         event.enqueueWork(ModItemProperties::register);
     }
 

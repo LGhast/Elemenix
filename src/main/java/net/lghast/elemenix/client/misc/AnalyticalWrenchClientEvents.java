@@ -5,12 +5,16 @@ import net.lghast.elemenix.client.render.OutlineRendererHelper;
 import net.lghast.elemenix.config.ClientConfig;
 import net.lghast.elemenix.common.content.block.ChannelBlock;
 import net.lghast.elemenix.common.content.block.ElemenicComparatorBlock;
+import net.lghast.elemenix.common.content.block.GerminalAcceleratorBlock;
+import net.lghast.elemenix.common.content.block.MetallurgicalActivatorBlock;
 import net.lghast.elemenix.common.content.block.OutletBlock;
+import net.lghast.elemenix.common.content.block.TransformerBlock;
 import net.lghast.elemenix.common.content.blockentity.AbstractPrinterBlockEntity;
 import net.lghast.elemenix.common.content.blockentity.EjectorBlockEntity;
 import net.lghast.elemenix.common.content.blockentity.ElemenicComparatorBlockEntity;
 import net.lghast.elemenix.common.content.blockentity.OutletBlockEntity;
 import net.lghast.elemenix.common.content.blockentity.ShuntBlockEntity;
+import net.lghast.elemenix.common.content.blockentity.TransformerBlockEntity;
 import net.lghast.elemenix.common.content.item.AnalyticalWrenchItem;
 import net.lghast.elemenix.common.content.item.ScannerItem;
 import net.lghast.elemenix.common.content.item.ScanningStorageItem;
@@ -29,8 +33,10 @@ import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.RedStoneWireBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.neoforged.api.distmarker.Dist;
@@ -97,7 +103,7 @@ public class AnalyticalWrenchClientEvents {
             }
         }
 
-        List<Component> lines = buildLines(be);
+        List<Component> lines = buildLines(be, state);
         if (!lines.isEmpty()) {
             float height = (float) state.getShape(level, pos).bounds().maxY + 0.15f;
             OutlineRendererHelper.INSTANCE.showText(HOVER_SLOT, pos, height, lines);
@@ -110,7 +116,8 @@ public class AnalyticalWrenchClientEvents {
                 || state.is(ModTags.ELEMENIX_INPUTS)
                 || state.is(ModTags.ELEMENIC_OUTLET_BLOCKS)
                 || block instanceof ChannelBlock
-                || block instanceof ElemenicComparatorBlock;
+                || block instanceof ElemenicComparatorBlock
+                || block instanceof RedStoneWireBlock;
     }
 
     private static int getBoxColor(BlockEntity be) {
@@ -202,8 +209,13 @@ public class AnalyticalWrenchClientEvents {
         return chain;
     }
 
-    private static List<Component> buildLines(BlockEntity be) {
+    private static List<Component> buildLines(BlockEntity be, BlockState state) {
         List<Component> lines = new ArrayList<>();
+
+        if (state.getBlock() instanceof RedStoneWireBlock) {
+            int power = state.getValue(BlockStateProperties.POWER);
+            lines.add(Component.translatable("status.elemenix.signal_strength", power).withColor(TITLE_COLOR));
+        }
 
         if (be instanceof OutletBlockEntity outlet) {
             lines.add(buildOutputLine(true, outlet.getAllowedOutputs()));
@@ -212,15 +224,25 @@ public class AnalyticalWrenchClientEvents {
 
         if (be instanceof AbstractPrinterBlockEntity printer) {
             String modeName = AbstractPrinterBlockEntity.getModeName(printer.getMode());
-            lines.add(Component.translatable("tooltip.elemenix.printer_mode",
+            lines.add(Component.translatable("status.elemenix.mode",
                     Component.literal(modeName).withColor(0xFFFFFFFF)).withColor(TITLE_COLOR));
 
             ItemStack printingStack = printer.getPrintingItemStack();
             if (!printingStack.isEmpty()) {
                 String itemName = printingStack.getHoverName().getString();
-                lines.add(Component.translatable("tooltip.elemenix.printer_printing",
+                lines.add(Component.translatable("status.elemenix.printing",
                         Component.literal(itemName).withColor(0xFFFFFFFF)).withColor(TITLE_COLOR));
             }
+        }
+
+        if (be instanceof TransformerBlockEntity transformer) {
+            String currentPage = getTransformerCurrentPage(transformer);
+            lines.add(Component.translatable("status.elemenix.current_page",
+                    Component.literal(currentPage).withColor(0xFFFFFFFF)).withColor(TITLE_COLOR));
+
+            String workContent = getTransformerWorkContent(transformer);
+            lines.add(Component.translatable("status.elemenix.work_content",
+                    Component.literal(workContent).withColor(0xFFFFFFFF)).withColor(TITLE_COLOR));
         }
 
         if (be instanceof ElemenixHolder holder) {
@@ -229,29 +251,59 @@ public class AnalyticalWrenchClientEvents {
                 storage[type.getIndex()] = holder.getStored(type);
             }
             ElemenicStorage es = new ElemenicStorage(storage);
-            lines.add(Component.translatable("tooltip.elemenix.analyzer_storage").withColor(TITLE_COLOR));
+            lines.add(Component.translatable("status.elemenix.storage").withColor(TITLE_COLOR));
             lines.add(es.toComponentFormer());
             lines.add(es.toComponentLatter());
         }
 
         if (be instanceof ElemenicComparatorBlockEntity comparator) {
             Component criterionContent = Component.literal(buildCriterion(comparator)).withColor(0xFFFFFFFF);
-            lines.add(Component.translatable("gui.elemenix.comparator_criterion", criterionContent).withColor(TITLE_COLOR));
+            lines.add(Component.translatable("status.elemenix.criterion", criterionContent).withColor(TITLE_COLOR));
             boolean passing = comparator.isOwnCriterionPassing();
             Component judgmentContent = Component.translatable(passing
-                    ? "gui.elemenix.comparator_true"
-                    : "gui.elemenix.comparator_false")
+                    ? "status.elemenix.judgment.true"
+                    : "status.elemenix.judgment.false")
                     .withColor(passing ? 0xFF55FF55 : 0xFFFF5555);
-            lines.add(Component.translatable("gui.elemenix.comparator_judgment", judgmentContent).withColor(TITLE_COLOR));
+            lines.add(Component.translatable("status.elemenix.judgment", judgmentContent).withColor(TITLE_COLOR));
         }
 
         return lines;
     }
 
+    private static String getTransformerCurrentPage(TransformerBlockEntity transformer) {
+        if (transformer.getMode() != TransformerBlockEntity.MODE_SPECIAL) {
+            return Component.translatable("mode.elemenix.transformer.transform").getString();
+        }
+        TransformerBlock block = transformer.getTransformerBlock();
+        if (block instanceof GerminalAcceleratorBlock) {
+            return Component.translatable("mode.elemenix.transformer.germinate").getString();
+        }
+        if (block instanceof MetallurgicalActivatorBlock) {
+            return Component.translatable("mode.elemenix.transformer.imitforge").getString();
+        }
+        return Component.translatable("mode.elemenix.transformer.mineralize").getString();
+    }
+
+    private static String getTransformerWorkContent(TransformerBlockEntity transformer) {
+        List<String> works = new ArrayList<>();
+        works.add(Component.translatable("status.elemenix.work.deconstruct").getString());
+        if (transformer.isEnrichEnabled()) {
+            works.add(Component.translatable("status.elemenix.work.enrich").getString());
+        }
+        if (transformer.isTransformEnabled()) {
+            works.add(Component.translatable("status.elemenix.work.transform").getString());
+        }
+        if (transformer.getMode() == TransformerBlockEntity.MODE_SPECIAL
+                && transformer.getTransformerBlock() instanceof GerminalAcceleratorBlock) {
+            works.add(Component.translatable("status.elemenix.work.germinate").getString());
+        }
+        return String.join("/", works);
+    }
+
     private static Component buildOutputLine(boolean allowed, boolean[] flags) {
         MutableComponent line = Component.translatable(allowed
-                ? "gui.elemenix.analytical_wrench.allowed_output"
-                : "gui.elemenix.analytical_wrench.current_output").withColor(TITLE_COLOR);
+                ? "status.elemenix.output.allowed"
+                : "status.elemenix.output.current").withColor(TITLE_COLOR);
         for (int i = 0; i < 6; i++) {
             int color = flags[i] ? Elemenix.values()[i].getColor() : getDefaultColor();
             line.append(Component.literal(LETTERS[i] + " ").withColor(color));
@@ -268,9 +320,9 @@ public class AnalyticalWrenchClientEvents {
 
         String targetPart;
         if (target == ElemenicComparatorBlockEntity.TARGET_SUM) {
-            targetPart = Component.translatable("gui.elemenix.comparator_criterion_sum").getString();
+            targetPart = Component.translatable("status.elemenix.elemenix_sum").getString();
         } else if (target == ElemenicComparatorBlockEntity.TARGET_ANY) {
-            targetPart = Component.translatable("gui.elemenix.comparator_criterion_any").getString();
+            targetPart = Component.translatable("status.elemenix.elemenix_any").getString();
         } else {
             targetPart = Elemenix.values()[target].getName();
         }

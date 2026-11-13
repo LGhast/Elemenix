@@ -3,6 +3,7 @@ package net.lghast.elemenix.common.content.item;
 import net.lghast.elemenix.common.system.datacomponent.UuidData;
 import net.lghast.elemenix.common.system.menu.MemorizerBoxMenu;
 import net.lghast.elemenix.register.system.ModDataComponents;
+import net.lghast.elemenix.register.system.ModStats;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
@@ -33,10 +34,6 @@ public class MemorizerBoxItem extends Item implements ICurioItem {
         }
     }
 
-    public static void randomizeUuid(ItemStack stack) {
-        stack.set(ModDataComponents.BOX_UUID, UuidData.createRandom());
-    }
-
     @Override
     public @NotNull InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand usedHand) {
         ItemStack stack = player.getItemInHand(usedHand);
@@ -53,6 +50,7 @@ public class MemorizerBoxItem extends Item implements ICurioItem {
                             new MemorizerBoxMenu(windowId, playerInventory, stack),
                     Component.translatable("gui.elemenix.memorizer_box")
             ));
+            serverPlayer.awardStat(ModStats.MEMORIZER_BOX_OPENS.get());
         }
 
         return InteractionResultHolder.success(stack);

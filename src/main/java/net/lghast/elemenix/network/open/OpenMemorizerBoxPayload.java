@@ -2,6 +2,7 @@ package net.lghast.elemenix.network.open;
 
 import net.lghast.elemenix.common.system.menu.MemorizerBoxMenu;
 import net.lghast.elemenix.register.content.ModItems;
+import net.lghast.elemenix.register.system.ModStats;
 import net.lghast.elemenix.utils.misc.ModUtils;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
@@ -43,6 +44,7 @@ public record OpenMemorizerBoxPayload() implements CustomPacketPayload {
                                     new MemorizerBoxMenu(windowId, playerInventory, boxStack),
                             Component.translatable("gui.elemenix.memorizer_box")
                     ));
+                    player.awardStat(ModStats.MEMORIZER_BOX_OPENS.get());
                 }
             }
         });

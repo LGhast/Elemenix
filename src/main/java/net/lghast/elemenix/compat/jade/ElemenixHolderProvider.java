@@ -34,12 +34,12 @@ public enum ElemenixHolderProvider implements IServerDataProvider<BlockAccessor>
     public void appendTooltip(ITooltip tooltip, BlockAccessor accessor, IPluginConfig config) {
         if (accessor.getBlockEntity() instanceof AbstractPrinterBlockEntity printer) {
             String modeName = AbstractPrinterBlockEntity.getModeName(printer.getMode());
-            tooltip.add(Component.translatable("tooltip.elemenix.printer_mode", modeName).withStyle(ChatFormatting.GRAY));
+            tooltip.add(Component.translatable("status.elemenix.mode", modeName).withStyle(ChatFormatting.GRAY));
 
             ItemStack printingStack = printer.getPrintingItemStack();
             if (!printingStack.isEmpty()) {
                 String itemName = printingStack.getHoverName().getString();
-                tooltip.add(Component.translatable("tooltip.elemenix.printer_printing", itemName).withStyle(ChatFormatting.GRAY));
+                tooltip.add(Component.translatable("status.elemenix.printing", itemName).withStyle(ChatFormatting.GRAY));
             }
             return;
         }
@@ -48,7 +48,7 @@ public enum ElemenixHolderProvider implements IServerDataProvider<BlockAccessor>
         if (data.contains("ElemenixStorage", CompoundTag.TAG_LONG_ARRAY)) {
             ElemenicStorage storage = new ElemenicStorage(data.getLongArray("ElemenixStorage"));
             if (!storage.isEmpty()) {
-                tooltip.add(Component.translatable("tooltip.elemenix.analyzer_storage").withStyle(ChatFormatting.GRAY));
+                tooltip.add(Component.translatable("status.elemenix.storage").withStyle(ChatFormatting.GRAY));
                 tooltip.add(storage.toComponentFormer());
                 tooltip.add(storage.toComponentLatter());
             }

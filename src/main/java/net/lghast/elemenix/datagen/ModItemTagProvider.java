@@ -74,24 +74,32 @@ public class ModItemTagProvider extends ItemTagsProvider {
                 .add(ModBlocks.WITCHCRAFT_PRINTER.asItem())
         ;
 
-        tag(ModTags.IGNORED_BY_DECONSTRUCTOR_INPUT)
+        tag(ModTags.ELEMENIC_RECEPTACLES)
                 .add(ModItems.ELEMENIC_STORAGE.asItem())
-                .add(ModItems.ELEMENIC_ANALYZER.asItem())
                 .add(ModItems.SCANNING_STORAGE.asItem())
+                .add(ModItems.ELEMENIC_ANALYZER.asItem())
+                .add(ModBlocks.ELEMENIC_TANK.asItem())
+        ;
+
+        tag(ModTags.ELEMENIX_TRANSFERABLE)
+                .add(ModItems.ELEMENIC_STORAGE.asItem())
+                .add(ModItems.SCANNING_STORAGE.asItem())
+                .add(ModBlocks.ELEMENIC_TANK.asItem())
+                .add(ModItems.REMOTE_ELEMENIC_STORAGE.asItem())
+        ;
+
+        tag(ModTags.IGNORED_BY_DECONSTRUCTOR_INPUT)
+                .addTag(ModTags.ELEMENIC_RECEPTACLES)
                 .add(ModItems.ELEMENIC_MEMORIZER.asItem())
                 .add(ModItems.WITCHCRAFT_MEMORIZER.asItem())
                 .add(ModItems.MEMORIZER_BOX.asItem())
-                .add(ModItems.REMOTE_ELEMENIC_STORAGE.asItem())
                 .add(ModItems.ANALYSIS_TERMINAL.asItem())
         ;
 
         tag(ModTags.IGNORED_BY_SCANNING)
-                .add(ModItems.ELEMENIC_STORAGE.asItem())
-                .add(ModItems.ELEMENIC_ANALYZER.asItem())
-                .add(ModItems.SCANNING_STORAGE.asItem())
+                .addTag(ModTags.ELEMENIC_RECEPTACLES)
                 .add(ModItems.ELEMENIC_MEMORIZER.asItem())
                 .add(ModItems.WITCHCRAFT_MEMORIZER.asItem())
-                .add(ModItems.ANALYSIS_TERMINAL.asItem())
                 .add(ModItems.MEMORIZER_BOX.asItem())
         ;
     }

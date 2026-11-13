@@ -45,22 +45,22 @@ public enum ComparatorProvider implements IServerDataProvider<BlockAccessor>, IB
         int unit = data.getInt("Unit");
         boolean passing = data.getBoolean("Passing");
 
-        tooltip.add(Component.translatable("gui.elemenix.comparator_criterion",
+        tooltip.add(Component.translatable("status.elemenix.criterion",
                 buildCriterion(target, rule, threshold, unit)).withStyle(ChatFormatting.GRAY));
 
         String judgment = passing
-                ? Component.translatable("gui.elemenix.comparator_true").getString()
-                : Component.translatable("gui.elemenix.comparator_false").getString();
-        tooltip.add(Component.translatable("gui.elemenix.comparator_judgment", judgment)
+                ? Component.translatable("status.elemenix.judgment.true").getString()
+                : Component.translatable("status.elemenix.judgment.false").getString();
+        tooltip.add(Component.translatable("status.elemenix.judgment", judgment)
                 .withStyle(passing ? ChatFormatting.GREEN : ChatFormatting.RED));
     }
 
     private static String buildCriterion(int target, int rule, int threshold, int unit) {
         String targetPart;
         if (target == ElemenicComparatorBlockEntity.TARGET_SUM) {
-            targetPart = Component.translatable("gui.elemenix.comparator_criterion_sum").getString();
+            targetPart = Component.translatable("status.elemenix.elemenix_sum").getString();
         } else if (target == ElemenicComparatorBlockEntity.TARGET_ANY) {
-            targetPart = Component.translatable("gui.elemenix.comparator_criterion_any").getString();
+            targetPart = Component.translatable("status.elemenix.elemenix_any").getString();
         } else {
             targetPart = Elemenix.values()[target].getName();
         }

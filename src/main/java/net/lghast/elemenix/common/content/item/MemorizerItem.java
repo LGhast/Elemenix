@@ -97,6 +97,15 @@ public class MemorizerItem extends Item{
         return STYLE_MAP.get(item);
     }
 
+    public static Item getStyleItemFor(int styleIndex) {
+        for (Map.Entry<Item, Integer> entry : STYLE_MAP.entrySet()) {
+            if (entry.getValue() == styleIndex) {
+                return entry.getKey();
+            }
+        }
+        return Items.AIR;
+    }
+
     public static boolean isReadonly(ItemStack stack){
         if (!(stack.getItem() instanceof MemorizerItem)) {
             return true;

@@ -2,6 +2,7 @@ package net.lghast.elemenix.common.content.item;
 
 import net.lghast.elemenix.common.system.menu.AnalysisTerminalMenu;
 import net.lghast.elemenix.register.content.ModItems;
+import net.lghast.elemenix.register.system.ModStats;
 import net.lghast.elemenix.utils.misc.ModUtils;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
@@ -45,6 +46,7 @@ public class AnalysisTerminalItem extends Item {
                             new AnalysisTerminalMenu(windowId, playerInventory, analyzerStack, boxStack, slot),
                     Component.translatable("gui.elemenix.analysis_terminal")
             ));
+            serverPlayer.awardStat(ModStats.ANALYSIS_TERMINAL_OPENS.get());
         }
         return InteractionResultHolder.success(stack);
     }

@@ -130,7 +130,7 @@ public class ShuntBlock extends BaseEntityBlock {
                     (containerId, playerInventory, playerEntity) -> new ShuntMenu(containerId, playerInventory, blockEntity),
                     Component.translatable("container.elemenix.elemenic_shunt")
             ), pos);
-            player.awardStat(ModStats.EJECTOR_INTERACTIONS.get());
+            player.awardStat(ModStats.SHUNT_INTERACTIONS.get());
             return InteractionResult.SUCCESS;
         }
         return InteractionResult.SUCCESS;

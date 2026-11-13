@@ -1,6 +1,6 @@
 package net.lghast.elemenix.network.infuser;
 
-import net.lghast.elemenix.client.misc.ClientInfuserDataCache;
+import net.lghast.elemenix.client.cache.ClientInfuserCache;
 import net.minecraft.core.GlobalPos;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
@@ -50,8 +50,6 @@ public record InfuserDataUpdatePayload(GlobalPos pos, long[] elemenixStorage) im
     }
 
     public static void handle(InfuserDataUpdatePayload payload, IPayloadContext context) {
-        context.enqueueWork(() -> {
-            ClientInfuserDataCache.updateCache(payload.pos(), payload.elemenixStorage());
-        });
+        context.enqueueWork(() -> ClientInfuserCache.updateCache(payload.pos(), payload.elemenixStorage()));
     }
 }

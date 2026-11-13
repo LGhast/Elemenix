@@ -1,8 +1,6 @@
 {
   "values": [
-    "elemenix:elemenic_storage",
-    "elemenix:elemenic_analyzer",
-    "elemenix:scanning_storage",
+    "#elemenix:elemenic_receptacles",
     "elemenix:elemenic_memorizer",
     "elemenix:witchcraft_memorizer",
     "elemenix:analysis_terminal",

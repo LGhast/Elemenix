@@ -1,10 +1,12 @@
-// 1.21.1	2026-11-12T21:28:15.3139798	Tags for minecraft:item mod id elemenix
+// 1.21.1	2026-11-13T21:06:43.0022253	Tags for minecraft:item mod id elemenix
 f7b43a0e65b5ec15ec774e496bbf212f01925581 data/c/tags/item/tools/wrench.json
 45072811a2531b7dcfe7e021506711e8287f8ef0 data/elemenix/tags/item/elemenic_outlets.json
+8ea9784a3d3a9b9bed2cf1880e2ed5be646653b5 data/elemenix/tags/item/elemenic_receptacles.json
 fcb8476625195d2351238f217849450d2e531edf data/elemenix/tags/item/elemenic_transformers.json
+0e92935401f1543bddde5ddb8c7c9427a1f79a4e data/elemenix/tags/item/elemenix_transferable.json
 ffb3c9a2182075e6ca072c435f4d1b178c3830cb data/elemenix/tags/item/equilibrium.json
 f87f77226de93815712346dc3d0667caadf84128 data/elemenix/tags/item/essences.json
-d869881aac5fa8f76590079f647aea3810928778 data/elemenix/tags/item/ignored_by_deconstructor_input.json
-5f1a6e83df12c4fd60f9fde31eeeeae8e5fd68a7 data/elemenix/tags/item/ignored_by_scanning.json
+276e8887fabb809aef6b3a19a1d4c9d5912c06b4 data/elemenix/tags/item/ignored_by_deconstructor_input.json
+6d6c0ce4e769fb663449ce81377faa086b327410 data/elemenix/tags/item/ignored_by_scanning.json
 a0e706c410e093675b07001a2857a7f535cc0de0 data/elemenix/tags/item/memorizer_slot_placeable.json
 2bafa7051bba0a920c27ba214b75cd0d5cc74120 data/elemenix/tags/item/printers.json

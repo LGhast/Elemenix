@@ -22,7 +22,7 @@ import net.lghast.elemenix.register.system.ModTags;
 import net.lghast.elemenix.utils.elemenix.Constituents;
 import net.lghast.elemenix.utils.elemenix.Elemenix;
 import net.lghast.elemenix.utils.elemenix.ElemenixInfo;
-import net.lghast.elemenix.utils.misc.ElemenixItemStorage;
+import net.lghast.elemenix.utils.misc.ReceptacleHelper;
 import net.lghast.elemenix.utils.misc.LongContainerData;
 import net.minecraft.core.GlobalPos;
 import net.minecraft.core.Holder;
@@ -302,27 +302,25 @@ public class AnalyzerMenu extends AbstractContainerMenu {
         ItemStack inputStack = getInputItem();
         if (inputStack.isEmpty()) return;
 
-        if (inputStack.getItem() instanceof RemoteStorageItem) {
-            if (RemoteStorageItem.isBound(inputStack)) {
-                if (player.level() instanceof ServerLevel serverLevel) {
-                    ElemenicStorage remoteStorage = RemoteStorageItem.getRemoteStorage(inputStack, serverLevel);
-                    if (!remoteStorage.isEmpty()) {
-                        transferFromRemoteStorage(remoteStorage);
+        if (inputStack.is(ModTags.ELEMENIX_TRANSFERABLE)) {
+            if (inputStack.getItem() instanceof RemoteStorageItem) {
+                if (RemoteStorageItem.isBound(inputStack)) {
+                    if (player.level() instanceof ServerLevel serverLevel) {
+                        ElemenicStorage remoteStorage = RemoteStorageItem.getRemoteStorage(inputStack, serverLevel);
+                        if (!remoteStorage.isEmpty()) {
+                            transferFromRemoteStorage(remoteStorage);
+                        }
                     }
+                } else {
+                    regularlyDeconstruct(inputStack);
                 }
             } else {
-                regularlyDeconstruct(inputStack);
-            }
-            return;
-        }
-
-        if (inputStack.is(ModItems.ELEMENIC_STORAGE) || inputStack.is(ModItems.SCANNING_STORAGE) || ElemenixItemStorage.isTank(inputStack)) {
-            ElemenicStorage storageData = new ElemenicStorage(ElemenixItemStorage.getStored(inputStack));
-
-            if (storageData.isEmpty()) {
-                regularlyDeconstruct(inputStack);
-            } else {
-                transferStorage(inputStack, storageData);
+                ElemenicStorage storageData = new ElemenicStorage(ReceptacleHelper.getStored(inputStack));
+                if (storageData.isEmpty()) {
+                    regularlyDeconstruct(inputStack);
+                } else {
+                    transferStorage(inputStack, storageData);
+                }
             }
             return;
         }
@@ -356,6 +354,10 @@ public class AnalyzerMenu extends AbstractContainerMenu {
 
     private void transferStorage(ItemStack storageStack, ElemenicStorage storageData) {
         long[] storageElemenix = storageData.elemenix();
+        int count = Math.max(1, storageStack.getCount());
+        for (int i = 0; i < 6; i++) {
+            storageElemenix[i] = ReceptacleHelper.multiplySaturated(storageElemenix[i], count);
+        }
         long[] analyzerElemenix = new long[6];
 
         for (int i = 0; i < 6; i++) {
@@ -383,7 +385,10 @@ public class AnalyzerMenu extends AbstractContainerMenu {
         }
 
         if (anyTransferred) {
-            ElemenixItemStorage.setStored(storageStack, storageElemenix);
+            for (int i = 0; i < 6; i++) {
+                storageElemenix[i] /= count;
+            }
+            ReceptacleHelper.setStored(storageStack, storageElemenix);
             player.awardStat(ModStats.STORAGE_TRANSFERS.get());
 
             getSlot(INPUT_SLOT).setChanged();

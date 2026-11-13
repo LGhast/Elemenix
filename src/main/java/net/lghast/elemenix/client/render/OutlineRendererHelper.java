@@ -32,16 +32,14 @@ public class OutlineRendererHelper {
 
     private static final float LINE_WIDTH = 1f / 32f;
 
-    private static final RenderType OUTLINE = RenderType.entityTranslucent(
-            ResourceLocation.withDefaultNamespace("textures/misc/white.png"));
+    private static final RenderType OUTLINE = RenderType.entityTranslucent(ResourceLocation.withDefaultNamespace("textures/misc/white.png"));
 
     private final Map<Object, BoxEntry> boxes = new HashMap<>();
     private final Map<Object, TextEntry> texts = new HashMap<>();
 
     public void showShape(Object slot, VoxelShape shape, int color) {
         List<AABB> aabbs = new ArrayList<>();
-        shape.forAllBoxes((minX, minY, minZ, maxX, maxY, maxZ) ->
-                aabbs.add(new AABB(minX, minY, minZ, maxX, maxY, maxZ)));
+        shape.forAllBoxes((minX, minY, minZ, maxX, maxY, maxZ) -> aabbs.add(new AABB(minX, minY, minZ, maxX, maxY, maxZ)));
         boxes.computeIfAbsent(slot, k -> new BoxEntry()).set(aabbs, color);
     }
 

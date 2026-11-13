@@ -36,17 +36,17 @@ public class ElemenicComparatorScreen extends AbstractContainerScreen<ElemenicCo
 
     private static final String[] RULE_SYMBOLS = {">", "<", "=", "≥", "≤"};
     private static final String[] RULE_KEYS = {
-            "gui.elemenix.comparator_rule_greater",
-            "gui.elemenix.comparator_rule_less",
-            "gui.elemenix.comparator_rule_equal",
-            "gui.elemenix.comparator_rule_at_least",
-            "gui.elemenix.comparator_rule_at_most"
+            "gui.elemenix.rule.greater",
+            "gui.elemenix.rule.less",
+            "gui.elemenix.rule.equal",
+            "gui.elemenix.rule.at_least",
+            "gui.elemenix.rule.at_most"
     };
     private static final String[] UNIT_KEYS = {
-            "gui.elemenix.comparator_unit_point",
-            "gui.elemenix.comparator_unit_ten_thousand",
-            "gui.elemenix.comparator_unit_hundred_million",
-            "gui.elemenix.comparator_unit_trillion"
+            "gui.elemenix.unit.point",
+            "gui.elemenix.unit.ten_thousand",
+            "gui.elemenix.unit.hundred_million",
+            "gui.elemenix.unit.trillion"
     };
     private static final long[] UNIT_MULTIPLIERS = {1L, 10_000L, 100_000_000L, 1_000_000_000_000L};
 
@@ -173,10 +173,10 @@ public class ElemenicComparatorScreen extends AbstractContainerScreen<ElemenicCo
         }
 
         String[] entryNames = {
-                Component.translatable("gui.elemenix.comparator_target").getString(),
-                Component.translatable("gui.elemenix.comparator_rule").getString(),
-                Component.translatable("gui.elemenix.comparator_threshold").getString(),
-                Component.translatable("gui.elemenix.comparator_unit").getString()
+                Component.translatable("gui.elemenix.target").getString(),
+                Component.translatable("gui.elemenix.rule").getString(),
+                Component.translatable("gui.elemenix.threshold").getString(),
+                Component.translatable("gui.elemenix.unit").getString()
         };
         for (int i = 0; i < 4; i++) {
             int nameX = ENTRY_NAME_X + (ENTRY_NAME_WIDTH - this.font.width(entryNames[i])) / 2;
@@ -206,10 +206,10 @@ public class ElemenicComparatorScreen extends AbstractContainerScreen<ElemenicCo
 
     private String targetName() {
         if (target == ElemenicComparatorBlockEntity.TARGET_SUM) {
-            return Component.translatable("gui.elemenix.comparator_target_sum").getString();
+            return Component.translatable("gui.elemenix.sum").getString();
         }
         if (target == ElemenicComparatorBlockEntity.TARGET_ANY) {
-            return Component.translatable("gui.elemenix.comparator_target_any").getString();
+            return Component.translatable("gui.elemenix.any").getString();
         }
         return Elemenix.values()[target].getName();
     }
@@ -232,9 +232,9 @@ public class ElemenicComparatorScreen extends AbstractContainerScreen<ElemenicCo
     private Component buildCriterion() {
         String targetPart;
         if (target == ElemenicComparatorBlockEntity.TARGET_SUM) {
-            targetPart = Component.translatable("gui.elemenix.comparator_criterion_sum").getString();
+            targetPart = Component.translatable("gui.elemenix.elemenix_sum").getString();
         } else if (target == ElemenicComparatorBlockEntity.TARGET_ANY) {
-            targetPart = Component.translatable("gui.elemenix.comparator_criterion_any").getString();
+            targetPart = Component.translatable("gui.elemenix.elemenix_any").getString();
         } else {
             targetPart = Elemenix.values()[target].getName();
         }

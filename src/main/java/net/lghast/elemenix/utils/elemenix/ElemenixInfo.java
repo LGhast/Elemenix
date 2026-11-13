@@ -1,7 +1,12 @@
 package net.lghast.elemenix.utils.elemenix;
 
 import net.lghast.elemenix.Elemenics;
+import net.lghast.elemenix.common.content.item.MemorizerItem;
+import net.lghast.elemenix.common.content.item.WitchcraftMemorizerItem;
+import net.lghast.elemenix.common.system.datacomponent.Style;
+import net.lghast.elemenix.common.system.datacomponent.Waxed;
 import net.lghast.elemenix.config.CommonConfig;
+import net.lghast.elemenix.register.system.ModDataComponents;
 import net.lghast.elemenix.register.system.ModTags;
 import net.lghast.elemenix.utils.misc.ModUtils;
 import net.lghast.elemenix.utils.recipe.RecipeHelper;
@@ -301,7 +306,9 @@ public class ElemenixInfo {
 
         result = modifyOminousBottle(stack, result);
         result = modifyEnchantedStack(stack, result);
-        return modifyPotionContent(stack, result);
+        result = modifyPotionContent(stack, result);
+        result = modifyMemorizerWaxed(stack, result, level);
+        return modifyMemorizerStyle(stack, result, level);
     }
 
     /**
@@ -408,6 +415,66 @@ public class ElemenixInfo {
         potionConstituents = potionConstituents.copy();
         potionConstituents.multiply(ratio);
         result.add(potionConstituents);
+        return result;
+    }
+
+    /**
+     * Adds the constituents of a honeycomb to waxed (read-only) memorizers.
+     */
+    private static Constituents modifyMemorizerWaxed(ItemStack stack, Constituents constituents, @Nullable Level level) {
+        if (constituents == null || constituents.isUnanalysable()) {
+            return constituents;
+        }
+
+        if (!(stack.getItem() instanceof MemorizerItem) && !(stack.getItem() instanceof WitchcraftMemorizerItem)) {
+            return constituents;
+        }
+
+        Waxed waxed = stack.get(ModDataComponents.WAXED);
+        if (waxed == null || !waxed.waxed()) {
+            return constituents;
+        }
+
+        Constituents honeycomb = getConstituents(Items.HONEYCOMB, level);
+        if (honeycomb.isUnanalysable()) {
+            return constituents;
+        }
+
+        Constituents result = constituents.copy();
+        result.add(honeycomb);
+        return result;
+    }
+
+    /**
+     * Adds the constituents of the style item to styled elemenic memorizers
+     * (the default copper-ingot style is skipped).
+     */
+    private static Constituents modifyMemorizerStyle(ItemStack stack, Constituents constituents, @Nullable Level level) {
+        if (constituents == null || constituents.isUnanalysable()) {
+            return constituents;
+        }
+
+        if (!(stack.getItem() instanceof MemorizerItem)) {
+            return constituents;
+        }
+
+        Style style = stack.get(ModDataComponents.STYLE);
+        if (style == null || style.style() == 0) {
+            return constituents;
+        }
+
+        Item styleItem = MemorizerItem.getStyleItemFor(style.style());
+        if (styleItem == null || styleItem == Items.AIR) {
+            return constituents;
+        }
+
+        Constituents styleConstituents = getConstituents(styleItem, level);
+        if (styleConstituents.isUnanalysable()) {
+            return constituents;
+        }
+
+        Constituents result = constituents.copy();
+        result.add(styleConstituents);
         return result;
     }
 

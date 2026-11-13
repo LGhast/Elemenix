@@ -1,6 +1,6 @@
 package net.lghast.elemenix.common.content.item;
 
-import net.lghast.elemenix.client.misc.ClientInfuserDataCache;
+import net.lghast.elemenix.client.cache.ClientInfuserCache;
 import net.lghast.elemenix.common.content.block.InfuserBlock;
 import net.lghast.elemenix.common.content.blockentity.InfuserBlockEntity;
 import net.lghast.elemenix.common.system.datacomponent.ElemenicStorage;
@@ -128,7 +128,7 @@ public class RemoteStorageItem extends Item {
 
             Level level = context.level();
             if (level != null && level.dimension() == globalPos.dimension()) {
-                Optional<long[]> cachedData = ClientInfuserDataCache.getCachedData(globalPos);
+                Optional<long[]> cachedData = ClientInfuserCache.getCachedData(globalPos);
                 if (level.isClientSide) {
                     PacketDistributor.sendToServer(new RequestInfuserUpdatePayload(globalPos));
                 }

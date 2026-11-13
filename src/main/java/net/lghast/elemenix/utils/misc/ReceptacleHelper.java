@@ -8,14 +8,10 @@ import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemStack;
 
 /**
- * Reads and writes stored elemenix on "storage-like" items: the dedicated
- * storage items ({@code ElemenicStorage} data component) and the elemenic tank
- * block item (block entity data component).
+ * Reads and writes stored elemenix on elemenic receptacle items:
+ * the dedicated storage items (data component) and the elemenic tank item (block entity data).
  */
-public final class ElemenixItemStorage {
-    private ElemenixItemStorage() {
-    }
-
+public final class ReceptacleHelper {
     public static boolean isTank(ItemStack stack) {
         return stack.getItem() instanceof BlockItem blockItem && blockItem.getBlock() instanceof TankBlock;
     }
@@ -42,5 +38,15 @@ public final class ElemenixItemStorage {
             }
         }
         return true;
+    }
+
+    public static long multiplySaturated(long value, int count) {
+        if (value <= 0 || count <= 1) {
+            return value;
+        }
+        if (value > Long.MAX_VALUE / count) {
+            return Long.MAX_VALUE;
+        }
+        return value * count;
     }
 }

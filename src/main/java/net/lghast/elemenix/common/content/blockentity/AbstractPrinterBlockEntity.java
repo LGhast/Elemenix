@@ -162,9 +162,9 @@ public abstract class AbstractPrinterBlockEntity extends BaseContainerBlockEntit
 
     public static String getModeName(int mode) {
         String key = switch (Math.floorMod(mode, MODE_COUNT)) {
-            case MODE_SEQUENTIAL -> "gui.elemenix.printer_mode_sequential";
-            case MODE_RANDOM -> "gui.elemenix.printer_mode_random";
-            default -> "gui.elemenix.printer_mode_first";
+            case MODE_SEQUENTIAL -> "mode.elemenix.printer.sequential";
+            case MODE_RANDOM -> "mode.elemenix.printer.random";
+            default -> "mode.elemenix.printer.first";
         };
         return Component.translatable(key).getString();
     }

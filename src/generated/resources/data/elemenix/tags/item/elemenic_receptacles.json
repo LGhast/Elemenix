@@ -1,0 +1,8 @@
+{
+  "values": [
+    "elemenix:elemenic_storage",
+    "elemenix:scanning_storage",
+    "elemenix:elemenic_analyzer",
+    "elemenix:elemenic_tank"
+  ]
+}

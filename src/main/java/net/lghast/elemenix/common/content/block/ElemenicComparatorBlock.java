@@ -6,6 +6,7 @@ import net.lghast.elemenix.common.content.item.WrenchItem;
 import net.lghast.elemenix.common.system.menu.ElemenicComparatorMenu;
 import net.lghast.elemenix.register.content.ModBlockEntities;
 import net.lghast.elemenix.register.system.ModDataComponents;
+import net.lghast.elemenix.register.system.ModStats;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
@@ -122,6 +123,7 @@ public class ElemenicComparatorBlock extends BaseEntityBlock {
                     (containerId, playerInventory, playerEntity) -> new ElemenicComparatorMenu(containerId, blockEntity),
                     Component.translatable("container.elemenix.elemenic_comparator")
             ), pos);
+            player.awardStat(ModStats.COMPARATOR_INTERACTIONS.get());
         }
         return InteractionResult.SUCCESS;
     }

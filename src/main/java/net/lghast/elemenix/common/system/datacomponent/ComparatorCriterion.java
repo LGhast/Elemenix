@@ -37,9 +37,9 @@ public record ComparatorCriterion(int target, int rule, int threshold, int unit)
     public String buildDisplay(boolean full) {
         String targetPart;
         if (target == TARGET_SUM) {
-            targetPart = Component.translatable("gui.elemenix.comparator_criterion_sum").getString();
+            targetPart = Component.translatable("gui.elemenix.elemenix_sum").getString();
         } else if (target == TARGET_ANY) {
-            targetPart = Component.translatable("gui.elemenix.comparator_criterion_any").getString();
+            targetPart = Component.translatable("gui.elemenix.elemenix_any").getString();
         } else {
             targetPart = Elemenix.values()[target].getName();
         }

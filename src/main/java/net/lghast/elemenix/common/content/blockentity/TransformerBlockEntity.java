@@ -333,15 +333,6 @@ public class TransformerBlockEntity extends BaseContainerBlockEntity implements 
     }
 
     @Override
-    public @NotNull CompoundTag getUpdateTag(HolderLookup.@NotNull Provider registries) {
-        CompoundTag tag = super.getUpdateTag(registries);
-        tag.putLong("InputA", inputA);
-        tag.putLong("InputB", inputB);
-        tag.putLong("OutputC", outputC);
-        return tag;
-    }
-
-    @Override
     public ClientboundBlockEntityDataPacket getUpdatePacket() {
         return ClientboundBlockEntityDataPacket.create(this);
     }
@@ -352,6 +343,21 @@ public class TransformerBlockEntity extends BaseContainerBlockEntity implements 
         if (level != null && !level.isClientSide) {
             level.sendBlockUpdated(worldPosition, getBlockState(), getBlockState(), net.minecraft.world.level.block.Block.UPDATE_CLIENTS);
         }
+    }
+
+    @Override
+    public @NotNull CompoundTag getUpdateTag(HolderLookup.@NotNull Provider registries) {
+        CompoundTag tag = super.getUpdateTag(registries);
+        tag.putLong("InputA", inputA);
+        tag.putLong("InputB", inputB);
+        tag.putLong("OutputC", outputC);
+        tag.putInt("InputTimer", dcTimer);
+        tag.putInt("OutputTimer", rcTimer);
+        tag.putInt("Mode", mode);
+        tag.putInt("GerminatingProgress", germinatingProgress);
+        tag.putBoolean("TransformEnabled", transformEnabled);
+        tag.putBoolean("EnrichEnabled", enrichEnabled);
+        return tag;
     }
 
     @Override

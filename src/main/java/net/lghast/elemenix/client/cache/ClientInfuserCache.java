@@ -1,4 +1,4 @@
-package net.lghast.elemenix.client.misc;
+package net.lghast.elemenix.client.cache;
 
 import net.minecraft.core.GlobalPos;
 
@@ -6,7 +6,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
-public class ClientInfuserDataCache {
+public class ClientInfuserCache {
     private static final Map<GlobalPos, CacheEntry> cache = new HashMap<>();
     private static final long CACHE_DURATION = 5000;
 

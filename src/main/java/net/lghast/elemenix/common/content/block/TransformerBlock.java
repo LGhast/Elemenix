@@ -2,6 +2,7 @@ package net.lghast.elemenix.common.content.block;
 
 import net.lghast.elemenix.common.content.blockentity.TransformerBlockEntity;
 import net.lghast.elemenix.register.content.ModBlockEntities;
+import net.lghast.elemenix.register.system.ModStats;
 import net.lghast.elemenix.utils.elemenix.Elemenix;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -99,6 +100,7 @@ public abstract class TransformerBlock extends BaseEntityBlock {
                 buf.writeBlockPos(pos);
                 buf.writeResourceLocation(getGuiTexture());
             });
+            player.awardStat(ModStats.TRANSFORMER_INTERACTIONS.get());
             return InteractionResult.SUCCESS;
         }
         return InteractionResult.SUCCESS;

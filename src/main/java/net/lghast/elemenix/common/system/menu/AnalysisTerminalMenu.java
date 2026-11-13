@@ -9,7 +9,6 @@ import net.lghast.elemenix.common.system.datacomponent.PotionMemoryData;
 import net.lghast.elemenix.common.system.datacomponent.RemoteStorageBinding;
 import net.lghast.elemenix.common.system.datacomponent.UuidData;
 import net.lghast.elemenix.compat.ftbquests.util.AnalyzerTaskHelper;
-import net.lghast.elemenix.register.content.ModItems;
 import net.lghast.elemenix.register.system.ModDataComponents;
 import net.lghast.elemenix.register.system.ModMenus;
 import net.lghast.elemenix.register.system.ModStats;
@@ -18,7 +17,7 @@ import net.lghast.elemenix.utils.elemenix.Constituents;
 import net.lghast.elemenix.utils.misc.LongContainerData;
 import net.lghast.elemenix.utils.elemenix.Elemenix;
 import net.lghast.elemenix.utils.elemenix.ElemenixInfo;
-import net.lghast.elemenix.utils.misc.ElemenixItemStorage;
+import net.lghast.elemenix.utils.misc.ReceptacleHelper;
 import net.minecraft.core.GlobalPos;
 import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponents;
@@ -375,19 +374,22 @@ public class AnalysisTerminalMenu extends AbstractContainerMenu {
         if (stack.getItem() instanceof MemorizerItem) {
             return;
         }
-        if (stack.getItem() instanceof RemoteStorageItem && RemoteStorageItem.isBound(stack)) {
-            if (allowTransfer) {
-                transferFromRemoteStorage(stack);
-            }
-            return;
-        }
-        if (stack.is(ModItems.ELEMENIC_STORAGE) || stack.is(ModItems.SCANNING_STORAGE) || ElemenixItemStorage.isTank(stack)) {
-            ElemenicStorage storageData = new ElemenicStorage(ElemenixItemStorage.getStored(stack));
-            if (!storageData.isEmpty()) {
-                if (allowTransfer) {
-                    transferStorageFromSlot(slot, storageData);
+        if (stack.is(ModTags.ELEMENIX_TRANSFERABLE)) {
+            if (stack.getItem() instanceof RemoteStorageItem) {
+                if (RemoteStorageItem.isBound(stack)) {
+                    if (allowTransfer) {
+                        transferFromRemoteStorage(stack);
+                    }
+                    return;
                 }
-                return;
+            } else {
+                ElemenicStorage storageData = new ElemenicStorage(ReceptacleHelper.getStored(stack));
+                if (!storageData.isEmpty()) {
+                    if (allowTransfer) {
+                        transferStorageFromSlot(slot, storageData);
+                    }
+                    return;
+                }
             }
         }
         regularlyDeconstruct(slot);
@@ -429,19 +431,22 @@ public class AnalysisTerminalMenu extends AbstractContainerMenu {
         if (carried.isEmpty()) {
             return;
         }
-        if (carried.getItem() instanceof RemoteStorageItem && RemoteStorageItem.isBound(carried)) {
-            if (allowTransfer) {
-                transferFromRemoteStorage(carried);
-            }
-            return;
-        }
-        if (carried.is(ModItems.ELEMENIC_STORAGE) || carried.is(ModItems.SCANNING_STORAGE) || ElemenixItemStorage.isTank(carried)) {
-            ElemenicStorage storageData = new ElemenicStorage(ElemenixItemStorage.getStored(carried));
-            if (!storageData.isEmpty()) {
-                if (allowTransfer) {
-                    transferStorageFromCarried(carried, storageData);
+        if (carried.is(ModTags.ELEMENIX_TRANSFERABLE)) {
+            if (carried.getItem() instanceof RemoteStorageItem) {
+                if (RemoteStorageItem.isBound(carried)) {
+                    if (allowTransfer) {
+                        transferFromRemoteStorage(carried);
+                    }
+                    return;
                 }
-                return;
+            } else {
+                ElemenicStorage storageData = new ElemenicStorage(ReceptacleHelper.getStored(carried));
+                if (!storageData.isEmpty()) {
+                    if (allowTransfer) {
+                        transferStorageFromCarried(carried, storageData);
+                    }
+                    return;
+                }
             }
         }
         if (carried.getItem() instanceof AnalyzerItem) {
@@ -517,8 +522,15 @@ public class AnalysisTerminalMenu extends AbstractContainerMenu {
 
     private void transferStorageFromSlot(Slot slot, ElemenicStorage storageData) {
         long[] elemenix = storageData.elemenix().clone();
+        int count = Math.max(1, slot.getItem().getCount());
+        for (int i = 0; i < 6; i++) {
+            elemenix[i] = ReceptacleHelper.multiplySaturated(elemenix[i], count);
+        }
         if (transferIntoAnalyzer(elemenix)) {
-            ElemenixItemStorage.setStored(slot.getItem(), elemenix);
+            for (int i = 0; i < 6; i++) {
+                elemenix[i] /= count;
+            }
+            ReceptacleHelper.setStored(slot.getItem(), elemenix);
             slot.setChanged();
             player.awardStat(ModStats.STORAGE_TRANSFERS.get());
             saveAnalyzerStorage();
@@ -528,8 +540,15 @@ public class AnalysisTerminalMenu extends AbstractContainerMenu {
 
     private void transferStorageFromCarried(ItemStack carried, ElemenicStorage storageData) {
         long[] elemenix = storageData.elemenix().clone();
+        int count = Math.max(1, carried.getCount());
+        for (int i = 0; i < 6; i++) {
+            elemenix[i] = ReceptacleHelper.multiplySaturated(elemenix[i], count);
+        }
         if (transferIntoAnalyzer(elemenix)) {
-            ElemenixItemStorage.setStored(carried, elemenix);
+            for (int i = 0; i < 6; i++) {
+                elemenix[i] /= count;
+            }
+            ReceptacleHelper.setStored(carried, elemenix);
             setCarried(carried);
             player.awardStat(ModStats.STORAGE_TRANSFERS.get());
             saveAnalyzerStorage();

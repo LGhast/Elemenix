@@ -1,6 +1,6 @@
 package net.lghast.elemenix.network.scan;
 
-import net.lghast.elemenix.client.misc.ClientScanCache;
+import net.lghast.elemenix.client.cache.ClientScanningCache;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
@@ -30,6 +30,6 @@ public record ResponseContainerScanPayload(BlockPos pos, boolean hasParseable) i
     }
 
     public static void handle(ResponseContainerScanPayload payload, IPayloadContext context) {
-        context.enqueueWork(() -> ClientScanCache.update(payload.pos(), payload.hasParseable()));
+        context.enqueueWork(() -> ClientScanningCache.update(payload.pos(), payload.hasParseable()));
     }
 }

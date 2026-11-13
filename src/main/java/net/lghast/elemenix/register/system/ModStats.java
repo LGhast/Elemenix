@@ -69,9 +69,6 @@ public class ModStats {
     public static final DeferredHolder<ResourceLocation, ResourceLocation> BURNER_COPY_ACTIONS =
             makeStat("burner_copy_actions");
 
-    public static final DeferredHolder<ResourceLocation, ResourceLocation> THROTTLE_VALVE_ADJUSTMENTS =
-            makeStat("throttle_valve_adjustments");
-
     public static final DeferredHolder<ResourceLocation, ResourceLocation> TANK_INTERACTIONS =
             makeStat("tank_interactions");
 
@@ -101,6 +98,24 @@ public class ModStats {
 
     public static final DeferredHolder<ResourceLocation, ResourceLocation> IMITFORGING_COUNT =
             makeStat("imitforging_count");
+
+    public static final DeferredHolder<ResourceLocation, ResourceLocation> TRANSFORMER_INTERACTIONS =
+            makeStat("transformer_interactions");
+
+    public static final DeferredHolder<ResourceLocation, ResourceLocation> COMPARATOR_INTERACTIONS =
+            makeStat("comparator_interactions");
+
+    public static final DeferredHolder<ResourceLocation, ResourceLocation> SHUNT_INTERACTIONS =
+            makeStat("shunt_interactions");
+
+    public static final DeferredHolder<ResourceLocation, ResourceLocation> ANALYSIS_TERMINAL_OPENS =
+            makeStat("analysis_terminal_opens");
+
+    public static final DeferredHolder<ResourceLocation, ResourceLocation> PRINTER_INTERACTIONS =
+            makeStat("printer_interactions");
+
+    public static final DeferredHolder<ResourceLocation, ResourceLocation> MEMORIZER_BOX_OPENS =
+            makeStat("memorizer_box_opens");
 
     private static DeferredHolder<ResourceLocation, ResourceLocation> makeStat(String key) {
         ResourceLocation resourceLocation = ResourceLocation.fromNamespaceAndPath(Elemenics.MOD_ID, key);

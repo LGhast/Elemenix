@@ -326,16 +326,16 @@ public class TransformerScreen extends AbstractContainerScreen<TransformerMenu> 
         Component tip;
         if (menu.isGerminatingPage()) {
             tip = menu.getMode() == TransformerBlockEntity.MODE_SPECIAL
-                    ? Component.translatable("gui.elemenix.mode_switch.to_transforming")
-                    : Component.translatable("gui.elemenix.mode_switch.to_germinating");
+                    ? Component.translatable("mode.elemenix.transformer.transform")
+                    : Component.translatable("mode.elemenix.transformer.germinate");
         } else if (menu.isImitforgingPage()) {
             tip = menu.getMode() == TransformerBlockEntity.MODE_SPECIAL
-                    ? Component.translatable("gui.elemenix.mode_switch.to_transforming")
-                    : Component.translatable("gui.elemenix.mode_switch.to_imitforging");
+                    ? Component.translatable("mode.elemenix.transformer.transform")
+                    : Component.translatable("mode.elemenix.transformer.imitforge");
         } else {
             tip = menu.getMode() == TransformerBlockEntity.MODE_SPECIAL
-                    ? Component.translatable("gui.elemenix.mode_switch.to_transforming")
-                    : Component.translatable("gui.elemenix.mode_switch.to_mineralizing");
+                    ? Component.translatable("mode.elemenix.transformer.transform")
+                    : Component.translatable("mode.elemenix.transformer.mineralize");
         }
         return tip;
     }

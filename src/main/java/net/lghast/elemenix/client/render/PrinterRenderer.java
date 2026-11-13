@@ -23,19 +23,13 @@ public class PrinterRenderer implements BlockEntityRenderer<AbstractPrinterBlock
     @Override
     public void render(AbstractPrinterBlockEntity blockEntity, float partialTick, PoseStack poseStack,
                        MultiBufferSource bufferSource, int packedLight, int packedOverlay) {
-        if (!ClientConfig.SHOW_PRINTER_ITEM_PREVIEW.get()) {
-            return;
-        }
+        if (!ClientConfig.SHOW_PRINTER_ITEM_PREVIEW.get()) return;
 
         ItemStack stack = blockEntity.getPrintingItemStack();
-        if (stack.isEmpty()) {
-            return;
-        }
+        if (stack.isEmpty()) return;
 
         Level level = blockEntity.getLevel();
-        if (level == null) {
-            return;
-        }
+        if (level == null) return;
 
         ItemRenderer itemRenderer = Minecraft.getInstance().getItemRenderer();
         float angleDegrees = (level.getGameTime() + partialTick) * ClientConfig.PRINTER_ITEM_ROTATION_SPEED.get().floatValue();

@@ -36,15 +36,15 @@ public enum OutletProvider implements IServerDataProvider<BlockAccessor>, IBlock
             if (data.getBoolean("PathValid")) {
                 Component sourceName = Component.translatable(data.getString("SourceId"));
                 Component targetName = Component.translatable(data.getString("TargetId"));
-                tooltip.add(Component.translatable("gui.elemenix.outlet_path", sourceName, targetName).withStyle(ChatFormatting.GRAY));
+                tooltip.add(Component.translatable("status.elemenix.path", sourceName, targetName).withStyle(ChatFormatting.GRAY));
             } else {
-                tooltip.add(Component.translatable("gui.elemenix.outlet_path_invalid").withStyle(ChatFormatting.RED));
+                tooltip.add(Component.translatable("status.elemenix.path.invalid").withStyle(ChatFormatting.RED));
             }
         }
 
         if (data.contains("OutputPercent")) {
             int percent = data.getInt("OutputPercent");
-            tooltip.add(Component.translatable("tooltip.elemenix.valve_opening", percent + "%").withStyle(ChatFormatting.GRAY));
+            tooltip.add(Component.translatable("status.elemenix.valve_opening", percent + "%").withStyle(ChatFormatting.GRAY));
         }
     }
 

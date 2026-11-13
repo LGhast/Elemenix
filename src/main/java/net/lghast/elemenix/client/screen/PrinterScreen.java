@@ -112,11 +112,11 @@ public class PrinterScreen extends AbstractContainerScreen<PrinterMenu> {
     private String getModeName() {
         return switch (mode) {
             case AbstractPrinterBlockEntity.MODE_FIRST ->
-                    Component.translatable("gui.elemenix.printer_mode_first").getString();
+                    Component.translatable("mode.elemenix.printer.first").getString();
             case AbstractPrinterBlockEntity.MODE_SEQUENTIAL ->
-                    Component.translatable("gui.elemenix.printer_mode_sequential").getString();
+                    Component.translatable("mode.elemenix.printer.sequential").getString();
             case AbstractPrinterBlockEntity.MODE_RANDOM ->
-                    Component.translatable("gui.elemenix.printer_mode_random").getString();
+                    Component.translatable("mode.elemenix.printer.random").getString();
             default -> "";
         };
     }
@@ -172,7 +172,7 @@ public class PrinterScreen extends AbstractContainerScreen<PrinterMenu> {
         if (memoryListWidget == null) return;
         String hoveredKey = memoryListWidget.getHoveredItemKey(mouseX, mouseY);
         if (hoveredKey != null && menu.isDisabled(hoveredKey)) {
-            graphics.renderTooltip(this.font, Component.translatable("tooltip.elemenix.printer_item_disabled"), mouseX, mouseY);
+            graphics.renderTooltip(this.font, Component.translatable("gui.elemenix.disabled"), mouseX, mouseY);
         }
     }
 

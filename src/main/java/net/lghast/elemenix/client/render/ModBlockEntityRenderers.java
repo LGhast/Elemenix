@@ -1,7 +1,6 @@
-package net.lghast.elemenix.client.misc;
+package net.lghast.elemenix.client.render;
 
 import net.lghast.elemenix.Elemenics;
-import net.lghast.elemenix.client.render.PrinterRenderer;
 import net.lghast.elemenix.register.content.ModBlockEntities;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;

@@ -1,6 +1,6 @@
 package net.lghast.elemenix.client.screen;
 
-import net.lghast.elemenix.client.misc.ClientInfuserDataCache;
+import net.lghast.elemenix.client.cache.ClientInfuserCache;
 import net.lghast.elemenix.common.content.item.RemoteStorageItem;
 import net.lghast.elemenix.common.system.datacomponent.ElemenicStorage;
 import net.lghast.elemenix.common.system.datacomponent.RemoteStorageBinding;
@@ -9,10 +9,11 @@ import net.lghast.elemenix.network.analyzer.DeconstructionPayload;
 import net.lghast.elemenix.network.infuser.RequestInfuserUpdatePayload;
 import net.lghast.elemenix.register.content.ModItems;
 import net.lghast.elemenix.register.system.ModDataComponents;
+import net.lghast.elemenix.register.system.ModTags;
 import net.lghast.elemenix.utils.elemenix.Constituents;
 import net.lghast.elemenix.utils.elemenix.Elemenix;
 import net.lghast.elemenix.utils.elemenix.ElemenixInfo;
-import net.lghast.elemenix.utils.misc.ElemenixItemStorage;
+import net.lghast.elemenix.utils.misc.ReceptacleHelper;
 import net.lghast.elemenix.utils.misc.LongContainerData;
 import net.lghast.elemenix.utils.misc.ModUtils;
 import net.minecraft.client.gui.GuiGraphics;
@@ -201,19 +202,20 @@ public class AnalyzerScreen extends AbstractContainerScreen<AnalyzerMenu> {
         }
 
         if (!inputStack.isEmpty()) {
-            if (inputStack.is(ModItems.REMOTE_ELEMENIC_STORAGE)) {
-                if (RemoteStorageItem.isBound(inputStack)) {
-                    renderRemoteStoragePreview(graphics, inputStack, x, y);
+            if (inputStack.is(ModTags.ELEMENIX_TRANSFERABLE)) {
+                if (inputStack.is(ModItems.REMOTE_ELEMENIC_STORAGE)) {
+                    if (RemoteStorageItem.isBound(inputStack)) {
+                        renderRemoteStoragePreview(graphics, inputStack, x, y);
+                    } else {
+                        renderRegularItemPreview(graphics, inputStack, x, y);
+                    }
                 } else {
-                    renderRegularItemPreview(graphics, inputStack, x, y);
-                }
-            } else if (inputStack.is(ModItems.ELEMENIC_STORAGE) || inputStack.is(ModItems.SCANNING_STORAGE) || ElemenixItemStorage.isTank(inputStack)) {
-                ElemenicStorage storageData = new ElemenicStorage(ElemenixItemStorage.getStored(inputStack));
-
-                if (storageData.isEmpty()) {
-                    renderRegularItemPreview(graphics, inputStack, x, y);
-                } else {
-                    renderStorageTransferPreview(graphics, storageData, x, y);
+                    ElemenicStorage storageData = new ElemenicStorage(ReceptacleHelper.getStored(inputStack));
+                    if (storageData.isEmpty()) {
+                        renderRegularItemPreview(graphics, inputStack, x, y);
+                    } else {
+                        renderStorageTransferPreview(graphics, storageData, inputStack.getCount(), x, y);
+                    }
                 }
             } else {
                 renderRegularItemPreview(graphics, inputStack, x, y);
@@ -236,14 +238,14 @@ public class AnalyzerScreen extends AbstractContainerScreen<AnalyzerMenu> {
         }
     }
 
-    private void renderStorageTransferPreview(GuiGraphics graphics, ElemenicStorage storageData, int x, int y) {
+    private void renderStorageTransferPreview(GuiGraphics graphics, ElemenicStorage storageData, int count, int x, int y) {
         Elemenix[] types = Elemenix.values();
         LongContainerData containerData = menu.getLongContainerData();
 
         long[] elemenix = storageData.elemenix();
 
         for (int i = 0; i < types.length; i++) {
-            long storageAmount = elemenix[i];
+            long storageAmount = ReceptacleHelper.multiplySaturated(elemenix[i], count);
             if (storageAmount <= 0) continue;
             long analyzerAmount = containerData.getLong(i);
             long maxTransfer = Long.MAX_VALUE - analyzerAmount;
@@ -276,11 +278,11 @@ public class AnalyzerScreen extends AbstractContainerScreen<AnalyzerMenu> {
         GlobalPos globalPos = globalPosOptional.get();
         if (clientLevel.dimension() != globalPos.dimension()) return;
 
-        Optional<long[]> cachedData = ClientInfuserDataCache.getCachedData(globalPos);
+        Optional<long[]> cachedData = ClientInfuserCache.getCachedData(globalPos);
         if (cachedData.isPresent()) {
             ElemenicStorage storageData = new ElemenicStorage(cachedData.get());
             if (!storageData.isEmpty()) {
-                renderStorageTransferPreview(graphics, storageData, x, y);
+                renderStorageTransferPreview(graphics, storageData, 1, x, y);
                 return;
             }
         }
@@ -292,10 +294,7 @@ public class AnalyzerScreen extends AbstractContainerScreen<AnalyzerMenu> {
         ItemStack inputStack = menu.getInputItem();
         ItemStack memorizerStack = menu.getMemorizerItem();
 
-        if(inputStack.is(ModItems.ELEMENIC_STORAGE) ||
-                inputStack.is(ModItems.REMOTE_ELEMENIC_STORAGE) ||
-                inputStack.is(ModItems.SCANNING_STORAGE) ||
-                ElemenixItemStorage.isTank(inputStack)){
+        if (inputStack.is(ModTags.ELEMENIX_TRANSFERABLE)) {
             return;
         }
         

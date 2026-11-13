@@ -168,7 +168,7 @@ public class AnalysisTerminalScreen extends AbstractContainerScreen<AnalysisTerm
                 .bounds(leftPos + PREV_X, topPos + MEM_BTN_Y, MEM_BTN_SIZE, MEM_BTN_SIZE).build();
         this.nextButton = Button.builder(Component.literal("→"), b -> pressNext())
                 .bounds(leftPos + NEXT_X, topPos + MEM_BTN_Y, MEM_BTN_SIZE, MEM_BTN_SIZE).build();
-        this.allButton = Button.builder(Component.translatable("gui.elemenix.analysis_terminal.all"),
+        this.allButton = Button.builder(Component.translatable("gui.elemenix.all"),
                         b -> selectMemorizer(-1))
                 .bounds(leftPos + ALL_BTN_X, topPos + ALL_BTN_Y, ALL_BTN_W, ALL_BTN_H).build();
         this.addRenderableWidget(this.prevButton);

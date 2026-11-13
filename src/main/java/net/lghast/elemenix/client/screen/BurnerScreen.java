@@ -97,7 +97,7 @@ public class BurnerScreen extends AbstractContainerScreen<BurnerMenu> {
         int modeAreaCenterX = leftPos + MODE_AREA_X + MODE_AREA_WIDTH / 2;
 
         Button modeToggleButton = Button.builder(
-                Component.translatable("gui.elemenix.mode.toggle"),
+                Component.translatable("mode.elemenix.burner.toggle"),
                 button -> {
                     menu.cycleMode();
                     updateModeText();
@@ -139,7 +139,7 @@ public class BurnerScreen extends AbstractContainerScreen<BurnerMenu> {
         actionButton.visible = mode == BurnerMode.COPY || mode == BurnerMode.CONCATENATE;
 
         if (actionButton.visible) {
-            String key = mode == BurnerMode.COPY ? "gui.elemenix.mode.copy" : "gui.elemenix.mode.concatenate";
+            String key = mode == BurnerMode.COPY ? "mode.elemenix.burner.copy" : "mode.elemenix.burner.concatenate";
             actionButton.setMessage(Component.translatable(key));
 
             if (mode == BurnerMode.CONCATENATE) {
@@ -157,13 +157,13 @@ public class BurnerScreen extends AbstractContainerScreen<BurnerMenu> {
         BurnerMode mode = menu.getMode();
         String modeKey = "";
         switch (mode) {
-            case MOVE_UP -> modeKey = "gui.elemenix.mode.move_up";
-            case MOVE_DOWN -> modeKey = "gui.elemenix.mode.move_down";
-            case INSERT_BEFORE -> modeKey = "gui.elemenix.mode.insert_before";
-            case SWAP -> modeKey = "gui.elemenix.mode.swap";
-            case DELETE -> modeKey = "gui.elemenix.mode.delete";
-            case CONCATENATE -> modeKey = "gui.elemenix.mode.concatenate";
-            case COPY -> modeKey = "gui.elemenix.mode.copy";
+            case MOVE_UP -> modeKey = "mode.elemenix.burner.move_up";
+            case MOVE_DOWN -> modeKey = "mode.elemenix.burner.move_down";
+            case INSERT_BEFORE -> modeKey = "mode.elemenix.burner.insert_before";
+            case SWAP -> modeKey = "mode.elemenix.burner.swap";
+            case DELETE -> modeKey = "mode.elemenix.burner.delete";
+            case CONCATENATE -> modeKey = "mode.elemenix.burner.concatenate";
+            case COPY -> modeKey = "mode.elemenix.burner.copy";
         }
         currentModeText = Component.translatable(modeKey);
     }
@@ -190,7 +190,7 @@ public class BurnerScreen extends AbstractContainerScreen<BurnerMenu> {
             selectedItemIndex = itemIndex;
             selectedItem = menu.getMemoryItemStack(itemIndex);
             if (!selectedItem.isEmpty()) {
-                selectedItemText = Component.translatable("gui.elemenix.mode.selected");
+                selectedItemText = Component.translatable("mode.elemenix.burner.selected");
                 hasSelectedItem = true;
                 currentSelectedMode = BurnerMode.SWAP;
             }
@@ -214,7 +214,7 @@ public class BurnerScreen extends AbstractContainerScreen<BurnerMenu> {
             selectedItemIndex = itemIndex;
             selectedItem = menu.getMemoryItemStack(itemIndex);
             if (!selectedItem.isEmpty()) {
-                selectedItemText = Component.translatable("gui.elemenix.mode.selected");
+                selectedItemText = Component.translatable("mode.elemenix.burner.selected");
                 hasSelectedItem = true;
                 currentSelectedMode = BurnerMode.DELETE;
             }
@@ -226,7 +226,7 @@ public class BurnerScreen extends AbstractContainerScreen<BurnerMenu> {
                 selectedItemIndex = itemIndex;
                 selectedItem = menu.getMemoryItemStack(itemIndex);
                 if (!selectedItem.isEmpty()) {
-                    selectedItemText = Component.translatable("gui.elemenix.mode.selected");
+                    selectedItemText = Component.translatable("mode.elemenix.burner.selected");
                     hasSelectedItem = true;
                     currentSelectedMode = BurnerMode.DELETE;
                 }
@@ -244,7 +244,7 @@ public class BurnerScreen extends AbstractContainerScreen<BurnerMenu> {
             selectedItemIndex = itemIndex;
             selectedItem = menu.getMemoryItemStack(itemIndex);
             if (!selectedItem.isEmpty()) {
-                selectedItemText = Component.translatable("gui.elemenix.mode.selected");
+                selectedItemText = Component.translatable("mode.elemenix.burner.selected");
                 hasSelectedItem = true;
                 currentSelectedMode = BurnerMode.INSERT_BEFORE;
             }
@@ -280,7 +280,7 @@ public class BurnerScreen extends AbstractContainerScreen<BurnerMenu> {
                 x + MODE_AREA_X + MODE_AREA_WIDTH,
                 y + MODE_AREA_Y + MODE_AREA_HEIGHT, 0x22000000);
 
-        String currentModeLabel = Component.translatable("gui.elemenix.mode.current").getString();
+        String currentModeLabel = Component.translatable("mode.elemenix.burner.current").getString();
         graphics.drawString(this.font, currentModeLabel,
                 x + MODE_AREA_X + (MODE_AREA_WIDTH - font.width(currentModeLabel)) / 2,
                 y + MODE_AREA_Y + 7, 0xFFFFFF, false);

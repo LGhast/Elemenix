@@ -1,6 +1,7 @@
 package net.lghast.elemenix.common.content.block;
 
 import net.lghast.elemenix.common.content.blockentity.AbstractPrinterBlockEntity;
+import net.lghast.elemenix.register.system.ModStats;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.Containers;
 import net.minecraft.world.InteractionHand;
@@ -88,6 +89,7 @@ public abstract class AbstractPrinterBlock extends BaseEntityBlock {
     protected @NotNull InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hitResult) {
         if (!level.isClientSide && level.getBlockEntity(pos) instanceof AbstractPrinterBlockEntity blockEntity) {
             player.openMenu(blockEntity, pos);
+            player.awardStat(ModStats.PRINTER_INTERACTIONS.get());
             return InteractionResult.SUCCESS;
         }
         return InteractionResult.SUCCESS;

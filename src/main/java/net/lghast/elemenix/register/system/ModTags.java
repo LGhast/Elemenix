@@ -62,6 +62,16 @@ public class ModTags {
             ResourceLocation.parse("elemenix:printers")
     );
 
+    public static final TagKey<Item> ELEMENIC_RECEPTACLES = TagKey.create(
+            Registries.ITEM,
+            ResourceLocation.parse("elemenix:elemenic_receptacles")
+    );
+
+    public static final TagKey<Item> ELEMENIX_TRANSFERABLE = TagKey.create(
+            Registries.ITEM,
+            ResourceLocation.parse("elemenix:elemenix_transferable")
+    );
+
     public static final TagKey<Item> ELEMENIC_OUTLETS = TagKey.create(
             Registries.ITEM,
             ResourceLocation.parse("elemenix:elemenic_outlets")

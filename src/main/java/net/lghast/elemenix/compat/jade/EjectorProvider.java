@@ -29,11 +29,11 @@ public enum EjectorProvider implements IServerDataProvider<BlockAccessor>, IBloc
             int filterIndex = data.getInt("FilterIndex");
             Component filterName;
             if (filterIndex == EjectorBlockEntity.FILTER_ALL) {
-                filterName = Component.translatable("gui.elemenix.analysis_terminal.all");
+                filterName = Component.translatable("status.elemenix.all");
             } else {
                 filterName = Component.literal(Elemenix.values()[filterIndex].getName());
             }
-            tooltip.add(Component.translatable("jade.elemenix.ejector_filter", filterName).withStyle(ChatFormatting.GRAY));
+            tooltip.add(Component.translatable("status.elemenix.filter", filterName).withStyle(ChatFormatting.GRAY));
         }
     }
 

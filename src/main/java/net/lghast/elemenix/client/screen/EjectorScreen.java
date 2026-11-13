@@ -100,7 +100,7 @@ public class EjectorScreen extends AbstractContainerScreen<EjectorMenu> {
     protected void renderLabels(GuiGraphics graphics, int mouseX, int mouseY) {
         graphics.drawString(this.font, this.title, (this.imageWidth - this.font.width(this.title)) / 2, this.titleLabelY, 4210752, false);
 
-        Component filterLabel = Component.translatable("gui.elemenix.ejector_filter");
+        Component filterLabel = Component.translatable("gui.elemenix.target");
         int nameX = ENTRY_NAME_X + (ENTRY_NAME_WIDTH - this.font.width(filterLabel)) / 2;
         graphics.drawString(this.font, filterLabel, nameX, ENTRY_NAME_Y, 0x000000, false);
     }
@@ -126,7 +126,7 @@ public class EjectorScreen extends AbstractContainerScreen<EjectorMenu> {
 
     private String filterName() {
         if (filterIndex == EjectorBlockEntity.FILTER_ALL) {
-            return Component.translatable("gui.elemenix.analysis_terminal.all").getString();
+            return Component.translatable("gui.elemenix.all").getString();
         }
         return Elemenix.values()[filterIndex].getName();
     }

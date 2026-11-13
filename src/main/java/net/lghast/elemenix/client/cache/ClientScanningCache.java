@@ -1,8 +1,8 @@
-package net.lghast.elemenix.client.misc;
+package net.lghast.elemenix.client.cache;
 
 import net.minecraft.core.BlockPos;
 
-public class ClientScanCache {
+public class ClientScanningCache {
     private static BlockPos pos;
     private static boolean hasParseable;
 
