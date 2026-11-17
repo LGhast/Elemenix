@@ -49,41 +49,116 @@ public class JEIPlugin implements IModPlugin {
         registration.addRecipes(MineralizingRecipeCategory.TYPE, getMineralizingRecipes());
         registration.addRecipes(GerminatingRecipeCategory.TYPE, getGerminatingRecipes());
 
-        registration.addItemStackInfo(new ItemStack(ModBlocks.ELEMENIC_INFUSER.get()),
-                Component.translatable("jei.info.elemenic_infuser"));
-        registration.addItemStackInfo(new ItemStack(ModBlocks.ELEMENIC_ENRICHER.get()),
-                Component.translatable("jei.info.elemenic_enricher"));
+        registration.addItemStackInfo(new ItemStack(ModBlocks.ELEMENIC_CHANNEL.get()),
+                Component.translatable("description.elemenix.elemenic_channel"));
+        registration.addItemStackInfo(new ItemStack(ModBlocks.ELEMENIC_COMPARATOR.get()),
+                Component.translatable("description.elemenix.elemenic_comparator"));
+        registration.addItemStackInfo(new ItemStack(ModBlocks.ELEMENIC_DECONSTRUCTOR.get()),
+                Component.translatable("description.elemenix.elemenic_deconstructor"));
         registration.addItemStackInfo(new ItemStack(ModBlocks.ELEMENIC_EJECTOR.get()),
-                Component.translatable("jei.info.elemenic_ejector"));
+                Component.translatable("description.elemenix.elemenic_ejector"));
+        registration.addItemStackInfo(new ItemStack(ModBlocks.ELEMENIC_ENRICHER.get()),
+                Component.translatable("description.elemenix.elemenic_enricher"));
+        registration.addItemStackInfo(new ItemStack(ModBlocks.ELEMENIC_INFUSER.get()),
+                Component.translatable("description.elemenix.elemenic_infuser"));
+        registration.addItemStackInfo(new ItemStack(ModBlocks.ELEMENIC_OUTLET.get()),
+                Component.translatable("description.elemenix.elemenic_outlet"));
+        registration.addItemStackInfo(new ItemStack(ModBlocks.ELEMENIC_PRESSURIZED_OUTLET.get()),
+                Component.translatable("description.elemenix.elemenic_pressurized_outlet"));
         registration.addItemStackInfo(new ItemStack(ModBlocks.ELEMENIC_SHUNT.get()),
-                Component.translatable("jei.info.elemenic_shunt"));
+                Component.translatable("description.elemenix.elemenic_shunt"));
+        registration.addItemStackInfo(new ItemStack(ModBlocks.ELEMENIC_TANK.get()),
+                Component.translatable("description.elemenix.elemenic_tank"));
 
         registration.addItemStackInfo(new ItemStack(ModBlocks.GEOLOGICAL_SIMULATOR.get()),
-                Component.translatable("jei.info.geological_simulator"));
+                Component.translatable("description.elemenix.geological_simulator"));
         registration.addItemStackInfo(new ItemStack(ModBlocks.METALLURGICAL_ACTIVATOR.get()),
-                Component.translatable("jei.info.metallurgical_activator"));
+                Component.translatable("description.elemenix.metallurgical_activator"));
         registration.addItemStackInfo(new ItemStack(ModBlocks.GERMINAL_ACCELERATOR.get()),
-                Component.translatable("jei.info.germinal_accelerator"));
+                Component.translatable("description.elemenix.germinal_accelerator"));
         registration.addItemStackInfo(new ItemStack(ModBlocks.TRANSPIRING_INCINERATOR.get()),
-                Component.translatable("jei.info.transpiring_incinerator"));
+                Component.translatable("description.elemenix.transpiring_incinerator"));
         registration.addItemStackInfo(new ItemStack(ModBlocks.OPTICAL_CAPTURER.get()),
-                Component.translatable("jei.info.optical_capturer"));
-
-        registration.addItemStackInfo(new ItemStack(ModItems.MEMORY_BURNER.get()),
-                Component.translatable("jei.info.memory_burner"));
-        registration.addItemStackInfo(new ItemStack(ModItems.ELEMENIC_STORAGE.get()),
-                Component.translatable("jei.info.elemenic_storage"));
-        registration.addItemStackInfo(new ItemStack(ModItems.REMOTE_ELEMENIC_STORAGE.get()),
-                Component.translatable("jei.info.remote_elemenic_storage"));
-        registration.addItemStackInfo(new ItemStack(ModItems.ELEMENIC_SCANNER.get()),
-                Component.translatable("jei.info.elemenic_scanner"));
-        registration.addItemStackInfo(new ItemStack(ModItems.SCANNING_STORAGE.get()),
-                Component.translatable("jei.info.scanning_storage"));
+                Component.translatable("description.elemenix.optical_capturer"));
 
         registration.addItemStackInfo(new ItemStack(ModBlocks.SUBSTANCE_PRINTER.get()),
-                Component.translatable("jei.info.substance_printer"));
+                Component.translatable("description.elemenix.substance_printer"));
         registration.addItemStackInfo(new ItemStack(ModBlocks.WITCHCRAFT_PRINTER.get()),
-                Component.translatable("jei.info.witchcraft_printer"));
+                Component.translatable("description.elemenix.witchcraft_printer"));
+
+        registration.addItemStackInfo(new ItemStack(ModItems.ELEMENIC_MEMORIZER.get()),
+                Component.translatable("description.elemenix.elemenic_memorizer"));
+        registration.addItemStackInfo(new ItemStack(ModItems.WITCHCRAFT_MEMORIZER.get()),
+                Component.translatable("description.elemenix.witchcraft_memorizer"));
+        registration.addItemStackInfo(new ItemStack(ModItems.WITCHCRAFT_TROVE.get()),
+                Component.translatable("description.elemenix.witchcraft_trove"));
+        registration.addItemStackInfo(new ItemStack(ModItems.MEMORY_BURNER.get()),
+                Component.translatable("description.elemenix.memory_burner"));
+        registration.addItemStackInfo(new ItemStack(ModItems.MEMORY_REGISTRAR.get()),
+                Component.translatable("description.elemenix.memory_registrar"));
+        registration.addItemStackInfo(new ItemStack(ModItems.ELEMENIC_STORAGE.get()),
+                Component.translatable("description.elemenix.elemenic_storage"));
+        registration.addItemStackInfo(new ItemStack(ModItems.REMOTE_ELEMENIC_STORAGE.get()),
+                Component.translatable("description.elemenix.remote_elemenic_storage"));
+        registration.addItemStackInfo(new ItemStack(ModItems.ELEMENIC_SCANNER.get()),
+                Component.translatable("description.elemenix.elemenic_scanner"));
+        registration.addItemStackInfo(new ItemStack(ModItems.SCANNING_STORAGE.get()),
+                Component.translatable("description.elemenix.scanning_storage"));
+        registration.addItemStackInfo(new ItemStack(ModItems.ANALYSIS_TERMINAL.get()),
+                Component.translatable("description.elemenix.analysis_terminal"));
+        registration.addItemStackInfo(new ItemStack(ModItems.ANALYZING_CHIP.get()),
+                Component.translatable("description.elemenix.analyzing_chip"));
+        registration.addItemStackInfo(new ItemStack(ModItems.TRANSFORMING_CHIP.get()),
+                Component.translatable("description.elemenix.transforming_chip"));
+        registration.addItemStackInfo(new ItemStack(ModItems.THROTTLE_VALVE.get()),
+                Component.translatable("description.elemenix.throttle_valve"));
+        registration.addItemStackInfo(new ItemStack(ModItems.FLOW_STRAIGHTENER.get()),
+                Component.translatable("description.elemenix.flow_straightener"));
+        registration.addItemStackInfo(new ItemStack(ModItems.FONDANT_CAKE.get()),
+                Component.translatable("description.elemenix.fondant_cake"));
+        registration.addItemStackInfo(new ItemStack(ModItems.MEMORIZER_BOX.get()),
+                Component.translatable("description.elemenix.memorizer_box"));
+        registration.addItemStackInfo(new ItemStack(ModItems.PISTON_PUMP.get()),
+                Component.translatable("description.elemenix.piston_pump"));
+        registration.addItemStackInfo(new ItemStack(ModItems.PRINTER_NOZZLE.get()),
+                Component.translatable("description.elemenix.printer_nozzle"));
+        registration.addItemStackInfo(new ItemStack(ModItems.WRENCH.get()),
+                Component.translatable("description.elemenix.wrench"));
+        registration.addItemStackInfo(new ItemStack(ModItems.ANALYTICAL_WRENCH.get()),
+                Component.translatable("description.elemenix.analytical_wrench"));
+
+        registration.addItemStackInfo(new ItemStack(ModItems.ELEMENIC_ANALYZER.get()),
+                Component.translatable("description.elemenix.elemenic_analyzer"));
+        registration.addItemStackInfo(new ItemStack(ModItems.ORGANIX_ESSENCE.get()),
+                Component.translatable("description.elemenix.organix_essence"));
+        registration.addItemStackInfo(new ItemStack(ModItems.TERRIX_ESSENCE.get()),
+                Component.translatable("description.elemenix.terrix_essence"));
+        registration.addItemStackInfo(new ItemStack(ModItems.FLUMIX_ESSENCE.get()),
+                Component.translatable("description.elemenix.flumix_essence"));
+        registration.addItemStackInfo(new ItemStack(ModItems.METALLIX_ESSENCE.get()),
+                Component.translatable("description.elemenix.metallix_essence"));
+        registration.addItemStackInfo(new ItemStack(ModItems.ENERGIX_ESSENCE.get()),
+                Component.translatable("description.elemenix.energix_essence"));
+        registration.addItemStackInfo(new ItemStack(ModItems.ARCANIX_ESSENCE.get()),
+                Component.translatable("description.elemenix.arcanix_essence"));
+        registration.addItemStackInfo(new ItemStack(ModItems.ORGANIX_ESSENPLEX.get()),
+                Component.translatable("description.elemenix.organix_essenplex"));
+        registration.addItemStackInfo(new ItemStack(ModItems.TERRIX_ESSENPLEX.get()),
+                Component.translatable("description.elemenix.terrix_essenplex"));
+        registration.addItemStackInfo(new ItemStack(ModItems.FLUMIX_ESSENPLEX.get()),
+                Component.translatable("description.elemenix.flumix_essenplex"));
+        registration.addItemStackInfo(new ItemStack(ModItems.METALLIX_ESSENPLEX.get()),
+                Component.translatable("description.elemenix.metallix_essenplex"));
+        registration.addItemStackInfo(new ItemStack(ModItems.ENERGIX_ESSENPLEX.get()),
+                Component.translatable("description.elemenix.energix_essenplex"));
+        registration.addItemStackInfo(new ItemStack(ModItems.ARCANIX_ESSENPLEX.get()),
+                Component.translatable("description.elemenix.arcanix_essenplex"));
+        registration.addItemStackInfo(new ItemStack(ModItems.ELEMENIC_EQUILIBRIUM.get()),
+                Component.translatable("description.elemenix.elemenic_equilibrium"));
+        registration.addItemStackInfo(new ItemStack(ModItems.ELEMENIC_EQUILIPLEX.get()),
+                Component.translatable("description.elemenix.elemenic_equiliplex"));
+        registration.addItemStackInfo(new ItemStack(ModItems.ELEMENIC_CHAOS.get()),
+                Component.translatable("description.elemenix.elemenic_chaos"));
     }
 
     private List<MineralizingRecipe> getMineralizingRecipes() {

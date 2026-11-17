@@ -6,6 +6,7 @@ import net.lghast.elemenix.common.content.blockentity.EjectorBlockEntity;
 import net.lghast.elemenix.common.content.blockentity.ElemenicComparatorBlockEntity;
 import net.lghast.elemenix.common.content.blockentity.EnricherBlockEntity;
 import net.lghast.elemenix.common.content.blockentity.InfuserBlockEntity;
+import net.lghast.elemenix.common.content.blockentity.MemoryRegistrarBlockEntity;
 import net.lghast.elemenix.common.content.blockentity.OutletBlockEntity;
 import net.lghast.elemenix.common.content.blockentity.ShuntBlockEntity;
 import net.lghast.elemenix.common.content.blockentity.SubstancePrinterBlockEntity;
@@ -124,6 +125,15 @@ public class ModBlockEntities {
             () -> BlockEntityType.Builder.of(
                             WitchcraftPrinterBlockEntity::new,
                             ModBlocks.WITCHCRAFT_PRINTER.get()
+                    )
+                    .build(null)
+    );
+
+    public static final Supplier<BlockEntityType<MemoryRegistrarBlockEntity>> MEMORY_REGISTRAR = BLOCK_ENTITY_TYPES.register(
+            "memory_registrar",
+            () -> BlockEntityType.Builder.of(
+                            MemoryRegistrarBlockEntity::new,
+                            ModBlocks.MEMORY_REGISTRAR.get()
                     )
                     .build(null)
     );

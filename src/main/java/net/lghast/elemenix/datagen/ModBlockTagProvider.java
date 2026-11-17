@@ -33,7 +33,7 @@ public class ModBlockTagProvider extends BlockTagsProvider {
                 .add(ModBlocks.OPTICAL_CAPTURER.get())
         ;
 
-        tag(ModTags.ELEMENIX_OUTPUTS)
+        tag(ModTags.ELEMENIX_OUTPUT_BLOCKS)
                 .add(ModBlocks.ELEMENIC_DECONSTRUCTOR.get())
                 .add(ModBlocks.ELEMENIC_TANK.get())
                 .add(ModBlocks.ELEMENIC_EJECTOR.get())
@@ -46,7 +46,7 @@ public class ModBlockTagProvider extends BlockTagsProvider {
                 .add(ModBlocks.WITCHCRAFT_PRINTER.get())
         ;
 
-        tag(ModTags.ELEMENIX_INPUTS)
+        tag(ModTags.ELEMENIX_INPUT_BLOCKS)
                 .add(ModBlocks.ELEMENIC_TANK.get())
                 .add(ModBlocks.ELEMENIC_INFUSER.get())
                 .add(ModBlocks.ELEMENIC_ENRICHER.get())
@@ -57,15 +57,16 @@ public class ModBlockTagProvider extends BlockTagsProvider {
         ;
 
         tag(BlockTags.MINEABLE_WITH_PICKAXE)
-                .addTag(ModTags.ELEMENIX_OUTPUTS)
-                .addTag(ModTags.ELEMENIX_INPUTS)
+                .addTag(ModTags.ELEMENIX_OUTPUT_BLOCKS)
+                .addTag(ModTags.ELEMENIX_INPUT_BLOCKS)
                 .addTag(ModTags.ELEMENIC_OUTLET_BLOCKS)
                 .add(ModBlocks.ELEMENIC_CHANNEL.get())
+                .add(ModBlocks.MEMORY_REGISTRAR.get())
         ;
 
         tag(BlockTags.NEEDS_IRON_TOOL)
-                .addTag(ModTags.ELEMENIX_OUTPUTS)
-                .addTag(ModTags.ELEMENIX_INPUTS)
+                .addTag(ModTags.ELEMENIX_OUTPUT_BLOCKS)
+                .addTag(ModTags.ELEMENIX_INPUT_BLOCKS)
                 .addTag(ModTags.ELEMENIC_OUTLET_BLOCKS)
         ;
     }

@@ -580,6 +580,23 @@ public class ModAdvancementProvider extends AdvancementProvider {
                             ItemPredicate.Builder.item().of(ModBlocks.WITCHCRAFT_PRINTER.get()).build()
                     ))
                     .save(saver, ResourceLocation.parse("elemenix:elemenics/obtain_witchcraft_printer"), existingFileHelper);
+
+            AdvancementHolder obtainMemoryRegistrar = Advancement.Builder.advancement()
+                    .parent(scanContainer)
+                    .display(
+                            ModItems.MEMORY_REGISTRAR,
+                            Component.translatable("advancements.elemenix.obtain_memory_registrar.title"),
+                            Component.translatable("advancements.elemenix.obtain_memory_registrar.description"),
+                            null,
+                            AdvancementType.TASK,
+                            true,
+                            true,
+                            false
+                    )
+                    .addCriterion("get_memory_registrar", InventoryChangeTrigger.TriggerInstance.hasItems(
+                            ItemPredicate.Builder.item().of(ModItems.MEMORY_REGISTRAR.get()).build()
+                    ))
+                    .save(saver, ResourceLocation.parse("elemenix:elemenics/obtain_memory_registrar"), existingFileHelper);
         }
     }
 }

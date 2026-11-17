@@ -2,6 +2,7 @@
   "values": [
     "#c:eggs",
     "minecraft:dragon_egg",
+    "minecraft:sniffer_egg",
     {
       "id": "mynethersdelight:strider_egg",
       "required": false

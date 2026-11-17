@@ -107,6 +107,9 @@ public class ModItems {
     public static final DeferredItem<Item> ANALYSIS_TERMINAL = ITEMS.register("analysis_terminal",
             ()-> new AnalysisTerminalItem(new Item.Properties()));
 
+    public static final DeferredItem<Item> MEMORY_REGISTRAR = ITEMS.register("memory_registrar",
+            ()-> new MemoryRegistrarItem(ModBlocks.MEMORY_REGISTRAR.get(), new Item.Properties()));
+
     public static final DeferredItem<Item> WRENCH = ITEMS.register("wrench",
             ()-> new WrenchItem(new Item.Properties().stacksTo(1)));
 

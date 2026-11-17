@@ -1,6 +1,7 @@
 {
   "values": [
     "#elemenix:elemenic_transformers",
+    "#elemenix:printers",
     "elemenix:elemenic_deconstructor",
     "elemenix:elemenic_infuser",
     "elemenix:elemenic_enricher",

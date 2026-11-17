@@ -15,6 +15,10 @@ public class ModSounds {
     public static final Supplier<SoundEvent> SCANNING = register("scanning");
     public static final Supplier<SoundEvent> WRENCH = register("wrench");
     public static final Supplier<SoundEvent> WRENCH_RECORD = register("wrench_record");
+    public static final Supplier<SoundEvent> REGISTRAR = register("registrar");
+    public static final Supplier<SoundEvent> REGISTRAR_FINISH = register("registrar_finish");
+    public static final Supplier<SoundEvent> MEMORIZER_PLACED = register("memorizer_placed");
+    public static final Supplier<SoundEvent> MEMORIZER_REMOVE = register("memorizer_remove");
 
     private static Supplier<SoundEvent> register(String name) {
         return SOUND_EVENTS.register(name,

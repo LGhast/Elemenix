@@ -1,0 +1,9 @@
+{
+  "asset_name": "flumix",
+  "description": {
+    "color": "#2a86e2",
+    "translate": "trim_material.elemenix.flumix"
+  },
+  "ingredient": "elemenix:flumix_essence",
+  "item_model_index": 4138664.0
+}

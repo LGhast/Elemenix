@@ -7,11 +7,13 @@ import net.lghast.elemenix.common.content.block.ChannelBlock;
 import net.lghast.elemenix.common.content.block.ElemenicComparatorBlock;
 import net.lghast.elemenix.common.content.block.GerminalAcceleratorBlock;
 import net.lghast.elemenix.common.content.block.MetallurgicalActivatorBlock;
+import net.lghast.elemenix.common.content.block.MemoryRegistrarBlock;
 import net.lghast.elemenix.common.content.block.OutletBlock;
 import net.lghast.elemenix.common.content.block.TransformerBlock;
 import net.lghast.elemenix.common.content.blockentity.AbstractPrinterBlockEntity;
 import net.lghast.elemenix.common.content.blockentity.EjectorBlockEntity;
 import net.lghast.elemenix.common.content.blockentity.ElemenicComparatorBlockEntity;
+import net.lghast.elemenix.common.content.blockentity.MemoryRegistrarBlockEntity;
 import net.lghast.elemenix.common.content.blockentity.OutletBlockEntity;
 import net.lghast.elemenix.common.content.blockentity.ShuntBlockEntity;
 import net.lghast.elemenix.common.content.blockentity.TransformerBlockEntity;
@@ -25,6 +27,7 @@ import net.lghast.elemenix.utils.misc.ElemenixHolder;
 import net.lghast.elemenix.utils.misc.ModUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.client.multiplayer.PlayerInfo;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -47,6 +50,7 @@ import net.neoforged.neoforge.client.event.RenderLevelStageEvent;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @SuppressWarnings("unused")
 @EventBusSubscriber(modid = Elemenics.MOD_ID, value = Dist.CLIENT)
@@ -112,11 +116,12 @@ public class AnalyticalWrenchClientEvents {
 
     private static boolean isWrenchTarget(BlockState state) {
         Block block = state.getBlock();
-        return state.is(ModTags.ELEMENIX_OUTPUTS)
-                || state.is(ModTags.ELEMENIX_INPUTS)
+        return state.is(ModTags.ELEMENIX_OUTPUT_BLOCKS)
+                || state.is(ModTags.ELEMENIX_INPUT_BLOCKS)
                 || state.is(ModTags.ELEMENIC_OUTLET_BLOCKS)
                 || block instanceof ChannelBlock
                 || block instanceof ElemenicComparatorBlock
+                || block instanceof MemoryRegistrarBlock
                 || block instanceof RedStoneWireBlock;
     }
 
@@ -267,7 +272,31 @@ public class AnalyticalWrenchClientEvents {
             lines.add(Component.translatable("status.elemenix.judgment", judgmentContent).withColor(TITLE_COLOR));
         }
 
+        if (be instanceof MemoryRegistrarBlockEntity registrar && registrar.hasMemorizer()) {
+            UUID owner = registrar.getOwner();
+            if (owner != null) {
+                lines.add(Component.translatable("status.elemenix.registrar_owner",
+                        Component.literal(resolveOwnerName(owner)).withColor(0xFFFFFFFF)).withColor(TITLE_COLOR));
+            }
+            ItemStack current = registrar.getCurrentRegisteringStack();
+            if (!current.isEmpty()) {
+                lines.add(Component.translatable("status.elemenix.registrar_item",
+                        Component.literal(current.getHoverName().getString()).withColor(0xFFFFFFFF)).withColor(TITLE_COLOR));
+            }
+        }
+
         return lines;
+    }
+
+    private static String resolveOwnerName(UUID owner) {
+        Minecraft mc = Minecraft.getInstance();
+        if (mc.getConnection() != null) {
+            PlayerInfo info = mc.getConnection().getPlayerInfo(owner);
+            if (info != null) {
+                return info.getProfile().getName();
+            }
+        }
+        return owner.toString();
     }
 
     private static String getTransformerCurrentPage(TransformerBlockEntity transformer) {

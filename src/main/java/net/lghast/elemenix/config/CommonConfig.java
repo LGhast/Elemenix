@@ -59,6 +59,8 @@ public class CommonConfig {
 
     public static ModConfigSpec.IntValue PRINTER_RECONSTRUCTION_INTERVAL;
     public static ModConfigSpec.IntValue WITCHCRAFT_PRINTER_RECONSTRUCTION_INTERVAL;
+    public static ModConfigSpec.IntValue REGISTRAR_REGISTER_INTERVAL;
+    public static ModConfigSpec.BooleanValue BROADCAST_REGISTRATION_STAGE;
 
     public static final ModConfigSpec.DoubleValue EJECTOR_FRONT_BONUS;
     public static ModConfigSpec.IntValue OUTLET_MAX_OUTPUT_PER_TYPE;
@@ -361,6 +363,18 @@ public class CommonConfig {
                         "Time interval (in ticks) for the Witchcraft Printer to perform one reconstruction")
                 .translation(CONFIG_PREFIX + "witchcraft_printer_reconstruction_interval")
                 .defineInRange("witchcraft_printer_reconstruction_interval", 40, 1, Integer.MAX_VALUE);
+
+        REGISTRAR_REGISTER_INTERVAL = BUILDER
+                .comment("记忆采录器采录一个物品的时间间隔（刻）",
+                        "Time interval (in ticks) for the Memory Registrar to register one item")
+                .translation(CONFIG_PREFIX + "registrar_register_interval")
+                .defineInRange("registrar_register_interval", 20, 1, Integer.MAX_VALUE);
+
+        BROADCAST_REGISTRATION_STAGE = BUILDER
+                .comment("是否在聊天栏播报物品采录进度（每采录满100个物品时）",
+                        "Whether to broadcast the registration progress in chat (every 100 registered items)")
+                .translation(CONFIG_PREFIX + "broadcast_registration_stage")
+                .define("broadcast_registration_stage", true);
 
         EJECTOR_FRONT_BONUS = BUILDER
                 .comment("元质射流塔正面输出量增益：",

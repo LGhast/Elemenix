@@ -32,6 +32,7 @@ public class ModCreativeTabs {
                         output.accept(ModItems.MEMORIZER_BOX);
                         output.accept(ModItems.MEMORY_BURNER);
                         output.accept(ModItems.ANALYSIS_TERMINAL);
+                        output.accept(ModItems.MEMORY_REGISTRAR);
                         output.accept(ModItems.WRENCH);
                         output.accept(ModItems.ANALYTICAL_WRENCH);
                         output.accept(ModItems.THROTTLE_VALVE);

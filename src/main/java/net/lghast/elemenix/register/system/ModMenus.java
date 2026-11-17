@@ -95,6 +95,11 @@ public class ModMenus {
                     IMenuTypeExtension.create((windowId, inv, data) ->
                             new PrinterMenu(windowId, inv, (AbstractPrinterBlockEntity) inv.player.level().getBlockEntity(data.readBlockPos()))));
 
+    public static final Supplier<MenuType<RegistrarMenu>> REGISTRAR_MENU =
+            MENUS.register("registrar_menu", () ->
+                    IMenuTypeExtension.create((windowId, inv, data) ->
+                            new RegistrarMenu(windowId)));
+
     public static void register(IEventBus eventBus) {
         MENUS.register(eventBus);
     }

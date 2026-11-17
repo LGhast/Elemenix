@@ -1,0 +1,9 @@
+{
+  "asset_name": "witchcraft_trove",
+  "description": {
+    "color": "#d586e7",
+    "translate": "trim_material.elemenix.witchcraft_trove"
+  },
+  "ingredient": "elemenix:witchcraft_trove",
+  "item_model_index": 13733493.0
+}

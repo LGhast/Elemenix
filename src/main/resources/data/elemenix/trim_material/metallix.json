@@ -1,0 +1,9 @@
+{
+  "asset_name": "metallix",
+  "description": {
+    "color": "#7c8a9e",
+    "translate": "trim_material.elemenix.metallix"
+  },
+  "ingredient": "elemenix:metallix_essence",
+  "item_model_index": 8477839.0
+}

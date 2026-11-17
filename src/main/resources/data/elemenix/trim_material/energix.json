@@ -1,0 +1,9 @@
+{
+  "asset_name": "energix",
+  "description": {
+    "color": "#fd9942",
+    "translate": "trim_material.elemenix.energix"
+  },
+  "ingredient": "elemenix:energix_essence",
+  "item_model_index": 4813845.0
+}

@@ -30,6 +30,11 @@ public class ClientConfig {
     public static ModConfigSpec.DoubleValue PRINTER_ITEM_ROTATION_SPEED;
     public static ModConfigSpec.BooleanValue SHOW_PRINTER_ITEM_PREVIEW;
 
+    public static ModConfigSpec.BooleanValue SHOW_UNCOLLECTED_ICON;
+    public static ModConfigSpec.BooleanValue SHOW_UNCOLLECTED_NAME;
+    public static ModConfigSpec.DoubleValue REGISTRAR_ITEM_ROTATION_SPEED;
+    public static ModConfigSpec.BooleanValue SHOW_REGISTRATION_STAGE_TOAST;
+
     static {
         BUILDER.push("分析扳手 Analytical Wrench");
 
@@ -150,6 +155,34 @@ public class ClientConfig {
                         "Whether to render the preview of the item being printed inside the Substance Printer and Witchcraft Printer")
                 .translation(CONFIG_PREFIX + "show_printer_item_preview")
                 .define("show_printer_item_preview", true);
+
+        BUILDER.pop();
+
+        BUILDER.push("采录器 Registrar");
+
+        SHOW_UNCOLLECTED_ICON = BUILDER
+                .comment("是否显示未采录物品的图标（关闭后以问号代替）",
+                        "Whether to show the icon of uncollected items (replaced by a question mark when disabled)")
+                .translation(CONFIG_PREFIX + "show_uncollected_icon")
+                .define("show_uncollected_icon", false);
+
+        SHOW_UNCOLLECTED_NAME = BUILDER
+                .comment("是否显示未采录物品的名称（开启后显示“物品名称（未采录）”而非“？？？”）",
+                        "Whether to show the name of uncollected items (shows \"Item Name (Uncollected)\" instead of \"???\" when enabled)")
+                .translation(CONFIG_PREFIX + "show_uncollected_name")
+                .define("show_uncollected_name", false);
+
+        REGISTRAR_ITEM_ROTATION_SPEED = BUILDER
+                .comment("记忆采录器内渲染物品的旋转速度（度/刻）",
+                        "Rotation speed (degrees per tick) of the item rendered inside the Memory Registrar")
+                .translation(CONFIG_PREFIX + "registrar_item_rotation_speed")
+                .defineInRange("registrar_item_rotation_speed", 3.0, 0.0, 30.0);
+
+        SHOW_REGISTRATION_STAGE_TOAST = BUILDER
+                .comment("是否显示物品采录进度的吐司提示（每采录满100个物品时）",
+                        "Whether to show the registration progress toast (every 100 registered items)")
+                .translation(CONFIG_PREFIX + "show_registration_stage_toast")
+                .define("show_registration_stage_toast", true);
 
         BUILDER.pop();
 

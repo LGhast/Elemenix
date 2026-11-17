@@ -6,7 +6,9 @@ import net.lghast.elemenix.register.system.ModTags;
 import net.lghast.elemenix.utils.elemenix.ElemenixInfo;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
+import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
@@ -36,7 +38,9 @@ public class ElemenicsExportCommand {
                 .then(Commands.literal("spawneggs")
                         .executes(ElemenicsExportCommand::exportSpawnEggs))
                 .then(Commands.literal("ignored")
-                        .executes(ElemenicsExportCommand::exportIgnored)));
+                        .executes(ElemenicsExportCommand::exportIgnored))
+                .then(Commands.literal("itemtags")
+                        .executes(ElemenicsExportCommand::exportItemTags)));
     }
 
     private static int exportSpawnEggs(CommandContext<CommandSourceStack> context) {
@@ -69,6 +73,15 @@ public class ElemenicsExportCommand {
         return writeExport(context, ids, "command_ignored.json");
     }
 
+    private static int exportItemTags(CommandContext<CommandSourceStack> context) {
+        Registry<Item> registry = context.getSource().getServer().registryAccess().registryOrThrow(Registries.ITEM);
+        List<String> ids = registry.getTags()
+                .map(pair -> pair.getFirst().location().toString())
+                .sorted()
+                .toList();
+        return writeItemTagListExport(context, ids);
+    }
+
     private static int writeExport(CommandContext<CommandSourceStack> context, List<String> ids, String fileName) {
         if (ids.isEmpty()) {
             context.getSource().sendSuccess(() -> Component.translatable("command.elemenix.export.empty"), false);
@@ -92,6 +105,39 @@ public class ElemenicsExportCommand {
 
         Path dir = FMLPaths.GAMEDIR.get().resolve("elemenicsexport");
         Path output = dir.resolve(fileName);
+        try {
+            Files.createDirectories(dir);
+            Files.writeString(output, builder.toString(), StandardCharsets.UTF_8);
+        } catch (IOException e) {
+            context.getSource().sendFailure(Component.translatable("command.elemenix.export.failed", e.getMessage()));
+            return 0;
+        }
+
+        context.getSource().sendSuccess(
+                () -> Component.translatable("command.elemenix.export.success", ids.size(), output.toString()),
+                false
+        );
+        return ids.size();
+    }
+
+    private static int writeItemTagListExport(CommandContext<CommandSourceStack> context, List<String> ids) {
+        if (ids.isEmpty()) {
+            context.getSource().sendSuccess(() -> Component.translatable("command.elemenix.export.empty"), false);
+            return 0;
+        }
+
+        StringBuilder builder = new StringBuilder("[\n");
+        for (int i = 0; i < ids.size(); i++) {
+            builder.append("  \"").append(ids.get(i)).append("\"");
+            if (i < ids.size() - 1) {
+                builder.append(",");
+            }
+            builder.append("\n");
+        }
+        builder.append("]\n");
+
+        Path dir = FMLPaths.GAMEDIR.get().resolve("elemenicsexport");
+        Path output = dir.resolve("item_tags.json");
         try {
             Files.createDirectories(dir);
             Files.writeString(output, builder.toString(), StandardCharsets.UTF_8);

@@ -69,10 +69,10 @@ public class ChannelBlock extends BaseEntityBlock {
         if (held.getItem() instanceof BlockItem blockItem) {
             Block heldBlock = blockItem.getBlock();
             if (heldBlock instanceof ChannelBlock) {
-                return target.getBlock() instanceof OutletBlock || target.is(ModTags.ELEMENIX_INPUTS);
+                return target.getBlock() instanceof OutletBlock || target.is(ModTags.ELEMENIX_INPUT_BLOCKS);
             }
             if (heldBlock instanceof OutletBlock) {
-                return target.is(ModTags.ELEMENIX_OUTPUTS);
+                return target.is(ModTags.ELEMENIX_OUTPUT_BLOCKS);
             }
         }
         return false;
@@ -146,7 +146,7 @@ public class ChannelBlock extends BaseEntityBlock {
         Block block = neighbor.getBlock();
         return block instanceof ChannelBlock
                 || block instanceof OutletBlock
-                || neighbor.is(ModTags.ELEMENIX_INPUTS);
+                || neighbor.is(ModTags.ELEMENIX_INPUT_BLOCKS);
     }
 
     private boolean canOutputTowards(BlockState neighbor, Direction direction) {
@@ -165,7 +165,7 @@ public class ChannelBlock extends BaseEntityBlock {
         if (block instanceof ChannelBlock) {
             return neighbor.getValue(ChannelBlock.INPUT) == direction;
         }
-        return neighbor.is(ModTags.ELEMENIX_INPUTS);
+        return neighbor.is(ModTags.ELEMENIX_INPUT_BLOCKS);
     }
 
     @Override

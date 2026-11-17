@@ -1,0 +1,7 @@
+{
+	"parent": "elemenix:block/registrar/memory_registrar",
+	"textures": {
+		"0": "elemenix:block/registrar/memory_registrar_working",
+		"particle": "elemenix:block/registrar/memory_registrar_working"
+	}
+}

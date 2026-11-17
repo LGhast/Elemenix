@@ -9,6 +9,7 @@ import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.ItemTagsProvider;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.ItemTags;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import org.jetbrains.annotations.NotNull;
@@ -101,6 +102,41 @@ public class ModItemTagProvider extends ItemTagsProvider {
                 .add(ModItems.ELEMENIC_MEMORIZER.asItem())
                 .add(ModItems.WITCHCRAFT_MEMORIZER.asItem())
                 .add(ModItems.MEMORIZER_BOX.asItem())
+        ;
+
+        tag(ModTags.REGISTRAR_HIDDEN)
+                .add(Items.BUDDING_AMETHYST)
+                .add(Items.FROGSPAWN)
+                .add(ModItems.NULLVOID.asItem())
+                .addTag(ItemTags.create(ResourceLocation.fromNamespaceAndPath("elemenix", "infested_stones")))
+        ;
+
+        tag(ModTags.ELEMENIX_OUTPUTS)
+                .add(ModBlocks.ELEMENIC_DECONSTRUCTOR.get().asItem())
+                .add(ModBlocks.ELEMENIC_TANK.get().asItem())
+                .add(ModBlocks.ELEMENIC_EJECTOR.get().asItem())
+                .add(ModBlocks.ELEMENIC_SHUNT.get().asItem())
+                .addTag(ModTags.ELEMENIC_TRANSFORMERS)
+        ;
+
+        tag(ModTags.ELEMENIX_INPUTS)
+                .add(ModBlocks.ELEMENIC_TANK.get().asItem())
+                .add(ModBlocks.ELEMENIC_INFUSER.get().asItem())
+                .add(ModBlocks.ELEMENIC_ENRICHER.get().asItem())
+                .add(ModBlocks.ELEMENIC_EJECTOR.get().asItem())
+                .add(ModBlocks.ELEMENIC_SHUNT.get().asItem())
+                .addTag(ModTags.PRINTERS)
+                .addTag(ModTags.ELEMENIC_TRANSFORMERS)
+        ;
+
+        tag(ItemTags.TRIM_MATERIALS)
+                .add(ModItems.ORGANIX_ESSENCE.asItem())
+                .add(ModItems.TERRIX_ESSENCE.asItem())
+                .add(ModItems.FLUMIX_ESSENCE.asItem())
+                .add(ModItems.METALLIX_ESSENCE.asItem())
+                .add(ModItems.ENERGIX_ESSENCE.asItem())
+                .add(ModItems.ARCANIX_ESSENCE.asItem())
+                .add(ModItems.WITCHCRAFT_TROVE.asItem())
         ;
     }
 }

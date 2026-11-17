@@ -1,0 +1,9 @@
+{
+  "asset_name": "organix",
+  "description": {
+    "color": "#12c414",
+    "translate": "trim_material.elemenix.organix"
+  },
+  "ingredient": "elemenix:organix_essence",
+  "item_model_index": 3126805.0
+}

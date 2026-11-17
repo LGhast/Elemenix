@@ -13,5 +13,25 @@
 		"sounds": [
 			"elemenix:wrench_record"
 		]
+	},
+	"registrar": {
+		"sounds": [
+			"elemenix:registrar"
+		]
+	},
+	"registrar_finish": {
+		"sounds": [
+			"elemenix:registrar_finish"
+		]
+	},
+	"memorizer_placed": {
+		"sounds": [
+			"elemenix:memorizer_placed"
+		]
+	},
+	"memorizer_remove": {
+		"sounds": [
+			"elemenix:memorizer_remove"
+		]
 	}
 }

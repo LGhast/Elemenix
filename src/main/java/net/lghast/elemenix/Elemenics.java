@@ -56,6 +56,7 @@ public class Elemenics {
         ModBlockEntities.register(modEventBus);
         ModCreativeTabs.register(modEventBus);
         ModDataComponents.register(modEventBus);
+        ModAttachments.register(modEventBus);
         ModMenus.register(modEventBus);
         ModAdvancementTriggers.register(modEventBus);
         ModRecipes.register(modEventBus);

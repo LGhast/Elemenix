@@ -524,5 +524,15 @@ public class ModRecipeProvider extends RecipeProvider {
                 .define('W', ModItems.WITCHCRAFT_TROVE)
                 .unlockedBy("has_printer_nozzle", has(ModItems.PRINTER_NOZZLE))
                 .save(recipeOutput);
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ModItems.MEMORY_REGISTRAR.get(), 1)
+                .pattern("IGI")
+                .pattern("ISI")
+                .pattern("IGI")
+                .define('G', Items.GLASS)
+                .define('S', ModItems.ELEMENIC_SCANNER)
+                .define('I', Items.IRON_INGOT)
+                .unlockedBy("has_scanner", has(ModItems.ELEMENIC_SCANNER))
+                .save(recipeOutput);
     }
 }

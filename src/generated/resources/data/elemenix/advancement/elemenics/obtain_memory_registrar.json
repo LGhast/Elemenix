@@ -1,0 +1,33 @@
+{
+  "parent": "elemenix:elemenics/scan_container",
+  "criteria": {
+    "get_memory_registrar": {
+      "conditions": {
+        "items": [
+          {
+            "items": "elemenix:memory_registrar"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.elemenix.obtain_memory_registrar.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "elemenix:memory_registrar"
+    },
+    "title": {
+      "translate": "advancements.elemenix.obtain_memory_registrar.title"
+    }
+  },
+  "requirements": [
+    [
+      "get_memory_registrar"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

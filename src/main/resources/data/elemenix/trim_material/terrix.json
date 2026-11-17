@@ -1,0 +1,9 @@
+{
+  "asset_name": "terrix",
+  "description": {
+    "color": "#c44a12",
+    "translate": "trim_material.elemenix.terrix"
+  },
+  "ingredient": "elemenix:terrix_essence",
+  "item_model_index": 12521595.0
+}

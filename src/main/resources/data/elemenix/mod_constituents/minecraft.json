@@ -4,6 +4,8 @@
     { "id": "#c:dyes", "elemenix": "organix", "value": 18 },
     { "id": "#c:stripped_logs", "elemenix": "organix", "value": 96 },
     { "id": "#c:music_discs", "constituents": [550, 0, 0, 0, 0, 300] },
+    { "id": "#c:concrete", "constituents": [2, 16, 0, 0, 0, 0] },
+    { "id": "#c:concretes", "constituents": [2, 16, 0, 0, 0, 0] },
     { "id": "#minecraft:small_flowers", "preset": "flower" },
     { "id": "#minecraft:leaves", "preset": "grassVineLeaves" },
     { "id": "#minecraft:stone_tool_materials", "preset": "stone" },

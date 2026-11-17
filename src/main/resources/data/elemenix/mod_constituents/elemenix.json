@@ -12,7 +12,6 @@
     { "id": "#elemenix:dead_corals", "constituents": [18, 8, 0, 0, 0, 0] },
     { "id": "#elemenix:coral_blocks", "constituents": [36, 16, 16, 0, 0, 0] },
     { "id": "#elemenix:dead_coral_blocks", "constituents": [36, 16, 0, 0, 0, 0] },
-    { "id": "#elemenix:concrete", "constituents": [2, 16, 0, 0, 0, 0] },
     { "id": "#elemenix:dyed_shulker_boxes", "constituents": [210, 256, 0, 0, 0, 40] },
     { "id": "elemenix:organix_essence", "elemenix": "organix", "value": 486 },
     { "id": "elemenix:terrix_essence", "elemenix": "terrix", "value": 486 },

@@ -1,0 +1,9 @@
+{
+  "asset_name": "arcanix",
+  "description": {
+    "color": "#c146eb",
+    "translate": "trim_material.elemenix.arcanix"
+  },
+  "ingredient": "elemenix:arcanix_essence",
+  "item_model_index": 6298243.0
+}

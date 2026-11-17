@@ -22,6 +22,11 @@ public class ModTags {
             ResourceLocation.parse("elemenix:analyzer_unrecordable")
     );
 
+    public static final TagKey<Item> REGISTRAR_HIDDEN = TagKey.create(
+            Registries.ITEM,
+            ResourceLocation.parse("elemenix:registrar_hidden")
+    );
+
     public static final TagKey<Item> EGGS_WITH_TERRIX_SHELL = TagKey.create(
             Registries.ITEM,
             ResourceLocation.parse("elemenix:eggs_with_terrix_shell")
@@ -82,13 +87,23 @@ public class ModTags {
             ResourceLocation.parse("elemenix:elemenic_outlets")
     );
 
-    public static final TagKey<Block> ELEMENIX_OUTPUTS = TagKey.create(
+    public static final TagKey<Block> ELEMENIX_OUTPUT_BLOCKS = TagKey.create(
             Registries.BLOCK,
             ResourceLocation.parse("elemenix:elemenix_outputs")
     );
 
-    public static final TagKey<Block> ELEMENIX_INPUTS = TagKey.create(
+    public static final TagKey<Item> ELEMENIX_OUTPUTS = TagKey.create(
+            Registries.ITEM,
+            ResourceLocation.parse("elemenix:elemenix_outputs")
+    );
+
+    public static final TagKey<Block> ELEMENIX_INPUT_BLOCKS = TagKey.create(
             Registries.BLOCK,
+            ResourceLocation.parse("elemenix:elemenix_inputs")
+    );
+
+    public static final TagKey<Item> ELEMENIX_INPUTS = TagKey.create(
+            Registries.ITEM,
             ResourceLocation.parse("elemenix:elemenix_inputs")
     );
 
