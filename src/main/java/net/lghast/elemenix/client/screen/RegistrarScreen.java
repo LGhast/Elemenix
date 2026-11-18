@@ -5,6 +5,8 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.mojang.datafixers.util.Pair;
 import net.lghast.elemenix.client.cache.ClientRegistrarCache;
+import net.lghast.elemenix.client.misc.ScaledText;
+import net.lghast.elemenix.client.screen.widget.SmallCheckbox;
 import net.lghast.elemenix.common.content.blockentity.MemoryRegistrarBlockEntity;
 import net.lghast.elemenix.config.ClientConfig;
 import net.lghast.elemenix.common.system.datacomponent.PotionMemoryData;
@@ -88,7 +90,7 @@ public class RegistrarScreen extends AbstractContainerScreen<RegistrarMenu> {
     private static final int TITLE_LINE_Y = 27;
     private static final float TITLE_SCALE = 1.5f;
     private static final int TITLE_MAX_WIDTH = TITLE_LINE_X2 - TITLE_LINE_X1 - 8;
-    private static final int TITLE_COLOR = 0x404040;
+    private static final int TITLE_COLOR = 0x000000;
 
     private static final int SEARCH_X = 154;
     private static final int SEARCH_Y = 20;
@@ -716,18 +718,10 @@ public class RegistrarScreen extends AbstractContainerScreen<RegistrarMenu> {
 
     private void renderTitle(GuiGraphics graphics) {
         String title = this.title.getString();
-        int textWidth = this.font.width(title);
-        float scale = TITLE_SCALE;
-        if (textWidth * scale > TITLE_MAX_WIDTH) {
-            scale = (float) TITLE_MAX_WIDTH / textWidth;
-        }
+        float scale = Math.min(TITLE_SCALE, (float) TITLE_MAX_WIDTH / this.font.width(title));
         int centerX = leftPos + (TITLE_LINE_X1 + TITLE_LINE_X2) / 2;
-        int centerY = topPos + TITLE_LINE_Y;
-        graphics.pose().pushPose();
-        graphics.pose().translate(centerX, centerY, 0.0F);
-        graphics.pose().scale(scale, scale, 1.0F);
-        graphics.drawString(this.font, title, -textWidth / 2, -this.font.lineHeight, TITLE_COLOR, false);
-        graphics.pose().popPose();
+        int top = topPos + TITLE_LINE_Y - Math.round(this.font.lineHeight * scale);
+        ScaledText.renderCentered(graphics, this.font, title, scale, centerX, top, TITLE_COLOR, false);
     }
 
     private void renderPageNumber(GuiGraphics graphics, int mouseX, int mouseY) {
@@ -871,18 +865,22 @@ public class RegistrarScreen extends AbstractContainerScreen<RegistrarMenu> {
         String source = Component.translatable("gui.elemenix.registrar.source", getModDisplayName(namespace)).getString();
         String stackSize = Component.translatable("gui.elemenix.registrar.stack_size", stack.getMaxStackSize()).getString();
 
+        int infoX = leftPos + BASIC_INFO_X;
+
         float nameScale = computeTextScale(name, true);
-        String nameText = fitText(name, nameScale, true);
-        renderTextAt(graphics, nameText, BASIC_INFO_Y - 1 + yOffset, nameScale, true);
-        renderTruncatedTooltip(graphics, name, nameText, nameScale, BASIC_INFO_Y - 1 + yOffset, mouseX, mouseY);
+        ScaledText.Fit nameFit = ScaledText.Fit.atScale(this.font, name, BASIC_INFO_MAX_WIDTH, nameScale, true);
+        ScaledText.render(graphics, this.font, nameFit, infoX, topPos + BASIC_INFO_Y - 1 + yOffset, 0x404040, false);
+        ScaledText.renderTooltip(graphics, this.font, nameFit, infoX, topPos + BASIC_INFO_Y - 1 + yOffset, mouseX, mouseY);
 
         float infoScale = Math.min(computeTextScale(source, false), computeTextScale(stackSize, false));
         infoScale = Math.min(infoScale, nameScale);
-        String sourceText = fitText(source, infoScale, false);
-        String stackText = fitText(stackSize, infoScale, false);
-        renderTextAt(graphics, sourceText, BASIC_INFO_Y + 11 + yOffset, infoScale, false);
-        renderTextAt(graphics, stackText, BASIC_INFO_Y + 21 + yOffset, infoScale, false);
-        renderTruncatedTooltip(graphics, source, sourceText, infoScale, BASIC_INFO_Y + 11 + yOffset, mouseX, mouseY);
+        ScaledText.Fit sourceFit = ScaledText.Fit.atScale(this.font, source, BASIC_INFO_MAX_WIDTH, infoScale, false);
+        ScaledText.Fit stackFit = ScaledText.Fit.atScale(this.font, stackSize, BASIC_INFO_MAX_WIDTH, infoScale, false);
+        int sourceColor = isSourceHovered(mouseX, mouseY, yOffset) ? 0x808080 : 0x404040;
+        ScaledText.render(graphics, this.font, sourceFit, infoX, topPos + BASIC_INFO_Y + 11 + yOffset, sourceColor, false);
+        ScaledText.render(graphics, this.font, stackFit, infoX, topPos + BASIC_INFO_Y + 21 + yOffset, 0x404040, false);
+        ScaledText.renderTooltip(graphics, this.font, sourceFit, infoX, topPos + BASIC_INFO_Y + 11 + yOffset, mouseX, mouseY);
+        ScaledText.renderTooltip(graphics, this.font, stackFit, infoX, topPos + BASIC_INFO_Y + 21 + yOffset, mouseX, mouseY);
     }
 
     private void renderConstituents(GuiGraphics graphics, ItemStack stack, int yOffset) {
@@ -890,19 +888,15 @@ public class RegistrarScreen extends AbstractContainerScreen<RegistrarMenu> {
         if (constituents == null || constituents.isUnanalysable()) return;
 
         String title = Component.translatable("gui.elemenix.registrar.constituents").getString();
-        int titleWidth = Math.round(this.font.width(title) * 0.9f);
-        graphics.pose().pushPose();
-        graphics.pose().translate(leftPos + CONSTITUENTS_TITLE_CENTER_X - titleWidth / 2.0f, topPos + CONSTITUENTS_TITLE_Y + yOffset, 0.0F);
-        graphics.pose().scale(0.9f, 0.9f, 1.0F);
-        graphics.drawString(this.font, title, 0, 0, 0x404040, false);
-        graphics.pose().popPose();
+        ScaledText.renderCentered(graphics, this.font, title, 0.9f, leftPos + CONSTITUENTS_TITLE_CENTER_X, topPos + CONSTITUENTS_TITLE_Y + yOffset, 0x404040, false);
 
         Elemenix[] order = {Elemenix.ORGANIX, Elemenix.TERRIX, Elemenix.FLUMIX, Elemenix.METALLIX, Elemenix.ENERGIX, Elemenix.ARCANIX};
         for (int i = 0; i < order.length; i++) {
             Elemenix e = order[i];
             long value = constituents.get(e);
             String text = Long.toString(value);
-            renderScaledText(graphics, text, CONSTITUENTS_START_Y + i * CONSTITUENTS_GAP + yOffset, e.getColor());
+            ScaledText.Fit fit = ScaledText.Fit.of(this.font, text, CONSTITUENTS_MAX_WIDTH, CONSTITUENTS_MIN_SCALE);
+            ScaledText.render(graphics, this.font, fit, leftPos + CONSTITUENTS_X, topPos + CONSTITUENTS_START_Y + i * CONSTITUENTS_GAP + yOffset, e.getColor(), false);
         }
     }
 
@@ -1206,72 +1200,6 @@ public class RegistrarScreen extends AbstractContainerScreen<RegistrarMenu> {
         return Math.max(BASIC_INFO_MIN_SCALE, (float) BASIC_INFO_MAX_WIDTH / width);
     }
 
-    private String fitText(String text, float scale, boolean bold) {
-        int width = bold ? this.font.width(Component.literal(text).withStyle(ChatFormatting.BOLD)) : this.font.width(text);
-        if (width * scale > BASIC_INFO_MAX_WIDTH) {
-            int maxWidth = (int) (BASIC_INFO_MAX_WIDTH / scale);
-            return bold ? truncateToWidthBold(text, maxWidth) : ModUtils.truncateToWidth(this.font, text, maxWidth);
-        }
-        return text;
-    }
-
-    private String truncateToWidthBold(String text, int maxWidth) {
-        String ellipsis = "...";
-        int ellipsisWidth = this.font.width(Component.literal(ellipsis).withStyle(ChatFormatting.BOLD));
-        int targetWidth = maxWidth - ellipsisWidth;
-        if (targetWidth <= 0) return ellipsis;
-        int low = 0;
-        int high = text.length();
-        int best = 0;
-        while (low <= high) {
-            int mid = (low + high) / 2;
-            int w = this.font.width(Component.literal(text.substring(0, mid)).withStyle(ChatFormatting.BOLD));
-            if (w <= targetWidth) {
-                best = mid;
-                low = mid + 1;
-            } else {
-                high = mid - 1;
-            }
-        }
-        return text.substring(0, best).trim() + ellipsis;
-    }
-
-    private void renderTextAt(GuiGraphics graphics, String text, int y, float scale, boolean bold) {
-        graphics.pose().pushPose();
-        graphics.pose().translate(leftPos + BASIC_INFO_X, topPos + y, 0.0F);
-        graphics.pose().scale(scale, scale, 1.0F);
-        if (bold) {
-            graphics.drawString(this.font, Component.literal(text).withStyle(ChatFormatting.BOLD), 0, 0, 0x404040, false);
-        } else {
-            graphics.drawString(this.font, text, 0, 0, 0x404040, false);
-        }
-        graphics.pose().popPose();
-    }
-
-    private void renderTruncatedTooltip(GuiGraphics graphics, String fullText, String shownText, float scale, int y, int mouseX, int mouseY) {
-        if (fullText.equals(shownText)) return;
-        int width = Math.round(this.font.width(shownText) * scale);
-        int height = Math.round(this.font.lineHeight * scale);
-        int absX = leftPos + BASIC_INFO_X;
-        int absY = topPos + y;
-        if (mouseX >= absX && mouseX < absX + width && mouseY >= absY && mouseY < absY + height) {
-            graphics.renderTooltip(this.font, Component.literal(fullText), mouseX, mouseY);
-        }
-    }
-
-    private void renderScaledText(GuiGraphics graphics, String text, int y, int color) {
-        int width = this.font.width(text);
-        float scale = 1.0f;
-        if (width > CONSTITUENTS_MAX_WIDTH) {
-            scale = Math.max(CONSTITUENTS_MIN_SCALE, (float) CONSTITUENTS_MAX_WIDTH / width);
-        }
-        graphics.pose().pushPose();
-        graphics.pose().translate(leftPos + CONSTITUENTS_X, topPos + y, 0.0F);
-        graphics.pose().scale(scale, scale, 1.0F);
-        graphics.drawString(this.font, text, 0, 0, color, false);
-        graphics.pose().popPose();
-    }
-
     private void renderTagArea(GuiGraphics graphics, int mouseX, int mouseY) {
         List<ResourceLocation> tags = getSortedTags();
         int visible = TAG_AREA_H / TAG_ROW_H;
@@ -1316,17 +1244,19 @@ public class RegistrarScreen extends AbstractContainerScreen<RegistrarMenu> {
                 renderSmallQuestionMark(graphics, listX + 2, rowY + 1);
             }
             String text = ModUtils.truncateToWidth(this.font, getTagName(tag), TAG_TEXT_MAX_WIDTH);
-            graphics.pose().pushPose();
-            graphics.pose().translate(listX + TAG_ICON_SIZE + 5, rowY + 4, 0.0F);
-            graphics.pose().scale(TAG_TEXT_SCALE, TAG_TEXT_SCALE, 1.0F);
-            graphics.drawString(this.font, text, 0, 0, 0xFFE0E0E0, false);
-            graphics.pose().popPose();
+            ScaledText.render(graphics, this.font, ScaledText.Fit.fixed(text, TAG_TEXT_SCALE), listX + TAG_ICON_SIZE + 5, rowY + 4, 0xFFE0E0E0, false);
         }
 
         renderTagScrollbar(graphics, listX + listW + 1, listY, tags.size(), visible, tagScroll);
 
         if (hoveredTag != null) {
-            graphics.renderTooltip(this.font, Component.literal(hoveredTag.toString()), mouseX, mouseY);
+            String tagName = getTagName(hoveredTag);
+            String shownText = ModUtils.truncateToWidth(this.font, tagName, TAG_TEXT_MAX_WIDTH);
+            if (!tagName.equals(hoveredTag.toString()) && !tagName.equals(shownText)) {
+                graphics.renderTooltip(this.font, Component.literal(tagName), mouseX, mouseY);
+            } else {
+                graphics.renderTooltip(this.font, Component.literal(hoveredTag.toString()), mouseX, mouseY);
+            }
         }
     }
 

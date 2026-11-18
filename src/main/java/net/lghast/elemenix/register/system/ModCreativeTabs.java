@@ -75,6 +75,7 @@ public class ModCreativeTabs {
                         output.accept(ModBlocks.OPTICAL_CAPTURER);
                         output.accept(ModBlocks.SUBSTANCE_PRINTER);
                         output.accept(ModBlocks.WITCHCRAFT_PRINTER);
+                        output.accept(ModBlocks.MEMORIZER_REPLICATOR);
                     }).build());
 
     public static void register(IEventBus eventBus){

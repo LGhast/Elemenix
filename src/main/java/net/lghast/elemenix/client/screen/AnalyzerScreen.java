@@ -1,6 +1,8 @@
 package net.lghast.elemenix.client.screen;
 
 import net.lghast.elemenix.client.cache.ClientInfuserCache;
+import net.lghast.elemenix.client.misc.ScaledText;
+import net.lghast.elemenix.client.screen.widget.MemoryListWidget;
 import net.lghast.elemenix.common.content.item.RemoteStorageItem;
 import net.lghast.elemenix.common.system.datacomponent.ElemenicStorage;
 import net.lghast.elemenix.common.system.datacomponent.RemoteStorageBinding;
@@ -78,21 +80,8 @@ public class AnalyzerScreen extends AbstractContainerScreen<AnalyzerMenu> {
     @Override
     protected void renderLabels(GuiGraphics graphics, int mouseX, int mouseY) {
         String titleText = this.title.getString();
-        int textWidth = this.font.width(titleText);
-
-        if (textWidth <= TITLE_MAX_WIDTH) {
-            graphics.drawString(this.font, titleText, TITLE_X, TITLE_Y, 0x404040, false);
-            return;
-        }
-
-        float scale = (float) TITLE_MAX_WIDTH / textWidth;
-        float verticalShift = (this.font.lineHeight * (1.0f - scale)) / 2.0f;
-
-        graphics.pose().pushPose();
-        graphics.pose().translate(TITLE_X, TITLE_Y + verticalShift, 0.0f);
-        graphics.pose().scale(scale, scale, 1.0f);
-        graphics.drawString(this.font, titleText, 0, 0, 0x404040, false);
-        graphics.pose().popPose();
+        ScaledText.Fit fit = ScaledText.Fit.of(this.font, titleText, TITLE_MAX_WIDTH, 0);
+        ScaledText.render(graphics, this.font, fit, TITLE_X, TITLE_Y, 0x404040, true);
     }
 
     @Override
@@ -130,7 +119,7 @@ public class AnalyzerScreen extends AbstractContainerScreen<AnalyzerMenu> {
 
     private void updateButtonStates() {
         prevPageButton.active = memoryListWidget.hasPreviousPage();
-        nextPageButton.active = memoryListWidget.getItemCount() > 7;
+        nextPageButton.active = memoryListWidget.hasNextPage();
     }
 
     @Override

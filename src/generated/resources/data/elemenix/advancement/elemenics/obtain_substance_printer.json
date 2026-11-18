@@ -1,5 +1,5 @@
 {
-  "parent": "elemenix:elemenics/novice_plumber",
+  "parent": "elemenix:elemenics/obtain_tank",
   "criteria": {
     "get_substance_printer": {
       "conditions": {

@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "B": {
+      "item": "elemenix:memory_burner"
+    },
+    "G": {
+      "item": "minecraft:glass"
+    },
+    "I": {
+      "item": "minecraft:iron_ingot"
+    },
+    "T": {
+      "item": "elemenix:energix_essence"
+    }
+  },
+  "pattern": [
+    "III",
+    "GBG",
+    "ITI"
+  ],
+  "result": {
+    "count": 1,
+    "id": "elemenix:memorizer_replicator"
+  }
+}

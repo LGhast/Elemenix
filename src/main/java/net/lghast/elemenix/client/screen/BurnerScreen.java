@@ -1,5 +1,6 @@
 package net.lghast.elemenix.client.screen;
 
+import net.lghast.elemenix.client.screen.widget.BurnerListWidget;
 import net.lghast.elemenix.common.content.item.MemorizerItem;
 import net.lghast.elemenix.common.content.item.WitchcraftMemorizerItem;
 import net.lghast.elemenix.common.system.menu.BurnerMenu;
@@ -133,7 +134,7 @@ public class BurnerScreen extends AbstractContainerScreen<BurnerMenu> {
 
     private void updateButtonStates() {
         prevPageButton.active = memoryListWidget.hasPreviousPage();
-        nextPageButton.active = memoryListWidget.getItemCount() > 7;
+        nextPageButton.active = memoryListWidget.hasNextPage();
 
         BurnerMode mode = menu.getMode();
         actionButton.visible = mode == BurnerMode.COPY || mode == BurnerMode.CONCATENATE;

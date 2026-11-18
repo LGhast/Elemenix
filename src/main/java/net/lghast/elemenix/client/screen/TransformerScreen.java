@@ -1,5 +1,7 @@
 package net.lghast.elemenix.client.screen;
 
+import net.lghast.elemenix.client.misc.ScaledText;
+import net.lghast.elemenix.client.screen.widget.SmallCheckbox;
 import net.lghast.elemenix.common.content.block.GerminalAcceleratorBlock;
 import net.lghast.elemenix.common.content.block.MetallurgicalActivatorBlock;
 import net.lghast.elemenix.common.content.block.TransformerBlock;
@@ -261,19 +263,8 @@ public class TransformerScreen extends AbstractContainerScreen<TransformerMenu> 
 
     private void drawFitCenteredLabel(GuiGraphics graphics, Component label, int centerX, int textY) {
         String text = label.getString();
-        int textWidth = this.font.width(text);
-        if (textWidth <= TransformerScreen.IMITFORGING_ERROR_MAX_WIDTH) {
-            graphics.drawString(this.font, text, centerX - textWidth / 2, textY, 0xFF3333, false);
-            return;
-        }
-
-        float scale = (float) TransformerScreen.IMITFORGING_ERROR_MAX_WIDTH / textWidth;
-        graphics.pose().pushPose();
-        graphics.pose().translate(centerX, textY, 0.0F);
-        graphics.pose().scale(scale, scale, 1.0F);
-        graphics.pose().translate(-textWidth / 2.0F, 0.0F, 0.0F);
-        graphics.drawString(this.font, text, 0, 0, 0xFF3333, false);
-        graphics.pose().popPose();
+        ScaledText.Fit fit = ScaledText.Fit.of(this.font, text, TransformerScreen.IMITFORGING_ERROR_MAX_WIDTH, 0);
+        ScaledText.renderCentered(graphics, this.font, fit, centerX, textY, 0xFF3333, false);
     }
 
     private void drawCenteredLabel(GuiGraphics graphics, Component label, int centerX, int textY) {

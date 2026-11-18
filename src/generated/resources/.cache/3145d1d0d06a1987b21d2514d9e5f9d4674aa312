@@ -1,7 +1,7 @@
-// 1.21.1	2026-11-16T18:41:54.3347541	Tags for minecraft:block mod id elemenix
+// 1.21.1	2026-11-17T20:45:25.5295439	Tags for minecraft:block mod id elemenix
 45072811a2531b7dcfe7e021506711e8287f8ef0 data/elemenix/tags/block/elemenic_outlets.json
 fcb8476625195d2351238f217849450d2e531edf data/elemenix/tags/block/elemenic_transformers.json
-ced7b176167830ba995991fe48fd00d2553251a4 data/elemenix/tags/block/elemenix_inputs.json
+dbfe7a674d7f8ef50956532da259f74401d43875 data/elemenix/tags/block/elemenix_inputs.json
 a831d85b1c9849e6813b58ef3b0b182c48fc3b13 data/elemenix/tags/block/elemenix_outputs.json
 2bafa7051bba0a920c27ba214b75cd0d5cc74120 data/elemenix/tags/block/printers.json
 e77d8d6ed85f8d0123c0ffd1eb18884c08f41bf8 data/minecraft/tags/block/mineable/pickaxe.json

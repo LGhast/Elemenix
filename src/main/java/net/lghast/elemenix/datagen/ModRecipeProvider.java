@@ -525,6 +525,17 @@ public class ModRecipeProvider extends RecipeProvider {
                 .unlockedBy("has_printer_nozzle", has(ModItems.PRINTER_NOZZLE))
                 .save(recipeOutput);
 
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ModBlocks.MEMORIZER_REPLICATOR.get(), 1)
+                .pattern("III")
+                .pattern("GBG")
+                .pattern("ITI")
+                .define('G', Items.GLASS)
+                .define('T', ModItems.ENERGIX_ESSENCE)
+                .define('I', Items.IRON_INGOT)
+                .define('B', ModItems.MEMORY_BURNER)
+                .unlockedBy("has_memory_burner", has(ModItems.MEMORY_BURNER))
+                .save(recipeOutput);
+
         ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ModItems.MEMORY_REGISTRAR.get(), 1)
                 .pattern("IGI")
                 .pattern("ISI")

@@ -27,6 +27,11 @@ public class ModTags {
             ResourceLocation.parse("elemenix:registrar_hidden")
     );
 
+    public static final TagKey<Item> MEMORIZER_STYLE_MATERIALS = TagKey.create(
+            Registries.ITEM,
+            ResourceLocation.parse("elemenix:memorizer_style_materials")
+    );
+
     public static final TagKey<Item> EGGS_WITH_TERRIX_SHELL = TagKey.create(
             Registries.ITEM,
             ResourceLocation.parse("elemenix:eggs_with_terrix_shell")

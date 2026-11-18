@@ -114,8 +114,14 @@ public class ModStats {
     public static final DeferredHolder<ResourceLocation, ResourceLocation> PRINTER_INTERACTIONS =
             makeStat("printer_interactions");
 
+    public static final DeferredHolder<ResourceLocation, ResourceLocation> REPLICATOR_INTERACTIONS =
+            makeStat("replicator_interactions");
+
     public static final DeferredHolder<ResourceLocation, ResourceLocation> MEMORIZER_BOX_OPENS =
             makeStat("memorizer_box_opens");
+
+    public static final DeferredHolder<ResourceLocation, ResourceLocation> MEMORY_REGISTRAR_OPENS =
+            makeStat("memory_registrar_opens");
 
     private static DeferredHolder<ResourceLocation, ResourceLocation> makeStat(String key) {
         ResourceLocation resourceLocation = ResourceLocation.fromNamespaceAndPath(Elemenics.MOD_ID, key);

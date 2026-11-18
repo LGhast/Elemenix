@@ -62,6 +62,10 @@ public class CommonConfig {
     public static ModConfigSpec.IntValue REGISTRAR_REGISTER_INTERVAL;
     public static ModConfigSpec.BooleanValue BROADCAST_REGISTRATION_STAGE;
 
+    public static ModConfigSpec.IntValue REPLICATOR_REPLICATION_ENERGIX_COST;
+    public static ModConfigSpec.BooleanValue REPLICATOR_FORBID_READONLY_REPLICATION;
+    public static ModConfigSpec.IntValue REPLICATOR_REPLICATION_INTERVAL;
+
     public static final ModConfigSpec.DoubleValue EJECTOR_FRONT_BONUS;
     public static ModConfigSpec.IntValue OUTLET_MAX_OUTPUT_PER_TYPE;
 
@@ -375,6 +379,24 @@ public class CommonConfig {
                         "Whether to broadcast the registration progress in chat (every 100 registered items)")
                 .translation(CONFIG_PREFIX + "broadcast_registration_stage")
                 .define("broadcast_registration_stage", true);
+
+        REPLICATOR_REPLICATION_ENERGIX_COST = BUILDER
+                .comment("记忆碟复刻机复刻单条记忆所消耗的激发质量",
+                        "Amount of Energix consumed per memory entry replicated by the Memorizer Replicator")
+                .translation(CONFIG_PREFIX + "replicator_replication_energix_cost")
+                .defineInRange("replicator_replication_energix_cost", 3, 1, 32);
+
+        REPLICATOR_FORBID_READONLY_REPLICATION = BUILDER
+                .comment("是否禁止复刻只读（涂蜡）的记忆碟",
+                        "Whether to forbid replicating read-only (waxed) memorizers")
+                .translation(CONFIG_PREFIX + "replicator_forbid_readonly_replication")
+                .define("replicator_forbid_readonly_replication", false);
+
+        REPLICATOR_REPLICATION_INTERVAL = BUILDER
+                .comment("记忆碟复刻机复刻单个记忆碟所需的时间（刻）",
+                        "Time (in ticks) required for the Memorizer Replicator to replicate one memorizer")
+                .translation(CONFIG_PREFIX + "replicator_replication_interval")
+                .defineInRange("replicator_replication_interval", 60, 1, Integer.MAX_VALUE);
 
         EJECTOR_FRONT_BONUS = BUILDER
                 .comment("元质射流塔正面输出量增益：",

@@ -1,4 +1,4 @@
-package net.lghast.elemenix.client.screen;
+package net.lghast.elemenix.client.screen.widget;
 
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
@@ -40,7 +40,7 @@ public class SmallCheckbox extends AbstractWidget {
     }
 
     @Override
-    public void onClick(double mouseX, double mouseY) {
+    public void onClick(double mouseX, double mouseY, int button) {
         this.selected = !this.selected;
         if (onValueChange != null) {
             onValueChange.accept(this, this.selected);

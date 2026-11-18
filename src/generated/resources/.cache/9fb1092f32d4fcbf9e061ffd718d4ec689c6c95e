@@ -1,4 +1,4 @@
-// 1.21.1	2026-11-15T20:40:19.4748575	Recipes
+// 1.21.1	2026-11-17T20:58:16.1354577	Recipes
 a5972f5f16b8d08a054c46ca513dcaaf6dbf21ea data/elemenix/advancement/recipes/food/fondant_cake.json
 15593e0138eb4aed9fd0b227ee0733cd0b0d6289 data/elemenix/advancement/recipes/misc/analysis_terminal.json
 782c26e0a22e206f8e5fea06bbfe48e4dc6807f2 data/elemenix/advancement/recipes/misc/analytical_wrench.json
@@ -26,6 +26,7 @@ fc2162792e9c18eb73b1859a13903fcda54ffb29 data/elemenix/advancement/recipes/misc/
 1cde5b85d841ea3279cd74b1923c8d349b230349 data/elemenix/advancement/recipes/misc/geological_simulator.json
 34cbb8a29f77fe0ee8bc3cd20d74b4843b5e7180 data/elemenix/advancement/recipes/misc/germinal_accelerator.json
 da0bbf27a13f17ac377b0a0fc367bbebab09b458 data/elemenix/advancement/recipes/misc/memorizer_box.json
+2e4131132ca41b740fb1f07f70eaeeb9e104f12e data/elemenix/advancement/recipes/misc/memorizer_replicator.json
 3834ea9042987ecf1ff1ec0be85631b2ca0ec405 data/elemenix/advancement/recipes/misc/memory_burner.json
 eda2995a7ca9d76abaca7d91444e72a49b054259 data/elemenix/advancement/recipes/misc/memory_registrar.json
 233822a9785c32c07bc0360b263ec0e36d4e90c6 data/elemenix/advancement/recipes/misc/metallix_essenplex.json
@@ -71,6 +72,7 @@ d4ed7c9d5000e7a7dd0f7061ad2ee6280c42d9db data/elemenix/recipe/fondant_cake.json
 cbb9be2a8edcd7a5baac3816c914b123d4f8cc1c data/elemenix/recipe/geological_simulator.json
 7eb2c76df8eebb032978d8175102474275789905 data/elemenix/recipe/germinal_accelerator.json
 31b5cc3496b046a590f786eec3457b890f69a4eb data/elemenix/recipe/memorizer_box.json
+f4bed655743d88265bb5546faca47ac5a9a2db63 data/elemenix/recipe/memorizer_replicator.json
 887acba92d15bd4ea56f8f24fe5da03de9537607 data/elemenix/recipe/memory_burner.json
 25938a08464bf7f5f005aaae89b19c66d4d50d1d data/elemenix/recipe/memory_registrar.json
 639b2b2763da5f4f0301ebdec215d97933cd2c0c data/elemenix/recipe/metallix_essenplex.json

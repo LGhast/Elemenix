@@ -1,0 +1,20 @@
+{
+  "variants": {
+    "has_memorizer=false,disabled=false,working=false,witchcraft=false": { "model": "elemenix:block/replicator/replicator" },
+    "has_memorizer=false,disabled=false,working=false,witchcraft=true": { "model": "elemenix:block/replicator/replicator" },
+    "has_memorizer=false,disabled=false,working=true,witchcraft=false": { "model": "elemenix:block/replicator/replicator" },
+    "has_memorizer=false,disabled=false,working=true,witchcraft=true": { "model": "elemenix:block/replicator/replicator" },
+    "has_memorizer=false,disabled=true,working=false,witchcraft=false": { "model": "elemenix:block/replicator/replicator_disabled" },
+    "has_memorizer=false,disabled=true,working=false,witchcraft=true": { "model": "elemenix:block/replicator/replicator_disabled" },
+    "has_memorizer=false,disabled=true,working=true,witchcraft=false": { "model": "elemenix:block/replicator/replicator_disabled" },
+    "has_memorizer=false,disabled=true,working=true,witchcraft=true": { "model": "elemenix:block/replicator/replicator_disabled" },
+    "has_memorizer=true,disabled=false,working=false,witchcraft=false": { "model": "elemenix:block/replicator/replicator_with_memorizer" },
+    "has_memorizer=true,disabled=false,working=false,witchcraft=true": { "model": "elemenix:block/replicator/replicator_witchcraft_with_memorizer" },
+    "has_memorizer=true,disabled=false,working=true,witchcraft=false": { "model": "elemenix:block/replicator/replicator_with_memorizer_working" },
+    "has_memorizer=true,disabled=false,working=true,witchcraft=true": { "model": "elemenix:block/replicator/replicator_witchcraft_with_memorizer_working" },
+    "has_memorizer=true,disabled=true,working=false,witchcraft=false": { "model": "elemenix:block/replicator/replicator_with_memorizer_disabled" },
+    "has_memorizer=true,disabled=true,working=false,witchcraft=true": { "model": "elemenix:block/replicator/replicator_witchcraft_with_memorizer_disabled" },
+    "has_memorizer=true,disabled=true,working=true,witchcraft=false": { "model": "elemenix:block/replicator/replicator_with_memorizer_disabled" },
+    "has_memorizer=true,disabled=true,working=true,witchcraft=true": { "model": "elemenix:block/replicator/replicator_witchcraft_with_memorizer_disabled" }
+  }
+}

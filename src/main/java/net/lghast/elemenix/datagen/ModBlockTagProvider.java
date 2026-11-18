@@ -52,6 +52,7 @@ public class ModBlockTagProvider extends BlockTagsProvider {
                 .add(ModBlocks.ELEMENIC_ENRICHER.get())
                 .add(ModBlocks.ELEMENIC_EJECTOR.get())
                 .add(ModBlocks.ELEMENIC_SHUNT.get())
+                .add(ModBlocks.MEMORIZER_REPLICATOR.get())
                 .addTag(ModTags.PRINTER_BLOCKS)
                 .addTag(ModTags.ELEMENIC_TRANSFORMING_BLOCKS)
         ;

@@ -131,6 +131,7 @@ public class ClientEventHandler {
         event.register(ModMenus.ELEMENIC_COMPARATOR_MENU.get(), ElemenicComparatorScreen::new);
         event.register(ModMenus.PRINTER_MENU.get(), PrinterScreen::new);
         event.register(ModMenus.REGISTRAR_MENU.get(), RegistrarScreen::new);
+        event.register(ModMenus.MEMORIZER_REPLICATOR_MENU.get(), MemorizerReplicatorScreen::new);
     }
 
     @SubscribeEvent

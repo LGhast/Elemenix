@@ -85,6 +85,8 @@ public class JEIPlugin implements IModPlugin {
                 Component.translatable("description.elemenix.substance_printer"));
         registration.addItemStackInfo(new ItemStack(ModBlocks.WITCHCRAFT_PRINTER.get()),
                 Component.translatable("description.elemenix.witchcraft_printer"));
+        registration.addItemStackInfo(new ItemStack(ModBlocks.MEMORIZER_REPLICATOR.get()),
+                Component.translatable("description.elemenix.memorizer_replicator"));
 
         registration.addItemStackInfo(new ItemStack(ModItems.ELEMENIC_MEMORIZER.get()),
                 Component.translatable("description.elemenix.elemenic_memorizer"));

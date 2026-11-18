@@ -4,6 +4,7 @@ import net.lghast.elemenix.common.system.attachment.RegistrarCollection;
 import net.lghast.elemenix.common.system.menu.RegistrarMenu;
 import net.lghast.elemenix.network.registrar.ResponseRegistrarSyncPayload;
 import net.lghast.elemenix.register.system.ModAttachments;
+import net.lghast.elemenix.register.system.ModStats;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
@@ -58,6 +59,7 @@ public class MemoryRegistrarItem extends BlockItem {
     }
 
     private static void openRegistrarGui(ServerPlayer player) {
+        player.awardStat(ModStats.MEMORY_REGISTRAR_OPENS.get());
         RegistrarCollection collection = player.getData(ModAttachments.REGISTRAR_COLLECTION);
         player.openMenu(new SimpleMenuProvider(
                 (windowId, playerInventory, playerEntity) -> new RegistrarMenu(windowId),

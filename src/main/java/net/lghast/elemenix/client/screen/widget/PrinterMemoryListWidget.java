@@ -1,4 +1,4 @@
-package net.lghast.elemenix.client.screen;
+package net.lghast.elemenix.client.screen.widget;
 
 import net.lghast.elemenix.common.system.menu.PrinterMenu;
 import net.lghast.elemenix.network.printer.PrinterDisableItemPayload;
@@ -32,7 +32,7 @@ public class PrinterMemoryListWidget extends MemoryListWidget {
     }
 
     @Override
-    protected String getEmptyText() {
+    protected String getTipText() {
         Minecraft minecraft = Minecraft.getInstance();
         if (minecraft.player != null && minecraft.player.containerMenu instanceof PrinterMenu menu) {
             if (menu.getMemorizerItem().isEmpty()) {

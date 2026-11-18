@@ -67,6 +67,9 @@ public class ModBlocks {
     public static final DeferredBlock<Block> WITCHCRAFT_PRINTER = registerBlock("witchcraft_printer",
             ()-> new WitchcraftPrinterBlock(BlockBehaviour.Properties.of()));
 
+    public static final DeferredBlock<Block> MEMORIZER_REPLICATOR = registerBlock("memorizer_replicator",
+            ()-> new MemorizerReplicatorBlock(BlockBehaviour.Properties.of()));
+
     public static final DeferredBlock<Block> MEMORY_REGISTRAR = BLOCKS.register("memory_registrar",
             ()-> new MemoryRegistrarBlock(BlockBehaviour.Properties.of()));
 

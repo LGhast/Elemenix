@@ -3,8 +3,8 @@
 	"credit": "Made with Blockbench",
 	"texture_size": [64, 64],
 	"textures": {
-		"0": "printer",
-		"particle": "printer"
+		"0": "elemenix:block/replicator/replicator",
+		"particle": "elemenix:block/replicator/replicator"
 	},
 	"elements": [
 		{

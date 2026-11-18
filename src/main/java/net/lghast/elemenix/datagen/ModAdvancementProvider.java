@@ -335,7 +335,7 @@ public class ModAdvancementProvider extends AdvancementProvider {
                     .save(saver, ResourceLocation.parse("elemenix:elemenics/novice_plumber"), existingFileHelper);
 
             AdvancementHolder obtainSubstancePrinter = Advancement.Builder.advancement()
-                    .parent(novicePlumber)
+                    .parent(obtainTank)
                     .display(
                             ModBlocks.SUBSTANCE_PRINTER,
                             Component.translatable("advancements.elemenix.obtain_substance_printer.title"),

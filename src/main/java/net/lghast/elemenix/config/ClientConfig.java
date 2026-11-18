@@ -35,6 +35,8 @@ public class ClientConfig {
     public static ModConfigSpec.DoubleValue REGISTRAR_ITEM_ROTATION_SPEED;
     public static ModConfigSpec.BooleanValue SHOW_REGISTRATION_STAGE_TOAST;
 
+    public static ModConfigSpec.DoubleValue REPLICATOR_ITEM_ROTATION_SPEED;
+
     static {
         BUILDER.push("分析扳手 Analytical Wrench");
 
@@ -183,6 +185,16 @@ public class ClientConfig {
                         "Whether to show the registration progress toast (every 100 registered items)")
                 .translation(CONFIG_PREFIX + "show_registration_stage_toast")
                 .define("show_registration_stage_toast", true);
+
+        BUILDER.pop();
+
+        BUILDER.push("复刻机 Replicator");
+
+        REPLICATOR_ITEM_ROTATION_SPEED = BUILDER
+                .comment("记忆碟复刻机内渲染物品的旋转速度（度/刻）",
+                        "Rotation speed (degrees per tick) of the item rendered inside the Memorizer Replicator")
+                .translation(CONFIG_PREFIX + "replicator_item_rotation_speed")
+                .defineInRange("replicator_item_rotation_speed", 3.0, 0.0, 30.0);
 
         BUILDER.pop();
 

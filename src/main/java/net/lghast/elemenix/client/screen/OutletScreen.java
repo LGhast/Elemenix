@@ -1,5 +1,6 @@
 package net.lghast.elemenix.client.screen;
 
+import net.lghast.elemenix.client.screen.widget.OutletSlider;
 import net.lghast.elemenix.common.system.menu.OutletMenu;
 import net.lghast.elemenix.config.CommonConfig;
 import net.lghast.elemenix.network.outlet.OutletPercentPayload;

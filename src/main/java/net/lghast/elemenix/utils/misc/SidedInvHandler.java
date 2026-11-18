@@ -111,7 +111,8 @@ public class SidedInvHandler implements IItemHandler {
 
     @Override
     public int getSlotLimit(int slot) {
-        return container.getMaxStackSize();
+        ItemStack existing = container.getItem(slot);
+        return Math.min(container.getMaxStackSize(), existing.getMaxStackSize());
     }
 
     @Override

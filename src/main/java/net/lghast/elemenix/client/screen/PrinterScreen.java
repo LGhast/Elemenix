@@ -1,5 +1,7 @@
 package net.lghast.elemenix.client.screen;
 
+import net.lghast.elemenix.client.misc.ScaledText;
+import net.lghast.elemenix.client.screen.widget.PrinterMemoryListWidget;
 import net.lghast.elemenix.common.content.blockentity.AbstractPrinterBlockEntity;
 import net.lghast.elemenix.common.system.menu.PrinterMenu;
 import net.lghast.elemenix.network.printer.PrinterModePayload;
@@ -123,49 +125,20 @@ public class PrinterScreen extends AbstractContainerScreen<PrinterMenu> {
 
     private void renderModeText(GuiGraphics graphics) {
         String modeText = getModeName();
-        int textWidth = this.font.width(modeText);
-
-        if (textWidth <= MODE_TEXT_MAX_WIDTH) {
-            int textX = leftPos + MODE_TEXT_CENTER_X - textWidth / 2;
-            graphics.drawString(this.font, modeText, textX, topPos + MODE_TEXT_Y, 0xFFFFFF, false);
-            return;
-        }
-
-        float scale = (float) MODE_TEXT_MAX_WIDTH / textWidth;
-        int scaledWidth = (int) (textWidth * scale);
-        int textX = leftPos + MODE_TEXT_CENTER_X - scaledWidth / 2;
-        float verticalShift = (this.font.lineHeight * (1.0f - scale)) / 2.0f;
-
-        graphics.pose().pushPose();
-        graphics.pose().translate(textX, topPos + MODE_TEXT_Y + verticalShift, 0.0f);
-        graphics.pose().scale(scale, scale, 1.0f);
-        graphics.drawString(this.font, modeText, 0, 0, 0xFFFFFF, false);
-        graphics.pose().popPose();
+        ScaledText.Fit fit = ScaledText.Fit.of(this.font, modeText, MODE_TEXT_MAX_WIDTH, 0);
+        ScaledText.renderCentered(graphics, this.font, fit, leftPos + MODE_TEXT_CENTER_X, topPos + MODE_TEXT_Y, 0xFFFFFF, true);
     }
 
     @Override
     protected void renderLabels(GuiGraphics graphics, int mouseX, int mouseY) {
         String titleText = this.title.getString();
-        int textWidth = this.font.width(titleText);
-
-        if (textWidth <= TITLE_MAX_WIDTH) {
-            graphics.drawString(this.font, titleText, TITLE_X, TITLE_Y, 0x404040, false);
-            return;
-        }
-
-        float scale = (float) TITLE_MAX_WIDTH / textWidth;
-        float verticalShift = (this.font.lineHeight * (1.0f - scale)) / 2.0f;
-
-        graphics.pose().pushPose();
-        graphics.pose().translate(TITLE_X, TITLE_Y + verticalShift, 0.0f);
-        graphics.pose().scale(scale, scale, 1.0f);
-        graphics.drawString(this.font, titleText, 0, 0, 0x404040, false);
-        graphics.pose().popPose();
+        ScaledText.Fit fit = ScaledText.Fit.of(this.font, titleText, TITLE_MAX_WIDTH, 0);
+        ScaledText.render(graphics, this.font, fit, TITLE_X, TITLE_Y, 0x404040, true);
     }
 
     private void updateButtonStates() {
         prevPageButton.active = memoryListWidget.hasPreviousPage();
-        nextPageButton.active = memoryListWidget.getItemCount() > 7;
+        nextPageButton.active = memoryListWidget.hasNextPage();
     }
 
     private void renderDisabledTooltip(GuiGraphics graphics, int mouseX, int mouseY) {

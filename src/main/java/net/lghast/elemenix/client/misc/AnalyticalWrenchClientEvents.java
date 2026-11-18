@@ -14,13 +14,17 @@ import net.lghast.elemenix.common.content.blockentity.AbstractPrinterBlockEntity
 import net.lghast.elemenix.common.content.blockentity.EjectorBlockEntity;
 import net.lghast.elemenix.common.content.blockentity.ElemenicComparatorBlockEntity;
 import net.lghast.elemenix.common.content.blockentity.MemoryRegistrarBlockEntity;
+import net.lghast.elemenix.common.content.blockentity.MemorizerReplicatorBlockEntity;
 import net.lghast.elemenix.common.content.blockentity.OutletBlockEntity;
 import net.lghast.elemenix.common.content.blockentity.ShuntBlockEntity;
 import net.lghast.elemenix.common.content.blockentity.TransformerBlockEntity;
 import net.lghast.elemenix.common.content.item.AnalyticalWrenchItem;
+import net.lghast.elemenix.common.content.item.MemorizerItem;
 import net.lghast.elemenix.common.content.item.ScannerItem;
 import net.lghast.elemenix.common.content.item.ScanningStorageItem;
 import net.lghast.elemenix.common.system.datacomponent.ElemenicStorage;
+import net.lghast.elemenix.common.system.datacomponent.Style;
+import net.lghast.elemenix.register.content.ModItems;
 import net.lghast.elemenix.register.system.ModTags;
 import net.lghast.elemenix.utils.elemenix.Elemenix;
 import net.lghast.elemenix.utils.misc.ElemenixHolder;
@@ -240,6 +244,26 @@ public class AnalyticalWrenchClientEvents {
             }
         }
 
+        if (be instanceof MemorizerReplicatorBlockEntity replicator) {
+            ItemStack master = replicator.getMasterStack();
+            if (!master.isEmpty()) {
+                String masterName = master.getHoverName().getString();
+                lines.add(Component.translatable("status.elemenix.replicator_master",
+                        Component.literal(masterName).withColor(0xFFFFFFFF)).withColor(TITLE_COLOR));
+            }
+
+            ItemStack replicating = replicator.getReplicatingItemStack();
+            if (!replicating.isEmpty()) {
+                String name = getReplicatingName(replicating);
+                lines.add(Component.translatable("status.elemenix.replicating",
+                        Component.literal(name).withColor(0xFFFFFFFF)).withColor(TITLE_COLOR));
+            }
+
+            long energix = replicator.getStored(Elemenix.ENERGIX);
+            lines.add(Component.translatable("status.elemenix.energix",
+                    Component.literal(ModUtils.formatNumber(energix)).withColor(Elemenix.ENERGIX.getColor())).withColor(TITLE_COLOR));
+        }
+
         if (be instanceof TransformerBlockEntity transformer) {
             String currentPage = getTransformerCurrentPage(transformer);
             lines.add(Component.translatable("status.elemenix.current_page",
@@ -250,7 +274,7 @@ public class AnalyticalWrenchClientEvents {
                     Component.literal(workContent).withColor(0xFFFFFFFF)).withColor(TITLE_COLOR));
         }
 
-        if (be instanceof ElemenixHolder holder) {
+        if (be instanceof ElemenixHolder holder && !(be instanceof MemorizerReplicatorBlockEntity)) {
             long[] storage = new long[6];
             for (Elemenix type : Elemenix.values()) {
                 storage[type.getIndex()] = holder.getStored(type);
@@ -286,6 +310,19 @@ public class AnalyticalWrenchClientEvents {
         }
 
         return lines;
+    }
+
+    private static String getReplicatingName(ItemStack replicating) {
+        if (replicating.is(ModItems.ELEMENIC_MEMORIZER)) {
+            String typeName = Component.translatable("item.elemenix.elemenic_memorizer").getString();
+            Style style = MemorizerItem.getOrCreateStyle(replicating);
+            if (style.style() != 0) {
+                return Component.translatable("status.elemenix.styled_name",
+                        typeName, Component.translatable(style.getStyleKey()).getString()).getString();
+            }
+            return typeName;
+        }
+        return Component.translatable("item.elemenix.witchcraft_memorizer").getString();
     }
 
     private static String resolveOwnerName(UUID owner) {

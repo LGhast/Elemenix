@@ -10,5 +10,6 @@ public class ItemBlockRenders {
         ItemBlockRenderTypes.setRenderLayer(ModBlocks.ELEMENIC_COMPARATOR.get(), RenderType.cutout());
         ItemBlockRenderTypes.setRenderLayer(ModBlocks.SUBSTANCE_PRINTER.get(), RenderType.cutout());
         ItemBlockRenderTypes.setRenderLayer(ModBlocks.WITCHCRAFT_PRINTER.get(), RenderType.cutout());
+        ItemBlockRenderTypes.setRenderLayer(ModBlocks.MEMORIZER_REPLICATOR.get(), RenderType.cutout());
     }
 }

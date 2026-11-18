@@ -1,0 +1,7 @@
+{
+  "parent": "elemenix:block/replicator/replicator",
+  "textures": {
+    "0": "elemenix:block/replicator/replicator_disabled",
+    "particle": "elemenix:block/replicator/replicator_disabled"
+  }
+}

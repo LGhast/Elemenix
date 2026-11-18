@@ -7,6 +7,7 @@ import net.lghast.elemenix.common.content.blockentity.ElemenicComparatorBlockEnt
 import net.lghast.elemenix.common.content.blockentity.EnricherBlockEntity;
 import net.lghast.elemenix.common.content.blockentity.InfuserBlockEntity;
 import net.lghast.elemenix.common.content.blockentity.MemoryRegistrarBlockEntity;
+import net.lghast.elemenix.common.content.blockentity.MemorizerReplicatorBlockEntity;
 import net.lghast.elemenix.common.content.blockentity.OutletBlockEntity;
 import net.lghast.elemenix.common.content.blockentity.ShuntBlockEntity;
 import net.lghast.elemenix.common.content.blockentity.SubstancePrinterBlockEntity;
@@ -134,6 +135,15 @@ public class ModBlockEntities {
             () -> BlockEntityType.Builder.of(
                             MemoryRegistrarBlockEntity::new,
                             ModBlocks.MEMORY_REGISTRAR.get()
+                    )
+                    .build(null)
+    );
+
+    public static final Supplier<BlockEntityType<MemorizerReplicatorBlockEntity>> MEMORIZER_REPLICATOR = BLOCK_ENTITY_TYPES.register(
+            "memorizer_replicator",
+            () -> BlockEntityType.Builder.of(
+                            MemorizerReplicatorBlockEntity::new,
+                            ModBlocks.MEMORIZER_REPLICATOR.get()
                     )
                     .build(null)
     );

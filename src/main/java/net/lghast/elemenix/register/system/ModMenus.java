@@ -9,6 +9,7 @@ import net.lghast.elemenix.common.content.blockentity.InfuserBlockEntity;
 import net.lghast.elemenix.common.content.blockentity.OutletBlockEntity;
 import net.lghast.elemenix.common.content.blockentity.ShuntBlockEntity;
 import net.lghast.elemenix.common.content.blockentity.AbstractPrinterBlockEntity;
+import net.lghast.elemenix.common.content.blockentity.MemorizerReplicatorBlockEntity;
 import net.lghast.elemenix.common.content.blockentity.TankBlockEntity;
 import net.lghast.elemenix.common.content.blockentity.TransformerBlockEntity;
 import net.lghast.elemenix.common.system.menu.*;
@@ -99,6 +100,11 @@ public class ModMenus {
             MENUS.register("registrar_menu", () ->
                     IMenuTypeExtension.create((windowId, inv, data) ->
                             new RegistrarMenu(windowId)));
+
+    public static final Supplier<MenuType<MemorizerReplicatorMenu>> MEMORIZER_REPLICATOR_MENU =
+            MENUS.register("memorizer_replicator_menu", () ->
+                    IMenuTypeExtension.create((windowId, inv, data) ->
+                            new MemorizerReplicatorMenu(windowId, inv, (MemorizerReplicatorBlockEntity) inv.player.level().getBlockEntity(data.readBlockPos()))));
 
     public static void register(IEventBus eventBus) {
         MENUS.register(eventBus);

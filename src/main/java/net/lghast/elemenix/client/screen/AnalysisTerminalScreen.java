@@ -1,5 +1,7 @@
 package net.lghast.elemenix.client.screen;
 
+import net.lghast.elemenix.client.misc.ScaledText;
+import net.lghast.elemenix.client.screen.widget.SmallCheckbox;
 import net.lghast.elemenix.common.content.item.MemorizerItem;
 import net.lghast.elemenix.common.content.item.WitchcraftMemorizerItem;
 import net.lghast.elemenix.common.system.datacomponent.MemoryData;
@@ -413,22 +415,8 @@ public class AnalysisTerminalScreen extends AbstractContainerScreen<AnalysisTerm
             name = Component.translatable("gui.elemenix.analysis_terminal.all_memorizers").getString();
         }
 
-        int maxWidth = MEM_NAME_MAX_WIDTH;
-        int nameWidth = this.font.width(name);
-        int centerX = leftPos + MEM_AREA_CX;
-        int baseY = topPos + MEM_NAME_Y;
-
-        if (nameWidth <= maxWidth) {
-            graphics.drawString(this.font, name, centerX - nameWidth / 2, baseY, nameColor, false);
-        } else {
-            float scale = (float) maxWidth / nameWidth;
-            graphics.pose().pushPose();
-            graphics.pose().translate(centerX, baseY, 0.0F);
-            graphics.pose().scale(scale, scale, 1.0F);
-            graphics.pose().translate(-nameWidth / 2.0F, 0.0F, 0.0F);
-            graphics.drawString(this.font, name, 0, 0, nameColor, false);
-            graphics.pose().popPose();
-        }
+        ScaledText.Fit fit = ScaledText.Fit.of(this.font, name, MEM_NAME_MAX_WIDTH, 0);
+        ScaledText.renderCentered(graphics, this.font, fit, leftPos + MEM_AREA_CX, topPos + MEM_NAME_Y, nameColor, false);
 
         if (selectedMemorizer >= 0 && selectedMemorizer < memorizers.size()) {
             graphics.renderItem(memorizers.get(selectedMemorizer), leftPos + MEM_ICON_X, topPos + MEM_ICON_Y);

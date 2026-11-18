@@ -1,5 +1,6 @@
-package net.lghast.elemenix.client.screen;
+package net.lghast.elemenix.client.screen.widget;
 
+import net.lghast.elemenix.client.screen.BurnerMode;
 import net.lghast.elemenix.common.system.datacomponent.PotionMemoryData;
 import net.lghast.elemenix.common.system.menu.BurnerMenu;
 import net.minecraft.client.Minecraft;
@@ -88,11 +89,11 @@ public class BurnerListWidget extends MemoryListWidget {
     }
 
     @Override
-    protected String getEmptyText() {
+    protected String getTipText() {
         if (isMismatchMode()) {
             return Component.translatable("gui.elemenix.memorizer_type_mismatch").getString();
         }
-        return super.getEmptyText();
+        return super.getTipText();
     }
 
     @Override

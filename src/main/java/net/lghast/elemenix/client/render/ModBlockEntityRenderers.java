@@ -15,5 +15,6 @@ public class ModBlockEntityRenderers {
         event.registerBlockEntityRenderer(ModBlockEntities.SUBSTANCE_PRINTER.get(), context -> new PrinterRenderer());
         event.registerBlockEntityRenderer(ModBlockEntities.WITCHCRAFT_PRINTER.get(), context -> new PrinterRenderer());
         event.registerBlockEntityRenderer(ModBlockEntities.MEMORY_REGISTRAR.get(), context -> new MemoryRegistrarRenderer());
+        event.registerBlockEntityRenderer(ModBlockEntities.MEMORIZER_REPLICATOR.get(), context -> new ReplicatorRenderer());
     }
 }
