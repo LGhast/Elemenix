@@ -13,7 +13,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.List;
 
 @SuppressWarnings("unused")
-public record ResponseRegistrarSyncPayload(List<ResourceLocation> items, List<PotionMemoryData.Entry> potions)
+public record ResponseRegistrarSyncPayload(List<ResourceLocation> items, List<PotionMemoryData.Entry> potions, boolean developerMode)
         implements CustomPacketPayload {
     public static final CustomPacketPayload.Type<ResponseRegistrarSyncPayload> TYPE =
             new CustomPacketPayload.Type<>(ResourceLocation.fromNamespaceAndPath("elemenix", "response_registrar_sync"));
@@ -24,6 +24,8 @@ public record ResponseRegistrarSyncPayload(List<ResourceLocation> items, List<Po
                     ResponseRegistrarSyncPayload::items,
                     PotionMemoryData.Entry.STREAM_CODEC.apply(ByteBufCodecs.list()),
                     ResponseRegistrarSyncPayload::potions,
+                    ByteBufCodecs.BOOL,
+                    ResponseRegistrarSyncPayload::developerMode,
                     ResponseRegistrarSyncPayload::new
             );
 
@@ -33,6 +35,9 @@ public record ResponseRegistrarSyncPayload(List<ResourceLocation> items, List<Po
     }
 
     public static void handle(ResponseRegistrarSyncPayload payload, IPayloadContext context) {
-        context.enqueueWork(() -> ClientRegistrarCache.update(payload.items(), payload.potions()));
+        context.enqueueWork(() -> {
+            ClientRegistrarCache.update(payload.items(), payload.potions());
+            ClientRegistrarCache.setDeveloperMode(payload.developerMode());
+        });
     }
 }

@@ -10,6 +10,7 @@ import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.Unit;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
@@ -135,6 +136,14 @@ public class ModDataComponents {
             REGISTRAR.registerComponentType("comparator_criterion", builder ->
                     builder.persistent(ComparatorCriterion.CODEC)
                             .networkSynchronized(ComparatorCriterion.STREAM_CODEC)
+            );
+
+    public static final StreamCodec<RegistryFriendlyByteBuf, Unit> UNIT_STREAM_CODEC = StreamCodec.unit(Unit.INSTANCE);
+
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<Unit>> DEVELOPER_MODE =
+            REGISTRAR.registerComponentType("developer_mode", builder ->
+                    builder.persistent(Unit.CODEC)
+                            .networkSynchronized(UNIT_STREAM_CODEC)
             );
 
     public static void register(IEventBus eventBus) {

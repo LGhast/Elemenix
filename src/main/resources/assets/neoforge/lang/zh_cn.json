@@ -1,3 +1,8 @@
 {
-  "tag.item.neoforge:enchanting_fuels": "附魔驱动物"
+  "tag.item.neoforge.enchanting_fuels": "附魔驱动物",
+  "tag.entity_type.neoforge.boats": "船",
+  "tag.entity_type.neoforge.bosses": "首领级生物",
+  "tag.entity_type.neoforge.capturing_not_supported": "不支持捕获的生物",
+  "tag.entity_type.neoforge.minecarts": "矿车",
+  "tag.entity_type.neoforge.teleporting_not_supported": "不支持传送的生物"
 }

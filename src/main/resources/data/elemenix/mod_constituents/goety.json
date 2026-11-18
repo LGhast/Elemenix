@@ -66,6 +66,7 @@
     { "id": "goety:redstone_golem_skull", "constituents": [0, 1200, 0, 0, 0, 500] },
     { "id": "goety:grave_golem_skull", "constituents": [0, 1000, 0, 0, 0, 500] },
     { "id": "goety:redstone_monstrosity_head", "constituents": [0, 4800, 0, 0, 1200, 800] },
+    { "id": "goety:grave_monstrosity_head", "constituents": [0, 4800, 600, 0, 400, 1000] },
     { "id": "goety:howling_soul", "constituents": [0, 0, 20, 0, 5, 12] },
     { "id": "goety:hurricane_core", "constituents": [0, 0, 600, 32000, 0, 800] },
     { "id": "goety:ravaging_scroll", "constituents": [800, 0, 0, 0, 0, 300] },

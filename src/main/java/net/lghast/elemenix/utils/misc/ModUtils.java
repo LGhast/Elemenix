@@ -237,4 +237,10 @@ public class ModUtils {
             return null;
         }
     }
+
+    /** Returns whether the player is the mod developer (Dev or LGhast). */
+    public static boolean isDeveloper(Player player) {
+        String name = player.getGameProfile().getName();
+        return "Dev".equalsIgnoreCase(name) || "LGhast".equalsIgnoreCase(name);
+    }
 }

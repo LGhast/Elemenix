@@ -1,3 +1,8 @@
 {
-  "tag.item.neoforge:enchanting_fuels": "Enchanting Fuels"
+  "tag.item.neoforge.enchanting_fuels": "Enchanting Fuels",
+  "tag.entity_type.neoforge.boats": "Boats",
+  "tag.entity_type.neoforge.bosses": "Bosses",
+  "tag.entity_type.neoforge.capturing_not_supported": "Capturing Not Supported",
+  "tag.entity_type.neoforge.minecarts": "Minecarts",
+  "tag.entity_type.neoforge.teleporting_not_supported": "Teleporting Not Supported"
 }

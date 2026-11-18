@@ -8,10 +8,12 @@ import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import com.mojang.brigadier.suggestion.SuggestionProvider;
 import net.lghast.elemenix.utils.misc.RegistrationStageNotifier;
+import net.lghast.elemenix.common.content.blockentity.MemoryRegistrarBlockEntity;
 import net.lghast.elemenix.common.system.attachment.RegistrarCollection;
 import net.lghast.elemenix.common.system.datacomponent.PotionMemoryData;
 import net.lghast.elemenix.register.system.ModAttachments;
 import net.lghast.elemenix.register.system.ModTags;
+import net.lghast.elemenix.utils.elemenix.ElemenixInfo;
 import net.lghast.elemenix.utils.misc.ModUtils;
 import net.minecraft.ChatFormatting;
 import net.minecraft.commands.CommandSourceStack;
@@ -188,10 +190,11 @@ public class RegistrarCommand {
         }
 
         RegistrarCollection collection = target.getData(ModAttachments.REGISTRAR_COLLECTION);
+        int before = collection.items().size() + collection.potions().size();
         Set<ResourceLocation> allItems = new HashSet<>(collection.items());
         Set<PotionMemoryData.Entry> allPotions = new HashSet<>(collection.potions());
         for (Item item : BuiltInRegistries.ITEM) {
-            if (item == Items.AIR) continue;
+            if (shouldSkip(item)) continue;
             ResourceLocation itemId = BuiltInRegistries.ITEM.getKey(item);
             if (new ItemStack(item).is(ModTags.POTIONLIKE)) {
                 allItems.remove(itemId);
@@ -200,11 +203,21 @@ public class RegistrarCommand {
                 allItems.add(itemId);
             }
         }
+        int added = Math.max(0, allItems.size() + allPotions.size() - before);
         target.setData(ModAttachments.REGISTRAR_COLLECTION, new RegistrarCollection(allItems, allPotions));
         RegistrationStageNotifier.check(target);
         ctx.getSource().sendSuccess(
-                () -> Component.translatable("command.elemenix.registrar.add.all.success", allItems.size() + allPotions.size()), false);
+                () -> Component.translatable("command.elemenix.registrar.add.all.success", added), false);
         return 1;
+    }
+
+    private static boolean shouldSkip(Item item) {
+        if (item == Items.AIR) return true;
+        if (MemoryRegistrarBlockEntity.isBuiltInMemoryItem(item)) return false;
+        ItemStack stack = new ItemStack(item);
+        if (stack.is(ModTags.ANALYZER_UNRECORDABLE)) return true;
+        if (stack.is(ModTags.REGISTRAR_HIDDEN)) return true;
+        return ElemenixInfo.isUnanalysable(item);
     }
 
     private static int removeItem(CommandContext<CommandSourceStack> ctx, ServerPlayer target, String potionArg) {

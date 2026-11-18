@@ -654,7 +654,17 @@ public class AnalysisTerminalScreen extends AbstractContainerScreen<AnalysisTerm
 
     @Override
     public boolean mouseScrolled(double mouseX, double mouseY, double scrollX, double scrollY) {
-        if (isOverGrid((int) mouseX, (int) mouseY) || isOverScrollbar((int) mouseX, (int) mouseY)) {
+        int mx = (int) mouseX;
+        int my = (int) mouseY;
+        if (isOverMemorizerIcon(mx, my)) {
+            if (scrollY > 0) {
+                pressPrev();
+            } else if (scrollY < 0) {
+                pressNext();
+            }
+            return true;
+        }
+        if (isOverGrid(mx, my) || isOverScrollbar(mx, my)) {
             int maxOffset = getMaxOffset();
             if (maxOffset > 0) {
                 scrollOffset = Math.max(0, Math.min(maxOffset, scrollOffset - (int) scrollY));

@@ -16,6 +16,7 @@ import net.lghast.elemenix.network.printer.PrinterDisableItemPayload;
 import net.lghast.elemenix.network.printer.PrinterModePayload;
 import net.lghast.elemenix.network.registrar.RegistrationStageToastPayload;
 import net.lghast.elemenix.network.registrar.ResponseRegistrarSyncPayload;
+import net.lghast.elemenix.network.registrar.ToggleRegistrarDeveloperModePayload;
 import net.lghast.elemenix.network.scan.RequestContainerScanPayload;
 import net.lghast.elemenix.network.scan.ResponseContainerScanPayload;
 import net.lghast.elemenix.network.shunt.ShuntFilterPayload;
@@ -67,6 +68,12 @@ public class NetworkPayloadHandler {
                 OpenAnalyzerPayload.TYPE,
                 OpenAnalyzerPayload.STREAM_CODEC,
                 OpenAnalyzerPayload::handle
+        );
+
+        registrar.playToServer(
+                ToggleRegistrarDeveloperModePayload.TYPE,
+                ToggleRegistrarDeveloperModePayload.STREAM_CODEC,
+                ToggleRegistrarDeveloperModePayload::handle
         );
 
         registrar.playToServer(

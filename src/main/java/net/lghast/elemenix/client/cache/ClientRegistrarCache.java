@@ -60,4 +60,14 @@ public class ClientRegistrarCache {
     public static void setPotionlikeShown(boolean value) {
         showPotionlike = value;
     }
+
+    private static boolean developerMode = false;
+
+    public static boolean isDeveloperMode() {
+        return developerMode;
+    }
+
+    public static void setDeveloperMode(boolean value) {
+        developerMode = value;
+    }
 }

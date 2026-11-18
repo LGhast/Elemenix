@@ -605,7 +605,8 @@ public class TransformerMenu extends AbstractContainerMenu {
     }
 
     private void addGerminalSlots() {
-        this.addSlot(new Slot(blockEntity, GENE_TEMPLATE_SLOT, SLOT_X_TEMPLATE, SLOT_Y_TEMPLATE) {
+        this.addSlot(new HintSlot(blockEntity, GENE_TEMPLATE_SLOT, SLOT_X_TEMPLATE, SLOT_Y_TEMPLATE,
+                Component.translatable("gui.elemenix.germinating.template")) {
             @Override
             public boolean isActive() {
                 return getMode() == TransformerBlockEntity.MODE_SPECIAL;
@@ -797,7 +798,8 @@ public class TransformerMenu extends AbstractContainerMenu {
     }
 
     private void addImitforgingSlots() {
-        this.addSlot(new Slot(blockEntity, IMITFORGING_TARGET_SLOT, SLOT_X_IMITFORGING_TARGET, SLOT_Y_IMITFORGING_TARGET) {
+        this.addSlot(new HintSlot(blockEntity, IMITFORGING_TARGET_SLOT, SLOT_X_IMITFORGING_TARGET, SLOT_Y_IMITFORGING_TARGET,
+                Component.translatable("gui.elemenix.transformer.imitforging_target_hint")) {
             @Override
             public boolean isActive() {
                 return getMode() == TransformerBlockEntity.MODE_SPECIAL;
@@ -815,7 +817,8 @@ public class TransformerMenu extends AbstractContainerMenu {
             }
         });
 
-        this.addSlot(new Slot(blockEntity, IMITFORGING_APPEARANCE_SLOT, SLOT_X_IMITFORGING_APPEARANCE, SLOT_Y_IMITFORGING_APPEARANCE) {
+        this.addSlot(new HintSlot(blockEntity, IMITFORGING_APPEARANCE_SLOT, SLOT_X_IMITFORGING_APPEARANCE, SLOT_Y_IMITFORGING_APPEARANCE,
+                Component.translatable("gui.elemenix.transformer.imitforging_appearance_hint")) {
             @Override
             public boolean isActive() {
                 return getMode() == TransformerBlockEntity.MODE_SPECIAL;

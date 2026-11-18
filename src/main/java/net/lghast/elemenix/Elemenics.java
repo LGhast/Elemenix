@@ -127,10 +127,10 @@ public class Elemenics {
         if (target == null) {
             if (currentServerLevel == null) return;
             target = currentServerLevel.players().stream()
-                    .filter(this::isDevOrLGhast)
+                    .filter(ModUtils::isDeveloper)
                     .findFirst()
                     .orElse(null);
-        } else if (!isDevOrLGhast(target)) {
+        } else if (!ModUtils.isDeveloper(target)) {
             return;
         }
 
@@ -141,11 +141,6 @@ public class Elemenics {
 
         target.sendSystemMessage(Component.literal("以下物品已可解析：\n" + String.join("\n", resolved)));
         commandIgnoredNotified = true;
-    }
-
-    private boolean isDevOrLGhast(ServerPlayer player) {
-        String name = player.getGameProfile().getName();
-        return "Dev".equalsIgnoreCase(name) || "LGhast".equalsIgnoreCase(name);
     }
 
     @Nullable

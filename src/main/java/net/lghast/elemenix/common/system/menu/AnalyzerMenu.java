@@ -29,6 +29,7 @@ import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.game.ClientboundContainerSetSlotPacket;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
@@ -93,7 +94,8 @@ public class AnalyzerMenu extends AbstractContainerMenu {
         loadMemorizerItem(menuStack);
         loadAnalyzerStorage();
 
-        this.addSlot(new Slot(analyzerContainer, INPUT_SLOT, INPUT_SLOT_X, SLOT_Y) {
+        this.addSlot(new HintSlot(analyzerContainer, INPUT_SLOT, INPUT_SLOT_X, SLOT_Y,
+                Component.translatable("gui.elemenix.analyzer.input_hint")) {
 
             @Override
             public boolean mayPlace(ItemStack stack) {
@@ -107,7 +109,8 @@ public class AnalyzerMenu extends AbstractContainerMenu {
             }
         });
 
-        this.addSlot(new Slot(analyzerContainer, MEMORIZER_SLOT, MEMORIZER_SLOT_X, SLOT_Y) {
+        this.addSlot(new HintSlot(analyzerContainer, MEMORIZER_SLOT, MEMORIZER_SLOT_X, SLOT_Y,
+                Component.translatable("gui.elemenix.analyzer.memorizer_hint")) {
 
             @Override
             public boolean mayPlace(ItemStack stack) {

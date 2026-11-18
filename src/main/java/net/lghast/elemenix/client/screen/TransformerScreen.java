@@ -7,6 +7,7 @@ import net.lghast.elemenix.common.content.block.MetallurgicalActivatorBlock;
 import net.lghast.elemenix.common.content.block.TransformerBlock;
 import net.lghast.elemenix.common.content.blockentity.TransformerBlockEntity;
 import net.lghast.elemenix.common.system.menu.TransformerMenu;
+import net.lghast.elemenix.common.system.menu.HintSlot;
 import net.lghast.elemenix.common.system.recipe.MineralizingRecipe;
 import net.lghast.elemenix.network.transformer.TransformerSwitchPagePayload;
 import net.lghast.elemenix.network.transformer.TransformerTogglePayload;
@@ -18,6 +19,7 @@ import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.api.distmarker.Dist;
@@ -48,9 +50,6 @@ public class TransformerScreen extends AbstractContainerScreen<TransformerMenu> 
     private static final int MEDIUM_LABEL_X = 134;
     private static final int MINERALIZING_LABEL_Y = 36;
 
-    private static final int TEMPLATE_LABEL_X = 54;
-    private static final int TEMPLATE_LABEL_Y = 19;
-    private static final float TEMPLATE_LABEL_SCALE = 0.8F;
     private static final int GERM_FLUMIX_X = 90;
     private static final int GERM_FLUMIX_Y = 29;
     private static final int GERM_TERRIX_X = 90;
@@ -155,7 +154,15 @@ public class TransformerScreen extends AbstractContainerScreen<TransformerMenu> 
         if (enrichCheckbox != null && enrichCheckbox.visible && enrichCheckbox.isHovered()) {
             graphics.renderTooltip(this.font, Component.translatable("gui.elemenix.transformer.toggle_enrich"), mouseX, mouseY);
         }
+        renderEmptySlotHints(graphics, mouseX, mouseY);
         this.renderTooltip(graphics, mouseX, mouseY);
+    }
+
+    private void renderEmptySlotHints(GuiGraphics graphics, int mouseX, int mouseY) {
+        Slot slot = this.getSlotUnderMouse();
+        if (slot instanceof HintSlot hintSlot && !slot.hasItem()) {
+            graphics.renderTooltip(this.font, hintSlot.getHint(), mouseX, mouseY);
+        }
     }
 
     @Override
@@ -171,10 +178,6 @@ public class TransformerScreen extends AbstractContainerScreen<TransformerMenu> 
     }
 
     private void renderGerminatingPage(GuiGraphics graphics, int x, int y) {
-        drawScaledCenteredLabel(graphics,
-                Component.translatable("gui.elemenix.germinating.template"),
-                x + TEMPLATE_LABEL_X, y + TEMPLATE_LABEL_Y);
-
         int[] cost = menu.getGerminatingCost();
         renderGerminatingElemenix(graphics, x + GERM_FLUMIX_X, y + GERM_FLUMIX_Y, menu.getInputB(), cost, 1, Elemenix.FLUMIX);
         renderGerminatingElemenix(graphics, x + GERM_TERRIX_X, y + GERM_TERRIX_Y, menu.getInputA(), cost, 0, Elemenix.TERRIX);
@@ -271,17 +274,6 @@ public class TransformerScreen extends AbstractContainerScreen<TransformerMenu> 
         String text = label.getString();
         int textWidth = this.font.width(text);
         graphics.drawString(this.font, text, centerX - textWidth / 2, textY, 0x404040, false);
-    }
-
-    private void drawScaledCenteredLabel(GuiGraphics graphics, Component label, int centerX, int textY) {
-        String text = label.getString();
-        int textWidth = this.font.width(text);
-        float scaledWidth = textWidth * TransformerScreen.TEMPLATE_LABEL_SCALE;
-        graphics.pose().pushPose();
-        graphics.pose().translate(centerX - scaledWidth / 2F, textY, 0F);
-        graphics.pose().scale(TransformerScreen.TEMPLATE_LABEL_SCALE, TransformerScreen.TEMPLATE_LABEL_SCALE, 1F);
-        graphics.drawString(this.font, text, 0, 0, 0x404040, false);
-        graphics.pose().popPose();
     }
 
     private static int darkenColor(int color) {

@@ -12,6 +12,7 @@ import net.lghast.elemenix.config.ClientConfig;
 import net.lghast.elemenix.common.system.datacomponent.PotionMemoryData;
 import net.lghast.elemenix.common.system.menu.RegistrarMenu;
 import net.lghast.elemenix.compat.jech.JechCompat;
+import net.lghast.elemenix.network.registrar.ToggleRegistrarDeveloperModePayload;
 import net.lghast.elemenix.register.system.ModTags;
 import net.lghast.elemenix.utils.elemenix.Constituents;
 import net.lghast.elemenix.utils.elemenix.Elemenix;
@@ -39,14 +40,10 @@ import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.food.FoodProperties;
-import net.minecraft.world.item.ArmorItem;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
-import net.minecraft.world.item.Rarity;
-import net.minecraft.world.item.TieredItem;
+import net.minecraft.world.item.*;
 import net.minecraft.world.item.alchemy.Potion;
 import net.minecraft.world.item.alchemy.PotionContents;
 import net.minecraft.world.item.armortrim.TrimMaterial;
@@ -57,6 +54,7 @@ import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
+import net.neoforged.neoforge.network.PacketDistributor;
 import net.neoforged.fml.ModList;
 import org.jetbrains.annotations.NotNull;
 import org.lwjgl.glfw.GLFW;
@@ -147,6 +145,7 @@ public class RegistrarScreen extends AbstractContainerScreen<RegistrarMenu> {
     private static final int CONSTITUENTS_GAP = 13;
     private static final int CONSTITUENTS_MAX_WIDTH = 84;
     private static final float CONSTITUENTS_MIN_SCALE = 0.5f;
+    private static final int CONSTITUENTS_TITLE_MAX_WIDTH = 95;
 
     private static final int ICONS_X = 19;
     private static final int ICONS_Y = 165;
@@ -182,6 +181,12 @@ public class RegistrarScreen extends AbstractContainerScreen<RegistrarMenu> {
     private SmallCheckbox putUncollectedLastCheckbox;
     private SmallCheckbox sortByModCheckbox;
     private SmallCheckbox showPotionlikeCheckbox;
+    private SmallCheckbox normalUnanalysableCheckbox;
+    private SmallCheckbox strictlyUnanalysableCheckbox;
+    private SmallCheckbox commandIgnoredCheckbox;
+    private SmallCheckbox spawnEggsCheckbox;
+    private int developerFilter = -1;
+    private boolean developerMode = false;
     private Button prevButton;
     private Button nextButton;
     private Button backButton;
@@ -283,10 +288,32 @@ public class RegistrarScreen extends AbstractContainerScreen<RegistrarMenu> {
                     ClientRegistrarCache.setPotionlikeShown(selected);
                     rebuildEntries();
                 });
+
+        this.normalUnanalysableCheckbox = new SmallCheckbox(
+                leftPos + CHECK_X1, topPos + CHECK_Y,
+                Component.empty(), this.font, false,
+                (checkbox, selected) -> onDeveloperCheckboxClicked(0, selected));
+        this.strictlyUnanalysableCheckbox = new SmallCheckbox(
+                leftPos + CHECK_X1 + CHECK_GAP, topPos + CHECK_Y,
+                Component.empty(), this.font, false,
+                (checkbox, selected) -> onDeveloperCheckboxClicked(1, selected));
+        this.commandIgnoredCheckbox = new SmallCheckbox(
+                leftPos + CHECK_X1 + CHECK_GAP * 2, topPos + CHECK_Y,
+                Component.empty(), this.font, false,
+                (checkbox, selected) -> onDeveloperCheckboxClicked(2, selected));
+        this.spawnEggsCheckbox = new SmallCheckbox(
+                leftPos + CHECK_X1 + CHECK_GAP * 3, topPos + CHECK_Y,
+                Component.empty(), this.font, false,
+                (checkbox, selected) -> onDeveloperCheckboxClicked(3, selected));
+
         this.addRenderableWidget(this.showUncollectedCheckbox);
         this.addRenderableWidget(this.putUncollectedLastCheckbox);
         this.addRenderableWidget(this.sortByModCheckbox);
         this.addRenderableWidget(this.showPotionlikeCheckbox);
+        this.addRenderableWidget(this.normalUnanalysableCheckbox);
+        this.addRenderableWidget(this.strictlyUnanalysableCheckbox);
+        this.addRenderableWidget(this.commandIgnoredCheckbox);
+        this.addRenderableWidget(this.spawnEggsCheckbox);
 
         this.prevButton = new PageButton(leftPos + PREV_BTN_X, topPos + BTN_Y, true, b -> changePage(-1));
         this.nextButton = new PageButton(leftPos + NEXT_BTN_X, topPos + BTN_Y, false, b -> changePage(1));
@@ -306,6 +333,18 @@ public class RegistrarScreen extends AbstractContainerScreen<RegistrarMenu> {
     @Override
     protected void containerTick() {
         super.containerTick();
+        boolean cacheMode = ClientRegistrarCache.isDeveloperMode();
+        if (developerMode != cacheMode) {
+            developerMode = cacheMode;
+            developerFilter = -1;
+            syncDeveloperCheckboxes();
+            currentPage = 0;
+            detailStack = ItemStack.EMPTY;
+            detailIcons = List.of();
+            tagScroll = 0;
+            descriptionScroll = 0.0f;
+            if (searchBox != null) searchBox.setValue("");
+        }
         rebuildEntries();
     }
 
@@ -317,6 +356,12 @@ public class RegistrarScreen extends AbstractContainerScreen<RegistrarMenu> {
             return true;
         }
         if (this.searchBox != null && this.searchBox.isFocused()) {
+            if (keyCode == GLFW.GLFW_KEY_ENTER || keyCode == GLFW.GLFW_KEY_KP_ENTER) {
+                if ("*lg".equals(this.searchBox.getValue().trim())) {
+                    toggleDeveloperMode();
+                    return true;
+                }
+            }
             this.searchBox.keyPressed(keyCode, scanCode, modifiers);
             if (keyCode == GLFW.GLFW_KEY_ESCAPE || keyCode == GLFW.GLFW_KEY_TAB) {
                 return super.keyPressed(keyCode, scanCode, modifiers);
@@ -324,6 +369,11 @@ public class RegistrarScreen extends AbstractContainerScreen<RegistrarMenu> {
             return true;
         }
         return super.keyPressed(keyCode, scanCode, modifiers);
+    }
+
+    private void toggleDeveloperMode() {
+        this.searchBox.setValue("");
+        PacketDistributor.sendToServer(new ToggleRegistrarDeveloperModePayload());
     }
 
     @Override
@@ -349,10 +399,17 @@ public class RegistrarScreen extends AbstractContainerScreen<RegistrarMenu> {
                 jumpToFilter("@" + namespace);
                 return true;
             }
-            ResourceLocation tag = getHoveredTag(mx, my);
+            TagInfo tag = getHoveredTag(mx, my);
             if (tag != null) {
-                jumpToFilter("#" + tag);
-                return true;
+                if (tag.entity()) {
+                    if (developerMode && developerFilter == 3) {
+                        jumpToFilter("#" + tag.tag());
+                        return true;
+                    }
+                } else {
+                    jumpToFilter("#" + tag.tag());
+                    return true;
+                }
             }
         }
         return super.mouseClicked(mouseX, mouseY, button);
@@ -375,8 +432,8 @@ public class RegistrarScreen extends AbstractContainerScreen<RegistrarMenu> {
                 && mouseY >= textY && mouseY < textY + this.font.lineHeight;
     }
 
-    private ResourceLocation getHoveredTag(int mouseX, int mouseY) {
-        List<ResourceLocation> tags = getSortedTags();
+    private TagInfo getHoveredTag(int mouseX, int mouseY) {
+        List<TagInfo> tags = getSortedTags();
         int visible = TAG_AREA_H / TAG_ROW_H;
         int maxScroll = Math.max(0, tags.size() - visible);
         if (tagScroll > maxScroll) tagScroll = maxScroll;
@@ -396,7 +453,19 @@ public class RegistrarScreen extends AbstractContainerScreen<RegistrarMenu> {
 
     @Override
     public boolean mouseScrolled(double mouseX, double mouseY, double scrollX, double scrollY) {
-        if (!detailStack.isEmpty()) {
+        int mx = (int) mouseX;
+        int my = (int) mouseY;
+
+        if (detailStack.isEmpty()) {
+            if (isOverGrid(mx, my) && getTotalPages() > 1) {
+                if (scrollY > 0) {
+                    changePage(-1);
+                } else if (scrollY < 0) {
+                    changePage(1);
+                }
+                return true;
+            }
+        } else {
             int listX = leftPos + TAG_AREA_X;
             int listY = topPos + TAG_AREA_Y;
             int listW = TAG_AREA_W - TAG_SCROLLBAR_W;
@@ -427,6 +496,14 @@ public class RegistrarScreen extends AbstractContainerScreen<RegistrarMenu> {
 
     private void rebuildEntries() {
         entries.clear();
+
+        if (developerMode) {
+            rebuildDeveloperEntries();
+            sortEntries();
+            applySearchFilter();
+            clampPage();
+            return;
+        }
 
         Set<ResourceLocation> collectedItems = ClientRegistrarCache.getItems();
         Set<PotionMemoryData.Entry> collectedPotions = ClientRegistrarCache.getPotions();
@@ -476,6 +553,50 @@ public class RegistrarScreen extends AbstractContainerScreen<RegistrarMenu> {
         clampPage();
     }
 
+    private void rebuildDeveloperEntries() {
+        for (Item item : BuiltInRegistries.ITEM) {
+            if (item == Items.AIR) continue;
+            if (developerFilter >= 0 && !matchesDeveloperFilter(item)) continue;
+            ResourceLocation id = BuiltInRegistries.ITEM.getKey(item);
+            if (isPotionLike(item)) {
+                PotionMemoryData.Entry entry = new PotionMemoryData.Entry(id, WATER_POTION_ID);
+                ItemStack stack = createPotionStack(entry);
+                if (stack.isEmpty()) continue;
+                entries.add(potionEntry(stack, entry));
+            } else {
+                entries.add(itemEntry(new ItemStack(item), true));
+            }
+        }
+    }
+
+    private boolean matchesDeveloperFilter(Item item) {
+        ItemStack stack = new ItemStack(item);
+        return switch (developerFilter) {
+            case 0 -> ElemenixInfo.isUnanalysable(item)
+                    && !stack.is(ModTags.STRICTLY_UNANALYSABLE)
+                    && !stack.is(ModTags.COMMAND_IGNORED)
+                    && !stack.is(ModTags.SPAWN_EGGS);
+            case 1 -> stack.is(ModTags.STRICTLY_UNANALYSABLE);
+            case 2 -> stack.is(ModTags.COMMAND_IGNORED);
+            case 3 -> stack.is(ModTags.SPAWN_EGGS);
+            default -> true;
+        };
+    }
+
+    private void onDeveloperCheckboxClicked(int filter, boolean selected) {
+        developerFilter = selected ? filter : -1;
+        syncDeveloperCheckboxes();
+        rebuildEntries();
+    }
+
+    private void syncDeveloperCheckboxes() {
+        if (normalUnanalysableCheckbox == null) return;
+        normalUnanalysableCheckbox.setSelected(developerFilter == 0);
+        strictlyUnanalysableCheckbox.setSelected(developerFilter == 1);
+        commandIgnoredCheckbox.setSelected(developerFilter == 2);
+        spawnEggsCheckbox.setSelected(developerFilter == 3);
+    }
+
     private void sortEntries() {
         if (sortByModCheckbox != null && sortByModCheckbox.selected()) {
             entries.sort(Comparator.comparing((Entry e) -> modSortKey(e.sortNamespace()))
@@ -498,7 +619,12 @@ public class RegistrarScreen extends AbstractContainerScreen<RegistrarMenu> {
         if (query.isEmpty()) return;
 
         if (query.startsWith("#")) {
-            applyTagFilter(query.substring(1).trim());
+            String tagQuery = query.substring(1).trim();
+            if (developerMode && developerFilter == 3) {
+                applyEntityTagFilter(tagQuery);
+            } else {
+                applyTagFilter(tagQuery);
+            }
             return;
         }
         if (query.startsWith("@")) {
@@ -558,6 +684,38 @@ public class RegistrarScreen extends AbstractContainerScreen<RegistrarMenu> {
         entries.removeIf(entry -> {
             for (TagKey<Item> tag : tags) {
                 if (entry.stack().is(tag)) return false;
+            }
+            return true;
+        });
+    }
+
+    private void applyEntityTagFilter(String tagQuery) {
+        if (tagQuery.isEmpty()) {
+            entries.clear();
+            return;
+        }
+        List<TagKey<EntityType<?>>> tags = new ArrayList<>();
+        if (tagQuery.contains(":")) {
+            ResourceLocation id = ResourceLocation.tryParse(tagQuery);
+            if (id != null) {
+                tags.add(TagKey.create(Registries.ENTITY_TYPE, id));
+            }
+        } else {
+            BuiltInRegistries.ENTITY_TYPE.getTags()
+                    .map(Pair::getFirst)
+                    .filter(tag -> tag.location().getPath().equals(tagQuery))
+                    .forEach(tags::add);
+        }
+        if (tags.isEmpty()) {
+            entries.clear();
+            return;
+        }
+        entries.removeIf(entry -> {
+            if (entry.stack().getItem() instanceof SpawnEggItem spawnEggItem) {
+                EntityType<?> entityType = spawnEggItem.getType(entry.stack());
+                for (TagKey<EntityType<?>> tag : tags) {
+                    if (entityType.is(tag)) return false;
+                }
             }
             return true;
         });
@@ -735,6 +893,8 @@ public class RegistrarScreen extends AbstractContainerScreen<RegistrarMenu> {
         graphics.drawString(this.font, text, 0, 0, 0xFFFFFF, false);
         graphics.pose().popPose();
 
+        if (developerMode) return;
+
         int w = Math.round(textWidth * PAGE_SCALE);
         int h = Math.round(this.font.lineHeight * PAGE_SCALE);
         if (mouseX >= x && mouseX < x + w && mouseY >= y && mouseY < y + h) {
@@ -805,6 +965,18 @@ public class RegistrarScreen extends AbstractContainerScreen<RegistrarMenu> {
     }
 
     private void renderCheckboxTooltips(GuiGraphics graphics, int mouseX, int mouseY) {
+        if (developerMode) {
+            if (normalUnanalysableCheckbox.isHovered()) {
+                graphics.renderTooltip(this.font, Component.translatable("gui.elemenix.registrar.dev_normal_unanalysable"), mouseX, mouseY);
+            } else if (strictlyUnanalysableCheckbox.isHovered()) {
+                graphics.renderTooltip(this.font, Component.translatable("gui.elemenix.registrar.dev_strictly_unanalysable"), mouseX, mouseY);
+            } else if (commandIgnoredCheckbox.isHovered()) {
+                graphics.renderTooltip(this.font, Component.translatable("gui.elemenix.registrar.dev_command_ignored"), mouseX, mouseY);
+            } else if (spawnEggsCheckbox.isHovered()) {
+                graphics.renderTooltip(this.font, Component.translatable("gui.elemenix.registrar.dev_spawn_eggs"), mouseX, mouseY);
+            }
+            return;
+        }
         if (showUncollectedCheckbox.isHovered()) {
             graphics.renderTooltip(this.font, Component.translatable("gui.elemenix.registrar.show_uncollected"), mouseX, mouseY);
         } else if (putUncollectedLastCheckbox.isHovered()) {
@@ -842,10 +1014,14 @@ public class RegistrarScreen extends AbstractContainerScreen<RegistrarMenu> {
     private void updateWidgetsVisibility() {
         boolean list = detailStack.isEmpty();
         searchBox.visible = list;
-        showUncollectedCheckbox.visible = list;
-        putUncollectedLastCheckbox.visible = list;
-        sortByModCheckbox.visible = list;
-        showPotionlikeCheckbox.visible = list;
+        showUncollectedCheckbox.visible = list && !developerMode;
+        putUncollectedLastCheckbox.visible = list && !developerMode;
+        sortByModCheckbox.visible = list && !developerMode;
+        showPotionlikeCheckbox.visible = list && !developerMode;
+        normalUnanalysableCheckbox.visible = list && developerMode;
+        strictlyUnanalysableCheckbox.visible = list && developerMode;
+        commandIgnoredCheckbox.visible = list && developerMode;
+        spawnEggsCheckbox.visible = list && developerMode;
         prevButton.visible = list;
         nextButton.visible = list;
         backButton.visible = !list;
@@ -885,12 +1061,20 @@ public class RegistrarScreen extends AbstractContainerScreen<RegistrarMenu> {
 
     private void renderConstituents(GuiGraphics graphics, ItemStack stack, int yOffset) {
         Constituents constituents = ElemenixInfo.getConstituents(stack);
-        if (constituents == null || constituents.isUnanalysable()) return;
+        if (constituents == null) return;
 
-        String title = Component.translatable("gui.elemenix.registrar.constituents").getString();
-        ScaledText.renderCentered(graphics, this.font, title, 0.9f, leftPos + CONSTITUENTS_TITLE_CENTER_X, topPos + CONSTITUENTS_TITLE_Y + yOffset, 0x404040, false);
+        renderConstituentsTitle(graphics, yOffset);
 
         Elemenix[] order = {Elemenix.ORGANIX, Elemenix.TERRIX, Elemenix.FLUMIX, Elemenix.METALLIX, Elemenix.ENERGIX, Elemenix.ARCANIX};
+        if (constituents.isUnanalysable()) {
+            String questionMarks = Component.translatable("gui.elemenix.uncollected").getString();
+            for (int i = 0; i < order.length; i++) {
+                ScaledText.Fit fit = ScaledText.Fit.of(this.font, questionMarks, CONSTITUENTS_MAX_WIDTH, CONSTITUENTS_MIN_SCALE);
+                ScaledText.render(graphics, this.font, fit, leftPos + CONSTITUENTS_X, topPos + CONSTITUENTS_START_Y + i * CONSTITUENTS_GAP + yOffset, 0xFF3333, false);
+            }
+            return;
+        }
+
         for (int i = 0; i < order.length; i++) {
             Elemenix e = order[i];
             long value = constituents.get(e);
@@ -898,6 +1082,12 @@ public class RegistrarScreen extends AbstractContainerScreen<RegistrarMenu> {
             ScaledText.Fit fit = ScaledText.Fit.of(this.font, text, CONSTITUENTS_MAX_WIDTH, CONSTITUENTS_MIN_SCALE);
             ScaledText.render(graphics, this.font, fit, leftPos + CONSTITUENTS_X, topPos + CONSTITUENTS_START_Y + i * CONSTITUENTS_GAP + yOffset, e.getColor(), false);
         }
+    }
+
+    private void renderConstituentsTitle(GuiGraphics graphics, int yOffset) {
+        String title = Component.translatable("gui.elemenix.registrar.constituents").getString();
+        float scale = Math.min(0.9f, (float) CONSTITUENTS_TITLE_MAX_WIDTH / this.font.width(title));
+        ScaledText.renderCentered(graphics, this.font, title, scale, leftPos + CONSTITUENTS_TITLE_CENTER_X, topPos + CONSTITUENTS_TITLE_Y + yOffset, 0x404040, false);
     }
 
     private void renderIcons(GuiGraphics graphics, List<IconEntry> icons, int mouseX, int mouseY) {
@@ -1060,6 +1250,7 @@ public class RegistrarScreen extends AbstractContainerScreen<RegistrarMenu> {
             icons.add(new IconEntry(12, 24, List.of(Component.translatable("gui.elemenix.registrar.fireproof"))));
         }
 
+        List<Component> trimMobTooltip = new ArrayList<>();
         if (stack.is(ItemTags.TRIM_MATERIALS)) {
             Minecraft minecraft = Minecraft.getInstance();
             if (minecraft.level != null) {
@@ -1069,9 +1260,19 @@ public class RegistrarScreen extends AbstractContainerScreen<RegistrarMenu> {
                     TextColor textColor = trimMaterial.get().value().description().getStyle().getColor();
                     int trimColor = textColor != null ? textColor.getValue() : 0xFFFFFF;
                     Component colorBlock = Component.literal("■").withColor(trimColor);
-                    icons.add(new IconEntry(24, 24, List.of(Component.translatable("gui.elemenix.registrar.trim_color", colorBlock))));
+                    trimMobTooltip.add(Component.translatable("gui.elemenix.registrar.trim_color", colorBlock));
                 }
             }
+        }
+        if (stack.getItem() instanceof SpawnEggItem spawnEggItem) {
+            EntityType<?> entityType = spawnEggItem.getType(stack);
+            if (!trimMobTooltip.isEmpty()) {
+                trimMobTooltip.add(Component.empty());
+            }
+            trimMobTooltip.add(Component.translatable("gui.elemenix.registrar.mob", entityType.getDescription()));
+        }
+        if (!trimMobTooltip.isEmpty()) {
+            icons.add(new IconEntry(24, 24, trimMobTooltip));
         }
 
         return icons;
@@ -1201,7 +1402,7 @@ public class RegistrarScreen extends AbstractContainerScreen<RegistrarMenu> {
     }
 
     private void renderTagArea(GuiGraphics graphics, int mouseX, int mouseY) {
-        List<ResourceLocation> tags = getSortedTags();
+        List<TagInfo> tags = getSortedTags();
         int visible = TAG_AREA_H / TAG_ROW_H;
         int maxScroll = Math.max(0, tags.size() - visible);
         if (tagScroll > maxScroll) tagScroll = maxScroll;
@@ -1223,27 +1424,30 @@ public class RegistrarScreen extends AbstractContainerScreen<RegistrarMenu> {
             return;
         }
 
-        ResourceLocation hoveredTag = null;
+        TagInfo hoveredTag = null;
         for (int i = 0; i < visible; i++) {
             int tagIndex = tagScroll + i;
             if (tagIndex >= tags.size()) break;
-            ResourceLocation tag = tags.get(tagIndex);
+            TagInfo info = tags.get(tagIndex);
             int rowY = listY + i * TAG_ROW_H;
             boolean hovered = mouseX >= listX && mouseX < listX + listW + 1 && mouseY >= rowY && mouseY < rowY + TAG_ROW_H;
 
-            graphics.fill(listX, rowY, listX + listW + 1, rowY + TAG_ROW_H, (tagIndex % 2 == 0) ? 0x10000000 : 0x34000000);
+            int bgColor = info.entity()
+                    ? ((tagIndex % 2 == 0) ? 0x14142240 : 0x38304068)
+                    : ((tagIndex % 2 == 0) ? 0x10000000 : 0x34000000);
+            graphics.fill(listX, rowY, listX + listW + 1, rowY + TAG_ROW_H, bgColor);
             if (hovered) {
                 graphics.fill(listX, rowY, listX + listW + 1, rowY + TAG_ROW_H, 0x30FFFFFF);
-                hoveredTag = tag;
+                hoveredTag = info;
             }
 
-            Item item = getTagRepresentative(tag);
-            if (item != null) {
-                renderSmallItem(graphics, new ItemStack(item), listX + 2, rowY + 1);
+            ItemStack icon = getTagRepresentativeIcon(info);
+            if (!icon.isEmpty()) {
+                renderSmallItem(graphics, icon, listX + 2, rowY + 1);
             } else {
                 renderSmallQuestionMark(graphics, listX + 2, rowY + 1);
             }
-            String text = ModUtils.truncateToWidth(this.font, getTagName(tag), TAG_TEXT_MAX_WIDTH);
+            String text = ModUtils.truncateToWidth(this.font, getTagName(info), TAG_TEXT_MAX_WIDTH);
             ScaledText.render(graphics, this.font, ScaledText.Fit.fixed(text, TAG_TEXT_SCALE), listX + TAG_ICON_SIZE + 5, rowY + 4, 0xFFE0E0E0, false);
         }
 
@@ -1252,10 +1456,13 @@ public class RegistrarScreen extends AbstractContainerScreen<RegistrarMenu> {
         if (hoveredTag != null) {
             String tagName = getTagName(hoveredTag);
             String shownText = ModUtils.truncateToWidth(this.font, tagName, TAG_TEXT_MAX_WIDTH);
-            if (!tagName.equals(hoveredTag.toString()) && !tagName.equals(shownText)) {
-                graphics.renderTooltip(this.font, Component.literal(tagName), mouseX, mouseY);
+            if (!tagName.equals(hoveredTag.tag().toString()) && !tagName.equals(shownText)) {
+                graphics.renderTooltip(this.font, List.of(
+                        Component.literal(tagName),
+                        Component.literal(hoveredTag.tag().toString())
+                ), Optional.empty(), mouseX, mouseY);
             } else {
-                graphics.renderTooltip(this.font, Component.literal(hoveredTag.toString()), mouseX, mouseY);
+                graphics.renderTooltip(this.font, Component.literal(hoveredTag.tag().toString()), mouseX, mouseY);
             }
         }
     }
@@ -1295,7 +1502,7 @@ public class RegistrarScreen extends AbstractContainerScreen<RegistrarMenu> {
         String description = getDescription(detailStack);
         if (description == null || description.isEmpty()) {
             String text = Component.translatable("gui.elemenix.registrar.no_description").getString();
-            List<String> lines = wrapDescription(text, DESCRIPTION_TEXT_MAX_WIDTH);
+            List<String> lines = ScaledText.wrap(this.font, text, DESCRIPTION_TEXT_MAX_WIDTH);
             int lineHeight = this.font.lineHeight;
             int totalHeight = lines.size() * lineHeight;
             int startY = areaY + (DESCRIPTION_H - totalHeight) / 2;
@@ -1446,60 +1653,142 @@ public class RegistrarScreen extends AbstractContainerScreen<RegistrarMenu> {
         };
     }
 
-    private List<ResourceLocation> getSortedTags() {
-        return detailStack.getTags()
+    private List<TagInfo> getSortedTags() {
+        List<TagInfo> tags = new ArrayList<>();
+        detailStack.getTags()
                 .map(TagKey::location)
-                .sorted(Comparator.comparing((ResourceLocation tag) -> namespaceKey(tag.getNamespace()))
-                        .thenComparing(ResourceLocation::getPath))
-                .toList();
+                .map(tag -> new TagInfo(tag, false))
+                .forEach(tags::add);
+        if (detailStack.getItem() instanceof SpawnEggItem spawnEggItem) {
+            EntityType<?> entityType = spawnEggItem.getType(detailStack);
+            entityType.getTags()
+                    .map(TagKey::location)
+                    .map(tag -> new TagInfo(tag, true))
+                    .forEach(tags::add);
+        }
+        tags.sort(Comparator.comparing((TagInfo t) -> t.entity() ? 0 : 1)
+                .thenComparing(t -> namespaceKey(t.tag().getNamespace()))
+                .thenComparing(t -> t.tag().getPath()));
+        return tags;
     }
 
-    private static String getTagName(ResourceLocation tag) {
-        String key = "tag.item." + tag.getNamespace() + "." + tag.getPath();
+    private record TagInfo(ResourceLocation tag, boolean entity) {}
+
+    private static String getTagName(TagInfo info) {
+        String prefix = info.entity() ? "tag.entity_type." : "tag.item.";
+        String namespace = info.tag().getNamespace();
+        String path = info.tag().getPath();
+        String key = prefix + namespace + "." + path;
         if (I18n.exists(key)) {
             return I18n.get(key);
         }
-        return tag.toString();
-    }
-
-    private static Item getTagRepresentative(ResourceLocation tag) {
-        Map<ResourceLocation, Item> map = getTagRepresentatives();
-        return map.get(tag);
-    }
-
-    private static Map<ResourceLocation, Item> tagRepresentatives;
-
-    private static Map<ResourceLocation, Item> getTagRepresentatives() {
-        if (tagRepresentatives == null) {
-            tagRepresentatives = loadTagRepresentatives();
+        if (path.contains("/")) {
+            key = prefix + namespace + "." + path.replace('/', '.');
+            if (I18n.exists(key)) {
+                return I18n.get(key);
+            }
         }
-        return tagRepresentatives;
+        return info.tag().toString();
     }
 
-    private static Map<ResourceLocation, Item> loadTagRepresentatives() {
+    private static ItemStack getTagRepresentativeIcon(TagInfo info) {
+        if (info.entity()) {
+            ItemStack icon = getEntityTagRepresentatives().get(info.tag());
+            return icon != null ? icon : ItemStack.EMPTY;
+        }
+        Item item = getItemTagRepresentatives().get(info.tag());
+        return item != null ? new ItemStack(item) : ItemStack.EMPTY;
+    }
+
+    private static Map<ResourceLocation, Item> itemTagRepresentatives;
+
+    private static Map<ResourceLocation, Item> getItemTagRepresentatives() {
+        if (itemTagRepresentatives == null) {
+            itemTagRepresentatives = loadItemTagRepresentatives();
+        }
+        return itemTagRepresentatives;
+    }
+
+    private static Map<ResourceLocation, ItemStack> entityTagRepresentatives;
+
+    private static Map<ResourceLocation, ItemStack> getEntityTagRepresentatives() {
+        if (entityTagRepresentatives == null) {
+            entityTagRepresentatives = loadEntityTagRepresentatives();
+        }
+        return entityTagRepresentatives;
+    }
+
+    private static Map<ResourceLocation, Item> loadItemTagRepresentatives() {
+        return loadItemRepresentatives(ResourceLocation.fromNamespaceAndPath("elemenix", "representatives/item.json"));
+    }
+
+    private static Map<ResourceLocation, Item> loadItemRepresentatives(ResourceLocation location) {
         Map<ResourceLocation, Item> map = new HashMap<>();
         Minecraft minecraft = Minecraft.getInstance();
-        Optional<Resource> resource = minecraft.getResourceManager()
-                .getResource(ResourceLocation.fromNamespaceAndPath("elemenix", "misc/tag_representatives.json"));
-        if (resource.isEmpty()) return map;
-        try (Reader reader = resource.get().openAsReader()) {
-            JsonObject json = JsonParser.parseReader(reader).getAsJsonObject();
-            for (Map.Entry<String, JsonElement> entry : json.entrySet()) {
-                ResourceLocation tagId = ResourceLocation.tryParse(entry.getKey());
-                if (tagId == null) continue;
-                for (String candidate : parseCandidates(entry.getValue())) {
-                    ResourceLocation itemId = ResourceLocation.tryParse(candidate);
-                    if (itemId == null) continue;
-                    Item item = BuiltInRegistries.ITEM.get(itemId);
-                    if (item != Items.AIR) {
-                        map.put(tagId, item);
-                        break;
+        for (Resource resource : minecraft.getResourceManager().getResourceStack(location)) {
+            try (Reader reader = resource.openAsReader()) {
+                JsonObject json = JsonParser.parseReader(reader).getAsJsonObject();
+                if (json.has("replace") && json.get("replace").getAsBoolean()) {
+                    map.clear();
+                }
+                for (Map.Entry<String, JsonElement> entry : json.entrySet()) {
+                    if (entry.getKey().equals("replace")) continue;
+                    ResourceLocation tagId = ResourceLocation.tryParse(entry.getKey());
+                    if (tagId == null) continue;
+                    for (String candidate : parseCandidates(entry.getValue())) {
+                        ResourceLocation itemId = ResourceLocation.tryParse(candidate);
+                        if (itemId == null) continue;
+                        Item item = BuiltInRegistries.ITEM.get(itemId);
+                        if (item != Items.AIR) {
+                            map.put(tagId, item);
+                            break;
+                        }
                     }
                 }
+            } catch (Exception ignored) {
             }
-        } catch (Exception ignored) {
         }
         return map;
+    }
+
+    private static Map<ResourceLocation, ItemStack> loadEntityTagRepresentatives() {
+        Map<ResourceLocation, ItemStack> map = new HashMap<>();
+        Minecraft minecraft = Minecraft.getInstance();
+        ResourceLocation location = ResourceLocation.fromNamespaceAndPath("elemenix", "representatives/entity.json");
+        for (Resource resource : minecraft.getResourceManager().getResourceStack(location)) {
+            try (Reader reader = resource.openAsReader()) {
+                JsonObject json = JsonParser.parseReader(reader).getAsJsonObject();
+                if (json.has("replace") && json.get("replace").getAsBoolean()) {
+                    map.clear();
+                }
+                for (Map.Entry<String, JsonElement> entry : json.entrySet()) {
+                    if (entry.getKey().equals("replace")) continue;
+                    ResourceLocation tagId = ResourceLocation.tryParse(entry.getKey());
+                    if (tagId == null) continue;
+                    for (String candidate : parseCandidates(entry.getValue())) {
+                        ItemStack icon = resolveEntityRepresentative(candidate);
+                        if (icon != null) {
+                            map.put(tagId, icon);
+                            break;
+                        }
+                    }
+                }
+            } catch (Exception ignored) {
+            }
+        }
+        return map;
+    }
+
+    @Nullable
+    private static ItemStack resolveEntityRepresentative(String candidate) {
+        ResourceLocation id = ResourceLocation.tryParse(candidate);
+        if (id == null) return null;
+        EntityType<?> entityType = BuiltInRegistries.ENTITY_TYPE.get(id);
+        SpawnEggItem egg = SpawnEggItem.byId(entityType);
+        if (egg != null) return new ItemStack(egg);
+        Item item = BuiltInRegistries.ITEM.get(id);
+        if (item != Items.AIR) return new ItemStack(item);
+        return null;
     }
 
     private static List<String> parseCandidates(JsonElement element) {
@@ -1519,6 +1808,13 @@ public class RegistrarScreen extends AbstractContainerScreen<RegistrarMenu> {
             }
         }
         return candidates;
+    }
+
+    private boolean isOverGrid(int mouseX, int mouseY) {
+        int relX = mouseX - (leftPos + GRID_X + GRID_PAD);
+        int relY = mouseY - (topPos + GRID_Y + GRID_PAD);
+        if (relX < 0 || relY < 0) return false;
+        return relX / SLOT_W < COLS && relY / SLOT_H < ROWS;
     }
 
     private int getHoveredIndex(int mouseX, int mouseY) {

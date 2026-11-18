@@ -7,6 +7,7 @@ import net.lghast.elemenix.common.content.item.RemoteStorageItem;
 import net.lghast.elemenix.common.system.datacomponent.ElemenicStorage;
 import net.lghast.elemenix.common.system.datacomponent.RemoteStorageBinding;
 import net.lghast.elemenix.common.system.menu.AnalyzerMenu;
+import net.lghast.elemenix.common.system.menu.HintSlot;
 import net.lghast.elemenix.network.analyzer.DeconstructionPayload;
 import net.lghast.elemenix.network.infuser.RequestInfuserUpdatePayload;
 import net.lghast.elemenix.register.content.ModItems;
@@ -26,6 +27,7 @@ import net.minecraft.core.GlobalPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
@@ -155,10 +157,18 @@ public class AnalyzerScreen extends AbstractContainerScreen<AnalyzerMenu> {
         this.renderBackground(graphics, mouseX, mouseY, partialTick);
         super.render(graphics, mouseX, mouseY, partialTick);
         renderHoverPreview(graphics, mouseX, mouseY);
+        renderEmptySlotHints(graphics, mouseX, mouseY);
         this.renderTooltip(graphics, mouseX, mouseY);
 
         if (memoryListWidget != null) {
             memoryListWidget.forceUpdate();
+        }
+    }
+
+    private void renderEmptySlotHints(GuiGraphics graphics, int mouseX, int mouseY) {
+        Slot slot = this.getSlotUnderMouse();
+        if (slot instanceof HintSlot hintSlot && !slot.hasItem()) {
+            graphics.renderTooltip(this.font, hintSlot.getHint(), mouseX, mouseY);
         }
     }
 
