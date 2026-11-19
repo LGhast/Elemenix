@@ -1950,6 +1950,14 @@
       "required": false
     },
     {
+      "id": "goety:grave_cube_spawn_egg",
+      "required": false
+    },
+    {
+      "id": "goety:grave_monstrosity_spawn_egg",
+      "required": false
+    },
+    {
       "id": "goetydelight:ghost_farmer_spawn_egg",
       "required": false
     }

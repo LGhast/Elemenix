@@ -1,0 +1,7 @@
+{
+  "neoforge:boats": "minecraft:oak_boat",
+  "neoforge:bosses": "minecraft:ender_dragon",
+  "neoforge:capturing_not_supported": "minecraft:barrier",
+  "neoforge:minecarts": "minecraft:minecart",
+  "neoforge:teleporting_not_supported": "minecraft:barrier"
+}

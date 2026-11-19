@@ -1719,13 +1719,12 @@ public class RegistrarScreen extends AbstractContainerScreen<RegistrarMenu> {
     }
 
     private static Map<ResourceLocation, Item> loadItemTagRepresentatives() {
-        return loadItemRepresentatives(ResourceLocation.fromNamespaceAndPath("elemenix", "representatives/item.json"));
+        return loadItemRepresentatives();
     }
 
-    private static Map<ResourceLocation, Item> loadItemRepresentatives(ResourceLocation location) {
+    private static Map<ResourceLocation, Item> loadItemRepresentatives() {
         Map<ResourceLocation, Item> map = new HashMap<>();
-        Minecraft minecraft = Minecraft.getInstance();
-        for (Resource resource : minecraft.getResourceManager().getResourceStack(location)) {
+        for (Resource resource : getRepresentativeResources("item.json")) {
             try (Reader reader = resource.openAsReader()) {
                 JsonObject json = JsonParser.parseReader(reader).getAsJsonObject();
                 if (json.has("replace") && json.get("replace").getAsBoolean()) {
@@ -1753,9 +1752,7 @@ public class RegistrarScreen extends AbstractContainerScreen<RegistrarMenu> {
 
     private static Map<ResourceLocation, ItemStack> loadEntityTagRepresentatives() {
         Map<ResourceLocation, ItemStack> map = new HashMap<>();
-        Minecraft minecraft = Minecraft.getInstance();
-        ResourceLocation location = ResourceLocation.fromNamespaceAndPath("elemenix", "representatives/entity.json");
-        for (Resource resource : minecraft.getResourceManager().getResourceStack(location)) {
+        for (Resource resource : getRepresentativeResources("entity.json")) {
             try (Reader reader = resource.openAsReader()) {
                 JsonObject json = JsonParser.parseReader(reader).getAsJsonObject();
                 if (json.has("replace") && json.get("replace").getAsBoolean()) {
@@ -1777,6 +1774,18 @@ public class RegistrarScreen extends AbstractContainerScreen<RegistrarMenu> {
             }
         }
         return map;
+    }
+
+    private static List<Resource> getRepresentativeResources(String fileName) {
+        List<Resource> resources = new ArrayList<>();
+        Minecraft minecraft = Minecraft.getInstance();
+        List<String> namespaces = new ArrayList<>(minecraft.getResourceManager().getNamespaces());
+        namespaces.sort(Comparator.naturalOrder());
+        for (String namespace : namespaces) {
+            ResourceLocation location = ResourceLocation.fromNamespaceAndPath(namespace, "representatives/" + fileName);
+            resources.addAll(minecraft.getResourceManager().getResourceStack(location));
+        }
+        return resources;
     }
 
     @Nullable
