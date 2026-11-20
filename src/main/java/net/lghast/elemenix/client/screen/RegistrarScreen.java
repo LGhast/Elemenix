@@ -5,6 +5,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.datafixers.util.Pair;
+import net.lghast.elemenix.client.Palette;
 import net.lghast.elemenix.client.cache.ClientRegistrarCache;
 import net.lghast.elemenix.client.render.ItemIconRenderer;
 import net.lghast.elemenix.client.render.ScaledText;
@@ -33,6 +34,7 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.network.chat.TextColor;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
@@ -90,7 +92,7 @@ public class RegistrarScreen extends AbstractContainerScreen<RegistrarMenu> {
     private static final int TITLE_LINE_Y = 27;
     private static final float TITLE_SCALE = 1.5f;
     private static final int TITLE_MAX_WIDTH = TITLE_LINE_X2 - TITLE_LINE_X1 - 8;
-    private static final int TITLE_COLOR = 0x000000;
+    private static final int TITLE_COLOR = Palette.BLACK;
 
     private static final int SEARCH_X = 154;
     private static final int SEARCH_Y = 20;
@@ -228,7 +230,7 @@ public class RegistrarScreen extends AbstractContainerScreen<RegistrarMenu> {
             int u = left ? 0 : BTN_W;
             graphics.blit(BUTTON_TEXTURE, getX(), getY(), u, 0, BTN_W, BTN_H, BTN_W * 2, BTN_H);
             if (isHovered()) {
-                graphics.fill(getX(), getY(), getX() + BTN_W, getY() + BTN_H, 0x22FFFFFF);
+                graphics.fill(getX(), getY(), getX() + BTN_W, getY() + BTN_H, Palette.HIGHLIGHT);
             }
         }
     }
@@ -245,7 +247,7 @@ public class RegistrarScreen extends AbstractContainerScreen<RegistrarMenu> {
         public void renderWidget(@NotNull GuiGraphics graphics, int mouseX, int mouseY, float partialTick) {
             graphics.blit(CROSS_TEXTURE, getX(), getY(), 0, 0, BACK_BTN_SIZE, BACK_BTN_SIZE, BACK_BTN_SIZE, BACK_BTN_SIZE);
             if (isHovered()) {
-                graphics.fill(getX(), getY(), getX() + BACK_BTN_SIZE, getY() + BACK_BTN_SIZE, 0x22FFFFFF);
+                graphics.fill(getX(), getY(), getX() + BACK_BTN_SIZE, getY() + BACK_BTN_SIZE, Palette.HIGHLIGHT);
             }
         }
     }
@@ -925,7 +927,7 @@ public class RegistrarScreen extends AbstractContainerScreen<RegistrarMenu> {
         graphics.pose().pushPose();
         graphics.pose().translate(x, y, 0.0F);
         graphics.pose().scale(PAGE_SCALE, PAGE_SCALE, 1.0F);
-        graphics.drawString(this.font, text, 0, 0, 0xFFFFFF, false);
+        graphics.drawString(this.font, text, 0, 0, Palette.WHITE, false);
         graphics.pose().popPose();
 
         if (developerMode) return;
@@ -955,7 +957,7 @@ public class RegistrarScreen extends AbstractContainerScreen<RegistrarMenu> {
         if (searchBox.getValue().isEmpty() && !searchBox.isFocused()) {
             graphics.drawString(this.font,
                     Component.translatable("gui.elemenix.registrar.search"),
-                    leftPos + SEARCH_X + 4, topPos + SEARCH_Y + 2, 0xFF707070, false);
+                    leftPos + SEARCH_X + 4, topPos + SEARCH_Y + 2, Palette.TEXT_SEARCH, false);
         }
     }
 
@@ -974,7 +976,7 @@ public class RegistrarScreen extends AbstractContainerScreen<RegistrarMenu> {
 
             graphics.blit(ITEM_BACKGROUND_TEXTURE, itemX - 1, itemY - 1, 0, 0, 18, 18, 18, 18);
             if (i == hovered) {
-                graphics.fill(itemX - 1, itemY - 1, itemX + 17, itemY + 17, 0x50FFFFFF);
+                graphics.fill(itemX - 1, itemY - 1, itemX + 17, itemY + 17, Palette.HIGHLIGHT_SOFT);
             }
             if (entry.collected() || ClientConfig.SHOW_UNCOLLECTED_ICON.get()) {
                 ItemIconRenderer.render(graphics, entry.stack(), itemX, itemY);
@@ -1081,16 +1083,16 @@ public class RegistrarScreen extends AbstractContainerScreen<RegistrarMenu> {
 
         float nameScale = computeTextScale(name, true);
         ScaledText.Fit nameFit = ScaledText.Fit.atScale(this.font, name, BASIC_INFO_MAX_WIDTH, nameScale, true);
-        ScaledText.render(graphics, this.font, nameFit, infoX, topPos + BASIC_INFO_Y - 1 + yOffset, 0x404040, false);
+        ScaledText.render(graphics, this.font, nameFit, infoX, topPos + BASIC_INFO_Y - 1 + yOffset, Palette.TEXT_COMMON, false);
         ScaledText.renderTooltip(graphics, this.font, nameFit, infoX, topPos + BASIC_INFO_Y - 1 + yOffset, mouseX, mouseY);
 
         float infoScale = Math.min(computeTextScale(source, false), computeTextScale(stackSize, false));
         infoScale = Math.min(infoScale, nameScale);
         ScaledText.Fit sourceFit = ScaledText.Fit.atScale(this.font, source, BASIC_INFO_MAX_WIDTH, infoScale, false);
         ScaledText.Fit stackFit = ScaledText.Fit.atScale(this.font, stackSize, BASIC_INFO_MAX_WIDTH, infoScale, false);
-        int sourceColor = isSourceHovered(mouseX, mouseY, yOffset) ? 0x808080 : 0x404040;
+        int sourceColor = isSourceHovered(mouseX, mouseY, yOffset) ? Palette.TEXT_HOVER : Palette.TEXT_COMMON;
         ScaledText.render(graphics, this.font, sourceFit, infoX, topPos + BASIC_INFO_Y + 11 + yOffset, sourceColor, false);
-        ScaledText.render(graphics, this.font, stackFit, infoX, topPos + BASIC_INFO_Y + 21 + yOffset, 0x404040, false);
+        ScaledText.render(graphics, this.font, stackFit, infoX, topPos + BASIC_INFO_Y + 21 + yOffset, Palette.TEXT_COMMON, false);
         ScaledText.renderTooltip(graphics, this.font, sourceFit, infoX, topPos + BASIC_INFO_Y + 11 + yOffset, mouseX, mouseY);
         ScaledText.renderTooltip(graphics, this.font, stackFit, infoX, topPos + BASIC_INFO_Y + 21 + yOffset, mouseX, mouseY);
     }
@@ -1106,7 +1108,7 @@ public class RegistrarScreen extends AbstractContainerScreen<RegistrarMenu> {
             String questionMarks = Component.translatable("gui.elemenix.uncollected").getString();
             for (int i = 0; i < order.length; i++) {
                 ScaledText.Fit fit = ScaledText.Fit.of(this.font, questionMarks, CONSTITUENTS_MAX_WIDTH, CONSTITUENTS_MIN_SCALE);
-                ScaledText.render(graphics, this.font, fit, leftPos + CONSTITUENTS_X, topPos + CONSTITUENTS_START_Y + i * CONSTITUENTS_GAP + yOffset, 0xFF3333, false);
+                ScaledText.render(graphics, this.font, fit, leftPos + CONSTITUENTS_X, topPos + CONSTITUENTS_START_Y + i * CONSTITUENTS_GAP + yOffset, Palette.WARN, false);
             }
             return;
         }
@@ -1123,7 +1125,7 @@ public class RegistrarScreen extends AbstractContainerScreen<RegistrarMenu> {
     private void renderConstituentsTitle(GuiGraphics graphics, int yOffset) {
         String title = Component.translatable("gui.elemenix.registrar.constituents").getString();
         float scale = Math.min(0.9f, (float) CONSTITUENTS_TITLE_MAX_WIDTH / this.font.width(title));
-        ScaledText.renderCentered(graphics, this.font, title, scale, leftPos + CONSTITUENTS_TITLE_CENTER_X, topPos + CONSTITUENTS_TITLE_Y + yOffset, 0x404040, false);
+        ScaledText.renderCentered(graphics, this.font, title, scale, leftPos + CONSTITUENTS_TITLE_CENTER_X, topPos + CONSTITUENTS_TITLE_Y + yOffset, Palette.TEXT_COMMON, false);
     }
 
     private void renderIcons(GuiGraphics graphics, List<IconEntry> icons, int mouseX, int mouseY) {
@@ -1140,7 +1142,7 @@ public class RegistrarScreen extends AbstractContainerScreen<RegistrarMenu> {
         for (IconEntry icon : display) {
             graphics.blit(ICONS_TEXTURE, x, y, icon.u(), icon.v(), ICON_SIZE, ICON_SIZE, 48, 36);
             if (mouseX >= x && mouseX < x + ICON_SIZE && mouseY >= y && mouseY < y + ICON_SIZE) {
-                graphics.fill(x, y, x + ICON_SIZE, y + ICON_SIZE, 0x50FFFFFF);
+                graphics.fill(x, y, x + ICON_SIZE, y + ICON_SIZE, Palette.HIGHLIGHT);
                 hovered = icon;
             }
             x += ICONS_GAP;
@@ -1181,14 +1183,14 @@ public class RegistrarScreen extends AbstractContainerScreen<RegistrarMenu> {
         if (stack.isEnchantable()) {
             List<Component> tooltip = new ArrayList<>();
             tooltip.add(Component.translatable("gui.elemenix.registrar.enchantability", stack.getEnchantmentValue()));
-            List<String> enchantNames = getEnchantmentNames(stack);
-            if (enchantNames.size() == 1) {
+            List<Holder.Reference<Enchantment>> enchantments = getEnchantments(stack);
+            if (enchantments.size() == 1) {
                 tooltip.add(Component.translatable("gui.elemenix.registrar.enchantments")
-                        .append(Component.literal(enchantNames.getFirst()).withStyle(ChatFormatting.LIGHT_PURPLE)));
-            } else if (enchantNames.size() > 1) {
+                        .append(coloredEnchantmentName(enchantments.getFirst())));
+            } else if (enchantments.size() > 1) {
                 tooltip.add(Component.translatable("gui.elemenix.registrar.enchantments"));
-                for (String name : enchantNames) {
-                    tooltip.add(Component.literal(name).withStyle(ChatFormatting.LIGHT_PURPLE));
+                for (Holder<Enchantment> holder : enchantments) {
+                    tooltip.add(coloredEnchantmentName(holder));
                 }
             }
             icons.add(new IconEntry(24, 0, tooltip));
@@ -1207,12 +1209,12 @@ public class RegistrarScreen extends AbstractContainerScreen<RegistrarMenu> {
         PotionContents potionContents = stack.get(DataComponents.POTION_CONTENTS);
         if (potionContents != null) {
             for (MobEffectInstance effect : potionContents.getAllEffects()) {
-                effectLines.add(Component.literal(formatEffect(effect)));
+                effectLines.add(formatEffect(effect));
             }
         }
         if (food != null) {
             for (FoodProperties.PossibleEffect possible : food.effects()) {
-                effectLines.add(Component.literal(formatEffect(possible.effect())));
+                effectLines.add(formatEffect(possible.effect()));
             }
         }
         if (!effectLines.isEmpty()) {
@@ -1294,7 +1296,7 @@ public class RegistrarScreen extends AbstractContainerScreen<RegistrarMenu> {
                         TrimMaterials.getFromIngredient(minecraft.level.registryAccess(), stack);
                 if (trimMaterial.isPresent()) {
                     TextColor textColor = trimMaterial.get().value().description().getStyle().getColor();
-                    int trimColor = textColor != null ? textColor.getValue() : 0xFFFFFF;
+                    int trimColor = textColor != null ? textColor.getValue() : Palette.WHITE;
                     Component colorBlock = Component.literal("■").withColor(trimColor);
                     trimMobTooltip.add(Component.translatable("gui.elemenix.registrar.trim_color", colorBlock));
                 }
@@ -1321,17 +1323,19 @@ public class RegistrarScreen extends AbstractContainerScreen<RegistrarMenu> {
         return String.format(Locale.ROOT, "%+.1f", value);
     }
 
-    private static String formatEffect(MobEffectInstance effect) {
-        StringBuilder sb = new StringBuilder(Component.translatable(effect.getDescriptionId()).getString());
+    private static MutableComponent formatEffect(MobEffectInstance effect) {
+        MutableComponent line = Component.literal("");
+        line.append(Component.literal(Component.translatable(effect.getDescriptionId()).getString())
+                .withColor(Palette.MAGENTA));
         if (effect.getAmplifier() > 0) {
-            sb.append(' ').append(Component.translatable("potion.potency." + effect.getAmplifier()).getString());
+            line.append(Component.literal(" " + Component.translatable("potion.potency." + effect.getAmplifier()).getString()));
         }
         if (effect.isInfiniteDuration()) {
-            sb.append(" ∞");
+            line.append(Component.literal(" ∞"));
         } else if (effect.getDuration() > 20) {
-            sb.append(' ').append(formatEffectDuration(effect.getDuration()));
+            line.append(Component.literal(" " + formatEffectDuration(effect.getDuration())));
         }
-        return sb.toString();
+        return line;
     }
 
     private static String formatBurnTime(int ticks) {
@@ -1365,18 +1369,23 @@ public class RegistrarScreen extends AbstractContainerScreen<RegistrarMenu> {
         return minutes + ":" + String.format(Locale.ROOT, "%02d", secs);
     }
 
-    private static List<String> getEnchantmentNames(ItemStack stack) {
+    private static List<Holder.Reference<Enchantment>> getEnchantments(ItemStack stack) {
         Minecraft minecraft = Minecraft.getInstance();
         if (minecraft.level == null) return List.of();
         Registry<Enchantment> registry = minecraft.level.registryAccess().registryOrThrow(Registries.ENCHANTMENT);
-        List<String> names = new ArrayList<>();
-        registry.holders()
+        return registry.holders()
                 .filter(stack::supportsEnchantment)
                 .sorted(Comparator.comparing((Holder<Enchantment> h) -> namespaceKey(enchantNamespace(h)))
                         .thenComparingInt(RegistrarScreen::enchantCategory)
                         .thenComparing(RegistrarScreen::enchantPath))
-                .forEach(holder -> names.add(holder.value().description().getString()));
-        return names;
+                .toList();
+    }
+
+    private static Component coloredEnchantmentName(Holder<Enchantment> holder) {
+        int color = holder.is(EnchantmentTags.CURSE) ? Palette.WARN
+                : holder.is(EnchantmentTags.TREASURE) ? Palette.AMBER
+                : Palette.MAGENTA;
+        return Component.literal(holder.value().description().getString()).withColor(color);
     }
 
     private static String namespaceKey(String namespace) {
@@ -1479,7 +1488,7 @@ public class RegistrarScreen extends AbstractContainerScreen<RegistrarMenu> {
             graphics.pose().pushPose();
             graphics.pose().translate(cx - textWidth / 2.0f, cy - Math.round(this.font.lineHeight * TAG_TEXT_SCALE / 2.0f), 0.0F);
             graphics.pose().scale(TAG_TEXT_SCALE, TAG_TEXT_SCALE, 1.0F);
-            graphics.drawString(this.font, noTags, 0, 0, 0xFFFFFFFF, false);
+            graphics.drawString(this.font, noTags, 0, 0, Palette.WHITE, false);
             graphics.pose().popPose();
             return;
         }
@@ -1493,11 +1502,11 @@ public class RegistrarScreen extends AbstractContainerScreen<RegistrarMenu> {
             boolean hovered = mouseX >= listX && mouseX < listX + listW + 1 && mouseY >= rowY && mouseY < rowY + TAG_ROW_H;
 
             int bgColor = info.entity()
-                    ? ((tagIndex % 2 == 0) ? 0x14142240 : 0x38304068)
-                    : ((tagIndex % 2 == 0) ? 0x10000000 : 0x34000000);
+                    ? ((tagIndex % 2 == 0) ? Palette.FRINGE_BRIGHT_BLUE : Palette.FRINGE_DARK_BLUE)
+                    : ((tagIndex % 2 == 0) ? Palette.FRINGE_BRIGHT_BROWN : Palette.FRINGE_DARK_BROWN);
             graphics.fill(listX, rowY, listX + listW + 1, rowY + TAG_ROW_H, bgColor);
             if (hovered) {
-                graphics.fill(listX, rowY, listX + listW + 1, rowY + TAG_ROW_H, 0x30FFFFFF);
+                graphics.fill(listX, rowY, listX + listW + 1, rowY + TAG_ROW_H, Palette.HIGHLIGHT_SOFT);
                 hoveredTag = info;
             }
 
@@ -1508,7 +1517,7 @@ public class RegistrarScreen extends AbstractContainerScreen<RegistrarMenu> {
                 renderSmallQuestionMark(graphics, listX + 2, rowY + 1);
             }
             String text = ModUtils.truncateToWidth(this.font, getTagName(info), TAG_TEXT_MAX_WIDTH);
-            ScaledText.render(graphics, this.font, ScaledText.Fit.fixed(text, TAG_TEXT_SCALE), listX + TAG_ICON_SIZE + 5, rowY + 4, 0xFFE0E0E0, false);
+            ScaledText.render(graphics, this.font, ScaledText.Fit.fixed(text, TAG_TEXT_SCALE), listX + TAG_ICON_SIZE + 5, rowY + 4, Palette.TEXT_BODY, false);
         }
 
         renderTagScrollbar(graphics, listX + listW + 1, listY, tags.size(), visible, tagScroll);
@@ -1547,12 +1556,12 @@ public class RegistrarScreen extends AbstractContainerScreen<RegistrarMenu> {
     }
 
     private void renderTagScrollbar(GuiGraphics graphics, int x, int y, int total, int visible, int scroll) {
-        graphics.fill(x, y, x + TAG_SCROLLBAR_W, y + TAG_AREA_H, 0x48000000);
+        graphics.fill(x + 1, y, x + TAG_SCROLLBAR_W, y + TAG_AREA_H, Palette.SCROLL_BASE_PALE);
         if (total <= visible) return;
         int maxScroll = total - visible;
         int thumbH = Math.max(8, TAG_AREA_H * visible / total);
         int thumbY = y + (TAG_AREA_H - thumbH) * scroll / maxScroll;
-        graphics.fill(x + 1, thumbY, x + TAG_SCROLLBAR_W - 1, thumbY + thumbH, 0xFF303030);
+        graphics.fill(x + 1, thumbY, x + TAG_SCROLLBAR_W, thumbY + thumbH, Palette.SCROLL_BAR_DARK);
     }
 
     private void renderDescription(GuiGraphics graphics) {
@@ -1570,7 +1579,7 @@ public class RegistrarScreen extends AbstractContainerScreen<RegistrarMenu> {
             for (int i = 0; i < lines.size(); i++) {
                 int lineWidth = this.font.width(lines.get(i));
                 int cx = areaX + listW / 2;
-                graphics.drawString(this.font, lines.get(i), cx - lineWidth / 2, startY + i * lineHeight, 0xFFFFFFFF, false);
+                graphics.drawString(this.font, lines.get(i), cx - lineWidth / 2, startY + i * lineHeight, Palette.WHITE, false);
             }
             renderDescriptionScrollbar(graphics, areaX + listW + 1, areaY, 0, 0.0f);
             return;
@@ -1593,7 +1602,7 @@ public class RegistrarScreen extends AbstractContainerScreen<RegistrarMenu> {
                 graphics.pose().pushPose();
                 graphics.pose().translate(areaX + DESCRIPTION_TEXT_PADDING, areaY + DESCRIPTION_TOP_PADDING + i * lineHeight, 0.0F);
                 graphics.pose().scale(DESCRIPTION_TEXT_SCALE, DESCRIPTION_TEXT_SCALE, 1.0F);
-                graphics.drawString(this.font, lines.get(i), 0, 0, 0xFFE0E0E0, false);
+                graphics.drawString(this.font, lines.get(i), 0, 0, Palette.TEXT_BODY, false);
                 graphics.pose().popPose();
             }
         } finally {
@@ -1613,11 +1622,11 @@ public class RegistrarScreen extends AbstractContainerScreen<RegistrarMenu> {
     }
 
     private void renderDescriptionScrollbar(GuiGraphics graphics, int x, int y, int contentHeight, float scroll) {
-        graphics.fill(x, y, x + TAG_SCROLLBAR_W, y + DESCRIPTION_H, 0x48000000);
+        graphics.fill(x + 1, y, x + TAG_SCROLLBAR_W, y + DESCRIPTION_H, Palette.SCROLL_BASE_PALE);
         if (contentHeight <= DESCRIPTION_H) return;
         int thumbH = Math.max(8, DESCRIPTION_H * DESCRIPTION_H / contentHeight);
         int thumbY = y + Math.round((DESCRIPTION_H - thumbH) * scroll);
-        graphics.fill(x + 1, thumbY, x + TAG_SCROLLBAR_W - 1, thumbY + thumbH, 0xFF303030);
+        graphics.fill(x + 1, thumbY, x + TAG_SCROLLBAR_W, thumbY + thumbH, Palette.SCROLL_BAR_DARK);
     }
 
     private static String getDescription(ItemStack stack) {

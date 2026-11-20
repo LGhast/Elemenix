@@ -1,5 +1,6 @@
 package net.lghast.elemenix.client.screen;
 
+import net.lghast.elemenix.client.Palette;
 import net.lghast.elemenix.common.system.menu.DeconstructorMenu;
 import net.lghast.elemenix.common.system.menu.LongContainerData;
 import net.lghast.elemenix.common.util.ModUtils;
@@ -55,7 +56,7 @@ public class DeconstructorScreen extends AbstractContainerScreen<DeconstructorMe
 
     @Override
     protected void renderLabels(GuiGraphics graphics, int mouseX, int mouseY) {
-        graphics.drawString(this.font, this.title, (this.imageWidth - this.font.width(this.title)) / 2, this.titleLabelY, 4210752, false);
+        graphics.drawString(this.font, this.title, (this.imageWidth - this.font.width(this.title)) / 2, this.titleLabelY, Palette.TEXT_COMMON, false);
     }
 
     @Override

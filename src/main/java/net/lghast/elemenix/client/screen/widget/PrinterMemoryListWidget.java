@@ -1,5 +1,6 @@
 package net.lghast.elemenix.client.screen.widget;
 
+import net.lghast.elemenix.client.Palette;
 import net.lghast.elemenix.common.system.menu.PrinterMenu;
 import net.lghast.elemenix.network.printer.PrinterDisableItemPayload;
 import net.minecraft.client.Minecraft;
@@ -83,7 +84,7 @@ public class PrinterMemoryListWidget extends MemoryListWidget {
             Minecraft minecraft = Minecraft.getInstance();
             if (minecraft.player != null && minecraft.player.containerMenu instanceof PrinterMenu menu) {
                 if (menu.isDisabled(keys.get(index))) {
-                    return 0xFF3333;
+                    return Palette.WARN;
                 }
             }
         }

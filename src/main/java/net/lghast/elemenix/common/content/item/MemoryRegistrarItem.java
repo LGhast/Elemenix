@@ -1,12 +1,12 @@
 package net.lghast.elemenix.common.content.item;
 
+import net.lghast.elemenix.client.Palette;
 import net.lghast.elemenix.common.system.attachment.RegistrarCollection;
 import net.lghast.elemenix.common.system.menu.RegistrarMenu;
 import net.lghast.elemenix.network.registrar.ResponseRegistrarSyncPayload;
 import net.lghast.elemenix.register.system.ModAttachments;
 import net.lghast.elemenix.register.system.ModDataComponents;
 import net.lghast.elemenix.register.system.ModStats;
-import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.Unit;
@@ -55,7 +55,7 @@ public class MemoryRegistrarItem extends BlockItem {
     @Override
     public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> components, TooltipFlag tooltipFlag) {
         if (isDeveloperMode(stack)) {
-            components.add(Component.translatable("tooltip.elemenix.developer_mode").withStyle(ChatFormatting.DARK_GRAY));
+            components.add(Component.translatable("tooltip.elemenix.developer_mode").withColor(Palette.GRAY_DARK));
         }
         super.appendHoverText(stack, context, components, tooltipFlag);
     }

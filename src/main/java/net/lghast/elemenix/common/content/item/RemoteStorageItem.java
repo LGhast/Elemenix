@@ -1,5 +1,6 @@
 package net.lghast.elemenix.common.content.item;
 
+import net.lghast.elemenix.client.Palette;
 import net.lghast.elemenix.client.cache.ClientInfuserCache;
 import net.lghast.elemenix.common.content.block.InfuserBlock;
 import net.lghast.elemenix.common.content.blockentity.InfuserBlockEntity;
@@ -121,7 +122,7 @@ public class RemoteStorageItem extends Item {
                 tooltip.add(Component.translatable("tooltip.elemenix.remote_storage.bound_to",
                                 globalPos.pos().getX(), globalPos.pos().getY(), globalPos.pos().getZ(),
                                 dimensionName)
-                        .withStyle(ChatFormatting.GRAY));
+                        .withColor(Palette.GRAY_LIGHT));
             }
 
             if(!ClientConfig.SHOW_REMOTE_CONNECTION_STATUS.get()) return;
@@ -135,24 +136,25 @@ public class RemoteStorageItem extends Item {
                 if (cachedData.isPresent()) {
                     ElemenicStorage storage = new ElemenicStorage(cachedData.get());
                     if (!storage.isEmpty()) {
-                        tooltip.add(Component.translatable("tooltip.elemenix.remote_storage.bound_valid").withStyle(ChatFormatting.GREEN));
-
+                        tooltip.add(Component.translatable("tooltip.elemenix.remote_storage.bound_valid").withColor(Palette.GREEN_LIME));
+                        tooltip.add(Component.empty());
+                        tooltip.add(Component.translatable("tooltip.elemenix.analyzer_storage").withColor(Palette.GRAY_LIGHT));
                         tooltip.add(storage.toComponentFormer());
                         tooltip.add(storage.toComponentLatter());
                         return;
                     }
                 }
-                tooltip.add(Component.translatable("tooltip.elemenix.remote_storage.invalid").withStyle(ChatFormatting.RED));
+                tooltip.add(Component.translatable("tooltip.elemenix.remote_storage.invalid").withColor(Palette.WARN));
             } else {
                 tooltip.add(Component.translatable("tooltip.elemenix.remote_storage.dimension_mismatch")
-                        .withStyle(ChatFormatting.RED));
+                        .withColor(Palette.WARN));
             }
             return;
         } else {
-            tooltip.add(Component.translatable("tooltip.elemenix.remote_storage.not_bound").withStyle(ChatFormatting.RED));
+            tooltip.add(Component.translatable("tooltip.elemenix.remote_storage.not_bound").withColor(Palette.WARN));
         }
         if(ClientConfig.SHOW_REMOTE_BINDING_PROMPT.get()) {
-            tooltip.add(Component.translatable("tooltip.elemenix.remote_storage.usage").withStyle(ChatFormatting.GRAY));
+            tooltip.add(Component.translatable("tooltip.elemenix.remote_storage.usage").withColor(Palette.GRAY_LIGHT));
         }
     }
 }

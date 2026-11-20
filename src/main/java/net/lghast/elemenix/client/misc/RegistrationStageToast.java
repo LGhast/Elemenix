@@ -1,5 +1,6 @@
 package net.lghast.elemenix.client.misc;
 
+import net.lghast.elemenix.client.Palette;
 import net.lghast.elemenix.config.ClientConfig;
 import net.lghast.elemenix.register.content.ModBlocks;
 import net.minecraft.client.Minecraft;
@@ -37,8 +38,8 @@ public class RegistrationStageToast implements Toast {
     @Override
     public @NotNull Visibility render(GuiGraphics graphics, ToastComponent toastComponent, long timeSinceLastVisible) {
         graphics.blitSprite(BACKGROUND_SPRITE, 0, 0, this.width(), this.height());
-        graphics.drawString(toastComponent.getMinecraft().font, this.title, 30, 7, 0xFFFFFF00, false);
-        graphics.drawString(toastComponent.getMinecraft().font, this.description, 30, 18, 0xFFFFFFFF, false);
+        graphics.drawString(toastComponent.getMinecraft().font, this.title, 30, 7, Palette.YELLOW, false);
+        graphics.drawString(toastComponent.getMinecraft().font, this.description, 30, 18, Palette.WHITE, false);
         graphics.renderFakeItem(this.icon, 8, 8);
         return timeSinceLastVisible >= DISPLAY_TIME * toastComponent.getNotificationDisplayTimeMultiplier()
                 ? Visibility.HIDE : Visibility.SHOW;

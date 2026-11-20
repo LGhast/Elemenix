@@ -1,6 +1,7 @@
 package net.lghast.elemenix.client.event;
 
 import net.lghast.elemenix.Elemenics;
+import net.lghast.elemenix.client.Palette;
 import net.lghast.elemenix.client.misc.ModKeyBindings;
 import net.lghast.elemenix.client.screen.*;
 import net.lghast.elemenix.config.ClientConfig;
@@ -14,7 +15,6 @@ import net.lghast.elemenix.register.system.ModTags;
 import net.lghast.elemenix.core.Constituents;
 import net.lghast.elemenix.core.resolver.ItemStackResolver;
 import net.lghast.elemenix.common.util.ModUtils;
-import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -48,9 +48,9 @@ public class ClientEvents {
         if (imitforgedOrigin != null) {
             Item originItem = BuiltInRegistries.ITEM.get(imitforgedOrigin);
             tooltip.add(Math.min(2, tooltip.size()),
-                    Component.translatable("tooltip.elemenix.imitforged_from").withStyle(ChatFormatting.GRAY));
+                    Component.translatable("tooltip.elemenix.imitforged_from").withColor(Palette.GRAY_LIGHT));
             tooltip.add(Math.min(3, tooltip.size()),
-                    Component.literal(new ItemStack(originItem).getHoverName().getString()).withStyle(ChatFormatting.DARK_GRAY));
+                    Component.literal(new ItemStack(originItem).getHoverName().getString()).withColor(Palette.GRAY_DARK));
         }
 
         if(ClientConfig.SHOW_CONSTITUENT_TOOLTIPS_WHEN_SHIFT.get() && !Screen.hasShiftDown()) {
@@ -60,7 +60,7 @@ public class ClientEvents {
         int insertIndex = findInsertIndex(tooltip);
         if(ClientConfig.SHOW_CONSTITUENT_TOOLTIPS.get() && !stack.is(ModItems.ELEMENIC_ANALYZER)) {
             if (BaseResolver.isCalculating()) {
-                tooltip.add(insertIndex, Component.translatable("tooltip.elemenix.calculating").withStyle(ChatFormatting.GRAY));
+                tooltip.add(insertIndex, Component.translatable("tooltip.elemenix.calculating").withColor(Palette.GRAY_LIGHT));
                 insertIndex++;
             } else {
                 ItemStackResolver.StackResult result = ItemStackResolver.getResult(stack);
@@ -68,7 +68,7 @@ public class ClientEvents {
                 if(constituents == null) return;
 
                 if(constituents.isUnanalysable() && !ClientConfig.SHOW_UNANALYSABLE_TOOLTIPS.get()) return;
-                tooltip.add(insertIndex, Component.translatable("tooltip.elemenix.constituents").withStyle(ChatFormatting.GRAY));
+                tooltip.add(insertIndex, Component.translatable("tooltip.elemenix.constituents").withColor(Palette.GRAY_LIGHT));
                 insertIndex++;
 
                 if (result.state() == ItemStackResolver.StackState.CONTAINS_UNANALYSABLE
@@ -93,12 +93,12 @@ public class ClientEvents {
 
         if(stack.is(ModTags.UNDECONSTRUCTABLE)){
             insertIndex++;
-            tooltip.add(insertIndex,Component.translatable("tooltip.elemenix.undeconstructable").withStyle(ChatFormatting.DARK_GRAY));
+            tooltip.add(insertIndex,Component.translatable("tooltip.elemenix.undeconstructable").withColor(Palette.GRAY_DARK));
         }
 
         if(stack.is(ModTags.UNRECONSTRUCTABLE)){
             insertIndex++;
-            tooltip.add(insertIndex,Component.translatable("tooltip.elemenix.unreconstructable").withStyle(ChatFormatting.DARK_GRAY));
+            tooltip.add(insertIndex,Component.translatable("tooltip.elemenix.unreconstructable").withColor(Palette.GRAY_DARK));
         }
     }
 
@@ -109,7 +109,7 @@ public class ClientEvents {
             case NESTED_CONTAINER -> "tooltip.elemenix.nested_container";
             default -> "tooltip.elemenix.unanalysable";
         };
-        return Component.translatable(key).withStyle(ChatFormatting.DARK_GRAY);
+        return Component.translatable(key).withColor(Palette.GRAY_DARK);
     }
 
     private static int findInsertIndex(List<Component> tooltip) {

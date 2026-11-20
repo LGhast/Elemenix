@@ -1,5 +1,6 @@
 package net.lghast.elemenix.client.screen;
 
+import net.lghast.elemenix.client.Palette;
 import net.lghast.elemenix.client.render.ScaledText;
 import net.lghast.elemenix.client.screen.widget.SmallCheckbox;
 import net.lghast.elemenix.common.content.block.GerminalAcceleratorBlock;
@@ -169,11 +170,11 @@ public class TransformerScreen extends AbstractContainerScreen<TransformerMenu> 
     protected void renderLabels(GuiGraphics graphics, int mouseX, int mouseY) {
         int titleWidth = this.font.width(this.title);
         int centeredX = (this.imageWidth - titleWidth) / 2;
-        graphics.drawString(this.font, this.title, centeredX, TITLE_Y, 0x404040, false);
+        graphics.drawString(this.font, this.title, centeredX, TITLE_Y, Palette.TEXT_COMMON, false);
         if (menu.getMode() == TransformerBlockEntity.MODE_SPECIAL
                 && (menu.isMineralizingPage() || menu.isImitforgingPage())) {
             graphics.drawString(this.font, this.playerInventoryTitle, this.inventoryLabelX,
-                    INVENTORY_LABEL_Y_SPECIAL, 0x404040, false);
+                    INVENTORY_LABEL_Y_SPECIAL, Palette.TEXT_COMMON, false);
         }
     }
 
@@ -184,7 +185,7 @@ public class TransformerScreen extends AbstractContainerScreen<TransformerMenu> 
 
         int organixColor = Elemenix.ORGANIX.getColor();
         graphics.fill(x + PROGRESS_X1, y + PROGRESS_Y, x + PROGRESS_X2, y + PROGRESS_Y + 3,
-                darkenColor(organixColor));
+                Palette.darken(organixColor, 0.35f));
         int progress = menu.getGerminatingProgress();
         if (progress > 0) {
             int interval = getGerminationInterval();
@@ -210,7 +211,7 @@ public class TransformerScreen extends AbstractContainerScreen<TransformerMenu> 
         int deduction = cost[costIndex];
         if (deduction > 0) {
             String preview = ModUtils.formatNumber(deduction, "-%s");
-            graphics.drawString(this.font, preview, textX + this.font.width(valueText) + 4, textY, 0xFF3333, false);
+            graphics.drawString(this.font, preview, textX + this.font.width(valueText) + 4, textY, Palette.WARN, false);
         }
     }
 
@@ -230,7 +231,7 @@ public class TransformerScreen extends AbstractContainerScreen<TransformerMenu> 
             String previewText = ModUtils.formatNumber(totalCost, "-%s");
             graphics.drawString(this.font, previewText,
                     x + ELEMENIX_VALUE_X + this.font.width(valueText) + 4,
-                    y + ELEMENIX_VALUE_Y, 0xFF3333, false);
+                    y + ELEMENIX_VALUE_Y, Palette.WARN, false);
         }
     }
 
@@ -253,7 +254,7 @@ public class TransformerScreen extends AbstractContainerScreen<TransformerMenu> 
         String previewText = ModUtils.formatNumber(cost, "-%s");
         graphics.drawString(this.font, previewText,
                 x + ELEMENIX_VALUE_X + this.font.width(valueText) + 4,
-                y + ELEMENIX_VALUE_Y, 0xFF3333, false);
+                y + ELEMENIX_VALUE_Y, Palette.WARN, false);
     }
 
     private void renderImitforgingError(GuiGraphics graphics, int x, int y) {
@@ -267,20 +268,13 @@ public class TransformerScreen extends AbstractContainerScreen<TransformerMenu> 
     private void drawFitCenteredLabel(GuiGraphics graphics, Component label, int centerX, int textY) {
         String text = label.getString();
         ScaledText.Fit fit = ScaledText.Fit.of(this.font, text, TransformerScreen.IMITFORGING_ERROR_MAX_WIDTH, 0);
-        ScaledText.renderCentered(graphics, this.font, fit, centerX, textY, 0xFF3333, false);
+        ScaledText.renderCentered(graphics, this.font, fit, centerX, textY, Palette.WARN, false);
     }
 
     private void drawCenteredLabel(GuiGraphics graphics, Component label, int centerX, int textY) {
         String text = label.getString();
         int textWidth = this.font.width(text);
-        graphics.drawString(this.font, text, centerX - textWidth / 2, textY, 0x404040, false);
-    }
-
-    private static int darkenColor(int color) {
-        int r = (int) ((color >> 16 & 0xFF) * (float) 0.35);
-        int g = (int) ((color >> 8 & 0xFF) * (float) 0.35);
-        int b = (int) ((color & 0xFF) * (float) 0.35);
-        return 0xFF000000 | (r << 16) | (g << 8) | b;
+        graphics.drawString(this.font, text, centerX - textWidth / 2, textY, Palette.TEXT_COMMON, false);
     }
 
     private void renderElemenixValues(GuiGraphics graphics, int x, int y) {
@@ -341,7 +335,7 @@ public class TransformerScreen extends AbstractContainerScreen<TransformerMenu> 
         public void renderWidget(GuiGraphics graphics, int mouseX, int mouseY, float partialTick) {
             graphics.blit(BUTTON_TEXTURE, getX(), getY(), 0, 0.0f, 0.0f, 16, 16, 16, 16);
             if (isHovered()) {
-                graphics.fill(getX(), getY(), getX() + 16, getY() + 16, 0x22FFFFFF);
+                graphics.fill(getX(), getY(), getX() + 16, getY() + 16, Palette.HIGHLIGHT);
             }
         }
     }

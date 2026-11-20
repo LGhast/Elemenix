@@ -1,5 +1,6 @@
 package net.lghast.elemenix.client.screen;
 
+import net.lghast.elemenix.client.Palette;
 import net.lghast.elemenix.common.content.blockentity.ShuntBlockEntity;
 import net.lghast.elemenix.common.system.menu.ShuntMenu;
 import net.lghast.elemenix.network.shunt.ShuntFilterPayload;
@@ -97,11 +98,11 @@ public class ShuntScreen extends AbstractContainerScreen<ShuntMenu> {
 
     @Override
     protected void renderLabels(GuiGraphics graphics, int mouseX, int mouseY) {
-        graphics.drawString(this.font, this.title, (this.imageWidth - this.font.width(this.title)) / 2, this.titleLabelY, 4210752, false);
+        graphics.drawString(this.font, this.title, (this.imageWidth - this.font.width(this.title)) / 2, this.titleLabelY, Palette.TEXT_COMMON, false);
 
         Component filterLabel = Component.translatable("gui.elemenix.target");
         int nameX = ENTRY_NAME_X + (ENTRY_NAME_WIDTH - this.font.width(filterLabel)) / 2;
-        graphics.drawString(this.font, filterLabel, nameX, ENTRY_NAME_Y, 0x000000, false);
+        graphics.drawString(this.font, filterLabel, nameX, ENTRY_NAME_Y, Palette.BLACK, false);
     }
 
     @Override
@@ -132,7 +133,7 @@ public class ShuntScreen extends AbstractContainerScreen<ShuntMenu> {
 
     private int filterColor() {
         if (filterIndex == ShuntBlockEntity.FILTER_UNSPECIFIED) {
-            return 0xFFFFFF;
+            return Palette.WHITE;
         }
         return Elemenix.values()[filterIndex].getColor();
     }

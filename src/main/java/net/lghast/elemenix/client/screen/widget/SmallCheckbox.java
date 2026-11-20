@@ -1,5 +1,6 @@
 package net.lghast.elemenix.client.screen.widget;
 
+import net.lghast.elemenix.client.Palette;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.AbstractWidget;
@@ -16,8 +17,8 @@ public class SmallCheckbox extends AbstractWidget {
 
     private static final int BOX_SIZE = 10;
     private static final int TEXT_GAP = 4;
-    private static final int TEXT_COLOR = 0xFFFFFF;
-    private static final int SELECTED_COLOR = 0xFF57A64A;
+    private static final int TEXT_COLOR = Palette.WHITE;
+    private static final int SELECTED_COLOR = Palette.CHECK_SELECTED;
 
     private boolean selected;
     private final Font font;
@@ -51,22 +52,22 @@ public class SmallCheckbox extends AbstractWidget {
     protected void renderWidget(GuiGraphics graphics, int mouseX, int mouseY, float partialTick) {
         boolean enabled = isActive();
 
-        graphics.fill(getX(), getY(), getX() + BOX_SIZE, getY() + BOX_SIZE, 0xFF000000);
+        graphics.fill(getX(), getY(), getX() + BOX_SIZE, getY() + BOX_SIZE, Palette.BLACK);
         if (enabled) {
-            graphics.fill(getX() + 1, getY() + 1, getX() + BOX_SIZE - 1, getY() + BOX_SIZE - 1, 0xFFFFFFFF);
+            graphics.fill(getX() + 1, getY() + 1, getX() + BOX_SIZE - 1, getY() + BOX_SIZE - 1, Palette.WHITE);
             if (selected) {
                 graphics.fill(getX() + 2, getY() + 2, getX() + BOX_SIZE - 2, getY() + BOX_SIZE - 2, SELECTED_COLOR);
             }
         } else {
-            graphics.fill(getX() + 1, getY() + 1, getX() + BOX_SIZE - 1, getY() + BOX_SIZE - 1, 0xFF3C3C3C);
+            graphics.fill(getX() + 1, getY() + 1, getX() + BOX_SIZE - 1, getY() + BOX_SIZE - 1, Palette.CHECK_LOCKED);
             if (selected) {
-                graphics.fill(getX() + 2, getY() + 2, getX() + BOX_SIZE - 2, getY() + BOX_SIZE - 2, 0xFF5F5F5F);
+                graphics.fill(getX() + 2, getY() + 2, getX() + BOX_SIZE - 2, getY() + BOX_SIZE - 2, Palette.CHECK_DISABLED_LOCKED);
             }
         }
         graphics.drawString(font, getMessage(),
                 getX() + BOX_SIZE + TEXT_GAP,
                 getY() + (BOX_SIZE - font.lineHeight) / 2 + 1,
-                enabled ? TEXT_COLOR : 0xFF6F6F6F, false);
+                enabled ? TEXT_COLOR : Palette.GRAY_DARK, false);
     }
 
     @Override

@@ -1,5 +1,6 @@
 package net.lghast.elemenix.common.content.item;
 
+import net.lghast.elemenix.client.Palette;
 import net.lghast.elemenix.common.content.block.ChannelBlock;
 import net.lghast.elemenix.common.content.block.ElemenicComparatorBlock;
 import net.lghast.elemenix.common.content.block.OutletBlock;
@@ -8,7 +9,6 @@ import net.lghast.elemenix.common.content.blockentity.OutletBlockEntity;
 import net.lghast.elemenix.common.system.datacomponent.ComparatorCriterion;
 import net.lghast.elemenix.register.system.ModDataComponents;
 import net.lghast.elemenix.register.system.ModSounds;
-import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -107,8 +107,8 @@ public class WrenchItem extends Item {
     public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> components, TooltipFlag flag) {
         ComparatorCriterion criterion = getCriterion(stack);
         if (criterion != null) {
-            components.add(Component.translatable("tooltip.elemenix.wrench.criterion").withStyle(ChatFormatting.GRAY));
-            components.add(Component.literal(criterion.buildDisplay(Screen.hasAltDown())).withStyle(ChatFormatting.DARK_GRAY));
+            components.add(Component.translatable("tooltip.elemenix.wrench.criterion").withColor(Palette.GRAY_LIGHT));
+            components.add(Component.literal(criterion.buildDisplay(Screen.hasAltDown())).withColor(Palette.GRAY_DARK));
         }
         super.appendHoverText(stack, context, components, flag);
     }

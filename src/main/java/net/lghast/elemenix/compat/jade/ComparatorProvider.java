@@ -1,5 +1,6 @@
 package net.lghast.elemenix.compat.jade;
 
+import net.lghast.elemenix.client.Palette;
 import net.lghast.elemenix.common.content.block.ElemenicComparatorBlock;
 import net.lghast.elemenix.common.content.blockentity.ElemenicComparatorBlockEntity;
 import net.lghast.elemenix.core.Elemenix;
@@ -52,7 +53,7 @@ public enum ComparatorProvider implements IServerDataProvider<BlockAccessor>, IB
                 ? Component.translatable("status.elemenix.judgment.true").getString()
                 : Component.translatable("status.elemenix.judgment.false").getString();
         tooltip.add(Component.translatable("status.elemenix.judgment", judgment)
-                .withStyle(passing ? ChatFormatting.GREEN : ChatFormatting.RED));
+                .withColor(passing ? Palette.SUCCESS : Palette.FAILURE));
     }
 
     private static Component buildCriterion(int target, int rule, int threshold, int unit) {

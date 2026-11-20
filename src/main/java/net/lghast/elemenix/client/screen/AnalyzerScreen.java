@@ -1,5 +1,6 @@
 package net.lghast.elemenix.client.screen;
 
+import net.lghast.elemenix.client.Palette;
 import net.lghast.elemenix.client.cache.ClientInfuserCache;
 import net.lghast.elemenix.client.render.ScaledText;
 import net.lghast.elemenix.client.screen.widget.MemoryListWidget;
@@ -83,7 +84,7 @@ public class AnalyzerScreen extends AbstractContainerScreen<AnalyzerMenu> {
     protected void renderLabels(GuiGraphics graphics, int mouseX, int mouseY) {
         String titleText = this.title.getString();
         ScaledText.Fit fit = ScaledText.Fit.of(this.font, titleText, TITLE_MAX_WIDTH, 0);
-        ScaledText.render(graphics, this.font, fit, TITLE_X, TITLE_Y, 0x404040, true);
+        ScaledText.render(graphics, this.font, fit, TITLE_X, TITLE_Y, Palette.TEXT_COMMON, true);
     }
 
     @Override
@@ -193,7 +194,7 @@ public class AnalyzerScreen extends AbstractContainerScreen<AnalyzerMenu> {
                     if (amount > 0) {
                         String previewText = ModUtils.formatNumber(amount, "-%s");
                         graphics.drawString(this.font, previewText, x + PREVIEW_X, y + VALUE_START_Y + i * VALUE_SPACING,
-                                0xFF3333, false);
+                                Palette.WARN, false);
                     }
                 }
                 return;
@@ -232,7 +233,7 @@ public class AnalyzerScreen extends AbstractContainerScreen<AnalyzerMenu> {
             if (amount > 0) {
                 String previewText = ModUtils.formatNumber(amount, "+%s");
                 graphics.drawString(this.font, previewText, x + PREVIEW_X, y + VALUE_START_Y + i * VALUE_SPACING,
-                        0xCC9900, false);
+                        Palette.AMBER, false);
             }
         }
     }
@@ -259,7 +260,7 @@ public class AnalyzerScreen extends AbstractContainerScreen<AnalyzerMenu> {
             if (actualTransfer > 0) {
                 String previewText = ModUtils.formatNumber(actualTransfer, "+%s");
                 graphics.drawString(this.font, previewText, x + PREVIEW_X, y + VALUE_START_Y + i * VALUE_SPACING,
-                        0x4AF3FD, false);
+                        Palette.TRANSFER, false);
             }
         }
     }
@@ -300,7 +301,7 @@ public class AnalyzerScreen extends AbstractContainerScreen<AnalyzerMenu> {
         if (menu.canRecordInputItem(inputStack, memorizerStack) || menu.canRecordPotionItem(inputStack, memorizerStack)) {
             int slotX = x + 52;
             int slotY = y + 130;
-            graphics.fill(slotX, slotY, slotX + 16, slotY + 16, 0x4000FF00);
+            graphics.fill(slotX, slotY, slotX + 16, slotY + 16, Palette.SUCCESS_BASE);
         }
     }
 }

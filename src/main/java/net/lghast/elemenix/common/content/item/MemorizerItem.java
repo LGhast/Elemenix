@@ -1,5 +1,6 @@
 package net.lghast.elemenix.common.content.item;
 
+import net.lghast.elemenix.client.Palette;
 import net.lghast.elemenix.common.system.advancement.StyleTrigger;
 import net.lghast.elemenix.common.system.advancement.WaxOffTrigger;
 import net.lghast.elemenix.common.system.advancement.WaxOnTrigger;
@@ -11,7 +12,6 @@ import net.lghast.elemenix.register.content.ModItems;
 import net.lghast.elemenix.register.system.ModDataComponents;
 import net.lghast.elemenix.register.system.ModStats;
 import net.lghast.elemenix.common.util.ModUtils;
-import net.minecraft.ChatFormatting;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
@@ -234,18 +234,18 @@ public class MemorizerItem extends Item{
     @Override
     public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> components, TooltipFlag tooltipFlag) {
         if(isReadonly(stack) && ClientConfig.SHOW_READONLY_TOOLTIPS.get()){
-            components.add(getReadonlyTooltip(stack).withStyle(ChatFormatting.DARK_GRAY));
+            components.add(getReadonlyTooltip(stack).withColor(Palette.AMBER));
         }
         Style style = getOrCreateStyle(stack);
         if(style.style() != 0 && ClientConfig.SHOW_STYLE_TOOLTIPS.get()){
             String styleInfo = String.format(Component.translatable("tooltip.elemenix.style").getString(), Component.translatable(style.getStyleKey()).getString());
-            components.add(Component.literal(styleInfo).withStyle(ChatFormatting.DARK_GRAY));
+            components.add(Component.literal(styleInfo).withColor(Palette.GRAY_DARK));
         }
         if(ClientConfig.SHOW_MEMORY_TOOLTIPS.get()) {
             ItemMemories itemMemories = getOrCreateMemories(stack);
             if(!itemMemories.isEmpty()) {
                 String memories = String.format(Component.translatable("tooltip.elemenix.memories").getString(), itemMemories.memories().size());
-                components.add(Component.literal(memories).withStyle(itemMemories.isFull() ? ChatFormatting.RED : ChatFormatting.GRAY));
+                components.add(Component.literal(memories).withColor(itemMemories.isFull() ? Palette.WARN : Palette.GRAY_LIGHT));
             }
         }
         super.appendHoverText(stack, context, components, tooltipFlag);

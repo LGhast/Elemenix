@@ -1,14 +1,15 @@
 package net.lghast.elemenix.core;
 
+import net.lghast.elemenix.client.Palette;
 import net.minecraft.network.chat.Component;
 
 public enum Elemenix {
-    ORGANIX("elemenix.elemenix.organix", 0xFF12c414, 0),
-    TERRIX("elemenix.elemenix.terrix", 0xFFc44a12, 1),
-    FLUMIX("elemenix.elemenix.flumix", 0xFF2a86e2, 2),
-    METALLIX("elemenix.elemenix.metallix", 0xFF7c8a9e, 3),
-    ENERGIX("elemenix.elemenix.energix", 0xFFfd9942, 4),
-    ARCANIX("elemenix.elemenix.arcanix", 0xFFc146eb, 5);
+    ORGANIX("elemenix.elemenix.organix", Palette.ORGANIX, 0),
+    TERRIX("elemenix.elemenix.terrix", Palette.TERRIX, 1),
+    FLUMIX("elemenix.elemenix.flumix", Palette.FLUMIX, 2),
+    METALLIX("elemenix.elemenix.metallix", Palette.METALLIX, 3),
+    ENERGIX("elemenix.elemenix.energix", Palette.ENERGIX, 4),
+    ARCANIX("elemenix.elemenix.arcanix", Palette.ARCANIX, 5);
 
     private final String name;
     private final int color;

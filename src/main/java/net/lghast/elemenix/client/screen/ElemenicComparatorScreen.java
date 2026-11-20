@@ -1,5 +1,6 @@
 package net.lghast.elemenix.client.screen;
 
+import net.lghast.elemenix.client.Palette;
 import net.lghast.elemenix.common.content.blockentity.ElemenicComparatorBlockEntity;
 import net.lghast.elemenix.common.system.menu.ElemenicComparatorMenu;
 import net.lghast.elemenix.network.comparator.ComparatorUpdatePayload;
@@ -155,20 +156,20 @@ public class ElemenicComparatorScreen extends AbstractContainerScreen<ElemenicCo
     @Override
     protected void renderLabels(GuiGraphics graphics, int mouseX, int mouseY) {
         int titleX = (this.imageWidth - this.font.width(this.title)) / 2;
-        graphics.drawString(this.font, this.title, titleX, 6, 0x404040, false);
+        graphics.drawString(this.font, this.title, titleX, 6, Palette.TEXT_COMMON, false);
 
         Component criterion = buildCriterion();
         int criterionWidth = this.font.width(criterion);
         if (criterionWidth <= 100) {
             int criterionX = (this.imageWidth - criterionWidth) / 2;
-            graphics.drawString(this.font, criterion, criterionX, 21, 0xFFFFFF, false);
+            graphics.drawString(this.font, criterion, criterionX, 21, Palette.WHITE, false);
         } else {
             float scale = 100.0f / criterionWidth;
             int criterionX = Math.round((this.imageWidth - criterionWidth * scale) / 2.0f);
             graphics.pose().pushPose();
             graphics.pose().translate(criterionX, 21, 0.0f);
             graphics.pose().scale(scale, scale, 1.0f);
-            graphics.drawString(this.font, criterion, 0, 0, 0xFFFFFF, false);
+            graphics.drawString(this.font, criterion, 0, 0, Palette.WHITE, false);
             graphics.pose().popPose();
         }
 
@@ -180,7 +181,7 @@ public class ElemenicComparatorScreen extends AbstractContainerScreen<ElemenicCo
         };
         for (int i = 0; i < 4; i++) {
             int nameX = ENTRY_NAME_X + (ENTRY_NAME_WIDTH - this.font.width(entryNames[i])) / 2;
-            graphics.drawString(this.font, entryNames[i], nameX, ENTRY_Y[i], 0x000000, false);
+            graphics.drawString(this.font, entryNames[i], nameX, ENTRY_Y[i], Palette.BLACK, false);
         }
     }
 
@@ -193,8 +194,8 @@ public class ElemenicComparatorScreen extends AbstractContainerScreen<ElemenicCo
         int y = (this.height - this.imageHeight) / 2;
 
         drawCenteredEntry(graphics, x, y, 0, targetName(), targetColor());
-        drawCenteredEntry(graphics, x, y, 1, ruleName(), 0xFFFFFF);
-        drawCenteredEntry(graphics, x, y, 3, unitName(), 0xFFFFFF);
+        drawCenteredEntry(graphics, x, y, 1, ruleName(), Palette.WHITE);
+        drawCenteredEntry(graphics, x, y, 3, unitName(), Palette.WHITE);
 
         this.renderTooltip(graphics, mouseX, mouseY);
     }
@@ -216,7 +217,7 @@ public class ElemenicComparatorScreen extends AbstractContainerScreen<ElemenicCo
 
     private int targetColor() {
         if (target == ElemenicComparatorBlockEntity.TARGET_SUM || target == ElemenicComparatorBlockEntity.TARGET_ANY) {
-            return 0xFFFFFF;
+            return Palette.WHITE;
         }
         return Elemenix.values()[target].getColor();
     }

@@ -1,5 +1,6 @@
 package net.lghast.elemenix.client.screen;
 
+import net.lghast.elemenix.client.Palette;
 import net.lghast.elemenix.client.render.ItemIconRenderer;
 import net.lghast.elemenix.client.render.ScaledText;
 import net.lghast.elemenix.client.screen.widget.SmallCheckbox;
@@ -402,7 +403,7 @@ public class AnalysisTerminalScreen extends AbstractContainerScreen<AnalysisTerm
 
     private void renderMemoryInfo(GuiGraphics graphics) {
         String name;
-        int nameColor = 0xFFFFFF;
+        int nameColor = Palette.WHITE;
         if (selectedMemorizer >= 0 && selectedMemorizer < memorizers.size()) {
             ItemStack disk = memorizers.get(selectedMemorizer);
             name = disk.getHoverName().getString();
@@ -410,7 +411,7 @@ public class AnalysisTerminalScreen extends AbstractContainerScreen<AnalysisTerm
                     ? WitchcraftMemorizerItem.isReadonly(disk)
                     : MemorizerItem.isReadonly(disk);
             if (readonly) {
-                nameColor = 0xFFAA00;
+                nameColor = Palette.AMBER;
             }
         } else {
             name = Component.translatable("gui.elemenix.analysis_terminal.all_memorizers").getString();
@@ -465,7 +466,7 @@ public class AnalysisTerminalScreen extends AbstractContainerScreen<AnalysisTerm
                 String valueText = ModUtils.formatNumber(containerData.getLong(type.getIndex()));
                 int x = leftPos + ELEMENIX_X0 + col * ELEMENIX_SPAN
                         + this.font.width(valueText) + PREVIEW_OFFSET;
-                graphics.drawString(this.font, "-" + ModUtils.formatNumber(amount), x, y, 0xFF3333, false);
+                graphics.drawString(this.font, "-" + ModUtils.formatNumber(amount), x, y, Palette.WARN, false);
             }
         }
     }
@@ -487,13 +488,13 @@ public class AnalysisTerminalScreen extends AbstractContainerScreen<AnalysisTerm
                 }
 
                 if (index == hoveredIndex) {
-                    graphics.fill(x + 1, y + 1, x + 1 + 16, y + 1 + 16, 0x50FFFFFF);
+                    graphics.fill(x + 1, y + 1, x + 1 + 16, y + 1 + 16, Palette.HIGHLIGHT);
                 }
 
                 ItemIconRenderer.render(graphics, stack, x + 1, y + 1);
 
                 String countText = getMaxReconstructableText(stack);
-                int color = countText.equals("0") ? 0xFFAAAAAA : 0xFFFFFF;
+                int color = countText.equals("0") ? Palette.GRAY_LIGHT : Palette.WHITE;
                 int textWidth = (int) (this.font.width(countText) * COUNT_SCALE);
                 int textHeight = (int) (this.font.lineHeight * COUNT_SCALE);
                 int textX = x + SLOT_SIZE - COUNT_MARGIN_RIGHT - textWidth;
@@ -538,21 +539,21 @@ public class AnalysisTerminalScreen extends AbstractContainerScreen<AnalysisTerm
     private void renderScrollbar(GuiGraphics graphics) {
         int trackX = leftPos + SCROLL_X;
         int trackY = topPos + SCROLL_Y;
-        graphics.fill(trackX, trackY, trackX + SCROLL_W, trackY + SCROLL_H, 0x99000000);
+        graphics.fill(trackX, trackY, trackX + SCROLL_W, trackY + SCROLL_H, Palette.SCROLL_BASE_DARK);
 
         int maxOffset = getMaxOffset();
         int thumbHeight = Math.max(MIN_THUMB_HEIGHT, SCROLL_H * ROWS / getTotalRows());
         int thumbY = maxOffset <= 0
                 ? trackY
                 : trackY + (SCROLL_H - thumbHeight) * scrollOffset / maxOffset;
-        graphics.fill(trackX, thumbY, trackX + SCROLL_W, thumbY + thumbHeight, 0xFF8A8A8A);
+        graphics.fill(trackX, thumbY, trackX + SCROLL_W, thumbY + thumbHeight, Palette.SCROLL_BAR_PALE);
     }
 
     private void renderSearchHint(GuiGraphics graphics) {
         if (searchBox.getValue().isEmpty() && !searchBox.isFocused()) {
             graphics.drawString(this.font,
                     Component.translatable("gui.elemenix.analysis_terminal.search"),
-                    leftPos + SEARCH_X + 4, topPos + SEARCH_Y + 3, 0xFF707070, false);
+                    leftPos + SEARCH_X + 4, topPos + SEARCH_Y + 3, Palette.TEXT_SEARCH, false);
         }
     }
 

@@ -1,9 +1,9 @@
 package net.lghast.elemenix.core;
 
+import net.lghast.elemenix.client.Palette;
 import net.lghast.elemenix.config.CommonConfig;
 import net.lghast.elemenix.common.util.ModUtils;
 import net.lghast.elemenix.core.resolver.BaseResolver;
-import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
 
@@ -228,7 +228,7 @@ public class Constituents {
     }
 
     public Component toComponentFormer() {
-        return unanalysable ? Component.translatable("tooltip.elemenix.unanalysable").withStyle(ChatFormatting.DARK_GRAY) :
+        return unanalysable ? Component.translatable("tooltip.elemenix.unanalysable").withColor(Palette.GRAY_DARK) :
                 Component.literal(ModUtils.formatNumber(constituents[0], "O:%s  ")).withColor(Elemenix.ORGANIX.getColor())
                         .append(Component.literal(ModUtils.formatNumber(constituents[1], "T:%s  ")).withColor(Elemenix.TERRIX.getColor()))
                         .append(Component.literal(ModUtils.formatNumber(constituents[2], "F:%s")).withColor(Elemenix.FLUMIX.getColor()));
@@ -241,7 +241,7 @@ public class Constituents {
     }
 
     public Component toComponentFormerWhole() {
-        return unanalysable ? Component.translatable("tooltip.elemenix.unanalysable").withStyle(ChatFormatting.DARK_GRAY) :
+        return unanalysable ? Component.translatable("tooltip.elemenix.unanalysable").withColor(Palette.GRAY_DARK) :
                 Component.literal(String.format("O:%s  ", constituents[0])).withColor(Elemenix.ORGANIX.getColor())
                         .append(Component.literal(String.format("T:%s  ", constituents[1])).withColor(Elemenix.TERRIX.getColor()))
                         .append(Component.literal(String.format("F:%s", constituents[2])).withColor(Elemenix.FLUMIX.getColor()));

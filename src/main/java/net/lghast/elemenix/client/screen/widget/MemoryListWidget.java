@@ -1,6 +1,7 @@
 package net.lghast.elemenix.client.screen.widget;
 
 import com.mojang.blaze3d.vertex.PoseStack;
+import net.lghast.elemenix.client.Palette;
 import net.lghast.elemenix.client.render.ItemIconRenderer;
 import net.lghast.elemenix.client.render.ScaledText;
 import net.lghast.elemenix.common.system.datacomponent.PotionMemories;
@@ -133,7 +134,7 @@ public class MemoryListWidget extends AbstractWidget {
             int y = getY() + (height - lines.size() * lineHeight) / 2;
             for (int i = 0; i < lines.size(); i++) {
                 ScaledText.Line line = lines.get(i);
-                ScaledText.renderCentered(graphics, minecraft.font, line.text(), line.scale(), centerX, y + i * lineHeight, 0xAAAAAA, false);
+                ScaledText.renderCentered(graphics, minecraft.font, line.text(), line.scale(), centerX, y + i * lineHeight, Palette.GRAY_LIGHT, false);
             }
             return;
         }
@@ -148,10 +149,10 @@ public class MemoryListWidget extends AbstractWidget {
             int itemY = getY() + displayIndex * ITEM_HEIGHT;
 
             if (i == hoveredIndex) {
-                graphics.fill(getX(), itemY, getX() + width, itemY + ITEM_HEIGHT, 0x44FFFFFF);
+                graphics.fill(getX(), itemY, getX() + width, itemY + ITEM_HEIGHT, Palette.HIGHLIGHT);
             } else {
                 graphics.fill(getX(), itemY, getX() + width, itemY + ITEM_HEIGHT,
-                        displayIndex % 2 == 0 ? 0x22000000 : 0x11FFFFFF);
+                        displayIndex % 2 == 0 ? Palette.FRINGE_DARK : Palette.FRINGE_BRIGHT);
             }
 
             ItemStack stackToRender = displayStacks.get(i);
@@ -166,9 +167,9 @@ public class MemoryListWidget extends AbstractWidget {
 
     protected int getItemNameColor(int index, ItemStack stack) {
         if (!BaseResolver.isCalculating() && BaseResolver.isUnreconstructable(stack)) {
-            return 0xFF3333;
+            return Palette.WARN;
         }
-        return 0xFFFFFF;
+        return Palette.WHITE;
     }
 
     private void renderItemAndName(GuiGraphics graphics, Minecraft minecraft, int itemY, int index, ItemStack stackToRender, float nameScale) {
@@ -195,7 +196,7 @@ public class MemoryListWidget extends AbstractWidget {
 
         if (stackToRender.isEmpty()) {
             String invalid = Component.translatable("gui.elemenix.invalid_item").getString();
-            color = 0xFF3333;
+            color = Palette.WARN;
             fit = ScaledText.Fit.fixed(invalid, nameScale);
         } else {
             color = getItemNameColor(index, stackToRender);

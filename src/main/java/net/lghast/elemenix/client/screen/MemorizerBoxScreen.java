@@ -18,6 +18,7 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.alchemy.PotionContents;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
@@ -29,6 +30,7 @@ import javax.annotation.ParametersAreNonnullByDefault;
 @ParametersAreNonnullByDefault
 public class MemorizerBoxScreen extends AbstractContainerScreen<MemorizerBoxMenu> {
     private static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath("elemenix", "textures/gui/memorizer_box.png");
+    private static final ResourceLocation QUESTION_MARK_TEXTURE = ResourceLocation.fromNamespaceAndPath("elemenix", "textures/gui/question_mark.png");
 
     private static final float ITEM_SCALE = 0.55f;
     private static final int GUI_WIDTH = 190;
@@ -64,16 +66,23 @@ public class MemorizerBoxScreen extends AbstractContainerScreen<MemorizerBoxMenu
             if (slot.hasItem()) {
                 ItemStack stack = slot.getItem();
                 ItemStack memoryItem = ItemStack.EMPTY;
+                boolean hasFirstEntry = false;
 
                 if (stack.is(ModItems.ELEMENIC_MEMORIZER)) {
                     ItemMemories itemMemories = MemorizerItem.getOrCreateMemories(stack);
-                    memoryItem = itemMemories.firstItem();
+                    hasFirstEntry = !itemMemories.isEmpty();
+                    if (hasFirstEntry) {
+                        memoryItem = itemMemories.firstItem();
+                    }
                 } else if (stack.is(ModItems.WITCHCRAFT_MEMORIZER)) {
                     PotionMemories memoryData = WitchcraftMemorizerItem.getOrCreateMemories(stack);
-                    memoryItem = firstPotionItem(memoryData);
+                    hasFirstEntry = !memoryData.entries().isEmpty();
+                    if (hasFirstEntry) {
+                        memoryItem = firstPotionItem(memoryData);
+                    }
                 }
 
-                if (!memoryItem.isEmpty()) {
+                if (hasFirstEntry) {
                     int slotX = guiLeft + slot.x;
                     int slotY = guiTop + slot.y;
 
@@ -84,7 +93,11 @@ public class MemorizerBoxScreen extends AbstractContainerScreen<MemorizerBoxMenu
                     graphics.pose().scale(ITEM_SCALE, ITEM_SCALE, 1.0f);
                     graphics.pose().translate(0, ITEM_Y_OFFSET / ITEM_SCALE, 0);
                     graphics.pose().translate(-8, -8, 0);
-                    ItemIconRenderer.render(graphics, memoryItem, 0, 0);
+                    if (memoryItem.is(Items.AIR)) {
+                        graphics.blit(QUESTION_MARK_TEXTURE, 0, 0, 0, 0, 16, 16, 16, 16);
+                    } else {
+                        ItemIconRenderer.render(graphics, memoryItem, 0, 0);
+                    }
 
                     graphics.pose().popPose();
                 }

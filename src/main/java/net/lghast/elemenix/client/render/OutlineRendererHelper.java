@@ -2,6 +2,7 @@ package net.lghast.elemenix.client.render;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
+import net.lghast.elemenix.client.Palette;
 import net.lghast.elemenix.config.ClientConfig;
 import net.minecraft.client.Camera;
 import net.minecraft.client.Minecraft;
@@ -205,7 +206,7 @@ public class OutlineRendererHelper {
 
     private static class BoxEntry extends Entry {
         List<AABB> aabbs = List.of();
-        int color = 0xFFFFFF;
+        int color = Palette.WHITE;
 
         void set(List<AABB> aabbs, int color) {
             this.aabbs = aabbs;

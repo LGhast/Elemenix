@@ -1,9 +1,9 @@
 package net.lghast.elemenix.common.content.item;
 
+import net.lghast.elemenix.client.Palette;
 import net.lghast.elemenix.common.system.datacomponent.ElemenicStorage;
 import net.lghast.elemenix.config.ClientConfig;
 import net.lghast.elemenix.register.system.ModDataComponents;
-import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.Item;
@@ -31,7 +31,7 @@ public class StorageItem extends Item {
     public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> components, TooltipFlag tooltipFlag) {
         if(ClientConfig.SHOW_STORAGE_TOOLTIPS.get()) {
             ElemenicStorage storage = getOrCreateData(stack);
-            components.add(Component.translatable("tooltip.elemenix.analyzer_storage").withStyle(ChatFormatting.GRAY));
+            components.add(Component.translatable("tooltip.elemenix.analyzer_storage").withColor(Palette.GRAY_LIGHT));
             if (Screen.hasAltDown()) {
                 components.add(storage.toComponentFormerWhole());
                 components.add(storage.toComponentLatterWhole());

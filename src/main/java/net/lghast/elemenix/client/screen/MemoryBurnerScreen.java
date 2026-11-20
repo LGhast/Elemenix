@@ -1,5 +1,6 @@
 package net.lghast.elemenix.client.screen;
 
+import net.lghast.elemenix.client.Palette;
 import net.lghast.elemenix.client.render.ItemIconRenderer;
 import net.lghast.elemenix.client.screen.widget.MemoryBurnerListWidget;
 import net.lghast.elemenix.common.content.item.MemorizerItem;
@@ -280,15 +281,15 @@ public class MemoryBurnerScreen extends AbstractContainerScreen<MemoryBurnerMenu
 
         graphics.fill(x + MODE_AREA_X, y + MODE_AREA_Y,
                 x + MODE_AREA_X + MODE_AREA_WIDTH,
-                y + MODE_AREA_Y + MODE_AREA_HEIGHT, 0x22000000);
+                y + MODE_AREA_Y + MODE_AREA_HEIGHT, Palette.FRINGE_DARK);
 
         String currentModeLabel = Component.translatable("mode.elemenix.burner.current").getString();
         graphics.drawString(this.font, currentModeLabel,
                 x + MODE_AREA_X + (MODE_AREA_WIDTH - font.width(currentModeLabel)) / 2,
-                y + MODE_AREA_Y + 7, 0xFFFFFF, false);
+                y + MODE_AREA_Y + 7, Palette.WHITE, false);
         graphics.drawString(this.font, currentModeText,
                 x + MODE_AREA_X + (MODE_AREA_WIDTH - font.width(currentModeText)) / 2,
-                y + MODE_AREA_Y + 21, 0xFFFF00, false);
+                y + MODE_AREA_Y + 21, Palette.YELLOW, false);
 
         if (hasSelectedItem) {
             if (!selectedItem.isEmpty()) {
@@ -303,7 +304,7 @@ public class MemoryBurnerScreen extends AbstractContainerScreen<MemoryBurnerMenu
                         startX, y + SELECTED_ITEM_ICON_Y);
 
                 graphics.drawString(this.font, selectedItemText,
-                        startX + itemWidth + 4, y + SELECTED_ITEM_TEXT_Y, 0xFFFF00, false);
+                        startX + itemWidth + 4, y + SELECTED_ITEM_TEXT_Y, Palette.YELLOW, false);
             }
         }
     }

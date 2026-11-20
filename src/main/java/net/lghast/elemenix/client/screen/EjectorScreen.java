@@ -1,5 +1,6 @@
 package net.lghast.elemenix.client.screen;
 
+import net.lghast.elemenix.client.Palette;
 import net.lghast.elemenix.common.content.blockentity.EjectorBlockEntity;
 import net.lghast.elemenix.common.system.menu.EjectorMenu;
 import net.lghast.elemenix.network.ejector.EjectorFilterPayload;
@@ -98,11 +99,11 @@ public class EjectorScreen extends AbstractContainerScreen<EjectorMenu> {
 
     @Override
     protected void renderLabels(GuiGraphics graphics, int mouseX, int mouseY) {
-        graphics.drawString(this.font, this.title, (this.imageWidth - this.font.width(this.title)) / 2, this.titleLabelY, 4210752, false);
+        graphics.drawString(this.font, this.title, (this.imageWidth - this.font.width(this.title)) / 2, this.titleLabelY, Palette.TEXT_COMMON, false);
 
         Component filterLabel = Component.translatable("gui.elemenix.target");
         int nameX = ENTRY_NAME_X + (ENTRY_NAME_WIDTH - this.font.width(filterLabel)) / 2;
-        graphics.drawString(this.font, filterLabel, nameX, ENTRY_NAME_Y, 0x000000, false);
+        graphics.drawString(this.font, filterLabel, nameX, ENTRY_NAME_Y, Palette.BLACK, false);
     }
 
     @Override
@@ -133,7 +134,7 @@ public class EjectorScreen extends AbstractContainerScreen<EjectorMenu> {
 
     private int filterColor() {
         if (filterIndex == EjectorBlockEntity.FILTER_ALL) {
-            return 0xFFFFFF;
+            return Palette.WHITE;
         }
         return Elemenix.values()[filterIndex].getColor();
     }

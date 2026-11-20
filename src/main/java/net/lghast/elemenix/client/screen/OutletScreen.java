@@ -1,5 +1,6 @@
 package net.lghast.elemenix.client.screen;
 
+import net.lghast.elemenix.client.Palette;
 import net.lghast.elemenix.client.screen.widget.OutletSlider;
 import net.lghast.elemenix.common.system.menu.OutletMenu;
 import net.lghast.elemenix.config.CommonConfig;
@@ -69,7 +70,7 @@ public class OutletScreen extends AbstractContainerScreen<OutletMenu> {
         graphics.pose().scale(titleScale, titleScale, 1.0f);
         int titleX = Math.round(this.imageWidth / 2f / titleScale - this.font.width(this.title) / 2f);
         int titleY = Math.round(this.titleLabelY / titleScale);
-        graphics.drawString(this.font, this.title, titleX, titleY, 4210752, false);
+        graphics.drawString(this.font, this.title, titleX, titleY, Palette.TEXT_COMMON, false);
         graphics.pose().popPose();
     }
 
@@ -102,8 +103,8 @@ public class OutletScreen extends AbstractContainerScreen<OutletMenu> {
         String maxText = String.valueOf(maxOutput);
         int maxTextScaledX = Math.round(centerX - this.font.width(maxText) / 2f);
         int maxTextScaledY = Math.round(31f / valueScale);
-        graphics.drawString(this.font, percentText, Math.round(centerX - this.font.width(percentText) / 2f), Math.round(18f / valueScale), 0xFFFFFF, false);
-        graphics.drawString(this.font, maxText, maxTextScaledX, maxTextScaledY, 0xFFFFFF, false);
+        graphics.drawString(this.font, percentText, Math.round(centerX - this.font.width(percentText) / 2f), Math.round(18f / valueScale), Palette.WHITE, false);
+        graphics.drawString(this.font, maxText, maxTextScaledX, maxTextScaledY, Palette.WHITE, false);
         graphics.pose().popPose();
 
         int valueX = x + Math.round(maxTextScaledX * valueScale);

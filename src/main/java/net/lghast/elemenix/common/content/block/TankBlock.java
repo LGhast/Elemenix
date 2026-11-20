@@ -1,12 +1,12 @@
 package net.lghast.elemenix.common.content.block;
 
 import com.mojang.serialization.MapCodec;
+import net.lghast.elemenix.client.Palette;
 import net.lghast.elemenix.common.content.blockentity.TankBlockEntity;
 import net.lghast.elemenix.register.content.ModBlockEntities;
 import net.lghast.elemenix.common.system.datacomponent.ElemenicStorage;
 import net.lghast.elemenix.config.ClientConfig;
 import net.lghast.elemenix.register.system.ModStats;
-import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.component.DataComponents;
@@ -165,7 +165,7 @@ public class TankBlock extends BaseEntityBlock {
         if (ClientConfig.SHOW_STORAGE_TOOLTIPS.get()) {
             ElemenicStorage storage = new ElemenicStorage(getStoredElemenix(stack));
             if (!storage.isEmpty()) {
-                tooltipComponents.add(Component.translatable("tooltip.elemenix.analyzer_storage").withStyle(ChatFormatting.GRAY));
+                tooltipComponents.add(Component.translatable("tooltip.elemenix.analyzer_storage").withColor(Palette.GRAY_LIGHT));
                 if (Screen.hasAltDown()) {
                     tooltipComponents.add(storage.toComponentFormerWhole());
                     tooltipComponents.add(storage.toComponentLatterWhole());

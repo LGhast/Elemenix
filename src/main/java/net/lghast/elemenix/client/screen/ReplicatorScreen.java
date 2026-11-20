@@ -1,5 +1,6 @@
 package net.lghast.elemenix.client.screen;
 
+import net.lghast.elemenix.client.Palette;
 import net.lghast.elemenix.client.render.ScaledText;
 import net.lghast.elemenix.client.screen.widget.ReplicatorMemoryListWidget;
 import net.lghast.elemenix.common.system.menu.HintSlot;
@@ -102,7 +103,7 @@ public class ReplicatorScreen extends AbstractContainerScreen<ReplicatorMenu> {
         int lineHeight = this.font.lineHeight;
         for (int i = 0; i < lines.size(); i++) {
             ScaledText.Line line = lines.get(i);
-            ScaledText.renderCentered(graphics, this.font, line.text(), line.scale(), TITLE_CENTER_X, TITLE_Y + i * lineHeight, 0x404040, true);
+            ScaledText.renderCentered(graphics, this.font, line.text(), line.scale(), TITLE_CENTER_X, TITLE_Y + i * lineHeight, Palette.TEXT_COMMON, true);
         }
     }
 

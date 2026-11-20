@@ -1,6 +1,7 @@
 package net.lghast.elemenix.client.event;
 
 import net.lghast.elemenix.Elemenics;
+import net.lghast.elemenix.client.Palette;
 import net.lghast.elemenix.client.render.OutlineRendererHelper;
 import net.lghast.elemenix.config.ClientConfig;
 import net.lghast.elemenix.common.content.block.ChannelBlock;
@@ -60,7 +61,7 @@ import java.util.UUID;
 @EventBusSubscriber(modid = Elemenics.MOD_ID, value = Dist.CLIENT)
 public class AnalyticalWrenchClientEvents {
     private static final Object HOVER_SLOT = new Object();
-    private static final int TITLE_COLOR = 0xFFD5FFF6;
+    private static final int TITLE_COLOR = Palette.ANALYSIS;
     private static final String[] LETTERS = {"O", "T", "F", "M", "E", "A"};
     private static final String[] RULE_SYMBOLS = {">", "<", "=", "≥", "≤"};
     private static final long[] UNIT_MULTIPLIERS = {1L, 10_000L, 100_000_000L, 1_000_000_000_000L};
@@ -234,13 +235,13 @@ public class AnalyticalWrenchClientEvents {
         if (be instanceof AbstractPrinterBlockEntity printer) {
             String modeName = AbstractPrinterBlockEntity.getModeName(printer.getMode());
             lines.add(Component.translatable("status.elemenix.mode",
-                    Component.literal(modeName).withColor(0xFFFFFFFF)).withColor(TITLE_COLOR));
+                    Component.literal(modeName).withColor(Palette.WHITE)).withColor(TITLE_COLOR));
 
             ItemStack printingStack = printer.getPrintingItemStack();
             if (!printingStack.isEmpty()) {
                 String itemName = printingStack.getHoverName().getString();
                 lines.add(Component.translatable("status.elemenix.printing",
-                        Component.literal(itemName).withColor(0xFFFFFFFF)).withColor(TITLE_COLOR));
+                        Component.literal(itemName).withColor(Palette.WHITE)).withColor(TITLE_COLOR));
             }
         }
 
@@ -249,14 +250,14 @@ public class AnalyticalWrenchClientEvents {
             if (!master.isEmpty()) {
                 String masterName = master.getHoverName().getString();
                 lines.add(Component.translatable("status.elemenix.replicator_master",
-                        Component.literal(masterName).withColor(0xFFFFFFFF)).withColor(TITLE_COLOR));
+                        Component.literal(masterName).withColor(Palette.WHITE)).withColor(TITLE_COLOR));
             }
 
             ItemStack replicating = replicator.getReplicatingItemStack();
             if (!replicating.isEmpty()) {
                 String name = getReplicatingName(replicating);
                 lines.add(Component.translatable("status.elemenix.replicating",
-                        Component.literal(name).withColor(0xFFFFFFFF)).withColor(TITLE_COLOR));
+                        Component.literal(name).withColor(Palette.WHITE)).withColor(TITLE_COLOR));
             }
 
             long energix = replicator.getStored(Elemenix.ENERGIX);
@@ -267,11 +268,11 @@ public class AnalyticalWrenchClientEvents {
         if (be instanceof TransformerBlockEntity transformer) {
             String currentPage = getTransformerCurrentPage(transformer);
             lines.add(Component.translatable("status.elemenix.current_page",
-                    Component.literal(currentPage).withColor(0xFFFFFFFF)).withColor(TITLE_COLOR));
+                    Component.literal(currentPage).withColor(Palette.WHITE)).withColor(TITLE_COLOR));
 
             String workContent = getTransformerWorkContent(transformer);
             lines.add(Component.translatable("status.elemenix.work_content",
-                    Component.literal(workContent).withColor(0xFFFFFFFF)).withColor(TITLE_COLOR));
+                    Component.literal(workContent).withColor(Palette.WHITE)).withColor(TITLE_COLOR));
         }
 
         if (be instanceof ElemenixHolder holder && !(be instanceof ReplicatorBlockEntity)) {
@@ -286,13 +287,13 @@ public class AnalyticalWrenchClientEvents {
         }
 
         if (be instanceof ElemenicComparatorBlockEntity comparator) {
-            Component criterionContent = Component.literal(buildCriterion(comparator)).withColor(0xFFFFFFFF);
+            Component criterionContent = Component.literal(buildCriterion(comparator)).withColor(Palette.WHITE);
             lines.add(Component.translatable("status.elemenix.criterion", criterionContent).withColor(TITLE_COLOR));
             boolean passing = comparator.isOwnCriterionPassing();
             Component judgmentContent = Component.translatable(passing
                     ? "status.elemenix.judgment.true"
                     : "status.elemenix.judgment.false")
-                    .withColor(passing ? 0xFF55FF55 : 0xFFFF5555);
+                    .withColor(passing ? Palette.SUCCESS : Palette.FAILURE);
             lines.add(Component.translatable("status.elemenix.judgment", judgmentContent).withColor(TITLE_COLOR));
         }
 
@@ -300,12 +301,12 @@ public class AnalyticalWrenchClientEvents {
             UUID owner = registrar.getOwner();
             if (owner != null) {
                 lines.add(Component.translatable("status.elemenix.registrar_owner",
-                        Component.literal(resolveOwnerName(owner)).withColor(0xFFFFFFFF)).withColor(TITLE_COLOR));
+                        Component.literal(resolveOwnerName(owner)).withColor(Palette.WHITE)).withColor(TITLE_COLOR));
             }
             ItemStack current = registrar.getCurrentRegisteringStack();
             if (!current.isEmpty()) {
                 lines.add(Component.translatable("status.elemenix.registrar_item",
-                        Component.literal(current.getHoverName().getString()).withColor(0xFFFFFFFF)).withColor(TITLE_COLOR));
+                        Component.literal(current.getHoverName().getString()).withColor(Palette.WHITE)).withColor(TITLE_COLOR));
             }
         }
 

@@ -1,6 +1,6 @@
 package net.lghast.elemenix.common.content.item;
 
-import net.minecraft.ChatFormatting;
+import net.lghast.elemenix.client.Palette;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -17,7 +17,7 @@ public class NullvoidItem extends Item {
 
     @Override
     public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> components, TooltipFlag tooltipFlag) {
-        components.add(Component.translatable("tooltip.elemenix.technical").withStyle(ChatFormatting.DARK_GRAY));
+        components.add(Component.translatable("tooltip.elemenix.technical").withColor(Palette.GRAY_DARK));
         super.appendHoverText(stack, context, components, tooltipFlag);
     }
 }

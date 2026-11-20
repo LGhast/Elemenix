@@ -1,5 +1,6 @@
 package net.lghast.elemenix.client.screen;
 
+import net.lghast.elemenix.client.Palette;
 import net.lghast.elemenix.client.render.ScaledText;
 import net.lghast.elemenix.client.screen.widget.PrinterMemoryListWidget;
 import net.lghast.elemenix.common.content.blockentity.AbstractPrinterBlockEntity;
@@ -126,14 +127,14 @@ public class PrinterScreen extends AbstractContainerScreen<PrinterMenu> {
     private void renderModeText(GuiGraphics graphics) {
         String modeText = getModeName();
         ScaledText.Fit fit = ScaledText.Fit.of(this.font, modeText, MODE_TEXT_MAX_WIDTH, 0);
-        ScaledText.renderCentered(graphics, this.font, fit, leftPos + MODE_TEXT_CENTER_X, topPos + MODE_TEXT_Y, 0xFFFFFF, true);
+        ScaledText.renderCentered(graphics, this.font, fit, leftPos + MODE_TEXT_CENTER_X, topPos + MODE_TEXT_Y, Palette.WHITE, true);
     }
 
     @Override
     protected void renderLabels(GuiGraphics graphics, int mouseX, int mouseY) {
         String titleText = this.title.getString();
         ScaledText.Fit fit = ScaledText.Fit.of(this.font, titleText, TITLE_MAX_WIDTH, 0);
-        ScaledText.render(graphics, this.font, fit, TITLE_X, TITLE_Y, 0x404040, true);
+        ScaledText.render(graphics, this.font, fit, TITLE_X, TITLE_Y, Palette.TEXT_COMMON, true);
     }
 
     private void updateButtonStates() {

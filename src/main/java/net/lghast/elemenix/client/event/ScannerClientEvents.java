@@ -1,6 +1,7 @@
 package net.lghast.elemenix.client.event;
 
 import net.lghast.elemenix.Elemenics;
+import net.lghast.elemenix.client.Palette;
 import net.lghast.elemenix.client.cache.ClientScanningCache;
 import net.lghast.elemenix.client.render.OutlineRendererHelper;
 import net.lghast.elemenix.common.content.block.InfuserBlock;
@@ -9,7 +10,6 @@ import net.lghast.elemenix.common.content.item.RemoteStorageItem;
 import net.lghast.elemenix.common.content.item.ScannerItem;
 import net.lghast.elemenix.common.content.item.ScanningStorageItem;
 import net.lghast.elemenix.common.system.datacomponent.RemoteStorageBinding;
-import net.lghast.elemenix.config.ClientConfig;
 import net.lghast.elemenix.core.resolver.BaseResolver;
 import net.lghast.elemenix.network.scan.RequestContainerScanPayload;
 import net.lghast.elemenix.register.system.ModDataComponents;
@@ -43,11 +43,9 @@ public class ScannerClientEvents {
     private static final Object SCANNER_SLOT = new Object();
     private static final Object STORAGE_SLOT = new Object();
     private static final Object REMOTE_SLOT = new Object();
-    private static final int DEFAULT_COLOR = 0xFFA1FBE8;
-    private static final int REMOTE_BOUND_COLOR = 0xFF88C35A;
-    private static final int EMPTY_COLOR = 0xFFFF7B7B;
-    private static final int TITLE_COLOR = 0xFFD5FFF6;
-    private static final int WHITE = 0xFFFFFFFF;
+    private static final int DEFAULT_COLOR = Palette.MINT;
+    private static final int TITLE_COLOR = Palette.ANALYSIS;
+    private static final int WHITE = Palette.WHITE;
 
     private static BlockPos cachedStoragePos;
 
@@ -104,7 +102,7 @@ public class ScannerClientEvents {
 
         Constituents constituents = hasItem ? BaseResolver.getConstituents(itemStack, level) : null;
         if (!hasItem || constituents == null || constituents.isUnanalysable()) {
-            lines.add(Component.translatable("tooltip.elemenix.unanalysable").withColor(EMPTY_COLOR));
+            lines.add(Component.translatable("tooltip.elemenix.unanalysable").withColor(Palette.FAILURE));
         } else {
             lines.add(Component.translatable("tooltip.elemenix.constituents").withColor(TITLE_COLOR));
             lines.add(constituents.toComponentFormer());
@@ -131,7 +129,7 @@ public class ScannerClientEvents {
         }
 
         Boolean hasParseable = ClientScanningCache.getHasParseable(pos);
-        int color = (hasParseable != null && !hasParseable) ? EMPTY_COLOR : DEFAULT_COLOR;
+        int color = (hasParseable != null && !hasParseable) ? Palette.FAILURE : DEFAULT_COLOR;
         OutlineRendererHelper.INSTANCE.showBox(STORAGE_SLOT,
                 shape.bounds().move(pos.getX(), pos.getY(), pos.getZ()), color);
     }
@@ -142,12 +140,12 @@ public class ScannerClientEvents {
         VoxelShape shape = state.getShape(level, pos);
         if (shape.isEmpty()) return;
 
-        int color = 0xFF000000 | ClientConfig.ANALYTICAL_WRENCH_OUTLINE_COLOR.get();
+        int color = Palette.GREEN_JADE;
         RemoteStorageBinding binding = stack.get(ModDataComponents.REMOTE_STORAGE_BINDING.get());
         if (binding != null && binding.isBound() && binding.boundPos().isPresent()) {
             GlobalPos boundPos = binding.boundPos().get();
             if (boundPos.dimension().equals(level.dimension()) && boundPos.pos().equals(pos)) {
-                color = REMOTE_BOUND_COLOR;
+                color = Palette.GREEN_LIME;
             }
         }
 
