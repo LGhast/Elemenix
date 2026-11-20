@@ -2,7 +2,7 @@ package net.lghast.elemenix.common.content.item;
 
 import net.lghast.elemenix.compat.lootr.LootrCompat;
 import net.lghast.elemenix.config.CommonConfig;
-import net.lghast.elemenix.utils.misc.ScanHelper;
+import net.lghast.elemenix.common.system.misc.ScanHelper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
@@ -17,11 +17,12 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.RandomizableContainerBlockEntity;
 import net.minecraft.world.level.block.entity.ShulkerBoxBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.neoforged.fml.ModList;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Objects;
 
-import static net.lghast.elemenix.utils.misc.ScanHelper.scanContainer;
+import static net.lghast.elemenix.common.system.misc.ScanHelper.scanContainer;
 
 public class ScanningStorageItem extends StorageItem{
     public ScanningStorageItem(Properties properties) {
@@ -71,7 +72,7 @@ public class ScanningStorageItem extends StorageItem{
         if (!(blockEntity instanceof BaseContainerBlockEntity bcEntity)) return;
 
         Container targetContainer;
-        boolean isLoot = LootrCompat.isLootrContainer(blockEntity);
+        boolean isLoot = ModList.get().isLoaded("lootr") && LootrCompat.isLootrContainer(blockEntity);
 
         if (isLoot) {
             targetContainer = LootrCompat.getPlayerInventory(player, blockEntity);

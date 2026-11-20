@@ -1,6 +1,6 @@
 package net.lghast.elemenix.client.cache;
 
-import net.lghast.elemenix.common.system.datacomponent.PotionMemoryData;
+import net.lghast.elemenix.common.system.datacomponent.PotionMemories;
 import net.minecraft.resources.ResourceLocation;
 
 import java.util.HashSet;
@@ -9,18 +9,24 @@ import java.util.Set;
 
 public class ClientRegistrarCache {
     private static Set<ResourceLocation> items = new HashSet<>();
-    private static Set<PotionMemoryData.Entry> potions = new HashSet<>();
+    private static Set<PotionMemories.Entry> potions = new HashSet<>();
+    private static int version = 0;
 
-    public static void update(List<ResourceLocation> newItems, List<PotionMemoryData.Entry> newPotions) {
+    public static int getVersion() {
+        return version;
+    }
+
+    public static void update(List<ResourceLocation> newItems, List<PotionMemories.Entry> newPotions) {
         items = new HashSet<>(newItems);
         potions = new HashSet<>(newPotions);
+        version++;
     }
 
     public static Set<ResourceLocation> getItems() {
         return items;
     }
 
-    public static Set<PotionMemoryData.Entry> getPotions() {
+    public static Set<PotionMemories.Entry> getPotions() {
         return potions;
     }
 
@@ -68,6 +74,10 @@ public class ClientRegistrarCache {
     }
 
     public static void setDeveloperMode(boolean value) {
+        if (developerMode == value) {
+            return;
+        }
         developerMode = value;
+        version++;
     }
 }

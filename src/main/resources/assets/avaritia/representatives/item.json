@@ -1,0 +1,8 @@
+{
+  "avaritia:singularity": "avaritia:singularity",
+  "avaritia:endless": "avaritia:infinity_pickaxe",
+  "c:gears/neutronium": "avaritia:neutron_gear",
+  "c:ingots/neutronium": "avaritia:neutron_ingot",
+  "c:nuggets/neutronium": "avaritia:neutron_nugget",
+  "c:storage_blocks/neutronium": "avaritia:neutron"
+}

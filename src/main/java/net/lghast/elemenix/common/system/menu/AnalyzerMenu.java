@@ -8,22 +8,23 @@ import net.lghast.elemenix.common.content.item.RemoteStorageItem;
 import net.lghast.elemenix.common.content.item.StorageItem;
 import net.lghast.elemenix.common.content.item.WitchcraftMemorizerItem;
 import net.lghast.elemenix.common.system.datacomponent.ElemenicStorage;
-import net.lghast.elemenix.common.system.datacomponent.MemoryData;
-import net.lghast.elemenix.common.system.datacomponent.PotionMemoryData;
+import net.lghast.elemenix.common.system.datacomponent.ItemMemories;
+import net.lghast.elemenix.common.system.datacomponent.PotionMemories;
 import net.lghast.elemenix.common.system.datacomponent.RemoteStorageBinding;
 import net.lghast.elemenix.common.system.datacomponent.UuidData;
+import net.lghast.elemenix.common.system.misc.ReconstructionHelper;
 import net.lghast.elemenix.compat.ftbquests.util.AnalyzerTaskHelper;
 import net.lghast.elemenix.config.CommonConfig;
+import net.lghast.elemenix.core.resolver.BaseResolver;
 import net.lghast.elemenix.register.content.ModItems;
 import net.lghast.elemenix.register.system.ModDataComponents;
 import net.lghast.elemenix.register.system.ModMenus;
 import net.lghast.elemenix.register.system.ModStats;
+import net.lghast.elemenix.common.system.advancement.EnrichTrigger;
 import net.lghast.elemenix.register.system.ModTags;
-import net.lghast.elemenix.utils.elemenix.Constituents;
-import net.lghast.elemenix.utils.elemenix.Elemenix;
-import net.lghast.elemenix.utils.elemenix.ElemenixInfo;
-import net.lghast.elemenix.utils.misc.ReceptacleHelper;
-import net.lghast.elemenix.utils.misc.LongContainerData;
+import net.lghast.elemenix.core.Constituents;
+import net.lghast.elemenix.core.Elemenix;
+import net.lghast.elemenix.common.system.transfer.ReceptacleHelper;
 import net.minecraft.core.GlobalPos;
 import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponents;
@@ -190,9 +191,9 @@ public class AnalyzerMenu extends AbstractContainerMenu {
 
     private static boolean isInputSlotPlaceable(ItemStack stack) {
         if (stack.is(ModItems.ELEMENIC_MEMORIZER)) {
-            return MemorizerItem.getOrCreateMemories(stack).resolvedItems().isEmpty();
+            return MemorizerItem.getOrCreateMemories(stack).memories().isEmpty();
         }
-        return !ElemenixInfo.isUndeconstructable(stack) && !(stack.getItem() instanceof AnalyzerItem);
+        return !BaseResolver.isUndeconstructable(stack) && !(stack.getItem() instanceof AnalyzerItem);
     }
 
     private void loadAnalyzerStorage() {
@@ -332,15 +333,15 @@ public class AnalyzerMenu extends AbstractContainerMenu {
     }
 
     private void regularlyDeconstruct(ItemStack inputStack) {
-        Constituents constituents = ElemenixInfo.getDiscountAppliedConstituents(inputStack);
+        Constituents constituents = BaseResolver.getDiscountAppliedConstituents(inputStack);
         if (constituents.isUnanalysable()) return;
+        if (failToAddConstituents(constituents, inputStack.getCount())) return;
 
         for (Elemenix type : Elemenix.values()) {
             long amount = constituents.get(type) * inputStack.getCount();
             if (amount > 0) {
                 long current = data.getLong(type.getIndex());
-                long newValue = current + amount;
-                data.setLong(type.getIndex(), newValue);
+                data.setLong(type.getIndex(), current + amount);
             }
         }
         recordToMemorizer(inputStack);
@@ -477,13 +478,13 @@ public class AnalyzerMenu extends AbstractContainerMenu {
     private void recordItemToMemorizer(ItemStack inputStack, ItemStack memorizerStack) {
         if (canRecordInputItem(inputStack, memorizerStack)) {
             ResourceLocation itemId = BuiltInRegistries.ITEM.getKey(inputStack.getItem());
-            MemoryData currentMemoryData = MemorizerItem.getOrCreateMemories(memorizerStack);
-            List<ResourceLocation> currentMemories = currentMemoryData.resolvedItems();
+            ItemMemories currentItemMemories = MemorizerItem.getOrCreateMemories(memorizerStack);
+            List<ResourceLocation> currentMemories = currentItemMemories.memories();
             List<ResourceLocation> newMemories = new ArrayList<>(currentMemories);
 
             newMemories.add(itemId);
             player.awardStat(ModStats.MEMORIZER_RECORDS_ADDED.get());
-            memorizerStack.set(ModDataComponents.MEMORY_DATA.get(), currentMemoryData.withResolvedItems(newMemories));
+            memorizerStack.set(ModDataComponents.ITEM_MEMORIES.get(), currentItemMemories.withMemories(newMemories));
 
             if(Elemenics.isFtbQuestsLoaded() && player instanceof ServerPlayer serverPlayer) {
                 AnalyzerTaskHelper.handleMemorizeProgress(serverPlayer, inputStack.copy());
@@ -503,13 +504,13 @@ public class AnalyzerMenu extends AbstractContainerMenu {
         if (potionId == null) return;
 
         ResourceLocation itemId = BuiltInRegistries.ITEM.getKey(inputStack.getItem());
-        PotionMemoryData current = WitchcraftMemorizerItem.getOrCreateMemories(memorizerStack);
-        List<PotionMemoryData.Entry> currentEntries = current.entries();
-        List<PotionMemoryData.Entry> newEntries = new ArrayList<>(currentEntries);
+        PotionMemories current = WitchcraftMemorizerItem.getOrCreateMemories(memorizerStack);
+        List<PotionMemories.Entry> currentEntries = current.entries();
+        List<PotionMemories.Entry> newEntries = new ArrayList<>(currentEntries);
 
-        newEntries.add(new PotionMemoryData.Entry(itemId, potionId));
+        newEntries.add(new PotionMemories.Entry(itemId, potionId));
         player.awardStat(ModStats.MEMORIZER_RECORDS_ADDED.get());
-        memorizerStack.set(ModDataComponents.POTION_MEMORY_DATA.get(), current.withEntries(newEntries));
+        memorizerStack.set(ModDataComponents.POTION_MEMORIES.get(), current.withEntries(newEntries));
 
         if (Elemenics.isFtbQuestsLoaded() && player instanceof ServerPlayer serverPlayer) {
             AnalyzerTaskHelper.handleMemorizeProgress(serverPlayer, inputStack.copy());
@@ -536,7 +537,7 @@ public class AnalyzerMenu extends AbstractContainerMenu {
         }
 
         ResourceLocation itemId = BuiltInRegistries.ITEM.getKey(inputStack.getItem());
-        List<ResourceLocation> memories = MemorizerItem.getOrCreateMemories(memorizerStack).resolvedItems();
+        List<ResourceLocation> memories = MemorizerItem.getOrCreateMemories(memorizerStack).memories();
 
         return !MemorizerItem.isReadonly(memorizerStack) && MemorizerItem.isNotFull(memorizerStack) && !memories.contains(itemId);
     }
@@ -557,11 +558,11 @@ public class AnalyzerMenu extends AbstractContainerMenu {
         if (potionId == null) return false;
 
         ResourceLocation itemId = BuiltInRegistries.ITEM.getKey(inputStack.getItem());
-        List<PotionMemoryData.Entry> entries = WitchcraftMemorizerItem.getOrCreateMemories(memorizerStack).entries();
+        List<PotionMemories.Entry> entries = WitchcraftMemorizerItem.getOrCreateMemories(memorizerStack).entries();
 
         return !WitchcraftMemorizerItem.isReadonly(memorizerStack)
                 && WitchcraftMemorizerItem.isNotFull(memorizerStack)
-                && !entries.contains(new PotionMemoryData.Entry(itemId, potionId));
+                && !entries.contains(new PotionMemories.Entry(itemId, potionId));
     }
 
     @Nullable
@@ -577,39 +578,36 @@ public class AnalyzerMenu extends AbstractContainerMenu {
         return id;
     }
 
+    private boolean failToAddConstituents(Constituents constituents, int count) {
+        for (Elemenix type : Elemenix.values()) {
+            long value = constituents.get(type);
+            if (value <= 0) continue;
+            if (count > 1 && value > Long.MAX_VALUE / count) return true;
+            if (data.getLong(type.getIndex()) > Long.MAX_VALUE - value * count) return true;
+        }
+        return false;
+    }
+
     public void reconstructItem(ResourceLocation itemId, boolean shiftClick) {
         Item item = BuiltInRegistries.ITEM.get(itemId);
-        if (!getCarried().isEmpty() && !getCarried().is(item)) return;
 
         ItemStack resultStack = new ItemStack(item);
-        if (resultStack.isEmpty() || ElemenixInfo.isUnreconstructable(resultStack)) return;
+        if (resultStack.isEmpty() || BaseResolver.isUnreconstructable(resultStack)) return;
+        if (ReconstructionHelper.isRepellent(getCarried(), resultStack)) return;
 
-        Constituents required = ElemenixInfo.getPremiumAppliedConstituents(resultStack);
+        Constituents required = BaseResolver.getPremiumAppliedConstituents(resultStack);
         if (required.isUnanalysable()) return;
 
         int maxStackSize = resultStack.getMaxStackSize();
-
         int maxAmount = shiftClick ? maxStackSize : 1;
-        for (Elemenix type : Elemenix.values()) {
-            long req = required.get(type);
-            if (req > 0) {
-                long available = data.getLong(type.getIndex()) & 0xFFFFFFFFL;
-                maxAmount = (int) Math.min(maxAmount, available / req);
-            }
-        }
-
+        maxAmount = ReconstructionHelper.maxCraftable(required, data, maxAmount);
+        maxAmount = ReconstructionHelper.clampToCarriedRoom(getCarried(), maxStackSize, maxAmount);
         if (maxAmount <= 0) return;
 
-        for (Elemenix type : Elemenix.values()) {
-            long consumption = required.get(type) * maxAmount;
-            if (consumption > 0) {
-                long current = data.getLong(type.getIndex());
-                data.setLong(type.getIndex(), Math.max(0, current - consumption));
-            }
-        }
+        ReconstructionHelper.consume(required, data, maxAmount);
 
         resultStack.setCount(maxAmount);
-        if (!getCarried().isEmpty() && ItemStack.isSameItemSameComponents(getCarried(), resultStack)) {
+        if (!getCarried().isEmpty()) {
             getCarried().grow(maxAmount);
         } else {
             setCarried(resultStack);
@@ -619,6 +617,9 @@ public class AnalyzerMenu extends AbstractContainerMenu {
             AnalyzerTaskHelper.handleReconstructProgress(serverPlayer, resultStack.copy(), maxAmount);
         }
 
+        if (resultStack.is(ModTags.ESSENCES) && player instanceof ServerPlayer enrichPlayer) {
+            EnrichTrigger.TRIGGER.get().trigger(enrichPlayer);
+        }
         saveStorageAndMemoryData();
         broadcastChanges();
     }
@@ -629,37 +630,23 @@ public class AnalyzerMenu extends AbstractContainerMenu {
         Optional<Holder.Reference<Potion>> potionHolder = BuiltInRegistries.POTION.getHolder(ResourceKey.create(Registries.POTION, potionId));
         if (potionHolder.isEmpty()) return;
 
-        if (!getCarried().isEmpty() && !getCarried().is(item)) return;
-
         ItemStack resultStack = PotionContents.createItemStack(item, potionHolder.get());
-        if (resultStack.isEmpty() || ElemenixInfo.isUnreconstructable(resultStack)) return;
+        if (resultStack.isEmpty() || BaseResolver.isUnreconstructable(resultStack)) return;
+        if (ReconstructionHelper.isRepellent(getCarried(), resultStack)) return;
 
-        Constituents required = ElemenixInfo.getPremiumAppliedConstituents(resultStack);
+        Constituents required = BaseResolver.getPremiumAppliedConstituents(resultStack);
         if (required.isUnanalysable()) return;
 
         int maxStackSize = resultStack.getMaxStackSize();
-
         int maxAmount = shiftClick ? maxStackSize : 1;
-        for (Elemenix type : Elemenix.values()) {
-            long req = required.get(type);
-            if (req > 0) {
-                long available = data.getLong(type.getIndex()) & 0xFFFFFFFFL;
-                maxAmount = (int) Math.min(maxAmount, available / req);
-            }
-        }
-
+        maxAmount = ReconstructionHelper.maxCraftable(required, data, maxAmount);
+        maxAmount = ReconstructionHelper.clampToCarriedRoom(getCarried(), maxStackSize, maxAmount);
         if (maxAmount <= 0) return;
 
-        for (Elemenix type : Elemenix.values()) {
-            long consumption = required.get(type) * maxAmount;
-            if (consumption > 0) {
-                long current = data.getLong(type.getIndex());
-                data.setLong(type.getIndex(), Math.max(0, current - consumption));
-            }
-        }
+        ReconstructionHelper.consume(required, data, maxAmount);
 
         resultStack.setCount(maxAmount);
-        if (!getCarried().isEmpty() && ItemStack.isSameItemSameComponents(getCarried(), resultStack)) {
+        if (!getCarried().isEmpty()) {
             getCarried().grow(maxAmount);
         } else {
             setCarried(resultStack);
@@ -676,13 +663,13 @@ public class AnalyzerMenu extends AbstractContainerMenu {
     public List<ResourceLocation> getMemories() {
         ItemStack memorizer = getMemorizerItem();
         if (memorizer.is(ModItems.ELEMENIC_MEMORIZER)) {
-            MemoryData memoryDate = MemorizerItem.getOrCreateMemories(memorizer);
-            return memoryDate.resolvedItems();
+            ItemMemories memoryDate = MemorizerItem.getOrCreateMemories(memorizer);
+            return memoryDate.memories();
         }
         return null;
     }
 
-    public List<PotionMemoryData.Entry> getPotionMemories() {
+    public List<PotionMemories.Entry> getPotionMemories() {
         ItemStack memorizer = getMemorizerItem();
         if (memorizer.is(ModItems.WITCHCRAFT_MEMORIZER)) {
             return WitchcraftMemorizerItem.getOrCreateMemories(memorizer).entries();

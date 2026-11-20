@@ -2,14 +2,7 @@
   "parent": "elemenix:elemenics/root",
   "criteria": {
     "get_essence": {
-      "conditions": {
-        "items": [
-          {
-            "items": "#elemenix:essences"
-          }
-        ]
-      },
-      "trigger": "minecraft:inventory_changed"
+      "trigger": "elemenix:enrich"
     }
   },
   "display": {

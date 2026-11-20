@@ -1,4 +1,4 @@
-// 1.21.1	2026-11-17T20:45:25.5335931	Tags for minecraft:item mod id elemenix
+// 1.21.1	2026-11-20T12:55:17.8123377	Tags for minecraft:item mod id elemenix
 f7b43a0e65b5ec15ec774e496bbf212f01925581 data/c/tags/item/tools/wrench.json
 45072811a2531b7dcfe7e021506711e8287f8ef0 data/elemenix/tags/item/elemenic_outlets.json
 8ea9784a3d3a9b9bed2cf1880e2ed5be646653b5 data/elemenix/tags/item/elemenic_receptacles.json
@@ -13,5 +13,5 @@ f87f77226de93815712346dc3d0667caadf84128 data/elemenix/tags/item/essences.json
 a0e706c410e093675b07001a2857a7f535cc0de0 data/elemenix/tags/item/memorizer_slot_placeable.json
 c0a0b79ed2186c517de6c6974e1ba023d63f07ab data/elemenix/tags/item/memorizer_style_materials.json
 2bafa7051bba0a920c27ba214b75cd0d5cc74120 data/elemenix/tags/item/printers.json
-338bdc3c400d2e80d7ac7e1042bb4c446ee72ff2 data/elemenix/tags/item/registrar_hidden.json
+8e2fdd9e1076e4ad49e65729cf79be1e1c93f228 data/elemenix/tags/item/registrar_hidden.json
 b0cba12bfc1615a40a33d152ac1171054d3742c9 data/minecraft/tags/item/trim_materials.json

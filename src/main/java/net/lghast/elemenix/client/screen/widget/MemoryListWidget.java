@@ -1,13 +1,14 @@
 package net.lghast.elemenix.client.screen.widget;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import net.lghast.elemenix.client.misc.ScaledText;
-import net.lghast.elemenix.common.system.datacomponent.PotionMemoryData;
+import net.lghast.elemenix.client.render.ItemIconRenderer;
+import net.lghast.elemenix.client.render.ScaledText;
+import net.lghast.elemenix.common.system.datacomponent.PotionMemories;
 import net.lghast.elemenix.common.system.menu.AnalyzerMenu;
 import net.lghast.elemenix.network.analyzer.PotionReconstructionPayload;
 import net.lghast.elemenix.network.analyzer.ReconstructionPayload;
 import net.lghast.elemenix.register.content.ModItems;
-import net.lghast.elemenix.utils.elemenix.ElemenixInfo;
+import net.lghast.elemenix.core.resolver.BaseResolver;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.AbstractWidget;
@@ -164,7 +165,7 @@ public class MemoryListWidget extends AbstractWidget {
     }
 
     protected int getItemNameColor(int index, ItemStack stack) {
-        if (!ElemenixInfo.isCalculating() && ElemenixInfo.isUnreconstructable(stack)) {
+        if (!BaseResolver.isCalculating() && BaseResolver.isUnreconstructable(stack)) {
             return 0xFF3333;
         }
         return 0xFFFFFF;
@@ -182,7 +183,7 @@ public class MemoryListWidget extends AbstractWidget {
         poseStack.scale(itemScale, itemScale, 1.0f);
 
         ItemStack renderedItem = stackToRender.isEmpty() ? new ItemStack(Items.BARRIER) : stackToRender;
-        graphics.renderItem(renderedItem, 0, 0);
+        ItemIconRenderer.render(graphics, renderedItem, 0, 0);
         graphics.renderItemDecorations(minecraft.font, renderedItem, 0, 0);
 
         poseStack.popPose();
@@ -266,9 +267,9 @@ public class MemoryListWidget extends AbstractWidget {
                 newStacks.add(stack);
             }
         } else if (memorizerStack.is(ModItems.WITCHCRAFT_MEMORIZER)) {
-            List<PotionMemoryData.Entry> entries = menu.getPotionMemories();
+            List<PotionMemories.Entry> entries = menu.getPotionMemories();
             if (entries != null) {
-                for (PotionMemoryData.Entry entry : entries) {
+                for (PotionMemories.Entry entry : entries) {
                     newItemIds.add(entry.itemId());
                     newPotionIds.add(entry.potionId());
                     newStacks.add(createPotionStack(entry.itemId(), entry.potionId()));

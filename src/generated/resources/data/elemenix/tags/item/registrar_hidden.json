@@ -2,6 +2,8 @@
   "values": [
     "minecraft:budding_amethyst",
     "minecraft:frogspawn",
+    "minecraft:bedrock",
+    "minecraft:reinforced_deepslate",
     "elemenix:nullvoid",
     "#elemenix:infested_stones"
   ]

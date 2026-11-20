@@ -8,11 +8,11 @@ import net.lghast.elemenix.common.system.recipe.GerminatingRecipe;
 import net.lghast.elemenix.common.system.recipe.MineralizingRecipe;
 import net.lghast.elemenix.compat.jei.category.*;
 import net.lghast.elemenix.compat.jei.recipe.*;
+import net.lghast.elemenix.core.resolver.BaseResolver;
 import net.lghast.elemenix.register.content.ModBlocks;
 import net.lghast.elemenix.register.content.ModItems;
 import net.lghast.elemenix.register.system.ModRecipes;
-import net.lghast.elemenix.utils.elemenix.Elemenix;
-import net.lghast.elemenix.utils.elemenix.ElemenixInfo;
+import net.lghast.elemenix.core.Elemenix;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -161,6 +161,8 @@ public class JEIPlugin implements IModPlugin {
                 Component.translatable("description.elemenix.elemenic_equiliplex"));
         registration.addItemStackInfo(new ItemStack(ModItems.ELEMENIC_CHAOS.get()),
                 Component.translatable("description.elemenix.elemenic_chaos"));
+        registration.addItemStackInfo(new ItemStack(ModItems.NULLVOID.get()),
+                Component.translatable("description.elemenix.nullvoid"));
     }
 
     private List<MineralizingRecipe> getMineralizingRecipes() {
@@ -189,7 +191,7 @@ public class JEIPlugin implements IModPlugin {
 
     private List<TransformingRecipe> getTransformingRecipes() {
         List<TransformingRecipe> recipes = new ArrayList<>();
-        int essenceValue = ElemenixInfo.ESSENCE_VALUE;
+        int essenceValue = BaseResolver.ESSENCE_VALUE;
 
         recipes.add(new TransformingRecipe(
                 Ingredient.of(ModBlocks.GEOLOGICAL_SIMULATOR.asItem()),
@@ -236,7 +238,7 @@ public class JEIPlugin implements IModPlugin {
 
     private List<EnrichingRecipe> getEnrichingRecipes() {
         List<EnrichingRecipe> recipes = new ArrayList<>();
-        int essenceValue = ElemenixInfo.ESSENCE_VALUE;
+        int essenceValue = BaseResolver.ESSENCE_VALUE;
         int essenplexValue = essenceValue * 9;
 
         recipes.add(new EnrichingRecipe(

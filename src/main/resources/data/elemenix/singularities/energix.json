@@ -1,0 +1,13 @@
+{
+  "displayName": "singularity.elemenix.energix",
+  "ingredient": {
+    "item": "elemenix:energix_essence"
+  },
+  "name": "elemenix:energix",
+  "overlayColor": 16619842,
+  "underlayColor": 7488798,
+  "count": 1000,
+  "timeCost": 240,
+  "enabled": true,
+  "recipeEnabled": true
+}

@@ -2,7 +2,7 @@ package net.lghast.elemenix.common.system.attachment;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.lghast.elemenix.common.system.datacomponent.PotionMemoryData;
+import net.lghast.elemenix.common.system.datacomponent.PotionMemories;
 import net.minecraft.resources.ResourceLocation;
 
 import java.util.ArrayList;
@@ -15,13 +15,13 @@ import java.util.Set;
  * potion-like items are keyed by the (item, potion) pair so each potion counts as a distinct entry.
  * Immutable: mutators return a new instance so attachment replacement is always explicit.
  */
-public record RegistrarCollection(Set<ResourceLocation> items, Set<PotionMemoryData.Entry> potions) {
+public record RegistrarCollection(Set<ResourceLocation> items, Set<PotionMemories.Entry> potions) {
     public static final Codec<RegistrarCollection> CODEC = RecordCodecBuilder.create(instance ->
             instance.group(
                     ResourceLocation.CODEC.listOf()
                             .xmap(RegistrarCollection::toItemSet, RegistrarCollection::toItemList)
                             .fieldOf("items").forGetter(RegistrarCollection::items),
-                    PotionMemoryData.Entry.CODEC.listOf()
+                    PotionMemories.Entry.CODEC.listOf()
                             .xmap(RegistrarCollection::toPotionlikeSet, RegistrarCollection::toPotionlikeList)
                             .fieldOf("potions").forGetter(RegistrarCollection::potions)
             ).apply(instance, RegistrarCollection::new)
@@ -40,7 +40,7 @@ public record RegistrarCollection(Set<ResourceLocation> items, Set<PotionMemoryD
         return items.contains(id);
     }
 
-    public boolean containsPotion(PotionMemoryData.Entry entry) {
+    public boolean containsPotion(PotionMemories.Entry entry) {
         return potions.contains(entry);
     }
 
@@ -50,8 +50,8 @@ public record RegistrarCollection(Set<ResourceLocation> items, Set<PotionMemoryD
         return new RegistrarCollection(newItems, potions);
     }
 
-    public RegistrarCollection withPotion(PotionMemoryData.Entry entry) {
-        Set<PotionMemoryData.Entry> newPotions = new HashSet<>(potions);
+    public RegistrarCollection withPotion(PotionMemories.Entry entry) {
+        Set<PotionMemories.Entry> newPotions = new HashSet<>(potions);
         newPotions.add(entry);
         return new RegistrarCollection(items, newPotions);
     }
@@ -68,11 +68,11 @@ public record RegistrarCollection(Set<ResourceLocation> items, Set<PotionMemoryD
         return new ArrayList<>(set);
     }
 
-    private static Set<PotionMemoryData.Entry> toPotionlikeSet(List<PotionMemoryData.Entry> list) {
+    private static Set<PotionMemories.Entry> toPotionlikeSet(List<PotionMemories.Entry> list) {
         return new HashSet<>(list);
     }
 
-    private static List<PotionMemoryData.Entry> toPotionlikeList(Set<PotionMemoryData.Entry> set) {
+    private static List<PotionMemories.Entry> toPotionlikeList(Set<PotionMemories.Entry> set) {
         return new ArrayList<>(set);
     }
 }

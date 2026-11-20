@@ -1,0 +1,13 @@
+{
+  "displayName": "singularity.elemenix.terrix",
+  "ingredient": {
+    "item": "elemenix:terrix_essence"
+  },
+  "name": "elemenix:terrix",
+  "overlayColor": 12864018,
+  "underlayColor": 5775624,
+  "count": 1000,
+  "timeCost": 240,
+  "enabled": true,
+  "recipeEnabled": true
+}

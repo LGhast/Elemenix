@@ -1,8 +1,8 @@
 package net.lghast.elemenix.common.system.recipe;
 
 import net.lghast.elemenix.register.system.ModRecipes;
-import net.lghast.elemenix.utils.elemenix.Constituents;
-import net.lghast.elemenix.utils.elemenix.ElemenixInfo;
+import net.lghast.elemenix.core.Constituents;
+import net.lghast.elemenix.core.resolver.BaseResolver;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
 import net.minecraft.world.item.ItemStack;
@@ -30,7 +30,7 @@ public record MineralizingRecipe(Ingredient mineral, Ingredient medium, ItemStac
     }
 
     public int getFlumixCost(ItemStack mineralStack) {
-        Constituents constituents = ElemenixInfo.getConstituents(mineralStack);
+        Constituents constituents = BaseResolver.getConstituents(mineralStack);
         if (constituents == null || constituents.isUnanalysable()) return 0;
         long sum = constituents.getSum();
         if (sum <= 0) return 0;

@@ -2,7 +2,6 @@ package net.lghast.elemenix.common.system.menu;
 
 import net.lghast.elemenix.common.content.blockentity.TankBlockEntity;
 import net.lghast.elemenix.register.system.ModMenus;
-import net.lghast.elemenix.utils.misc.LongContainerData;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;

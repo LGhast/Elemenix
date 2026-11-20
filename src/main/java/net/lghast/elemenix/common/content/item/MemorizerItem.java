@@ -1,15 +1,16 @@
 package net.lghast.elemenix.common.content.item;
 
+import net.lghast.elemenix.common.system.advancement.StyleTrigger;
 import net.lghast.elemenix.common.system.advancement.WaxOffTrigger;
 import net.lghast.elemenix.common.system.advancement.WaxOnTrigger;
-import net.lghast.elemenix.common.system.datacomponent.MemoryData;
+import net.lghast.elemenix.common.system.datacomponent.ItemMemories;
 import net.lghast.elemenix.common.system.datacomponent.Style;
 import net.lghast.elemenix.common.system.datacomponent.Waxed;
 import net.lghast.elemenix.config.ClientConfig;
 import net.lghast.elemenix.register.content.ModItems;
 import net.lghast.elemenix.register.system.ModDataComponents;
 import net.lghast.elemenix.register.system.ModStats;
-import net.lghast.elemenix.utils.misc.ModUtils;
+import net.lghast.elemenix.common.util.ModUtils;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
@@ -65,27 +66,24 @@ public class MemorizerItem extends Item{
 
     public MemorizerItem(Properties properties) {
         super(properties.stacksTo(1)
-                .component(ModDataComponents.MEMORY_DATA, new MemoryData(new ArrayList<>()))
+                .component(ModDataComponents.ITEM_MEMORIES, new ItemMemories(new ArrayList<>()))
                 .component(ModDataComponents.WAXED, Waxed.unwaxed())
                 .component(ModDataComponents.STYLE, new Style(0))
         );
     }
 
-    public static MemoryData getOrCreateMemories(ItemStack stack) {
+    public static ItemMemories getOrCreateMemories(ItemStack stack) {
         if(!(stack.getItem() instanceof MemorizerItem)){
-            return new MemoryData(new ArrayList<>());
+            return new ItemMemories(new ArrayList<>());
         }
-        MemoryData data = stack.get(ModDataComponents.MEMORY_DATA);
+        ItemMemories data = stack.get(ModDataComponents.ITEM_MEMORIES);
         if (data == null) {
-            data = new MemoryData(new ArrayList<>());
+            data = new ItemMemories(new ArrayList<>());
         }
         return data;
     }
 
     public static Style getOrCreateStyle(ItemStack stack) {
-        if(!(stack.getItem() instanceof MemorizerItem)){
-            return new Style(0);
-        }
         Style style = stack.get(ModDataComponents.STYLE);
         if (style == null) {
             style = new Style(0);
@@ -159,7 +157,7 @@ public class MemorizerItem extends Item{
         return InteractionResultHolder.success(memorizerStack);
     }
 
-    private void changeStyle(ServerLevel serverLevel, Player player, ItemStack memorizerStack, ItemStack offHandItem){
+    public static void changeStyle(ServerLevel serverLevel, Player player, ItemStack memorizerStack, ItemStack offHandItem){
         int styleIndex = STYLE_MAP.get(offHandItem.getItem());
 
         if(styleIndex == getOrCreateStyle(memorizerStack).style()){
@@ -171,6 +169,9 @@ public class MemorizerItem extends Item{
         }
         memorizerStack.set(ModDataComponents.STYLE, new Style(styleIndex));
         player.awardStat(ModStats.MEMORIZERS_STYLED.get());
+        if (player instanceof ServerPlayer serverPlayer) {
+            StyleTrigger.TRIGGER.get().trigger(serverPlayer);
+        }
 
         serverLevel.playSound(null , player.getX(), player.getY(), player.getZ(),
                 SoundEvents.DYE_USE, SoundSource.PLAYERS);
@@ -241,10 +242,10 @@ public class MemorizerItem extends Item{
             components.add(Component.literal(styleInfo).withStyle(ChatFormatting.DARK_GRAY));
         }
         if(ClientConfig.SHOW_MEMORY_TOOLTIPS.get()) {
-            MemoryData memoryData = getOrCreateMemories(stack);
-            if(!memoryData.isEmpty()) {
-                String memories = String.format(Component.translatable("tooltip.elemenix.memories").getString(), memoryData.resolvedItems().size());
-                components.add(Component.literal(memories).withStyle(memoryData.isFull() ? ChatFormatting.RED : ChatFormatting.GRAY));
+            ItemMemories itemMemories = getOrCreateMemories(stack);
+            if(!itemMemories.isEmpty()) {
+                String memories = String.format(Component.translatable("tooltip.elemenix.memories").getString(), itemMemories.memories().size());
+                components.add(Component.literal(memories).withStyle(itemMemories.isFull() ? ChatFormatting.RED : ChatFormatting.GRAY));
             }
         }
         super.appendHoverText(stack, context, components, tooltipFlag);

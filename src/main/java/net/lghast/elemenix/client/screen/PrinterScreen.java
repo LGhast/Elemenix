@@ -1,13 +1,13 @@
 package net.lghast.elemenix.client.screen;
 
-import net.lghast.elemenix.client.misc.ScaledText;
+import net.lghast.elemenix.client.render.ScaledText;
 import net.lghast.elemenix.client.screen.widget.PrinterMemoryListWidget;
 import net.lghast.elemenix.common.content.blockentity.AbstractPrinterBlockEntity;
 import net.lghast.elemenix.common.system.menu.PrinterMenu;
 import net.lghast.elemenix.network.printer.PrinterModePayload;
-import net.lghast.elemenix.utils.elemenix.Elemenix;
-import net.lghast.elemenix.utils.misc.LongContainerData;
-import net.lghast.elemenix.utils.misc.ModUtils;
+import net.lghast.elemenix.core.Elemenix;
+import net.lghast.elemenix.common.system.menu.LongContainerData;
+import net.lghast.elemenix.common.util.ModUtils;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;

@@ -3,13 +3,13 @@ package net.lghast.elemenix.common.content.blockentity;
 import net.lghast.elemenix.Elemenics;
 import net.lghast.elemenix.common.content.block.DeconstructorBlock;
 import net.lghast.elemenix.common.system.menu.DeconstructorMenu;
+import net.lghast.elemenix.core.resolver.BaseResolver;
 import net.lghast.elemenix.register.content.ModBlockEntities;
 import net.lghast.elemenix.register.system.ModTags;
-import net.lghast.elemenix.utils.elemenix.Constituents;
-import net.lghast.elemenix.utils.misc.ElemenixHolder;
-import net.lghast.elemenix.utils.misc.LongContainerData;
-import net.lghast.elemenix.utils.elemenix.Elemenix;
-import net.lghast.elemenix.utils.elemenix.ElemenixInfo;
+import net.lghast.elemenix.core.Constituents;
+import net.lghast.elemenix.common.system.transfer.ElemenixHolder;
+import net.lghast.elemenix.common.system.menu.LongContainerData;
+import net.lghast.elemenix.core.Elemenix;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
@@ -176,9 +176,9 @@ public class DeconstructorBlockEntity extends BaseContainerBlockEntity implement
     private boolean isDeconstructable(int slot) {
         ItemStack stack = getItem(slot);
         if (stack.isEmpty()) return false;
-        if (ElemenixInfo.isUndeconstructable(stack)) return false;
+        if (BaseResolver.isUndeconstructable(stack)) return false;
 
-        Constituents constituents = ElemenixInfo.getDiscountAppliedConstituents(stack);
+        Constituents constituents = BaseResolver.getDiscountAppliedConstituents(stack);
         return !constituents.isUnanalysable();
     }
 
@@ -192,7 +192,7 @@ public class DeconstructorBlockEntity extends BaseContainerBlockEntity implement
 
     private void deconstructItem(int slot) {
         ItemStack stack = getItem(slot);
-        Constituents constituents = ElemenixInfo.getDiscountAppliedConstituents(stack);
+        Constituents constituents = BaseResolver.getDiscountAppliedConstituents(stack);
 
         for (Elemenix elemenix : Elemenix.values()) {
             long value = constituents.get(elemenix);
@@ -259,7 +259,7 @@ public class DeconstructorBlockEntity extends BaseContainerBlockEntity implement
     @Override
     public boolean canPlaceItem(int slot, ItemStack stack) {
         if (slot >= INPUT_SLOT_FIRST && slot < SLOT_COUNT) {
-            return !ElemenixInfo.isUndeconstructable(stack) && !stack.is(ModTags.IGNORED_BY_DECONSTRUCTOR_INPUT);
+            return !BaseResolver.isUndeconstructable(stack) && !stack.is(ModTags.IGNORED_BY_DECONSTRUCTOR_INPUT);
         }
         return false;
     }

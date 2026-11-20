@@ -7,12 +7,12 @@ import com.mojang.brigadier.arguments.StringArgumentType;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.suggestion.SuggestionProvider;
+import net.lghast.elemenix.core.resolver.BaseResolver;
 import net.lghast.elemenix.register.system.ModTags;
-import net.lghast.elemenix.utils.elemenix.Constituents;
-import net.lghast.elemenix.utils.misc.ModUtils;
-import net.lghast.elemenix.utils.elemenix.ElemenixInfo;
-import net.lghast.elemenix.utils.elemenix.FluidElemenixInfo;
-import net.lghast.elemenix.utils.elemenix.PotionElemenixInfo;
+import net.lghast.elemenix.core.Constituents;
+import net.lghast.elemenix.common.util.ModUtils;
+import net.lghast.elemenix.core.resolver.FluidResolver;
+import net.lghast.elemenix.core.resolver.PotionResolver;
 import net.minecraft.ChatFormatting;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
@@ -162,7 +162,7 @@ public class ElemenixCommand {
 
     private static Command<CommandSourceStack> guarded(Command<CommandSourceStack> command) {
         return context -> {
-            if (ElemenixInfo.isCalculating()) {
+            if (BaseResolver.isCalculating()) {
                 context.getSource().sendFailure(Component.translatable("command.elemenix.calculating"));
                 return 0;
             }
@@ -179,7 +179,7 @@ public class ElemenixCommand {
             return 0;
         }
 
-        Constituents constituents = ElemenixInfo.getConstituents(item);
+        Constituents constituents = BaseResolver.getConstituents(item);
         String itemName = item.getDescription().getString();
 
         context.getSource().sendSuccess(
@@ -206,7 +206,7 @@ public class ElemenixCommand {
             return 0;
         }
 
-        Constituents mapped = FluidElemenixInfo.getMappedConstituents(fluid);
+        Constituents mapped = FluidResolver.getMappedConstituents(fluid);
         Constituents display = (mapped == null) ? new Constituents(true) : mapped;
         String fluidName = getFluidDisplayName(fluid);
 
@@ -257,7 +257,7 @@ public class ElemenixCommand {
             for (Item item : entry.getValue()) {
                 ResourceLocation id = BuiltInRegistries.ITEM.getKey(item);
                 String itemName = item.getDescription().getString();
-                String constituentsStr = ElemenixInfo.getConstituents(item).toString();
+                String constituentsStr = BaseResolver.getConstituents(item).toString();
                 context.getSource().sendSuccess(
                         () -> Component.translatable("command.elemenix.item.all.entry",
                                 itemName, id.getPath(), constituentsStr),
@@ -286,7 +286,7 @@ public class ElemenixCommand {
             if (item == Items.AIR) continue;
             ResourceLocation id = BuiltInRegistries.ITEM.getKey(item);
             if (modId != null && !id.getNamespace().equals(modId)) continue;
-            if (ElemenixInfo.isUnanalysable(item) && !isStrictlyUnanalysable(item) && !isCommandIgnored(item)) {
+            if (BaseResolver.isUnanalysable(item) && !isStrictlyUnanalysable(item) && !isCommandIgnored(item)) {
                 items.add(item);
             }
         }
@@ -384,7 +384,7 @@ public class ElemenixCommand {
             for (Fluid fluid : entry.getValue()) {
                 String fluidName = getFluidDisplayName(fluid);
                 String fluidPath = BuiltInRegistries.FLUID.getKey(fluid).getPath();
-                Constituents mapped = FluidElemenixInfo.getMappedConstituents(fluid);
+                Constituents mapped = FluidResolver.getMappedConstituents(fluid);
                 Constituents display = (mapped == null) ? new Constituents(true) : mapped;
                 context.getSource().sendSuccess(
                         () -> Component.translatable("command.elemenix.fluid.all.entry",
@@ -414,7 +414,7 @@ public class ElemenixCommand {
             ResourceLocation id = BuiltInRegistries.FLUID.getKey(fluid);
             if (modId != null && !id.getNamespace().equals(modId)) continue;
 
-            Constituents mapped = FluidElemenixInfo.getMappedConstituents(fluid);
+            Constituents mapped = FluidResolver.getMappedConstituents(fluid);
             if (mapped == null || mapped.isUnanalysable()) {
                 fluids.add(fluid);
             }
@@ -480,7 +480,7 @@ public class ElemenixCommand {
             context.getSource().sendFailure(Component.translatable("command.elemenix.potion.show.invalid", potionId));
             return 0;
         }
-        Constituents constituents = PotionElemenixInfo.getConstituents(holder.get());
+        Constituents constituents = PotionResolver.getConstituents(holder.get());
         String potionName = getPotionDisplayName(holder.get());
         context.getSource().sendSuccess(
                 () -> Component.translatable("command.elemenix.potion.show.result", potionName, constituents.toString()),
@@ -528,7 +528,7 @@ public class ElemenixCommand {
             for (Holder.Reference<Potion> holder : entry.getValue()) {
                 String potionName = getPotionDisplayName(holder);
                 String potionPath = holder.key().location().getPath();
-                String constituentsStr = PotionElemenixInfo.getConstituents(holder).toString();
+                String constituentsStr = PotionResolver.getConstituents(holder).toString();
                 context.getSource().sendSuccess(
                         () -> Component.translatable("command.elemenix.potion.all.entry",
                                 potionName, potionPath, constituentsStr),
@@ -559,7 +559,7 @@ public class ElemenixCommand {
 
             Optional<Holder.Reference<Potion>> holderOpt = BuiltInRegistries.POTION.getHolder(ResourceKey.create(Registries.POTION, id));
             if (holderOpt.isEmpty()) continue;
-            if (PotionElemenixInfo.getConstituents(holderOpt.get()).isUnanalysable()) {
+            if (PotionResolver.getConstituents(holderOpt.get()).isUnanalysable()) {
                 potions.add(holderOpt.get());
             }
         }
@@ -647,7 +647,7 @@ public class ElemenixCommand {
         if (stack.is(ModTags.STRICTLY_UNANALYSABLE)) {
             return true;
         }
-        if (ElemenixInfo.isUnanalysableStrictly(item)) {
+        if (BaseResolver.isUnanalysableStrictly(item)) {
             return true;
         }
         String fullId = BuiltInRegistries.ITEM.getKey(item).toString();

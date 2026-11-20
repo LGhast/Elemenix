@@ -1,9 +1,9 @@
 package net.lghast.elemenix.common.content.blockentity;
 
 import net.lghast.elemenix.register.content.ModBlockEntities;
-import net.lghast.elemenix.utils.misc.ElemenixHolder;
-import net.lghast.elemenix.utils.misc.LongContainerData;
-import net.lghast.elemenix.utils.elemenix.Elemenix;
+import net.lghast.elemenix.common.system.transfer.ElemenixHolder;
+import net.lghast.elemenix.common.system.menu.LongContainerData;
+import net.lghast.elemenix.core.Elemenix;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;

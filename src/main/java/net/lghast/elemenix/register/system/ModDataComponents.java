@@ -3,7 +3,7 @@ package net.lghast.elemenix.register.system;
 import com.mojang.serialization.Codec;
 import net.lghast.elemenix.Elemenics;
 import net.lghast.elemenix.common.system.datacomponent.*;
-import net.lghast.elemenix.utils.imitforge.ImitforgedAppearance;
+import net.lghast.elemenix.common.system.imitforge.ImitforgedAppearance;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.RegistryFriendlyByteBuf;
@@ -21,7 +21,7 @@ public class ModDataComponents {
 
     public static final Codec<ElemenicStorage> ELEMENIC_STORAGE_CODEC = ElemenicStorage.CODEC;
 
-    public static final Codec<MemoryData> MEMORY_DATA_CODEC = MemoryData.CODEC;
+    public static final Codec<ItemMemories> MEMORY_DATA_CODEC = ItemMemories.CODEC;
 
     public static final Codec<Waxed> WAXED_CODEC = Waxed.CODEC;
 
@@ -50,11 +50,11 @@ public class ModDataComponents {
                     }
             );
 
-    public static final StreamCodec<RegistryFriendlyByteBuf, MemoryData> MEMORY_DATA_STREAM_CODEC =
+    public static final StreamCodec<RegistryFriendlyByteBuf, ItemMemories> MEMORY_DATA_STREAM_CODEC =
             StreamCodec.composite(
                     ResourceLocation.STREAM_CODEC.apply(ByteBufCodecs.list()),
-                    MemoryData::resolvedItems,
-                    MemoryData::new
+                    ItemMemories::memories,
+                    ItemMemories::new
             );
 
     public static final StreamCodec<RegistryFriendlyByteBuf, Waxed> WAXED_STREAM_CODEC =
@@ -78,16 +78,16 @@ public class ModDataComponents {
                             .networkSynchronized(ELEMENIC_STORAGE_STREAM_CODEC)
             );
 
-    public static final DeferredHolder<DataComponentType<?>, DataComponentType<MemoryData>> MEMORY_DATA =
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<ItemMemories>> ITEM_MEMORIES =
             REGISTRAR.registerComponentType("memory_data", builder ->
                     builder.persistent(MEMORY_DATA_CODEC)
                             .networkSynchronized(MEMORY_DATA_STREAM_CODEC)
             );
 
-    public static final DeferredHolder<DataComponentType<?>, DataComponentType<PotionMemoryData>> POTION_MEMORY_DATA =
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<PotionMemories>> POTION_MEMORIES =
             REGISTRAR.registerComponentType("potion_memory_data", builder ->
-                    builder.persistent(PotionMemoryData.CODEC)
-                            .networkSynchronized(PotionMemoryData.STREAM_CODEC)
+                    builder.persistent(PotionMemories.CODEC)
+                            .networkSynchronized(PotionMemories.STREAM_CODEC)
             );
 
     public static final DeferredHolder<DataComponentType<?>, DataComponentType<Waxed>> WAXED =

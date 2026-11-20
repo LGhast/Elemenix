@@ -1,7 +1,7 @@
 package net.lghast.elemenix.client.render;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import net.lghast.elemenix.common.content.blockentity.MemorizerReplicatorBlockEntity;
+import net.lghast.elemenix.common.content.blockentity.ReplicatorBlockEntity;
 import net.lghast.elemenix.config.ClientConfig;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -19,9 +19,9 @@ import javax.annotation.ParametersAreNonnullByDefault;
 
 @OnlyIn(Dist.CLIENT)
 @ParametersAreNonnullByDefault
-public class ReplicatorRenderer implements BlockEntityRenderer<MemorizerReplicatorBlockEntity> {
+public class ReplicatorRenderer implements BlockEntityRenderer<ReplicatorBlockEntity> {
     @Override
-    public void render(MemorizerReplicatorBlockEntity blockEntity, float partialTick, PoseStack poseStack,
+    public void render(ReplicatorBlockEntity blockEntity, float partialTick, PoseStack poseStack,
                        MultiBufferSource bufferSource, int packedLight, int packedOverlay) {
         ItemStack stack = blockEntity.getReplicatingItemStack();
         if (stack.isEmpty()) return;

@@ -1,0 +1,13 @@
+{
+  "displayName": "singularity.elemenix.metallix",
+  "ingredient": {
+    "item": "elemenix:metallix_essence"
+  },
+  "name": "elemenix:metallix",
+  "overlayColor": 8161950,
+  "underlayColor": 3685959,
+  "count": 1000,
+  "timeCost": 240,
+  "enabled": true,
+  "recipeEnabled": true
+}

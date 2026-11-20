@@ -2,13 +2,14 @@ package net.lghast.elemenix.common.content.item;
 
 import net.lghast.elemenix.common.system.advancement.WaxOffTrigger;
 import net.lghast.elemenix.common.system.advancement.WaxOnTrigger;
-import net.lghast.elemenix.common.system.datacomponent.PotionMemoryData;
+import net.lghast.elemenix.common.system.datacomponent.PotionMemories;
+import net.lghast.elemenix.common.system.datacomponent.Style;
 import net.lghast.elemenix.common.system.datacomponent.Waxed;
 import net.lghast.elemenix.config.ClientConfig;
 import net.lghast.elemenix.register.content.ModItems;
 import net.lghast.elemenix.register.system.ModDataComponents;
 import net.lghast.elemenix.register.system.ModStats;
-import net.lghast.elemenix.utils.misc.ModUtils;
+import net.lghast.elemenix.common.util.ModUtils;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
@@ -38,18 +39,19 @@ import java.util.UUID;
 public class WitchcraftMemorizerItem extends Item {
     public WitchcraftMemorizerItem(Properties properties) {
         super(properties.stacksTo(1)
-                .component(ModDataComponents.POTION_MEMORY_DATA, new PotionMemoryData(new ArrayList<>()))
+                .component(ModDataComponents.POTION_MEMORIES, new PotionMemories(new ArrayList<>()))
                 .component(ModDataComponents.WAXED, Waxed.unwaxed())
+                .component(ModDataComponents.STYLE, new Style(0))
         );
     }
 
-    public static PotionMemoryData getOrCreateMemories(ItemStack stack) {
+    public static PotionMemories getOrCreateMemories(ItemStack stack) {
         if (!(stack.getItem() instanceof WitchcraftMemorizerItem)) {
-            return new PotionMemoryData(new ArrayList<>());
+            return new PotionMemories(new ArrayList<>());
         }
-        PotionMemoryData data = stack.get(ModDataComponents.POTION_MEMORY_DATA);
+        PotionMemories data = stack.get(ModDataComponents.POTION_MEMORIES);
         if (data == null) {
-            data = new PotionMemoryData(new ArrayList<>());
+            data = new PotionMemories(new ArrayList<>());
         }
         return data;
     }
@@ -86,6 +88,11 @@ public class WitchcraftMemorizerItem extends Item {
         ItemStack offHandItem = player.getOffhandItem();
         if (offHandItem.isEmpty()) {
             return InteractionResultHolder.pass(memorizerStack);
+        }
+
+        if (MemorizerItem.getStyleIndexFor(offHandItem.getItem()) != null) {
+            MemorizerItem.changeStyle(serverLevel, player, memorizerStack, offHandItem);
+            return InteractionResultHolder.success(memorizerStack);
         }
 
         if (isReadonly(memorizerStack)) {
@@ -157,8 +164,13 @@ public class WitchcraftMemorizerItem extends Item {
         if (isReadonly(stack) && ClientConfig.SHOW_READONLY_TOOLTIPS.get()) {
             components.add(getReadonlyTooltip(stack).withStyle(ChatFormatting.DARK_GRAY));
         }
+        Style style = MemorizerItem.getOrCreateStyle(stack);
+        if (style.style() != 0 && ClientConfig.SHOW_STYLE_TOOLTIPS.get()) {
+            String styleInfo = String.format(Component.translatable("tooltip.elemenix.style").getString(), Component.translatable(style.getStyleKey()).getString());
+            components.add(Component.literal(styleInfo).withStyle(ChatFormatting.DARK_GRAY));
+        }
         if (ClientConfig.SHOW_MEMORY_TOOLTIPS.get()) {
-            PotionMemoryData memoryData = getOrCreateMemories(stack);
+            PotionMemories memoryData = getOrCreateMemories(stack);
             if (!memoryData.isEmpty()) {
                 String memories = String.format(Component.translatable("tooltip.elemenix.memories").getString(), memoryData.entries().size());
                 components.add(Component.literal(memories).withStyle(memoryData.isFull() ? ChatFormatting.RED : ChatFormatting.GRAY));

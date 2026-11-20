@@ -1,8 +1,10 @@
 package net.lghast.elemenix.datagen;
 
 import net.lghast.elemenix.common.system.advancement.*;
+import net.lghast.elemenix.common.system.datacomponent.Style;
 import net.lghast.elemenix.register.content.ModBlocks;
 import net.lghast.elemenix.register.content.ModItems;
+import net.lghast.elemenix.register.system.ModDataComponents;
 import net.lghast.elemenix.register.system.ModTags;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.AdvancementHolder;
@@ -102,6 +104,24 @@ public class ModAdvancementProvider extends AdvancementProvider {
                     ))
                     .save(saver, ResourceLocation.parse("elemenix:elemenics/obtain_memorizer"), existingFileHelper);
 
+            ItemStack styledMemorizerIcon = new ItemStack(ModItems.ELEMENIC_MEMORIZER.get());
+            styledMemorizerIcon.set(ModDataComponents.STYLE, new Style(21));
+
+            AdvancementHolder obtainStyle = Advancement.Builder.advancement()
+                    .parent(obtainMemorizer)
+                    .display(
+                            styledMemorizerIcon,
+                            Component.translatable("advancements.elemenix.obtain_style.title"),
+                            Component.translatable("advancements.elemenix.obtain_style.description"),
+                            null,
+                            AdvancementType.TASK,
+                            true,
+                            true,
+                            false
+                    )
+                    .addCriterion("style", StyleTrigger.style())
+                    .save(saver, ResourceLocation.parse("elemenix:elemenics/obtain_style"), existingFileHelper);
+
             AdvancementHolder enrichEssence = Advancement.Builder.advancement()
                     .parent(rootAdvancement)
                     .display(
@@ -114,9 +134,7 @@ public class ModAdvancementProvider extends AdvancementProvider {
                             true,
                             false
                     )
-                    .addCriterion("get_essence", InventoryChangeTrigger.TriggerInstance.hasItems(
-                            ItemPredicate.Builder.item().of(ModTags.ESSENCES).build()
-                    ))
+                    .addCriterion("get_essence", EnrichTrigger.enrich())
                     .save(saver, ResourceLocation.parse("elemenix:elemenics/enrich_essence"), existingFileHelper);
 
             AdvancementHolder enrichEquilibrium = Advancement.Builder.advancement()
@@ -126,7 +144,7 @@ public class ModAdvancementProvider extends AdvancementProvider {
                             Component.translatable("advancements.elemenix.enrich_equilibrium.title"),
                             Component.translatable("advancements.elemenix.enrich_equilibrium.description"),
                             null,
-                            AdvancementType.GOAL,
+                            AdvancementType.TASK,
                             true,
                             true,
                             false
@@ -205,7 +223,7 @@ public class ModAdvancementProvider extends AdvancementProvider {
                     .save(saver, ResourceLocation.parse("elemenix:elemenics/obtain_infuser"), existingFileHelper);
 
             AdvancementHolder obtainEnricher = Advancement.Builder.advancement()
-                    .parent(obtainInfuser)
+                    .parent(enrichEssence)
                     .display(
                             ModBlocks.ELEMENIC_ENRICHER,
                             Component.translatable("advancements.elemenix.obtain_enricher.title"),
@@ -369,7 +387,7 @@ public class ModAdvancementProvider extends AdvancementProvider {
                     .save(saver, ResourceLocation.parse("elemenix:elemenics/obtain_analytical_wrench"), existingFileHelper);
 
             AdvancementHolder obtainBurner = Advancement.Builder.advancement()
-                    .parent(obtainMemorizer)
+                    .parent(rootAdvancement)
                     .display(
                             ModItems.MEMORY_BURNER,
                             Component.translatable("advancements.elemenix.obtain_memory_burner.title"),
@@ -385,8 +403,25 @@ public class ModAdvancementProvider extends AdvancementProvider {
                     ))
                     .save(saver, ResourceLocation.parse("elemenix:elemenics/obtain_burner"), existingFileHelper);
 
-            AdvancementHolder obtainFondantCake = Advancement.Builder.advancement()
+            AdvancementHolder obtainReplicator = Advancement.Builder.advancement()
                     .parent(obtainBurner)
+                    .display(
+                            ModBlocks.MEMORIZER_REPLICATOR,
+                            Component.translatable("advancements.elemenix.obtain_replicator.title"),
+                            Component.translatable("advancements.elemenix.obtain_replicator.description"),
+                            null,
+                            AdvancementType.GOAL,
+                            true,
+                            true,
+                            false
+                    )
+                    .addCriterion("get_replicator", InventoryChangeTrigger.TriggerInstance.hasItems(
+                            ItemPredicate.Builder.item().of(ModBlocks.MEMORIZER_REPLICATOR).build()
+                    ))
+                    .save(saver, ResourceLocation.parse("elemenix:elemenics/obtain_replicator"), existingFileHelper);
+
+            AdvancementHolder obtainFondantCake = Advancement.Builder.advancement()
+                    .parent(obtainStyle)
                     .display(
                             ModItems.FONDANT_CAKE,
                             Component.translatable("advancements.elemenix.obtain_fondant_cake.title"),
@@ -597,6 +632,24 @@ public class ModAdvancementProvider extends AdvancementProvider {
                             ItemPredicate.Builder.item().of(ModItems.MEMORY_REGISTRAR.get()).build()
                     ))
                     .save(saver, ResourceLocation.parse("elemenix:elemenics/obtain_memory_registrar"), existingFileHelper);
+
+            ItemStack memoryTorrentIcon = new ItemStack(ModItems.MEMORY_REGISTRAR.get());
+            memoryTorrentIcon.set(DataComponents.ENCHANTMENT_GLINT_OVERRIDE, true);
+
+            AdvancementHolder memoryTorrent = Advancement.Builder.advancement()
+                    .parent(obtainMemoryRegistrar)
+                    .display(
+                            memoryTorrentIcon,
+                            Component.translatable("advancements.elemenix.memory_torrent.title"),
+                            Component.translatable("advancements.elemenix.memory_torrent.description"),
+                            null,
+                            AdvancementType.CHALLENGE,
+                            true,
+                            true,
+                            false
+                    )
+                    .addCriterion("registered", MemoriesRegisteredTrigger.registered(64))
+                    .save(saver, ResourceLocation.parse("elemenix:elemenics/memory_torrent"), existingFileHelper);
         }
     }
 }

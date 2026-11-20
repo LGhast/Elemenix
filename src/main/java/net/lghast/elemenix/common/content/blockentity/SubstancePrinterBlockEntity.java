@@ -1,7 +1,7 @@
 package net.lghast.elemenix.common.content.blockentity;
 
 import net.lghast.elemenix.common.content.item.MemorizerItem;
-import net.lghast.elemenix.common.system.datacomponent.MemoryData;
+import net.lghast.elemenix.common.system.datacomponent.ItemMemories;
 import net.lghast.elemenix.config.CommonConfig;
 import net.lghast.elemenix.register.content.ModBlockEntities;
 import net.lghast.elemenix.register.content.ModItems;
@@ -50,9 +50,9 @@ public class SubstancePrinterBlockEntity extends AbstractPrinterBlockEntity {
     public List<String> getMemoryKeys() {
         ItemStack memorizer = getItem(MEMORIZER_SLOT);
         if (memorizer.is(ModItems.ELEMENIC_MEMORIZER)) {
-            MemoryData memoryData = MemorizerItem.getOrCreateMemories(memorizer);
+            ItemMemories itemMemories = MemorizerItem.getOrCreateMemories(memorizer);
             List<String> keys = new ArrayList<>();
-            for (ResourceLocation id : memoryData.resolvedItems()) {
+            for (ResourceLocation id : itemMemories.memories()) {
                 keys.add(id.toString());
             }
             return keys;

@@ -1,9 +1,9 @@
 package net.lghast.elemenix.client.screen;
 
 import net.lghast.elemenix.common.system.menu.TankMenu;
-import net.lghast.elemenix.utils.misc.LongContainerData;
-import net.lghast.elemenix.utils.misc.ModUtils;
-import net.lghast.elemenix.utils.elemenix.Elemenix;
+import net.lghast.elemenix.common.system.menu.LongContainerData;
+import net.lghast.elemenix.common.util.ModUtils;
+import net.lghast.elemenix.core.Elemenix;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;

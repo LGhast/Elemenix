@@ -2,8 +2,8 @@ package net.lghast.elemenix.network;
 
 import net.lghast.elemenix.Elemenics;
 import net.lghast.elemenix.client.misc.ClientElemenixPrecompute;
-import net.lghast.elemenix.utils.elemenix.ElemenixInfo;
-import net.lghast.elemenix.utils.recipe.RecipeHelper;
+import net.lghast.elemenix.core.resolver.BaseResolver;
+import net.lghast.elemenix.core.recipe.RecipeHelper;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
@@ -41,7 +41,7 @@ public record SyncModStartedPayload(boolean started) implements CustomPacketPayl
     public static void handle(SyncModStartedPayload payload, IPayloadContext context) {
         context.enqueueWork(() -> {
             Elemenics.started = payload.started();
-            ElemenixInfo.clearCaches();
+            BaseResolver.clearCaches();
             RecipeHelper.clearCache();
 
             if (Elemenics.started && FMLEnvironment.dist == Dist.CLIENT) {

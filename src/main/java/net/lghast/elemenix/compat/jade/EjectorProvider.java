@@ -1,7 +1,7 @@
 package net.lghast.elemenix.compat.jade;
 
 import net.lghast.elemenix.common.content.blockentity.EjectorBlockEntity;
-import net.lghast.elemenix.utils.elemenix.Elemenix;
+import net.lghast.elemenix.core.Elemenix;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -31,7 +31,7 @@ public enum EjectorProvider implements IServerDataProvider<BlockAccessor>, IBloc
             if (filterIndex == EjectorBlockEntity.FILTER_ALL) {
                 filterName = Component.translatable("status.elemenix.all");
             } else {
-                filterName = Component.literal(Elemenix.values()[filterIndex].getName());
+                filterName = Elemenix.values()[filterIndex].getComponent();
             }
             tooltip.add(Component.translatable("status.elemenix.filter", filterName).withStyle(ChatFormatting.GRAY));
         }

@@ -1,0 +1,13 @@
+{
+  "displayName": "singularity.elemenix.arcanix",
+  "ingredient": {
+    "item": "elemenix:arcanix_essence"
+  },
+  "name": "elemenix:arcanix",
+  "overlayColor": 12666603,
+  "underlayColor": 5709930,
+  "count": 1000,
+  "timeCost": 240,
+  "enabled": true,
+  "recipeEnabled": true
+}

@@ -1,6 +1,6 @@
 package net.lghast.elemenix.mixin;
 
-import net.lghast.elemenix.utils.imitforge.Imitforging;
+import net.lghast.elemenix.common.system.imitforge.Imitforging;
 import net.minecraft.client.renderer.entity.ItemRenderer;
 import net.minecraft.world.item.ItemStack;
 import org.spongepowered.asm.mixin.Mixin;

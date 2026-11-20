@@ -245,6 +245,7 @@
     { "id": "minecraft:guster_banner_pattern", "constituents": [200, 0, 120, 0, 0, 50] },
     { "id": "minecraft:ominous_bottle", "constituents": [0, 8, 60, 0, 20, 72] },
     { "id": "minecraft:copper_golem_statue", "constituents": [0, 32, 0, 86, 0, 0] },
+    { "id": "minecraft:bedrock", "constituents": [0, 240000, 0, 0, 0, 0] },
     { "id": "&minecraft:water", "elemenix": "flumix", "value": 2 },
     { "id": "&minecraft:lava", "elemenix": "terrix", "value": 30 },
     { "id": "&minecraft:milk", "constituents": [1, 0, 1, 0, 0, 0] },

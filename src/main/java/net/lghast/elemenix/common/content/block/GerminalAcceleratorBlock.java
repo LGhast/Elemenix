@@ -4,9 +4,9 @@ import com.mojang.serialization.MapCodec;
 import net.lghast.elemenix.common.content.blockentity.TransformerBlockEntity;
 import net.lghast.elemenix.common.system.recipe.GerminatingRecipe;
 import net.lghast.elemenix.config.CommonConfig;
+import net.lghast.elemenix.core.resolver.BaseResolver;
 import net.lghast.elemenix.register.content.ModItems;
-import net.lghast.elemenix.utils.elemenix.Elemenix;
-import net.lghast.elemenix.utils.elemenix.ElemenixInfo;
+import net.lghast.elemenix.core.Elemenix;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -21,7 +21,7 @@ import org.jetbrains.annotations.Nullable;
 import javax.annotation.ParametersAreNonnullByDefault;
 
 @ParametersAreNonnullByDefault
-public class GerminalAcceleratorBlock extends TransformerBlock {
+public class GerminalAcceleratorBlock extends AbstractTransformerBlock {
     public static final MapCodec<GerminalAcceleratorBlock> CODEC = simpleCodec(GerminalAcceleratorBlock::new);
 
     public GerminalAcceleratorBlock(Properties properties) {
@@ -65,7 +65,7 @@ public class GerminalAcceleratorBlock extends TransformerBlock {
 
     @Override
     public int getRcRequirement() {
-        return ElemenixInfo.ESSENCE_VALUE;
+        return BaseResolver.ESSENCE_VALUE;
     }
 
     @Override
@@ -120,7 +120,7 @@ public class GerminalAcceleratorBlock extends TransformerBlock {
 
     @Override
     public void tickSecondPage(Level level, BlockPos pos, BlockState state, TransformerBlockEntity blockEntity) {
-        if (ElemenixInfo.isCalculating()) return;
+        if (BaseResolver.isCalculating()) return;
 
         GerminatingRecipe recipe = GerminatingRecipe.findRecipe(level, blockEntity.getItem(TransformerBlockEntity.TEMPLATE_SLOT));
 

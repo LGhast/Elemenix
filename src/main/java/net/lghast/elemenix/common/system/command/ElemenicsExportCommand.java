@@ -5,8 +5,8 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.context.CommandContext;
+import net.lghast.elemenix.core.resolver.BaseResolver;
 import net.lghast.elemenix.register.system.ModTags;
-import net.lghast.elemenix.utils.elemenix.ElemenixInfo;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
 import net.minecraft.core.Registry;
@@ -72,13 +72,13 @@ public class ElemenicsExportCommand {
             ItemStack stack = new ItemStack(item);
             if (stack.is(Items.AIR)) continue;
             if (stack.is(ModTags.STRICTLY_UNANALYSABLE)) continue;
-            if (ElemenixInfo.isUnanalysableStrictly(item)) continue;
+            if (BaseResolver.isUnanalysableStrictly(item)) continue;
 
             ResourceLocation id = BuiltInRegistries.ITEM.getKey(item);
             if (id.toString().contains("spawn_egg")) continue;
 
             if (stack.is(ModTags.COMMAND_IGNORED)) continue;
-            if (ElemenixInfo.isUnanalysable(item)) {
+            if (BaseResolver.isUnanalysable(item)) {
                 ids.add(id.toString());
             }
         }

@@ -3,7 +3,7 @@ package net.lghast.elemenix.network.registrar;
 import net.lghast.elemenix.common.content.item.MemoryRegistrarItem;
 import net.lghast.elemenix.common.system.attachment.RegistrarCollection;
 import net.lghast.elemenix.register.system.ModAttachments;
-import net.lghast.elemenix.utils.misc.ModUtils;
+import net.lghast.elemenix.common.util.ModUtils;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;

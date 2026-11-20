@@ -1,6 +1,6 @@
 package net.lghast.elemenix.client.screen.widget;
 
-import net.lghast.elemenix.common.system.menu.MemorizerReplicatorMenu;
+import net.lghast.elemenix.common.system.menu.ReplicatorMenu;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Player;
@@ -25,13 +25,13 @@ public class ReplicatorMemoryListWidget extends MemoryListWidget {
     protected boolean isMenuWrong() {
         Minecraft minecraft = Minecraft.getInstance();
         if (minecraft.player == null) return true;
-        return !(minecraft.player.containerMenu instanceof MemorizerReplicatorMenu);
+        return !(minecraft.player.containerMenu instanceof ReplicatorMenu);
     }
 
     @Override
     protected String getTipText() {
         Minecraft minecraft = Minecraft.getInstance();
-        if (minecraft.player != null && minecraft.player.containerMenu instanceof MemorizerReplicatorMenu menu) {
+        if (minecraft.player != null && minecraft.player.containerMenu instanceof ReplicatorMenu menu) {
             if (menu.getMasterStack().isEmpty()) {
                 return Component.translatable("gui.elemenix.replicator.place_master").getString();
             }
@@ -44,7 +44,7 @@ public class ReplicatorMemoryListWidget extends MemoryListWidget {
         Minecraft minecraft = Minecraft.getInstance();
         Player player = minecraft.player;
         if (player == null) return;
-        if (!(player.containerMenu instanceof MemorizerReplicatorMenu menu)) return;
+        if (!(player.containerMenu instanceof ReplicatorMenu menu)) return;
 
         List<String> newKeys = new ArrayList<>();
         List<ItemStack> newStacks = new ArrayList<>();

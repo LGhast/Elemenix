@@ -1,6 +1,6 @@
 package net.lghast.elemenix.network.burner;
 
-import net.lghast.elemenix.common.system.menu.BurnerMenu;
+import net.lghast.elemenix.common.system.menu.MemoryBurnerMenu;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
@@ -30,7 +30,7 @@ public record BurnerDeletePayload(int itemIndex) implements CustomPacketPayload 
     public static void handle(BurnerDeletePayload payload, IPayloadContext context) {
         context.enqueueWork(() -> {
             if (context.player() instanceof ServerPlayer player &&
-                    player.containerMenu instanceof BurnerMenu menu) {
+                    player.containerMenu instanceof MemoryBurnerMenu menu) {
                 menu.deleteItem(payload.itemIndex());
             }
         });

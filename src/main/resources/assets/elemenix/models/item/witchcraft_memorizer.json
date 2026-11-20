@@ -2,5 +2,28 @@
   "parent": "minecraft:item/generated",
   "textures": {
     "layer0": "elemenix:item/witchcraft_memorizer"
-  }
+  },
+  "overrides": [
+    {"predicate": {"elemenix:style": 1.0}, "model": "elemenix:item/witchcraft_memorizer/white"},
+    {"predicate": {"elemenix:style": 2.0}, "model": "elemenix:item/witchcraft_memorizer/red"},
+    {"predicate": {"elemenix:style": 3.0}, "model": "elemenix:item/witchcraft_memorizer/orange"},
+    {"predicate": {"elemenix:style": 4.0}, "model": "elemenix:item/witchcraft_memorizer/yellow"},
+    {"predicate": {"elemenix:style": 5.0}, "model": "elemenix:item/witchcraft_memorizer/green"},
+    {"predicate": {"elemenix:style": 6.0}, "model": "elemenix:item/witchcraft_memorizer/cyan"},
+    {"predicate": {"elemenix:style": 7.0}, "model": "elemenix:item/witchcraft_memorizer/blue"},
+    {"predicate": {"elemenix:style": 8.0}, "model": "elemenix:item/witchcraft_memorizer/purple"},
+    {"predicate": {"elemenix:style": 9.0}, "model": "elemenix:item/witchcraft_memorizer/black"},
+    {"predicate": {"elemenix:style": 10.0}, "model": "elemenix:item/witchcraft_memorizer/gray"},
+    {"predicate": {"elemenix:style": 11.0}, "model": "elemenix:item/witchcraft_memorizer/lime"},
+    {"predicate": {"elemenix:style": 12.0}, "model": "elemenix:item/witchcraft_memorizer/pink"},
+    {"predicate": {"elemenix:style": 13.0}, "model": "elemenix:item/witchcraft_memorizer/magenta"},
+    {"predicate": {"elemenix:style": 14.0}, "model": "elemenix:item/witchcraft_memorizer/light_gray"},
+    {"predicate": {"elemenix:style": 15.0}, "model": "elemenix:item/witchcraft_memorizer/light_blue"},
+    {"predicate": {"elemenix:style": 16.0}, "model": "elemenix:item/witchcraft_memorizer/brown"},
+    {"predicate": {"elemenix:style": 17.0}, "model": "elemenix:item/witchcraft_memorizer/prismarine"},
+    {"predicate": {"elemenix:style": 18.0}, "model": "elemenix:item/witchcraft_memorizer/breeze"},
+    {"predicate": {"elemenix:style": 19.0}, "model": "elemenix:item/witchcraft_memorizer/purpur"},
+    {"predicate": {"elemenix:style": 20.0}, "model": "elemenix:item/witchcraft_memorizer/golden"},
+    {"predicate": {"elemenix:style": 21.0}, "model": "elemenix:item/witchcraft_memorizer/diamond"}
+  ]
 }

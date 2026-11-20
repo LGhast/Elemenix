@@ -229,6 +229,16 @@
       ]
     },
     {
+      "output": "minecraft:reinforced_deepslate",
+      "count": 1,
+      "inputs": [
+        { "id": "minecraft:deepslate", "count": 2 },
+        { "id": "minecraft:dripstone_block", "count": 2 },
+        { "id": "minecraft:obsidian", "count": 4 },
+        { "id": "minecraft:sculk_catalyst", "count": 1 }
+      ]
+    },
+    {
       "output": "minecraft:honey_bottle",
       "count": 1,
       "inputs": [

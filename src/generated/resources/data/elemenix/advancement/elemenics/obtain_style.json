@@ -1,0 +1,31 @@
+{
+  "parent": "elemenix:elemenics/obtain_memorizer",
+  "criteria": {
+    "style": {
+      "trigger": "elemenix:style"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.elemenix.obtain_style.description"
+    },
+    "icon": {
+      "components": {
+        "elemenix:style": {
+          "style": 21
+        }
+      },
+      "count": 1,
+      "id": "elemenix:elemenic_memorizer"
+    },
+    "title": {
+      "translate": "advancements.elemenix.obtain_style.title"
+    }
+  },
+  "requirements": [
+    [
+      "style"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

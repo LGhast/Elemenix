@@ -1,5 +1,5 @@
 {
-  "parent": "elemenix:elemenics/obtain_infuser",
+  "parent": "elemenix:elemenics/enrich_essence",
   "criteria": {
     "get_enricher": {
       "conditions": {

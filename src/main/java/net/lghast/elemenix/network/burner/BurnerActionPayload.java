@@ -1,7 +1,7 @@
 package net.lghast.elemenix.network.burner;
 
-import net.lghast.elemenix.client.screen.BurnerMode;
-import net.lghast.elemenix.common.system.menu.BurnerMenu;
+import net.lghast.elemenix.client.screen.MemoryBurnerMode;
+import net.lghast.elemenix.common.system.menu.MemoryBurnerMenu;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
@@ -10,7 +10,7 @@ import net.minecraft.server.level.ServerPlayer;
 import net.neoforged.neoforge.network.handling.IPayloadContext;
 import org.jetbrains.annotations.NotNull;
 
-public record BurnerActionPayload(BurnerMode mode) implements CustomPacketPayload {
+public record BurnerActionPayload(MemoryBurnerMode mode) implements CustomPacketPayload {
     public static final CustomPacketPayload.Type<BurnerActionPayload> TYPE =
             new CustomPacketPayload.Type<>(
                     ResourceLocation.fromNamespaceAndPath("elemenix", "burner_action")
@@ -21,11 +21,11 @@ public record BurnerActionPayload(BurnerMode mode) implements CustomPacketPayloa
                 @Override
                 public @NotNull BurnerActionPayload decode(FriendlyByteBuf buf) {
                     int ordinal = buf.readVarInt();
-                    BurnerMode[] values = BurnerMode.values();
+                    MemoryBurnerMode[] values = MemoryBurnerMode.values();
                     if (ordinal >= 0 && ordinal < values.length) {
                         return new BurnerActionPayload(values[ordinal]);
                     }
-                    return new BurnerActionPayload(BurnerMode.MOVE_UP);
+                    return new BurnerActionPayload(MemoryBurnerMode.MOVE_UP);
                 }
 
                 @Override
@@ -42,13 +42,13 @@ public record BurnerActionPayload(BurnerMode mode) implements CustomPacketPayloa
     public static void handle(BurnerActionPayload payload, IPayloadContext context) {
         context.enqueueWork(() -> {
             if (context.player() instanceof ServerPlayer player &&
-                    player.containerMenu instanceof BurnerMenu menu) {
+                    player.containerMenu instanceof MemoryBurnerMenu menu) {
 
-                BurnerMode mode = payload.mode();
+                MemoryBurnerMode mode = payload.mode();
 
-                if (mode == BurnerMode.COPY) {
+                if (mode == MemoryBurnerMode.COPY) {
                     menu.copyMemories();
-                } else if (mode == BurnerMode.CONCATENATE) {
+                } else if (mode == MemoryBurnerMode.CONCATENATE) {
                     menu.concatenateMemories();
                 }
             }

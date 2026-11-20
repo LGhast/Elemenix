@@ -1,6 +1,6 @@
 package net.lghast.elemenix.network.burner;
 
-import net.lghast.elemenix.common.system.menu.BurnerMenu;
+import net.lghast.elemenix.common.system.menu.MemoryBurnerMenu;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
@@ -31,7 +31,7 @@ public record BurnerInsertBeforePayload(int selectedIndex, int targetIndex) impl
     public static void handle(BurnerInsertBeforePayload payload, IPayloadContext context) {
         context.enqueueWork(() -> {
             if (context.player() instanceof ServerPlayer player &&
-                    player.containerMenu instanceof BurnerMenu menu) {
+                    player.containerMenu instanceof MemoryBurnerMenu menu) {
                 menu.insertBefore(payload.selectedIndex(), payload.targetIndex());
             }
         });

@@ -1,7 +1,7 @@
 package net.lghast.elemenix.common.content.blockentity;
 
 import net.lghast.elemenix.common.content.item.WitchcraftMemorizerItem;
-import net.lghast.elemenix.common.system.datacomponent.PotionMemoryData;
+import net.lghast.elemenix.common.system.datacomponent.PotionMemories;
 import net.lghast.elemenix.config.CommonConfig;
 import net.lghast.elemenix.register.content.ModBlockEntities;
 import net.lghast.elemenix.register.content.ModItems;
@@ -58,9 +58,9 @@ public class WitchcraftPrinterBlockEntity extends AbstractPrinterBlockEntity {
     public List<String> getMemoryKeys() {
         ItemStack memorizer = getItem(MEMORIZER_SLOT);
         if (memorizer.is(ModItems.WITCHCRAFT_MEMORIZER)) {
-            List<PotionMemoryData.Entry> entries = WitchcraftMemorizerItem.getOrCreateMemories(memorizer).entries();
+            List<PotionMemories.Entry> entries = WitchcraftMemorizerItem.getOrCreateMemories(memorizer).entries();
             List<String> keys = new ArrayList<>();
-            for (PotionMemoryData.Entry entry : entries) {
+            for (PotionMemories.Entry entry : entries) {
                 keys.add(entry.itemId() + String.valueOf(KEY_SEPARATOR) + entry.potionId());
             }
             return keys;

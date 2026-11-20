@@ -1,19 +1,19 @@
 package net.lghast.elemenix;
 
 import net.lghast.elemenix.client.misc.ModItemProperties;
-import net.lghast.elemenix.client.render.ItemBlockRenders;
 import net.lghast.elemenix.compat.ftbquests.task.ModTaskTypes;
 import net.lghast.elemenix.config.ClientConfig;
 import net.lghast.elemenix.config.CommonConfig;
-import net.lghast.elemenix.datagen.DataGenerators;
+import net.lghast.elemenix.core.resolver.BaseResolver;
+import net.lghast.elemenix.datagen.ModDataGenerators;
+import net.lghast.elemenix.common.system.misc.RegistrationStageNotifier;
 import net.lghast.elemenix.network.SyncModStartedPayload;
 import net.lghast.elemenix.register.content.ModBlockEntities;
 import net.lghast.elemenix.register.content.ModBlocks;
 import net.lghast.elemenix.register.content.ModItems;
 import net.lghast.elemenix.register.system.*;
-import net.lghast.elemenix.utils.elemenix.ElemenixInfo;
-import net.lghast.elemenix.utils.misc.ModUtils;
-import net.lghast.elemenix.utils.recipe.RecipeHelper;
+import net.lghast.elemenix.common.util.ModUtils;
+import net.lghast.elemenix.core.recipe.RecipeHelper;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -79,11 +79,10 @@ public class Elemenics {
     }
 
     private void gatherData(GatherDataEvent event) {
-        DataGenerators.gatherData(event);
+        ModDataGenerators.gatherData(event);
     }
 
     public void onClientSetup(FMLClientSetupEvent event) {
-        event.enqueueWork(ItemBlockRenders::setItemBlockRenders);
         event.enqueueWork(ModItemProperties::register);
     }
 
@@ -94,16 +93,17 @@ public class Elemenics {
     private void onWorldLoad(ServerStartingEvent event) {
         started = false;
         currentServerLevel = event.getServer().overworld();
-        ElemenixInfo.clearCaches();
+        RegistrationStageNotifier.clear();
+        BaseResolver.clearCaches();
     }
 
     private void onServerStarted(ServerStartedEvent event) {
         currentServerLevel = event.getServer().overworld();
         started = true;
         commandIgnoredNotified = false;
-        ElemenixInfo.clearCaches();
+        BaseResolver.clearCaches();
         if (RecipeHelper.areRecipesLoaded(currentServerLevel)) {
-            ElemenixInfo.initialize();
+            BaseResolver.initialize();
         }
         tryNotifyCommandIgnoredResolved(null);
     }
@@ -136,7 +136,7 @@ public class Elemenics {
 
         if (target == null) return;
 
-        List<String> resolved = ElemenixInfo.getCommandIgnoredResolved();
+        List<String> resolved = BaseResolver.getCommandIgnoredResolved();
         if (resolved.isEmpty()) return;
 
         target.sendSystemMessage(Component.literal("以下物品已可解析：\n" + String.join("\n", resolved)));

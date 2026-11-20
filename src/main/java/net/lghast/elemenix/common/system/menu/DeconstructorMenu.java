@@ -1,10 +1,9 @@
 package net.lghast.elemenix.common.system.menu;
 
 import net.lghast.elemenix.common.content.blockentity.DeconstructorBlockEntity;
+import net.lghast.elemenix.core.resolver.BaseResolver;
 import net.lghast.elemenix.register.system.ModMenus;
 import net.lghast.elemenix.register.system.ModTags;
-import net.lghast.elemenix.utils.misc.LongContainerData;
-import net.lghast.elemenix.utils.elemenix.ElemenixInfo;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
@@ -37,7 +36,7 @@ public class DeconstructorMenu extends AbstractContainerMenu {
             this.addSlot(new Slot(blockEntity, i, 63 + 18 * i, 19) {
                 @Override
                 public boolean mayPlace(ItemStack stack) {
-                    return !ElemenixInfo.isUndeconstructable(stack) && !stack.is(ModTags.IGNORED_BY_DECONSTRUCTOR_INPUT);
+                    return !BaseResolver.isUndeconstructable(stack) && !stack.is(ModTags.IGNORED_BY_DECONSTRUCTOR_INPUT);
                 }
             });
         }
@@ -68,7 +67,7 @@ public class DeconstructorMenu extends AbstractContainerMenu {
                 }
             } else {
                 boolean moved = false;
-                if (!ElemenixInfo.isUndeconstructable(slotStack) && !slotStack.is(ModTags.IGNORED_BY_DECONSTRUCTOR_INPUT)) {
+                if (!BaseResolver.isUndeconstructable(slotStack) && !slotStack.is(ModTags.IGNORED_BY_DECONSTRUCTOR_INPUT)) {
                     moved = this.moveItemStackTo(slotStack, 0, 3, false);
                 }
                 if (!moved) {

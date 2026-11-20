@@ -98,11 +98,11 @@ public class MemoryRegistrarItem extends BlockItem {
     private static void openRegistrarGui(ServerPlayer player, ItemStack stack) {
         player.awardStat(ModStats.MEMORY_REGISTRAR_OPENS.get());
         RegistrarCollection collection = player.getData(ModAttachments.REGISTRAR_COLLECTION);
+        PacketDistributor.sendToPlayer(player, new ResponseRegistrarSyncPayload(
+                new ArrayList<>(collection.items()), new ArrayList<>(collection.potions()), isDeveloperMode(stack)));
         player.openMenu(new SimpleMenuProvider(
                 (windowId, playerInventory, playerEntity) -> new RegistrarMenu(windowId),
                 Component.translatable("gui.elemenix.registrar")
         ));
-        PacketDistributor.sendToPlayer(player, new ResponseRegistrarSyncPayload(
-                new ArrayList<>(collection.items()), new ArrayList<>(collection.potions()), isDeveloperMode(stack)));
     }
 }

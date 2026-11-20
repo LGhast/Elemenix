@@ -4,11 +4,11 @@ import net.lghast.elemenix.Elemenics;
 import net.lghast.elemenix.common.content.block.ChannelBlock;
 import net.lghast.elemenix.common.content.block.OutletBlock;
 import net.lghast.elemenix.common.content.block.ShuntBlock;
-import net.lghast.elemenix.common.content.block.TransformerBlock;
+import net.lghast.elemenix.common.content.block.AbstractTransformerBlock;
 import net.lghast.elemenix.config.CommonConfig;
 import net.lghast.elemenix.register.content.ModBlockEntities;
-import net.lghast.elemenix.utils.misc.ElemenixHolder;
-import net.lghast.elemenix.utils.elemenix.Elemenix;
+import net.lghast.elemenix.common.system.transfer.ElemenixHolder;
+import net.lghast.elemenix.core.Elemenix;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
@@ -247,7 +247,7 @@ public class OutletBlockEntity extends BlockEntity {
             if (filterIndex != EjectorBlockEntity.FILTER_ALL) {
                 Elemenix filterType = Elemenix.values()[filterIndex];
                 if (target instanceof TransformerBlockEntity transformer) {
-                    TransformerBlock block = transformer.getTransformerBlock();
+                    AbstractTransformerBlock block = transformer.getTransformerBlock();
                     return block == null || filterType == block.getInputElemenixA() || filterType == block.getInputElemenixB();
                 }
             }
@@ -258,7 +258,7 @@ public class OutletBlockEntity extends BlockEntity {
             if (filterIndex != ShuntBlockEntity.FILTER_UNSPECIFIED) {
                 Elemenix filterType = Elemenix.values()[filterIndex];
                 if (target instanceof TransformerBlockEntity transformer) {
-                    TransformerBlock block = transformer.getTransformerBlock();
+                    AbstractTransformerBlock block = transformer.getTransformerBlock();
                     return block == null || filterType == block.getInputElemenixA() || filterType == block.getInputElemenixB();
                 }
             }

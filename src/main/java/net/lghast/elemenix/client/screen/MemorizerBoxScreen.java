@@ -1,9 +1,10 @@
 package net.lghast.elemenix.client.screen;
 
+import net.lghast.elemenix.client.render.ItemIconRenderer;
 import net.lghast.elemenix.common.content.item.MemorizerItem;
 import net.lghast.elemenix.common.content.item.WitchcraftMemorizerItem;
-import net.lghast.elemenix.common.system.datacomponent.MemoryData;
-import net.lghast.elemenix.common.system.datacomponent.PotionMemoryData;
+import net.lghast.elemenix.common.system.datacomponent.ItemMemories;
+import net.lghast.elemenix.common.system.datacomponent.PotionMemories;
 import net.lghast.elemenix.common.system.menu.MemorizerBoxMenu;
 import net.lghast.elemenix.register.content.ModItems;
 import net.minecraft.client.gui.GuiGraphics;
@@ -65,10 +66,10 @@ public class MemorizerBoxScreen extends AbstractContainerScreen<MemorizerBoxMenu
                 ItemStack memoryItem = ItemStack.EMPTY;
 
                 if (stack.is(ModItems.ELEMENIC_MEMORIZER)) {
-                    MemoryData memoryData = MemorizerItem.getOrCreateMemories(stack);
-                    memoryItem = memoryData.firstItem();
+                    ItemMemories itemMemories = MemorizerItem.getOrCreateMemories(stack);
+                    memoryItem = itemMemories.firstItem();
                 } else if (stack.is(ModItems.WITCHCRAFT_MEMORIZER)) {
-                    PotionMemoryData memoryData = WitchcraftMemorizerItem.getOrCreateMemories(stack);
+                    PotionMemories memoryData = WitchcraftMemorizerItem.getOrCreateMemories(stack);
                     memoryItem = firstPotionItem(memoryData);
                 }
 
@@ -83,7 +84,7 @@ public class MemorizerBoxScreen extends AbstractContainerScreen<MemorizerBoxMenu
                     graphics.pose().scale(ITEM_SCALE, ITEM_SCALE, 1.0f);
                     graphics.pose().translate(0, ITEM_Y_OFFSET / ITEM_SCALE, 0);
                     graphics.pose().translate(-8, -8, 0);
-                    graphics.renderItem(memoryItem, 0, 0);
+                    ItemIconRenderer.render(graphics, memoryItem, 0, 0);
 
                     graphics.pose().popPose();
                 }
@@ -91,11 +92,11 @@ public class MemorizerBoxScreen extends AbstractContainerScreen<MemorizerBoxMenu
         }
     }
 
-    private static ItemStack firstPotionItem(@Nullable PotionMemoryData data) {
+    private static ItemStack firstPotionItem(@Nullable PotionMemories data) {
         if (data == null || data.entries().isEmpty()) {
             return ItemStack.EMPTY;
         }
-        PotionMemoryData.Entry entry = data.entries().getFirst();
+        PotionMemories.Entry entry = data.entries().getFirst();
         Item item = BuiltInRegistries.ITEM.get(entry.itemId());
         var holder = BuiltInRegistries.POTION.getHolder(ResourceKey.create(Registries.POTION, entry.potionId()));
         return holder.map(potionReference -> PotionContents.createItemStack(item, potionReference)).orElseGet(() -> new ItemStack(item));

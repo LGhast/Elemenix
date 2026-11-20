@@ -2,8 +2,8 @@ package net.lghast.elemenix.common.system.datacomponent;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.lghast.elemenix.utils.elemenix.Elemenix;
-import net.lghast.elemenix.utils.misc.ModUtils;
+import net.lghast.elemenix.core.Elemenix;
+import net.lghast.elemenix.common.util.ModUtils;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.codec.ByteBufCodecs;

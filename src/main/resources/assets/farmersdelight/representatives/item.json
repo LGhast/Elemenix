@@ -1,0 +1,19 @@
+{
+  "farmersdelight:cabinets": "farmersdelight:oak_cabinet",
+  "farmersdelight:cabinets/wooden": "farmersdelight:spruce_cabinet",
+  "farmersdelight:canvas_signs": "farmersdelight:canvas_sign",
+  "farmersdelight:drinks": "farmersdelight:melon_juice",
+  "farmersdelight:enchantable/knife": "farmersdelight:golden_knife",
+  "farmersdelight:feasts": "farmersdelight:roast_chicken_block",
+  "farmersdelight:flat_on_cutting_board": "minecraft:spyglass",
+  "farmersdelight:hanging_canvas_signs": "farmersdelight:hanging_canvas_sign",
+  "farmersdelight:meals": "farmersdelight:roasted_mutton_chops",
+  "farmersdelight:mushroom_colonies": "farmersdelight:brown_mushroom_colony",
+  "farmersdelight:pies": "farmersdelight:sweet_berry_cheesecake",
+  "farmersdelight:serving_containers": "minecraft:bowl",
+  "farmersdelight:snacks": "farmersdelight:barbecue_stick",
+  "farmersdelight:straw_harvesters": "farmersdelight:flint_knife",
+  "farmersdelight:sweets": "farmersdelight:cake_slice",
+  "farmersdelight:tools/knives": "farmersdelight:iron_knife",
+  "farmersdelight:wild_crops": "farmersdelight:wild_onions"
+}

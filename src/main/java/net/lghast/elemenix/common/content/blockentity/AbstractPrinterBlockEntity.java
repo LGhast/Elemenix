@@ -3,12 +3,13 @@ package net.lghast.elemenix.common.content.blockentity;
 import net.lghast.elemenix.Elemenics;
 import net.lghast.elemenix.common.content.block.AbstractPrinterBlock;
 import net.lghast.elemenix.common.system.menu.PrinterMenu;
-import net.lghast.elemenix.utils.elemenix.Constituents;
-import net.lghast.elemenix.utils.elemenix.Elemenix;
-import net.lghast.elemenix.utils.elemenix.ElemenixInfo;
-import net.lghast.elemenix.utils.misc.ElemenixHolder;
-import net.lghast.elemenix.utils.misc.LongContainerData;
-import net.lghast.elemenix.utils.misc.SidedInvHandler;
+import net.lghast.elemenix.core.resolver.BaseResolver;
+import net.lghast.elemenix.core.Constituents;
+import net.lghast.elemenix.core.Elemenix;
+import net.lghast.elemenix.common.system.transfer.ElemenixHolder;
+import net.lghast.elemenix.common.system.menu.LongContainerData;
+import net.lghast.elemenix.common.system.misc.ReconstructionHelper;
+import net.lghast.elemenix.common.system.transfer.SidedInvHandler;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
@@ -197,16 +198,6 @@ public abstract class AbstractPrinterBlockEntity extends BaseContainerBlockEntit
         }
     }
 
-    public void deductElemenix(Elemenix elemenix, long amount) {
-        if (amount <= 0) return;
-        int index = elemenix.getIndex();
-        if (index >= 0 && index < 6) {
-            long current = storage.getLong(index);
-            storage.setLong(index, Math.max(current - amount, 0L));
-            setChanged();
-        }
-    }
-
     public void tick(Level level, BlockPos pos, BlockState state) {
         if (level.isClientSide) return;
         if (!Elemenics.started) return;
@@ -322,7 +313,7 @@ public abstract class AbstractPrinterBlockEntity extends BaseContainerBlockEntit
     }
 
     private Constituents getPrinterRequired(ItemStack stack) {
-        Constituents required = ElemenixInfo.getPremiumAppliedConstituents(stack);
+        Constituents required = BaseResolver.getPremiumAppliedConstituents(stack);
         if (required.isUnanalysable()) return required;
         double loss = getLossMultiplier();
         if (loss != 1.0) {
@@ -335,17 +326,12 @@ public abstract class AbstractPrinterBlockEntity extends BaseContainerBlockEntit
         if (disabledKeys.contains(key)) return false;
         ItemStack stack = createEntryStack(key);
         if (stack.isEmpty()) return false;
-        if (ElemenixInfo.isUnreconstructable(stack)) return false;
+        if (BaseResolver.isUnreconstructable(stack)) return false;
 
         Constituents required = getPrinterRequired(stack);
         if (required.isUnanalysable()) return false;
+        if (ReconstructionHelper.isUnaffordable(required, storage)) return false;
 
-        for (Elemenix type : Elemenix.values()) {
-            long req = required.get(type);
-            if (req > 0 && storage.getLong(type.getIndex()) < req) {
-                return false;
-            }
-        }
         return findOutputSlot(stack) >= 0;
     }
 
@@ -368,27 +354,16 @@ public abstract class AbstractPrinterBlockEntity extends BaseContainerBlockEntit
     private void reconstruct(String key) {
         ItemStack resultStack = createEntryStack(key);
         if (resultStack.isEmpty()) return;
-        if (ElemenixInfo.isUnreconstructable(resultStack)) return;
+        if (BaseResolver.isUnreconstructable(resultStack)) return;
 
         Constituents required = getPrinterRequired(resultStack);
         if (required.isUnanalysable()) return;
-
-        for (Elemenix type : Elemenix.values()) {
-            long req = required.get(type);
-            if (req > 0 && storage.getLong(type.getIndex()) < req) {
-                return;
-            }
-        }
+        if (ReconstructionHelper.isUnaffordable(required, storage)) return;
 
         int slot = findOutputSlot(resultStack);
         if (slot < 0) return;
 
-        for (Elemenix type : Elemenix.values()) {
-            long req = required.get(type);
-            if (req > 0) {
-                deductElemenix(type, req);
-            }
-        }
+        ReconstructionHelper.consume(required, storage, 1);
 
         ItemStack slotStack = items.get(slot);
         if (slotStack.isEmpty()) {

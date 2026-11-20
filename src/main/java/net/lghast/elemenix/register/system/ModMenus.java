@@ -9,7 +9,7 @@ import net.lghast.elemenix.common.content.blockentity.InfuserBlockEntity;
 import net.lghast.elemenix.common.content.blockentity.OutletBlockEntity;
 import net.lghast.elemenix.common.content.blockentity.ShuntBlockEntity;
 import net.lghast.elemenix.common.content.blockentity.AbstractPrinterBlockEntity;
-import net.lghast.elemenix.common.content.blockentity.MemorizerReplicatorBlockEntity;
+import net.lghast.elemenix.common.content.blockentity.ReplicatorBlockEntity;
 import net.lghast.elemenix.common.content.blockentity.TankBlockEntity;
 import net.lghast.elemenix.common.content.blockentity.TransformerBlockEntity;
 import net.lghast.elemenix.common.system.menu.*;
@@ -36,10 +36,10 @@ public class ModMenus {
                     IMenuTypeExtension.create((windowId, inv, data) ->
                             new MemorizerBoxMenu(windowId, inv, ItemStack.EMPTY)));
 
-    public static final Supplier<MenuType<BurnerMenu>> BURNER_MENU =
+    public static final Supplier<MenuType<MemoryBurnerMenu>> BURNER_MENU =
             MENUS.register("burner_menu", () ->
                     IMenuTypeExtension.create((windowId, inv, data) ->
-                            new BurnerMenu(windowId, inv)));
+                            new MemoryBurnerMenu(windowId, inv)));
 
     public static final Supplier<MenuType<AnalysisTerminalMenu>> ANALYSIS_TERMINAL_MENU =
             MENUS.register("analysis_terminal_menu", () ->
@@ -101,10 +101,10 @@ public class ModMenus {
                     IMenuTypeExtension.create((windowId, inv, data) ->
                             new RegistrarMenu(windowId)));
 
-    public static final Supplier<MenuType<MemorizerReplicatorMenu>> MEMORIZER_REPLICATOR_MENU =
+    public static final Supplier<MenuType<ReplicatorMenu>> MEMORIZER_REPLICATOR_MENU =
             MENUS.register("memorizer_replicator_menu", () ->
                     IMenuTypeExtension.create((windowId, inv, data) ->
-                            new MemorizerReplicatorMenu(windowId, inv, (MemorizerReplicatorBlockEntity) inv.player.level().getBlockEntity(data.readBlockPos()))));
+                            new ReplicatorMenu(windowId, inv, (ReplicatorBlockEntity) inv.player.level().getBlockEntity(data.readBlockPos()))));
 
     public static void register(IEventBus eventBus) {
         MENUS.register(eventBus);

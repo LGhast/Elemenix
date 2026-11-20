@@ -30,7 +30,7 @@ public class MemorizerStylingRecipe extends CustomRecipe {
             if (stack.isEmpty()) {
                 continue;
             }
-            if (stack.is(ModItems.ELEMENIC_MEMORIZER)) {
+            if (stack.is(ModItems.ELEMENIC_MEMORIZER) || stack.is(ModItems.WITCHCRAFT_MEMORIZER)) {
                 if (!memorizer.isEmpty()) {
                     return false;
                 }
@@ -59,7 +59,7 @@ public class MemorizerStylingRecipe extends CustomRecipe {
             if (stack.isEmpty()) {
                 continue;
             }
-            if (stack.is(ModItems.ELEMENIC_MEMORIZER) && memorizer.isEmpty()) {
+            if ((stack.is(ModItems.ELEMENIC_MEMORIZER) || stack.is(ModItems.WITCHCRAFT_MEMORIZER)) && memorizer.isEmpty()) {
                 memorizer = stack;
             } else if (MemorizerItem.getStyleIndexFor(stack.getItem()) != null && styleItem.isEmpty()) {
                 styleItem = stack;

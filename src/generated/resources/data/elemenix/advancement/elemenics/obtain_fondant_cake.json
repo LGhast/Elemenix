@@ -1,5 +1,5 @@
 {
-  "parent": "elemenix:elemenics/obtain_burner",
+  "parent": "elemenix:elemenics/obtain_style",
   "criteria": {
     "get_fondant_cake": {
       "conditions": {

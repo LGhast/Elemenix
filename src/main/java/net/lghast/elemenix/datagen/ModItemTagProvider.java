@@ -107,6 +107,8 @@ public class ModItemTagProvider extends ItemTagsProvider {
         tag(ModTags.REGISTRAR_HIDDEN)
                 .add(Items.BUDDING_AMETHYST)
                 .add(Items.FROGSPAWN)
+                .add(Items.BEDROCK)
+                .add(Items.REINFORCED_DEEPSLATE)
                 .add(ModItems.NULLVOID.asItem())
                 .addTag(ItemTags.create(ResourceLocation.fromNamespaceAndPath("elemenix", "infested_stones")))
         ;

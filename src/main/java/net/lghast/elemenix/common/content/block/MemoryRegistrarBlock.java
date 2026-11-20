@@ -12,6 +12,7 @@ import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -161,14 +162,14 @@ public class MemoryRegistrarBlock extends BaseEntityBlock {
                 }
                 return InteractionResult.sidedSuccess(level.isClientSide);
             }
+            if (!player.getMainHandItem().isEmpty()) {
+                return InteractionResult.PASS;
+            }
             if (!level.isClientSide) {
-                if (player instanceof ServerPlayer serverPlayer) {
-                    ItemStack stack = new ItemStack(state.getBlock().asItem());
-                    if (!serverPlayer.getInventory().add(stack)) {
-                        serverPlayer.drop(stack, false);
-                    }
-                }
-                level.destroyBlock(pos, false, player);
+                player.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(state.getBlock().asItem()));
+                level.removeBlock(pos, false);
+                level.playSound(null, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5,
+                        SoundEvents.ITEM_PICKUP, SoundSource.PLAYERS, 0.2F, 1.0F);
             }
             return InteractionResult.sidedSuccess(level.isClientSide);
         }

@@ -87,7 +87,7 @@ public class ModItems {
             ()-> new MemorizerBoxItem(new Item.Properties()));
 
     public static final DeferredItem<Item> MEMORY_BURNER = ITEMS.register("memory_burner",
-            ()-> new BurnerItem(new Item.Properties()));
+            ()-> new MemoryBurnerItem(new Item.Properties()));
 
     public static final DeferredItem<Item> ELEMENIC_SCANNER = ITEMS.register("elemenic_scanner",
             ()-> new ScannerItem(new Item.Properties()));

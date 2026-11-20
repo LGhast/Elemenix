@@ -1,7 +1,7 @@
 package net.lghast.elemenix.compat.jade;
 
 import net.lghast.elemenix.common.content.blockentity.ShuntBlockEntity;
-import net.lghast.elemenix.utils.elemenix.Elemenix;
+import net.lghast.elemenix.core.Elemenix;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -32,7 +32,7 @@ public enum ShuntProvider implements IServerDataProvider<BlockAccessor>, IBlockC
             if (filterIndex == ShuntBlockEntity.FILTER_UNSPECIFIED) {
                 filterName = Component.translatable("status.elemenix.unspecified");
             } else {
-                filterName = Component.literal(Elemenix.values()[filterIndex].getName());
+                filterName = Elemenix.values()[filterIndex].getComponent();
             }
             tooltip.add(Component.translatable("status.elemenix.filter", filterName).withStyle(ChatFormatting.GRAY));
         }

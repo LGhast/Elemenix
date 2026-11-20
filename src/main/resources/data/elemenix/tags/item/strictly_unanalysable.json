@@ -16,9 +16,7 @@
     "minecraft:structure_void",
     "minecraft:vault",
     "minecraft:petrified_oak_slab",
-    "minecraft:bedrock",
     "minecraft:end_portal_frame",
-    "minecraft:reinforced_deepslate",
     {
       "id": "#elemenix:spawn_eggs",
       "required": false
@@ -1158,6 +1156,14 @@
     },
     {
       "id": "cobblemon:habitat_block",
+      "required": false
+    },
+    {
+      "id": "avaritia:forge_energy",
+      "required": false
+    },
+    {
+      "id": "avaritia:tesseract",
       "required": false
     }
   ]

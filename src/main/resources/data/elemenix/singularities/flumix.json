@@ -1,0 +1,13 @@
+{
+  "displayName": "singularity.elemenix.flumix",
+  "ingredient": {
+    "item": "elemenix:flumix_essence"
+  },
+  "name": "elemenix:flumix",
+  "overlayColor": 2787042,
+  "underlayColor": 1260646,
+  "count": 1000,
+  "timeCost": 240,
+  "enabled": true,
+  "recipeEnabled": true
+}

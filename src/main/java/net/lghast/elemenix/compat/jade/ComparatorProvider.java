@@ -2,8 +2,8 @@ package net.lghast.elemenix.compat.jade;
 
 import net.lghast.elemenix.common.content.block.ElemenicComparatorBlock;
 import net.lghast.elemenix.common.content.blockentity.ElemenicComparatorBlockEntity;
-import net.lghast.elemenix.utils.elemenix.Elemenix;
-import net.lghast.elemenix.utils.misc.ModUtils;
+import net.lghast.elemenix.core.Elemenix;
+import net.lghast.elemenix.common.util.ModUtils;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.nbt.CompoundTag;
@@ -55,20 +55,21 @@ public enum ComparatorProvider implements IServerDataProvider<BlockAccessor>, IB
                 .withStyle(passing ? ChatFormatting.GREEN : ChatFormatting.RED));
     }
 
-    private static String buildCriterion(int target, int rule, int threshold, int unit) {
-        String targetPart;
+    private static Component buildCriterion(int target, int rule, int threshold, int unit) {
+        Component targetPart;
         if (target == ElemenicComparatorBlockEntity.TARGET_SUM) {
-            targetPart = Component.translatable("status.elemenix.elemenix_sum").getString();
+            targetPart = Component.translatable("status.elemenix.elemenix_sum");
         } else if (target == ElemenicComparatorBlockEntity.TARGET_ANY) {
-            targetPart = Component.translatable("status.elemenix.elemenix_any").getString();
+            targetPart = Component.translatable("status.elemenix.elemenix_any");
         } else {
-            targetPart = Elemenix.values()[target].getName();
+            targetPart = Elemenix.values()[target].getComponent();
         }
 
         long value = (long) threshold * UNIT_MULTIPLIERS[unit];
         String valuePart = Screen.hasAltDown() ? String.valueOf(value) : ModUtils.formatNumber(value);
 
-        return targetPart + " " + RULE_SYMBOLS[rule] + " " + valuePart;
+        return Component.empty().append(targetPart)
+                .append(Component.literal(" " + RULE_SYMBOLS[rule] + " " + valuePart));
     }
 
     @Override

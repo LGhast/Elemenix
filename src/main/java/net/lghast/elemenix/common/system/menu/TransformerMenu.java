@@ -3,20 +3,20 @@ package net.lghast.elemenix.common.system.menu;
 import net.lghast.elemenix.common.content.block.GeologicalSimulatorBlock;
 import net.lghast.elemenix.common.content.block.GerminalAcceleratorBlock;
 import net.lghast.elemenix.common.content.block.MetallurgicalActivatorBlock;
-import net.lghast.elemenix.common.content.block.TransformerBlock;
+import net.lghast.elemenix.common.content.block.AbstractTransformerBlock;
 import net.lghast.elemenix.common.content.blockentity.TransformerBlockEntity;
 import net.lghast.elemenix.common.system.advancement.GerminateTrigger;
 import net.lghast.elemenix.common.system.advancement.ImitforgeTrigger;
 import net.lghast.elemenix.common.system.advancement.MineralizeTrigger;
 import net.lghast.elemenix.common.system.recipe.GerminatingRecipe;
 import net.lghast.elemenix.common.system.recipe.MineralizingRecipe;
+import net.lghast.elemenix.core.resolver.BaseResolver;
 import net.lghast.elemenix.register.system.ModMenus;
 import net.lghast.elemenix.register.system.ModRecipes;
 import net.lghast.elemenix.register.system.ModStats;
 import net.lghast.elemenix.register.system.ModTags;
-import net.lghast.elemenix.utils.elemenix.Constituents;
-import net.lghast.elemenix.utils.imitforge.Imitforging;
-import net.lghast.elemenix.utils.elemenix.ElemenixInfo;
+import net.lghast.elemenix.core.Constituents;
+import net.lghast.elemenix.common.system.imitforge.Imitforging;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
@@ -105,9 +105,9 @@ public class TransformerMenu extends AbstractContainerMenu {
             @Override
             public int get(int index) {
                 return switch (index) {
-                    case 0 -> blockEntity.getInputA();
-                    case 1 -> blockEntity.getInputB();
-                    case 2 -> blockEntity.getOutputC();
+                    case 0 -> (int) Math.min(blockEntity.getInputA(), Integer.MAX_VALUE);
+                    case 1 -> (int) Math.min(blockEntity.getInputB(), Integer.MAX_VALUE);
+                    case 2 -> (int) Math.min(blockEntity.getOutputC(), Integer.MAX_VALUE);
                     case 3 -> blockEntity.getMode();
                     case 4 -> blockEntity.getGerminatingProgress();
                     case 5 -> blockEntity.isTransformEnabled() ? 1 : 0;
@@ -177,7 +177,7 @@ public class TransformerMenu extends AbstractContainerMenu {
     }
 
     public int getPageCount() {
-        TransformerBlock block = blockEntity.getTransformerBlock();
+        AbstractTransformerBlock block = blockEntity.getTransformerBlock();
         return block != null ? block.getPageCount() : 1;
     }
 
@@ -255,11 +255,11 @@ public class TransformerMenu extends AbstractContainerMenu {
 
             @Override
             public boolean mayPlace(ItemStack stack) {
-                TransformerBlock block = blockEntity.getTransformerBlock();
+                AbstractTransformerBlock block = blockEntity.getTransformerBlock();
                 if (block == null) return false;
-                if (ElemenixInfo.isUndeconstructable(stack) || stack.is(ModTags.IGNORED_BY_DECONSTRUCTOR_INPUT)) return false;
+                if (BaseResolver.isUndeconstructable(stack) || stack.is(ModTags.IGNORED_BY_DECONSTRUCTOR_INPUT)) return false;
 
-                Constituents constituents = ElemenixInfo.getConstituents(stack);
+                Constituents constituents = BaseResolver.getConstituents(stack);
                 return constituents.isPure(block.getInputElemenixA());
             }
 
@@ -278,11 +278,11 @@ public class TransformerMenu extends AbstractContainerMenu {
 
             @Override
             public boolean mayPlace(ItemStack stack) {
-                TransformerBlock block = blockEntity.getTransformerBlock();
+                AbstractTransformerBlock block = blockEntity.getTransformerBlock();
                 if (block == null) return false;
-                if (ElemenixInfo.isUndeconstructable(stack) || stack.is(ModTags.IGNORED_BY_DECONSTRUCTOR_INPUT)) return false;
+                if (BaseResolver.isUndeconstructable(stack) || stack.is(ModTags.IGNORED_BY_DECONSTRUCTOR_INPUT)) return false;
 
-                Constituents constituents = ElemenixInfo.getConstituents(stack);
+                Constituents constituents = BaseResolver.getConstituents(stack);
                 return constituents.isPure(block.getInputElemenixB());
             }
 
@@ -452,7 +452,7 @@ public class TransformerMenu extends AbstractContainerMenu {
 
         if (flumixCost > 0) {
             long flumix = blockEntity.getInputB();
-            blockEntity.setInputB((int) Math.max(0, flumix - (long) flumixCost));
+            blockEntity.setInputB(Math.max(0L, flumix - flumixCost));
             blockEntity.setChanged();
         }
 
@@ -518,7 +518,7 @@ public class TransformerMenu extends AbstractContainerMenu {
 
             @Override
             public boolean mayPickup(Player player) {
-                if (ElemenixInfo.isCalculating()) return false;
+                if (BaseResolver.isCalculating()) return false;
 
                 MineralizingRecipe recipe = getCurrentMineralizingRecipe();
                 if (recipe == null || !hasItem()) return false;
@@ -598,7 +598,7 @@ public class TransformerMenu extends AbstractContainerMenu {
 
     @Nullable
     public int[] getGerminatingCost() {
-        if (ElemenixInfo.isCalculating()) return null;
+        if (BaseResolver.isCalculating()) return null;
 
         GerminatingRecipe recipe = getCurrentGerminatingRecipe();
         return recipe != null ? recipe.getCost() : null;
@@ -726,7 +726,7 @@ public class TransformerMenu extends AbstractContainerMenu {
     }
 
     public int getImitforgingCost() {
-        if (ElemenixInfo.isCalculating()) return 0;
+        if (BaseResolver.isCalculating()) return 0;
         if (isImitforgingRemoval()) return 0;
 
         int cost = Imitforging.getEnergixCost(blockEntity.getItem(IMITFORGING_TARGET_SLOT));
@@ -741,7 +741,7 @@ public class TransformerMenu extends AbstractContainerMenu {
 
     @Nullable
     public Component getImitforgingError() {
-        if (ElemenixInfo.isCalculating()) return null;
+        if (BaseResolver.isCalculating()) return null;
         if (Imitforging.isDisabled()) {
             return Component.translatable("gui.elemenix.imitforging.error.disabled");
         }
@@ -785,7 +785,7 @@ public class TransformerMenu extends AbstractContainerMenu {
         if (!removal) {
             int cost = Imitforging.getEnergixCost(target);
             if (cost > 0) {
-                blockEntity.setInputB((int) Math.max(0, (long) blockEntity.getInputB() - cost));
+                blockEntity.setInputB(Math.max(0L, blockEntity.getInputB() - cost));
             }
         }
         blockEntity.setChanged();
@@ -849,7 +849,7 @@ public class TransformerMenu extends AbstractContainerMenu {
 
             @Override
             public boolean mayPickup(Player player) {
-                if (ElemenixInfo.isCalculating()) return false;
+                if (BaseResolver.isCalculating()) return false;
                 return hasItem() && TransformerMenu.this.canAffordImitforging();
             }
 

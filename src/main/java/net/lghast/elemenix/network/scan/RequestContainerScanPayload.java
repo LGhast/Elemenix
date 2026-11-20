@@ -1,8 +1,8 @@
 package net.lghast.elemenix.network.scan;
 
 import net.lghast.elemenix.register.system.ModTags;
-import net.lghast.elemenix.utils.elemenix.Constituents;
-import net.lghast.elemenix.utils.elemenix.ElemenixInfo;
+import net.lghast.elemenix.core.Constituents;
+import net.lghast.elemenix.core.resolver.BaseResolver;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
@@ -51,7 +51,7 @@ public record RequestContainerScanPayload(BlockPos pos) implements CustomPacketP
             ItemStack stack = container.getItem(slot);
             if (stack.isEmpty()) continue;
             if (stack.is(ModTags.IGNORED_BY_SCANNING)) continue;
-            Constituents c = ElemenixInfo.getConstituents(stack);
+            Constituents c = BaseResolver.getConstituents(stack);
             if (c != null && !c.isUnanalysable()) return true;
         }
         return false;

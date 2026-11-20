@@ -3,21 +3,23 @@ package net.lghast.elemenix.client.screen;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.datafixers.util.Pair;
 import net.lghast.elemenix.client.cache.ClientRegistrarCache;
-import net.lghast.elemenix.client.misc.ScaledText;
+import net.lghast.elemenix.client.render.ItemIconRenderer;
+import net.lghast.elemenix.client.render.ScaledText;
 import net.lghast.elemenix.client.screen.widget.SmallCheckbox;
 import net.lghast.elemenix.common.content.blockentity.MemoryRegistrarBlockEntity;
 import net.lghast.elemenix.config.ClientConfig;
-import net.lghast.elemenix.common.system.datacomponent.PotionMemoryData;
+import net.lghast.elemenix.common.system.datacomponent.PotionMemories;
 import net.lghast.elemenix.common.system.menu.RegistrarMenu;
 import net.lghast.elemenix.compat.jech.JechCompat;
+import net.lghast.elemenix.core.resolver.BaseResolver;
 import net.lghast.elemenix.network.registrar.ToggleRegistrarDeveloperModePayload;
 import net.lghast.elemenix.register.system.ModTags;
-import net.lghast.elemenix.utils.elemenix.Constituents;
-import net.lghast.elemenix.utils.elemenix.Elemenix;
-import net.lghast.elemenix.utils.elemenix.ElemenixInfo;
-import net.lghast.elemenix.utils.misc.ModUtils;
+import net.lghast.elemenix.core.Constituents;
+import net.lghast.elemenix.core.Elemenix;
+import net.lghast.elemenix.common.util.ModUtils;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
@@ -187,6 +189,12 @@ public class RegistrarScreen extends AbstractContainerScreen<RegistrarMenu> {
     private SmallCheckbox spawnEggsCheckbox;
     private int developerFilter = -1;
     private boolean developerMode = false;
+    private int lastCacheVersion = -1;
+    private boolean lastReady;
+    private int countsVersion = -1;
+    private boolean countsReady;
+    private int totalItemCount;
+    private int collectedItemCount;
     private Button prevButton;
     private Button nextButton;
     private Button backButton;
@@ -253,6 +261,8 @@ public class RegistrarScreen extends AbstractContainerScreen<RegistrarMenu> {
     @Override
     protected void init() {
         super.init();
+
+        this.developerMode = ClientRegistrarCache.isDeveloperMode();
 
         this.searchBox = new EditBox(this.font, leftPos + SEARCH_X, topPos + SEARCH_Y,
                 SEARCH_W, SEARCH_H, Component.translatable("gui.elemenix.registrar.search"));
@@ -328,6 +338,8 @@ public class RegistrarScreen extends AbstractContainerScreen<RegistrarMenu> {
         this.addRenderableWidget(this.backButton);
 
         rebuildEntries();
+        this.lastCacheVersion = ClientRegistrarCache.getVersion();
+        this.lastReady = BaseResolver.isReady();
     }
 
     @Override
@@ -344,8 +356,19 @@ public class RegistrarScreen extends AbstractContainerScreen<RegistrarMenu> {
             tagScroll = 0;
             descriptionScroll = 0.0f;
             if (searchBox != null) searchBox.setValue("");
+            rebuildEntries();
+            lastCacheVersion = ClientRegistrarCache.getVersion();
+            lastReady = BaseResolver.isReady();
+            return;
         }
-        rebuildEntries();
+
+        int cacheVersion = ClientRegistrarCache.getVersion();
+        boolean ready = BaseResolver.isReady();
+        if (lastCacheVersion != cacheVersion || lastReady != ready || BaseResolver.isCalculating()) {
+            lastCacheVersion = cacheVersion;
+            lastReady = ready;
+            rebuildEntries();
+        }
     }
 
     @Override
@@ -506,7 +529,7 @@ public class RegistrarScreen extends AbstractContainerScreen<RegistrarMenu> {
         }
 
         Set<ResourceLocation> collectedItems = ClientRegistrarCache.getItems();
-        Set<PotionMemoryData.Entry> collectedPotions = ClientRegistrarCache.getPotions();
+        Set<PotionMemories.Entry> collectedPotions = ClientRegistrarCache.getPotions();
         boolean showUncollected = showUncollectedCheckbox != null && showUncollectedCheckbox.selected();
         boolean showPotions = showPotionlikeCheckbox != null && showPotionlikeCheckbox.selected();
 
@@ -517,7 +540,7 @@ public class RegistrarScreen extends AbstractContainerScreen<RegistrarMenu> {
         }
 
         if (showPotions) {
-            for (PotionMemoryData.Entry potion : collectedPotions) {
+            for (PotionMemories.Entry potion : collectedPotions) {
                 ItemStack stack = createPotionStack(potion);
                 if (stack.isEmpty()) continue;
                 entries.add(potionEntry(stack, potion));
@@ -536,7 +559,7 @@ public class RegistrarScreen extends AbstractContainerScreen<RegistrarMenu> {
 
         if (showUncollected && showPotions) {
             Set<ResourceLocation> collectedPotionItems = new HashSet<>();
-            for (PotionMemoryData.Entry potion : collectedPotions) {
+            for (PotionMemories.Entry potion : collectedPotions) {
                 collectedPotionItems.add(potion.itemId());
             }
             for (Item item : BuiltInRegistries.ITEM) {
@@ -559,7 +582,7 @@ public class RegistrarScreen extends AbstractContainerScreen<RegistrarMenu> {
             if (developerFilter >= 0 && !matchesDeveloperFilter(item)) continue;
             ResourceLocation id = BuiltInRegistries.ITEM.getKey(item);
             if (isPotionLike(item)) {
-                PotionMemoryData.Entry entry = new PotionMemoryData.Entry(id, WATER_POTION_ID);
+                PotionMemories.Entry entry = new PotionMemories.Entry(id, WATER_POTION_ID);
                 ItemStack stack = createPotionStack(entry);
                 if (stack.isEmpty()) continue;
                 entries.add(potionEntry(stack, entry));
@@ -572,7 +595,7 @@ public class RegistrarScreen extends AbstractContainerScreen<RegistrarMenu> {
     private boolean matchesDeveloperFilter(Item item) {
         ItemStack stack = new ItemStack(item);
         return switch (developerFilter) {
-            case 0 -> ElemenixInfo.isUnanalysable(item)
+            case 0 -> BaseResolver.isUnanalysable(item)
                     && !stack.is(ModTags.STRICTLY_UNANALYSABLE)
                     && !stack.is(ModTags.COMMAND_IGNORED)
                     && !stack.is(ModTags.SPAWN_EGGS);
@@ -757,7 +780,7 @@ public class RegistrarScreen extends AbstractContainerScreen<RegistrarMenu> {
         return new Entry(stack, collected, id.getNamespace(), id.getPath(), "");
     }
 
-    private static Entry potionEntry(ItemStack stack, PotionMemoryData.Entry potion) {
+    private static Entry potionEntry(ItemStack stack, PotionMemories.Entry potion) {
         String tiebreak = potion.potionId().equals(WATER_POTION_ID) ? "" : potion.potionId().getPath();
         return new Entry(stack, true, potion.potionId().getNamespace(), potion.itemId().getPath(), tiebreak);
     }
@@ -772,10 +795,10 @@ public class RegistrarScreen extends AbstractContainerScreen<RegistrarMenu> {
         ItemStack stack = new ItemStack(item);
         if (stack.is(ModTags.ANALYZER_UNRECORDABLE)) return true;
         if (stack.is(ModTags.REGISTRAR_HIDDEN)) return true;
-        return ElemenixInfo.isUnanalysable(item);
+        return BaseResolver.isUnanalysable(item);
     }
 
-    private static ItemStack createPotionStack(PotionMemoryData.Entry entry) {
+    private static ItemStack createPotionStack(PotionMemories.Entry entry) {
         try {
             Item item = BuiltInRegistries.ITEM.get(entry.itemId());
             Optional<Holder.Reference<Potion>> potion = BuiltInRegistries.POTION
@@ -792,31 +815,43 @@ public class RegistrarScreen extends AbstractContainerScreen<RegistrarMenu> {
         return Math.max(1, (int) Math.ceil((double) entries.size() / (COLS * ROWS)));
     }
 
-    private int getCollectedCount() {
-        Set<ResourceLocation> collectedItems = ClientRegistrarCache.getItems();
-        Set<PotionMemoryData.Entry> collectedPotions = ClientRegistrarCache.getPotions();
-        Set<ResourceLocation> baseIds = new HashSet<>();
-        for (ResourceLocation id : collectedItems) {
-            Item item = BuiltInRegistries.ITEM.get(id);
-            if (shouldHide(item)) continue;
-            baseIds.add(id);
+    private void ensureCounts() {
+        int cacheVersion = ClientRegistrarCache.getVersion();
+        boolean ready = BaseResolver.isReady();
+        if (countsVersion == cacheVersion && countsReady == ready) {
+            return;
         }
-        for (PotionMemoryData.Entry potion : collectedPotions) {
-            Item item = BuiltInRegistries.ITEM.get(potion.itemId());
-            if (shouldHide(item)) continue;
-            baseIds.add(potion.itemId());
-        }
-        return baseIds.size();
-    }
 
-    private int getTotalCount() {
+        countsVersion = cacheVersion;
+        countsReady = ready;
+
         int total = 0;
         for (Item item : BuiltInRegistries.ITEM) {
-            if (item == Items.AIR) continue;
             if (shouldHide(item)) continue;
             total++;
         }
-        return total;
+        totalItemCount = total;
+
+        Set<ResourceLocation> baseIds = new HashSet<>();
+        for (ResourceLocation id : ClientRegistrarCache.getItems()) {
+            if (shouldHide(BuiltInRegistries.ITEM.get(id))) continue;
+            baseIds.add(id);
+        }
+        for (PotionMemories.Entry potion : ClientRegistrarCache.getPotions()) {
+            if (shouldHide(BuiltInRegistries.ITEM.get(potion.itemId()))) continue;
+            baseIds.add(potion.itemId());
+        }
+        collectedItemCount = baseIds.size();
+    }
+
+    private int getCollectedCount() {
+        ensureCounts();
+        return collectedItemCount;
+    }
+
+    private int getTotalCount() {
+        ensureCounts();
+        return totalItemCount;
     }
 
     private void clampPage() {
@@ -942,7 +977,7 @@ public class RegistrarScreen extends AbstractContainerScreen<RegistrarMenu> {
                 graphics.fill(itemX - 1, itemY - 1, itemX + 17, itemY + 17, 0x50FFFFFF);
             }
             if (entry.collected() || ClientConfig.SHOW_UNCOLLECTED_ICON.get()) {
-                graphics.renderItem(entry.stack(), itemX, itemY);
+                ItemIconRenderer.render(graphics, entry.stack(), itemX, itemY);
             } else {
                 graphics.blit(QUESTION_MARK_TEXTURE, itemX, itemY, 0, 0.0f, 0.0f, 16, 16, 16, 16);
             }
@@ -1028,10 +1063,11 @@ public class RegistrarScreen extends AbstractContainerScreen<RegistrarMenu> {
     }
 
     private void renderLargeItem(GuiGraphics graphics, ItemStack stack, int x, int y) {
-        graphics.pose().pushPose();
-        graphics.pose().translate(x, y, 0.0F);
-        graphics.pose().scale(DETAIL_ITEM_SCALE, DETAIL_ITEM_SCALE, 1.0F);
-        graphics.renderItem(stack, 0, 0);
+        PoseStack pose = graphics.pose();
+        pose.pushPose();
+        pose.translate(x, y, 0.0F);
+        pose.scale(DETAIL_ITEM_SCALE, DETAIL_ITEM_SCALE, 1.0F);
+        ItemIconRenderer.render(graphics, stack, 0, 0);
         graphics.pose().popPose();
     }
 
@@ -1060,7 +1096,7 @@ public class RegistrarScreen extends AbstractContainerScreen<RegistrarMenu> {
     }
 
     private void renderConstituents(GuiGraphics graphics, ItemStack stack, int yOffset) {
-        Constituents constituents = ElemenixInfo.getConstituents(stack);
+        Constituents constituents = BaseResolver.getConstituents(stack);
         if (constituents == null) return;
 
         renderConstituentsTitle(graphics, yOffset);
@@ -1231,15 +1267,15 @@ public class RegistrarScreen extends AbstractContainerScreen<RegistrarMenu> {
 
         int burnTime = stack.getBurnTime(RecipeType.SMELTING);
         if (burnTime > 0) {
-            icons.add(new IconEntry(36, 12, List.of(Component.translatable("gui.elemenix.registrar.fuel", burnTime))));
+            icons.add(new IconEntry(36, 12, List.of(Component.translatable("gui.elemenix.registrar.fuel", formatBurnTime(burnTime)))));
         }
 
-        Constituents constituents = ElemenixInfo.getConstituents(stack);
+        Constituents constituents = BaseResolver.getConstituents(stack);
         if (constituents != null && !constituents.isUnanalysable()) {
             for (Elemenix e : Elemenix.values()) {
                 if (constituents.isPure(e)) {
                     icons.add(new IconEntry(0, 24, List.of(
-                            Component.translatable("gui.elemenix.registrar.pure", e.getName()).withColor(e.getColor())
+                            Component.translatable("gui.elemenix.registrar.pure", e.getComponent()).withColor(e.getColor())
                     )));
                     break;
                 }
@@ -1296,6 +1332,30 @@ public class RegistrarScreen extends AbstractContainerScreen<RegistrarMenu> {
             sb.append(' ').append(formatEffectDuration(effect.getDuration()));
         }
         return sb.toString();
+    }
+
+    private static String formatBurnTime(int ticks) {
+        int totalSeconds = ticks / 20;
+        int remainingTicks = ticks % 20;
+        int hours = totalSeconds / 3600;
+        int minutes = (totalSeconds % 3600) / 60;
+        int seconds = totalSeconds % 60;
+
+        List<String> parts = new ArrayList<>(4);
+        if (hours > 0) {
+            parts.add(Component.translatable("gui.elemenix.duration.hours", hours).getString());
+        }
+        if (minutes > 0) {
+            parts.add(Component.translatable("gui.elemenix.duration.minutes", minutes).getString());
+        }
+        if (seconds > 0) {
+            parts.add(Component.translatable("gui.elemenix.duration.seconds", seconds).getString());
+        }
+        if (remainingTicks > 0 || parts.isEmpty()) {
+            parts.add(Component.translatable("gui.elemenix.duration.ticks", remainingTicks).getString());
+        }
+
+        return String.join(Component.translatable("gui.elemenix.duration.separator").getString(), parts);
     }
 
     private static String formatEffectDuration(int ticks) {
@@ -1469,10 +1529,11 @@ public class RegistrarScreen extends AbstractContainerScreen<RegistrarMenu> {
 
     private void renderSmallItem(GuiGraphics graphics, ItemStack stack, int x, int y) {
         float scale = TAG_ICON_SIZE / 16.0f;
-        graphics.pose().pushPose();
-        graphics.pose().translate(x, y, 0.0F);
-        graphics.pose().scale(scale, scale, 1.0F);
-        graphics.renderItem(stack, 0, 0);
+        PoseStack pose = graphics.pose();
+        pose.pushPose();
+        pose.translate(x, y, 0.0F);
+        pose.scale(scale, scale, 1.0F);
+        ItemIconRenderer.render(graphics, stack, 0, 0);
         graphics.pose().popPose();
     }
 

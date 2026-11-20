@@ -16,7 +16,6 @@
     "description": {
       "translate": "advancements.elemenix.enrich_equilibrium.description"
     },
-    "frame": "goal",
     "icon": {
       "count": 1,
       "id": "elemenix:elemenic_equilibrium"

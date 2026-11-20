@@ -1,9 +1,9 @@
 package net.lghast.elemenix.config;
 
 import net.lghast.elemenix.Elemenics;
-import net.lghast.elemenix.utils.elemenix.Constituents;
-import net.lghast.elemenix.utils.elemenix.ElemenixInfo;
-import net.lghast.elemenix.utils.misc.ScanHelper;
+import net.lghast.elemenix.core.resolver.BaseResolver;
+import net.lghast.elemenix.core.Constituents;
+import net.lghast.elemenix.common.system.misc.ScanHelper;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.event.config.ModConfigEvent;
@@ -14,7 +14,7 @@ public class CommonConfigEvents {
     @SubscribeEvent
     public static void onConfigLoaded(ModConfigEvent.Loading event) {
         if (event.getConfig().getSpec() == CommonConfig.SPEC) {
-            ElemenixInfo.loadFromConfig();
+            BaseResolver.loadFromConfig();
             Constituents.loadFromConfig();
             ScanHelper.loadFromConfig();
         }
@@ -23,7 +23,7 @@ public class CommonConfigEvents {
     @SubscribeEvent
     public static void onConfigReloaded(ModConfigEvent.Reloading event) {
         if (event.getConfig().getSpec() == CommonConfig.SPEC) {
-            ElemenixInfo.loadFromConfig();
+            BaseResolver.loadFromConfig();
             Constituents.loadFromConfig();
             ScanHelper.loadFromConfig();
         }

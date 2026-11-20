@@ -1,0 +1,30 @@
+{
+  "parent": "elemenix:elemenics/obtain_memory_registrar",
+  "criteria": {
+    "registered": {
+      "trigger": "elemenix:memories_registered"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.elemenix.memory_torrent.description"
+    },
+    "frame": "challenge",
+    "icon": {
+      "components": {
+        "minecraft:enchantment_glint_override": true
+      },
+      "count": 1,
+      "id": "elemenix:memory_registrar"
+    },
+    "title": {
+      "translate": "advancements.elemenix.memory_torrent.title"
+    }
+  },
+  "requirements": [
+    [
+      "registered"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

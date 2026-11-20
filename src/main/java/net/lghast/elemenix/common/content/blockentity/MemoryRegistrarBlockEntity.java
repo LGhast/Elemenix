@@ -4,9 +4,10 @@ import net.lghast.elemenix.Elemenics;
 import net.lghast.elemenix.common.content.block.MemoryRegistrarBlock;
 import net.lghast.elemenix.common.content.item.MemorizerItem;
 import net.lghast.elemenix.common.content.item.WitchcraftMemorizerItem;
-import net.lghast.elemenix.utils.misc.RegistrationStageNotifier;
+import net.lghast.elemenix.common.system.advancement.MemoriesRegisteredTrigger;
+import net.lghast.elemenix.common.system.misc.RegistrationStageNotifier;
 import net.lghast.elemenix.common.system.attachment.RegistrarCollection;
-import net.lghast.elemenix.common.system.datacomponent.PotionMemoryData;
+import net.lghast.elemenix.common.system.datacomponent.PotionMemories;
 import net.lghast.elemenix.config.CommonConfig;
 import net.lghast.elemenix.register.content.ModBlockEntities;
 import net.lghast.elemenix.register.content.ModItems;
@@ -118,10 +119,10 @@ public class MemoryRegistrarBlockEntity extends BlockEntity {
         RegistrarCollection collection = player.getData(ModAttachments.REGISTRAR_COLLECTION);
 
         if (memorizer.getItem() instanceof WitchcraftMemorizerItem) {
-            List<PotionMemoryData.Entry> entries = WitchcraftMemorizerItem.getOrCreateMemories(memorizer).entries();
+            List<PotionMemories.Entry> entries = WitchcraftMemorizerItem.getOrCreateMemories(memorizer).entries();
             int valid = 0;
             int registerable = 0;
-            for (PotionMemoryData.Entry entry : entries) {
+            for (PotionMemories.Entry entry : entries) {
                 if (isInvalidPotion(entry)) continue;
                 valid++;
                 if (!collection.containsPotion(entry)) registerable++;
@@ -132,7 +133,7 @@ public class MemoryRegistrarBlockEntity extends BlockEntity {
         }
 
         if (memorizer.getItem() instanceof MemorizerItem) {
-            return checkItemPlacement(collection, MemorizerItem.getOrCreateMemories(memorizer).resolvedItems());
+            return checkItemPlacement(collection, MemorizerItem.getOrCreateMemories(memorizer).memories());
         }
 
         if (isBuiltInMemorySource(memorizer)) {
@@ -191,7 +192,7 @@ public class MemoryRegistrarBlockEntity extends BlockEntity {
     private boolean processItemRegistration(ServerPlayer ownerPlayer, ServerLevel serverLevel) {
         List<ResourceLocation> itemIds;
         if (memorizer.getItem() instanceof MemorizerItem) {
-            itemIds = MemorizerItem.getOrCreateMemories(memorizer).resolvedItems();
+            itemIds = MemorizerItem.getOrCreateMemories(memorizer).memories();
         } else {
             itemIds = getBuiltInMemories(memorizer);
         }
@@ -227,17 +228,19 @@ public class MemoryRegistrarBlockEntity extends BlockEntity {
             setChanged();
             playRegistrarSound(serverLevel, ModSounds.REGISTRAR.get());
             RegistrationStageNotifier.check(ownerPlayer);
+            MemoriesRegisteredTrigger.TRIGGER.get().trigger(ownerPlayer,
+                    collection.items().size() + collection.potions().size() + 1);
         }
 
         return true;
     }
 
     private boolean processPotionRegistration(ServerPlayer ownerPlayer, ServerLevel serverLevel) {
-        List<PotionMemoryData.Entry> entries = WitchcraftMemorizerItem.getOrCreateMemories(memorizer).entries();
+        List<PotionMemories.Entry> entries = WitchcraftMemorizerItem.getOrCreateMemories(memorizer).entries();
         RegistrarCollection collection = ownerPlayer.getData(ModAttachments.REGISTRAR_COLLECTION);
 
         while (cursor < entries.size()) {
-            PotionMemoryData.Entry entry = entries.get(cursor);
+            PotionMemories.Entry entry = entries.get(cursor);
             if (collection.containsPotion(entry) || isInvalidPotion(entry)) {
                 cursor++;
             } else {
@@ -250,7 +253,7 @@ public class MemoryRegistrarBlockEntity extends BlockEntity {
             return false;
         }
 
-        PotionMemoryData.Entry entry = entries.get(cursor);
+        PotionMemories.Entry entry = entries.get(cursor);
         if (currentRegisteringStack.isEmpty()) {
             currentRegisteringStack = createPotionStack(entry);
             setChanged();
@@ -266,6 +269,8 @@ public class MemoryRegistrarBlockEntity extends BlockEntity {
             setChanged();
             playRegistrarSound(serverLevel, ModSounds.REGISTRAR.get());
             RegistrationStageNotifier.check(ownerPlayer);
+            MemoriesRegisteredTrigger.TRIGGER.get().trigger(ownerPlayer,
+                    collection.items().size() + collection.potions().size() + 1);
         }
 
         return true;
@@ -296,7 +301,7 @@ public class MemoryRegistrarBlockEntity extends BlockEntity {
 
     private void playRegistrarSound(ServerLevel serverLevel, SoundEvent sound) {
         serverLevel.playSound(null, worldPosition.getX() + 0.5, worldPosition.getY() + 0.5, worldPosition.getZ() + 0.5,
-                sound, SoundSource.BLOCKS, 1.0F, 1.0F);
+                sound, SoundSource.BLOCKS, 0.9F, 1.0F);
     }
 
     private void dropMemorizer(ServerLevel serverLevel) {
@@ -344,7 +349,7 @@ public class MemoryRegistrarBlockEntity extends BlockEntity {
         }
     }
 
-    private static boolean isInvalidPotion(PotionMemoryData.Entry entry) {
+    private static boolean isInvalidPotion(PotionMemories.Entry entry) {
         try {
             Item item = BuiltInRegistries.ITEM.get(entry.itemId());
             if (item == Items.AIR) return true;
@@ -356,7 +361,7 @@ public class MemoryRegistrarBlockEntity extends BlockEntity {
         }
     }
 
-    private static ItemStack createPotionStack(PotionMemoryData.Entry entry) {
+    private static ItemStack createPotionStack(PotionMemories.Entry entry) {
         try {
             Item item = BuiltInRegistries.ITEM.get(entry.itemId());
             Optional<Holder.Reference<Potion>> potion = BuiltInRegistries.POTION

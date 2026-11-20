@@ -2,16 +2,17 @@ package net.lghast.elemenix.common.content.blockentity;
 
 import net.lghast.elemenix.Elemenics;
 import net.lghast.elemenix.common.content.block.GerminalAcceleratorBlock;
-import net.lghast.elemenix.common.content.block.TransformerBlock;
+import net.lghast.elemenix.common.content.block.AbstractTransformerBlock;
 import net.lghast.elemenix.common.system.menu.TransformerMenu;
 import net.lghast.elemenix.common.system.recipe.GerminatingRecipe;
+import net.lghast.elemenix.core.resolver.BaseResolver;
 import net.lghast.elemenix.register.content.ModBlockEntities;
 import net.lghast.elemenix.register.system.ModTags;
-import net.lghast.elemenix.utils.elemenix.Constituents;
-import net.lghast.elemenix.utils.misc.ElemenixHolder;
-import net.lghast.elemenix.utils.misc.SidedInvHandler;
-import net.lghast.elemenix.utils.elemenix.Elemenix;
-import net.lghast.elemenix.utils.elemenix.ElemenixInfo;
+import net.lghast.elemenix.core.Constituents;
+import net.lghast.elemenix.common.system.transfer.ElemenixHolder;
+import net.lghast.elemenix.common.util.ModUtils;
+import net.lghast.elemenix.common.system.transfer.SidedInvHandler;
+import net.lghast.elemenix.core.Elemenix;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
@@ -44,9 +45,9 @@ public class TransformerBlockEntity extends BaseContainerBlockEntity implements 
     public static final int PRODUCT_SLOT_FIRST = 4;
     public static final int PRODUCT_SLOT_COUNT = 6;
 
-    private int inputA = 0;
-    private int inputB = 0;
-    private int outputC = 0;
+    private long inputA = 0;
+    private long inputB = 0;
+    private long outputC = 0;
     private int dcTimer = 0;
     private int rcTimer = 0;
     private int mode = MODE_TRANSFORMING;
@@ -62,15 +63,15 @@ public class TransformerBlockEntity extends BaseContainerBlockEntity implements 
         super(ModBlockEntities.TRANSFORMER.get(), pos, state);
     }
 
-    public void setInputA(int inputA) {
+    public void setInputA(long inputA) {
         this.inputA = inputA;
     }
 
-    public void setInputB(int inputB) {
+    public void setInputB(long inputB) {
         this.inputB = inputB;
     }
 
-    public void setOutputC(int outputC) {
+    public void setOutputC(long outputC) {
         this.outputC = outputC;
     }
 
@@ -119,7 +120,7 @@ public class TransformerBlockEntity extends BaseContainerBlockEntity implements 
     public static void tick(Level level, BlockPos pos, BlockState state, TransformerBlockEntity blockEntity) {
         if (level.isClientSide) return;
         if (!Elemenics.started) return;
-        TransformerBlock block = (TransformerBlock) state.getBlock();
+        AbstractTransformerBlock block = (AbstractTransformerBlock) state.getBlock();
         if (blockEntity.mode != MODE_TRANSFORMING && block.getPageCount() > 1) {
             block.tickSecondPage(level, pos, state, blockEntity);
         } else if (blockEntity.germinatingProgress != 0) {
@@ -134,12 +135,12 @@ public class TransformerBlockEntity extends BaseContainerBlockEntity implements 
             isWorking = true;
         }
 
-        if (state.getValue(TransformerBlock.WORKING) != isWorking) {
-            level.setBlock(pos, state.setValue(TransformerBlock.WORKING, isWorking), 3);
+        if (state.getValue(AbstractTransformerBlock.WORKING) != isWorking) {
+            level.setBlock(pos, state.setValue(AbstractTransformerBlock.WORKING, isWorking), 3);
         }
     }
 
-    private boolean tickTransforming(TransformerBlock block, boolean suppressConsumption) {
+    private boolean tickTransforming(AbstractTransformerBlock block, boolean suppressConsumption) {
         dcTimer++;
         if (dcTimer >= block.getDcInterval()) {
             dcTimer = 0;
@@ -161,28 +162,28 @@ public class TransformerBlockEntity extends BaseContainerBlockEntity implements 
                 || (enrichEnabled && outputC >= block.getRcRequirement());
     }
 
-    private void deconstructInput(TransformerBlock block) {
+    private void deconstructInput(AbstractTransformerBlock block) {
         ItemStack inputStackA = items.get(0);
         ItemStack inputStackB = items.get(1);
-        if (!inputStackA.isEmpty() && !ElemenixInfo.isUnreconstructable(inputStackA)) {
-            Constituents constituents = ElemenixInfo.getDiscountAppliedConstituents(inputStackA);
+        if (!inputStackA.isEmpty() && !BaseResolver.isUndeconstructable(inputStackA)) {
+            Constituents constituents = BaseResolver.getDiscountAppliedConstituents(inputStackA);
             if (constituents.isPure(block.getInputElemenixA())) {
                 inputStackA.shrink(1);
-                inputA += (int) constituents.get(block.getInputElemenixA());
+                inputA = ModUtils.safeAdd(inputA, constituents.get(block.getInputElemenixA()));
                 setChanged();
             }
         }
-        if (!inputStackB.isEmpty() && !ElemenixInfo.isUnreconstructable(inputStackB)) {
-            Constituents constituents = ElemenixInfo.getDiscountAppliedConstituents(inputStackB);
+        if (!inputStackB.isEmpty() && !BaseResolver.isUndeconstructable(inputStackB)) {
+            Constituents constituents = BaseResolver.getDiscountAppliedConstituents(inputStackB);
             if (constituents.isPure(block.getInputElemenixB())) {
                 inputStackB.shrink(1);
-                inputB += (int) constituents.get(block.getInputElemenixB());
+                inputB = ModUtils.safeAdd(inputB, constituents.get(block.getInputElemenixB()));
                 setChanged();
             }
         }
     }
 
-    private void convertInput(TransformerBlock block) {
+    private void convertInput(AbstractTransformerBlock block) {
         if (inputA >= block.getConsumptionA() && inputB >= block.getConsumptionB()) {
             inputA -= block.getConsumptionA();
             inputB -= block.getConsumptionB();
@@ -191,7 +192,7 @@ public class TransformerBlockEntity extends BaseContainerBlockEntity implements 
         }
     }
 
-    private void enrichOutput(TransformerBlock block) {
+    private void enrichOutput(AbstractTransformerBlock block) {
         if (outputC >= block.getRcRequirement() && canOutput(block)) {
             outputC -= block.getRcRequirement();
             ItemStack outputStack = new ItemStack(block.getOutputItem());
@@ -204,7 +205,7 @@ public class TransformerBlockEntity extends BaseContainerBlockEntity implements 
         }
     }
 
-    private boolean canOutput(TransformerBlock block) {
+    private boolean canOutput(AbstractTransformerBlock block) {
         ItemStack outputSlot = items.get(2);
         return outputSlot.isEmpty() || (outputSlot.getCount() < outputSlot.getMaxStackSize() && outputSlot.getItem() == block.getOutputItem());
     }
@@ -235,11 +236,11 @@ public class TransformerBlockEntity extends BaseContainerBlockEntity implements 
         setChanged();
     }
 
-    public int getInputA() { return inputA; }
+    public long getInputA() { return inputA; }
 
-    public int getInputB() { return inputB; }
+    public long getInputB() { return inputB; }
 
-    public int getOutputC() { return outputC; }
+    public long getOutputC() { return outputC; }
 
     public static TransformerBlockEntity getBlockEntity(Level level, BlockPos pos) {
         if (level.getBlockEntity(pos) instanceof TransformerBlockEntity blockEntity) {
@@ -248,8 +249,8 @@ public class TransformerBlockEntity extends BaseContainerBlockEntity implements 
         return null;
     }
 
-    public TransformerBlock getTransformerBlock() {
-        if (getBlockState().getBlock() instanceof TransformerBlock block) {
+    public AbstractTransformerBlock getTransformerBlock() {
+        if (getBlockState().getBlock() instanceof AbstractTransformerBlock block) {
             return block;
         }
         return null;
@@ -257,7 +258,7 @@ public class TransformerBlockEntity extends BaseContainerBlockEntity implements 
 
     @Override
     protected @NotNull Component getDefaultName() {
-        TransformerBlock block = getTransformerBlock();
+        AbstractTransformerBlock block = getTransformerBlock();
         return block != null ? block.getGuiTitle() : Component.translatable("container.elemenix.transformer");
     }
 
@@ -378,9 +379,9 @@ public class TransformerBlockEntity extends BaseContainerBlockEntity implements 
     @Override
     public void loadAdditional(@NotNull CompoundTag tag, HolderLookup.@NotNull Provider provider) {
         super.loadAdditional(tag, provider);
-        inputA = tag.getInt("InputA");
-        inputB = tag.getInt("InputB");
-        outputC = tag.getInt("OutputC");
+        inputA = tag.getLong("InputA");
+        inputB = tag.getLong("InputB");
+        outputC = tag.getLong("OutputC");
         dcTimer = tag.getInt("InputTimer");
         rcTimer = tag.getInt("OutputTimer");
         mode = tag.getInt("Mode");
@@ -393,22 +394,22 @@ public class TransformerBlockEntity extends BaseContainerBlockEntity implements 
     @Override
     public boolean canPlaceItem(int slot, @NotNull ItemStack stack) {
         if (slot < 2) {
-            TransformerBlock block = getTransformerBlock();
+            AbstractTransformerBlock block = getTransformerBlock();
             if (block == null) return false;
-            if (ElemenixInfo.isUndeconstructable(stack) || stack.is(ModTags.IGNORED_BY_DECONSTRUCTOR_INPUT)) return false;
+            if (BaseResolver.isUndeconstructable(stack) || stack.is(ModTags.IGNORED_BY_DECONSTRUCTOR_INPUT)) return false;
             Elemenix requiredType = (slot == 0) ? block.getInputElemenixA() : block.getInputElemenixB();
-            Constituents constituents = ElemenixInfo.getConstituents(stack);
+            Constituents constituents = BaseResolver.getConstituents(stack);
             return constituents.isPure(requiredType);
         }
         if (slot == TEMPLATE_SLOT) {
-            return !ElemenixInfo.isUndeconstructable(stack) && !stack.is(ModTags.IGNORED_BY_DECONSTRUCTOR_INPUT);
+            return !BaseResolver.isUndeconstructable(stack) && !stack.is(ModTags.IGNORED_BY_DECONSTRUCTOR_INPUT);
         }
-        return slot == 4 && !ElemenixInfo.isUndeconstructable(stack) && !stack.is(ModTags.IGNORED_BY_DECONSTRUCTOR_INPUT);
+        return slot == 4 && !BaseResolver.isUndeconstructable(stack) && !stack.is(ModTags.IGNORED_BY_DECONSTRUCTOR_INPUT);
     }
 
     @Override
     public boolean canTakeItem(@NotNull Container target, int slot, @NotNull ItemStack stack) {
-        TransformerBlock block = getTransformerBlock();
+        AbstractTransformerBlock block = getTransformerBlock();
         if (block == null) return false;
         if (slot == TRANSFORM_OUT) return true;
 
@@ -427,7 +428,7 @@ public class TransformerBlockEntity extends BaseContainerBlockEntity implements 
     @Override
     public int @NotNull [] getSlotsForFace(@NotNull Direction side) {
         if (side == Direction.DOWN) {
-            TransformerBlock block = getTransformerBlock();
+            AbstractTransformerBlock block = getTransformerBlock();
             if (block instanceof GerminalAcceleratorBlock && getMode() != MODE_TRANSFORMING) {
                 int[] products = new int[PRODUCT_SLOT_COUNT];
                 for (int i = 0; i < PRODUCT_SLOT_COUNT; i++) {
@@ -452,7 +453,7 @@ public class TransformerBlockEntity extends BaseContainerBlockEntity implements 
     public boolean canTakeItemThroughFace(int index, @NotNull ItemStack stack, @NotNull Direction direction) {
         if (direction != Direction.DOWN) return false;
 
-        TransformerBlock block = getTransformerBlock();
+        AbstractTransformerBlock block = getTransformerBlock();
         if (block == null) return false;
 
         if (block instanceof GerminalAcceleratorBlock) {
@@ -467,7 +468,7 @@ public class TransformerBlockEntity extends BaseContainerBlockEntity implements 
 
     @Override
     public long getStored(Elemenix type) {
-        TransformerBlock block = getTransformerBlock();
+        AbstractTransformerBlock block = getTransformerBlock();
         if (block == null) return 0;
         if (type == block.getOutputElemenix()) return outputC;
         if (type == block.getInputElemenixA()) return inputA;
@@ -477,35 +478,35 @@ public class TransformerBlockEntity extends BaseContainerBlockEntity implements 
 
     @Override
     public boolean canExtract(Elemenix type) {
-        TransformerBlock block = getTransformerBlock();
+        AbstractTransformerBlock block = getTransformerBlock();
         return block != null && type == block.getOutputElemenix();
     }
 
     @Override
     public boolean canReceive(Elemenix type) {
-        TransformerBlock block = getTransformerBlock();
+        AbstractTransformerBlock block = getTransformerBlock();
         return block != null && (type == block.getInputElemenixA() || type == block.getInputElemenixB());
     }
 
     @Override
     public void extract(Elemenix type, long amount) {
-        TransformerBlock block = getTransformerBlock();
+        AbstractTransformerBlock block = getTransformerBlock();
         if (block == null) return;
         if (type == block.getOutputElemenix()) {
-            outputC = (int) Math.max(0, outputC - amount);
+            outputC = Math.max(0L, outputC - amount);
             setChanged();
         }
     }
 
     @Override
     public void receive(Elemenix type, long amount) {
-        TransformerBlock block = getTransformerBlock();
+        AbstractTransformerBlock block = getTransformerBlock();
         if (block == null) return;
         if (type == block.getInputElemenixA()) {
-            inputA = (int) Math.min((long) inputA + amount, Integer.MAX_VALUE);
+            inputA = ModUtils.safeAdd(inputA, amount);
             setChanged();
         } else if (type == block.getInputElemenixB()) {
-            inputB = (int) Math.min((long) inputB + amount, Integer.MAX_VALUE);
+            inputB = ModUtils.safeAdd(inputB, amount);
             setChanged();
         }
     }

@@ -3,8 +3,8 @@ package net.lghast.elemenix.client.screen;
 import net.lghast.elemenix.common.content.blockentity.ElemenicComparatorBlockEntity;
 import net.lghast.elemenix.common.system.menu.ElemenicComparatorMenu;
 import net.lghast.elemenix.network.comparator.ComparatorUpdatePayload;
-import net.lghast.elemenix.utils.elemenix.Elemenix;
-import net.lghast.elemenix.utils.misc.ModUtils;
+import net.lghast.elemenix.core.Elemenix;
+import net.lghast.elemenix.common.util.ModUtils;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.EditBox;
@@ -230,19 +230,20 @@ public class ElemenicComparatorScreen extends AbstractContainerScreen<ElemenicCo
     }
 
     private Component buildCriterion() {
-        String targetPart;
+        Component targetPart;
         if (target == ElemenicComparatorBlockEntity.TARGET_SUM) {
-            targetPart = Component.translatable("gui.elemenix.elemenix_sum").getString();
+            targetPart = Component.translatable("gui.elemenix.elemenix_sum");
         } else if (target == ElemenicComparatorBlockEntity.TARGET_ANY) {
-            targetPart = Component.translatable("gui.elemenix.elemenix_any").getString();
+            targetPart = Component.translatable("gui.elemenix.elemenix_any");
         } else {
-            targetPart = Elemenix.values()[target].getName();
+            targetPart = Elemenix.values()[target].getComponent();
         }
 
         long actualValue = (long) threshold * UNIT_MULTIPLIERS[unit];
         String valuePart = Screen.hasAltDown() ? String.valueOf(actualValue) : ModUtils.formatNumber(actualValue);
 
-        return Component.literal(targetPart + " " + RULE_SYMBOLS[rule] + " " + valuePart);
+        return Component.empty().append(targetPart)
+                .append(Component.literal(" " + RULE_SYMBOLS[rule] + " " + valuePart));
     }
 
     @FunctionalInterface

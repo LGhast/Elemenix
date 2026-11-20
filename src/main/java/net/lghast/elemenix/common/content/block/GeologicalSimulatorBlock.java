@@ -3,9 +3,9 @@ package net.lghast.elemenix.common.content.block;
 import com.mojang.serialization.MapCodec;
 import net.lghast.elemenix.common.content.blockentity.TransformerBlockEntity;
 import net.lghast.elemenix.config.CommonConfig;
+import net.lghast.elemenix.core.resolver.BaseResolver;
 import net.lghast.elemenix.register.content.ModItems;
-import net.lghast.elemenix.utils.elemenix.Elemenix;
-import net.lghast.elemenix.utils.elemenix.ElemenixInfo;
+import net.lghast.elemenix.core.Elemenix;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -19,7 +19,7 @@ import org.jetbrains.annotations.Nullable;
 import javax.annotation.ParametersAreNonnullByDefault;
 
 @ParametersAreNonnullByDefault
-public class GeologicalSimulatorBlock extends TransformerBlock {
+public class GeologicalSimulatorBlock extends AbstractTransformerBlock {
     public static final MapCodec<GeologicalSimulatorBlock> CODEC = simpleCodec(GeologicalSimulatorBlock::new);
 
     public GeologicalSimulatorBlock(Properties properties) {
@@ -63,7 +63,7 @@ public class GeologicalSimulatorBlock extends TransformerBlock {
 
     @Override
     public int getRcRequirement() {
-        return ElemenixInfo.ESSENCE_VALUE;
+        return BaseResolver.ESSENCE_VALUE;
     }
 
     @Override

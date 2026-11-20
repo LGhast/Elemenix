@@ -1,23 +1,24 @@
 package net.lghast.elemenix.client.screen;
 
-import net.lghast.elemenix.client.misc.ScaledText;
+import net.lghast.elemenix.client.render.ItemIconRenderer;
+import net.lghast.elemenix.client.render.ScaledText;
 import net.lghast.elemenix.client.screen.widget.SmallCheckbox;
 import net.lghast.elemenix.common.content.item.MemorizerItem;
 import net.lghast.elemenix.common.content.item.WitchcraftMemorizerItem;
-import net.lghast.elemenix.common.system.datacomponent.MemoryData;
-import net.lghast.elemenix.common.system.datacomponent.PotionMemoryData;
+import net.lghast.elemenix.common.system.datacomponent.ItemMemories;
+import net.lghast.elemenix.common.system.datacomponent.PotionMemories;
 import net.lghast.elemenix.common.system.menu.AnalysisTerminalMenu;
 import net.lghast.elemenix.compat.jech.JechCompat;
+import net.lghast.elemenix.core.resolver.BaseResolver;
 import net.lghast.elemenix.network.terminal.TerminalCarriedDeconstructPayload;
 import net.lghast.elemenix.network.terminal.TerminalMemorizerSelectPayload;
 import net.lghast.elemenix.network.terminal.TerminalFlagsPayload;
 import net.lghast.elemenix.network.terminal.TerminalPotionReconstructPayload;
 import net.lghast.elemenix.network.terminal.TerminalReconstructPayload;
-import net.lghast.elemenix.utils.elemenix.Constituents;
-import net.lghast.elemenix.utils.misc.LongContainerData;
-import net.lghast.elemenix.utils.misc.ModUtils;
-import net.lghast.elemenix.utils.elemenix.Elemenix;
-import net.lghast.elemenix.utils.elemenix.ElemenixInfo;
+import net.lghast.elemenix.core.Constituents;
+import net.lghast.elemenix.common.system.menu.LongContainerData;
+import net.lghast.elemenix.common.util.ModUtils;
+import net.lghast.elemenix.core.Elemenix;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
@@ -265,13 +266,13 @@ public class AnalysisTerminalScreen extends AbstractContainerScreen<AnalysisTerm
         if (selectedMemorizer >= 0 && selectedMemorizer < memorizers.size()) {
             ItemStack disk = memorizers.get(selectedMemorizer);
             if (disk.getItem() instanceof WitchcraftMemorizerItem) {
-                for (PotionMemoryData.Entry entry : WitchcraftMemorizerItem.getOrCreateMemories(disk).entries()) {
+                for (PotionMemories.Entry entry : WitchcraftMemorizerItem.getOrCreateMemories(disk).entries()) {
                     itemIds.add(entry.itemId());
                     potionIds.add(entry.potionId());
                     stacks.add(createPotionStack(entry.itemId(), entry.potionId()));
                 }
             } else {
-                for (ResourceLocation id : MemorizerItem.getOrCreateMemories(disk).resolvedItems()) {
+                for (ResourceLocation id : MemorizerItem.getOrCreateMemories(disk).memories()) {
                     itemIds.add(id);
                     potionIds.add(null);
                     stacks.add(new ItemStack(BuiltInRegistries.ITEM.get(id)));
@@ -281,12 +282,12 @@ public class AnalysisTerminalScreen extends AbstractContainerScreen<AnalysisTerm
         }
 
         LinkedHashSet<ResourceLocation> mergedItems = new LinkedHashSet<>();
-        LinkedHashSet<PotionMemoryData.Entry> mergedPotions = new LinkedHashSet<>();
+        LinkedHashSet<PotionMemories.Entry> mergedPotions = new LinkedHashSet<>();
         for (ItemStack disk : memorizers) {
             if (disk.getItem() instanceof WitchcraftMemorizerItem) {
                 mergedPotions.addAll(WitchcraftMemorizerItem.getOrCreateMemories(disk).entries());
             } else {
-                mergedItems.addAll(MemorizerItem.getOrCreateMemories(disk).resolvedItems());
+                mergedItems.addAll(MemorizerItem.getOrCreateMemories(disk).memories());
             }
         }
 
@@ -296,7 +297,7 @@ public class AnalysisTerminalScreen extends AbstractContainerScreen<AnalysisTerm
             stacks.add(new ItemStack(BuiltInRegistries.ITEM.get(id)));
         }
 
-        for (PotionMemoryData.Entry entry : mergedPotions) {
+        for (PotionMemories.Entry entry : mergedPotions) {
             itemIds.add(entry.itemId());
             potionIds.add(entry.potionId());
             stacks.add(createPotionStack(entry.itemId(), entry.potionId()));
@@ -441,7 +442,7 @@ public class AnalysisTerminalScreen extends AbstractContainerScreen<AnalysisTerm
     }
 
     private void renderPreviews(GuiGraphics graphics, int mouseX, int mouseY) {
-        if (ElemenixInfo.isCalculating()) return;
+        if (BaseResolver.isCalculating()) return;
 
         int hovered = getHoveredCell(mouseX, mouseY);
         if (hovered < 0 || hovered >= visibleItems.size()) return;
@@ -449,7 +450,7 @@ public class AnalysisTerminalScreen extends AbstractContainerScreen<AnalysisTerm
         ItemStack stack = getVisibleStack(hovered);
         if (stack.isEmpty()) return;
 
-        Constituents required = ElemenixInfo.getPremiumAppliedConstituents(stack);
+        Constituents required = BaseResolver.getPremiumAppliedConstituents(stack);
         if (required.isUnanalysable()) return;
 
         LongContainerData containerData = menu.getLongContainerData();
@@ -489,7 +490,7 @@ public class AnalysisTerminalScreen extends AbstractContainerScreen<AnalysisTerm
                     graphics.fill(x + 1, y + 1, x + 1 + 16, y + 1 + 16, 0x50FFFFFF);
                 }
 
-                graphics.renderItem(stack, x + 1, y + 1);
+                ItemIconRenderer.render(graphics, stack, x + 1, y + 1);
 
                 String countText = getMaxReconstructableText(stack);
                 int color = countText.equals("0") ? 0xFFAAAAAA : 0xFFFFFF;
@@ -509,11 +510,11 @@ public class AnalysisTerminalScreen extends AbstractContainerScreen<AnalysisTerm
     }
 
     private String getMaxReconstructableText(ItemStack stack) {
-        if (ElemenixInfo.isUnreconstructable(stack)) {
+        if (BaseResolver.isUnreconstructable(stack)) {
             return "0";
         }
 
-        Constituents required = ElemenixInfo.getPremiumAppliedConstituents(stack);
+        Constituents required = BaseResolver.getPremiumAppliedConstituents(stack);
         if (required.isUnanalysable()) {
             return "0";
         }
@@ -523,7 +524,7 @@ public class AnalysisTerminalScreen extends AbstractContainerScreen<AnalysisTerm
         for (Elemenix type : Elemenix.values()) {
             long req = required.get(type);
             if (req > 0) {
-                long available = containerData.getLong(type.getIndex()) & 0xFFFFFFFFL;
+                long available = Math.max(0L, containerData.getLong(type.getIndex()));
                 max = Math.min(max, available / req);
             }
         }
@@ -638,13 +639,13 @@ public class AnalysisTerminalScreen extends AbstractContainerScreen<AnalysisTerm
         if (selectedMemorizer >= 0 && selectedMemorizer < memorizers.size()) {
             ItemStack disk = memorizers.get(selectedMemorizer);
             if (disk.getItem() instanceof WitchcraftMemorizerItem) {
-                PotionMemoryData data = WitchcraftMemorizerItem.getOrCreateMemories(disk);
-                line = Component.literal(data.entries().size() + "/" + PotionMemoryData.MAX)
+                PotionMemories data = WitchcraftMemorizerItem.getOrCreateMemories(disk);
+                line = Component.literal(data.entries().size() + "/" + PotionMemories.MAX)
                         .withStyle(data.isFull() ? ChatFormatting.RED : ChatFormatting.GRAY);
             } else {
-                MemoryData memoryData = MemorizerItem.getOrCreateMemories(disk);
-                line = Component.literal(memoryData.resolvedItems().size() + "/" + MemoryData.MAX)
-                        .withStyle(memoryData.isFull() ? ChatFormatting.RED : ChatFormatting.GRAY);
+                ItemMemories itemMemories = MemorizerItem.getOrCreateMemories(disk);
+                line = Component.literal(itemMemories.memories().size() + "/" + ItemMemories.MAX)
+                        .withStyle(itemMemories.isFull() ? ChatFormatting.RED : ChatFormatting.GRAY);
             }
         } else {
             line = Component.translatable("tooltip.elemenix.memorizers", memorizers.size());

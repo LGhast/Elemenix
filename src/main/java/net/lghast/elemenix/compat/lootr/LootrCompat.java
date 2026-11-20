@@ -1,12 +1,12 @@
 package net.lghast.elemenix.compat.lootr;
 
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.Container;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.neoforged.fml.ModList;
 import noobanidus.mods.lootr.common.api.LootrAPI;
 import noobanidus.mods.lootr.common.api.MenuBuilder;
 import noobanidus.mods.lootr.common.api.data.ILootrInfoProvider;
-import noobanidus.mods.lootr.common.api.data.inventory.ILootrInventory;
 
 import javax.annotation.Nullable;
 
@@ -21,7 +21,7 @@ public class LootrCompat {
     }
 
     @Nullable
-    public static ILootrInventory getPlayerInventory(ServerPlayer player, BlockEntity blockEntity) {
+    public static Container getPlayerInventory(ServerPlayer player, BlockEntity blockEntity) {
         if (!isLootrContainer(blockEntity)) return null;
         ILootrInfoProvider provider = (ILootrInfoProvider) blockEntity;
 

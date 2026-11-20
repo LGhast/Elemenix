@@ -1,8 +1,8 @@
 package net.lghast.elemenix.common.system.recipe;
 
 import net.lghast.elemenix.register.system.ModRecipes;
-import net.lghast.elemenix.utils.elemenix.Constituents;
-import net.lghast.elemenix.utils.elemenix.ElemenixInfo;
+import net.lghast.elemenix.core.Constituents;
+import net.lghast.elemenix.core.resolver.BaseResolver;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.*;
@@ -34,7 +34,7 @@ public record GerminatingRecipe(Ingredient template, List<ItemStack> products) i
     public int[] getCost() {
         long sum = 0;
         for (ItemStack product : products) {
-            Constituents constituents = ElemenixInfo.getConstituents(product);
+            Constituents constituents = BaseResolver.getConstituents(product);
             if (constituents != null && !constituents.isUnanalysable()) {
                 sum += constituents.getSum() * Math.max(1, product.getCount());
             }

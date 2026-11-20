@@ -7,12 +7,12 @@ import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.suggestion.SuggestionProvider;
 import net.lghast.elemenix.common.content.item.MemorizerItem;
-import net.lghast.elemenix.common.system.datacomponent.MemoryData;
+import net.lghast.elemenix.common.system.datacomponent.ItemMemories;
 import net.lghast.elemenix.common.system.datacomponent.Waxed;
+import net.lghast.elemenix.core.resolver.BaseResolver;
 import net.lghast.elemenix.register.system.ModDataComponents;
 import net.lghast.elemenix.register.system.ModTags;
-import net.lghast.elemenix.utils.misc.ModUtils;
-import net.lghast.elemenix.utils.elemenix.ElemenixInfo;
+import net.lghast.elemenix.common.util.ModUtils;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
 import net.minecraft.commands.SharedSuggestionProvider;
@@ -144,8 +144,8 @@ public class MemorizerCommand {
             return 0;
         }
         ResourceLocation id = BuiltInRegistries.ITEM.getKey(item);
-        MemoryData memoryData = MemorizerItem.getOrCreateMemories(stack);
-        List<ResourceLocation> memories = memoryData.resolvedItems();
+        ItemMemories itemMemories = MemorizerItem.getOrCreateMemories(stack);
+        List<ResourceLocation> memories = itemMemories.memories();
         if (memories.contains(id)) {
             context.getSource().sendFailure(Component.translatable("command.elemenix.memorizer.add.exists"));
             return 0;
@@ -155,18 +155,18 @@ public class MemorizerCommand {
             context.getSource().sendFailure(Component.translatable("command.elemenix.memorizer.add.unmemorizable"));
             return 0;
         }
-        if (ElemenixInfo.isUnanalysable(item)) {
+        if (BaseResolver.isUnanalysable(item)) {
             context.getSource().sendFailure(Component.translatable("command.elemenix.memorizer.add.unanalysable"));
             return 0;
         }
-        if (memoryData.isFull()) {
+        if (itemMemories.isFull()) {
             context.getSource().sendFailure(Component.translatable("command.elemenix.memorizer.add.full"));
             return 0;
         }
 
         List<ResourceLocation> newMemories = new ArrayList<>(memories);
         newMemories.add(id);
-        stack.set(ModDataComponents.MEMORY_DATA.get(), memoryData.withResolvedItems(newMemories));
+        stack.set(ModDataComponents.ITEM_MEMORIES.get(), itemMemories.withMemories(newMemories));
         context.getSource().sendSuccess(
                 () -> Component.translatable("command.elemenix.memorizer.add.success", id.toString()), false);
         return 1;
@@ -192,8 +192,8 @@ public class MemorizerCommand {
         }
 
         ResourceLocation id = BuiltInRegistries.ITEM.getKey(item);
-        MemoryData memoryData = MemorizerItem.getOrCreateMemories(stack);
-        List<ResourceLocation> memories = memoryData.resolvedItems();
+        ItemMemories itemMemories = MemorizerItem.getOrCreateMemories(stack);
+        List<ResourceLocation> memories = itemMemories.memories();
         if (!memories.contains(id)) {
             context.getSource().sendFailure(Component.translatable("command.elemenix.memorizer.remove.missing"));
             return 0;
@@ -201,7 +201,7 @@ public class MemorizerCommand {
 
         List<ResourceLocation> newMemories = new ArrayList<>(memories);
         newMemories.remove(id);
-        stack.set(ModDataComponents.MEMORY_DATA.get(), memoryData.withResolvedItems(newMemories));
+        stack.set(ModDataComponents.ITEM_MEMORIES.get(), itemMemories.withMemories(newMemories));
         context.getSource().sendSuccess(
                 () -> Component.translatable("command.elemenix.memorizer.remove.success", id.toString()), false);
         return 1;

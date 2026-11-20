@@ -2,7 +2,7 @@ package net.lghast.elemenix.common.content.item;
 
 import net.lghast.elemenix.compat.lootr.LootrCompat;
 import net.lghast.elemenix.config.CommonConfig;
-import net.lghast.elemenix.utils.misc.ScanHelper;
+import net.lghast.elemenix.common.system.misc.ScanHelper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.MinecraftServer;
@@ -17,6 +17,7 @@ import net.minecraft.world.level.block.entity.BaseContainerBlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.RandomizableContainerBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.neoforged.fml.ModList;
 import org.jetbrains.annotations.NotNull;
 
 public class ScannerItem extends Item{
@@ -71,7 +72,7 @@ public class ScannerItem extends Item{
         if (!(blockEntity instanceof BaseContainerBlockEntity)) return;
 
         Container targetContainer;
-        if (LootrCompat.isLootrContainer(blockEntity)) {
+        if (ModList.get().isLoaded("lootr") && LootrCompat.isLootrContainer(blockEntity)) {
             targetContainer = LootrCompat.getPlayerInventory(player, blockEntity);
         } else {
             Container container = (Container) blockEntity;

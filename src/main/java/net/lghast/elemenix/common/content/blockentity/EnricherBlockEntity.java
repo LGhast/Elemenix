@@ -3,12 +3,12 @@ package net.lghast.elemenix.common.content.blockentity;
 import net.lghast.elemenix.Elemenics;
 import net.lghast.elemenix.common.content.block.EnricherBlock;
 import net.lghast.elemenix.common.system.menu.EnricherMenu;
+import net.lghast.elemenix.core.resolver.BaseResolver;
 import net.lghast.elemenix.register.content.ModBlockEntities;
 import net.lghast.elemenix.register.content.ModItems;
-import net.lghast.elemenix.utils.misc.ElemenixHolder;
-import net.lghast.elemenix.utils.misc.SidedInvHandler;
-import net.lghast.elemenix.utils.elemenix.Elemenix;
-import net.lghast.elemenix.utils.elemenix.ElemenixInfo;
+import net.lghast.elemenix.common.system.transfer.ElemenixHolder;
+import net.lghast.elemenix.common.system.transfer.SidedInvHandler;
+import net.lghast.elemenix.core.Elemenix;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
@@ -185,7 +185,7 @@ public class EnricherBlockEntity extends BaseContainerBlockEntity implements Wor
 
     private boolean canEnrich(int index) {
         if(index >= 0 && index < elemenixStorage.length){
-            return elemenixStorage[index] >= ElemenixInfo.ESSENCE_VALUE && isSlotAvailable(index);
+            return elemenixStorage[index] >= BaseResolver.ESSENCE_VALUE && isSlotAvailable(index);
         }
         return false;
     }
@@ -197,7 +197,7 @@ public class EnricherBlockEntity extends BaseContainerBlockEntity implements Wor
     private void enrichElemenix(int index) {
         ItemStack essenceStack = getItem(index);
 
-        int consumption = ElemenixInfo.ESSENCE_VALUE;
+        int consumption = BaseResolver.ESSENCE_VALUE;
         Elemenix type = Elemenix.values()[index];
 
         consumeElemenix(type, consumption);

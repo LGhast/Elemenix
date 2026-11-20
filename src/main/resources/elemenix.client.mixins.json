@@ -3,7 +3,8 @@
   "package": "net.lghast.elemenix.mixin",
   "compatibilityLevel": "JAVA_21",
   "client": [
-    "ItemRendererMixin"
+    "ItemRendererMixin",
+    "avaritia.WrappedItemModelAccessor"
   ],
   "injectors": {
     "defaultRequire": 1

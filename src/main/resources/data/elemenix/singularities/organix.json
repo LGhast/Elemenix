@@ -1,0 +1,13 @@
+{
+  "displayName": "singularity.elemenix.organix",
+  "ingredient": {
+    "item": "elemenix:organix_essence"
+  },
+  "name": "elemenix:organix",
+  "overlayColor": 1229844,
+  "underlayColor": 546825,
+  "count": 1000,
+  "timeCost": 240,
+  "enabled": true,
+  "recipeEnabled": true
+}

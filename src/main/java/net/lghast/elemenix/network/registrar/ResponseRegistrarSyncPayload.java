@@ -1,7 +1,7 @@
 package net.lghast.elemenix.network.registrar;
 
 import net.lghast.elemenix.client.cache.ClientRegistrarCache;
-import net.lghast.elemenix.common.system.datacomponent.PotionMemoryData;
+import net.lghast.elemenix.common.system.datacomponent.PotionMemories;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
@@ -13,7 +13,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.List;
 
 @SuppressWarnings("unused")
-public record ResponseRegistrarSyncPayload(List<ResourceLocation> items, List<PotionMemoryData.Entry> potions, boolean developerMode)
+public record ResponseRegistrarSyncPayload(List<ResourceLocation> items, List<PotionMemories.Entry> potions, boolean developerMode)
         implements CustomPacketPayload {
     public static final CustomPacketPayload.Type<ResponseRegistrarSyncPayload> TYPE =
             new CustomPacketPayload.Type<>(ResourceLocation.fromNamespaceAndPath("elemenix", "response_registrar_sync"));
@@ -22,7 +22,7 @@ public record ResponseRegistrarSyncPayload(List<ResourceLocation> items, List<Po
             StreamCodec.composite(
                     ResourceLocation.STREAM_CODEC.apply(ByteBufCodecs.list()),
                     ResponseRegistrarSyncPayload::items,
-                    PotionMemoryData.Entry.STREAM_CODEC.apply(ByteBufCodecs.list()),
+                    PotionMemories.Entry.STREAM_CODEC.apply(ByteBufCodecs.list()),
                     ResponseRegistrarSyncPayload::potions,
                     ByteBufCodecs.BOOL,
                     ResponseRegistrarSyncPayload::developerMode,

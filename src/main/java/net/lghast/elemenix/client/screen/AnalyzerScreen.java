@@ -1,24 +1,24 @@
 package net.lghast.elemenix.client.screen;
 
 import net.lghast.elemenix.client.cache.ClientInfuserCache;
-import net.lghast.elemenix.client.misc.ScaledText;
+import net.lghast.elemenix.client.render.ScaledText;
 import net.lghast.elemenix.client.screen.widget.MemoryListWidget;
 import net.lghast.elemenix.common.content.item.RemoteStorageItem;
 import net.lghast.elemenix.common.system.datacomponent.ElemenicStorage;
 import net.lghast.elemenix.common.system.datacomponent.RemoteStorageBinding;
 import net.lghast.elemenix.common.system.menu.AnalyzerMenu;
 import net.lghast.elemenix.common.system.menu.HintSlot;
+import net.lghast.elemenix.core.resolver.BaseResolver;
 import net.lghast.elemenix.network.analyzer.DeconstructionPayload;
 import net.lghast.elemenix.network.infuser.RequestInfuserUpdatePayload;
 import net.lghast.elemenix.register.content.ModItems;
 import net.lghast.elemenix.register.system.ModDataComponents;
 import net.lghast.elemenix.register.system.ModTags;
-import net.lghast.elemenix.utils.elemenix.Constituents;
-import net.lghast.elemenix.utils.elemenix.Elemenix;
-import net.lghast.elemenix.utils.elemenix.ElemenixInfo;
-import net.lghast.elemenix.utils.misc.ReceptacleHelper;
-import net.lghast.elemenix.utils.misc.LongContainerData;
-import net.lghast.elemenix.utils.misc.ModUtils;
+import net.lghast.elemenix.core.Constituents;
+import net.lghast.elemenix.core.Elemenix;
+import net.lghast.elemenix.common.system.transfer.ReceptacleHelper;
+import net.lghast.elemenix.common.system.menu.LongContainerData;
+import net.lghast.elemenix.common.util.ModUtils;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
@@ -180,13 +180,13 @@ public class AnalyzerScreen extends AbstractContainerScreen<AnalyzerMenu> {
 
         Optional<ItemStack> hoveredOptional = memoryListWidget.getHoveredItemStack(mouseX, mouseY);
         if (hoveredOptional.isPresent()) {
-            if (ElemenixInfo.isCalculating()) {
+            if (BaseResolver.isCalculating()) {
                 return;
             }
 
             ItemStack hoveredStack = hoveredOptional.get();
             if(!hoveredStack.isEmpty()) {
-                Constituents constituents = ElemenixInfo.getPremiumAppliedConstituents(hoveredStack);
+                Constituents constituents = BaseResolver.getPremiumAppliedConstituents(hoveredStack);
                 Elemenix[] types = Elemenix.values();
                 for (int i = 0; i < types.length; i++) {
                     long amount = constituents.get(types[i]);
@@ -223,7 +223,7 @@ public class AnalyzerScreen extends AbstractContainerScreen<AnalyzerMenu> {
     }
 
     private void renderRegularItemPreview(GuiGraphics graphics, ItemStack inputStack, int x, int y) {
-        Constituents constituents = ElemenixInfo.getDiscountAppliedConstituents(inputStack);
+        Constituents constituents = BaseResolver.getDiscountAppliedConstituents(inputStack);
         if (constituents.isUnanalysable()) return;
 
         Elemenix[] types = Elemenix.values();

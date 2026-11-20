@@ -1,18 +1,18 @@
 package net.lghast.elemenix.client.screen;
 
-import net.lghast.elemenix.client.misc.ScaledText;
+import net.lghast.elemenix.client.render.ScaledText;
 import net.lghast.elemenix.client.screen.widget.SmallCheckbox;
 import net.lghast.elemenix.common.content.block.GerminalAcceleratorBlock;
 import net.lghast.elemenix.common.content.block.MetallurgicalActivatorBlock;
-import net.lghast.elemenix.common.content.block.TransformerBlock;
+import net.lghast.elemenix.common.content.block.AbstractTransformerBlock;
 import net.lghast.elemenix.common.content.blockentity.TransformerBlockEntity;
 import net.lghast.elemenix.common.system.menu.TransformerMenu;
 import net.lghast.elemenix.common.system.menu.HintSlot;
 import net.lghast.elemenix.common.system.recipe.MineralizingRecipe;
 import net.lghast.elemenix.network.transformer.TransformerSwitchPagePayload;
 import net.lghast.elemenix.network.transformer.TransformerTogglePayload;
-import net.lghast.elemenix.utils.misc.ModUtils;
-import net.lghast.elemenix.utils.elemenix.Elemenix;
+import net.lghast.elemenix.common.util.ModUtils;
+import net.lghast.elemenix.core.Elemenix;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
@@ -119,7 +119,7 @@ public class TransformerScreen extends AbstractContainerScreen<TransformerMenu> 
         int y = (this.height - this.imageHeight) / 2;
 
         if (menu.getMode() == TransformerBlockEntity.MODE_SPECIAL) {
-            TransformerBlock block = menu.getBlockEntity().getTransformerBlock();
+            AbstractTransformerBlock block = menu.getBlockEntity().getTransformerBlock();
             ResourceLocation secondTexture = block != null ? block.getSecondaryGuiTexture() : null;
             if (secondTexture == null) secondTexture = DEFAULT_SECOND_TEXTURE;
 
@@ -196,7 +196,7 @@ public class TransformerScreen extends AbstractContainerScreen<TransformerMenu> 
     }
 
     private int getGerminationInterval() {
-        TransformerBlock block = menu.getBlockEntity().getTransformerBlock();
+        AbstractTransformerBlock block = menu.getBlockEntity().getTransformerBlock();
         return block instanceof GerminalAcceleratorBlock germinal ? germinal.getGerminationInterval() : 100;
     }
 
@@ -288,7 +288,7 @@ public class TransformerScreen extends AbstractContainerScreen<TransformerMenu> 
         if (blockEntity == null) return;
 
         BlockState state = blockEntity.getBlockState();
-        if (!(state.getBlock() instanceof TransformerBlock block)) return;
+        if (!(state.getBlock() instanceof AbstractTransformerBlock block)) return;
 
         long inputA = menu.getInputA();
         long inputB = menu.getInputB();

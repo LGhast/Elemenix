@@ -1,7 +1,7 @@
 package net.lghast.elemenix.datagen;
 
 import net.lghast.elemenix.Elemenics;
-import net.lghast.elemenix.common.system.loot.WitchTroveLootModifier;
+import net.lghast.elemenix.common.system.loot.WitchLootModifier;
 import net.lghast.elemenix.register.content.ModItems;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
@@ -21,7 +21,7 @@ public class ModGlobalLootModifierProvider extends GlobalLootModifierProvider {
 
     @Override
     protected void start() {
-        this.add("witchcraft_trove_from_witch", new WitchTroveLootModifier(
+        this.add("witchcraft_trove_from_witch", new WitchLootModifier(
                 new LootItemCondition[]{
                         new LootTableIdCondition.Builder(ResourceLocation.withDefaultNamespace("entities/witch")).build(),
                         LootItemRandomChanceWithEnchantedBonusCondition.randomChanceAndLootingBoost(this.registries, 0.25f, 0.25f).build()

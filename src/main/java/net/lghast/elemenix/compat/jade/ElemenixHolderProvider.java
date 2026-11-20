@@ -2,8 +2,8 @@ package net.lghast.elemenix.compat.jade;
 
 import net.lghast.elemenix.common.content.blockentity.AbstractPrinterBlockEntity;
 import net.lghast.elemenix.common.system.datacomponent.ElemenicStorage;
-import net.lghast.elemenix.utils.elemenix.Elemenix;
-import net.lghast.elemenix.utils.misc.ElemenixHolder;
+import net.lghast.elemenix.core.Elemenix;
+import net.lghast.elemenix.common.system.transfer.ElemenixHolder;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;

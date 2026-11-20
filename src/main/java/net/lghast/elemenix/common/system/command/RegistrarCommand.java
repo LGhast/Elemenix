@@ -2,24 +2,23 @@ package net.lghast.elemenix.common.system.command;
 
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.arguments.IntegerArgumentType;
-import com.mojang.brigadier.arguments.StringArgumentType;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import com.mojang.brigadier.suggestion.SuggestionProvider;
-import net.lghast.elemenix.utils.misc.RegistrationStageNotifier;
+import net.lghast.elemenix.common.system.misc.RegistrationStageNotifier;
 import net.lghast.elemenix.common.content.blockentity.MemoryRegistrarBlockEntity;
 import net.lghast.elemenix.common.system.attachment.RegistrarCollection;
-import net.lghast.elemenix.common.system.datacomponent.PotionMemoryData;
+import net.lghast.elemenix.common.system.datacomponent.PotionMemories;
 import net.lghast.elemenix.register.system.ModAttachments;
 import net.lghast.elemenix.register.system.ModTags;
-import net.lghast.elemenix.utils.elemenix.ElemenixInfo;
-import net.lghast.elemenix.utils.misc.ModUtils;
+import net.lghast.elemenix.core.resolver.BaseResolver;
 import net.minecraft.ChatFormatting;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
 import net.minecraft.commands.SharedSuggestionProvider;
 import net.minecraft.commands.arguments.EntityArgument;
+import net.minecraft.commands.arguments.ResourceLocationArgument;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -90,26 +89,30 @@ public class RegistrarCommand {
         return Commands.literal("add")
                 .then(Commands.literal("all")
                         .executes(ctx -> addAll(ctx, getTarget(ctx))))
-                .then(Commands.argument(ARG_ITEM, StringArgumentType.string())
+                .then(Commands.argument(ARG_ITEM, ResourceLocationArgument.id())
                         .suggests(ITEM_ID_SUGGESTIONS)
-                        .executes(ctx -> addItem(ctx, getTarget(ctx), null))
-                        .then(Commands.argument(ARG_POTION, StringArgumentType.string())
+                        .executes(ctx -> addItem(ctx, getTarget(ctx),
+                                ResourceLocationArgument.getId(ctx, ARG_ITEM), null))
+                        .then(Commands.argument(ARG_POTION, ResourceLocationArgument.id())
                                 .suggests(POTION_ID_SUGGESTIONS)
                                 .executes(ctx -> addItem(ctx, getTarget(ctx),
-                                        StringArgumentType.getString(ctx, ARG_POTION)))));
+                                        ResourceLocationArgument.getId(ctx, ARG_ITEM),
+                                        ResourceLocationArgument.getId(ctx, ARG_POTION)))));
     }
 
     private static LiteralArgumentBuilder<CommandSourceStack> removeCommand() {
         return Commands.literal("remove")
                 .then(Commands.literal("all")
                         .executes(ctx -> removeAll(ctx, getTarget(ctx))))
-                .then(Commands.argument(ARG_ITEM, StringArgumentType.string())
+                .then(Commands.argument(ARG_ITEM, ResourceLocationArgument.id())
                         .suggests(ITEM_ID_SUGGESTIONS)
-                        .executes(ctx -> removeItem(ctx, getTarget(ctx), null))
-                        .then(Commands.argument(ARG_POTION, StringArgumentType.string())
+                        .executes(ctx -> removeItem(ctx, getTarget(ctx),
+                                ResourceLocationArgument.getId(ctx, ARG_ITEM), null))
+                        .then(Commands.argument(ARG_POTION, ResourceLocationArgument.id())
                                 .suggests(POTION_ID_SUGGESTIONS)
                                 .executes(ctx -> removeItem(ctx, getTarget(ctx),
-                                        StringArgumentType.getString(ctx, ARG_POTION)))));
+                                        ResourceLocationArgument.getId(ctx, ARG_ITEM),
+                                        ResourceLocationArgument.getId(ctx, ARG_POTION)))));
     }
 
     private static LiteralArgumentBuilder<CommandSourceStack> listCommand() {
@@ -131,23 +134,22 @@ public class RegistrarCommand {
         }
     }
 
-    private static int addItem(CommandContext<CommandSourceStack> ctx, ServerPlayer target, String potionArg) {
+    private static int addItem(CommandContext<CommandSourceStack> ctx, ServerPlayer target,
+                               ResourceLocation itemId, @Nullable ResourceLocation potionId) {
         if (target == null) {
             ctx.getSource().sendFailure(Component.translatable("command.elemenix.registrar.player_only"));
             return 0;
         }
 
-        String itemIdStr = StringArgumentType.getString(ctx, ARG_ITEM);
-        Item item = ModUtils.getItemFromString(itemIdStr);
-        if (item == null || item == Items.AIR) {
-            ctx.getSource().sendFailure(Component.translatable("command.elemenix.registrar.invalid_item", itemIdStr));
+        Item item = BuiltInRegistries.ITEM.get(itemId);
+        if (item == Items.AIR) {
+            ctx.getSource().sendFailure(Component.translatable("command.elemenix.registrar.invalid_item", itemId.toString()));
             return 0;
         }
-        ResourceLocation itemId = BuiltInRegistries.ITEM.getKey(item);
 
         RegistrarCollection collection = target.getData(ModAttachments.REGISTRAR_COLLECTION);
 
-        if (potionArg == null) {
+        if (potionId == null) {
             target.setData(ModAttachments.REGISTRAR_COLLECTION, collection.withItem(itemId));
             RegistrationStageNotifier.check(target);
             ctx.getSource().sendSuccess(
@@ -156,26 +158,18 @@ public class RegistrarCommand {
         }
 
         if (!new ItemStack(item).is(ModTags.POTIONLIKE)) {
-            ctx.getSource().sendFailure(Component.translatable("command.elemenix.registrar.not_potionlike", itemIdStr));
-            return 0;
-        }
-
-        ResourceLocation potionId;
-        try {
-            potionId = ResourceLocation.parse(potionArg);
-        } catch (Exception e) {
-            ctx.getSource().sendFailure(Component.translatable("command.elemenix.registrar.invalid_potion", potionArg));
+            ctx.getSource().sendFailure(Component.translatable("command.elemenix.registrar.not_potionlike", itemId.toString()));
             return 0;
         }
 
         Optional<Holder.Reference<Potion>> potion = BuiltInRegistries.POTION
                 .getHolder(ResourceKey.create(Registries.POTION, potionId));
         if (potion.isEmpty()) {
-            ctx.getSource().sendFailure(Component.translatable("command.elemenix.registrar.invalid_potion", potionArg));
+            ctx.getSource().sendFailure(Component.translatable("command.elemenix.registrar.invalid_potion", potionId.toString()));
             return 0;
         }
 
-        PotionMemoryData.Entry entry = new PotionMemoryData.Entry(itemId, potionId);
+        PotionMemories.Entry entry = new PotionMemories.Entry(itemId, potionId);
         target.setData(ModAttachments.REGISTRAR_COLLECTION, collection.withPotion(entry));
         RegistrationStageNotifier.check(target);
         ctx.getSource().sendSuccess(
@@ -192,13 +186,13 @@ public class RegistrarCommand {
         RegistrarCollection collection = target.getData(ModAttachments.REGISTRAR_COLLECTION);
         int before = collection.items().size() + collection.potions().size();
         Set<ResourceLocation> allItems = new HashSet<>(collection.items());
-        Set<PotionMemoryData.Entry> allPotions = new HashSet<>(collection.potions());
+        Set<PotionMemories.Entry> allPotions = new HashSet<>(collection.potions());
         for (Item item : BuiltInRegistries.ITEM) {
             if (shouldSkip(item)) continue;
             ResourceLocation itemId = BuiltInRegistries.ITEM.getKey(item);
             if (new ItemStack(item).is(ModTags.POTIONLIKE)) {
                 allItems.remove(itemId);
-                allPotions.add(new PotionMemoryData.Entry(itemId, WATER_POTION_ID));
+                allPotions.add(new PotionMemories.Entry(itemId, WATER_POTION_ID));
             } else {
                 allItems.add(itemId);
             }
@@ -217,26 +211,25 @@ public class RegistrarCommand {
         ItemStack stack = new ItemStack(item);
         if (stack.is(ModTags.ANALYZER_UNRECORDABLE)) return true;
         if (stack.is(ModTags.REGISTRAR_HIDDEN)) return true;
-        return ElemenixInfo.isUnanalysable(item);
+        return BaseResolver.isUnanalysable(item);
     }
 
-    private static int removeItem(CommandContext<CommandSourceStack> ctx, ServerPlayer target, String potionArg) {
+    private static int removeItem(CommandContext<CommandSourceStack> ctx, ServerPlayer target,
+                                  ResourceLocation itemId, @Nullable ResourceLocation potionId) {
         if (target == null) {
             ctx.getSource().sendFailure(Component.translatable("command.elemenix.registrar.player_only"));
             return 0;
         }
 
-        String itemIdStr = StringArgumentType.getString(ctx, ARG_ITEM);
-        Item item = ModUtils.getItemFromString(itemIdStr);
-        if (item == null || item == Items.AIR) {
-            ctx.getSource().sendFailure(Component.translatable("command.elemenix.registrar.invalid_item", itemIdStr));
+        Item item = BuiltInRegistries.ITEM.get(itemId);
+        if (item == Items.AIR) {
+            ctx.getSource().sendFailure(Component.translatable("command.elemenix.registrar.invalid_item", itemId.toString()));
             return 0;
         }
-        ResourceLocation itemId = BuiltInRegistries.ITEM.getKey(item);
 
         RegistrarCollection collection = target.getData(ModAttachments.REGISTRAR_COLLECTION);
 
-        if (potionArg == null) {
+        if (potionId == null) {
             if (!collection.containsItem(itemId)) {
                 ctx.getSource().sendFailure(Component.translatable("command.elemenix.registrar.remove.missing", itemId.toString()));
                 return 0;
@@ -249,20 +242,12 @@ public class RegistrarCommand {
             return 1;
         }
 
-        ResourceLocation potionId;
-        try {
-            potionId = ResourceLocation.parse(potionArg);
-        } catch (Exception e) {
-            ctx.getSource().sendFailure(Component.translatable("command.elemenix.registrar.invalid_potion", potionArg));
-            return 0;
-        }
-
-        PotionMemoryData.Entry entry = new PotionMemoryData.Entry(itemId, potionId);
+        PotionMemories.Entry entry = new PotionMemories.Entry(itemId, potionId);
         if (!collection.containsPotion(entry)) {
             ctx.getSource().sendFailure(Component.translatable("command.elemenix.registrar.remove.missing", itemId + " " + potionId));
             return 0;
         }
-        Set<PotionMemoryData.Entry> newPotions = new HashSet<>(collection.potions());
+        Set<PotionMemories.Entry> newPotions = new HashSet<>(collection.potions());
         newPotions.remove(entry);
         target.setData(ModAttachments.REGISTRAR_COLLECTION, new RegistrarCollection(collection.items(), newPotions));
         ctx.getSource().sendSuccess(
@@ -293,7 +278,7 @@ public class RegistrarCommand {
         for (ResourceLocation itemId : collection.items()) {
             entries.add(new Entry(getItemDisplayName(itemId), itemId.toString()));
         }
-        for (PotionMemoryData.Entry potion : collection.potions()) {
+        for (PotionMemories.Entry potion : collection.potions()) {
             String id = potion.itemId() + " " + potion.potionId();
             entries.add(new Entry(getPotionDisplayName(potion), id));
         }
@@ -345,7 +330,7 @@ public class RegistrarCommand {
         return id.toString();
     }
 
-    private static String getPotionDisplayName(PotionMemoryData.Entry entry) {
+    private static String getPotionDisplayName(PotionMemories.Entry entry) {
         try {
             Item item = BuiltInRegistries.ITEM.get(entry.itemId());
             Optional<Holder.Reference<Potion>> potion = BuiltInRegistries.POTION

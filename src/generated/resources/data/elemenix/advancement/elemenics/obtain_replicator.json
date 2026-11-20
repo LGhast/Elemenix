@@ -1,0 +1,34 @@
+{
+  "parent": "elemenix:elemenics/obtain_burner",
+  "criteria": {
+    "get_replicator": {
+      "conditions": {
+        "items": [
+          {
+            "items": "elemenix:memorizer_replicator"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.elemenix.obtain_replicator.description"
+    },
+    "frame": "goal",
+    "icon": {
+      "count": 1,
+      "id": "elemenix:memorizer_replicator"
+    },
+    "title": {
+      "translate": "advancements.elemenix.obtain_replicator.title"
+    }
+  },
+  "requirements": [
+    [
+      "get_replicator"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

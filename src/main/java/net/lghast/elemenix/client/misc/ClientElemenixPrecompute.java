@@ -1,9 +1,9 @@
 package net.lghast.elemenix.client.misc;
 
 import net.lghast.elemenix.Elemenics;
-import net.lghast.elemenix.utils.misc.ModUtils;
-import net.lghast.elemenix.utils.elemenix.ElemenixInfo;
-import net.lghast.elemenix.utils.recipe.RecipeHelper;
+import net.lghast.elemenix.common.util.ModUtils;
+import net.lghast.elemenix.core.resolver.BaseResolver;
+import net.lghast.elemenix.core.recipe.RecipeHelper;
 import net.minecraft.world.level.Level;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
@@ -50,7 +50,7 @@ public class ClientElemenixPrecompute {
 
     private static void warmUp() {
         try {
-            ElemenixInfo.initialize();
+            BaseResolver.initialize();
         } catch (Throwable t) {
             LOGGER.error("Client-side elemenix precomputation failed", t);
         }
