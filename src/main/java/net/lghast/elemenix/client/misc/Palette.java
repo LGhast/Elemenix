@@ -1,4 +1,4 @@
-package net.lghast.elemenix.client;
+package net.lghast.elemenix.client.misc;
 
 /** Central palette of named colors used across the client UI. */
 public final class Palette {

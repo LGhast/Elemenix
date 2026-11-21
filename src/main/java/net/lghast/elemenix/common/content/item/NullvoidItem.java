@@ -1,6 +1,6 @@
 package net.lghast.elemenix.common.content.item;
 
-import net.lghast.elemenix.client.Palette;
+import net.lghast.elemenix.client.misc.Palette;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;

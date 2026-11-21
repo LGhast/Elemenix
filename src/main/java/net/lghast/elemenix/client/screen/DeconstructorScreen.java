@@ -1,6 +1,6 @@
 package net.lghast.elemenix.client.screen;
 
-import net.lghast.elemenix.client.Palette;
+import net.lghast.elemenix.client.misc.Palette;
 import net.lghast.elemenix.common.system.menu.DeconstructorMenu;
 import net.lghast.elemenix.common.system.menu.LongContainerData;
 import net.lghast.elemenix.common.util.ModUtils;

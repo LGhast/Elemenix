@@ -18,7 +18,6 @@ public class ClientConfig {
     public static ModConfigSpec.BooleanValue SHOW_STYLE_TOOLTIPS;
     public static ModConfigSpec.BooleanValue SHOW_STORAGE_TOOLTIPS;
     public static ModConfigSpec.BooleanValue SHOW_ANALYZER_UUID_TOOLTIPS;
-    public static ModConfigSpec.BooleanValue SHOW_VALVE_OPENNESS_TOOLTIPS;
     public static ModConfigSpec.BooleanValue SHOW_REMOTE_BINDING_PROMPT;
     public static ModConfigSpec.BooleanValue SHOW_REMOTE_COORDINATES;
     public static ModConfigSpec.BooleanValue SHOW_REMOTE_CONNECTION_STATUS;
@@ -64,9 +63,9 @@ public class ClientConfig {
 
         DIGIT_GROUPING_BY_FOURS = BUILDER
                 .comment("表示元质数值时是否使用四位分节法（万W，亿Y，兆Z，京J）",
-                        "若不启用，则采用三位分节法（千K，百万M, 十亿B，兆T，千兆Q）",
+                        "若不启用，则采用三位分节法（千K，百万M，十亿G，万亿T，千兆P，百京E）",
                         "Whether to use four-digit grouping for Elemenix values (W for ten-thousand, Y for hundred-million, Z for trillion, J for ten-trillion)",
-                        "If disabled, use three-digit grouping (K for thousand, M for million, B for billion, T for trillion, Q for quadrillion)")
+                        "If disabled, use three-digit grouping (K for thousand, M for million, G for billion, T for trillion, P for quadrillion, E for quintillion)")
                 .translation(CONFIG_PREFIX + "digit_grouping_by_fours")
                 .define("digit_grouping_by_fours", true);
 
@@ -117,12 +116,6 @@ public class ClientConfig {
                         "Whether to display elemenix analyzer UUID. For debugging purposes only")
                 .translation(CONFIG_PREFIX + "show_analyzer_uuid_tooltips")
                 .define("show_analyzer_uuid_tooltips", false);
-
-        SHOW_VALVE_OPENNESS_TOOLTIPS = BUILDER
-                .comment("是否显示节流阀开度",
-                        "Whether to display openness for Throttle Valves")
-                .translation(CONFIG_PREFIX + "show_valve_openness_tooltips")
-                .define("show_valve_openness_tooltips", true);
 
         SHOW_REMOTE_BINDING_PROMPT = BUILDER
                 .comment("是否为未绑定的远程储存器显示绑定操作提示",

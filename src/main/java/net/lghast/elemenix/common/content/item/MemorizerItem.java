@@ -1,6 +1,6 @@
 package net.lghast.elemenix.common.content.item;
 
-import net.lghast.elemenix.client.Palette;
+import net.lghast.elemenix.client.misc.Palette;
 import net.lghast.elemenix.common.system.advancement.StyleTrigger;
 import net.lghast.elemenix.common.system.advancement.WaxOffTrigger;
 import net.lghast.elemenix.common.system.advancement.WaxOnTrigger;

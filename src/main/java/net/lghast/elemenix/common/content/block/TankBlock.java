@@ -1,7 +1,7 @@
 package net.lghast.elemenix.common.content.block;
 
 import com.mojang.serialization.MapCodec;
-import net.lghast.elemenix.client.Palette;
+import net.lghast.elemenix.client.misc.Palette;
 import net.lghast.elemenix.common.content.blockentity.TankBlockEntity;
 import net.lghast.elemenix.register.content.ModBlockEntities;
 import net.lghast.elemenix.common.system.datacomponent.ElemenicStorage;

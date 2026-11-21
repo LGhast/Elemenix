@@ -1,6 +1,5 @@
 package net.lghast.elemenix.client.misc;
 
-import net.lghast.elemenix.client.Palette;
 import net.lghast.elemenix.config.ClientConfig;
 import net.lghast.elemenix.register.content.ModBlocks;
 import net.minecraft.client.Minecraft;

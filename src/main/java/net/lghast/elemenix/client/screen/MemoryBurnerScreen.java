@@ -1,6 +1,6 @@
 package net.lghast.elemenix.client.screen;
 
-import net.lghast.elemenix.client.Palette;
+import net.lghast.elemenix.client.misc.Palette;
 import net.lghast.elemenix.client.render.ItemIconRenderer;
 import net.lghast.elemenix.client.screen.widget.MemoryBurnerListWidget;
 import net.lghast.elemenix.common.content.item.MemorizerItem;

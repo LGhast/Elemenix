@@ -2,7 +2,7 @@ package net.lghast.elemenix.client.render;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import net.lghast.elemenix.client.Palette;
+import net.lghast.elemenix.client.misc.Palette;
 import net.lghast.elemenix.config.ClientConfig;
 import net.minecraft.client.Camera;
 import net.minecraft.client.Minecraft;

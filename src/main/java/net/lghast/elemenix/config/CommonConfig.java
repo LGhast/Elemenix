@@ -69,8 +69,7 @@ public class CommonConfig {
     public static final ModConfigSpec.DoubleValue EJECTOR_FRONT_BONUS;
     public static ModConfigSpec.IntValue OUTLET_MAX_OUTPUT_PER_TYPE;
 
-    public static ModConfigSpec.BooleanValue SHOW_SCANNER_PARTICLES;
-    public static ModConfigSpec.BooleanValue SHOW_SCANNING_STORAGE_PARTICLES;
+    public static ModConfigSpec.BooleanValue SHOW_SCANNING_PARTICLES;
 
     static {
         BUILDER.push("核心内容 Core Content");
@@ -416,17 +415,11 @@ public class CommonConfig {
 
         BUILDER.push("粒子效果 Particles");
 
-        SHOW_SCANNER_PARTICLES = BUILDER
-                .comment("是否在元质扫描器扫描容器时显示粒子效果",
-                        "Whether to display particle effects when the Elemenic Scanner scans a container")
-                .translation(CONFIG_PREFIX + "show_scanner_particles")
-                .define("show_scanner_particles", true);
-
-        SHOW_SCANNING_STORAGE_PARTICLES = BUILDER
-                .comment("是否在扫描式储存器扫描容器时显示粒子效果",
-                        "Whether to display particle effects when the Scanning Storage scans a container")
-                .translation(CONFIG_PREFIX + "show_scanning_storage_particles")
-                .define("show_scanning_storage_particles", true);
+        SHOW_SCANNING_PARTICLES = BUILDER
+                .comment("是否显示扫描器与扫描式储存器的扫描粒子",
+                        "Whether to display scanning particles for the Scanner and the Scanning Storage")
+                .translation(CONFIG_PREFIX + "show_scanning_particles")
+                .define("show_scanning_particles", true);
 
         BUILDER.pop();
 

@@ -1,6 +1,6 @@
 package net.lghast.elemenix.core;
 
-import net.lghast.elemenix.client.Palette;
+import net.lghast.elemenix.client.misc.Palette;
 import net.lghast.elemenix.config.CommonConfig;
 import net.lghast.elemenix.common.util.ModUtils;
 import net.lghast.elemenix.core.resolver.BaseResolver;

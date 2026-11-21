@@ -1,6 +1,6 @@
 package net.lghast.elemenix.common.content.item;
 
-import net.lghast.elemenix.client.Palette;
+import net.lghast.elemenix.client.misc.Palette;
 import net.lghast.elemenix.client.cache.ClientInfuserCache;
 import net.lghast.elemenix.common.content.block.InfuserBlock;
 import net.lghast.elemenix.common.content.blockentity.InfuserBlockEntity;

@@ -205,19 +205,15 @@
       ]
     },
     {
+      "preset": "same",
       "output": "minecraft:firework_star",
-      "count": 1,
-      "inputs": [
-        { "id": "minecraft:gunpowder", "count": 1 },
-        { "id": "minecraft:red_dye", "count": 1 }
-      ]
+      "input": "minecraft:gunpowder"
     },
     {
       "output": "minecraft:firework_rocket",
       "count": 3,
       "inputs": [
-        { "id": "minecraft:paper", "count": 1 },
-        { "id": "minecraft:gunpowder", "count": 1 }
+        { "id": "minecraft:paper", "count": 1 }
       ]
     },
     {

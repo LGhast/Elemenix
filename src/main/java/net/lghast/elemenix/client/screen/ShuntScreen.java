@@ -1,6 +1,6 @@
 package net.lghast.elemenix.client.screen;
 
-import net.lghast.elemenix.client.Palette;
+import net.lghast.elemenix.client.misc.Palette;
 import net.lghast.elemenix.common.content.blockentity.ShuntBlockEntity;
 import net.lghast.elemenix.common.system.menu.ShuntMenu;
 import net.lghast.elemenix.network.shunt.ShuntFilterPayload;

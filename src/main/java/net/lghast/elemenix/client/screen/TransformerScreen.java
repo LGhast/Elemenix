@@ -1,6 +1,6 @@
 package net.lghast.elemenix.client.screen;
 
-import net.lghast.elemenix.client.Palette;
+import net.lghast.elemenix.client.misc.Palette;
 import net.lghast.elemenix.client.render.ScaledText;
 import net.lghast.elemenix.client.screen.widget.SmallCheckbox;
 import net.lghast.elemenix.common.content.block.GerminalAcceleratorBlock;

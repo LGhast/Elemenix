@@ -1,7 +1,7 @@
 package net.lghast.elemenix.client.screen.widget;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import net.lghast.elemenix.client.Palette;
+import net.lghast.elemenix.client.misc.Palette;
 import net.lghast.elemenix.client.render.ItemIconRenderer;
 import net.lghast.elemenix.client.render.ScaledText;
 import net.lghast.elemenix.common.system.datacomponent.PotionMemories;

@@ -1,7 +1,7 @@
 package net.lghast.elemenix.client.event;
 
 import net.lghast.elemenix.Elemenics;
-import net.lghast.elemenix.client.Palette;
+import net.lghast.elemenix.client.misc.Palette;
 import net.lghast.elemenix.client.misc.ModKeyBindings;
 import net.lghast.elemenix.client.screen.*;
 import net.lghast.elemenix.config.ClientConfig;
@@ -71,9 +71,11 @@ public class ClientEvents {
                 tooltip.add(insertIndex, Component.translatable("tooltip.elemenix.constituents").withColor(Palette.GRAY_LIGHT));
                 insertIndex++;
 
-                if (result.state() == ItemStackResolver.StackState.CONTAINS_UNANALYSABLE
+                if (result.state() == ItemStackResolver.StackState.UNANALYSABLE_CONTENT
                         || result.state() == ItemStackResolver.StackState.EXCEEDS_LIMIT
-                        || result.state() == ItemStackResolver.StackState.NESTED_CONTAINER) {
+                        || result.state() == ItemStackResolver.StackState.NESTED_CONTAINER
+                        || result.state() == ItemStackResolver.StackState.UNANALYSABLE_COLOR
+                        || result.state() == ItemStackResolver.StackState.UNANALYSABLE_POTION) {
                     tooltip.add(insertIndex, stateComponent(result.state()));
                 } else if(Screen.hasAltDown()){
                     tooltip.add(insertIndex, constituents.toComponentFormerWhole());
@@ -104,9 +106,11 @@ public class ClientEvents {
 
     private static Component stateComponent(ItemStackResolver.StackState state) {
         String key = switch (state) {
-            case CONTAINS_UNANALYSABLE -> "tooltip.elemenix.contains_unanalysable";
+            case UNANALYSABLE_CONTENT -> "tooltip.elemenix.contains_unanalysable";
             case EXCEEDS_LIMIT -> "tooltip.elemenix.exceeds_limit";
             case NESTED_CONTAINER -> "tooltip.elemenix.nested_container";
+            case UNANALYSABLE_COLOR -> "tooltip.elemenix.unanalysable_color";
+            case UNANALYSABLE_POTION -> "tooltip.elemenix.unanalysable_potion";
             default -> "tooltip.elemenix.unanalysable";
         };
         return Component.translatable(key).withColor(Palette.GRAY_DARK);

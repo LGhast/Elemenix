@@ -1,6 +1,6 @@
 package net.lghast.elemenix.compat.jade;
 
-import net.lghast.elemenix.client.Palette;
+import net.lghast.elemenix.client.misc.Palette;
 import net.lghast.elemenix.common.content.block.ElemenicComparatorBlock;
 import net.lghast.elemenix.common.content.blockentity.ElemenicComparatorBlockEntity;
 import net.lghast.elemenix.core.Elemenix;

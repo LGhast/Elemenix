@@ -1,6 +1,6 @@
 package net.lghast.elemenix.core;
 
-import net.lghast.elemenix.client.Palette;
+import net.lghast.elemenix.client.misc.Palette;
 import net.minecraft.network.chat.Component;
 
 public enum Elemenix {

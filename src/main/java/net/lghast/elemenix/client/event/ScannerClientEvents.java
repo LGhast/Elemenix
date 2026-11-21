@@ -1,7 +1,7 @@
 package net.lghast.elemenix.client.event;
 
 import net.lghast.elemenix.Elemenics;
-import net.lghast.elemenix.client.Palette;
+import net.lghast.elemenix.client.misc.Palette;
 import net.lghast.elemenix.client.cache.ClientScanningCache;
 import net.lghast.elemenix.client.render.OutlineRendererHelper;
 import net.lghast.elemenix.common.content.block.InfuserBlock;

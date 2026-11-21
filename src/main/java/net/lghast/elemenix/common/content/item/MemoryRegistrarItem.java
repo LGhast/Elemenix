@@ -1,6 +1,6 @@
 package net.lghast.elemenix.common.content.item;
 
-import net.lghast.elemenix.client.Palette;
+import net.lghast.elemenix.client.misc.Palette;
 import net.lghast.elemenix.common.system.attachment.RegistrarCollection;
 import net.lghast.elemenix.common.system.menu.RegistrarMenu;
 import net.lghast.elemenix.network.registrar.ResponseRegistrarSyncPayload;

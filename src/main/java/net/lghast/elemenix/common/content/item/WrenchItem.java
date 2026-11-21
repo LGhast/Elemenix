@@ -1,6 +1,6 @@
 package net.lghast.elemenix.common.content.item;
 
-import net.lghast.elemenix.client.Palette;
+import net.lghast.elemenix.client.misc.Palette;
 import net.lghast.elemenix.common.content.block.ChannelBlock;
 import net.lghast.elemenix.common.content.block.ElemenicComparatorBlock;
 import net.lghast.elemenix.common.content.block.OutletBlock;

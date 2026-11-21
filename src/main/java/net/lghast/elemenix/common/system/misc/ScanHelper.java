@@ -85,14 +85,14 @@ public class ScanHelper {
         level.playSound(null, pos.getX(), pos.getY(), pos.getZ(),
                 ModSounds.SCANNING.get(), SoundSource.PLAYERS, 1.1F, 1.5F);
 
-        if(CommonConfig.SHOW_SCANNING_STORAGE_PARTICLES.get()) {
+        if(CommonConfig.SHOW_SCANNING_PARTICLES.get()) {
             ModUtils.spawnParticles(level, ParticleTypes.ENCHANT,
                     pos.getX() + 0.5, pos.getY() + 0.8, pos.getZ() + 0.5, 0.4, 0.2, 0.4, 50, 0.01);
         }
     }
 
     private static void showSuccessEffects(ServerLevel level, BlockPos pos){
-        if(CommonConfig.SHOW_SCANNING_STORAGE_PARTICLES.get()) {
+        if(CommonConfig.SHOW_SCANNING_PARTICLES.get()) {
             ModUtils.spawnParticles(level, ParticleTypes.HAPPY_VILLAGER,
                     pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, 0.3, 0.3, 0.3, 20, 0.01);
         }
@@ -129,7 +129,7 @@ public class ScanHelper {
             for (Elemenix type : Elemenix.values()) {
                 int idx = type.getIndex();
                 double multiplier = consumeItems ? Constituents.DISCOUNT : 1.0;
-                long add = (long) (c.get(type) * count * multiplier);
+                long add = (long) Math.ceil(c.get(type) * count * multiplier);
 
                 if (totals[idx] > Long.MAX_VALUE - add) {
                     overflow = true;

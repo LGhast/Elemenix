@@ -1,6 +1,6 @@
 package net.lghast.elemenix.client.screen;
 
-import net.lghast.elemenix.client.Palette;
+import net.lghast.elemenix.client.misc.Palette;
 import net.lghast.elemenix.common.content.blockentity.EjectorBlockEntity;
 import net.lghast.elemenix.common.system.menu.EjectorMenu;
 import net.lghast.elemenix.network.ejector.EjectorFilterPayload;

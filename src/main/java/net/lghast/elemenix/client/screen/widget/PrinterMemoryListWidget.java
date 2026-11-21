@@ -1,6 +1,6 @@
 package net.lghast.elemenix.client.screen.widget;
 
-import net.lghast.elemenix.client.Palette;
+import net.lghast.elemenix.client.misc.Palette;
 import net.lghast.elemenix.common.system.menu.PrinterMenu;
 import net.lghast.elemenix.network.printer.PrinterDisableItemPayload;
 import net.minecraft.client.Minecraft;

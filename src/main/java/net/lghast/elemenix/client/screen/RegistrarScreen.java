@@ -5,7 +5,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.datafixers.util.Pair;
-import net.lghast.elemenix.client.Palette;
+import net.lghast.elemenix.client.misc.Palette;
 import net.lghast.elemenix.client.cache.ClientRegistrarCache;
 import net.lghast.elemenix.client.render.ItemIconRenderer;
 import net.lghast.elemenix.client.render.ScaledText;
