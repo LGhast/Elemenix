@@ -139,6 +139,14 @@ configurations {
     runtimeClasspath.extendsFrom localRuntime
 }
 
+configurations.configureEach {
+    resolutionStrategy {
+        force "dev.ftb.mods:ftb-library-neoforge:${ftb_library_version}"
+        force "dev.ftb.mods:ftb-teams-neoforge:2101.1.0"
+        force "dev.architectury:architectury-neoforge:13.0.6"
+    }
+}
+
 dependencies {
     implementation "net.neoforged:neoforge:${neo_version}"
     compileOnly "mezz.jei:jei-1.21.1-neoforge-api:${jei_version}"
