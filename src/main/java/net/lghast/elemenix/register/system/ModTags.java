@@ -196,4 +196,14 @@ public class ModTags {
             Registries.ITEM,
             ResourceLocation.parse("elemenix:imitforging_appearance_forbidden")
     );
+
+    public static final TagKey<Item> ELEMENIC_INSTRUMENTS = TagKey.create(
+            Registries.ITEM,
+            ResourceLocation.parse("elemenix:elemenic_instruments")
+    );
+
+    public static final TagKey<Item> ELEMENIC_INSTRUMENTS_POTABLE = TagKey.create(
+            Registries.ITEM,
+            ResourceLocation.parse("elemenix:elemenic_instruments/portable")
+    );
 }

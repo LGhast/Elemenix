@@ -232,6 +232,8 @@
   "elemenix:analyzer_unrecordable": "elemenix:elemenic_chaos",
   "elemenix:strictly_unanalysable": "minecraft:command_block",
   "elemenix:registrar_hidden": "minecraft:budding_amethyst",
+  "elemenix:elemenic_instruments": "elemenix:remote_elemenic_storage",
+  "elemenix:elemenic_instruments/portable": "elemenix:analysis_terminal",
   "c:foods": "minecraft:bread",
   "c:foods/fruit": "minecraft:apple",
   "c:foods/vegetable": "minecraft:carrot",
@@ -371,6 +373,7 @@
   "c:nuggets/gold": "minecraft:gold_nugget",
   "c:nuggets/copper": "minecraft:copper_nugget",
   "c:stones": "minecraft:granite",
+  "c:stone": "minecraft:stone",
   "c:fences": "minecraft:spruce_fence",
   "c:fences/wooden": "minecraft:acacia_fence",
   "c:fences/nether_brick": "minecraft:nether_brick_fence",
@@ -536,7 +539,5 @@
   "c:campfires": "minecraft:campfire",
   "c:clumps": "minecraft:resin_clump",
   "c:clumps/resin": "minecraft:resin_clump",
-  "c:ropes": "farmersdelight:rope",
-  "curios:analyzer": "elemenix:elemenic_analyzer",
-  "curios:memorizer_box": "elemenix:memorizer_box"
+  "c:ropes": "farmersdelight:rope"
 }

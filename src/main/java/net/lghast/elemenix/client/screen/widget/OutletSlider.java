@@ -11,7 +11,7 @@ import java.util.function.IntConsumer;
 import java.util.function.IntSupplier;
 
 public class OutletSlider extends AbstractWidget {
-    private static final ResourceLocation SLIDER_TEXTURE = ResourceLocation.fromNamespaceAndPath("elemenix", "textures/gui/slider.png");
+    private static final ResourceLocation SLIDER_TEXTURE = ResourceLocation.fromNamespaceAndPath("elemenix", "textures/gui/icons/slider.png");
     private static final int HANDLE_WIDTH = 4;
     private static final int HANDLE_HEIGHT = 7;
 

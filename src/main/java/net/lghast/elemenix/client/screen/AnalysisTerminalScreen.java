@@ -1,5 +1,7 @@
 package net.lghast.elemenix.client.screen;
 
+import com.mojang.blaze3d.platform.InputConstants;
+import net.lghast.elemenix.client.misc.ModKeyBindings;
 import net.lghast.elemenix.client.misc.Palette;
 import net.lghast.elemenix.client.render.ItemIconRenderer;
 import net.lghast.elemenix.client.render.ScaledText;
@@ -49,7 +51,7 @@ public class AnalysisTerminalScreen extends AbstractContainerScreen<AnalysisTerm
             ResourceLocation.fromNamespaceAndPath("elemenix", "textures/gui/analysis_terminal.png");
 
     private static final ResourceLocation MEMORIZER_ICON_TEXTURE =
-            ResourceLocation.fromNamespaceAndPath("elemenix", "textures/gui/memorizer_icon.png");
+            ResourceLocation.fromNamespaceAndPath("elemenix", "textures/gui/icons/memorizer_icon.png");
 
     private static final int GUI_WIDTH = 256;
     private static final int GUI_HEIGHT = 227;
@@ -191,6 +193,11 @@ public class AnalysisTerminalScreen extends AbstractContainerScreen<AnalysisTerm
                 return super.keyPressed(keyCode, scanCode, modifiers);
             }
             return true;
+        }
+        if (ModKeyBindings.OPEN_INSTRUMENTS.isActiveAndMatches(InputConstants.getKey(keyCode, scanCode))) {
+            if (InstrumentOptionsScreen.openFromScreen(this)) {
+                return true;
+            }
         }
         return super.keyPressed(keyCode, scanCode, modifiers);
     }
@@ -678,6 +685,9 @@ public class AnalysisTerminalScreen extends AbstractContainerScreen<AnalysisTerm
 
     @Override
     public boolean mouseClicked(double mouseX, double mouseY, int button) {
+        if (this.searchBox != null && this.searchBox.isFocused() && !this.searchBox.isMouseOver(mouseX, mouseY)) {
+            this.setFocused(null);
+        }
         if (button == 0 || button == 1) {
             int cell = getHoveredCell((int) mouseX, (int) mouseY);
             if (cell >= 0) {

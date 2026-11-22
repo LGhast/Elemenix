@@ -1,5 +1,7 @@
 package net.lghast.elemenix.client.screen;
 
+import com.mojang.blaze3d.platform.InputConstants;
+import net.lghast.elemenix.client.misc.ModKeyBindings;
 import net.lghast.elemenix.client.render.ItemIconRenderer;
 import net.lghast.elemenix.common.content.item.MemorizerItem;
 import net.lghast.elemenix.common.content.item.WitchcraftMemorizerItem;
@@ -30,7 +32,7 @@ import javax.annotation.ParametersAreNonnullByDefault;
 @ParametersAreNonnullByDefault
 public class MemorizerBoxScreen extends AbstractContainerScreen<MemorizerBoxMenu> {
     private static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath("elemenix", "textures/gui/memorizer_box.png");
-    private static final ResourceLocation QUESTION_MARK_TEXTURE = ResourceLocation.fromNamespaceAndPath("elemenix", "textures/gui/question_mark.png");
+    private static final ResourceLocation QUESTION_MARK_TEXTURE = ResourceLocation.fromNamespaceAndPath("elemenix", "textures/gui/icons/question_mark.png");
 
     private static final float ITEM_SCALE = 0.55f;
     private static final int GUI_WIDTH = 190;
@@ -121,5 +123,15 @@ public class MemorizerBoxScreen extends AbstractContainerScreen<MemorizerBoxMenu
         this.renderBackground(graphics, mouseX, mouseY, partialTick);
         super.render(graphics, mouseX, mouseY, partialTick);
         this.renderTooltip(graphics, mouseX, mouseY);
+    }
+
+    @Override
+    public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
+        if (ModKeyBindings.OPEN_INSTRUMENTS.isActiveAndMatches(InputConstants.getKey(keyCode, scanCode))) {
+            if (InstrumentOptionsScreen.openFromScreen(this)) {
+                return true;
+            }
+        }
+        return super.keyPressed(keyCode, scanCode, modifiers);
     }
 }

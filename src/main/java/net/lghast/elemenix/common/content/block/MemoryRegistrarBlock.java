@@ -2,6 +2,7 @@ package net.lghast.elemenix.common.content.block;
 
 import com.mojang.serialization.MapCodec;
 import net.lghast.elemenix.common.content.blockentity.MemoryRegistrarBlockEntity;
+import net.lghast.elemenix.common.content.item.MemorizerBoxItem;
 import net.lghast.elemenix.common.content.item.MemorizerItem;
 import net.lghast.elemenix.common.content.item.WitchcraftMemorizerItem;
 import net.lghast.elemenix.register.content.ModBlockEntities;
@@ -98,23 +99,32 @@ public class MemoryRegistrarBlock extends BaseEntityBlock {
 
     @Override
     protected @NotNull ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
-        if (isMemorizer(stack)) {
+        if (isMemorizer(stack) || isMemorizerBox(stack)) {
             if (level.getBlockEntity(pos) instanceof MemoryRegistrarBlockEntity blockEntity && !blockEntity.hasMemorizer()) {
                 if (level.isClientSide) {
                     return ItemInteractionResult.sidedSuccess(true);
                 }
                 if (player instanceof ServerPlayer serverPlayer) {
-                    MemoryRegistrarBlockEntity.PlacementResult result =
-                            MemoryRegistrarBlockEntity.checkPlacement(stack, serverPlayer);
+                    boolean box = isMemorizerBox(stack);
+                    MemoryRegistrarBlockEntity.PlacementResult result = box
+                            ? MemoryRegistrarBlockEntity.checkBoxPlacement(stack, serverPlayer)
+                            : MemoryRegistrarBlockEntity.checkPlacement(stack, serverPlayer);
                     if (result == MemoryRegistrarBlockEntity.PlacementResult.EMPTY_OR_INVALID) {
-                        serverPlayer.displayClientMessage(
-                                Component.translatable("message.elemenix.registrar.empty_or_invalid"), true);
+                        String key = box
+                                ? "message.elemenix.registrar.box.empty_or_invalid"
+                                : "message.elemenix.registrar.empty_or_invalid";
+                        serverPlayer.displayClientMessage(Component.translatable(key), true);
                         return ItemInteractionResult.sidedSuccess(false);
                     }
                     if (result == MemoryRegistrarBlockEntity.PlacementResult.ALL_REGISTERED) {
-                        String key = MemoryRegistrarBlockEntity.isBuiltInMemorySource(stack)
-                                ? "message.elemenix.registrar.built_in_all_registered"
-                                : "message.elemenix.registrar.all_registered";
+                        String key;
+                        if (box) {
+                            key = "message.elemenix.registrar.box.all_registered";
+                        } else if (MemoryRegistrarBlockEntity.isBuiltInMemorySource(stack)) {
+                            key = "message.elemenix.registrar.built_in.all_registered";
+                        } else {
+                            key = "message.elemenix.registrar.all_registered";
+                        }
                         serverPlayer.displayClientMessage(Component.translatable(key), true);
                         return ItemInteractionResult.sidedSuccess(false);
                     }
@@ -207,5 +217,9 @@ public class MemoryRegistrarBlock extends BaseEntityBlock {
         return stack.getItem() instanceof MemorizerItem
                 || stack.getItem() instanceof WitchcraftMemorizerItem
                 || MemoryRegistrarBlockEntity.isBuiltInMemorySource(stack);
+    }
+
+    private static boolean isMemorizerBox(ItemStack stack) {
+        return stack.getItem() instanceof MemorizerBoxItem;
     }
 }

@@ -25,7 +25,7 @@ public class MemoryRegistrarRenderer implements BlockEntityRenderer<MemoryRegist
     @Override
     public void render(MemoryRegistrarBlockEntity blockEntity, float partialTick, PoseStack poseStack,
                        MultiBufferSource bufferSource, int packedLight, int packedOverlay) {
-        ItemStack memorizer = blockEntity.getMemorizer();
+        ItemStack memorizer = blockEntity.getCurrentMemorizer();
         if (memorizer.isEmpty()) return;
 
         Level level = blockEntity.getLevel();

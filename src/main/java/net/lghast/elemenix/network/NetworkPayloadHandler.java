@@ -9,8 +9,10 @@ import net.lghast.elemenix.network.comparator.ComparatorUpdatePayload;
 import net.lghast.elemenix.network.ejector.EjectorFilterPayload;
 import net.lghast.elemenix.network.infuser.InfuserDataUpdatePayload;
 import net.lghast.elemenix.network.infuser.RequestInfuserUpdatePayload;
+import net.lghast.elemenix.network.open.OpenAnalysisTerminalPayload;
 import net.lghast.elemenix.network.open.OpenAnalyzerPayload;
 import net.lghast.elemenix.network.open.OpenMemorizerBoxPayload;
+import net.lghast.elemenix.network.open.OpenMemoryBurnerPayload;
 import net.lghast.elemenix.network.outlet.OutletPercentPayload;
 import net.lghast.elemenix.network.printer.PrinterDisableItemPayload;
 import net.lghast.elemenix.network.printer.PrinterModePayload;
@@ -68,6 +70,18 @@ public class NetworkPayloadHandler {
                 OpenAnalyzerPayload.TYPE,
                 OpenAnalyzerPayload.STREAM_CODEC,
                 OpenAnalyzerPayload::handle
+        );
+
+        registrar.playToServer(
+                OpenAnalysisTerminalPayload.TYPE,
+                OpenAnalysisTerminalPayload.STREAM_CODEC,
+                OpenAnalysisTerminalPayload::handle
+        );
+
+        registrar.playToServer(
+                OpenMemoryBurnerPayload.TYPE,
+                OpenMemoryBurnerPayload.STREAM_CODEC,
+                OpenMemoryBurnerPayload::handle
         );
 
         registrar.playToServer(

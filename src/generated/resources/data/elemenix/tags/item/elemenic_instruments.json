@@ -1,0 +1,11 @@
+{
+  "values": [
+    "#elemenix:elemenic_instruments/portable",
+    "elemenix:elemenic_scanner",
+    "elemenix:memory_registrar",
+    "elemenix:elemenic_storage",
+    "elemenix:scanning_storage",
+    "elemenix:remote_elemenic_storage",
+    "elemenix:analytical_wrench"
+  ]
+}

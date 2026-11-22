@@ -95,7 +95,7 @@ public class ScannerClientEvents {
         ItemStack itemStack = new ItemStack(state.getBlock().asItem());
         boolean hasItem = itemStack.getItem() != Items.AIR;
         if (hasItem) {
-            lines.add(Component.translatable("tooltip.elemenix.scanner.block_name")
+            lines.add(Component.translatable("status.elemenix.block_name")
                     .withColor(TITLE_COLOR)
                     .append(Component.literal(itemStack.getHoverName().getString()).withColor(WHITE)));
         }

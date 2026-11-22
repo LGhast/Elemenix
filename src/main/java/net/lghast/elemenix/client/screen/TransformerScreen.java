@@ -325,7 +325,7 @@ public class TransformerScreen extends AbstractContainerScreen<TransformerMenu> 
 
     private static class ModeSwitchButton extends Button {
         private static final ResourceLocation BUTTON_TEXTURE =
-                ResourceLocation.fromNamespaceAndPath("elemenix", "textures/gui/menu_transferring_button.png");
+                ResourceLocation.fromNamespaceAndPath("elemenix", "textures/gui/icons/menu_transferring_button.png");
 
         private ModeSwitchButton(int x, int y, OnPress onPress) {
             super(x, y, 16, 16, Component.empty(), onPress, Button.DEFAULT_NARRATION);

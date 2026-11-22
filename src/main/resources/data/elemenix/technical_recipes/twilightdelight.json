@@ -73,6 +73,15 @@
       "offcuts": [
         { "id": "twilightforest:phantom_helmet", "count": 1 }
       ]
+    },
+    {
+      "preset": "food_unit",
+      "output": "twilightdelight:bowl_of_yeti_borscht",
+      "source": "twilightdelight:yeti_borscht",
+      "container": "minecraft:bowl",
+      "offcuts": [
+        { "id": "minecraft:cauldron", "count": 1 }
+      ]
     }
   ]
 }

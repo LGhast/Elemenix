@@ -15,8 +15,9 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
+import top.theillusivec4.curios.api.type.capability.ICurioItem;
 
-public class AnalysisTerminalItem extends Item {
+public class AnalysisTerminalItem extends Item implements ICurioItem {
     public AnalysisTerminalItem(Properties properties) {
         super(properties.stacksTo(1));
     }

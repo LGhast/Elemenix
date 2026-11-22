@@ -16,6 +16,8 @@
     { "id": "twilightdelight:phantom_bone", "constituents": [0, 640, 320, 0, 0, 60] },
     { "id": "twilightdelight:raw_tomahawk_smeaxe", "constituents": [5000, 500, 0, 0, 0, 200] },
     { "id": "twilightdelight:omazeo", "constituents": [180, 0, 0, 0, 20, 5] },
-    { "id": "twilightdelight:redcanp", "constituents": [240, 0, 20, 25, 80, 0] }
+    { "id": "twilightdelight:redcanp", "constituents": [240, 0, 20, 25, 80, 0] },
+    { "id": "twilightdelight:fragile_snowflake", "constituents": [0, 0, 32, 0, 0, 20] },
+    { "id": "twilightdelight:raw_yeti_meat", "constituents": [52, 0, 25, 0, 0, 0] }
   ]
 }

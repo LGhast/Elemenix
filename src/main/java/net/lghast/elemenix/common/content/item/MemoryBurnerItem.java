@@ -12,11 +12,12 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
+import top.theillusivec4.curios.api.type.capability.ICurioItem;
 
 import javax.annotation.ParametersAreNonnullByDefault;
 
 @ParametersAreNonnullByDefault
-public class MemoryBurnerItem extends Item {
+public class MemoryBurnerItem extends Item implements ICurioItem {
     public MemoryBurnerItem(Properties properties) {
         super(properties.stacksTo(1));
     }

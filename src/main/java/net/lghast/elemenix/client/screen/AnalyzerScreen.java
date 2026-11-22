@@ -1,5 +1,7 @@
 package net.lghast.elemenix.client.screen;
 
+import com.mojang.blaze3d.platform.InputConstants;
+import net.lghast.elemenix.client.misc.ModKeyBindings;
 import net.lghast.elemenix.client.misc.Palette;
 import net.lghast.elemenix.client.cache.ClientInfuserCache;
 import net.lghast.elemenix.client.render.ScaledText;
@@ -303,6 +305,16 @@ public class AnalyzerScreen extends AbstractContainerScreen<AnalyzerMenu> {
             int slotY = y + 130;
             graphics.fill(slotX, slotY, slotX + 16, slotY + 16, Palette.SUCCESS_BASE);
         }
+    }
+
+    @Override
+    public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
+        if (ModKeyBindings.OPEN_INSTRUMENTS.isActiveAndMatches(InputConstants.getKey(keyCode, scanCode))) {
+            if (InstrumentOptionsScreen.openFromScreen(this)) {
+                return true;
+            }
+        }
+        return super.keyPressed(keyCode, scanCode, modifiers);
     }
 }
 

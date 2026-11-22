@@ -6,15 +6,12 @@ import net.lghast.elemenix.client.misc.ModKeyBindings;
 import net.lghast.elemenix.client.screen.*;
 import net.lghast.elemenix.config.ClientConfig;
 import net.lghast.elemenix.core.resolver.BaseResolver;
-import net.lghast.elemenix.network.open.OpenAnalyzerPayload;
-import net.lghast.elemenix.network.open.OpenMemorizerBoxPayload;
 import net.lghast.elemenix.register.content.ModItems;
 import net.lghast.elemenix.register.system.ModDataComponents;
 import net.lghast.elemenix.register.system.ModMenus;
 import net.lghast.elemenix.register.system.ModTags;
 import net.lghast.elemenix.core.Constituents;
 import net.lghast.elemenix.core.resolver.ItemStackResolver;
-import net.lghast.elemenix.common.util.ModUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -33,7 +30,6 @@ import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
 import net.neoforged.neoforge.event.entity.player.ItemTooltipEvent;
 
 import java.util.List;
-import java.util.Objects;
 
 @OnlyIn(Dist.CLIENT)
 @SuppressWarnings("unused")
@@ -161,15 +157,9 @@ public class ClientEvents {
         Player player = minecraft.player;
         if (player == null || minecraft.level == null) return;
 
-        while (ModKeyBindings.OPEN_MEMORIZER_BOX.consumeClick()) {
-            if (!ModUtils.findItemInCuriosSlot(player, "memorizer_box", ModItems.MEMORIZER_BOX.asItem()).isEmpty()) {
-                Objects.requireNonNull(minecraft.getConnection()).send(new OpenMemorizerBoxPayload());
-            }
-        }
-
-        while (ModKeyBindings.OPEN_ANALYZER.consumeClick()) {
-            if (!ModUtils.findItemInCuriosSlot(player, "analyzer", ModItems.ELEMENIC_ANALYZER.asItem()).isEmpty()) {
-                Objects.requireNonNull(minecraft.getConnection()).send(new OpenAnalyzerPayload());
+        while (ModKeyBindings.OPEN_INSTRUMENTS.consumeClick()) {
+            if (minecraft.screen == null) {
+                InstrumentOptionsScreen.openForCurrentCarried();
             }
         }
     }

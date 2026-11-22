@@ -166,5 +166,22 @@ public class ModItemTagProvider extends ItemTagsProvider {
                 .add(Items.GOLD_INGOT)
                 .add(Items.DIAMOND)
         ;
+
+        tag(ModTags.ELEMENIC_INSTRUMENTS_POTABLE)
+                .add(ModItems.ELEMENIC_ANALYZER.asItem())
+                .add(ModItems.MEMORIZER_BOX.asItem())
+                .add(ModItems.MEMORY_BURNER.asItem())
+                .add(ModItems.ANALYSIS_TERMINAL.asItem())
+        ;
+
+        tag(ModTags.ELEMENIC_INSTRUMENTS)
+                .addTag(ModTags.ELEMENIC_INSTRUMENTS_POTABLE)
+                .add(ModItems.ELEMENIC_SCANNER.asItem())
+                .add(ModItems.MEMORY_REGISTRAR.asItem())
+                .add(ModItems.ELEMENIC_STORAGE.asItem())
+                .add(ModItems.SCANNING_STORAGE.asItem())
+                .add(ModItems.REMOTE_ELEMENIC_STORAGE.asItem())
+                .add(ModItems.ANALYTICAL_WRENCH.asItem())
+        ;
     }
 }

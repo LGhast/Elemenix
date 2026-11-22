@@ -82,7 +82,7 @@ public class RegistrarScreen extends AbstractContainerScreen<RegistrarMenu> {
             ResourceLocation.fromNamespaceAndPath("elemenix", "textures/gui/memory_registrar.png");
 
     private static final ResourceLocation QUESTION_MARK_TEXTURE =
-            ResourceLocation.fromNamespaceAndPath("elemenix", "textures/gui/question_mark.png");
+            ResourceLocation.fromNamespaceAndPath("elemenix", "textures/gui/icons/question_mark.png");
 
     private static final int GUI_WIDTH = 256;
     private static final int GUI_HEIGHT = 200;
@@ -126,9 +126,9 @@ public class RegistrarScreen extends AbstractContainerScreen<RegistrarMenu> {
     private static final ResourceLocation SINGLE_SIMPLE_TEXTURE =
             ResourceLocation.fromNamespaceAndPath("elemenix", "textures/gui/memory_registrar_single_simple.png");
     private static final ResourceLocation ICONS_TEXTURE =
-            ResourceLocation.fromNamespaceAndPath("elemenix", "textures/gui/registrar_icons.png");
+            ResourceLocation.fromNamespaceAndPath("elemenix", "textures/gui/icons/registrar_icons.png");
     private static final ResourceLocation ITEM_BACKGROUND_TEXTURE =
-            ResourceLocation.fromNamespaceAndPath("elemenix", "textures/gui/item_background.png");
+            ResourceLocation.fromNamespaceAndPath("elemenix", "textures/gui/icons/item_background.png");
 
     private static final ResourceLocation WATER_POTION_ID = ResourceLocation.parse("minecraft:water");
 
@@ -216,7 +216,7 @@ public class RegistrarScreen extends AbstractContainerScreen<RegistrarMenu> {
 
     private static class PageButton extends Button {
         private static final ResourceLocation BUTTON_TEXTURE =
-                ResourceLocation.fromNamespaceAndPath("elemenix", "textures/gui/page_button.png");
+                ResourceLocation.fromNamespaceAndPath("elemenix", "textures/gui/icons/page_button.png");
 
         private final boolean left;
 
@@ -237,7 +237,7 @@ public class RegistrarScreen extends AbstractContainerScreen<RegistrarMenu> {
 
     private static class CrossButton extends Button {
         private static final ResourceLocation CROSS_TEXTURE =
-                ResourceLocation.fromNamespaceAndPath("elemenix", "textures/gui/cross_button.png");
+                ResourceLocation.fromNamespaceAndPath("elemenix", "textures/gui/icons/cross_button.png");
 
         private CrossButton(int x, int y, OnPress onPress) {
             super(x, y, BACK_BTN_SIZE, BACK_BTN_SIZE, Component.empty(), onPress, Button.DEFAULT_NARRATION);

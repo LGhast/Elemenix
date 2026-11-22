@@ -2,6 +2,7 @@ package net.lghast.elemenix.common.content.blockentity;
 
 import net.lghast.elemenix.Elemenics;
 import net.lghast.elemenix.common.content.block.MemoryRegistrarBlock;
+import net.lghast.elemenix.common.content.item.MemorizerBoxItem;
 import net.lghast.elemenix.common.content.item.MemorizerItem;
 import net.lghast.elemenix.common.content.item.WitchcraftMemorizerItem;
 import net.lghast.elemenix.common.system.advancement.MemoriesRegisteredTrigger;
@@ -50,6 +51,8 @@ public class MemoryRegistrarBlockEntity extends BlockEntity {
     private static final String TAG_REGISTER_TIMER = "RegisterTimer";
     private static final String TAG_CURSOR = "Cursor";
     private static final String TAG_CURRENT = "Current";
+    private static final String TAG_CURRENT_MEMORIZER = "CurrentMemorizer";
+    private static final String TAG_MEMORIZER_INDEX = "MemorizerIndex";
     private static final String TAG_REGISTERED_COUNT = "RegisteredCount";
 
     public enum PlacementResult {
@@ -77,6 +80,8 @@ public class MemoryRegistrarBlockEntity extends BlockEntity {
     private int registerTimer = 0;
     private int cursor = 0;
     private ItemStack currentRegisteringStack = ItemStack.EMPTY;
+    private ItemStack currentMemorizer = ItemStack.EMPTY;
+    private int memorizerIndex = 0;
     private int registeredCount = 0;
 
     public MemoryRegistrarBlockEntity(BlockPos pos, BlockState state) {
@@ -91,9 +96,23 @@ public class MemoryRegistrarBlockEntity extends BlockEntity {
         return memorizer;
     }
 
+    public ItemStack getCurrentMemorizer() {
+        return currentMemorizer;
+    }
+
     public void setMemorizer(ItemStack memorizer) {
         this.memorizer = memorizer;
+        this.currentMemorizer = displayMemorizer(memorizer);
+        this.memorizerIndex = 0;
         this.registeredCount = 0;
+    }
+
+    private static ItemStack displayMemorizer(ItemStack placed) {
+        if (placed.getItem() instanceof MemorizerBoxItem) {
+            List<ItemStack> stacks = MemorizerBoxItem.getStoredStacks(placed);
+            return stacks.isEmpty() ? ItemStack.EMPTY : stacks.getFirst();
+        }
+        return placed;
     }
 
     @Nullable
@@ -156,6 +175,35 @@ public class MemoryRegistrarBlockEntity extends BlockEntity {
         return PlacementResult.OK;
     }
 
+    /**
+     * Determines whether the given memorizer box can be placed on this registrar.
+     */
+    public static PlacementResult checkBoxPlacement(ItemStack box, ServerPlayer player) {
+        List<ItemStack> stacks = MemorizerBoxItem.getStoredStacks(box);
+        if (stacks.isEmpty()) {
+            return PlacementResult.EMPTY_OR_INVALID;
+        }
+
+        boolean anyValid = false;
+        boolean anyRegisterable = false;
+        for (ItemStack stack : stacks) {
+            PlacementResult result = checkPlacement(stack, player);
+            if (result == PlacementResult.OK) {
+                anyRegisterable = true;
+            }
+            if (result != PlacementResult.EMPTY_OR_INVALID) {
+                anyValid = true;
+            }
+        }
+        if (anyRegisterable) {
+            return PlacementResult.OK;
+        }
+        if (anyValid) {
+            return PlacementResult.ALL_REGISTERED;
+        }
+        return PlacementResult.EMPTY_OR_INVALID;
+    }
+
     public void tick(Level level, BlockPos pos, BlockState state) {
         if (level.isClientSide) return;
         if (!Elemenics.started) return;
@@ -179,22 +227,64 @@ public class MemoryRegistrarBlockEntity extends BlockEntity {
     }
 
     private boolean processRegistration(ServerPlayer ownerPlayer, ServerLevel serverLevel) {
+        if (memorizer.getItem() instanceof MemorizerBoxItem) {
+            return processBoxRegistration(ownerPlayer, serverLevel);
+        }
+
+        boolean done;
         if (memorizer.getItem() instanceof WitchcraftMemorizerItem) {
-            return processPotionRegistration(ownerPlayer, serverLevel);
+            done = processPotionRegistration(memorizer, ownerPlayer, serverLevel);
+        } else if (memorizer.getItem() instanceof MemorizerItem || isBuiltInMemorySource(memorizer)) {
+            done = processItemRegistration(memorizer, ownerPlayer, serverLevel);
+        } else {
+            dropMemorizer(serverLevel);
+            return false;
         }
-        if (memorizer.getItem() instanceof MemorizerItem || isBuiltInMemorySource(memorizer)) {
-            return processItemRegistration(ownerPlayer, serverLevel);
+
+        if (done) {
+            finishRegistration(ownerPlayer, serverLevel);
+            return false;
         }
-        dropMemorizer(serverLevel);
-        return false;
+        return true;
     }
 
-    private boolean processItemRegistration(ServerPlayer ownerPlayer, ServerLevel serverLevel) {
-        List<ResourceLocation> itemIds;
-        if (memorizer.getItem() instanceof MemorizerItem) {
-            itemIds = MemorizerItem.getOrCreateMemories(memorizer).memories();
+    private boolean processBoxRegistration(ServerPlayer ownerPlayer, ServerLevel serverLevel) {
+        List<ItemStack> stacks = MemorizerBoxItem.getStoredStacks(memorizer);
+        if (memorizerIndex >= stacks.size()) {
+            finishRegistration(ownerPlayer, serverLevel);
+            return false;
+        }
+
+        ItemStack source = stacks.get(memorizerIndex);
+        if (currentMemorizer.isEmpty()) {
+            currentMemorizer = source;
+            setChanged();
+        }
+
+        boolean done;
+        if (source.getItem() instanceof WitchcraftMemorizerItem) {
+            done = processPotionRegistration(source, ownerPlayer, serverLevel);
         } else {
-            itemIds = getBuiltInMemories(memorizer);
+            done = processItemRegistration(source, ownerPlayer, serverLevel);
+        }
+
+        if (done) {
+            memorizerIndex++;
+            cursor = 0;
+            currentRegisteringStack = ItemStack.EMPTY;
+            currentMemorizer = ItemStack.EMPTY;
+            setChanged();
+        }
+
+        return true;
+    }
+
+    private boolean processItemRegistration(ItemStack source, ServerPlayer ownerPlayer, ServerLevel serverLevel) {
+        List<ResourceLocation> itemIds;
+        if (source.getItem() instanceof MemorizerItem) {
+            itemIds = MemorizerItem.getOrCreateMemories(source).memories();
+        } else {
+            itemIds = getBuiltInMemories(source);
         }
         RegistrarCollection collection = ownerPlayer.getData(ModAttachments.REGISTRAR_COLLECTION);
 
@@ -208,8 +298,7 @@ public class MemoryRegistrarBlockEntity extends BlockEntity {
         }
 
         if (cursor >= itemIds.size()) {
-            finishRegistration(ownerPlayer, serverLevel);
-            return false;
+            return true;
         }
 
         ResourceLocation id = itemIds.get(cursor);
@@ -232,11 +321,11 @@ public class MemoryRegistrarBlockEntity extends BlockEntity {
                     collection.items().size() + collection.potions().size() + 1);
         }
 
-        return true;
+        return false;
     }
 
-    private boolean processPotionRegistration(ServerPlayer ownerPlayer, ServerLevel serverLevel) {
-        List<PotionMemories.Entry> entries = WitchcraftMemorizerItem.getOrCreateMemories(memorizer).entries();
+    private boolean processPotionRegistration(ItemStack source, ServerPlayer ownerPlayer, ServerLevel serverLevel) {
+        List<PotionMemories.Entry> entries = WitchcraftMemorizerItem.getOrCreateMemories(source).entries();
         RegistrarCollection collection = ownerPlayer.getData(ModAttachments.REGISTRAR_COLLECTION);
 
         while (cursor < entries.size()) {
@@ -249,8 +338,7 @@ public class MemoryRegistrarBlockEntity extends BlockEntity {
         }
 
         if (cursor >= entries.size()) {
-            finishRegistration(ownerPlayer, serverLevel);
-            return false;
+            return true;
         }
 
         PotionMemories.Entry entry = entries.get(cursor);
@@ -273,7 +361,7 @@ public class MemoryRegistrarBlockEntity extends BlockEntity {
                     collection.items().size() + collection.potions().size() + 1);
         }
 
-        return true;
+        return false;
     }
 
     private void finishRegistration(ServerPlayer ownerPlayer, ServerLevel serverLevel) {
@@ -393,6 +481,10 @@ public class MemoryRegistrarBlockEntity extends BlockEntity {
         if (tag.contains(TAG_CURRENT)) {
             this.currentRegisteringStack = ItemStack.parseOptional(provider, tag.getCompound(TAG_CURRENT));
         }
+        if (tag.contains(TAG_CURRENT_MEMORIZER)) {
+            this.currentMemorizer = ItemStack.parseOptional(provider, tag.getCompound(TAG_CURRENT_MEMORIZER));
+        }
+        memorizerIndex = tag.getInt(TAG_MEMORIZER_INDEX);
     }
 
     @Override
@@ -410,6 +502,10 @@ public class MemoryRegistrarBlockEntity extends BlockEntity {
         if (!currentRegisteringStack.isEmpty()) {
             tag.put(TAG_CURRENT, currentRegisteringStack.saveOptional(provider));
         }
+        if (!currentMemorizer.isEmpty()) {
+            tag.put(TAG_CURRENT_MEMORIZER, currentMemorizer.saveOptional(provider));
+        }
+        tag.putInt(TAG_MEMORIZER_INDEX, memorizerIndex);
     }
 
     @Override
@@ -417,6 +513,7 @@ public class MemoryRegistrarBlockEntity extends BlockEntity {
         CompoundTag tag = super.getUpdateTag(registries);
         tag.put(TAG_MEMORIZER, memorizer.saveOptional(registries));
         tag.put(TAG_CURRENT, currentRegisteringStack.saveOptional(registries));
+        tag.put(TAG_CURRENT_MEMORIZER, currentMemorizer.saveOptional(registries));
         if (owner != null) {
             tag.putString(TAG_OWNER, owner.toString());
         }

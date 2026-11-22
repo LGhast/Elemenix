@@ -1,0 +1,5 @@
+{
+  "size" : 1,
+  "icon" : "elemenix:slot/analysis_terminal",
+  "drop_rule" : "ALWAYS_KEEP"
+}
