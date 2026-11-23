@@ -3,6 +3,7 @@ package net.lghast.elemenix.client.screen;
 import net.lghast.elemenix.client.misc.Palette;
 import net.lghast.elemenix.client.render.ItemIconRenderer;
 import net.lghast.elemenix.common.util.ModUtils;
+import net.lghast.elemenix.network.memorizerbox.CollectMemorizersPayload;
 import net.lghast.elemenix.network.open.OpenAnalysisTerminalPayload;
 import net.lghast.elemenix.network.open.OpenAnalyzerPayload;
 import net.lghast.elemenix.network.open.OpenMemorizerBoxPayload;
@@ -180,6 +181,10 @@ public class InstrumentOptionsScreen extends Screen {
             graphics.renderComponentTooltip(this.font,
                     List.of(name, Component.translatable("tooltip.elemenix.requires_analyzer_or_box").withColor(Palette.GRAY_DARK)),
                     mouseX, mouseY);
+        } else if (index == 1) {
+            graphics.renderComponentTooltip(this.font,
+                    List.of(name, Component.translatable("tooltip.elemenix.memorizer_box.collect_all").withColor(Palette.GRAY_DARK)),
+                    mouseX, mouseY);
         } else {
             graphics.renderComponentTooltip(this.font, List.of(name), mouseX, mouseY);
         }
@@ -187,10 +192,17 @@ public class InstrumentOptionsScreen extends Screen {
 
     @Override
     public boolean mouseClicked(double mouseX, double mouseY, int button) {
-        if (button == 0) {
-            int hovered = getHoveredSlot((int) mouseX, (int) mouseY);
-            if (hovered >= 0 && !carried.get(hovered).isEmpty()) {
+        int hovered = getHoveredSlot((int) mouseX, (int) mouseY);
+        if (hovered >= 0 && !carried.get(hovered).isEmpty()) {
+            if (button == 0) {
                 openCarriedInstrument(hovered);
+                return true;
+            }
+            if (button == 1 && hovered == 1) {
+                ClientPacketListener connection = Minecraft.getInstance().getConnection();
+                if (connection != null) {
+                    connection.send(new CollectMemorizersPayload());
+                }
                 return true;
             }
         }

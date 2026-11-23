@@ -179,4 +179,15 @@ public class ScanHelper {
             player.displayClientMessage(ScanHelper.getTotalComponent(totals), true);
         }
     }
+
+    public static boolean hasParseableItem(Container container) {
+        for (int slot = 0; slot < container.getContainerSize(); slot++) {
+            ItemStack stack = container.getItem(slot);
+            if (stack.isEmpty()) continue;
+            if (stack.is(ModTags.IGNORED_BY_SCANNING)) continue;
+            Constituents c = BaseResolver.getConstituents(stack);
+            if (c != null && !c.isUnanalysable()) return true;
+        }
+        return false;
+    }
 }

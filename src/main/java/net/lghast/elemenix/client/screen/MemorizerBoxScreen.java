@@ -3,12 +3,17 @@ package net.lghast.elemenix.client.screen;
 import com.mojang.blaze3d.platform.InputConstants;
 import net.lghast.elemenix.client.misc.ModKeyBindings;
 import net.lghast.elemenix.client.render.ItemIconRenderer;
+import net.lghast.elemenix.client.screen.widget.SmallCheckbox;
 import net.lghast.elemenix.common.content.item.MemorizerItem;
 import net.lghast.elemenix.common.content.item.WitchcraftMemorizerItem;
 import net.lghast.elemenix.common.system.datacomponent.ItemMemories;
+import net.lghast.elemenix.common.system.datacomponent.MemorizerSlotLock;
 import net.lghast.elemenix.common.system.datacomponent.PotionMemories;
+import net.lghast.elemenix.common.system.datacomponent.Style;
 import net.lghast.elemenix.common.system.menu.MemorizerBoxMenu;
+import net.lghast.elemenix.network.memorizerbox.ToggleMemorizerSlotLockPayload;
 import net.lghast.elemenix.register.content.ModItems;
+import net.lghast.elemenix.register.system.ModDataComponents;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -24,6 +29,7 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.alchemy.PotionContents;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
+import net.neoforged.neoforge.network.PacketDistributor;
 
 import javax.annotation.Nullable;
 import javax.annotation.ParametersAreNonnullByDefault;
@@ -40,6 +46,11 @@ public class MemorizerBoxScreen extends AbstractContainerScreen<MemorizerBoxMenu
     private static final int TITLE_X = 15;
     private static final int TITLE_Y = 6;
     private static final int ITEM_Y_OFFSET = -15;
+    private static final int CHECK_X = 165;
+    private static final int CHECK_Y = 6;
+    private static final int GHOST_OVERLAY_COLOR = 0x808B8B8B;
+
+    private SmallCheckbox styleLockCheckbox;
 
     public MemorizerBoxScreen(MemorizerBoxMenu menu, Inventory inventory,
                               Component title) {
@@ -52,6 +63,24 @@ public class MemorizerBoxScreen extends AbstractContainerScreen<MemorizerBoxMenu
     }
 
     @Override
+    protected void init() {
+        super.init();
+        this.styleLockCheckbox = new SmallCheckbox(
+                leftPos + CHECK_X, topPos + CHECK_Y,
+                Component.empty(), this.font, this.menu.isStyleLockEnabled(),
+                (checkbox, selected) -> PacketDistributor.sendToServer(new ToggleMemorizerSlotLockPayload(selected)));
+        this.addRenderableWidget(this.styleLockCheckbox);
+    }
+
+    @Override
+    protected void containerTick() {
+        super.containerTick();
+        if (this.styleLockCheckbox != null) {
+            this.styleLockCheckbox.setSelected(this.menu.isStyleLockEnabled());
+        }
+    }
+
+    @Override
     protected void renderBg(GuiGraphics graphics, float partialTick, int
             mouseX, int mouseY) {
         int x = (this.width - this.imageWidth) / 2;
@@ -60,6 +89,7 @@ public class MemorizerBoxScreen extends AbstractContainerScreen<MemorizerBoxMenu
                 this.imageWidth, this.imageHeight);
 
         renderSlotMemoryItems(graphics, x, y);
+        renderGhostItems(graphics, x, y);
     }
 
     private void renderSlotMemoryItems(GuiGraphics graphics, int guiLeft, int guiTop) {
@@ -107,6 +137,38 @@ public class MemorizerBoxScreen extends AbstractContainerScreen<MemorizerBoxMenu
         }
     }
 
+    private void renderGhostItems(GuiGraphics graphics, int guiLeft, int guiTop) {
+        MemorizerSlotLock lock = this.menu.getStyleLock();
+        for (int i = 0; i < 18; i++) {
+            Slot slot = this.menu.getSlot(i);
+            if (slot.hasItem()) continue;
+
+            MemorizerSlotLock.Entry entry = lock.getEntry(i);
+            if (entry == null) continue;
+
+            Item item = BuiltInRegistries.ITEM.get(entry.kind());
+            if (item == Items.AIR) continue;
+
+            ItemStack ghost = new ItemStack(item);
+            if (entry.style() != MemorizerSlotLock.NO_STYLE) {
+                ghost.set(ModDataComponents.STYLE, new Style(entry.style()));
+            }
+
+            int slotX = guiLeft + slot.x;
+            int slotY = guiTop + slot.y;
+
+            renderGhostIcon(graphics, ghost, slotX, slotY);
+        }
+    }
+
+    private void renderGhostIcon(GuiGraphics graphics, ItemStack stack, int x, int y) {
+        ItemIconRenderer.render(graphics, stack, x, y);
+        graphics.pose().pushPose();
+        graphics.pose().translate(0, 0, 200);
+        graphics.fill(x, y, x + 16, y + 16, GHOST_OVERLAY_COLOR);
+        graphics.pose().popPose();
+    }
+
     private static ItemStack firstPotionItem(@Nullable PotionMemories data) {
         if (data == null || data.entries().isEmpty()) {
             return ItemStack.EMPTY;
@@ -123,6 +185,9 @@ public class MemorizerBoxScreen extends AbstractContainerScreen<MemorizerBoxMenu
         this.renderBackground(graphics, mouseX, mouseY, partialTick);
         super.render(graphics, mouseX, mouseY, partialTick);
         this.renderTooltip(graphics, mouseX, mouseY);
+        if (this.styleLockCheckbox != null && this.styleLockCheckbox.isHovered()) {
+            graphics.renderTooltip(this.font, Component.translatable("gui.elemenix.memorizer_box.style_lock"), mouseX, mouseY);
+        }
     }
 
     @Override

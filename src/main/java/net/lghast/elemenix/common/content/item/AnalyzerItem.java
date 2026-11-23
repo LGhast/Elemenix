@@ -2,6 +2,7 @@ package net.lghast.elemenix.common.content.item;
 
 import net.lghast.elemenix.common.system.datacomponent.UuidData;
 import net.lghast.elemenix.common.system.menu.AnalyzerMenu;
+import net.lghast.elemenix.common.util.ModUtils;
 import net.lghast.elemenix.config.ClientConfig;
 import net.lghast.elemenix.register.system.ModDataComponents;
 import net.lghast.elemenix.register.system.ModStats;
@@ -96,6 +97,10 @@ public class AnalyzerItem extends StorageItem {
         getOrCreateUuid(stack);
 
         if (level.isClientSide) {
+            return InteractionResultHolder.success(stack);
+        }
+
+        if (player.isShiftKeyDown() && ModUtils.tryEquipToCurios(player, stack, "analyzer")) {
             return InteractionResultHolder.success(stack);
         }
 

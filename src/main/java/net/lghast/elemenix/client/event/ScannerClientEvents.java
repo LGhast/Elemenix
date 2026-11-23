@@ -129,7 +129,10 @@ public class ScannerClientEvents {
         }
 
         Boolean hasParseable = ClientScanningCache.getHasParseable(pos);
-        int color = (hasParseable != null && !hasParseable) ? Palette.FAILURE : DEFAULT_COLOR;
+        if (hasParseable == null) {
+            return;
+        }
+        int color = hasParseable ? DEFAULT_COLOR : Palette.FAILURE;
         OutlineRendererHelper.INSTANCE.showBox(STORAGE_SLOT,
                 shape.bounds().move(pos.getX(), pos.getY(), pos.getZ()), color);
     }

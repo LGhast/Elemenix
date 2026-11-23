@@ -1166,29 +1166,39 @@ public class RegistrarScreen extends AbstractContainerScreen<RegistrarMenu> {
 
         Rarity rarity = stack.get(DataComponents.RARITY);
         if (rarity != null && rarity != Rarity.COMMON) {
-            Component rarityName = Component.translatable("rarity." + rarity.name().toLowerCase(Locale.ROOT));
-            icons.add(new IconEntry(0, 0, List.of(Component.translatable("gui.elemenix.registrar.rarity", rarityName))));
+            String rarityKey = "rarity." + rarity.getSerializedName();
+            if (I18n.exists(rarityKey)) {
+                Component rarityName = Component.translatable(rarityKey).withStyle(rarity.getStyleModifier());
+                icons.add(new IconEntry(0, 0, List.of(ModUtils.labeledText("gui.elemenix.registrar.rarity", Palette.ANALYSIS, rarityName))));
+            } else {
+                Component specialName = Component.translatable("gui.elemenix.registrar.rarity_special");
+                Component detail = Component.literal("(" + rarity.getSerializedName() + ")").withColor(Palette.GRAY_LIGHT);
+                icons.add(new IconEntry(0, 0, List.of(
+                        ModUtils.labeledText("gui.elemenix.registrar.rarity", Palette.ANALYSIS, specialName),
+                        detail
+                )));
+            }
         }
 
         if (stack.getMaxDamage() > 0) {
             List<Component> tooltip = new ArrayList<>();
-            tooltip.add(Component.translatable("gui.elemenix.registrar.durability", stack.getMaxDamage()));
+            tooltip.add(ModUtils.labeledText("gui.elemenix.registrar.durability", Palette.ANALYSIS, stack.getMaxDamage()));
             String repairName = getRepairItemName(stack);
             if (repairName != null) {
-                tooltip.add(Component.translatable("gui.elemenix.registrar.repair_item", repairName));
+                tooltip.add(ModUtils.labeledText("gui.elemenix.registrar.repair_item", Palette.ANALYSIS, repairName));
             }
             icons.add(new IconEntry(12, 0, tooltip));
         }
 
         if (stack.isEnchantable()) {
             List<Component> tooltip = new ArrayList<>();
-            tooltip.add(Component.translatable("gui.elemenix.registrar.enchantability", stack.getEnchantmentValue()));
+            tooltip.add(ModUtils.labeledText("gui.elemenix.registrar.enchantability", Palette.ANALYSIS, stack.getEnchantmentValue()));
             List<Holder.Reference<Enchantment>> enchantments = getEnchantments(stack);
             if (enchantments.size() == 1) {
-                tooltip.add(Component.translatable("gui.elemenix.registrar.enchantments")
+                tooltip.add(ModUtils.labeledText("gui.elemenix.registrar.enchantments", Palette.ANALYSIS)
                         .append(coloredEnchantmentName(enchantments.getFirst())));
             } else if (enchantments.size() > 1) {
-                tooltip.add(Component.translatable("gui.elemenix.registrar.enchantments"));
+                tooltip.add(ModUtils.labeledText("gui.elemenix.registrar.enchantments", Palette.ANALYSIS));
                 for (Holder<Enchantment> holder : enchantments) {
                     tooltip.add(coloredEnchantmentName(holder));
                 }
@@ -1199,8 +1209,8 @@ public class RegistrarScreen extends AbstractContainerScreen<RegistrarMenu> {
         FoodProperties food = stack.get(DataComponents.FOOD);
         if (food != null) {
             List<Component> tooltip = new ArrayList<>();
-            tooltip.add(Component.translatable("gui.elemenix.registrar.food_hunger", food.nutrition()));
-            tooltip.add(Component.translatable("gui.elemenix.registrar.food_saturation",
+            tooltip.add(ModUtils.labeledText("gui.elemenix.registrar.food_hunger", Palette.ANALYSIS, food.nutrition()));
+            tooltip.add(ModUtils.labeledText("gui.elemenix.registrar.food_saturation", Palette.ANALYSIS,
                     String.format(Locale.ROOT, "%.1f", food.saturation())));
             icons.add(new IconEntry(36, 0, tooltip));
         }
@@ -1235,8 +1245,10 @@ public class RegistrarScreen extends AbstractContainerScreen<RegistrarMenu> {
         }
         if (hasWeapon) {
             List<Component> tooltip = new ArrayList<>();
-            tooltip.add(Component.translatable("gui.elemenix.registrar.attack_damage", formatAttributeValue(attackDamage)));
-            tooltip.add(Component.translatable("gui.elemenix.registrar.attack_speed", formatAttributeValue(attackSpeed)));
+            if (attackDamage != 0) {
+                tooltip.add(ModUtils.labeledText("gui.elemenix.registrar.attack_damage", Palette.ANALYSIS, formatAttributeValue(attackDamage)));
+            }
+            tooltip.add(ModUtils.labeledText("gui.elemenix.registrar.attack_speed", Palette.ANALYSIS, formatAttributeValue(attackSpeed)));
             icons.add(new IconEntry(12, 12, tooltip));
         }
 
@@ -1254,13 +1266,13 @@ public class RegistrarScreen extends AbstractContainerScreen<RegistrarMenu> {
         }
         List<Component> armorTooltip = new ArrayList<>();
         if (armor != 0) {
-            armorTooltip.add(Component.translatable("gui.elemenix.registrar.armor_value", formatAttributeValue(armor)));
+            armorTooltip.add(ModUtils.labeledText("gui.elemenix.registrar.armor_value", Palette.ANALYSIS, formatAttributeValue(armor)));
         }
         if (armorToughness != 0) {
-            armorTooltip.add(Component.translatable("gui.elemenix.registrar.armor_toughness", formatAttributeValue(armorToughness)));
+            armorTooltip.add(ModUtils.labeledText("gui.elemenix.registrar.armor_toughness", Palette.ANALYSIS, formatAttributeValue(armorToughness)));
         }
         if (knockbackResistance != 0) {
-            armorTooltip.add(Component.translatable("gui.elemenix.registrar.knockback_resistance",
+            armorTooltip.add(ModUtils.labeledText("gui.elemenix.registrar.knockback_resistance", Palette.ANALYSIS,
                     formatAttributeValue(knockbackResistance * 100) + "%"));
         }
         if (!armorTooltip.isEmpty()) {
@@ -1269,7 +1281,7 @@ public class RegistrarScreen extends AbstractContainerScreen<RegistrarMenu> {
 
         int burnTime = stack.getBurnTime(RecipeType.SMELTING);
         if (burnTime > 0) {
-            icons.add(new IconEntry(36, 12, List.of(Component.translatable("gui.elemenix.registrar.fuel", formatBurnTime(burnTime)))));
+            icons.add(new IconEntry(36, 12, List.of(ModUtils.labeledText("gui.elemenix.registrar.fuel", Palette.ANALYSIS, formatBurnTime(burnTime)))));
         }
 
         Constituents constituents = BaseResolver.getConstituents(stack);
@@ -1298,7 +1310,7 @@ public class RegistrarScreen extends AbstractContainerScreen<RegistrarMenu> {
                     TextColor textColor = trimMaterial.get().value().description().getStyle().getColor();
                     int trimColor = textColor != null ? textColor.getValue() : Palette.WHITE;
                     Component colorBlock = Component.literal("■").withColor(trimColor);
-                    trimMobTooltip.add(Component.translatable("gui.elemenix.registrar.trim_color", colorBlock));
+                    trimMobTooltip.add(ModUtils.labeledText("gui.elemenix.registrar.trim_color", Palette.ANALYSIS, colorBlock));
                 }
             }
         }
@@ -1307,7 +1319,7 @@ public class RegistrarScreen extends AbstractContainerScreen<RegistrarMenu> {
             if (!trimMobTooltip.isEmpty()) {
                 trimMobTooltip.add(Component.empty());
             }
-            trimMobTooltip.add(Component.translatable("gui.elemenix.registrar.mob", entityType.getDescription()));
+            trimMobTooltip.add(ModUtils.labeledText("gui.elemenix.registrar.mob", Palette.ANALYSIS, entityType.getDescription()));
         }
         if (!trimMobTooltip.isEmpty()) {
             icons.add(new IconEntry(24, 24, trimMobTooltip));

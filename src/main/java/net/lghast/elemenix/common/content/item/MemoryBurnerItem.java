@@ -1,6 +1,7 @@
 package net.lghast.elemenix.common.content.item;
 
 import net.lghast.elemenix.common.system.menu.MemoryBurnerMenu;
+import net.lghast.elemenix.common.util.ModUtils;
 import net.lghast.elemenix.register.system.ModStats;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
@@ -27,6 +28,10 @@ public class MemoryBurnerItem extends Item implements ICurioItem {
         ItemStack stack = player.getItemInHand(usedHand);
 
         if (level.isClientSide) {
+            return InteractionResultHolder.success(stack);
+        }
+
+        if (player.isShiftKeyDown() && ModUtils.tryEquipToCurios(player, stack, "memory_burner")) {
             return InteractionResultHolder.success(stack);
         }
 

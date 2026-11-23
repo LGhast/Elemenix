@@ -9,6 +9,9 @@ import net.lghast.elemenix.network.comparator.ComparatorUpdatePayload;
 import net.lghast.elemenix.network.ejector.EjectorFilterPayload;
 import net.lghast.elemenix.network.infuser.InfuserDataUpdatePayload;
 import net.lghast.elemenix.network.infuser.RequestInfuserUpdatePayload;
+import net.lghast.elemenix.network.memorizerbox.CollectMemorizersPayload;
+import net.lghast.elemenix.network.memorizerbox.SyncMemorizerSlotLockPayload;
+import net.lghast.elemenix.network.memorizerbox.ToggleMemorizerSlotLockPayload;
 import net.lghast.elemenix.network.open.OpenAnalysisTerminalPayload;
 import net.lghast.elemenix.network.open.OpenAnalyzerPayload;
 import net.lghast.elemenix.network.open.OpenMemorizerBoxPayload;
@@ -226,6 +229,24 @@ public class NetworkPayloadHandler {
                 ResponseContainerScanPayload.TYPE,
                 ResponseContainerScanPayload.STREAM_CODEC,
                 ResponseContainerScanPayload::handle
+        );
+
+        registrar.playToServer(
+                CollectMemorizersPayload.TYPE,
+                CollectMemorizersPayload.STREAM_CODEC,
+                CollectMemorizersPayload::handle
+        );
+
+        registrar.playToServer(
+                ToggleMemorizerSlotLockPayload.TYPE,
+                ToggleMemorizerSlotLockPayload.STREAM_CODEC,
+                ToggleMemorizerSlotLockPayload::handle
+        );
+
+        registrar.playToClient(
+                SyncMemorizerSlotLockPayload.TYPE,
+                SyncMemorizerSlotLockPayload.STREAM_CODEC,
+                SyncMemorizerSlotLockPayload::handle
         );
 
         registrar.playToClient(

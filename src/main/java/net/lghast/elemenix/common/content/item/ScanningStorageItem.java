@@ -3,6 +3,7 @@ package net.lghast.elemenix.common.content.item;
 import net.lghast.elemenix.compat.lootr.LootrCompat;
 import net.lghast.elemenix.config.CommonConfig;
 import net.lghast.elemenix.common.system.misc.ScanHelper;
+import net.lghast.elemenix.network.scan.ResponseContainerScanPayload;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
@@ -18,6 +19,7 @@ import net.minecraft.world.level.block.entity.RandomizableContainerBlockEntity;
 import net.minecraft.world.level.block.entity.ShulkerBoxBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.fml.ModList;
+import net.neoforged.neoforge.network.PacketDistributor;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Objects;
@@ -89,6 +91,7 @@ public class ScanningStorageItem extends StorageItem{
         if (targetContainer == null) return;
 
         scanContainer(player, level, pos, targetContainer, true, stack);
+        PacketDistributor.sendToPlayer(player, new ResponseContainerScanPayload(pos, ScanHelper.hasParseableItem(targetContainer)));
 
         if (bcEntity instanceof ShulkerBoxBlockEntity) {
             bcEntity.stopOpen(player);

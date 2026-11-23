@@ -28,6 +28,9 @@ public class AnalysisTerminalItem extends Item implements ICurioItem {
         if (level.isClientSide) {
             return InteractionResultHolder.success(stack);
         }
+        if (player.isShiftKeyDown() && ModUtils.tryEquipToCurios(player, stack, "analysis_terminal")) {
+            return InteractionResultHolder.success(stack);
+        }
         ItemStack analyzerStack = ModUtils.findItemInCuriosSlot(player, "analyzer", ModItems.ELEMENIC_ANALYZER.asItem());
         ItemStack boxStack = ModUtils.findItemInCuriosSlot(player, "memorizer_box", ModItems.MEMORIZER_BOX.asItem());
         if (analyzerStack.isEmpty() || boxStack.isEmpty()) {

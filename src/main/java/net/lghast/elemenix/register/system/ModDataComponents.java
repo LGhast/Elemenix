@@ -138,6 +138,12 @@ public class ModDataComponents {
                             .networkSynchronized(ComparatorCriterion.STREAM_CODEC)
             );
 
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<MemorizerSlotLock>> STYLE_LOCK =
+            REGISTRAR.registerComponentType("style_lock", builder ->
+                    builder.persistent(MemorizerSlotLock.CODEC)
+                            .networkSynchronized(MemorizerSlotLock.STREAM_CODEC)
+            );
+
     public static final StreamCodec<RegistryFriendlyByteBuf, Unit> UNIT_STREAM_CODEC = StreamCodec.unit(Unit.INSTANCE);
 
     public static final DeferredHolder<DataComponentType<?>, DataComponentType<Unit>> DEVELOPER_MODE =

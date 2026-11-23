@@ -1,11 +1,14 @@
 package net.lghast.elemenix.common.system.menu;
 
 import net.lghast.elemenix.common.content.item.MemorizerBoxItem;
+import net.lghast.elemenix.common.system.datacomponent.MemorizerSlotLock;
 import net.lghast.elemenix.common.system.datacomponent.UuidData;
+import net.lghast.elemenix.network.memorizerbox.SyncMemorizerSlotLockPayload;
 import net.lghast.elemenix.register.system.ModDataComponents;
 import net.lghast.elemenix.register.system.ModMenus;
 import net.lghast.elemenix.register.system.ModTags;
 import net.minecraft.core.component.DataComponents;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.Container;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.player.Inventory;
@@ -16,6 +19,7 @@ import net.minecraft.world.inventory.SimpleContainerData;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.component.ItemContainerContents;
+import net.neoforged.neoforge.network.PacketDistributor;
 import org.jetbrains.annotations.NotNull;
 import top.theillusivec4.curios.api.CuriosApi;
 import top.theillusivec4.curios.api.SlotResult;
@@ -37,6 +41,10 @@ public class MemorizerBoxMenu extends AbstractContainerMenu {
 
     private final int lockedPlayerInventorySlot;
 
+    private MemorizerSlotLock styleLock;
+    private boolean styleLockEnabled;
+    private boolean styleLockSynced;
+
     public MemorizerBoxMenu(int containerId, Inventory playerInventory, ItemStack boxStack) {
         this(containerId, playerInventory, new SimpleContainer(SLOT_COUNT), new SimpleContainerData(SLOT_COUNT), boxStack);
     }
@@ -51,10 +59,13 @@ public class MemorizerBoxMenu extends AbstractContainerMenu {
         this.originalBoxStack = boxStack;
         this.boxUuid = getOrCreateBoxUuid(boxStack);
         this.lockedPlayerInventorySlot = findPlayerInventorySlotByUuid(playerInventory, this.boxUuid);
+        this.styleLock = MemorizerBoxItem.getStyleLock(boxStack);
+        this.styleLockEnabled = MemorizerBoxItem.isStyleLockEnabled(boxStack);
 
         loadFromItemStack(boxStack);
 
         for (int i = 0; i < SLOT_COUNT; i++) {
+            int slotIndex = i;
             int row = i / 9;
             int col = i % 9;
 
@@ -65,7 +76,7 @@ public class MemorizerBoxMenu extends AbstractContainerMenu {
 
                 @Override
                 public boolean mayPlace(@NotNull ItemStack stack) {
-                    return canPlaceInBox(stack);
+                    return canPlaceInSlot(stack, slotIndex);
                 }
 
                 @Override
@@ -131,6 +142,27 @@ public class MemorizerBoxMenu extends AbstractContainerMenu {
         return !(stack.getItem() instanceof MemorizerBoxItem);
     }
 
+    private boolean canPlaceInSlot(ItemStack stack, int slot) {
+        if (!canPlaceInBox(stack)) {
+            return false;
+        }
+
+        MemorizerSlotLock.Entry entry = styleLock.getEntry(slot);
+        return entry == null || MemorizerBoxItem.matchesLock(stack, entry);
+    }
+
+    private boolean moveItemStackToBox(ItemStack stack) {
+        for (int i = 0; i < SLOT_COUNT; i++) {
+            MemorizerSlotLock.Entry entry = styleLock.getEntry(i);
+            if (entry != null && MemorizerBoxItem.matchesLock(stack, entry)) {
+                if (this.moveItemStackTo(stack, i, i + 1, false)) {
+                    return true;
+                }
+            }
+        }
+        return this.moveItemStackTo(stack, 0, SLOT_COUNT, false);
+    }
+
     private UuidData getOrCreateBoxUuid(ItemStack stack) {
         UuidData uuid = stack.get(ModDataComponents.BOX_UUID.get());
 
@@ -181,6 +213,52 @@ public class MemorizerBoxMenu extends AbstractContainerMenu {
 
         ItemContainerContents containerContents = ItemContainerContents.fromItems(items);
         targetBoxStack.set(DataComponents.CONTAINER, containerContents);
+    }
+
+    public MemorizerSlotLock getStyleLock() {
+        return styleLock;
+    }
+
+    public boolean isStyleLockEnabled() {
+        return styleLockEnabled;
+    }
+
+    public MemorizerSlotLock captureStyleLock() {
+        return MemorizerBoxItem.captureStyleLock(container);
+    }
+
+    public void setStyleLock(boolean enabled, MemorizerSlotLock lock) {
+        this.styleLock = lock;
+        this.styleLockEnabled = enabled;
+
+        if (owner.level().isClientSide) {
+            return;
+        }
+
+        ItemStack targetBoxStack = findBoxStackByUuid(owner, boxUuid);
+        if (targetBoxStack.isEmpty() && isSameBox(originalBoxStack, boxUuid)) {
+            targetBoxStack = originalBoxStack;
+        }
+        if (targetBoxStack.isEmpty()) {
+            return;
+        }
+
+        if (enabled) {
+            MemorizerBoxItem.setStyleLock(targetBoxStack, lock);
+        } else {
+            MemorizerBoxItem.clearStyleLock(targetBoxStack);
+        }
+        playerInventory.setChanged();
+        broadcastChanges();
+    }
+
+    @Override
+    public void broadcastChanges() {
+        super.broadcastChanges();
+        if (!styleLockSynced && !owner.level().isClientSide && owner instanceof ServerPlayer serverPlayer) {
+            styleLockSynced = true;
+            PacketDistributor.sendToPlayer(serverPlayer, new SyncMemorizerSlotLockPayload(styleLockEnabled, styleLock));
+        }
     }
 
     private void saveToCurrentHolder() {
@@ -332,7 +410,7 @@ public class MemorizerBoxMenu extends AbstractContainerMenu {
                 return ItemStack.EMPTY;
             }
         } else if (canPlaceInBox(stackInSlot)) {
-            if (!this.moveItemStackTo(stackInSlot, 0, SLOT_COUNT, false)) {
+            if (!moveItemStackToBox(stackInSlot)) {
                 return ItemStack.EMPTY;
             }
         } else {

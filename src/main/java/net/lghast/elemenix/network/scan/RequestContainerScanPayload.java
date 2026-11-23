@@ -1,16 +1,12 @@
 package net.lghast.elemenix.network.scan;
 
-import net.lghast.elemenix.register.system.ModTags;
-import net.lghast.elemenix.core.Constituents;
-import net.lghast.elemenix.core.resolver.BaseResolver;
+import net.lghast.elemenix.common.system.misc.ScanHelper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.Container;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BaseContainerBlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.neoforged.neoforge.network.handling.IPayloadContext;
@@ -39,21 +35,10 @@ public record RequestContainerScanPayload(BlockPos pos) implements CustomPacketP
                 boolean hasParseable = false;
                 BlockEntity be = player.level().getBlockEntity(payload.pos());
                 if (be instanceof BaseContainerBlockEntity container) {
-                    hasParseable = hasParseableItem(container);
+                    hasParseable = ScanHelper.hasParseableItem(container);
                 }
                 context.reply(new ResponseContainerScanPayload(payload.pos(), hasParseable));
             }
         });
-    }
-
-    private static boolean hasParseableItem(Container container) {
-        for (int slot = 0; slot < container.getContainerSize(); slot++) {
-            ItemStack stack = container.getItem(slot);
-            if (stack.isEmpty()) continue;
-            if (stack.is(ModTags.IGNORED_BY_SCANNING)) continue;
-            Constituents c = BaseResolver.getConstituents(stack);
-            if (c != null && !c.isUnanalysable()) return true;
-        }
-        return false;
     }
 }

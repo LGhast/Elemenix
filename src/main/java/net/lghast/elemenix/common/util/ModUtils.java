@@ -5,6 +5,9 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.locale.Language;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.player.Player;
@@ -18,6 +21,8 @@ import net.neoforged.fml.loading.FMLEnvironment;
 import top.theillusivec4.curios.api.CuriosApi;
 import top.theillusivec4.curios.api.SlotResult;
 import top.theillusivec4.curios.api.type.capability.ICuriosItemHandler;
+import top.theillusivec4.curios.api.type.inventory.ICurioStacksHandler;
+import top.theillusivec4.curios.api.type.inventory.IDynamicStackHandler;
 
 import javax.annotation.Nullable;
 import java.util.Optional;
@@ -226,6 +231,71 @@ public class ModUtils {
         }
 
         return ItemStack.EMPTY;
+    }
+
+    /**
+     * Attempts to equip the given stack into the first empty slot of the given Curios slot type.
+     *
+     * @param stack  the stack to equip, removed from its current location on success
+     * @param slotId Curios slot identifier
+     * @return true when the stack was equipped, false when the slot type is absent, full, or Curios is unavailable
+     */
+    public static boolean tryEquipToCurios(Player player, ItemStack stack, String slotId) {
+        Optional<ICuriosItemHandler> optional = CuriosApi.getCuriosInventory(player);
+        if (optional.isEmpty()) {
+            return false;
+        }
+
+        ICuriosItemHandler handler = optional.get();
+        Optional<ICurioStacksHandler> stacksHandler = handler.getStacksHandler(slotId);
+        if (stacksHandler.isEmpty()) {
+            return false;
+        }
+
+        IDynamicStackHandler stacks = stacksHandler.get().getStacks();
+        for (int i = 0; i < stacks.getSlots(); i++) {
+            if (stacks.getStackInSlot(i).isEmpty()) {
+                handler.setEquippedCurio(slotId, i, stack.copy());
+                stack.shrink(stack.getCount());
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * Builds a translation whose label (everything up to the first colon) is drawn in
+     * {@code labelColor} while the value keeps its own styling. When the translation
+     * has no colon the plain translated text is returned unchanged.
+     *
+     * @param key        translation key holding "Label：value" style text
+     * @param labelColor ARGB color applied to the label part
+     * @param args       format arguments for the value part
+     */
+    @OnlyIn(Dist.CLIENT)
+    public static MutableComponent labeledText(String key, int labelColor, Object... args) {
+        String format = Language.getInstance().getOrDefault(key);
+        int separator = format.indexOf('：');
+        if (separator < 0) {
+            separator = format.indexOf(':');
+        }
+        if (separator < 0) {
+            return Component.translatable(key, args);
+        }
+
+        String label = format.substring(0, separator + 1);
+        String valueFormat = format.substring(separator + 1);
+        MutableComponent result = Component.empty();
+        result.append(Component.literal(label).withColor(labelColor));
+        if (!valueFormat.isEmpty()) {
+            if (args.length == 1 && args[0] instanceof Component component) {
+                result.append(component);
+            } else {
+                result.append(Component.literal(String.format(valueFormat, args)));
+            }
+        }
+        return result;
     }
 
     @Nullable
