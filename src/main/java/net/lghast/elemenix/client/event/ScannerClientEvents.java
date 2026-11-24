@@ -47,7 +47,9 @@ public class ScannerClientEvents {
     private static final int TITLE_COLOR = Palette.ANALYSIS;
     private static final int WHITE = Palette.WHITE;
 
+    private static final int STORAGE_RESCAN_INTERVAL = 10;
     private static BlockPos cachedStoragePos;
+    private static int storageRescanTimer;
 
     @SubscribeEvent
     public static void onClientTick(ClientTickEvent.Post event) {
@@ -122,11 +124,17 @@ public class ScannerClientEvents {
 
         if (cachedStoragePos == null || !cachedStoragePos.equals(pos)) {
             cachedStoragePos = pos;
+            storageRescanTimer = 0;
+        }
+
+        if (storageRescanTimer <= 0) {
+            storageRescanTimer = STORAGE_RESCAN_INTERVAL;
             Minecraft mc = Minecraft.getInstance();
             if (mc.getConnection() != null) {
                 mc.getConnection().send(new RequestContainerScanPayload(pos));
             }
         }
+        storageRescanTimer--;
 
         Boolean hasParseable = ClientScanningCache.getHasParseable(pos);
         if (hasParseable == null) {

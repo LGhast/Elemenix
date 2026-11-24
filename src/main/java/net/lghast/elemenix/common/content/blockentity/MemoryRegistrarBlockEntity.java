@@ -272,7 +272,11 @@ public class MemoryRegistrarBlockEntity extends BlockEntity {
             memorizerIndex++;
             cursor = 0;
             currentRegisteringStack = ItemStack.EMPTY;
-            currentMemorizer = ItemStack.EMPTY;
+            while (memorizerIndex < stacks.size()
+                    && checkPlacement(stacks.get(memorizerIndex), ownerPlayer) != PlacementResult.OK) {
+                memorizerIndex++;
+            }
+            currentMemorizer = memorizerIndex < stacks.size() ? stacks.get(memorizerIndex) : ItemStack.EMPTY;
             setChanged();
         }
 

@@ -19,7 +19,9 @@ import net.neoforged.api.distmarker.OnlyIn;
 import net.neoforged.fml.ModList;
 import net.neoforged.fml.loading.FMLEnvironment;
 import top.theillusivec4.curios.api.CuriosApi;
+import top.theillusivec4.curios.api.SlotContext;
 import top.theillusivec4.curios.api.SlotResult;
+import top.theillusivec4.curios.api.type.capability.ICurio;
 import top.theillusivec4.curios.api.type.capability.ICuriosItemHandler;
 import top.theillusivec4.curios.api.type.inventory.ICurioStacksHandler;
 import top.theillusivec4.curios.api.type.inventory.IDynamicStackHandler;
@@ -255,13 +257,26 @@ public class ModUtils {
         IDynamicStackHandler stacks = stacksHandler.get().getStacks();
         for (int i = 0; i < stacks.getSlots(); i++) {
             if (stacks.getStackInSlot(i).isEmpty()) {
-                handler.setEquippedCurio(slotId, i, stack.copy());
+                ItemStack equipped = stack.copy();
+                handler.setEquippedCurio(slotId, i, equipped);
+                playEquipSound(player, equipped, slotId, i);
                 stack.shrink(stack.getCount());
                 return true;
             }
         }
 
         return false;
+    }
+
+    private static void playEquipSound(Player player, ItemStack stack, String slotId, int index) {
+        if (player.level().isClientSide) {
+            return;
+        }
+        CuriosApi.getCurio(stack).ifPresent(curio -> {
+            ICurio.SoundInfo sound = curio.getEquipSound(new SlotContext(slotId, player, index, false, true));
+            player.level().playSound(null, player.getX(), player.getY(), player.getZ(),
+                    sound.soundEvent(), player.getSoundSource(), sound.volume(), sound.pitch());
+        });
     }
 
     /**

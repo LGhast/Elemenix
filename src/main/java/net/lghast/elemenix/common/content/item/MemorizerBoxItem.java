@@ -7,12 +7,14 @@ import net.lghast.elemenix.common.system.datacomponent.UuidData;
 import net.lghast.elemenix.common.system.menu.MemorizerBoxMenu;
 import net.lghast.elemenix.common.util.ModUtils;
 import net.lghast.elemenix.register.system.ModDataComponents;
+import net.lghast.elemenix.register.system.ModSounds;
 import net.lghast.elemenix.register.system.ModStats;
 import net.lghast.elemenix.register.system.ModTags;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.Container;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
@@ -132,6 +134,7 @@ public class MemorizerBoxItem extends Item implements ICurioItem {
         MemorizerSlotLock lock = getStyleLock(box);
         boolean lockEnabled = isStyleLockEnabled(box);
 
+        boolean collected = false;
         for (ItemStack memorizer : player.getInventory().items) {
             if (memorizer.isEmpty() || !memorizer.is(ModTags.MEMORIZER_SLOT_PLACEABLE)) continue;
             if (memorizer.getItem() instanceof MemorizerBoxItem) continue;
@@ -141,9 +144,14 @@ public class MemorizerBoxItem extends Item implements ICurioItem {
 
             slots.set(target, memorizer.copy());
             memorizer.setCount(0);
+            collected = true;
         }
 
         box.set(DataComponents.CONTAINER, ItemContainerContents.fromItems(slots));
+        if (collected) {
+            player.level().playSound(null, player.getX(), player.getY(), player.getZ(),
+                    ModSounds.MEMORIZER_PLACED.get(), SoundSource.PLAYERS, 1.0F, 1.0F);
+        }
     }
 
     private static int findCollectSlot(List<ItemStack> slots, MemorizerSlotLock lock, boolean lockEnabled, ItemStack memorizer) {
